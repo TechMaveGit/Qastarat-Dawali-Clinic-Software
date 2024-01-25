@@ -23,8 +23,7 @@ class DoctorAuthController extends Controller
                     return redirect()->route('admin.dashboard');
                 }
                 if (Auth::guard('web')->once($credentials)) {
-                    Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
-                    
+                    Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]); 
                     return redirect()->route('patients.dashboard');
                 }
 

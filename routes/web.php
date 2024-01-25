@@ -72,7 +72,7 @@ Route::get('/service', function () {
 
 
 Route::prefix('login')->group(function () {
-   
+    Route::get('dashboard', [PatientController::class, 'home'])->name('patients.dashboard');
     Route::any('/', [DoctorAuthController::class, 'login'])->name('common.login');
     Route::get('register', [DoctorAuthController::class, 'showRegistrationForm'])->name('admin.register');
     Route::post('register', [DoctorAuthController::class, 'register'])->name('admin.register.submit');
@@ -88,7 +88,7 @@ Route::prefix('login')->group(function () {
 
     // patient route 
     Route::group(['middleware' => ['auth:web']], function () {
-        Route::get('dashboard', [PatientController::class, 'home'])->name('patients.dashboard');
+       
         Route::get('logout', [PatientController::class, 'logout'])->name('patients.logout');
     });
 
