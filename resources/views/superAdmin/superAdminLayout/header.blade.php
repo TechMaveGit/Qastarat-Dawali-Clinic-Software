@@ -212,7 +212,7 @@
             <a href="#" class="waves-effect waves-light dropdown-toggle w-auto l-h-12 bg-transparent py-0 no-shadow" data-bs-toggle="dropdown" title="User">
 				<div class="d-flex pt-5">
 					<div class="text-end me-10">
-						<p class="pt-5 fs-14 mb-0 fw-700 text-primary">Johen Doe</p>
+						<p class="pt-5 fs-14 mb-0 fw-700 text-primary">{{ auth('admin')->user()->name }}</p>
 						<small class="fs-10 mb-0 text-uppercase text-mute">Admin</small>
 					</div>
 					<img src="{{ asset('public/superAdmin/images/avatar/avatar-1.png')}}" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />

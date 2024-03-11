@@ -9,7 +9,6 @@
     <meta name="author" content="">
     <link rel="icon" href="{{ asset('public/superAdmin/images/newimages/iconlogo.png')}}">
 
-
     @stack('title')
 
 
@@ -23,16 +22,38 @@
 	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/skin_color.css')}}">
 	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/custom.css')}}">
-	<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+	
 	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/sumoselect.min.css')}}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
-
+	<link href="{{ url('public/assets') }}/css/flaticon.css" rel="stylesheet">
+	<style>
+		/* Position the wrap-input relative to serve as a container */
+	.wrap-input {
+		position: relative;
+	}
+	
+	/* Absolute position for the icon */
+	.btn-show-pass {
+		position: absolute;
+		right: 10px;
+		top: 60%;
+		transform: translateY(-50%);
+		cursor: pointer;
+		z-index: 1; /* Ensure the icon is above the input */
+	}
+	
+	/* Adjust input padding to make space for the icon */
+	.form-control {
+		padding-right: 40px; /* Adjust as needed based on the icon size */
+	}
+	
+			</style>
     @stack('custom-css')
+	<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-success fixed">
@@ -111,9 +132,9 @@
 		<a href="{{ route('super-admin.dashboard') }}" class="logo">
 		  <!-- logo-->
 		  <div class="logo-mini">
-			  <span class="light-logo LogoFull_width"><img src="{{ asset('public/superAdmin/images/newimages/logo.png') }}" alt="logo"></span>
-			  <span class="light-logo logowIcon"><img src="{{ asset('public/superAdmin/images/newimages/iconlogo.png') }}" alt="logo"></span>
-			  <span class="dark-logo"><img src="{{ asset('public/superAdmin/images/logo-letter.png') }}" alt="logo"></span>
+			  <span class="light-logo LogoFull_width"><img src="{{ asset('public/superAdmin/images/newimages/qastara-logo.png') }}" alt="logo"></span>
+			  <span class="light-logo logowIcon"><img src="{{ asset('public/superAdmin/images/newimages/FullLogo-icon.png') }}" alt="logo"></span>
+			  <!-- <span class="dark-logo"><img src="{{ asset('public/superAdmin/images/logo-letter.png') }}" alt="logo"></span> -->
 		  </div>
 
 		</a>
@@ -140,7 +161,7 @@
 			    </a>
 			</li>
 		  <!-- Notifications -->
-		  <li class="dropdown notifications-menu">
+		  {{-- <li class="dropdown notifications-menu">
 			<a href="#" class="waves-effect waves-light dropdown-toggle btn-info-light" data-bs-toggle="dropdown" title="Notifications">
 			  <i data-feather="bell"></i>
 			</a>
@@ -203,7 +224,7 @@
 				  <a href="#">View all</a>
 			  </li>
 			</ul>
-		  </li>
+		  </li> --}}
 
           <!-- Control Sidebar Toggle Button -->
 
@@ -213,7 +234,7 @@
             <a href="#" class="waves-effect waves-light dropdown-toggle w-auto l-h-12 bg-transparent py-0 no-shadow" data-bs-toggle="dropdown" title="User">
 				<div class="d-flex pt-5">
 					<div class="text-end me-10">
-						<p class="pt-5 fs-14 mb-0 fw-700 text-primary">Johen Doe</p>
+						<p class="pt-5 fs-14 mb-0 fw-700 text-primary">{{ auth('admin')->user()->name }}</p>
 						<small class="fs-10 mb-0 text-uppercase text-mute">Admin</small>
 					</div>
 					<img src="{{ asset('public/superAdmin/images/avatar/avatar-1.png')}}" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />
@@ -280,6 +301,7 @@
 
 
 				</li>
+
 
 				<li class="treeview  {{ Route::is('nurses.index','nurses.edit','nurses.create', 'accountants.index','accountants.edit', 'accountants.create','telecallers.index') ? 'active menu-open' : '' }} ">
 				  <a href="#">
@@ -360,16 +382,16 @@
 			  <div class="sidebar-widgets">
 				  <div class="mx-25 mb-30 pb-20 side-bx bg-primary-light rounded20">
 					<div class="text-center">
-						<img src="{{ asset('public/superAdmin/https://rhythm-admin-template.multipurposethemes.com/images/svg-icon/color-svg/custom-17.svg')}}" class="sideimg p-5" alt="">
+						<img src="{{ asset('public/superAdmin/images/sidebar-img.svg')}}" class="sideimg p-5" alt="">
 						<h4 class="title-bx text-primary">Make an Appointments</h4>
 						<a href="javascript:void(0);" class="py-10 fs-14 mb-0 text-primary">
 							Best Helth Care here <i class="mdi mdi-arrow-right"></i>
 						</a>
 					</div>
 				  </div>
-				<div class="copyright text-center m-25">
+				<!-- <div class="copyright text-center m-25">
 					<p><strong class="d-block">QASTARAT & DAWALI CLINICS</strong> © <script>document.write(new Date().getFullYear())</script> All Rights Reserved</p>
-				</div>
+				</div> -->
 			  </div>
 		  </div>
 		</div>

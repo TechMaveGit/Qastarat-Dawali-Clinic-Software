@@ -17,7 +17,7 @@
                 </ol>
             </nav>
         </div>
-          
+
 		</div>
         <section class="content">
         <div class="row">
@@ -29,7 +29,7 @@
     <h3 class="box-title">All Roles & Permission</h3>
     <a href="{{ route('permissions.create') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add New Role</a>
     </div>
-   
+
    </div>
    <!-- /.box-header -->
    <div class="box-body pt-0">
@@ -37,119 +37,47 @@
          <table id="custom_table" class="custom_table table  table-striped table-hover" style="width:100%">
          <thead class="border-top">
                                 <tr>
-                                  
+
                                     <th class="bg-transparent border-bottom-0">Role Name</th>
-                                    
+
                                     <th class="bg-transparent border-bottom-0" style="width: 5%;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+
+                             @forelse ($roles as $allroles)
+
+
                                 <tr class="border-bottom">
-                                 
-                                    <td>Admin</td>
-                               
-                                 
-                                    <td>
-                                    <ul class="action_icons">
-                        <!-- <li >
-                            <a href="#" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
-                        </li> -->
-                        <li>
-                                <a href="{{ route('permissions.edit',['permision'=>1]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
-                            </li>
-                            <!-- <li>
-                                <a href="#" class="waves-effect waves-light btn btn-rounded btn-danger-light"><i  data-feather="trash-2"></i></a>
-                            </li> -->
-                        </ul>
+                                     <td>{{ $allroles->name }}</td>
+
+                                        <td>
+                                                <ul class="action_icons">
+
+                                        <li>
+                                                <a href="{{ route('permissions.edit',['id'=>$allroles->id]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
+                                            </li>
+
+                                        </ul>
                                     </td>
                                 </tr>
-                                <tr class="border-bottom">
-                                 
-                                 <td>Super Admin</td>
-                               
-                                
-                                 <td>
-                                 <ul class="action_icons">
-                        <!-- <li >
-                            <a href="#" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
-                        </li> -->
-                        <li>
-                                <a href="{{ route('permissions.edit',['permision'=>1]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
-                            </li>
-                            <!-- <li>
-                                <a href="#" class="waves-effect waves-light btn btn-rounded btn-danger-light"><i  data-feather="trash-2"></i></a>
-                            </li> -->
-                        </ul>
-                                 </td>
-                             </tr>
-                             <tr class="border-bottom">
-                                 
-                                    <td>Driver</td>
-                                 
-                                
-                                    <td>
-                                    <ul class="action_icons">
-                        <!-- <li >
-                            <a href="#" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
-                        </li> -->
-                        <li>
-                                <a href="{{ route('permissions.edit',['permision'=>1]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
-                            </li>
-                            <!-- <li>
-                                <a href="#" class="waves-effect waves-light btn btn-rounded btn-danger-light"><i  data-feather="trash-2"></i></a>
-                            </li> -->
-                        </ul>
-                                    </td>
-                                </tr>
-                                <tr class="border-bottom">
-                                 
-                                    <td>Staff</td>
-                                  
-                                   
-                                    <td>
-                                    <ul class="action_icons">
-                        <!-- <li >
-                            <a href="#" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
-                        </li> -->
-                        <li>
-                                <a href="{{ route('permissions.edit',['permision'=>1]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
-                            </li>
-                            <!-- <li>
-                                <a href="#" class="waves-effect waves-light btn btn-rounded btn-danger-light"><i  data-feather="trash-2"></i></a>
-                            </li> -->
-                        </ul>
-                                    </td>
-                                </tr>
-                                <tr class="border-bottom">
-                                 
-                                 <td>Sub Admin</td>
-                                
-                           <td>
-                                 <ul class="action_icons">
-                        <!-- <li >
-                            <a href="#" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
-                        </li> -->
-                        <li>
-                                <a href="{{ route('permissions.edit',['permision'=>1]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
-                            </li>
-                            <!-- <li>
-                                <a href="#" class="waves-effect waves-light btn btn-rounded btn-danger-light"><i  data-feather="trash-2"></i></a>
-                            </li> -->
-                        </ul>
-                                 </td>
-                             </tr>
+                                @empty
+
+                                @endforelse
+
+
                             </tbody>
-   
+
        </table>
        </div>
    </div>
    <!-- /.box-body -->
  </div>
- <!-- /.box -->      
+ <!-- /.box -->
 </div>
         </div>
         </section>
-        
+
       </div>
  </div>
 @endsection

@@ -62,7 +62,7 @@ Home | QASTARAT & DAWALI CLINICS
 
                         <div class="left_side_pr_icon">
 
-                        <a href="{{ route('user.patient_medical_detail',['id'=>encrypt(@$id)]) }}" class="action_btn_tooltip">
+                        <a href="{{ route('user.patient_medical_detail',['id'=>@$id]) }}" class="action_btn_tooltip">
 
                             <iconify-icon icon="ph:folder-duotone"></iconify-icon>
 
@@ -106,7 +106,7 @@ Home | QASTARAT & DAWALI CLINICS
 
                         <div class="right_side_pr_icon">
 
-                            <a href="#" class="action_btn_tooltip" onclick="removePatient({{ encrypt(@$id) }})">
+                            <a href="#" class="action_btn_tooltip" onclick="removePatient({{ @$id }})">
 
                                 <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
 
@@ -118,7 +118,7 @@ Home | QASTARAT & DAWALI CLINICS
 
                     </div>
 
-                    <input type="hidden" name="patient_id" value="{{ encrypt(@$id) }}"/>
+                    <input type="hidden" name="patient_id" value="{{ @$id }}"/>
 
                     <div class="profile_img">
 
@@ -504,17 +504,26 @@ Home | QASTARAT & DAWALI CLINICS
                                         }
                                 },
                                 error: function(xhr, status, error) {
-                    console.error(xhr.responseText); 
-                    if (xhr.status == 409) {
-                        swal.fire('Error!', 'The email is already in use. Please use a different email.', 'error');
-                    } else if (xhr.status == 404) {
-                        swal.fire('Error!', 'The requested resource was not found.', 'error');
-                    } else if (xhr.status == 500) {
-                        swal.fire('Error!', 'Internal server error. Please try again later.', 'error');
-                    } else {
-                        swal.fire('Error!', 'An error occurred. Please try again later.', 'error');
-                    }
-                }
+                                
+                                if (xhr.status == 422) {
+                                   
+                                    var errors = JSON.parse(xhr.responseText);
+                                    console.log('validation-error',errors);
+                                    var errorMessage = 'Validation error(s):<br>';
+
+                                    $.each(errors.error, function(key, value) {
+                                        errorMessage += value + '<br>';
+                                    });
+
+                                    swal.fire('Error!', errorMessage, 'error');
+                                } else if (xhr.status == 404) {
+                                    swal.fire('Error!', 'The requested resource was not found.', 'error');
+                                } else if (xhr.status == 500) {
+                                    swal.fire('Error!', 'Internal server error. Please try again later.', 'error');
+                                } else {
+                                    swal.fire('Error!', 'hhhh An error occurred. Please try again later.', 'error');
+                                }
+                            }
                             });
                         }
                     });

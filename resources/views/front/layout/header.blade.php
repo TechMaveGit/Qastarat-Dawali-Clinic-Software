@@ -404,22 +404,15 @@
 
 										
 										@auth('web')
-										@if(Auth::user()->role == 'user')
+										@if(Auth::guard('web')->check())
 											<li><a href="#"><i class="fa-solid fa-user"></i>&nbsp;Profile</a></li>
 
-											<li><a href="{{ route('user.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a></li>
-											<li><a href="{{ route('user.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
+											<li><a href="{{ route('patient.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a></li>
+											<li><a href="{{ route('patient.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
 										@endif
 										@endauth
 
-									@auth('admin')
-									@if(Auth::guard('admin')->check())
-										<li><a href="#"><i class="fa-solid fa-user"></i>&nbsp;Profile</a></li>
-
-										<li><a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a></li>
-										<li><a href="{{ route('admin.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
-										@endif
-									@endauth
+									
 
 
 									</ul>

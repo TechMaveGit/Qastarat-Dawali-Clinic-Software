@@ -10,6 +10,7 @@ class DoctorDashboadController extends Controller
     //
     public function index()
     {
-        return view('back/dashboard');
+       // echo "ok"; die;
+      return view('back/dashboard');
     }
 }

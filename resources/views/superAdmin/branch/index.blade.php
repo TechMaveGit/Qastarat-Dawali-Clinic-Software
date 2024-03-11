@@ -118,7 +118,7 @@
                    <div class="col-md-6">
                       <div class="form-group">
                          <label class="form-label">Address</label>
-                         <input type="text" name="address"  id="phone" class="form-control" placeholder="">
+                         <input type="text" name="address"  id="phone" class="form-control" placeholder="" required>
                       </div>
                    </div>
 
@@ -164,7 +164,7 @@
  <div class="col-md-6">
  <div class="form-group">
  <label class="form-label">Address</label>
- <input type="text" name="address" class="form-control" placeholder="">
+ <input type="text" name="address" class="form-control" placeholder="" required>
  </div>
  </div>
 

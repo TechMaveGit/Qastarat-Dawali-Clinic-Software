@@ -80,87 +80,9 @@
 
                     <div class="top_menus top_menu_up">
 
-                        <div class="left_mm">
-
-                            <div class="view_record_icon">
-
-                                <a href="#" class="action_btn_tooltip " data-bs-toggle="modal"
-                                    data-bs-target="#consent_form">
-
-                                    <iconify-icon icon="fluent:form-new-48-regular" width="22"></iconify-icon>
-
-                                    <span class="toolTip">Eligibility Forms</span>
-
-                                </a>
-
-                                <a href="{{ route('user.patient_medical_detail', ['id' => @$id]) }}"
-                                    class="action_btn_tooltip pae_eligibility_">
-
-                                    <iconify-icon icon="healthicons:health-worker-form-outline"
-                                        width="22"></iconify-icon>
-
-                                    <span class="toolTip">Prostate Artery Embolization Eligibility</span>
-
-                                </a>
-                                <a href="{{ route('user.ViewThyroidAblationForm', ['id' => @$id]) }}"
-                                    class="action_btn_tooltip pae_eligibility_">
-
-                                    <iconify-icon icon="healthicons:health-worker-form-outline"
-                                        width="22"></iconify-icon>
-
-                                    <span class="toolTip">Thyroid Ablation</span>
-
-                                </a>
-                                <a href="{{ route('user.ViewUterineEmboForm', ['id' => @$id]) }}"
-                                    class="action_btn_tooltip pae_eligibility_">
-
-                                    <iconify-icon icon="healthicons:health-worker-form-outline"
-                                        width="22"></iconify-icon>
-
-                                    <span class="toolTip">Uterine Embo Form</span>
-
-                                </a>
-                                <a href="{{ route('user.ViewVaricoceleEmboForm', ['id' => @$id]) }}"
-                                    class="action_btn_tooltip pae_eligibility_">
-
-                                    <iconify-icon icon="healthicons:health-worker-form-outline"
-                                        width="22"></iconify-icon>
-
-                                    <span class="toolTip">Varicocele Embo Form</span>
-
-                                </a>
-                                <a href="{{ route('user.ViewCongEmboForm', ['id' => @$id]) }}"
-                                    class="action_btn_tooltip pae_eligibility_">
-
-                                    <iconify-icon icon="healthicons:health-worker-form-outline"
-                                        width="22"></iconify-icon>
-
-                                    <span class="toolTip">Pelvic Cong Embo Form</span>
-
-                                </a>
-                                <a href="{{ route('user.ViewVaricoseAblationForm', ['id' => @$id]) }}"
-                                    class="action_btn_tooltip pae_eligibility_">
-
-                                    <iconify-icon icon="healthicons:health-worker-form-outline"
-                                        width="22"></iconify-icon>
-
-                                    <span class="toolTip">Varicose Ablation Form</span>
-
-                                </a>
-
-
-                            </div>
-
-
-
-
-
-                        </div>
+                        @include('back.custom_link')
 
                         <!-- <div class="middle_mm">
-
-
-
                               </div> -->
 
                         <div class="middle_mm">
@@ -1449,7 +1371,7 @@
                                                         $SymptomsAll = App\Models\patient\Diagnosis::with('doctor')
                                                             ->where(['title_name' => 'Symptoms', 'patient_id' => decrypt(@$id)])
                                                             ->orderBy('id', 'desc');
-                                                            
+
 
                                                       $symptom=  $SymptomsAll->first();
                                                     @endphp
@@ -1458,7 +1380,7 @@
                                                               @if (isset($symptom) && $symptom->exists)
                                                               {{ optional($symptom->doctor)->name ?? '' }}</span>
                                                               @endif
-                                                              
+
                                                             </span>
                                                             <div class="right_side_hjkl">
                                                                 <span
@@ -1533,7 +1455,7 @@
                                                         ->orderBy('id','desc');
                                                         $SeveritySymptomsScale=  $SeveritySymptomsScales->first();
                                                         @endphp
-                                                       
+
                                                         <div class="enterd_by">
                                                             <span>Severity Symptoms Scale | <span class="enter_span_hivj">
                                                                     Entered By | @if (isset($SeveritySymptomsScale) && $SeveritySymptomsScale->exists){{ optional($SeveritySymptomsScale->doctor) ? $SeveritySymptomsScale->doctor->name : '' }} @endif</span> </span>
@@ -1581,7 +1503,7 @@
                                                     </ul> --}}
                                                     @php
                                                         $SeveritySymptomsScales =$SeveritySymptomsScales->get();
-                                                            
+
 
                                                     @endphp
                                                     <ul class="symptoms">
@@ -1590,15 +1512,15 @@
                                                                 // Decode JSON data_value
                                                                 $dataValueArray = json_decode($SeveritySymptomsScale->data_value, true);
                                                                 // Calculate the score based on your criteria
-                                                                
+
                                                                 $score = 0;
 
                                                                 foreach ($dataValueArray as $symptom => $values) {
-                                                               
+
                                                                 $score += intval($values[0]);
-                                                                   
+
                                                                 }
-                                                               
+
                                                                 // Determine the severity based on the score
                                                                 $severity = '';
                                                                 if ($score >= 0 && $score <= 7) {
@@ -1611,7 +1533,7 @@
 
                                                             @endphp
                                                             <li class="draggable" draggable="true">
-                                                                {{ 
+                                                                {{
                                                                     $score .
                                                                     ' pts ' .
                                                                     $severity .
@@ -1621,7 +1543,7 @@
                                                                     (optional($SeveritySymptomsScale->doctor) ? $SeveritySymptomsScale->doctor->title : '') .
                                                                     (optional($SeveritySymptomsScale->doctor) ? $SeveritySymptomsScale->doctor->name : '')
                                                                 }}
-                                                                
+
                                                             @empty
                                                                 <p>No Data Found</p>
                                                         @endforelse

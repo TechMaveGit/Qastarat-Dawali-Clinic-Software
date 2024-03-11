@@ -11,7 +11,7 @@
 		</ul>
     </div> -->
 	  <!-- &copy; <script>document.write(new Date().getFullYear())</script> <a href="https://www.multipurposethemes.com/">Multipurpose Themes</a>. All Rights Reserved. -->
-      <p>2023-24, All Right Reserved by Qastarat & Dawali Clinics - Developed by <a href="https://techmavesoftware.com/">TechMave Software</a>  .</p>
+      <p class="footer_bottom">2023-24, All Right Reserved by Qastarat & Dawali Clinics - Developed by <a href="https://techmavesoftware.com/">TechMave Software</a>  .</p>
 	</footer>
 
 
@@ -63,7 +63,7 @@
       $('.testselect2').SumoSelect({search: true, searchText: 'Enter here.'});
   </script>
 <!-- dropify js -->
-    <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js'"></script>
+<script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
     <script>
       $('.dropify').dropify();
     </script>
@@ -135,6 +135,60 @@ $(".upload-button").on('click', function() {
 });
 });
 </script>
+
+<script>
+  $(document).ready(function() {
+      $('.btn-show-pass').click(function() {
+          var passwordInput = $('#password');
+          var icon = $(this).find('.eye-pass');
+
+          if (passwordInput.attr('type') === 'password') {
+              passwordInput.attr('type', 'text');
+              icon.removeClass('flaticon-visibility').addClass('flaticon-invisible');
+          } else {
+              passwordInput.attr('type', 'password');
+              icon.removeClass('flaticon-invisible').addClass('flaticon-visibility');
+          }
+      });
+  });
+</script>
+
+<script>
+ $(document).ready(function () {
+      var today = new Date();
+      $('.datepicker').datepicker({
+          format: 'dd-mm-yyyy',
+          autoclose:false,
+          endDate: "today",
+          maxDate: today
+      }).on('changeDate', function (ev) {
+              $(this).datepicker('hide');
+          });
+
+ // Add autocomplete="off" to prevent browser autocomplete
+ $('.datepicker').attr('autocomplete', 'off');
+      $('.datepicker').keyup(function () {
+        
+          if (this.value.match(/[^0-9]/g)) {
+              this.value = this.value.replace(/[^0-9^-]/g, '');
+          }
+      });
+  });
+</script>
+   
+<script type="text/javascript">
+  
+  $(document).ready(function(){
+      $('#image').change(function(e){
+          var reader = new FileReader();
+          reader.onload = function(e){
+              $('#showImage').attr('src',e.target.result);
+          }
+          reader.readAsDataURL(e.target.files['0']);
+      });
+  });
+</script>
+@stack('custom-js')
 </body>
 
 </html>

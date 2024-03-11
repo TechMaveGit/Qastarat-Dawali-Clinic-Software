@@ -14,7 +14,8 @@ class PathologyPriceList extends Model
         'included_tests',
         'turnaround',
         'note',
-        'price'
+        'price',
+        'price_type'
         ];
 
 }

@@ -20,9 +20,9 @@ Home | QASTARAT & DAWALI CLINICS
 
     <div class="sub_bnr">
 
-        <h1>Welcome <span class="blue_theme">SAIF</span> </h1>
+        <h1>Welcome <span class="blue_theme">{{ auth('doctor')->user()->name }}</span> </h1>
 
-        <p>Here is what you have on QASTARAT & CLINICS today (Mon, Oct 23, 2023)</p>
+        <p>Here is what you have on QASTARAT & CLINICS today {{ now()->format('(D, M j, Y)') }}</p>
 
         <a href="#" class="btn r-04 btn--theme hover--tra-black">Set Out Office </a>
 

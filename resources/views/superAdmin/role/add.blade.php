@@ -631,4 +631,30 @@
                     <td>
                 
                     </td>
+                    <td>
             
+                    </td>
+                    <td>
+                 
+                    </td>
+                    <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="autoSizingCheck7e">
+                        <label class="form-check-label" for="autoSizingCheck7e">
+                           
+                            </label>
+                    </div>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+            </div>
+        </section>
+        
+      </div>
+ </div>
+ @endsection
+

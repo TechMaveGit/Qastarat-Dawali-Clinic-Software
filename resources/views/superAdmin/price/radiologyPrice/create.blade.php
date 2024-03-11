@@ -29,7 +29,7 @@
           <div class="col-12">
           <div class="box">
 
-            <form action="{{ route('price.addradiologyPrice') }}" method="post"/>@csrf
+            <form action="{{ route('price.addradiologyPrice') }}" method="post">@csrf
 
 
               <div class="box-body">
@@ -43,38 +43,38 @@
                      <div class="col-md-3">
                       <div class="form-group">
                           <label class="form-label">Test Name</label>
-                          <input type="text" name="test_name" id="test_name" class="form-control" placeholder="">
+                          <input type="text" name="test_name[]" id="test_name" class="form-control" placeholder="">
                       </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
                           <label class="form-label">Test Code</label>
-                          <input type="text" name="test_code" name="test_code" id="test_code" class="form-control" placeholder="">
+                          <input type="text" name="test_code[]" name="test_code" id="test_code" class="form-control" placeholder="">
                       </div>
                       </div>
 
                       <div class="col-md-3">
                       <div class="form-group">
                           <label class="form-label">Turnaround</label>
-                          <input type="text" name="turnaround" id="turnaround" class="form-control" placeholder="">
+                          <input type="text" name="turnaround[]" id="turnaround" class="form-control" placeholder="">
                       </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
                           <label class="form-label">Price</label>
-                          <input type="number" min="0" name="price" id="price" class="form-control" placeholder="">
+                          <input type="number" min="0" name="price[]" id="price" class="form-control" placeholder="">
                       </div>
                       </div>
                       <div class="col-lg-6">
                       <div class="form-group">
                                 <label class="form-label">Included Tests</label>
-                                <textarea rows="2" name="included_tests" id="included_tests" class="form-control" placeholder=""></textarea>
+                                <textarea rows="2" name="included_tests[]" id="included_tests" class="form-control" placeholder=""></textarea>
                               </div>
                       </div>
                       <div class="col-lg-6">
                       <div class="form-group">
                                 <label class="form-label">Note</label>
-                                <textarea rows="2" name="note"  id="note" class="form-control" placeholder=""></textarea>
+                                <textarea rows="2" name="note[]"  id="note" class="form-control" placeholder=""></textarea>
                               </div>
                       </div>
                       <div class="col-lg-12">
@@ -86,6 +86,7 @@
                                   <table class="table lab_test table-striped table-hover" style="width:100%">
                                           <thead>
                                               <tr>
+
                                                   <th>Test Name</th>
                                                   <th>Test Code</th>
                                                   <th>Included Tests</th>
@@ -182,7 +183,7 @@ function addNewRate()
                                     <td>
                                     <ul class="action_icons">
                                            <li>
-                                                <a href="#" id="remove_test" class="waves-effect waves-light btn btn-rounded btn-danger-light" onclick="deleteTabletr('address${microtime}')"><i  data-feather="trash-2"></i></a>
+                                                <a href="#" id="remove_test" class="waves-effect waves-light btn btn-rounded btn-danger-light" onclick="deleteTabletr('address${microtime}')"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>
                                             </li>
                                         </ul>
                                     </td>

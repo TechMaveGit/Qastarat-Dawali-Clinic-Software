@@ -1,6 +1,9 @@
 @extends('superAdmin.superAdminLayout.main')
 @push('title')
-    <title>All Nurses | Super Admin</title>
+    <title>All Radiology | Super Admin</title>
+@endpush
+@push('custom-js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 @endpush
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -23,6 +26,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="box">
+                           
                             <div class="box-header with-border">
                                 <div class="top_area">
                                     <h3 class="box-title">All Radiology</h3>
@@ -53,14 +57,14 @@
                                                         <tr>
                                                             <td>{{ $key + 1 }}</td>
                                                             <td>{{ $allRadiologys->lab_name }}</td>
-                                                            <td>{{ $allRadiologys->email_address }}</td>
-                                                            <td>{{ $allRadiologys->mobile_phone }}</td>
+                                                            <td>{{ $allRadiologys->email }}</td>
+                                                            <td>{{ $allRadiologys->mobile_no }}</td>
                                                             <td>{{ $allRadiologys->landline }}</td>
                                                             <td>{{ $allRadiologys->street }}</td>
                                                             <td>
                                                                 <ul class="action_icons">
                                                                     <li>
-                                                                        <a onclick="editForm('{{ $allRadiologys->id }}','{{ $allRadiologys->lab_name }}','{{ $allRadiologys->email_address }}','{{ $allRadiologys->mobile_phone }}','{{ $allRadiologys->landline }}','{{ $allRadiologys->post_code }}','{{ $allRadiologys->street }}','{{ $allRadiologys->town }}')"
+                                                                        <a onclick="editForm('{{ $allRadiologys->id }}','{{ $allRadiologys->lab_name }}','{{ $allRadiologys->email }}','{{ $allRadiologys->mobile_no }}','{{ $allRadiologys->landline }}','{{ $allRadiologys->post_code }}','{{ $allRadiologys->street }}','{{ $allRadiologys->town }}')"
                                                                             class="waves-effect waves-light btn btn-rounded btn-warning-light"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                                                     </li>
                                                                 </ul>
@@ -98,21 +102,45 @@
                                     <label class="form-label">Lab Name</label>
                                     <input type="hidden" name="id" id="id" class="form-control" placeholder="">
                                     <input type="text" id="lab_name" class="form-control" placeholder="" name="lab_name"
+                                    
                                         required>
+                                        @error('lab_name')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Email Address</label>
-                                    <input type="text" name="email_address" id="email_address" class="form-control"
+                                    <input type="text" name="email" id="email" class="form-control"
                                         placeholder="" required>
+                                        @error('email')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Password </label>
+                                    <div class="wrap-input">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                        <span class="btn-show-pass ico-20">
+                                            <span class="  eye-pass flaticon-visibility "></span>
+                                        </span>
+                                    </div>
+                                    @error('password')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Mobile Phone</label>
-                                    <input type="text" name="mobile_phone" id="phone" class="form-control"
+                                    <input type="text" name="mobile_no" id="mobile_no" class="form-control"
                                         placeholder="">
+                                        @error('mobile_no')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -120,13 +148,32 @@
                                     <label class="form-label">Landline</label>
                                     <input type="text" name="landline" id="landline" class="form-control"
                                         placeholder="">
+                                        @error('landline')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Country</label>
+                                    <select class="form-control" name="country" id="countries" style="width: 100%;">
+                                        <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
+                                        <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
+                                    </select>
+                                    @error('country')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                            <!-- /.form-group -->
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Post Code</label>
                                     <input type="text" name="post_code" id="post_code" class="form-control"
                                         placeholder="">
+                                        @error('post_code')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -134,6 +181,9 @@
                                     <label class="form-label">Street</label>
                                     <input type="text" name="street" id="street" class="form-control"
                                         placeholder="">
+                                        @error('street')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -141,6 +191,9 @@
                                     <label class="form-label">Town</label>
                                     <input type="text" name="town" id="town" class="form-control"
                                         placeholder="">
+                                        @error('town')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -172,58 +225,97 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Lab Name</label>
-                                    <input type="text" name="lab_name" class="form-control" placeholder="" required>
+                                    <label class="form-label">Lab Name<span class="clr">*</span></label>
+                                    <input type="text" name="lab_name" class="form-control" placeholder="" id="lab_name1" value="{{ old('lab_name') }}" required>
+                                    @error('lab_name')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Email Address</label>
-                                    <input type="text" name="email_address" class="form-control" placeholder="" required>
+                                    <label class="form-label">Email Address<span class="clr">*</span></label>
+                                    <input type="text" name="email" class="form-control" placeholder="" required value="{{ old('email') }}" id="email1">
+                                    @error('email')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Mobile Phone</label>
-                                    <input type="text" name="mobile_phone" class="form-control" placeholder="">
+                                    <label class="form-label">Password <span class="clr">*</span></label>
+                                    <div class="wrap-input">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                        <span class="btn-show-pass ico-20 " >
+                                            <span class="  eye-pass flaticon-visibility "></span>
+                                        </span>
+                                    </div>
+                                    @error('password')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                           
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Mobile Phone<span class="clr">*</span></label>
+                                    <input type="text" name="mobile_no" class="form-control" placeholder="" id="mobile_no1" value="{{ old('mobile_no') }}" minlength="10" maxlength="15">
+                                    @error('mobile_no')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Landline</label>
                                     <input type="text" name="landline" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Post Code</label>
-                                    <input type="text" name="post_code" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Street</label>
-                                    <input type="text" name="street" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Town</label>
-                                    <input type="text" name="town" class="form-control" placeholder="">
+                                    @error('landline')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Country</label>
-                                    <select class="form-control" name="country" id="countries3" style="width: 100%;">
-                                        <option value=""></option>
-                                        <option value="india">India</option>
-                                        <option value="uk">UK</option>
-                                        <option value="canada">Canada</option>
+                                    <select class="form-control" name="country" id="countries1" style="width: 100%;">
+                                        <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
+                                        <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
                                     </select>
+                                    @error('country')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
-                                <!-- /.form-group -->
+                            <!-- /.form-group -->
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Post Code</label>
+                                    <input type="text" name="post_code" class="form-control" placeholder="" id="post_code1" value="{{ old('post_code') }}" minlength="4" maxlength="8">
+                                    @error('post_code')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Street</label>
+                                    <input type="text" name="street" class="form-control" placeholder="" id="street1" value="{{ old('street') }}">
+                                    @error('street')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Town</label>
+                                    <input type="text" name="town" class="form-control" placeholder=""  value="{{ old('town') }}" id="town1">
+                                    @error('town')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                            </div>
+                         
                         </div>
                     </div>
                     <div class="modal-footer text-end">
@@ -244,8 +336,8 @@
         function editForm(id, lab_name, email, mobile_phone, landline, post_code, street, town) {
             $('#id').val(id);
             $('#lab_name').val(lab_name);
-            $('#email_address').val(email);
-            $('#phone').val(mobile_phone);
+            $('#email').val(email);
+            $('#mobile_no').val(mobile_phone);
             $('#landline').val(landline);
             $('#post_code').val(post_code);
             $('#street').val(street);
@@ -253,4 +345,49 @@
             $("#edit_lab").modal('show');
         }
     </script>
+    @push('custom-js')
+    <script>
+    $(document).ready(function(){
+        let id=  $('#id').val();
+        @if ($errors->any())
+      
+      if(id.length > 0){
+        // alert('edit_lab');
+        $("#edit_lab").modal('show');
+      }else if(id.length == 0){
+        // alert('add_lab');
+        $("#add_lab").modal('show');
+      }
+        
+        @endif
+      });
+      </script>
+    
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+           
+    
+            // Add event listener for when the modal is hidden
+            $('#add_lab').on('hidden.bs.modal', function (e) {
+                // Clear all input fields
+                $('#lab_name1').val('');
+                $('#email1').val('');
+                $('#mobile_no1').val('');
+                $('#landline1').val('');
+                $('#post_code1').val('');
+                $('#street1').val('');
+                $('#password').val('');
+                $('#town1').val('');
+                $(".error").remove();
+    
+    
+            });
+    
+            
+    
+            
+        });
+    </script>
+    @endpush
 @endsection

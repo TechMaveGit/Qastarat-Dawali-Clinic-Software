@@ -66,8 +66,6 @@
 
 
 
-
-
 		 <!-- DataTables -->
 
 		 <link href="{{ url('public/assets') }}/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -352,14 +350,15 @@
 
                                     <!-- SIMPLE NAVIGATION LINK -->
 
-                                    <li class="nl-simple" aria-haspopup="true"><a href="#" class="h-link">Messages</a></li>
+                                    {{-- <li class="nl-simple" aria-haspopup="true"><a href="#" class="h-link">Messages</a></li> --}}
 
 
 
                                     <!-- SIMPLE NAVIGATION LINK -->
 
-                                    <li class="nl-simple" aria-haspopup="true"><a href="#" class="h-link">Tasks</a></li>
-
+                                    @if(in_array("84", $arr) || in_array("85", $arr) || in_array("86", $arr) || in_array("87", $arr) || in_array("88", $arr) || in_array("89", $arr))
+                                    <li class="nl-simple" aria-haspopup="true"><a href="{{ route('nurseTask') }}" class="h-link">Tasks</a></li>
+                                    @endif
 
 
                                     @if(in_array("1", $arr) || in_array("2", $arr) || in_array("3", $arr) ||in_array("4", $arr))
@@ -423,7 +422,7 @@
 
                                         <div class="user">
 
-                                            <h3>Katherine Cooper</h3>
+                                            <h3>{{ auth('doctor')->user()->name ?? '' }}</h3>
 
                                          </div>
 
@@ -433,17 +432,19 @@
 
                                         <ul>
 
-                                            <li><a href="#"><i class="fa-solid fa-user"></i>&nbsp;Profile</a></li>
-											@auth('web')
-											<li><a href="{{ route('user.patient') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a></li>
-											<li><a href="{{ route('user.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
-										   @endauth
+											@auth('doctor')
+											@if(Auth::guard('doctor')->check())
+												<li><a href="#"><i class="fa-solid fa-user"></i>&nbsp;Profile</a></li>
 
-										@auth('doctor')
-											<li><a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a></li>
-											<li><a href="{{ route('doctor.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
-
+												<li><a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a></li>
+												<li><a href="{{ route('doctor.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
+												@endif
 										@endauth
+
+										{{-- @auth('admin')
+											<li><a href="{{ route('admin.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
+										@endauth --}}
+
 
                                         </ul>
 

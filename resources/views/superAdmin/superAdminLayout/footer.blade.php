@@ -23,7 +23,6 @@
 <!-- ./wrapper -->
 	
 	
-	<!-- Page Content overlay -->
 	
 	
 	<!-- Vendor JS -->

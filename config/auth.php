@@ -48,10 +48,6 @@ return [
             'driver' => 'session',
             'provider' => 'doctors',
         ],
-        'nurse' => [
-            'driver' => 'session',
-            'provider' => 'nurses',
-        ],
 
     ],
 
@@ -85,20 +81,7 @@ return [
         'doctors' => [
             'driver' => 'eloquent',
             'model' => App\Models\superAdmin\Doctor::class,
-        ],
-
-        'nurses' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Nurse::class,
-        ],
-
-
-
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        ]
     ],
 
     /*
@@ -120,14 +103,14 @@ return [
     |
     */
 
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_reset_tokens',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-    ],
+    // 'passwords' => [
+    //     'users' => [
+    //         'provider' => 'users',
+    //         'table' => 'password_reset_tokens',
+    //         'expire' => 60,
+    //         'throttle' => 60,
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -140,6 +123,6 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+    // 'password_timeout' => 10800,
 
 ];

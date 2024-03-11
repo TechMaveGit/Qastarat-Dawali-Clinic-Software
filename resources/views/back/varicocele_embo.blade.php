@@ -32,7 +32,7 @@
    
     <div class="container">
         <div class="form_inner_dt">
-            <form method="POST" action="{{ route('user.storeVaricoceleEmboEligibilityForms') }}" enctype="multipart/form-data" >
+            <form id="storeVaricoceleEmboEligibilityForms" method="POST" action="{{ route('user.storeVaricoceleEmboEligibilityForms') }}" enctype="multipart/form-data" >
                 @csrf
 
             <input type="hidden" name="patient_id" value="{{ @$patient_id }}"/>
@@ -124,7 +124,7 @@
                             </label>
                         </div>
                      </div>
-                     <div class="col-lg-4">
+                     <div class="col-lg-4" id="diagnosis_general_checkbox">
                          <div class="form-check form-check-right mb-3">
                             <input class="form-check-input" type="checkbox" name="diagnosis_general[Prostatitis][]" value="Prostatitis" id="formRadiosRightd35">
                             <label class="form-check-label" for="formRadiosRightd35">
@@ -132,6 +132,43 @@
                             </label>
                         </div>
                      </div>
+
+
+                     <div class="col-lg-4">
+                        <div class="form-check form-check-right mb-3">
+                            <input class="form-check-input" type="checkbox" name="formRadiosRight"
+                                id="formRadiosRighta777">
+                            <label class="form-check-label" for="formRadiosRighta777">
+                                Add more diagnosis
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div id="dynamic_checkbox_container" class="row">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12" id="textarea_a777">
+                        <div class="row addmore_diag">
+                            <div class="col-lg-10">
+                                <div class="inner_element">
+
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"
+                                            placeholder="Type diagnosis here....." id="newDiagnosisInput">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="add_more_btn">
+                                    <a href="javascript:void(0);" class="add-more-link"><i
+                                            class="fa-solid fa-plus"></i> Add More</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
 
                       </div>
                     </div>
@@ -146,7 +183,7 @@
                         </div>
                         <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[183][]" value="183 Varicose veins of lower extremities" id="formRadiosRight8">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a183][]" value="183 Varicose veins of lower extremities" id="formRadiosRight8">
                             <label class="form-check-label" for="formRadiosRight8">
                             183 Varicose veins of lower extremities
                             </label>
@@ -154,7 +191,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[1830][]" value="183.0 Varicose veins of lower extremities with ulcer" id="formRadiosRight9">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a1830][]" value="183.0 Varicose veins of lower extremities with ulcer" id="formRadiosRight9">
                             <label class="form-check-label" for="formRadiosRight9">
                             183.0 Varicose veins of lower extremities with ulcer 
                             </label>
@@ -162,7 +199,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[1831][]" value="183.1 Varicose veins of lower extremities with inflammatio" id="formRadiosRight10">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a1831][]" value="183.1 Varicose veins of lower extremities with inflammatio" id="formRadiosRight10">
                             <label class="form-check-label" for="formRadiosRight10">
                             183.1 Varicose veins of lower extremities with inflammation 
                             </label>
@@ -170,7 +207,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[1839][]" value="183.9 Varicose veins of lower extremities without ulcer or inflammation" id="formRadiosRight11">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a1839][]" value="183.9 Varicose veins of lower extremities without ulcer or inflammation" id="formRadiosRight11">
                             <label class="form-check-label" for="formRadiosRight11">
                             183.9 Varicose veins of lower extremities without ulcer or inflammation 
                             </label>
@@ -178,7 +215,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[186][]" value="186 Varicose veins of other sites" id="formRadiosRight12">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a186][]" value="186 Varicose veins of other sites" id="formRadiosRight12">
                             <label class="form-check-label" for="formRadiosRight12">
                             186 Varicose veins of other sites
                             </label>
@@ -186,7 +223,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[1861][]" value="186.1 Scrotal varices, Varicocele" id="formRadiosRight13">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a1861][]" value="186.1 Scrotal varices, Varicocele" id="formRadiosRight13">
                             <label class="form-check-label" for="formRadiosRight13">
                             186.1 Scrotal varices, Varicocele
                             </label>
@@ -194,7 +231,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[18620][]" value="186.2 Pelvic varices, Varicocele (thrombosed) (scrotum) ovary " id="formRadiosRightc1">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a18620][]" value="186.2 Pelvic varices, Varicocele (thrombosed) (scrotum) ovary " id="formRadiosRightc1">
                             <label class="form-check-label" for="formRadiosRightc1">
                             186.2 Pelvic varices, Varicocele (thrombosed) (scrotum) ovary 
                             </label>
@@ -202,7 +239,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[1862][]" value="186.2 Pelvic varices" id="formRadiosRightc2">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a1862][]" value="186.2 Pelvic varices" id="formRadiosRightc2">
                             <label class="form-check-label" for="formRadiosRightc2">
                             186.2 Pelvic varices
                             </label>
@@ -210,7 +247,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[1872][]" value="187.2 Venous insufficiency (Chronic) (Peripheral) " id="formRadiosRightc3">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a1872][]" value="187.2 Venous insufficiency (Chronic) (Peripheral) " id="formRadiosRightc3">
                             <label class="form-check-label" for="formRadiosRightc3">
                             187.2 Venous insufficiency (Chronic) (Peripheral) 
                             </label>
@@ -218,7 +255,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[1878][]" value="187.8 Other specified disorders of veins" id="formRadiosRightc4">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a1878][]" value="187.8 Other specified disorders of veins" id="formRadiosRightc4">
                             <label class="form-check-label" for="formRadiosRightc4">
                             187.8 Other specified disorders of veins
                             </label>
@@ -226,7 +263,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[1879][]" value="187.9 Disorder of vein, unspecified" id="formRadiosRightc5">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[a1879][]" value="187.9 Disorder of vein, unspecified" id="formRadiosRightc5">
                             <label class="form-check-label" for="formRadiosRightc5">
                             187.9 Disorder of vein, unspecified
                             </label>
@@ -234,7 +271,7 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[R10][]" value="R10 Abdominal and pelvic pain" id="formRadiosRightc6">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[aR10][]" value="R10 Abdominal and pelvic pain" id="formRadiosRightc6">
                             <label class="form-check-label" for="formRadiosRightc6">
                             R10 Abdominal and pelvic pain
                             </label>
@@ -242,28 +279,936 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[R102][]" value="R10.2 Pelvic and perineal pain" id="formRadiosRightc7">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[aR102][]" value="R10.2 Pelvic and perineal pain" id="formRadiosRightc7">
                             <label class="form-check-label" for="formRadiosRightc7">
                             R10.2 Pelvic and perineal pain
                             </label>
                         </div>
                      </div>
-                     <div class="col-lg-4">
+                     <div class="col-lg-4" id="Postpartum_thyroiditis">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[Y528][]" value="Y52.8 Antivaricose drugs, including sclerosing agents " id="formRadiosRightc8">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_cid[aY528][]" value="Y52.8 Antivaricose drugs, including sclerosing agents " id="formRadiosRightc8">
                             <label class="form-check-label" for="formRadiosRightc8">
                             Y52.8 Antivaricose drugs, including sclerosing agents 
                             </label>
                         </div>
                      </div>
+
+                     
+                     <div class="col-lg-4" >
+                        <div class="form-check form-check-right mb-3">
+                            <input class="form-check-input" type="checkbox" name="formRadiosRight"
+                                id="formRadiosRightz1">
+                            <label class="form-check-label" for="formRadiosRightz1">
+                                Add more diagnosis
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div id="dynamic_checkbox_container_cid" class="row">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12" id="textarea_z1">
+                        <div class="row addmore_diag">
+                            <div class="col-lg-10">
+                                <div class="inner_element">
+
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"
+                                            placeholder="Type diagnosis here....." id="cidvalue">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="add_more_btn">
+                                    <a href="javascript:void(0);" class="add-more-cid"><i
+                                            class="fa-solid fa-plus"></i> Add More</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
                     
                         </div>
                     </div>
                        
                              
-                       
+                    <div class="col-lg-12">
+                        <h6 class="section_title__">Symptoms</h6>
+                        <div class="title_head">
+                            <h4>Select a symptom</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox" id="sym_a1"
+                                        name="symptoms[0][0]"
+                                        value="Scrotal swelling">
+                                    <label class="form-check-label" for="sym_a1">
+                                        Scrotal swelling
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2 sym_a1DurationValue"
+                                            name="symptoms[0][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[0][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
+                                            name="symptoms[0][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="symptoms[1][0]" id="sym_a2" value="Scrotal heaviness">
+                                    <label class="form-check-label" for="sym_a2">
+                                        Scrotal heaviness
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[1][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[1][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[1][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox" id="sym_a3"
+                                        name="symptoms[2][0]" value="Scrotal heat">
+                                    <label class="form-check-label" for="sym_a3">
+                                        Scrotal heat
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[2][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[2][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[2][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox" id="sym_a4"
+                                        name="symptoms[3][0]"
+                                        value="Scrotal pain">
+                                    <label class="form-check-label" for="sym_a4">
+                                        Scrotal pain
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[3][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[3][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
+                                            name="symptoms[3][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="symptoms[4][0]" id="sym_a5" value="Groin / thigh pain">
+                                    <label class="form-check-label" for="sym_a5">
+                                        Groin / thigh pain
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[4][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[4][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[4][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="symptoms[5][0]" value="Erectile dysfunction"
+                                        id="sym_a75">
+                                    <label class="form-check-label" for="sym_a75">
+                                        Erectile dysfunction
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[5][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[5][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[5][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="symptoms[6][0]" value="Infertility"
+                                        id="sym_a7">
+                                    <label class="form-check-label" for="sym_a7">
+                                        Infertility
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[6][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[6][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[6][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="symptoms[7][0]" value="Burning Micturation"
+                                        id="sym_a7Fatigue">
+                                    <label class="form-check-label" for="sym_a7Fatigue">
+                                        Burning Micturation
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[7][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[7][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[7][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="symptoms[8][0]" value="Pain during defecation"
+                                        id="sym_8Painduringdefecation">
+                                    <label class="form-check-label" for="sym_8Painduringdefecation">
+                                        Pain during defecation
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[8][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[8][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[8][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="symptoms[9][0]" value="Recurrent Urinary tract infections"
+                                        id="sym_8RecurrentUrinarytractinfections">
+                                    <label class="form-check-label" for="sym_8RecurrentUrinarytractinfections">
+                                        Recurrent Urinary tract infections
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[9][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[9][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[9][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-check form-check-right mb-3">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="symptoms[13][0]" value="Other" id="sym_a18">
+                                    <label class="form-check-label" for="sym_a18">
+                                        Other
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[13][1]">
+                                            <option value="">Duration value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="inner_element">
+                                    <div class="mb-3 form-group">
+                                        <select class="form-control select2"
+                                            name="symptoms[13][2]">
+                                            <option value="">Duration Type</option>
+                                            <option value="Days">Days</option>
+                                            <option value="Weeks">Weeks</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="inner_element">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[13][3]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
                      <div class="col-lg-12">
+                        <h6 class="section_title__">Symptoms Severity Score (SSS)</h6>
                             <div class="title_head">
                                 <h4>Varicocele symptoms score (VSS)</h4>
                             </div>
@@ -626,9 +1571,79 @@
                             </div>
                            
                         </div>
+                        
                         <div class="col-lg-12">
-                          <h6 class="section_title__">Imaging</h6>
+                            <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                    class="order-now_btn order-now_btn_alt ">Order Now <i
+                                        class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <div class="title_head">
+                                <h4>Add Clinical Finding </h4>
+                            </div>
+
                         </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h6 class="mb-3 lut_title">Regional Exam</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-check form-check-right mb-3">
+                                        <input class="form-check-input"type="radio" name="clinical_exam[RegionalExam][]" value="Normal"
+                                            id="clinic_exam_1">
+                                        <label class="form-check-label" for="clinic_exam_1">
+                                            Normal
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-check form-check-right mb-3">
+                                        <input class="form-check-input"type="radio" name="clinical_exam[RegionalExam][]" value="Abnormal"
+                                            id="clinic_exam_2">
+                                        <label class="form-check-label" for="clinic_exam_2">
+                                            Abnormal
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12" id="abnormal_c2">
+                                    <div class="form-check form-check-right mb-3">
+                                        <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px" name="clinical_exam[RegionalExamNote][]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h6 class="mb-3 lut_title">Systemic Exam</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-check form-check-right mb-3">
+                                        <input class="form-check-input"type="radio" name="clinical_exam[SystemicExam][]" value="Normal"
+                                            id="clinic_exam_3">
+                                        <label class="form-check-label" for="clinic_exam_3">
+                                            Normal
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-check form-check-right mb-3">
+                                        <input class="form-check-input"type="radio" name="clinical_exam[SystemicExam][]" value="Abnormal"
+                                            id="clinic_exam_4">
+                                        <label class="form-check-label" for="clinic_exam_4">
+                                            Abnormal
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12" id="abnormal_c4">
+                                    <div class="form-check form-check-right mb-3">
+                                        <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px" name="clinical_exam[SystemicExamNote][]" ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                          </div>
                         <div class="col-lg-12">
                             <div class="title_head">
                                 <h4>USVENOUSDOPPLER70 &gt; <span class="sub_tt__">Varicocel Grade - LEFT </span></h4>
@@ -1043,212 +2058,136 @@
                             </div>
 
                             <div class="col-lg-12">
-                          <h6 class="section_title__">Lab </h6>
-                        </div>
-                          <div class="col-lg-12">
-                            <div class="title_head">
-                                <h4>LABFERTILITYHORMONES000 &gt; <span class="sub_tt__">FERTILITY HORMONES  Results</span></h4>
-                            </div>
-                          </div>
-                          <div class="col-lg-12">
-                            <div class="row">
-                            <div class="col-lg-3">
-                          <h6 class="mb-3 lut_title">Prolactin</h6>
-                        </div>
-                        <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[Prolactin][]" value="Normal" id="formRadiosRightd26">
-                                        <label class="form-check-label" for="formRadiosRightd26">
-                                        Normal
-                                        </label>
-                                    </div>
+                                        
+                                <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                    class="order-now_btn order-now_btn_alt">Order Now <i
+                                        class="fa-solid fa-arrow-right-long"></i></a></h6>
+                              </div>
+                                <div class="col-lg-12">
+                                  <div class="title_head">
+                                      <h4>LABFERTILITYHORMONES000      &gt; <span class="sub_tt__">  FERTILITY HORMONES Results</span></h4>
+                                  </div>
                                 </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[Prolactin][]" value="High" id="formRadiosRightd27">
-                                        <label class="form-check-label" for="formRadiosRightd27">
-                                        High
-                                        </label>
+                                <div class="col-lg-12 mb-3">
+                                   <div class="row">
+                                      <div class="col-lg-3">
+                                      <h6 class="mb-3 lut_title">Prolactin</h6>
+                                      </div>  
+                                      <div class="col-lg-6">
+                                          <div class="lab_test_value">
+                                              <select  class="tshRange" name="Lab[Prolactin][]">
+                                              <option value=""></option>
+                                              <option value="normal">(0.4 - 5.49 mIU/L)</option>
+                                              <option value="low">(0.01 - 0.39 mIU/L)</option>
+                                              <option value="high">(> 5.49 mIU/L)</option>
+                                              </select>
+                                              <div class="result result_value">
+                                                  <!-- Display low, high, and normal values here -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      </div>
+                                   </div>
+                                   <div class="col-lg-12 mb-3">
+                                   <div class="row">
+                                      <div class="col-lg-3">
+                                      <h6 class="mb-3 lut_title">TSH</h6>
+                                      </div>  
+                                      <div class="col-lg-6">
+                                          <div class="lab_test_value">
+                                              <select  class="tshRange" name="Lab[TSH][]">
+                                              <option value=""></option>
+                                              <option value="normal">(0.4 - 5.49 mIU/L)</option>
+                                              <option value="low">(0.01 - 0.39 mIU/L)</option>
+                                              <option value="high">(> 5.49 mIU/L)</option>
+                                              </select>
+                                              <div class="result result_value">
+                                                  <!-- Display low, high, and normal values here -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      </div>
+                                   </div>
+                                   <div class="col-lg-12 mb-3">
+                                    <div class="row">
+                                       <div class="col-lg-3">
+                                       <h6 class="mb-3 lut_title">FSH</h6>
+                                       </div>  
+                                       <div class="col-lg-6">
+                                           <div class="lab_test_value">
+                                               <select  class="tshRange" name="Lab[FSH][]">
+                                               <option value=""></option>
+                                               <option value="normal">(0.4 - 5.49 mIU/L)</option>
+                                               <option value="low">(0.01 - 0.39 mIU/L)</option>
+                                               <option value="high">(> 5.49 mIU/L)</option>
+                                               </select>
+                                               <div class="result result_value">
+                                                   <!-- Display low, high, and normal values here -->
+                                               </div>
+                                           </div>
+                                       </div>
+                                       </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[Prolactin][]" value="Low" id="formRadiosRightd49">
-                                        <label class="form-check-label" for="formRadiosRightd49">
-                                        Low
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="row">
-                            <div class="col-lg-3">
-                          <h6 class="mb-3 lut_title">TSH</h6>
-                        </div>
-                        <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[TSH][]" value="Normal" id="formRadiosRightd28">
-                                        <label class="form-check-label" for="formRadiosRightd28">
-                                        Normal
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[TSH][]" value="High" id="formRadiosRightd29">
-                                        <label class="form-check-label" for="formRadiosRightd29">
-                                        High
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[TSH][]" value="Low" id="formRadiosRightd50">
-                                        <label class="form-check-label" for="formRadiosRightd50">
-                                        Low
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="row">
-                            <div class="col-lg-3">
-                          <h6 class="mb-3 lut_title">FSH</h6>
-                        </div>
-                        <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[FSH][]" value="Normal" id="formRadiosRightd30">
-                                        <label class="form-check-label" for="formRadiosRightd30">
-                                        Normal
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[FSH][]" value="High" id="formRadiosRightd31">
-                                        <label class="form-check-label" for="formRadiosRightd31">
-                                        High
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[FSH][]" value="Low" id="formRadiosRightd51">
-                                        <label class="form-check-label" for="formRadiosRightd51">
-                                        Low
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-12">
-                            <div class="row">
-                            <div class="col-lg-3">
-                          <h6 class="mb-3 lut_title">LH</h6>
-                        </div>
-                        <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[LH][]" value="Normal" id="formRadiosRightd52">
-                                        <label class="form-check-label" for="formRadiosRightd52">
-                                        Normal
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[LH][]" value="High" id="formRadiosRightd53">
-                                        <label class="form-check-label" for="formRadiosRightd53">
-                                        High
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[LH][]" value="Low" id="formRadiosRightd53">
-                                        <label class="form-check-label" for="formRadiosRightd53">
-                                        Low
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="row">
-                            <div class="col-lg-3">
-                          <h6 class="mb-3 lut_title">Testosterone</h6>
-                        </div>
-                        <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[Testosterone][]" value="Normal" id="formRadiosRightd54">
-                                        <label class="form-check-label" for="formRadiosRightd54">
-                                        Normal
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[Testosterone][]" value="High" id="formRadiosRightd55">
-                                        <label class="form-check-label" for="formRadiosRightd55">
-                                        High
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[Testosterone][]" value="Low" id="formRadiosRightd56">
-                                        <label class="form-check-label" for="formRadiosRightd56">
-                                        Low
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="row">
-                            <div class="col-lg-3">
-                          <h6 class="mb-3 lut_title">Estrodiol D2</h6>
-                        </div>
-                        <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[Estrodiol][]" value="Normal" id="formRadiosRightd57">
-                                        <label class="form-check-label" for="formRadiosRightd57">
-                                        Normal
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[Estrodiol][]" value="High" id="formRadiosRightd58">
-                                        <label class="form-check-label" for="formRadiosRightd58">
-                                        High
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Lab[Estrodiol][]" value="Low" id="formRadiosRightd59">
-                                        <label class="form-check-label" for="formRadiosRightd59">
-                                        Low
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
+                                    <div class="col-lg-12 mb-3">
+                                        <div class="row">
+                                           <div class="col-lg-3">
+                                           <h6 class="mb-3 lut_title">LH</h6>
+                                           </div>  
+                                           <div class="col-lg-6">
+                                               <div class="lab_test_value">
+                                                   <select  class="tshRange" name="Lab[LH][]">
+                                                   <option value=""></option>
+                                                   <option value="normal">(0.4 - 5.49 mIU/L)</option>
+                                                   <option value="low">(0.01 - 0.39 mIU/L)</option>
+                                                   <option value="high">(> 5.49 mIU/L)</option>
+                                                   </select>
+                                                   <div class="result result_value">
+                                                       <!-- Display low, high, and normal values here -->
+                                                   </div>
+                                               </div>
+                                           </div>
+                                           </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-3">
+                                            <div class="row">
+                                               <div class="col-lg-3">
+                                               <h6 class="mb-3 lut_title">Testosterone</h6>
+                                               </div>  
+                                               <div class="col-lg-6">
+                                                   <div class="lab_test_value">
+                                                       <select  class="tshRange" name="Lab[Testosterone][]">
+                                                       <option value=""></option>
+                                                       <option value="normal">(0.4 - 5.49 mIU/L)</option>
+                                                       <option value="low">(0.01 - 0.39 mIU/L)</option>
+                                                       <option value="high">(> 5.49 mIU/L)</option>
+                                                       </select>
+                                                       <div class="result result_value">
+                                                           <!-- Display low, high, and normal values here -->
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                               </div>
+                                            </div>
+                                            <div class="col-lg-12 mb-3">
+                                                <div class="row">
+                                                   <div class="col-lg-3">
+                                                   <h6 class="mb-3 lut_title">Estrodiol D2</h6>
+                                                   </div>  
+                                                   <div class="col-lg-6">
+                                                       <div class="lab_test_value">
+                                                           <select  class="tshRange" name="Lab[EstrodiolD2][]">
+                                                           <option value=""></option>
+                                                           <option value="normal">(0.4 - 5.49 mIU/L)</option>
+                                                           <option value="low">(0.01 - 0.39 mIU/L)</option>
+                                                           <option value="high">(> 5.49 mIU/L)</option>
+                                                           </select>
+                                                           <div class="result result_value">
+                                                               <!-- Display low, high, and normal values here -->
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                                   </div>
+                                                </div>
                      
                          
                             <div class="col-lg-12">
@@ -1494,80 +2433,134 @@
                         
                        
                      
+                        <div class="col-lg-12  mb-2">
+                            <h6 class="section_title__">Special Investigation <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn ">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <div class="title_head">
+                                  <h4>REQPNSENTEVALUATION190</h4>
+                              </div>
                         
+                              <div class="row align-items-center">
+                              <div class="col-lg-4">
+                                  <h6 class="mb-3 lut_title">Para-Nasal Sinus endoscopic evaluation</h6>
+                                  </div>
+                                  <div class="col-lg-4">
+                                      <div class="form-check form-check-right mb-3">
+                                          <input class="form-check-input" type="radio" name="SpecialInvestigation[Peripheral][]"  value="Normal" id="formRadiosRightbf5">
+                                          <label class="form-check-label" for="formRadiosRightbf5">
+                                          Normal
+                                          </label>
+                                      </div>
+                                   
+                                  </div>
+                                  <div class="col-lg-4">
+                                      <div class="form-check form-check-right mb-3">
+                                          <input class="form-check-input" type="radio" name="SpecialInvestigation[Peripheral][]"  value="Abnormal" id="formRadiosRightbf7">
+                                          <label class="form-check-label" for="formRadiosRightbf7">
+                                          Abnormal
+                                          </label>
+                                      </div>
+                                   
+                                  </div>
+                           
+                                  <div class="col-lg-12" id="textarea_a789" style="display: none;">
+                                      <div class="row addmore_diag">
+                                          <div class="col-lg-12">
+                                          <div class="inner_element">
+                                              
+                                              <div class="form-group">
+                                              <textarea  name="SpecialInvestigation[PeripheralNote][]" class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px"></textarea>
+                                              </div>
+                                          </div>
+                                          </div>
+                                         
+                                          
+                                              
+                                      </div>
+                                   </div>
+
+
+  
+                              </div>
                        
 
                         <div class="col-lg-12">
-                          <h6 class="section_title__">MDT</h6>
-                        </div>
-                        <div class="col-lg-12">
+                            <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Medical Record <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                          </div>
+                          <div class="col-lg-12">
                             <div class="title_head">
-                                <h4>MDTREVIEW00 &#62; <span class="sub_tt__">Varicocele MDT outcome</span></h4>
+                                <h4>MDTREVIEW00    &#62; <span class="sub_tt__"> MSK MDT outcome</span></h4>
                             </div>
                         </div>
+
                         <div class="col-lg-12">
-                          <h6 class="mb-3 lut_title">MDT decision</h6>
+                            <h6 class="mb-3 lut_title">MDT decision</h6>
                         </div>
                         <div class="col-lg-12">
-                        <div class="row align-items-center">
-                     
+                            <div class="row">
+                         
+                                        <div class="col-lg-6">
+                                        <div class="form-check form-check-right mb-3">
+                                            <input class="form-check-input" type="checkbox" name="MDT[VE][]" value="VE" id="formRadiosRight84">
+                                            <label class="form-check-label" for="formRadiosRight84">
+                                                VE
+                                            </label>
+                                        </div>
+                                        <div  id="textarea_84">
+                                        <div class="form-check form-check-right mb-3">
+                                          <textarea class="form-control" placeholder="Enter Elaborate    VE / notes here***"  style="height: 100px" name="MDT[VENote][]"></textarea>
+                                        </div>
+                                    </div>
+                                    </div>
                                     <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="mdt[decision][]" value="VE" id="formRadiosRight84">
-                                        <label class="form-check-label" for="formRadiosRight84">
-                                        VE
-                                        </label>
+                                        <div class="form-check form-check-right mb-3">
+                                            <input class="form-check-input" type="checkbox" name="MDT[Medical][]" value="Medical"  id="formRadiosRight85">
+                                            <label class="form-check-label" for="formRadiosRight85">
+                                                Medical 
+                                            </label>
+                                        </div>
+                                        <div  id="textarea_85">
+                                        <div class="form-check form-check-right mb-3">
+                                          <textarea class="form-control" placeholder="Enter Elaborate Medical / conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="mdt[decision][]" value="Medical" id="formRadiosRight85">
-                                        <label class="form-check-label" for="formRadiosRight85">
-                                        Medical
-                                        </label>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="mdt[decision][]" value="IVF" id="formRadiosRight86">
-                                        <label class="form-check-label" for="formRadiosRight86">
-                                        IVF
-                                        </label>
+                                    <div class="col-lg-6">
+                                        <div class="form-check form-check-right mb-3">
+                                            <input class="form-check-input" type="checkbox" name="MDT[IVF][]" value="IVF" id="formRadiosRight86">
+                                            <label class="form-check-label" for="formRadiosRight86">
+                                                IVF
+                                            </label>
+                                        </div>
+                                        <div  id="textarea_86">
+                                        <div class="form-check form-check-right mb-3">
+                                          <textarea class="form-control" placeholder="Enter Elaborate IVF / notes here***"  style="height: 100px" name="MDT[IVFNote][]"></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="mdt[decision][]" value="Other options" id="formRadiosRight87">
-                                        <label class="form-check-label" for="formRadiosRight87">
-                                        Other options
-                                        </label>
                                     </div>
-                                </div>
-                                <div class="col-lg-12" id="textarea_84">
-                                    <div class="form-check form-check-right mb-3">
-                                      <textarea class="form-control" placeholder="Enter Elaborate   VE / notes here***"  style="height: 100px" name="mdt[NOTE][]"></textarea>
+                                    <div class="col-lg-6">
+                                        <div class="form-check form-check-right mb-3">
+                                            <input class="form-check-input" type="checkbox" name="MDT[options][]" value="options" id="formRadiosRight87">
+                                            <label class="form-check-label" for="formRadiosRight87">
+                                            Other options
+                                            </label>
+                                        </div>
+                                        <div  id="textarea_87">
+                                        <div class="form-check form-check-right mb-3">
+                                          <textarea class="form-control" placeholder="Enter Elaborate  Other options / notes here***"  style="height: 100px" name="MDT[optionsNote][]"></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12" id="textarea_85">
-                                    <div class="form-check form-check-right mb-3">
-                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / notes here***"  style="height: 100px" name="mdt[NOTE][]"></textarea>
                                     </div>
-                                </div>
-                                <div class="col-lg-12" id="textarea_86">
-                                    <div class="form-check form-check-right mb-3">
-                                      <textarea class="form-control" placeholder="Enter Elaborate IVF / notes here***"  style="height: 100px" name="mdt[NOTE][]"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12" id="textarea_87">
-                                    <div class="form-check form-check-right mb-3">
-                                      <textarea class="form-control" placeholder="Enter Elaborate  Other options / notes here***"  style="height: 100px" name="mdt[NOTE][]"></textarea>
-                                    </div>
+                                  
+                                
+                                  
+                                 
                                 </div>
                             </div>
-                        </div>
-                        
+
                         <div class="col-lg-12">
-                          <h6 class="section_title__">Elegibility STATUS</h6>
+                            <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                    class="order-now_btn order-now_btn_alt">Medical Record <i
+                                        class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                         </div>
                         <div class="col-lg-12">
                             <div class="title_head">
@@ -1575,64 +2568,66 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                        <div class="row align-items-center">
-                     
+                            <div class="row align-items-center">
+                         
+                                        <div class="col-lg-6">
+                                        <div class="form-check form-check-right mb-3 ">
+                                            <input class="form-check-input" type="checkbox"  name="ElegibilitySTATUS[VARICOCELEEMBOLIZATION][]" value="VARICOCELE EMBOLIZATION (VE)" id="formRadiosRight90">
+                                            <label class="form-check-label" for="formRadiosRight90">
+                                            VARICOCELE EMBOLIZATION (VE)
+                                            </label>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-3 ">
-                                        <input class="form-check-input" type="radio" name="elegibilityStatus[option][]" value="VARICOCELE EMBOLIZATION (VE)" id="formRadiosRight90">
-                                        <label class="form-check-label" for="formRadiosRight90">
-                                        VARICOCELE EMBOLIZATION (VE)
-                                        </label>
+                                        <div class="form-check form-check-right mb-3 ">
+                                            <input class="form-check-input" type="checkbox"  name="ElegibilitySTATUS[OTHERS][]" value="OTHERS" id="formRadiosRight91">
+                                            <label class="form-check-label" for="formRadiosRight91">
+                                            OTHERS
+                                            </label>
+                                        </div>
                                     </div>
+                                    <!-- <div class="col-lg-6">
+                                        <div class="form-check form-check-right mb-3 ">
+                                            <input class="form-check-input" type="radio" name="formRadiosRight17" id="formRadiosRight92">
+                                            <label class="form-check-label" for="formRadiosRight92">
+                                            Surgical
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-check form-check-right mb-3">
+                                            <input class="form-check-input" type="radio" name="formRadiosRight17" id="formRadiosRight93">
+                                            <label class="form-check-label" for="formRadiosRight93">
+                                            Other options
+                                            </label>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-lg-12" id="textarea_90" style="">
+                                        <div class="form-check form-check-right mb-3">
+                                          <textarea class="form-control" placeholder="Enter Elaborate  VE / notes here***" style="height: 100px"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12" id="textarea_91" style="">
+                                        <div class="form-check form-check-right mb-3">
+                                          <textarea class="form-control" placeholder="Enter Elaborate Other / notes here***" style="height: 100px"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-lg-12" id="textarea_92">
+                                        <div class="form-check form-check-right mb-3">
+                                          <textarea class="form-control" placeholder="Enter Elaborate Surgical / notes here***"  style="height: 100px"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12" id="textarea_93">
+                                        <div class="form-check form-check-right mb-3">
+                                          <textarea class="form-control" placeholder="Enter Elaborate Other options / notes here***"  style="height: 100px"></textarea>
+                                        </div>
+                                    </div> -->
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-3 ">
-                                        <input class="form-check-input" type="radio" name="elegibilityStatus[option][]" value="OTHERS" id="formRadiosRight91">
-                                        <label class="form-check-label" for="formRadiosRight91">
-                                        OTHERS
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-3 ">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight17" id="formRadiosRight92">
-                                        <label class="form-check-label" for="formRadiosRight92">
-                                        Surgical
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight17" id="formRadiosRight93">
-                                        <label class="form-check-label" for="formRadiosRight93">
-                                        Other options
-                                        </label>
-                                    </div>
-                                </div> -->
-                                <div class="col-lg-12" id="textarea_90">
-                                    <div class="form-check form-check-right mb-3">
-                                      <textarea class="form-control" placeholder="Enter Elaborate  VE / notes here***"  style="height: 100px" name="elegibilityStatus[NOTE][]"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12" id="textarea_91">
-                                    <div class="form-check form-check-right mb-3">
-                                      <textarea class="form-control" placeholder="Enter Elaborate Other / notes here***"  style="height: 100px" name="elegibilityStatus[NOTE][]"></textarea>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-lg-12" id="textarea_92">
-                                    <div class="form-check form-check-right mb-3">
-                                      <textarea class="form-control" placeholder="Enter Elaborate Surgical / notes here***"  style="height: 100px"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12" id="textarea_93">
-                                    <div class="form-check form-check-right mb-3">
-                                      <textarea class="form-control" placeholder="Enter Elaborate Other options / notes here***"  style="height: 100px"></textarea>
-                                    </div>
-                                </div> -->
                             </div>
-                        </div>
                         <div class="col-lg-12 mb-3">
-                          <h6 class="section_title__">Intervention PROCEDURE / Rx</h6>
+                            <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                    target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Order Now <i
+                                        class="fa-solid fa-arrow-right-long"></i></a></h6>
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
@@ -1687,7 +2682,9 @@
                         
 
                         <div class="col-lg-12 mb-3">
-                          <h6 class="section_title__">Supportive</h6>
+                            <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                    class="order-now_btn order-now_btn_alt">Medical Record <i
+                                        class="fa-solid fa-arrow-right-long"></i></a></h6>
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
@@ -1723,7 +2720,7 @@
                                             </label>    
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-3" id="Supportive">
                                     <div class="form-check form-check-right mb-3">
                                         <input class="form-check-input"type="checkbox" name="Supportive[PROZ290][]" value="PROZ290" id="formRadiosRightd33">
                                             <label class="form-check-label" for="formRadiosRightd33">
@@ -1731,11 +2728,46 @@
                                             </label>    
                                     </div>
                                 </div>
+                                <div class="col-lg-12">
+                                    <div id="dynamic_Supportive_checkbox_container" class="row">
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-check form-check-right mb-3">
+                                        <input class="form-check-input"type="checkbox"
+                                            name="formRadiosRight27" id="formRadiosRightbf1">
+                                        <label class="form-check-label" for="formRadiosRightbf1">
+                                            + Add More
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12" id="textarea_a852">
+                                    <div class="row addmore_diag">
+                                        <div class="col-lg-10">
+                                            <div class="inner_element">
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"
+                                                        id="SupportiveValue" placeholder="Type  here.....">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" class="SupportiveAddMore"><i
+                                                        class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
                           
                             </div>
                         </div>
                         <div class="col-lg-12">
-                          <h6 class="section_title__">Referral</h6>
+                            <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                           <div class="title_head">
                                 <h4>HCREFFERAL</h4>
                             </div>
@@ -1888,39 +2920,7 @@
             });
             })
     </script>
-    <script>
-        $(document).ready(function(){
-            $("#textarea_84").hide();
-            $("#textarea_85").hide();
-            $("#textarea_86").hide();
-            $("#textarea_87").hide();
     
-            $("#formRadiosRight84").click(function(){
-                $("#textarea_84").show();
-                $("#textarea_85").hide();
-                $("#textarea_86").hide();
-                $("#textarea_87").hide();
-            });
-            $("#formRadiosRight85").click(function(){
-                $("#textarea_84").hide();
-                $("#textarea_85").show();
-                $("#textarea_86").hide();
-                $("#textarea_87").hide();
-            });
-            $("#formRadiosRight86").click(function(){
-                $("#textarea_84").hide();
-                $("#textarea_85").hide();
-                $("#textarea_86").show();
-                $("#textarea_87").hide();
-            });
-            $("#formRadiosRight87").click(function(){
-                $("#textarea_84").hide();
-                $("#textarea_85").hide();
-                $("#textarea_86").hide();
-                $("#textarea_87").show();
-            });
-        })
-    </script>
     <script>
         $(document).ready(function(){
             $("#textarea_90").hide();
@@ -1929,28 +2929,17 @@
             $("#textarea_93").hide();
     
             $("#formRadiosRight90").click(function(){
-                $("#textarea_90").show();
-                $("#textarea_91").hide();
-                $("#textarea_92").hide();
-                $("#textarea_93").hide();
+                $("#textarea_90").toggle();
+              
             });
             $("#formRadiosRight91").click(function(){
-                $("#textarea_90").hide();
-                $("#textarea_91").show();
-                $("#textarea_92").hide();
-                $("#textarea_93").hide();
+                $("#textarea_91").toggle();
             });
             $("#formRadiosRight92").click(function(){
-                $("#textarea_90").hide();
-                $("#textarea_91").hide();
-                $("#textarea_92").show();
-                $("#textarea_93").hide();
+                $("#textarea_92").toggle();
             });
             $("#formRadiosRight93").click(function(){
-                $("#textarea_90").hide();
-                $("#textarea_91").hide();
-                $("#textarea_92").hide();
-                $("#textarea_93").show();
+                $("#textarea_93").toggle();
             });
         })
     </script>
@@ -2016,6 +3005,87 @@
            
         })
     </script>
+     <script>
+        $(document).ready(function() {
+            $("#textarea_z1").hide();
+            $("#formRadiosRightz1").click(function() {
+                $("#textarea_z1").toggle();
+            });
+
+            $("#textarea_a777").hide();
+            $("#formRadiosRighta777").click(function() {
+                $("#textarea_a777").toggle();
+            });
+
+
+            $("#textarea_sym_a18").hide();
+            $("#sym_a18").click(function() {
+                $("#textarea_sym_a18").toggle();
+            });
+
+            $("#abnormal_c2").hide();
+            $("#abnormal_c4").hide();
+
+            $("#clinic_exam_1").click(function() {
+                $("#abnormal_c2").hide();
+            });
+            $("#clinic_exam_2").click(function() {
+                $("#abnormal_c2").show();
+            });
+
+            $("#clinic_exam_3").click(function() {
+                $("#abnormal_c4").hide();
+            });
+            $("#clinic_exam_4").click(function() {
+                $("#abnormal_c4").show();
+            });
+        });
+    </script>
+
+<script>
+    $(document).ready(function() {
+        $("#textarea_84").hide();
+        $("#textarea_85").hide();
+        $("#textarea_86").hide();
+        $("#textarea_87").hide();
+
+        $("#formRadiosRight84").click(function() {
+            $("#textarea_84").toggle();
+        });
+        $("#formRadiosRight85").click(function() {
+            $("#textarea_85").toggle();
+        });
+        $("#formRadiosRight86").click(function() {
+            $("#textarea_86").toggle();
+
+        });
+        $("#formRadiosRight87").click(function() {
+            $("#textarea_87").toggle();
+        });
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#textarea_a890").hide();
+        $("#textarea_a789").hide();
+        
+        $("#formRadiosRightbf5").click(function(){
+            $("#textarea_a789").hide();
+        });
+        $("#formRadiosRightbf7").click(function(){
+            $("#textarea_a789").show();
+        });
+
+        $("#formRadiosRightbf8").click(function(){
+            $("#textarea_a890").toggle();
+        });
+        $("#formRadiosRightbf9").click(function(){
+            $("#textarea_a890").toggle();
+        });
+          });
+</script>
+
     {{-- sysmtoms scrore calculation --}}
 <script>
     $(document).ready(function() {
@@ -2057,6 +3127,632 @@
         }
     });
 });
+</script>
+
+ {{-- add more  --}}
+
+ <script>
+    $(document).ready(function() {
+        // diagnosis_general_checkbox
+        $('.add-more-link').click(function(e) {
+            e.preventDefault();
+
+            var diagnosisText = $('#newDiagnosisInput').val();
+            var key = diagnosisText.replace(/\s+/g, '_');
+
+            if (diagnosisText.trim() !== '') {
+                var clonedDiv = $('#diagnosis_general_checkbox').clone(true);
+
+                clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                    'diagnosis_general[' + key + '][]').attr('value', diagnosisText);
+                clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                    diagnosisText);
+
+
+                $('#dynamic_checkbox_container').append(clonedDiv);
+
+                $('#newDiagnosisInput').val('');
+            }
+        });
+        //  Diagnosis - ICD 10
+        $('.add-more-cid').click(function(e) {
+            e.preventDefault();
+
+            var diagnosisText = $('#cidvalue').val();
+            var key = diagnosisText.replace(/\s+/g, '_');
+
+            if (diagnosisText.trim() !== '') {
+                var clonedDiv = $('#Postpartum_thyroiditis').clone(true);
+
+                clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                    'diagnosis_cid[' + key + '][]').attr('value', diagnosisText);
+                clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                    diagnosisText);
+
+
+                $('#dynamic_checkbox_container_cid').append(clonedDiv);
+
+                $('#cidvalue').val('');
+            }
+        });
+        // SpecialInvestigationAddMore
+
+        $('.SpecialInvestigationAddMore').click(function(e) {
+            e.preventDefault();
+
+            var diagnosisText = $('#SpecialInvestigationValue').val();
+            var key = diagnosisText.replace(/\s+/g, '_');
+
+            if (diagnosisText.trim() !== '') {
+                var clonedDiv = $('#SpecialInvestigation').clone(true);
+
+                clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                    'SpecialInvestigation[' + key + '][]').attr('value', diagnosisText);
+                clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                    diagnosisText);
+
+
+                $('#dynamic_checkbox_SpecialInvestigationd').append(clonedDiv);
+
+                $('#SpecialInvestigationValue').val('');
+            }
+        });
+
+
+       
+      
+
+        // Supportive
+        
+
+        $('.SupportiveAddMore').click(function(e) {
+            e.preventDefault();
+
+            var diagnosisText = $('#SupportiveValue').val();
+            var key = diagnosisText.replace(/\s+/g, '_');
+
+            if (diagnosisText.trim() !== '') {
+                var clonedDiv = $('#Supportive').clone(true);
+
+                clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                    'Supportive[' + key + '][]').attr('value', diagnosisText);
+                clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                    diagnosisText);
+
+
+                $('#dynamic_Supportive_checkbox_container').append(clonedDiv);
+
+                $('#SupportiveValue').val('');
+            }
+        });
+
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $("#textarea_a852").hide();
+        $("#textarea_a789").hide();
+
+        $("#formRadiosRightbf1").click(function() {
+            $("#textarea_a852").toggle();
+        });
+        $("#formRadiosRightbf7").click(function() {
+            $("#textarea_a789").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.tshRange').select2({
+            minimumResultsForSearch: -1
+        }); // Initialize Select2
+        $('.tshRange').on('change', function() {
+            updateValues(this);
+        });
+
+        function updateValues(select) {
+            var tshRange = $(select).val();
+            var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
+
+            // Remove previous class to reset background color
+            resultDiv.removeClass('low high normal');
+
+            // Set low, high, and normal values based on the selected TSH range
+            var text, className;
+            switch (tshRange) {
+                case 'low':
+                    text = 'Low';
+                    className = 'low';
+                    break;
+                case 'high':
+                    text = 'High';
+                    className = 'high';
+                    break;
+                default: // normal
+                    text = 'Normal';
+                    className = 'normal';
+                    break;
+            }
+
+            // Display the value and apply the class to set background color
+            resultDiv.text(text);
+            resultDiv.addClass(className);
+        }
+    });
+</script>
+
+
+<script>
+   
+    function showConfirmation() {
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You need to save your current form first!',
+            icon: 'warning',
+            showCancelButton: true,
+            // confirmButtonText: 'save Form',
+            // cancelButtonText: 'Cancel'
+        })
+
+        // .then((result) => {
+            // if (result.isConfirmed) {
+               
+            //    window.location.href = "{{ route('user.updateHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}";
+        //    }
+    //    });
+    }
+
+        $(document).ready(function(){
+            $(".order-now_btn_alt").on('click',function(event){
+                event.preventDefault();
+                showConfirmation();
+            });
+    });
+   
+</script>
+
+
+
+{{--  Symptoms fields validation  --}}
+<script>
+    $(document).ready(function() {
+        
+        function validateForm() {
+
+            // focal headache start  
+            var isChecked_sym_a1 = $("#sym_a1").is(":checked");
+           
+            var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
+            
+            var sym_a1_durationType = $("select[name='symptoms[0][2]']").val();
+            var sym_a1_description = $("textarea[name='symptoms[0][3]']").val();
+
+            if (sym_a1_durationValue !== "" || sym_a1_durationType !== "" || sym_a1_description !== "") {
+               
+                if(isChecked_sym_a1 ===false){
+                    
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please fill out Scrotal swelling fields in Symptoms.',
+                            confirmButtonText: 'OK'
+                        }).then(function () {
+                            setTimeout(function() {
+                                var elementToScroll = document.getElementById('sym_a1');
+                                if (elementToScroll) {
+                                    // Scroll to the element's position
+                                    elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                                }
+                            }, 1000);
+                        });
+                        return false;
+                 }
+
+
+        }
+// focal headache end  
+
+
+// numbness/ pain to neck or shoulder or arm start
+var isChecked_sym_a2 = $("#sym_a2").is(":checked");
+           
+           var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
+           
+           var sym_a2_durationType = $("select[name='symptoms[1][2]']").val();
+           var sym_a2_description = $("textarea[name='symptoms[1][3]']").val();
+
+           if (sym_a2_durationValue !== "" || sym_a2_durationType !== "" || sym_a2_description !== "") {
+              
+               if(isChecked_sym_a2 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Scrotal heaviness fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a2');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// numbness/ pain to neck or shoulder or arm end 
+
+
+
+// associated with nausea or vomiting start
+var isChecked_sym_a3 = $("#sym_a3").is(":checked");
+           
+           var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
+           
+           var sym_a3_durationType = $("select[name='symptoms[2][2]']").val();
+           var sym_a3_description = $("textarea[name='symptoms[2][3]']").val();
+
+           if (sym_a3_durationValue !== "" || sym_a3_durationType !== "" || sym_a3_description !== "") {
+              
+               if(isChecked_sym_a3 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Scrotal heat fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a3');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// associated with nausea or vomiting end 
+
+
+//  associated with vertigo or drawziness start
+var isChecked_sym_a4 = $("#sym_a4").is(":checked");
+           
+           var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
+           
+           var sym_a4_durationType = $("select[name='symptoms[3][2]']").val();
+           var sym_a4_description = $("textarea[name='symptoms[3][3]']").val();
+
+           if (sym_a4_durationValue !== "" || sym_a4_durationType !== "" || sym_a4_description !== "") {
+              
+               if(isChecked_sym_a4 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Scrotal pain fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a4');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  associated with vertigo or drawziness end 
+
+
+
+//  associated with blurring / visual disturbances start
+var isChecked_sym_a5 = $("#sym_a5").is(":checked");
+           
+           var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
+           
+           var sym_a5_durationType = $("select[name='symptoms[4][2]']").val();
+           var sym_a5_description = $("textarea[name='symptoms[4][3]']").val();
+
+           if (sym_a5_durationValue !== "" || sym_a5_durationType !== "" || sym_a5_description !== "") {
+              
+               if(isChecked_sym_a5 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Groin / thigh pain fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a5');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  associated with blurring / visual disturbances end 
+
+
+
+//  Sleep disturbance start
+var isChecked_sym_a75 = $("#sym_a75").is(":checked");
+           
+           var sym_a75_durationValue = $("select[name='symptoms[5][1]']").val();
+           
+           var sym_a75_durationType = $("select[name='symptoms[5][2]']").val();
+           var sym_a75_description = $("textarea[name='symptoms[5][3]']").val();
+
+           if (sym_a75_durationValue !== "" || sym_a75_durationType !== "" || sym_a75_description !== "") {
+              
+               if(isChecked_sym_a75 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Erectile dysfunction fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a75');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Sleep disturbance end 
+
+
+
+//  Lethargy start
+var isChecked_sym_a7 = $("#sym_a7").is(":checked");
+           
+           var sym_a7_durationValue = $("select[name='symptoms[6][1]']").val();
+           
+           var sym_a7_durationType = $("select[name='symptoms[6][2]']").val();
+           var sym_a7_description = $("textarea[name='symptoms[6][3]']").val();
+
+           if (sym_a7_durationValue !== "" || sym_a7_durationType !== "" || sym_a7_description !== "") {
+              
+               if(isChecked_sym_a7 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Infertility fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a7');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Lethargy end 
+
+
+
+//  Burning Micturation start
+var isChecked_sym_a7Fatigue = $("#sym_a7Fatigue").is(":checked");
+           
+           var sym_a7Fatigue_durationValue = $("select[name='symptoms[7][1]']").val();
+           
+           var sym_a7Fatigue_durationType = $("select[name='symptoms[7][2]']").val();
+           var sym_a7Fatigue_description = $("textarea[name='symptoms[7][3]']").val();
+
+           if (sym_a7Fatigue_durationValue !== "" || sym_a7Fatigue_durationType !== "" || sym_a7Fatigue_description !== "") {
+              
+               if(isChecked_sym_a7Fatigue ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Burning Micturation fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a7Fatigue');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Burning Micturation end 
+
+
+
+//  Pain during defecation start
+var isChecked_8Painduringdefecation = $("#sym_8Painduringdefecation").is(":checked");
+           
+           var _8Painduringdefecation_durationValue = $("select[name='symptoms[8][1]']").val();
+           
+           var _8Painduringdefecation_durationType = $("select[name='symptoms[8][2]']").val();
+           var _8Painduringdefecation_description = $("textarea[name='symptoms[8][3]']").val();
+
+           if (_8Painduringdefecation_durationValue !== "" || _8Painduringdefecation_durationType !== "" || _8Painduringdefecation_description !== "") {
+              
+               if(isChecked_8Painduringdefecation ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Pain during defecation fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_8Painduringdefecation');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Pain during defecation end 
+
+
+//  Recurrent Urinary tract infections start
+var isChecked_8RecurrentUrinarytractinfections = $("#sym_8RecurrentUrinarytractinfections").is(":checked");
+           
+           var _8RecurrentUrinarytractinfections_durationValue = $("select[name='symptoms[9][1]']").val();
+           
+           var _8RecurrentUrinarytractinfections_durationType = $("select[name='symptoms[9][2]']").val();
+           var _8RecurrentUrinarytractinfections_description = $("textarea[name='symptoms[9][3]']").val();
+
+           if (_8RecurrentUrinarytractinfections_durationValue !== "" || _8RecurrentUrinarytractinfections_durationType !== "" || _8RecurrentUrinarytractinfections_description !== "") {
+              
+               if(isChecked_8RecurrentUrinarytractinfections ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Recurrent Urinary tract infections fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_8RecurrentUrinarytractinfections');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Recurrent Urinary tract infections end 
+
+
+//  Other start
+var isChecked_sym_a18 = $("#sym_a18").is(":checked");
+           
+           var sym_a18_durationValue = $("select[name='symptoms[13][1]']").val();
+           
+           var sym_a18_durationType = $("select[name='symptoms[13][2]']").val();
+           var sym_a18_description = $("textarea[name='symptoms[13][3]']").val();
+
+           if (sym_a18_durationValue !== "" || sym_a18_durationType !== "" || sym_a18_description !== "") {
+              
+               if(isChecked_sym_a18 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Other fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a18');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Other end 
+            return true; 
+        }
+
+        
+        $("#storeVaricoceleEmboEligibilityForms").submit(function(event) {
+            
+            event.preventDefault();
+            let formData = new FormData(this);
+            if (!validateForm()) {
+                e.preventDefault(); 
+            } 
+            else {
+                if(validateForm()){
+
+                
+                
+                $.ajax({
+                                url: '{{ route("user.storeVaricoceleEmboEligibilityForms") }}',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(response) {
+                                    
+                                    var patientId = response.patient_id;
+                                    if(response!=''){
+              
+                                        swal.fire(
+              
+                                            'Success',
+              
+                                            'Varicocele Embo form saved successfully!',
+              
+                                            'success'
+              
+                                        ).then(function() {
+                                                
+                                               
+                                            var redirectUrl = "{{ route('user.viewVaricoceleEmboEligibilityForms', ['id' => ':id']) }}";
+                                            redirectUrl = redirectUrl.replace(':id', patientId);
+                                            window.location.href = redirectUrl;
+                                            });
+                                       
+                                       
+                                        }
+                                }
+                             
+                                
+                            });
+              
+                
+            }
+        }
+        });
+    });
 </script>
     @endpush
 @endsection

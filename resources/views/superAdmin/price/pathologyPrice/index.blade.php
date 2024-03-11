@@ -62,7 +62,7 @@
                                                     <td>{{ $key+1 }}</td>
                                                     <td>{{ $allpathology_price_list->test_name }}</td>
                                                     <td>{{ $allpathology_price_list->test_code }}</td>
-                                                    <td>17 {{ $allpathology_price_list->included_tests }}</td>
+                                                    <td>{{ $allpathology_price_list->included_tests }}</td>
                                                     <td>{{ $allpathology_price_list->turnaround }}</td>
                                                     <td>{{ $allpathology_price_list->note }}</td>
                                                     <td>{{ $allpathology_price_list->price }}</td>

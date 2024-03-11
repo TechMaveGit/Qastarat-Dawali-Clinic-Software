@@ -31,15 +31,16 @@ class LoginController extends Controller
     //
     public function index(Request $request)
     {
-        $doctor=Doctor::query();
+       $doctor=Doctor::query();
        $data['patients']=User::count();
        $data['doctors']=$doctor->where('user_type','doctor')->count();
-       $data['nurses']=$doctor->where('user_type','nurse')->count();
-       $data['telecallers']=$doctor->where('user_type','telecaller')->count();
-       $data['accountants']=$doctor->where('user_type','accountant')->count();
-       $data['labs']=$doctor->where('user_type','lab')->count();
-       $data['adddoctor']=Doctor::where('user_type','doctor')->get();
-     
+       $data['nurses']=Doctor::where('user_type','nurse')->count();
+       $data['telecallers']=Doctor::where('user_type','telecaller')->count();
+       $data['accountants']=Doctor::where('user_type','accountant')->count();
+       $data['radiology']=Doctor::where('user_type','radiology')->count();
+       $data['pathology']=Doctor::where('user_type','pathology')->count();
+       $data['adddoctor']=Doctor::where('user_type','doctor')->orderBy('id','desc')->get();
+
         return view('superAdmin.index',$data);
     }
     public function logout(Request $request)

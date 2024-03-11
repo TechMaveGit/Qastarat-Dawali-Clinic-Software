@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/superAdmin/login/css/fontawesome-all.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/superAdmin/login/css/iofrm-style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/superAdmin/login/css/iofrm-theme12.css')}}">
+    <link rel="icon" href="{{ asset('public/superAdmin/images/newimages/iconlogo.png')}}">
 </head>
 <body>
     <div class="form-body">
@@ -18,10 +19,11 @@
                         <div class="website-logo-inside">
                             <a href="{{ url('/') }}">
                                 <div class="logo">
-                                    <img class="logo-size" src="{{ asset('public/superAdmin/login/new-img/logo.png')}}" alt="">
+                                    <img class="logo-size" src="{{ asset('public/superAdmin/images/newimages/qastara-logo.png') }}" alt="">
                                 </div>
                             </a>
                         </div>
+
                         <h3>Get more things done with Loggin platform.</h3>
                         <!-- <p>Access to the most powerfull tool in the entire design and web industry.</p> -->
                         {{-- <div class="page-links">

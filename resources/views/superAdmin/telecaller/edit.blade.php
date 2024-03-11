@@ -18,7 +18,7 @@
             <section class="content">
                 <div class="row">
                     <div class="col-12">
-                        <form action="{{ route('telecallers.edit', ['id' => $telecaller->id]) }}" method="POST">
+                        <form action="{{ route('telecallers.edit', ['id' => $telecaller->id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="box">
                                 <div class="box-body">
@@ -88,7 +88,7 @@
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
                                                     <input type="text" value="{{ $telecaller->birth_date }}"
-                                                        name="birth_date" class="form-control pull-right" id="datepicker">
+                                                        name="birth_date" class="form-control pull-right datepicker" id="">
                                                     @error('birth_date')
                                                         <span class="error text-danger">{{ $message }}</span>
                                                     @enderror
@@ -116,7 +116,55 @@
                                             </div>
                                             <!-- /.form-group -->
                                         </div>
-
+                                        <div class="col-lg-12 mt-3">
+                                            <div class="title_head">
+                                                <h4>Phone & Email</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Email Address</label>
+                                                <input type="text" value="{{ $telecaller->email }}"
+                                                    class="form-control" placeholder="" name="email">
+                                                @error('email')
+                                                    <span class="error text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Password <span class="clr"></span></label>
+                                                <div class="wrap-input">
+                                                    <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                                    <span class="btn-show-pass ico-20 " >
+                                                        <span class="  eye-pass flaticon-visibility "></span>
+                                                    </span>
+                                                </div>
+                                                @error('password')
+                                                    <span class="error text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Mobile Phone</label>
+                                                <input type="text" value="{{ $telecaller->mobile_no }}"
+                                                    class="form-control" placeholder="" name="mobile_no" minlength="10" maxlength="15">
+                                                @error('mobile_no')
+                                                    <span class="error text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Landline</label>
+                                                <input type="text" value="{{ $telecaller->landline }}"
+                                                    class="form-control" placeholder="" name="landline">
+                                                @error('landline')
+                                                    <span class="error text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="col-lg-12 mt-3">
                                             <div class="title_head">
                                                 <h4>Postal Address</h4>
@@ -126,7 +174,7 @@
                                             <div class="form-group">
                                                 <label class="form-label">Post Code</label>
                                                 <input type="text" value="{{ $telecaller->post_code }}"
-                                                    class="form-control" placeholder="" name="post_code">
+                                                    class="form-control" placeholder="" name="post_code" minlength="4" maxlength="8">
                                                 @error('post_code')
                                                     <span class="error text-danger">{{ $message }}</span>
                                                 @enderror
@@ -155,47 +203,20 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="form-label">Country</label>
-                                                <select class="form-control" id="countries" style="width: 100%;">
-
+                                                <select class="form-control" name="country" id="countries" style="width: 100%;">
+                                                    @if (isset($telecaller->country) && !empty($telecaller->country))
+                                                    <option value="{{ $telecaller->country }}" {{ $telecaller->country ? 'selected' : '' }}>{{ $telecaller->country }}</option>
+                                                    @endif
+                                                    <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
+                                                    <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
                                                 </select>
+                                                @error('country')
+                                                <span class="error text-danger">{{ $message }}</span>
+                                            @enderror
                                             </div>
-                                            <!-- /.form-group -->
+                                        <!-- /.form-group -->
                                         </div>
-                                        <div class="col-lg-12 mt-3">
-                                            <div class="title_head">
-                                                <h4>Phone & Email</h4>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label class="form-label">Email Address</label>
-                                                <input type="text" value="{{ $telecaller->email }}"
-                                                    class="form-control" placeholder="" name="email">
-                                                @error('email')
-                                                    <span class="error text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label class="form-label">Mobile Phone</label>
-                                                <input type="text" value="{{ $telecaller->mobile_no }}"
-                                                    class="form-control" placeholder="" name="mobile_no">
-                                                @error('mobile_no')
-                                                    <span class="error text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label class="form-label">Landline</label>
-                                                <input type="text" value="{{ $telecaller->landline }}"
-                                                    class="form-control" placeholder="" name="landline">
-                                                @error('landline')
-                                                    <span class="error text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-lg-12 mt-3">
                                             <div class="title_head">
                                                 <h4>Educational Background</h4>
@@ -215,10 +236,10 @@
 
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="form-label">Qualifications</label>
-                                                <input type="text" value="{{ $telecaller->qualifications }}"
-                                                    class="form-control" placeholder="" name="qualifications">
-                                                @error('qualifications')
+                                                <label class="form-label">Degree</label>
+                                                <input type="text" value="{{ $telecaller->Degree }}"
+                                                    class="form-control" placeholder="" name="Degree">
+                                                @error('Degree')
                                                     <span class="error text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -285,6 +306,13 @@
                                                 @enderror
                                             </div>
                                             <!-- /.form-group -->
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Profile Image</label>
+                                                  <input type="file" class="dropify" name="patient_profile_img" accept="image/*"/>
+                                            </div>
                                         </div>
 
                                     </div>

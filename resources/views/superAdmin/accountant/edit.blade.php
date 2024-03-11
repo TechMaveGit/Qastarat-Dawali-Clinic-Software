@@ -10,11 +10,11 @@
   <!-- Content Header (Page header) -->
   <div class="content-header">
       <div class="d-flex">
-      <h4 class="page-title">Edit Doctor</h4>
+      <h4 class="page-title">Edit Staff</h4>
       <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Doctor</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Edit Doctor</li>
+                  <li class="breadcrumb-item"><a href="{{ route('accountants.index') }}">Accountant</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Edit Accountant</li>
               </ol>
           </nav>
       </div>
@@ -23,7 +23,7 @@
       <section class="content">
       <div class="row">
 
-   <form action="{{ route('accountants.edit',['id'=>$id]) }}" method="post"> @csrf
+   <form action="{{ route('accountants.edit',['id'=>$id]) }}" method="post" enctype="multipart/form-data"> @csrf
       <div class="col-12">
           <div class="box">
               <div class="box-body">
@@ -72,7 +72,7 @@
                                   <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" value="{{ $accountant->birth_date }}" name="birth_date" class="form-control pull-right" id="datepicker">
+                                  <input type="text" value="{{ $accountant->birth_date }}" name="birth_date" class="form-control pull-right datepicker">
                                   @error('birth_date')
                                   <span class="error text-danger">{{ $message }}</span>
                               @enderror
@@ -94,7 +94,52 @@
                           </div>
                       <!-- /.form-group -->
                       </div>
-
+                      <div class="col-lg-12 mt-3">
+                        <div class="title_head">
+                            <h4>Phone & Email</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="text" value="{{ $accountant->email }}" name="email" class="form-control" placeholder="">
+                        @error('email')
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                          <label class="form-label">Password <span class="clr"></span></label>
+                          <div class="wrap-input">
+                              <input type="password" name="password" id="password" class="form-control" placeholder="">
+                              <span class="btn-show-pass ico-20 " >
+                                  <span class="  eye-pass flaticon-visibility "></span>
+                              </span>
+                          </div>
+                          @error('password')
+                              <span class="error text-danger">{{ $message }}</span>
+                          @enderror
+                      </div>
+                  </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Mobile Phone</label>
+                        <input type="text" value="{{ $accountant->mobile_no }}" name="mobile_no" class="form-control" placeholder="" minlength="10" maxlength="15">
+                        @error('mobile_no')
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Landline</label>
+                        <input type="text" value="{{ $accountant->landline }}" name="landline" class="form-control" placeholder="">
+                        @error('landline')
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
+                    </div>
+                    </div>
                       <div class="col-lg-12 mt-3">
                           <div class="title_head">
                               <h4>Postal Address</h4>
@@ -103,7 +148,8 @@
                       <div class="col-md-3">
                       <div class="form-group">
                           <label class="form-label">Post Code</label>
-                          <input type="text" value="{{ $accountant->post_code }}" name="post_code" class="form-control" placeholder="">
+                          <input type="text" value="{{ $accountant->post_code }}" name="post_code" class="form-control" placeholder="" minlength="4" maxlength="8"
+                          >
                           @error('post_code')
                           <span class="error text-danger">{{ $message }}</span>
                       @enderror
@@ -128,110 +174,79 @@
                       </div>
                       </div>
                       <div class="col-md-3">
-                          <div class="form-group">
-                              <label class="form-label">Country</label>
-                              <select class="form-control" id="countries" name="country" style="width: 100%;">
-                                  {{-- <option value=""></option>
-                                  <option value="">Female</option> --}}
-                              </select>
-                              @error('country')
-                              <span class="error text-danger">{{ $message }}</span>
-                          @enderror
-                          </div>
-                      <!-- /.form-group -->
-                      </div>
+                        <div class="form-group">
+                            <label class="form-label">Country</label>
+                            <select class="form-control" name="country" id="countries" style="width: 100%;">
+                                @if (isset($accountant->country) && !empty($accountant->country))
+                                <option value="{{ $accountant->country }}" {{ $accountant->country ? 'selected' : '' }}>{{ $accountant->country }}</option>
+                                @endif
+                                <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
+                                <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
+                            </select>
+                            @error('country')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                    <!-- /.form-group -->
+                    </div>
+                     
                       <div class="col-lg-12 mt-3">
-                          <div class="title_head">
-                              <h4>Phone & Email</h4>
-                          </div>
-                      </div>
-                      <div class="col-md-3">
+                        <div class="title_head">
+                            <h4>Educational Background</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Name of University/College</label>
+                        <input type="text" name="college_name" value="{{ $accountant->college_name }}" class="form-control" placeholder="">
+                        @error('college_name')
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Degree</label>
+                        <input type="text" name="Degree" value="{{ $accountant->Degree }}" class="form-control" placeholder="">
+                        @error('Degree')
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Graduation Year</label>
+                        <input type="text" name="graduation_year" value="{{ $accountant->graduation_year }}" class="form-control" placeholder="">
+                        @error('graduation_year')
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Soft Skill</label>
+                        <input type="text" name="soft_skill" value="{{ $accountant->soft_skill }}" class="form-control" placeholder="">
+                        @error('soft_skill')
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Work Experience</label>
+                        <input type="text" name="experience" value="{{ $accountant->experience }}"class="form-control" placeholder="">
+                        @error('experience')
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
+                    </div>
+                    </div>
+                    
+                    <div class="col-lg-12">
                       <div class="form-group">
-                          <label class="form-label">Email Address</label>
-                          <input type="text" value="{{ $accountant->email }}" name="email" class="form-control" placeholder="">
-                          @error('email')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
+                          <label class="form-label">Profile Image</label>
+                            <input type="file" class="dropify" name="patient_profile_img" accept="image/*"/>
                       </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Mobile Phone</label>
-                          <input type="text" value="{{ $accountant->mobile_no }}" name="mobile_no" class="form-control" placeholder="">
-                          @error('mobile_no')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Landline</label>
-                          <input type="text" value="{{ $accountant->landline }}" name="landline" class="form-control" placeholder="">
-                          @error('landline')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
-                      <div class="col-lg-12 mt-3">
-                          <div class="title_head">
-                              <h4>Skills Info.</h4>
-                          </div>
-                      </div>
-
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Specialty</label>
-                          <input type="text" value="{{ $accountant->specialty }}" name="specialty" class="form-control" placeholder="">
-                          @error('specialty')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Qualifications</label>
-                          <input type="text" value="{{ $accountant->qualifications }}" name="qualifications" class="form-control" placeholder="">
-                          @error('qualifications')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Experience</label>
-                          <input type="text" value="{{ $accountant->experience }}" name="experience" class="form-control" placeholder="">
-                          @error('experience')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Working Hours</label>
-                          <input type="text" value="{{ $accountant->working_hours }}" name="working_hours" class="form-control" placeholder="">
-                          @error('working_hours')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Languages Spoken</label>
-                          <input type="text" value="{{ $accountant->languages_spoken }}" name="languages_spoken" class="form-control" placeholder="">
-                          @error('languages_spoken')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">License Number</label>
-                          <input type="text" value="{{ $accountant->lincense_no }}" name="lincense_no" class="form-control" placeholder="">
-                          @error('lincense_no')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
+                  </div>
                       {{-- <div class="col-lg-12 mt-3">
                           <div class="title_head">
                               <h4>Document</h4>

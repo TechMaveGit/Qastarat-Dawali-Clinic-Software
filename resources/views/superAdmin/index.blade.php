@@ -36,17 +36,21 @@
 
 							<div class="box">
 
-								<div class="box-body text-center">
-
-									<div class="bg-danger-light rounded10 p-20 mx-auto w-100 h-100">
-
+								<div class="box-body ">
+                                   <div class="top_card">
+								   <div class="bg-danger-light rounded10 top_card_img_box">
 										<img src="{{ asset('public/superAdmin/images/newimages/icon-3.svg')}}" class="" alt="" />
 
-									</div>
+										</div>
 
-									<p class="text-fade mt-15 mb-5">Total Patients</p>
+										<div class="top_card_dt">
+										<p class="text-fade mt-15 mb-5">Total Patients</p>
+										<h2 class="mt-0">{{ $patients }}</h2>
+										</div>
+								   </div>
 
-									<h2 class="mt-0">{{ $patients }}</h2>
+
+
 
 								</div>
 
@@ -58,17 +62,17 @@
 
 							<div class="box">
 
-								<div class="box-body text-center">
-
-									<div class="bg-info-light rounded10 p-20 mx-auto w-100 h-100">
-
+								<div class="box-body ">
+									<div class="top_card">
+									<div class="bg-info-light rounded10 top_card_img_box">
 										<img src="{{ asset('public/superAdmin/images/newimages/icon-2.svg')}}" class="" alt="" />
 
+										</div>
+										<div class="top_card_dt">
+										<p class="text-fade mt-15 mb-5">Total Doctor</p>
+										<h2 class="mt-0">{{ $doctors }}</h2>
+										</div>
 									</div>
-
-									<p class="text-fade mt-15 mb-5">Total Doctor</p>
-
-									<h2 class="mt-0">{{ $doctors }}</h2>
 
 								</div>
 
@@ -80,17 +84,20 @@
 
 							<div class="box">
 
-								<div class="box-body text-center">
-
-									<div class="bg-warning-light rounded10 p-20 mx-auto w-100 h-100">
-
+								<div class="box-body ">
+									<div class="top_card">
+									<div class="bg-warning-light rounded10 top_card_img_box">
 										<img src="{{ asset('public/superAdmin/images/newimages/medical-team(2).png')}}" class="" alt="" />
 
+										</div>
+
+										<div class="top_card_dt">
+										<p class="text-fade mt-15 mb-5">Total Staff</p>
+										<h2 class="mt-0">{{ $nurses + $telecallers +  $accountants }}</h2>
+										</div>
 									</div>
 
-									<p class="text-fade mt-15 mb-5">Total Staff</p>
 
-									<h2 class="mt-0">{{ $nurses + $telecallers + $accountants }}</h2>
 
 								</div>
 
@@ -104,17 +111,20 @@
 
 							<div class="box">
 
-								<div class="box-body text-center">
+								<div class="box-body ">
+                                   <div class="top_card">
+                                       <div class="bg-primary-light rounded10 top_card_img_box">
 
-									<div class="bg-primary-light rounded10 p-20 mx-auto w-100 h-100">
+										   <img src="{{ asset('public/superAdmin/images/newimages/flask.png')}}" class="" alt="" />
 
-										<img src="{{ asset('public/superAdmin/images/newimages/flask.png')}}" class="" alt="" />
+									    </div>
 
-									</div>
 
-									<p class="text-fade mt-15 mb-5">Total Lab</p>
-
-									<h2 class="mt-0">{{ $labs }}</h2>
+									<div class="top_card_dt">
+									   <p class="text-fade mt-15 mb-5">Total Lab</p>
+                                       <h2 class="mt-0">{{ $radiology +  $pathology }}</h2>
+										</div>
+                                     </div>
 
 								</div>
 
@@ -150,73 +160,139 @@
 
 
 
-						<div class="col-xl-12 col-12">
-
-							<div class="box">
-
-								<div class="box-header with-border">
-
-									<h4 class="box-title">Doctor List</h4>
+						<div class="col-12">
 
 
 
-								</div>
+<div class="box">
 
-								<div class="box-body">
+   <div class="box-header with-border">
 
-									<div class="inner_doctor_list">
+    <div class="top_area">
 
+    <h3 class="box-title">All Doctors</h3>
 
+    <!-- <a href="{{ route('doctors.create') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add Doctor</a> -->
 
-                                      @forelse ($adddoctor as $alladddoctor)
-
-
-										<div class="d-flex align-items-center mb-30">
-
-											<div class="me-15">
-
-												<img src="{{ asset('public/superAdmin/images/avatar/avatar-1.png')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-
-											</div>
-
-											<div class="doc_dt">
-
-											<div class="d-flex flex-column flex-grow-1 fw-500">
-
-												<a href="#" class="text-dark hover-primary mb-1 fs-16">{{ $alladddoctor->name }}</a>
-
-												<span class="dr_id">{{ $alladddoctor->doctor_id	 }}</span>
-
-												<span class="text-fade">{{ $alladddoctor->qualifications }}</span>
-
-											</div>
-
-											<div class="view_more_btn_">
-
-												<a href="{{ route('doctors.edit',['id'=>$alladddoctor->id]) }}">View More Details</a>
-
-											</div>
-
-											</div>
+    </div>
 
 
 
-										</div>
+   </div>
 
-                                        @empty
+   <!-- /.box-header -->
 
-								<div> No Doctor Found</div>
-                                        @endforelse
+   <div class="box-body pt-0">
+
+       <div class="table-main-box">
+
+         <table id="custom_table" class="custom_table table  table-striped table-hover" style="width:100%">
+
+           <thead>
+
+               <tr>
+
+                   <th>Doctor Id</th>
+
+                   <th>Doctor Name</th>
+                   <th>Specialist</th>
+                   <th>Mobile No.</th>
+
+                   <th>Email Address</th>
+
+                   <th>Postal Code</th>
+
+                   <th>Action</th>
 
 
 
-									</div>
+               </tr>
 
-								</div>
+           </thead>
 
-							</div>
+           <tbody>
 
-						</div>
+
+            @foreach ($adddoctor as $alldoctor)
+
+
+               <tr>
+                   <td hidden></td>
+
+                   <td>{{ $alldoctor->doctor_id }}</td>
+
+                   <td>
+
+                   <div class="patent_detail__">
+
+                    <div class="patient_profile">
+
+                        @if ($alldoctor->patient_profile_img)
+
+                        <img src="{{ asset('/public/assets/doctor_profile/' . $alldoctor->patient_profile_img) }}" alt="">
+
+                        @else
+                        <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+
+                        @endif
+
+                    </div>
+
+                    <div class="patient_name__dt_">
+
+                        <h6>{{ $alldoctor->name }}</h6>
+
+                    </div>
+
+                    </div>
+
+                   </td>
+                   <td>{{ $alldoctor->specialty }}</td>
+
+                   <td>{{ $alldoctor->mobile_no }}</td>
+
+                   <td>{{ $alldoctor->email }}</td>
+
+                   <td>{{ $alldoctor->post_code }}</td>
+
+                   <td>
+
+                   <div class="btn-group">
+
+                        <a class="hover-primary dropdown-toggle no-caret" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
+
+                        <div class="dropdown-menu">
+
+                            <a class="dropdown-item" href="{{ route('doctors.view',['id'=>$alldoctor->id]) }}">View Details</a>
+
+                            <a class="dropdown-item" href="{{ route('doctors.edit',['id'=>$alldoctor->id]) }}">Edit Details</a>
+
+                           {{-- <a class="dropdown-item" href="#">Delete</a> --}}
+
+                        </div>
+                    </div>
+                   </td>
+               </tr>
+
+               @endforeach
+
+           </tbody>
+
+
+
+       </table>
+
+       </div>
+
+   </div>
+
+   <!-- /.box-body -->
+
+ </div>
+
+ <!-- /.box -->
+
+</div>
 
 						</div>
 

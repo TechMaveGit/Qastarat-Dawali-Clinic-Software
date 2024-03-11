@@ -4,7 +4,7 @@ namespace App\Models\patient;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\superAdmin\doctor;
 class Patient_order_lab extends Model
 {
     use HasFactory;
@@ -14,4 +14,11 @@ class Patient_order_lab extends Model
         'order_lab_tests_id'
         
     ];
+    public function lab(){
+        return $this->belongsTo(Order_lab_test::class, 'order_lab_tests_id')->select('id','test_name','duration');
+    }
+    public function doctor(){
+        return $this->belongsTo(doctor::class, 'doctor_id')->select('id','name');
+    }
+
 }

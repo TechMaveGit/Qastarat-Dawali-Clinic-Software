@@ -23,7 +23,7 @@
         <div class="col-12">
 
 
-            <form action="{{ route('patients.edit', ['id' => $patientId->id]) }}" method="post"/>@csrf
+            <form action="{{ route('patients.edit', ['id' => $patientId->id]) }}" method="post" enctype="multipart/form-data">@csrf
             <div class="box">
                 <div class="box-body">
                     <div class="row">
@@ -70,10 +70,10 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" name="birth_date"  value="{{ $patientId->name }}" class="form-control pull-right" id="datepicker">
+                                    <input type="text" name="birth_date"  value="{{ $patientId->birth_date }}" class="form-control pull-right datepicker">
                                     @error('birth_date')
                                     <span class="error text-danger">{{ $message }}</span>
-                                @enderror
+                                   @enderror
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -93,6 +93,77 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Profile Image</label>
+                                  <input type="file" class="dropify1" name="patient_profile_img" id="image" accept="image/*"/>
+                            </div>
+                        </div>
+                        @if (isset($patientId->patient_profile_img) && !empty($patientId->patient_profile_img))
+                        <div class="col-md-3">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">  </label>
+                           <div class="col-md-10">
+                               <img style="width:100px" id="showImage" class="rounded avatar-lg" src="{{ asset('public/assets/patient_profile/'.$patientId->patient_profile_img ) }}" alt="Profile image">
+                           </div>
+                       </div>
+                       @else
+                       <div class="col-md-3">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">  </label>
+                       <div class="col-md-10">
+                           <img style="width:100px" id="showImage" class="rounded avatar-lg" src="{{ asset('public/superAdmin/images/newimages/avtar.jpg') }}" alt="Profile image">
+                       </div>
+                   </div>
+                        @endif
+
+                        <div class="col-lg-12 mt-3">
+							<div class="title_head">
+								<h4>Phone & Email</h4>
+							</div>
+						</div>
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="text" value="{{ $patientId->email }}" name="email" class="form-control" placeholder="">
+                            @error('email')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Password <span class="clr"></span></label>
+                                <div class="wrap-input">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                    <span class="btn-show-pass ico-20 " >
+                                        <span class="  eye-pass flaticon-visibility "></span>
+                                    </span>
+                                </div>
+                                @error('password')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Mobile Phone</label>
+                            <input type="text" value="{{ $patientId->mobile_no }}" name="mobile_no" class="form-control" placeholder="" minlength="10" maxlength="15">
+                            @error('mobile_no')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                        </div>
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Landline</label>
+                            <input type="text" value="{{ $patientId->landline }}" name="landline" class="form-control" placeholder="">
+                            @error('landline')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                        </div>
+
+
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Postal Address</h4>
@@ -101,7 +172,7 @@
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Post Code</label>
-                            <input type="text" value="{{ $patientId->post_code }}" name="post_code" class="form-control" placeholder="">
+                            <input type="text" value="{{ $patientId->post_code }}" name="post_code" class="form-control" placeholder="" minlength="4" maxlength="8">
                             @error('post_code')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -137,38 +208,12 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
-                        <div class="col-lg-12 mt-3">
-							<div class="title_head">
-								<h4>Phone & Email</h4>
-							</div>
-						</div>
-                        <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="text" value="{{ $patientId->email }}" name="email" class="form-control" placeholder="">
-                            @error('email')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                        </div>
-                        </div>
-                        <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Mobile Phone</label>
-                            <input type="text" value="{{ $patientId->mobile_no }}" name="mobile_no" class="form-control" placeholder="">
-                            @error('mobile_no')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                        </div>
-                        </div>
-                        <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Landline</label>
-                            <input type="text" value="{{ $patientId->landline }}" name="landline" class="form-control" placeholder="">
-                            @error('landline')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                        </div>
-                        </div>
+
+
+                       
+                       
+
+                       
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Document Type</h4>

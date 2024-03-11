@@ -1,3 +1,3 @@
-@include('superAdmin.superAdminLayout.header')
+@include('superAdmin.partical.header')
 @yield('content')
-@include('superAdmin.superAdminLayout.footer')
+@include('superAdmin.partical.footer')

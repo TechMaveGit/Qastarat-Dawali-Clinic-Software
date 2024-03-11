@@ -11,5 +11,9 @@ class Order_imaginary_exam_test extends Model
     protected $table = "order_imaginary_exam_tests";
     protected $fillable = [
         'test_name',
+        'duration',
     ];
+
+
+
 }

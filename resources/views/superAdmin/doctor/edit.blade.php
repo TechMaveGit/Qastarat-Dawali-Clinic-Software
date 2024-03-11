@@ -12,7 +12,7 @@
         <h4 class="page-title">Edit Doctor</h4>
         <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Doctor</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Doctor</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Doctor</li>
                 </ol>
             </nav>
@@ -22,7 +22,7 @@
         <section class="content">
         <div class="row">
 
-     <form action="{{ route('doctors.edit',['id'=>$id]) }}" method="post"> @csrf
+     <form action="{{ route('doctors.edit',['id'=>$id]) }}" method="post" enctype="multipart/form-data"> @csrf
         <div class="col-12">
             <div class="box">
                 <div class="box-body">
@@ -94,6 +94,57 @@
                         <!-- /.form-group -->
                         </div>
 
+
+
+                        
+                        <div class="col-lg-12 mt-3">
+							<div class="title_head">
+								<h4>Phone & Email</h4>
+							</div>
+						</div>
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="text" value="{{ $doctor->email }}" class="form-control" placeholder="" name="email">
+                            @error('email')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Password <span class="clr">*</span></label>
+                                <div class="wrap-input">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                    <span class="btn-show-pass ico-20 " >
+                                        <span class="  eye-pass flaticon-visibility "></span>
+                                    </span>
+                                </div>
+                                @error('password')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Mobile Phone</label>
+                            <input type="text" value="{{ $doctor->mobile_no }}" class="form-control" placeholder="" name="mobile_no" minlength="10" maxlength="15">
+                            @error('mobile_no')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                        </div>
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Landline</label>
+                            <input type="text" value="{{ $doctor->landline }}" class="form-control" placeholder="" name="landline">
+                            @error('landline')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                        </div>
+
+
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Postal Address</h4>
@@ -102,7 +153,7 @@
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Post Code</label>
-                            <input type="text" value="{{ $doctor->post_code }}" class="form-control" placeholder="" name="post_code">
+                            <input type="text" value="{{ $doctor->post_code }}" class="form-control" placeholder="" name="post_code" minlength="4" maxlength="8">
                             @error('post_code')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
@@ -136,38 +187,7 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
-                        <div class="col-lg-12 mt-3">
-							<div class="title_head">
-								<h4>Phone & Email</h4>
-							</div>
-						</div>
-                        <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="text" value="{{ $doctor->email }}" class="form-control" placeholder="" name="email">
-                            @error('email')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                        </div>
-                        </div>
-                        <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Mobile Phone</label>
-                            <input type="text" value="{{ $doctor->mobile_no }}" class="form-control" placeholder="" name="mobile_no">
-                            @error('mobile_no')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                        </div>
-                        </div>
-                        <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Landline</label>
-                            <input type="text" value="{{ $doctor->landline }}" class="form-control" placeholder="" name="landline">
-                            @error('landline')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                        </div>
-                        </div>
+                        
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Skills Info.</h4>
@@ -227,23 +247,63 @@
                         @enderror
                         </div>
                         </div>
-                        {{-- <div class="col-lg-12 mt-3">
-							<div class="title_head">
-								<h4>Document</h4>
-							</div>
-						</div>
-                      <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-label">License Upload</label>
-                        <input name="file1" type="file" class="dropify" data-height="100" />
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Select Role</label>
+                                <select class="form-control select2" name="role_id" style="width: 100%;">
+                                    <option value="">Select any one</option>
+                                    @forelse ($roles as $role)
+                                        <option value="{{ $role->id }}" {{ (old('role_id') == $role->id || isset($doctor) && $doctor->role_id == $role->id) ? 'selected' : '' }}>{{ $role->name }}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                                
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-label">Academic Document Upload</label>
-                        <input name="file1" type="file" class="dropify" data-height="100" />
+                        @php
+                        $doctors = \App\Models\superAdmin\Doctor::where('user_type','nurse')->get();
+                        $doctor_nurses=DB::table('doctor_nurse')->select('id','doctor_id','nurse_id')->where('doctor_id',@$id)->get();
+                        
+                        
+                         @endphp
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Select Nurse<span class="clr"> * </span></label>
+                                <select class="form-control select2 form-select" name="nurse[]" style="width: 100%;" multiple>
+                                    <option value="">Select Any One </option>
+                                    @forelse ($doctors as $doctor)
+                                        @php
+                                            $selected = '';
+                                            foreach ($doctor_nurses as $dn) {
+                                                if ($dn->nurse_id == $doctor->id) {
+                                                    $selected = 'selected';
+                                                    
+                                                }
+                                            }
+                                        @endphp
+                                        <option value="{{ $doctor->id }}" {{ $selected }}>{{ $doctor->name }} ({{ $doctor->email }})</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                                
+                            </div>
+                                @error('nurse')
+                                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                @enderror
                         </div>
-                      </div> --}}
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-label">License Upload</label>
+                              <input  type="file" class="dropify" data-height="100" name="LicenseUpload"/>
+                              </div>
+                            </div> 
+                             <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-label">Academic Document Upload</label>
+                              <input  type="file" class="dropify" data-height="100" name="AcademicDocumentUpload"/>
+                              </div>
+                            </div>
 
 
 

@@ -7,7 +7,13 @@ Calender | QASTARAT & DAWALI CLINICS
 	{{-- add here --}}
 @endpush
 
-
+<style>
+    #calendar .btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    background: #214874;
+}
+</style>
 
 
 <div class="sub_bnr patient_recordsbanner" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
@@ -26,15 +32,19 @@ Calender | QASTARAT & DAWALI CLINICS
 
 
 
+
+
+
+
 <div class="appoinmentcalendar_area">
     <div class="container">
-
+        
     <div class="row mb-4">
                             <div class="col-xl-3">
                                 <div class="card h-100">
                                     <div class="card-body">
-
-
+                                    
+            
                                         <div id="external-events">
                                             <!-- <br>
                                             <p class="text-muted">Drag and drop your event or click in the calendar</p> -->
@@ -104,7 +114,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                         </div>
 
 
-
+                                        
                                     </div>
                                 </div>
                             </div> <!-- end col-->
@@ -129,7 +139,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                         <h5 class="modal-title" id="modal-title">Event</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-
+            
                                     <div class="modal-body p-4">
                                         <form class="needs-validation" name="event-form" id="form-event" novalidate>
                                             <div class="row">
@@ -142,12 +152,12 @@ Calender | QASTARAT & DAWALI CLINICS
                                                         </div>
                                                     </div>
                                                 </div>  -->
-
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="row appointment_book">
                                                         <h6 class="book_appin_title">Book Appointment</h6>
                                                         <div class="col-12 mb-3">
-
+                                                 
                                                         <label class="form-label">Priority</label>
                                                         <select class="form-control select2_appointment" name="category" id="event-category">
                                                             <option  selected> --Select-- </option>
@@ -160,7 +170,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                         </select>
                                                         <!-- <div class="invalid-feedback">Please select a valid event
                                                             category</div> -->
-
+                                                  
                                                 </div>
                                                         <div class="col-lg-6">
                                                         <div class="inner_element">
@@ -219,7 +229,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                         <div class="col-lg-6">
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
-
+                                                                        
                                                                         <input type="text" class="form-control datepickerInput" placeholder="17 Nov,2023">
                                                                     </div>
                                                                 </div>
@@ -227,7 +237,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                             <div class="col-lg-6">
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
-
+                                                                        
                                                                         <input type="text" class="form-control timepicker-custom" placeholder="12:00">
                                                                     </div>
                                                                 </div>
@@ -235,7 +245,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                             <div class="col-lg-6">
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
-
+                                                                        
                                                                         <input type="text" class="form-control datepickerInput" placeholder="17 Nov,2023">
                                                                     </div>
                                                                 </div>
@@ -243,7 +253,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                             <div class="col-lg-6">
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
-
+                                                                        
                                                                         <input type="text" class="form-control timepicker-custom" placeholder="12:00">
                                                                     </div>
                                                                 </div>
@@ -251,7 +261,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                             <div class="col-lg-4">
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
-
+                                                                        
                                                                         <input type="text" class="form-control" placeholder="Cost">
                                                                     </div>
                                                                 </div>
@@ -259,7 +269,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                             <div class="col-lg-4">
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
-
+                                                                        
                                                                         <input type="text" class="form-control" placeholder="Code">
                                                                     </div>
                                                                 </div>
@@ -284,7 +294,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                         </div>
                                                     </div>
                                                     </div>
-                                            </div>
+                                            </div> 
                                             <div class="row mt-2">
                                                 <div class="col-6">
                                                     <button type="button" class="btn btn_calender_cus btn-danger"
@@ -294,40 +304,37 @@ Calender | QASTARAT & DAWALI CLINICS
                                                     <button type="button" class="btn btn_calender_cus btn-light me-1"
                                                         data-bs-dismiss="modal">Close</button>
                                                     <button type="submit" class="btn btn_calender_cus btn-success" id="btn-save-event">Book</button>
-                                                </div>
-                                            </div>
+                                                </div> 
+                                            </div> 
                                         </form>
                                     </div>
                                 </div>
-
+                               
                             </div>
-
+                           
                         </div>
-                        <!-- end modal
-
-
-
+<!-- end modal-->
+                       
 
 @push('custom-js')
 
- <!-- Plugin css -->
- <link rel="stylesheet" href="{{ url('assets') }}/libs/fullcalendar/core/main.min.css" type="text/css">
- <link rel="stylesheet" href="{{ url('assets') }}/libs/fullcalendar/daygrid/main.min.css" type="text/css">
- <link rel="stylesheet" href="{{ url('assets') }}/libs/fullcalendar/bootstrap/main.min.css" type="text/css">
- <link rel="stylesheet" href="{{ url('assets') }}/libs/fullcalendar/timegrid/main.min.css" type="text/css">
-  <!-- plugin js -->
-  <script src="{{ url('assets') }}/libs/moment/min/moment.min.js"></script>
- <script src="{{ url('assets') }}/libs/jquery-ui-dist/jquery-ui.min.js"></script>
- <script src="{{ url('assets') }}/libs/fullcalendar/core/main.min.js"></script>
- <script src="{{ url('assets') }}/libs/fullcalendar/bootstrap/main.min.js"></script>
- <script src="{{ url('assets') }}/libs/fullcalendar/daygrid/main.min.js"></script>
- <script src="{{ url('assets') }}/libs/fullcalendar/timegrid/main.min.js"></script>
- <script src="{{ url('assets') }}/libs/fullcalendar/interaction/main.min.js"></script>
- <!-- Calendar init -->
- <script src="{{ url('assets') }}/js/calendar.init.js"></script>
- <script src="{{ url('assets') }}/js/app.js"></script>
 
- <!-- active side filter -->
+ <link rel="stylesheet" href="{{ url('public/assets') }}/libs/fullcalendar/core/main.min.css" type="text/css">
+ <link rel="stylesheet" href="{{ url('public/assets') }}/libs/fullcalendar/daygrid/main.min.css" type="text/css">
+ <link rel="stylesheet" href="{{ url('public/assets') }}/libs/fullcalendar/bootstrap/main.min.css" type="text/css">
+ <link rel="stylesheet" href="{{ url('public/assets') }}/libs/fullcalendar/timegrid/main.min.css" type="text/css">
+
+  <script src="{{ url('public/assets') }}/libs/moment/min/moment.min.js"></script>
+ <script src="{{ url('public/assets') }}/libs/jquery-ui-dist/jquery-ui.min.js"></script>
+ <script src="{{ url('public/assets') }}/libs/fullcalendar/core/main.min.js"></script>
+ <script src="{{ url('public/assets') }}/libs/fullcalendar/bootstrap/main.min.js"></script>
+ <script src="{{ url('public/assets') }}/libs/fullcalendar/daygrid/main.min.js"></script>
+ <script src="{{ url('public/assets') }}/libs/fullcalendar/timegrid/main.min.js"></script>
+ <script src="{{ url('public/assets') }}/libs/fullcalendar/interaction/main.min.js"></script>
+ 
+ <script src="{{ url('public/assets') }}/js/calendar.init.js"></script>
+ <script src="{{ url('public/assets') }}/js/app.js"></script>
+
  <script>
      document.addEventListener('DOMContentLoaded', function () {
    // Get all list items
@@ -349,11 +356,11 @@ Calender | QASTARAT & DAWALI CLINICS
 
  </script>
 
- <!-- open side calendar js -->
- <!-- Flatpickr Styles -->
+ 
+ 
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
- <!-- Flatpickr Script -->
+ 
  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
  <script>
@@ -367,4 +374,5 @@ Calender | QASTARAT & DAWALI CLINICS
    });
  </script>
 @endpush
+
 @endsection

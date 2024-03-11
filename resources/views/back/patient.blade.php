@@ -444,23 +444,27 @@
                                 }
                             },
                             error: function(xhr, status, error) {
-                                console.error(xhr.responseText);
-                                if (xhr.status == 405) {
-                                    swal.fire('Error!',
-                                        'The email is already in use. Please use a different email.',
-                                        'error');
+                                
+                                if (xhr.status == 422) {
+                                   
+                                    var errors = JSON.parse(xhr.responseText);
+                                    console.log('validation-error',errors);
+                                    var errorMessage = 'Validation error(s):<br>';
+
+                                    $.each(errors.error, function(key, value) {
+                                        errorMessage += value + '<br>';
+                                    });
+
+                                    swal.fire('Error!', errorMessage, 'error');
                                 } else if (xhr.status == 404) {
-                                    swal.fire('Error!', 'The requested resource was not found.',
-                                        'error');
+                                    swal.fire('Error!', 'The requested resource was not found.', 'error');
                                 } else if (xhr.status == 500) {
-                                    swal.fire('Error!',
-                                        'Internal server error. Please try again later.',
-                                        'error');
+                                    swal.fire('Error!', 'Internal server error. Please try again later.', 'error');
                                 } else {
-                                    swal.fire('Error!',
-                                        'An error occurred. Please try again later.', 'error');
+                                    swal.fire('Error!', 'hhhh An error occurred. Please try again later.', 'error');
                                 }
                             }
+
 
 
 
@@ -609,34 +613,42 @@
                         allinvoice_table.clear().draw();
 
 
-                        if (data && data.length > 0) {
-                            data.forEach(function(patient, index) {
+                        if (data && Object.keys(data).length > 0) {
+                            Object.values(data).forEach(function(patient, index) {
+                           
+                               
+                                let row = '<tr>' +
+                                                    '<td hidden></td>' +
+                                                    '<td class="sorting_1">' +  patient.patient_id  + '</td>' +
+                                                    '<td>' +
+                                                    '<div class="patent_detail__">' +
+                                                    '<div class="patient_profile">' +
+                                                    '<img src="images/new-images/avtar.jpg" alt="">' +
+                                                    '</div>' +
+                                                    '<div class="patient_name__dt_">' +
+                                                    '<h6>' + patient.name + '</h6>' +
+                                                    '</div>' +
+                                                    '</div>' +
+                                                    '</td>' +
+                                                    '<td>' + patient.mobile_no + '</td>' +
+                                                    '<td>' + patient.email + '</td>' +
+                                                    '<td>' + patient.post_code + '</td>' +
+                                                    '<td>';
 
-                                let row  = '<tr >' +
-                                    '<td hidden></td>' +
-                                    '<td class="sorting_1">' + patient.patient_id + '</td>' +
-                                    '<td>' +
-                                    '<div class="patent_detail__">' +
-                                    '<div class="patient_profile">' +
-                                    '<img src="images/new-images/avtar.jpg" alt="">' +
-                                    '</div>' +
-                                    '<div class="patient_name__dt_">' +
-                                    '<h6>' + patient.name + '</h6>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</td>' +
-                                    '<td>' + patient.mobile_no + '</td>' +
-                                    '<td>' + patient.email + '</td>' +
-                                    '<td>' + patient.post_code + '</td>' +
-                                    '<td>' +
-                                    '<a href="' + patient.id +
-                                    '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
-                                    '<i class="fa-regular fa-file-lines"></i> View Invoice</a>' +
-                                    '<a href="patient-medical-detail/' + patient.id +
-                                    '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
-                                    '<i class="fa-regular fa-rectangle-list"></i> View Medical Record </a>' +
-                                    '</td>' +
-                                    '</tr>';
+                                                @if(in_array("3", $arr))
+                                                    row += '<a href="' + patient.id  +
+                                                        '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
+                                                        '<i class="fa-regular fa-file-lines"></i> View Invoice</a>&nbsp;';
+                                                @endif
+
+                                                @if(in_array("2", $arr))
+                                                    row += '<a href="patient-medical-detail/' +  patient.id  +
+                                                        '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
+                                                        '<i class="fa-regular fa-rectangle-list"></i> View Medical Record </a>';
+                                                @endif
+
+                                                row += '</td></tr>';
+
                                 allinvoice_table.row.add($(row)[0]);
 
 

@@ -4,9 +4,9 @@
 
 
 
-            @php
-            $footer=App\Models\Footer::first();
-            @endphp
+        @php
+            $footer = App\Models\Footer::first();
+        @endphp
 
         <!-- FOOTER CONTENT -->
 
@@ -22,13 +22,15 @@
 
                 <div class="footer-info mb-0">
 
-                    <img class="footer-logo" src="{{ url('public/assets') }}/images/new-images/{{ $footer->img}}" alt="footer-logo">
+                    <img class="footer-logo" src="{{ url('public/assets') }}/images/new-images/{{ $footer->img }}"
+                        alt="footer-logo">
 
-                    <img class="footer-logo-dark" src="{{ url('public/assets') }}/images/new-images/{{ $footer->img2}}" alt="footer-logo">
+                    <img class="footer-logo-dark" src="{{ url('public/assets') }}/images/new-images/{{ $footer->img2 }}"
+                        alt="footer-logo">
 
                 </div>
 
-                <p class="intro_para">{{$footer->desc}}</p>
+                <p class="intro_para">{{ $footer->desc }}</p>
 
             </div>
 
@@ -162,19 +164,19 @@
 
                         <li><i class="fa-solid fa-location-dot"></i>
 
-                            <p><a href="#">{{$footer->address}}</a></p>
+                            <p><a href="#">{{ $footer->address }}</a></p>
 
                         </li>
 
                         <li><i class="fa-solid fa-envelope"></i>
 
-                            <p><a href="#">{{$footer->email}}</a></p>
+                            <p><a href="#">{{ $footer->email }}</a></p>
 
                         </li>
 
                         <li><i class="fa-solid fa-phone"></i>
 
-                            <p><a href="#">+91-{{$footer->phone}}</a></p>
+                            <p><a href="#">+91-{{ $footer->phone }}</a></p>
 
                         </li>
 
@@ -212,7 +214,8 @@
 
                         <div class="input-group r-06">
 
-                            <input type="email" class="form-control" placeholder="Email Address" required id="s-email">
+                            <input type="email" class="form-control" placeholder="Email Address" required
+                                id="s-email">
 
                             <span class="input-group-btn ico-15">
 
@@ -275,7 +278,6 @@
                     <div class="footer-copyright">
 
                         <p class="p-sm">{{ $footer->custom_date }}, {{ $footer->footer_content }} <a
-
                                 href="https://techmavesoftware.com/">TechMave Software</a> .</p>
 
                     </div>
@@ -292,13 +294,16 @@
 
                     <ul class="bottom-footer-socials ico-20 text-end">
 
-                        <li><a href="{{$footer->facebook_link}}"><span class="fa-brands fa-facebook-f"></span></a></li>
+                        <li><a href="{{ $footer->facebook_link }}"><span class="fa-brands fa-facebook-f"></span></a>
+                        </li>
 
-                        <li><a href="{{$footer->twitter_link}}"><span class="fa-brands fa-x-twitter"></span></a></li>
+                        <li><a href="{{ $footer->twitter_link }}"><span class="fa-brands fa-x-twitter"></span></a></li>
 
-                        <li><a href="{{$footer->instagram_link}}"><span class="fa-brands fa-instagram"></span></a></li>
+                        <li><a href="{{ $footer->instagram_link }}"><span class="fa-brands fa-instagram"></span></a>
+                        </li>
 
-                        <li><a href="{{$footer->linkedin_link}}"><span class="fa-brands fa-linkedin-in"></span></a></li>
+                        <li><a href="{{ $footer->linkedin_link }}"><span class="fa-brands fa-linkedin-in"></span></a>
+                        </li>
 
                     </ul>
 
@@ -339,9 +344,10 @@
 
 
 
-<form id="patientForm"  method="POST" enctype="multipart/form-data">
+<form id="patientForm" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="modal fade add_patient__" id="add_patient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade add_patient__" id="add_patient" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
 
         <div class="modal-dialog modal-lg">
 
@@ -351,7 +357,8 @@
 
                     <h1 class="modal-title" id="exampleModalLabel">Add A New Patient </h1>
 
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa-solid fa-xmark"></i></button>
 
                 </div>
 
@@ -373,14 +380,15 @@
                                         <div class="mb-3 form-group">
 
                                             <label for="validationCustom01" class="form-label">Profile Image</label>
-     
-                                            <input type="file" class="form-control" id="" placeholder=" " name="profile_image" id="profile_image">
+
+                                            <input type="file" class="form-control" id=""
+                                                placeholder=" " name="profile_image" id="profile_image">
                                             <span id="profile_imageError" style="color: red;font-size:smaller"></span>
                                             <!-- @error('profile_image')
-                                                <span class="alert alert-danger">{{ $message }}</span>
-                                            @enderror -->
+    <span class="alert alert-danger">{{ $message }}</span>
+@enderror -->
                                         </div>
-    
+
 
                                     </div>
 
@@ -419,8 +427,8 @@
                                         </select>
                                         <span id="titleError" style="color: red;"></span>
                                         <!-- @error('sirname')
-                                            <span class="alert alert-danger">{{ $message }}</span>
-                                        @enderror -->
+    <span class="alert alert-danger">{{ $message }}</span>
+@enderror -->
 
                                     </div>
 
@@ -432,11 +440,12 @@
 
                                         <label for="validationCustom01" class="form-label">Name</label>
 
-                                        <input type="text" class="form-control" id="" placeholder=" " name="name">
+                                        <input type="text" class="form-control" id="" placeholder=" "
+                                            name="name">
                                         <span id="nameError" style="color: red;font-size:smaller"></span>
                                         <!-- @error('name')
-                                            <span class="alert alert-danger">{{ $message }}</span>
-                                        @enderror -->
+    <span class="alert alert-danger">{{ $message }}</span>
+@enderror -->
                                     </div>
 
                                 </div>
@@ -449,11 +458,13 @@
 
                                         <div class="input-group" id="datepicker1">
 
-                                            <input type="text" class="form-control" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" data-date-container='#datepicker1' data-provide="datepicker" name="birth_date">
+                                            <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                                data-date-format="dd M, yyyy" data-date-container='#datepicker1'
+                                                data-provide="datepicker" name="birth_date">
                                             <span id="datepickerError" style="color: red;font-size:smaller"></span>
                                             <!-- @error('birth_date')
-                                            <span class="alert alert-danger">{{ $message }}</span>
-                                        @enderror -->
+    <span class="alert alert-danger">{{ $message }}</span>
+@enderror -->
                                         </div>
 
                                     </div>
@@ -478,8 +489,8 @@
 
                                         <span id="genderError" style="color: red;font-size:smaller"></span>
                                         <!-- @error('gender')
-                                            <span class="alert alert-danger">{{ $message }}</span>
-                                        @enderror -->
+    <span class="alert alert-danger">{{ $message }}</span>
+@enderror -->
                                     </div>
 
                                 </div>
@@ -510,7 +521,8 @@
 
                                         <label for="validationCustom01" class="form-label">Post Code</label>
 
-                                        <input type="text" class="form-control" id="" placeholder="" name="post_code">
+                                        <input type="text" class="form-control" id="" placeholder=""
+                                            name="post_code">
                                         <span id="post_codeError" style="color: red;font-size:smaller"></span>
                                     </div>
 
@@ -522,7 +534,8 @@
 
                                         <label for="validationCustom01" class="form-label">Street</label>
 
-                                        <input type="text" class="form-control" id="" placeholder="" name="street">
+                                        <input type="text" class="form-control" id="" placeholder=""
+                                            name="street">
                                         <span id="streetError" style="color: red;font-size:smaller"></span>
                                     </div>
 
@@ -534,7 +547,8 @@
 
                                         <label for="validationCustom01" class="form-label">Town</label>
 
-                                        <input type="text" class="form-control" id="" placeholder="" name="town">
+                                        <input type="text" class="form-control" id="" placeholder=""
+                                            name="town">
                                         <span id="townError" style="color: red;font-size:smaller"></span>
                                     </div>
 
@@ -610,11 +624,12 @@
 
                                         <label for="validationCustom01" class="form-label">Email Address</label>
 
-                                        <input type="text" class="form-control" id="" placeholder="" name="email">
+                                        <input type="text" class="form-control" id="" placeholder=""
+                                            name="email">
                                         <span id="emailError" style="color: red;font-size:smaller"></span>
                                         <!-- @error('email')
-                                            <span class="alert alert-danger">{{ $message }}</span>
-                                        @enderror -->
+    <span class="alert alert-danger">{{ $message }}</span>
+@enderror -->
                                     </div>
 
                                 </div>
@@ -625,11 +640,12 @@
 
                                         <label for="validationCustom01" class="form-label">Mobile Phone</label>
 
-                                        <input type="text" class="form-control" id="" placeholder="" name="mobile_no">
+                                        <input type="text" class="form-control" id="" placeholder=""
+                                            name="mobile_no">
                                         <span id="mobile_noError" style="color: red;font-size:smaller"></span>
                                         <!-- @error('mobile_no')
-                                            <span class="alert alert-danger">{{ $message }}</span>
-                                        @enderror -->
+    <span class="alert alert-danger">{{ $message }}</span>
+@enderror -->
                                     </div>
 
                                 </div>
@@ -641,7 +657,8 @@
 
                                         <label for="validationCustom01" class="form-label">Paswword</label>
 
-                                        <input type="password" class="form-control" id="" placeholder="password" name="password">
+                                        <input type="password" class="form-control" id=""
+                                            placeholder="password" name="password">
                                         <span id="passwordError" style="color: red;font-size:smaller"></span>
                                     </div>
 
@@ -690,7 +707,8 @@
 
                                         <label for="validationCustom01" class="form-label">Landline</label>
 
-                                        <input type="text" class="form-control" id="" placeholder="" name="landline">
+                                        <input type="text" class="form-control" id="" placeholder=""
+                                            name="landline">
                                         <span id="landlineError" style="color: red;font-size:smaller"></span>
                                     </div>
 
@@ -746,7 +764,8 @@
 
 <!-- Modal -->
 
-<div class="modal fade edit_patient__" id="edit_patient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="edit_patient" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -756,12 +775,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Edit Patient Info.</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="edit_patient_info_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{encrypt(@$id)}}" />
+                <input type="hidden" name="patient_id" value="{{ encrypt(@$id) }}" />
                 <div class="modal-body body-patient">
 
                     <div class="inner_data pt-0 edit_patient__cusr">
@@ -777,22 +797,23 @@
                                     <div class="title_head">
 
                                         <h4>Basic Info</h4>
-                                        
-        
-                                               
-                                                <div class="mb-3 form-group">
-        
-                                                    <label for="validationCustom01" class="form-label">Profile Image</label>
-             
-                                                    <input type="file" class="form-control" id="" placeholder=" " name="profile_image" id="profile_image">
-                                                    <span id="profile_imageError" style="color: red;font-size:smaller"></span>
-                                                    <!-- @error('profile_image')
-                                                        <span class="alert alert-danger">{{ $message }}</span>
-                                                    @enderror -->
-                                                </div>
-            
-        
-                                            
+
+
+
+                                        <div class="mb-3 form-group">
+
+                                            <label for="validationCustom01" class="form-label">Profile Image</label>
+
+                                            <input type="file" class="form-control" id=""
+                                                placeholder=" " name="profile_image" id="profile_image">
+                                            <span id="profile_imageError" style="color: red;font-size:smaller"></span>
+                                            <!-- @error('profile_image')
+    <span class="alert alert-danger">{{ $message }}</span>
+@enderror -->
+                                        </div>
+
+
+
 
                                     </div>
 
@@ -806,7 +827,8 @@
 
                                                 <label class="form-label">Title</label>
 
-                                                <select class="form-control select2_edit_info" name="patient_sirname" id="patient_sirname">
+                                                <select class="form-control select2_edit_info" name="patient_sirname"
+                                                    id="patient_sirname">
 
                                                     <option value="mr">Mr</option>
 
@@ -844,8 +866,10 @@
 
                                                 <label for="validationCustom01" class="form-label">Name</label>
 
-                                                <input type="text" class="form-control" id="patient_name" placeholder="" name="patient_name">
-                                                <span id="patient_nameError" style="color: red;font-size:smaller"></span>
+                                                <input type="text" class="form-control" id="patient_name"
+                                                    placeholder="" name="patient_name">
+                                                <span id="patient_nameError"
+                                                    style="color: red;font-size:smaller"></span>
 
                                             </div>
 
@@ -859,8 +883,12 @@
 
                                                 <div class="input-group" id="datepicker3">
 
-                                                    <input type="text" class="form-control" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" data-date-container='#datepicker3' data-provide="datepicker" name="patient_birth" id="patient_birth">
-                                                    <span id="patient_birthError" style="color: red;font-size:smaller"></span>
+                                                    <input type="text" class="form-control"
+                                                        placeholder="dd M, yyyy" data-date-format="dd M, yyyy"
+                                                        data-date-container='#datepicker3' data-provide="datepicker"
+                                                        name="patient_birth" id="patient_birth">
+                                                    <span id="patient_birthError"
+                                                        style="color: red;font-size:smaller"></span>
 
                                                 </div>
 
@@ -874,7 +902,8 @@
 
                                                 <label class="form-label">Gender</label>
 
-                                                <select class="form-control select2_edit_info" name="patient_gendar" id="patient_gendar">
+                                                <select class="form-control select2_edit_info" name="patient_gendar"
+                                                    id="patient_gendar">
 
                                                     <option value="">Select</option>
 
@@ -884,7 +913,8 @@
 
                                                 </select>
 
-                                                <span id="patient_gendarError" style="color: red;font-size:smaller"></span>
+                                                <span id="patient_gendarError"
+                                                    style="color: red;font-size:smaller"></span>
 
 
                                             </div>
@@ -921,7 +951,8 @@
 
                                         <label for="validationCustom01" class="form-label">Post Code</label>
 
-                                        <input type="text" class="form-control" id="patient_post_code" placeholder="" name="patient_post_code">
+                                        <input type="text" class="form-control" id="patient_post_code"
+                                            placeholder="" name="patient_post_code">
                                         <span id="patient_post_codeError" style="color: red;font-size:smaller"></span>
 
                                     </div>
@@ -934,7 +965,8 @@
 
                                         <label for="validationCustom01" class="form-label">Street</label>
 
-                                        <input type="text" class="form-control" id="patient_street" placeholder="" name="patient_street">
+                                        <input type="text" class="form-control" id="patient_street"
+                                            placeholder="" name="patient_street">
                                         <span id="patient_streetError" style="color: red;font-size:smaller"></span>
 
                                     </div>
@@ -947,7 +979,8 @@
 
                                         <label for="validationCustom01" class="form-label">Town</label>
 
-                                        <input type="text" class="form-control" id="patient_town" placeholder="" name="patient_town">
+                                        <input type="text" class="form-control" id="patient_town" placeholder=""
+                                            name="patient_town">
                                         <span id="patient_townError" style="color: red;font-size:smaller"></span>
 
                                     </div>
@@ -960,7 +993,8 @@
 
                                         <label class="form-label">Country</label>
 
-                                        <select class="form-control select2_edit_info" name="patient_country" id="patient_country">
+                                        <select class="form-control select2_edit_info" name="patient_country"
+                                            id="patient_country">
 
                                             <option value="Afghanistan">Afghanistan</option>
 
@@ -1023,7 +1057,8 @@
 
                                         <label for="validationCustom01" class="form-label">Email Address</label>
 
-                                        <input type="text" class="form-control" id="patient_email" placeholder="" name="patient_email">
+                                        <input type="text" class="form-control" id="patient_email" placeholder=""
+                                            name="patient_email">
                                         <span id="patient_emailError" style="color: red;font-size:smaller"></span>
 
                                     </div>
@@ -1036,7 +1071,8 @@
 
                                         <label for="validationCustom01" class="form-label">Mobile Phone</label>
 
-                                        <input type="text" class="form-control" id="patient_mobile_no" placeholder="" name="patient_mobile_no">
+                                        <input type="text" class="form-control" id="patient_mobile_no"
+                                            placeholder="" name="patient_mobile_no">
                                         <span id="patient_mobile_noError" style="color: red;font-size:smaller"></span>
 
                                     </div>
@@ -1049,7 +1085,8 @@
 
                                         <label for="validationCustom01" class="form-label">Landline</label>
 
-                                        <input type="text" class="form-control" id="patient_landline" placeholder="" name="patient_landline">
+                                        <input type="text" class="form-control" id="patient_landline"
+                                            placeholder="" name="patient_landline">
                                         <span id="patient_landlineError" style="color: red;font-size:smaller"></span>
 
                                     </div>
@@ -1072,21 +1109,23 @@
 
                                         <label for="validationCustom01" class="form-label">Next of Kin</label>
 
-                                        <input type="text" class="form-control" id="patient_kin" placeholder="" name="patient_kin">
+                                        <input type="text" class="form-control" id="patient_kin" placeholder=""
+                                            name="patient_kin">
                                         <span id="patient_kinError" style="color: red;font-size:smaller"></span>
 
 
                                     </div>
 
                                 </div>
-                                
+
                                 <div class="col-lg-6">
 
                                     <div class="mb-3 form-group">
 
                                         <label class="form-label">Insurer Name</label>
 
-                                        <select class="form-control select2_edit_info" name="patient_insurer" id="patient_insurer">
+                                        <select class="form-control select2_edit_info" name="patient_insurer"
+                                            id="patient_insurer">
 
                                         </select>
 
@@ -1095,7 +1134,7 @@
                                     </div>
 
                                 </div>
-                               
+
 
                                 <div class="col-lg-6">
 
@@ -1103,7 +1142,8 @@
 
                                         <label for="validationCustom01" class="form-label">Policy No</label>
 
-                                        <input type="text" class="form-control" id="patient_policy_no" placeholder="" name="patient_policy_no">
+                                        <input type="text" class="form-control" id="patient_policy_no"
+                                            placeholder="" name="patient_policy_no">
                                         <span id="patient_policy_noError" style="color: red;font-size:smaller"></span>
 
                                     </div>
@@ -1116,7 +1156,8 @@
 
                                         <label for="validationCustom01" class="form-label">GP</label>
 
-                                        <input type="text" class="form-control" id="patient_gp" placeholder="" name="patient_gp">
+                                        <input type="text" class="form-control" id="patient_gp" placeholder=""
+                                            name="patient_gp">
                                         <span id="patient_gpError" style="color: red;font-size:smaller"></span>
 
                                     </div>
@@ -1131,8 +1172,10 @@
 
                                         <label for="validationCustom01" class="form-label">Additional Info.</label>
 
-                                        <textarea class="form-control" placeholder="" style="height: 100px" id="patient_additional_info" name="patient_additional_info"></textarea>
-                                        <span id="patient_additional_infoError" style="color: red;font-size:smaller"></span>
+                                        <textarea class="form-control" placeholder="" style="height: 100px" id="patient_additional_info"
+                                            name="patient_additional_info"></textarea>
+                                        <span id="patient_additional_infoError"
+                                            style="color: red;font-size:smaller"></span>
 
                                     </div>
 
@@ -1152,19 +1195,26 @@
 
                                                 <div class="category-container" id="category-container-2">
 
-                                                    <input type="text" class="form-control category-input" placeholder="To allow future audits" name="patient_tags" id="patient_tags">
+                                                    <input type="text" class="form-control category-input"
+                                                        placeholder="To allow future audits" name="patient_tags"
+                                                        id="patient_tags">
 
-                                                    <button class="btn r-04 btn--theme hover--tra-black add_patient add-category" type="button"><i class="fa-solid fa-plus"></i> Add</button>
+                                                    <button
+                                                        class="btn r-04 btn--theme hover--tra-black add_patient add-category"
+                                                        type="button"><i class="fa-solid fa-plus"></i> Add</button>
 
                                                 </div>
-                                                <span id="patient_tagsError" style="color: red;font-size:smaller"></span>
+                                                <span id="patient_tagsError"
+                                                    style="color: red;font-size:smaller"></span>
 
-                                                <div class="categories-list" id="categories-list-2" name="patient_tags_list">
+                                                <div class="categories-list" id="categories-list-2"
+                                                    name="patient_tags_list">
 
                                                     <!-- Categories will be displayed here -->
 
                                                 </div>
-                                                <span id="patient_tags_listError" style="color: red;font-size:smaller"></span>
+                                                <span id="patient_tags_listError"
+                                                    style="color: red;font-size:smaller"></span>
 
                                             </div>
 
@@ -1202,7 +1252,8 @@
 
                                     <label for="validationCustom01" class="form-label">Select Document</label>
 
-                                    <select class="form-control select2_edit_info" name="patient_document_type" id="patient_document_type">
+                                    <select class="form-control select2_edit_info" name="patient_document_type"
+                                        id="patient_document_type">
 
                                         <option value="Passport">Passport</option>
 
@@ -1221,7 +1272,8 @@
 
                                         <label for="validationCustom01" class="form-label">Patient ID</label>
 
-                                        <input type="text" class="form-control" id="patient_edit_id" placeholder="" name="patient_edit_id">
+                                        <input type="text" class="form-control" id="patient_edit_id"
+                                            placeholder="" name="patient_edit_id">
                                         <span id="patient_edit_idError" style="color: red;font-size:smaller"></span>
                                     </div>
 
@@ -1243,7 +1295,8 @@
 
                     <div class="action text-end bottom_modal">
 
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">Update</button>
+                        <button type="submit"
+                            class="btn r-04 btn--theme hover--tra-black add_patient">Update</button>
 
 
 
@@ -1267,7 +1320,8 @@
 
 <!-- Modal -->
 
-<div class="modal fade edit_patient__" id="create_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="create_appointment" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog">
 
@@ -1277,7 +1331,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Create Appointment</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -1307,7 +1362,9 @@
 
                                 <div class="input-group" id="datepicker2">
 
-                                    <input type="text" class="form-control" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" data-date-container='#datepicker2' data-provide="datepicker">
+                                    <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                        data-date-format="dd M, yyyy" data-date-container='#datepicker2'
+                                        data-provide="datepicker">
 
                                 </div>
 
@@ -1321,7 +1378,8 @@
 
                 <div class="action text-end bottom_modal">
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
+                        data-bs-dismiss="modal">
 
                         <iconify-icon icon="bi:save"></iconify-icon> Save
 
@@ -1351,7 +1409,8 @@
 
 <!-- Modal -->
 
-<div class="modal fade edit_patient__" id="send_message" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="send_message" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -1361,7 +1420,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Send a Message</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -1415,7 +1475,8 @@
 
                 <div class="action text-end bottom_modal">
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient send_message" data-bs-dismiss="modal">Send Message <iconify-icon icon="teenyicons:send-outline">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient send_message"
+                        data-bs-dismiss="modal">Send Message <iconify-icon icon="teenyicons:send-outline">
 
                         </iconify-icon></a>
 
@@ -1443,7 +1504,8 @@
 
 <!-- Modal Add & Edit Insure-->
 
-<div class="modal fade edit_patient__" id="insure_add_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="insure_add_edit" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -1453,12 +1515,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Add or Edit Insurer</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="edit_insurer_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -1483,7 +1546,8 @@
 
                                     <label for="validationCustom01" class="form-label">Insurer Name</label>
 
-                                    <input type="text" class="form-control insurer_name" id="" placeholder="" name="insurer_name">
+                                    <input type="text" class="form-control insurer_name" id=""
+                                        placeholder="" name="insurer_name">
                                     <span id="insurer_nameError" style="color: red;font-size:small"></span>
 
                                 </div>
@@ -1498,7 +1562,8 @@
 
                                     <label for="validationCustom01" class="form-label">Insurance Number</label>
 
-                                    <input type="text" class="form-control insurer_number" id="" placeholder="" name="insurer_number">
+                                    <input type="text" class="form-control insurer_number" id=""
+                                        placeholder="" name="insurer_number">
                                     <span id="insurer_numberError" style="color: red;font-size:small"></span>
                                 </div>
 
@@ -1542,7 +1607,8 @@
 
 <!-- Modal Add & Edit Insure-->
 
-<div class="modal fade edit_patient__" id="extract_code" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="extract_code" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -1552,7 +1618,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Extract SNOMED Codes from Notes</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -1612,7 +1679,8 @@
 
                 <div class="action text-end bottom_modal">
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
+                        data-bs-dismiss="modal">
 
                         Extract</a>
 
@@ -1640,11 +1708,12 @@
 
 <!----------------------------
 
-                Executive Summary 
+                Executive Summary
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="executive_summary" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="executive_summary" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -1654,7 +1723,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Executive Summary</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -1696,11 +1766,13 @@
 
                 <div class="action text-end bottom_modal">
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
+                        data-bs-dismiss="modal">
 
                         Save</a>
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                        data-bs-dismiss="modal">
 
                         Close</a>
 
@@ -1732,7 +1804,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="symptoms_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="symptoms_add" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -1742,7 +1815,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Add Symptoms</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -1769,13 +1843,16 @@
                                         <label for="validationCustom01" class="form-label">Type Symptoms</label>
                                         <form id="symptom_form">
                                             @csrf
-                                            <input type="hidden" name="patient_id" value="{{@$id}}" />
+                                            <input type="hidden" name="patient_id" value="{{ @$id }}" />
                                             <div class="category-container" id="category-container-1">
 
-                                                <input type="text" class="form-control category-input" placeholder="Type Symptoms here..." name="symptom_name">
-                                                <span id="symptom_nameError" style="color: red;font-size:small"></span>
+                                                <input type="text" class="form-control category-input"
+                                                    placeholder="Type Symptoms here..." name="symptom_name">
+                                                <span id="symptom_nameError"
+                                                    style="color: red;font-size:small"></span>
 
-                                                <button class="btn r-04 btn--theme hover--tra-black add_patient " type="submit"><i class="fa-solid fa-plus"></i> Add</button>
+                                                <button class="btn r-04 btn--theme hover--tra-black add_patient "
+                                                    type="submit"><i class="fa-solid fa-plus"></i> Add</button>
 
                                             </div>
                                         </form>
@@ -1807,7 +1884,8 @@
 
                         Save</a> -->
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                        data-bs-dismiss="modal">
 
                         Close</a>
 
@@ -1837,7 +1915,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="clinical_exam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="clinical_exam" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -1847,12 +1926,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Clinical Exam</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="clinical_exam_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -1904,7 +1984,8 @@
 
                             Save</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Close</a>
 
@@ -1937,7 +2018,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="medicine_add_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="medicine_add_edit" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -1947,12 +2029,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Drugs / Current Meds</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="drug_from">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -1979,7 +2062,8 @@
 
                                         <label for="validationCustom01" class="form-label">Type a Drug Name</label>
 
-                                        <input type="search" class="form-control" id="" placeholder="" name="drug_name">
+                                        <input type="search" class="form-control" id="" placeholder=""
+                                            name="drug_name">
 
                                         <button class="btn search_btn">
 
@@ -2001,7 +2085,8 @@
 
                                         <label for="validationCustom01" class="form-label">Frequency</label>
 
-                                        <input type="search" class="form-control" id="" placeholder="" name="frequency">
+                                        <input type="search" class="form-control" id="" placeholder=""
+                                            name="frequency">
                                         <span id="frequencyError" style="color: red;font-size:small"></span>
 
 
@@ -2019,7 +2104,8 @@
 
                                         <label for="validationCustom01" class="form-label">Today Date</label>
 
-                                        <input type="text" class="form-control datepickerInput" placeholder="dd M, yyyy" name="today_date">
+                                        <input type="text" class="form-control datepickerInput"
+                                            placeholder="dd M, yyyy" name="today_date">
                                         <span id="today_dateError" style="color: red;font-size:small"></span>
 
                                     </div>
@@ -2038,7 +2124,8 @@
 
                                         <label for="validationCustom01" class="form-label">Duration</label>
 
-                                        <input type="search" class="form-control" id="" placeholder="" name="duration">
+                                        <input type="search" class="form-control" id="" placeholder=""
+                                            name="duration">
 
                                         <span id="durationError" style="color: red;font-size:small"></span>
 
@@ -2059,7 +2146,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" name="stopped" id="is_stopped" value="is_stopped">
+                                            <input class="form-check-input" type="checkbox" name="stopped"
+                                                id="is_stopped" value="is_stopped">
 
                                             <label class="form-check-label" for="is_stopped">
 
@@ -2086,7 +2174,8 @@
 
                                         <label for="validationCustom01" class="form-label">Stopped Date</label>
 
-                                        <input type="text" class="form-control datepickerInput" placeholder="dd M, yyyy" name="stopped_date">
+                                        <input type="text" class="form-control datepickerInput"
+                                            placeholder="dd M, yyyy" name="stopped_date">
                                         <span id="stopped_dateError" style="color: red;font-size:small"></span>
                                     </div>
 
@@ -2104,7 +2193,8 @@
 
                                         <label for="validationCustom01" class="form-label">Code</label>
 
-                                        <input type="search" class="form-control" id="" placeholder="" name="drug_code">
+                                        <input type="search" class="form-control" id="" placeholder=""
+                                            name="drug_code">
 
                                         <span id="drug_codeError" style="color: red;font-size:small"></span>
 
@@ -2215,7 +2305,8 @@
 
                                 Save</a> -->
 
-        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+            data-bs-dismiss="modal">
 
             Close</a>
 
@@ -2243,7 +2334,8 @@
 
             ---------------------------->
 
-<div class="modal fade " id="allergies_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade " id="allergies_add" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -2253,7 +2345,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Add Allergy</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -2267,7 +2360,7 @@
                             <div class="add_categoryweb">
                                 <form id="allergy_form">
                                     @csrf
-                                    <input type="hidden" name="patient_id" value="{{@$id}}" />
+                                    <input type="hidden" name="patient_id" value="{{ @$id }}" />
                                     <div class="row">
 
                                         <div class="col-lg-12">
@@ -2276,10 +2369,15 @@
 
                                             <div class="category-container" id="category-container-3">
 
-                                                <input type="text" name="allergy" class="form-control category-input" placeholder="Type Allergy here...">
-                                                <span id="allergy_nameError" style="color: red;font-size:small"></span>
+                                                <input type="text" name="allergy"
+                                                    class="form-control category-input"
+                                                    placeholder="Type Allergy here...">
+                                                <span id="allergy_nameError"
+                                                    style="color: red;font-size:small"></span>
 
-                                                <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient "><i class="fa-solid fa-plus"></i> Add</button>
+                                                <button type="submit"
+                                                    class="btn r-04 btn--theme hover--tra-black add_patient "><i
+                                                        class="fa-solid fa-plus"></i> Add</button>
 
                                             </div>
 
@@ -2312,7 +2410,8 @@
 
                                 Save</a> -->
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                        data-bs-dismiss="modal">
 
                         Close</a>
 
@@ -2346,7 +2445,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="diagnosis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="diagnosis" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -2356,19 +2456,20 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Add or Remove Diagnosis</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="AddRemoveDiagnosis">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
-            <div class="modal-body padding-0">
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
+                <div class="modal-body padding-0">
 
-                <div class="inner_data">
+                    <div class="inner_data">
 
-                    <div class="row">
+                        <div class="row">
 
-                        <!-- <div class="col-lg-12">
+                            <!-- <div class="col-lg-12">
 
                                     <div class="title_head">
 
@@ -2382,105 +2483,23 @@
 
 
 
-                        <div class="col-lg-4">
+                            <div class="col-lg-4">
 
-                            <div class="inner_element">
+                                <div class="inner_element">
 
-                                <div class="form-group">
+                                    <div class="form-group">
 
-                                    <label for="validationCustom01" class="form-label">Type a Diagnosis name</label>
+                                        <label for="validationCustom01" class="form-label">Type a Diagnosis
+                                            name</label>
 
-                                    <input type="search" class="form-control" id="" placeholder="">
+                                        <input type="search" class="form-control" id=""
+                                            placeholder="">
 
-                                    <button class="btn search_btn">
+                                        <button class="btn search_btn">
 
-                                        <iconify-icon icon="prime:search-plus" width="24"></iconify-icon>
+                                            <iconify-icon icon="prime:search-plus" width="24"></iconify-icon>
 
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-4">
-
-                            <div class="inner_element">
-
-                                <div class="form-group">
-
-                                    <label for="validationCustom01" class="form-label">Date</label>
-
-                                    <div class="input-group" id="datepicker20">
-
-
-
-                                        <input type="text" class="form-control" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" data-date-container='#datepicker20' data-provide="datepicker">
-
-                                    </div>
-
-                                    <!-- <input type="text" class="form-control datepickerInput" placeholder="dd M, yyyy"> -->
-
-                                </div>
-
-
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-4">
-
-                            <div class="inner_element">
-
-                                <div class="form-group">
-
-                                    <label for="validationCustom01" class="form-label">Comment</label>
-
-                                    <input type="search" class="form-control" id="" placeholder="">
-
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-4">
-
-                            <div class="inner_element">
-
-                                <div class="form-group">
-
-                                    <label for="validationCustom01" class="form-label">SNOMED</label>
-
-                                    <input type="search" class="form-control" id="" placeholder="">
-
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-2">
-
-                            <div class="inner_element mt-4">
-
-                                <div class="form-group">
-
-                                    <div class="form-check">
-
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                                        <label class="form-check-label" for="flexCheckDefault">
-
-                                            Active
-
-                                        </label>
+                                        </button>
 
                                     </div>
 
@@ -2488,25 +2507,46 @@
 
                             </div>
 
-                        </div>
+                            <div class="col-lg-4">
+
+                                <div class="inner_element">
+
+                                    <div class="form-group">
+
+                                        <label for="validationCustom01" class="form-label">Date</label>
+
+                                        <div class="input-group" id="datepicker20">
 
 
 
-                        <div class="col-lg-2">
+                                            <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                                data-date-format="dd M, yyyy" data-date-container='#datepicker20'
+                                                data-provide="datepicker">
 
-                            <div class="inner_element mt-4">
+                                        </div>
 
-                                <div class="form-group">
+                                        <!-- <input type="text" class="form-control datepickerInput" placeholder="dd M, yyyy"> -->
 
-                                    <div class="form-check">
+                                    </div>
 
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
 
-                                        <label class="form-check-label" for="flexCheckDefault1">
 
-                                            Flag
+                                </div>
 
-                                        </label>
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <div class="inner_element">
+
+                                    <div class="form-group">
+
+                                        <label for="validationCustom01" class="form-label">Comment</label>
+
+                                        <input type="search" class="form-control" id=""
+                                            placeholder="">
+
+
 
                                     </div>
 
@@ -2514,21 +2554,90 @@
 
                             </div>
 
-                        </div>
+                            <div class="col-lg-4">
 
-                        <div class="col-lg-4">
+                                <div class="inner_element">
 
-                            <div class="inner_element mt-4">
+                                    <div class="form-group">
 
-                                <div class="form-group">
+                                        <label for="validationCustom01" class="form-label">SNOMED</label>
 
-                                    <button type="submit" class="add_diagnosis"> Add</button>
+                                        <input type="search" class="form-control" id=""
+                                            placeholder="">
+
+
+
+                                    </div>
 
                                 </div>
 
                             </div>
 
-                        </div>
+                            <div class="col-lg-2">
+
+                                <div class="inner_element mt-4">
+
+                                    <div class="form-group">
+
+                                        <div class="form-check">
+
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault">
+
+                                            <label class="form-check-label" for="flexCheckDefault">
+
+                                                Active
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="col-lg-2">
+
+                                <div class="inner_element mt-4">
+
+                                    <div class="form-group">
+
+                                        <div class="form-check">
+
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault1">
+
+                                            <label class="form-check-label" for="flexCheckDefault1">
+
+                                                Flag
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <div class="inner_element mt-4">
+
+                                    <div class="form-group">
+
+                                        <button type="submit" class="add_diagnosis"> Add</button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
 
 
@@ -2537,92 +2646,93 @@
 
 
 
-                    </form>
+            </form>
 
 
 
 
-                    </div>
+        </div>
 
-                    <div class="add_data_diagnosis">
+        <div class="add_data_diagnosis">
 
-                        <table class="table table-striped table-bordered" id="add_data_diagnosis">
+            <table class="table table-striped table-bordered" id="add_data_diagnosis">
 
-                            <tr>
+                <tr>
 
-                                <th>Diagnosis Name</th>
+                    <th>Diagnosis Name</th>
 
-                                <th>Date</th>
+                    <th>Date</th>
 
-                                <th>Comment</th>
+                    <th>Comment</th>
 
-                                <th>SNOMED</th>
+                    <th>SNOMED</th>
 
-                                <th>Status</th>
+                    <th>Status</th>
 
-                                <th>Flag</th>
+                    <th>Flag</th>
 
-                                <th>Action</th>
+                    <th>Action</th>
 
-                            </tr>
+                </tr>
 
-                            <tr>
+                <tr>
 
-                                <td>Routine venipuncture</td>
+                    <td>Routine venipuncture</td>
 
-                                <td>15 Nov, 2023</td>
+                    <td>15 Nov, 2023</td>
 
-                                <td>Lorem ipsum dolor sit amet.</td>
+                    <td>Lorem ipsum dolor sit amet.</td>
 
-                                <td></td>
+                    <td></td>
 
-                                <td><span class="badge badge-soft-success ">Active</span></td>
+                    <td><span class="badge badge-soft-success ">Active</span></td>
 
-                                <td><i class="fa-regular fa-flag"></i></td>
+                    <td><i class="fa-regular fa-flag"></i></td>
 
-                                <td><a href="#" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a></td>
+                    <td><a href="#" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a></td>
 
-                            </tr>
+                </tr>
 
-                            <tr>
+                <tr>
 
-                                <td>Lipid panel</td>
+                    <td>Lipid panel</td>
 
-                                <td>15 Nov, 2023</td>
+                    <td>15 Nov, 2023</td>
 
-                                <td>Lorem ipsum dolor sit amet.</td>
+                    <td>Lorem ipsum dolor sit amet.</td>
 
-                                <td></td>
+                    <td></td>
 
-                                <td><span class="badge badge-soft-success ">Active</span></td>
+                    <td><span class="badge badge-soft-success ">Active</span></td>
 
-                                <td><i class="fa-regular fa-flag"></i></td>
+                    <td><i class="fa-regular fa-flag"></i></td>
 
-                                <td><a href="#" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a></td>
+                    <td><a href="#" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a></td>
 
-                            </tr>
+                </tr>
 
-                        </table>
+            </table>
 
-                    </div>
+        </div>
 
-                </div>
+    </div>
 
-                <div class="action text-end bottom_modal">
+    <div class="action text-end bottom_modal">
 
-                    {{-- <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+        {{-- <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
 
                         Save</a> --}}
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+            data-bs-dismiss="modal">
 
-                        Close</a>
+            Close</a>
 
-                </div>
+    </div>
 
-            </div>
+</div>
 
-            <!-- <div class="modal-footer">
+<!-- <div class="modal-footer">
 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
@@ -2630,9 +2740,9 @@
 
                         </div> -->
 
-        </div>
+</div>
 
-    </div>
+</div>
 
 </div>
 
@@ -2644,7 +2754,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="future_plans" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="future_plans" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -2654,12 +2765,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Future Plans</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="future_plan_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -2680,7 +2792,9 @@
 
 
 
-                                            <input type="text" class="form-control" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" data-date-container='#datepicker21' data-provide="datepicker" name="future_date">
+                                            <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                                data-date-format="dd M, yyyy" data-date-container='#datepicker21'
+                                                data-provide="datepicker" name="future_date">
 
                                         </div>
                                         <span id="future_dateError" style="color: red;font-size:small"></span>
@@ -2733,7 +2847,8 @@
 
                             Save</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Close</a>
 
@@ -2764,7 +2879,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="procedure_list" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="procedure_list" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -2774,7 +2890,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">List of Procedure</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -2808,7 +2925,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault1">
 
                                             <label class="form-check-label" for="flexCheckDefault1">
 
@@ -2824,7 +2942,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault2">
 
                                             <label class="form-check-label" for="flexCheckDefault2">
 
@@ -2840,7 +2959,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault3">
 
                                             <label class="form-check-label" for="flexCheckDefault3">
 
@@ -2884,7 +3004,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault4">
 
                                             <label class="form-check-label" for="flexCheckDefault4">
 
@@ -2900,7 +3021,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault5">
 
                                             <label class="form-check-label" for="flexCheckDefault5">
 
@@ -2916,7 +3038,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault6">
 
                                             <label class="form-check-label" for="flexCheckDefault6">
 
@@ -2932,7 +3055,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault7">
 
                                             <label class="form-check-label" for="flexCheckDefault7">
 
@@ -2948,7 +3072,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault8">
 
                                             <label class="form-check-label" for="flexCheckDefault8">
 
@@ -2974,7 +3099,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault9">
 
                                             <label class="form-check-label" for="flexCheckDefault9">
 
@@ -2990,7 +3116,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault10">
 
                                             <label class="form-check-label" for="flexCheckDefault10">
 
@@ -3006,7 +3133,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault11">
 
                                             <label class="form-check-label" for="flexCheckDefault11">
 
@@ -3022,7 +3150,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault12">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault12">
 
                                             <label class="form-check-label" for="flexCheckDefault12">
 
@@ -3038,7 +3167,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault13">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault13">
 
                                             <label class="form-check-label" for="flexCheckDefault13">
 
@@ -3054,7 +3184,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault14">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault14">
 
                                             <label class="form-check-label" for="flexCheckDefault14">
 
@@ -3072,7 +3203,8 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault15">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault15">
 
                                             <label class="form-check-label" for="flexCheckDefault15">
 
@@ -3098,11 +3230,13 @@
 
                 <div class="action text-end bottom_modal">
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
+                        data-bs-dismiss="modal">
 
                         Save</a>
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                        data-bs-dismiss="modal">
 
                         Close</a>
 
@@ -3132,7 +3266,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="refer_patient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="refer_patient" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -3142,30 +3277,239 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Refer to Another Clinician</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
-         <form id="refer_form">
-            @csrf
-          <input type="hidden" name="patient_id" value="{{ @$id }}"/>
-            <div class="modal-body padding-0">
+            <form id="refer_form">
+                @csrf
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
+                <div class="modal-body padding-0">
 
-                <div class="inner_data">
+                    <div class="inner_data">
 
-                    <div class="">
+                        <div class="">
 
 
-                        <div class="row top_head_vitals">
+                            <div class="row top_head_vitals">
 
-                            <div class="col-lg-12">
+                                <div class="col-lg-12">
 
-                                <div class="inner_element search_dr">
+                                    <div class="inner_element search_dr">
 
-                                    <div class="form-group">
+                                        <div class="form-group">
 
-                                        <input type="search" class="form-control" id="" placeholder="Find a user by name or specialty..">
+                                            <input type="search" class="form-control" id=""
+                                                placeholder="Find a user by name or specialty..">
 
-                                        <button class="btn search_btn_dr"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                            <button class="btn search_btn_dr"><i
+                                                    class="fa-solid fa-magnifying-glass"></i></button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-12">
+
+                                    <div class="doctor_list">
+
+                                        <h6 class="list_title_dr">List of Available Clinicians</h6>
+
+                                        <ul>
+
+                                            <li>
+
+                                                <div class="booking_card_select">
+
+                                                    <input type="checkbox" class="check_dr" name="cbx4"
+                                                        id="cbx1">
+
+                                                    <label for="cbx1">
+
+                                                        <div class="doctor_dt">
+
+                                                            <div class="image_dr">
+
+                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
+                                                                    alt="">
+
+                                                            </div>
+
+                                                            <div class="dr_detail">
+
+                                                                <h6 class="dr_name">Abbigail Titmus
+                                                                    <span>(MBBS)</span>
+                                                                </h6>
+
+                                                                <p class="dr_email"><a
+                                                                        href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
+                                                                </p>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </label>
+
+                                                </div>
+
+
+
+
+
+                                            </li>
+
+                                            <li>
+
+                                                <div class="booking_card_select">
+
+                                                    <input type="checkbox" class="check_dr" name="cbx4"
+                                                        id="cbx2">
+
+                                                    <label for="cbx2">
+
+                                                        <div class="doctor_dt">
+
+                                                            <div class="image_dr">
+
+                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
+                                                                    alt="">
+
+                                                            </div>
+
+                                                            <div class="dr_detail">
+
+                                                                <h6 class="dr_name">Abbigail Titmus
+                                                                    <span>(MBBS)</span>
+                                                                </h6>
+
+                                                                <p class="dr_email"><a
+                                                                        href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
+                                                                </p>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </label>
+
+                                                </div>
+
+
+
+
+
+                                            </li>
+
+                                            <li>
+
+                                                <div class="booking_card_select">
+
+                                                    <input type="checkbox" class="check_dr" name="cbx4"
+                                                        id="cbx3">
+
+                                                    <label for="cbx3">
+
+                                                        <div class="doctor_dt">
+
+                                                            <div class="image_dr">
+
+                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
+                                                                    alt="">
+
+                                                            </div>
+
+                                                            <div class="dr_detail">
+
+                                                                <h6 class="dr_name">Abbigail Titmus
+                                                                    <span>(MBBS)</span>
+                                                                </h6>
+
+                                                                <p class="dr_email"><a
+                                                                        href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
+                                                                </p>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </label>
+
+                                                </div>
+
+
+
+
+
+                                            </li>
+
+                                            <li>
+
+                                                <div class="booking_card_select">
+
+                                                    <input type="checkbox" class="check_dr" name="cbx4"
+                                                        id="cbx4">
+
+                                                    <label for="cbx4">
+
+                                                        <div class="doctor_dt">
+
+                                                            <div class="image_dr">
+
+                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
+                                                                    alt="">
+
+                                                            </div>
+
+                                                            <div class="dr_detail">
+
+                                                                <h6 class="dr_name">Abbigail Titmus
+                                                                    <span>(MBBS)</span>
+                                                                </h6>
+
+                                                                <p class="dr_email"><a
+                                                                        href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
+                                                                </p>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </label>
+
+                                                </div>
+
+
+
+
+
+                                            </li>
+
+                                        </ul>
+
+
+
+
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="col-lg-12 px-4 mb-3" id="refer_note">
+
+                                    <div class="mt-3 form-group">
+
+                                        <textarea class="form-control"
+                                            placeholder="Type a short referral message here. This will be entered as a note on EMR and will be emailed to addressees (salutation added automatically). 
+
+            
+
+            This action also gives the addressee access to this medical record. "
+                                            style="height:150px"></textarea>
 
                                     </div>
 
@@ -3173,207 +3517,29 @@
 
                             </div>
 
-                            <div class="col-lg-12">
 
-                                <div class="doctor_list">
-
-                                    <h6 class="list_title_dr">List of Available Clinicians</h6>
-
-                                    <ul>
-
-                                        <li>
-
-                                            <div class="booking_card_select">
-
-                                                <input type="checkbox" class="check_dr" name="cbx4" id="cbx1">
-
-                                                <label for="cbx1">
-
-                                                    <div class="doctor_dt">
-
-                                                        <div class="image_dr">
-
-                                                            <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg" alt="">
-
-                                                        </div>
-
-                                                        <div class="dr_detail">
-
-                                                            <h6 class="dr_name">Abbigail Titmus <span>(MBBS)</span></h6>
-
-                                                            <p class="dr_email"><a href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a></p>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </label>
-
-                                            </div>
-
-
-
-
-
-                                        </li>
-
-                                        <li>
-
-                                            <div class="booking_card_select">
-
-                                                <input type="checkbox" class="check_dr" name="cbx4" id="cbx2">
-
-                                                <label for="cbx2">
-
-                                                    <div class="doctor_dt">
-
-                                                        <div class="image_dr">
-
-                                                            <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg" alt="">
-
-                                                        </div>
-
-                                                        <div class="dr_detail">
-
-                                                            <h6 class="dr_name">Abbigail Titmus <span>(MBBS)</span></h6>
-
-                                                            <p class="dr_email"><a href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a></p>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </label>
-
-                                            </div>
-
-
-
-
-
-                                        </li>
-
-                                        <li>
-
-                                            <div class="booking_card_select">
-
-                                                <input type="checkbox" class="check_dr" name="cbx4" id="cbx3">
-
-                                                <label for="cbx3">
-
-                                                    <div class="doctor_dt">
-
-                                                        <div class="image_dr">
-
-                                                            <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg" alt="">
-
-                                                        </div>
-
-                                                        <div class="dr_detail">
-
-                                                            <h6 class="dr_name">Abbigail Titmus <span>(MBBS)</span></h6>
-
-                                                            <p class="dr_email"><a href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a></p>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </label>
-
-                                            </div>
-
-
-
-
-
-                                        </li>
-
-                                        <li>
-
-                                            <div class="booking_card_select">
-
-                                                <input type="checkbox" class="check_dr" name="cbx4" id="cbx4">
-
-                                                <label for="cbx4">
-
-                                                    <div class="doctor_dt">
-
-                                                        <div class="image_dr">
-
-                                                            <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg" alt="">
-
-                                                        </div>
-
-                                                        <div class="dr_detail">
-
-                                                            <h6 class="dr_name">Abbigail Titmus <span>(MBBS)</span></h6>
-
-                                                            <p class="dr_email"><a href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a></p>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </label>
-
-                                            </div>
-
-
-
-
-
-                                        </li>
-
-                                    </ul>
-
-
-
-
-
-                                </div>
-
-
-
-                            </div>
-
-                            <div class="col-lg-12 px-4 mb-3" id="refer_note">
-
-                                <div class="mt-3 form-group">
-
-                                    <textarea class="form-control" placeholder="Type a short referral message here. This will be entered as a note on EMR and will be emailed to addressees (salutation added automatically). 
-
-            
-
-            This action also gives the addressee access to this medical record. " style="height:150px"></textarea>
-
-                                </div>
-
-                            </div>
 
                         </div>
 
+                    </div>
 
+                    <div class="action text-end bottom_modal">
+
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
+                            data-bs-dismiss="modal">
+
+                            Save</a>
+
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
+
+                            Close</a>
 
                     </div>
 
                 </div>
-
-                <div class="action text-end bottom_modal">
-
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
-
-                        Save</a>
-
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
-
-                        Close</a>
-
-                </div>
-
-            </div>
-<form>
-            <!-- <div class="modal-footer">
+                <form>
+                    <!-- <div class="modal-footer">
 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
@@ -3395,7 +3561,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="special_notes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="special_notes" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -3405,12 +3572,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Special Notes</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="special_note_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -3439,7 +3607,8 @@
 
                                         <div class="mb-3 form-group">
 
-                                            <label for="validationCustom01" class="form-label">Write Special Notes</label>
+                                            <label for="validationCustom01" class="form-label">Write Special
+                                                Notes</label>
 
                                             <textarea class="form-control" placeholder="" style="height:150px" name="note_text"></textarea>
                                             <span id="note_textError" style="color: red;font-size:small"></span>
@@ -3468,7 +3637,8 @@
 
                             Save</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Close</a>
 
@@ -3500,7 +3670,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="add_new_note" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="add_new_note" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-xl">
 
@@ -3508,21 +3679,23 @@
 
             <div class="modal-header">
 
-                <h1 class="modal-title" id="exampleModalLabel"><i class="fa-regular fa-square-plus"></i> Add a New Note</h1>
+                <h1 class="modal-title" id="exampleModalLabel"><i class="fa-regular fa-square-plus"></i> Add a New
+                    Note</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="progress_note_form">
-            @csrf
-            <input type="hidden" name="patient_id" value="{{@$id}}"/>
-            <div class="modal-body padding-0">
+                @csrf
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
+                <div class="modal-body padding-0">
 
-                <div class="inner_data">
+                    <div class="inner_data">
 
-                    <div class="row">
+                        <div class="row">
 
-                        <!-- <div class="col-lg-12">
+                            <!-- <div class="col-lg-12">
 
                                     <div class="title_head">
 
@@ -3534,341 +3707,165 @@
 
 
 
-                        <div class="">
-                        @php
-                        @$formattedDate =  Carbon\Carbon::now()->format('M d, Y g:i A');
-                        @$patient=App\Models\User::where('id',@$id)->first();
-                        @endphp
-                            <h6 class="patient_on_ new_entry">New entry on: <span> {{@$patient !=null ? @$patient->name : ''}}</span></h6>
+                            <div class="">
+                                @php
+                                    @$formattedDate = Carbon\Carbon::now()->format('M d, Y g:i A');
+                                    @$patient = App\Models\User::where('id', @$id)->first();
+                                @endphp
+                                <h6 class="patient_on_ new_entry">New entry on: <span>
+                                        {{ @$patient != null ? @$patient->name : '' }}</span></h6>
 
-                            <p class="entry_by">{{@$patient !=null ? @$patient->name : ''}}| {{@$formattedDate }}</p>
+                                <p class="entry_by">{{ @$patient != null ? @$patient->name : '' }}|
+                                    {{ @$formattedDate }}</p>
 
-                            <div class="row top_head_vitals">
+                                <div class="row top_head_vitals">
 
-                                <div class="col-lg-12">
+                                    <div class="col-lg-12">
 
-                                    <div class="row">
+                                        <div class="row">
 
-                                        <div class="col-lg-4">
+                                            <div class="col-lg-4">
 
-                                            <div class="d-flex">
+                                                <div class="d-flex">
 
-                                                <div class="inner_element w-100">
+                                                    <div class="inner_element w-100">
 
-                                                    <div class="form-group">
+                                                        <div class="form-group">
 
-                                                        <select class="form-control select2_note" id="canned_texts" name="canned_texts">
+                                                            <select class="form-control select2_note"
+                                                                id="canned_texts" name="canned_texts">
 
-                                                           
 
-                                                        </select>
-                                                       
-                                                        <span id="canned_textsError" style="color: red; font-size:small"></span>
-                                                       
+
+                                                            </select>
+
+                                                            <span id="canned_textsError"
+                                                                style="color: red; font-size:small"></span>
+
+
+                                                        </div>
+
+
+
+
 
                                                     </div>
 
+                                                    <div class="add_btn_plus" id="entry_add_btn">
 
-
-
-
-                                                </div>
-
-                                                <div class="add_btn_plus" id="entry_add_btn">
-
-                                                    <a href="#">+</a>
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                        </div>
-
-                                        <div class="col-lg-4" id="context_add">
-
-                                            <div class="d-flex">
-
-                                                <div class="inner_element w-100">
-
-                                                    <div class="form-group">
-
-                                                        <input type="text" class="form-control" placeholder="Type a new context" id="new_text" name="new_text">
-                                                        <span id="new_textError" style="color: red; font-size:small"></span>
+                                                        <a href="#">+</a>
 
                                                     </div>
 
                                                 </div>
 
-                                                <div class="add_btn_plus">
 
-                                                    <a href="#">+</a>
-
-                                                </div>
 
                                             </div>
 
+                                            <div class="col-lg-4" id="context_add">
 
+                                                <div class="d-flex">
 
-                                        </div>
+                                                    <div class="inner_element w-100">
 
-                                        <div class="col-lg-4">
+                                                        <div class="form-group">
 
-                                            <div class="d-flex">
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Type a new context" id="new_text"
+                                                                name="new_text">
+                                                            <span id="new_textError"
+                                                                style="color: red; font-size:small"></span>
 
-                                                <div class="inner_element w-100">
-
-                                                    <div class="form-group">
-
-                                                        <select class="form-control select2_note" id="note_contents" name="note_contents">
-                                                        </select>
-                                                            <span id="note_contentsError" style="color: red; font-size:small"></span>
-                                                       
+                                                        </div>
 
                                                     </div>
 
+                                                    <div class="add_btn_plus">
 
+                                                        <a href="#">+</a>
 
-
-
-                                                </div>
-
-                                                <div class="add_btn_plus">
-
-                                                    <a href="#">+</a>
+                                                    </div>
 
                                                 </div>
+
+
 
                                             </div>
 
+                                            <div class="col-lg-4">
+
+                                                <div class="d-flex">
+
+                                                    <div class="inner_element w-100">
+
+                                                        <div class="form-group">
+
+                                                            <select class="form-control select2_note"
+                                                                id="note_contents" name="note_contents">
+                                                            </select>
+                                                            <span id="note_contentsError"
+                                                                style="color: red; font-size:small"></span>
 
 
-                                        </div>
+                                                        </div>
 
-                                        <div class="col-lg-12 mt-4">
 
-                                            <div class="row">
 
-                                                <div class="col-lg-4">
 
-                                                    <div class="voice_recognition">
 
-{{-- 
+                                                    </div>
+
+                                                    <div class="add_btn_plus">
+
+                                                        <a href="#">+</a>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+                                            </div>
+
+                                            <div class="col-lg-12 mt-4">
+
+                                                <div class="row">
+
+                                                    <div class="col-lg-4">
+
+                                                        <div class="voice_recognition">
+
+                                                            {{-- 
                                                     <button  class="startRecognition" id="startRecognition">Start Voice Recognition</button> --}}
 
 
-                                                    <p>
-                                                        <a href="javascript:void(0)" class="mic_btn" role="button" aria-label="Start/Stop voice recognition">
-                                                            <i class="fa-solid fa-microphone startRecognition" id="startRecognition" aria-hidden="true"></i>
-                                                        </a>
-                                                        <span class="tooltip" role="tooltip" aria-live="assertive" aria-atomic="true">Click the icon to start voice recognition.</span>
-                                                    </p>
-                                                    
-                                                    
-                                                        
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-lg-4">
-
-                                                    <div class="automated_clinic_notes">
-
-                                                        <a href="javascript:void(0)" id="automated_clinic_note">Automated Clinic Notes - <span>Click Here to Start!</span></a>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
+                                                            <p>
+                                                                <a href="javascript:void(0)" class="mic_btn"
+                                                                    role="button"
+                                                                    aria-label="Start/Stop voice recognition">
+                                                                    <i class="fa-solid fa-microphone startRecognition"
+                                                                        id="startRecognition"
+                                                                        aria-hidden="true"></i>
+                                                                </a>
+                                                                <span class="tooltip" role="tooltip"
+                                                                    aria-live="assertive" aria-atomic="true">Click
+                                                                    the icon to start voice recognition.</span>
+                                                            </p>
 
 
-
-                                        <div class="col-lg-12">
-
-                                            <div class="mt-2 form-group">
-
-                                                <textarea class="form-control" id="voiceInput" placeholder="Type your entry here" style="height:100px" id="prog_voice_recognition" name="prog_voice_recognition"></textarea>
-                                                <span id="prog_voice_recognitionError" style="color: red; font-size:small"></span>
-
-                                            </div>
-
-                                            <h6 class="recall">Recall <span>Follow-up on this episode. Patient will be notified a week before and clinic staff will be notified on due date. </span></h6>
-
-                                        </div>
-
-                                        <div class="col-lg-12">
-
-                                            <div class="row align-items-center mt-3">
-
-                                                <div class="col-lg-1">
-
-                                                    <div class="inner_element w-100">
-
-                                                        <div class="form-group">
-
-                                                            <input type="text" class="form-control" placeholder="" name="prog_day" id="prog_day">
-                                                            <span id="prog_dayError" style="color: red; font-size:small"></span>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-lg-4">
-
-                                                    <div class="inner_element w-100">
-
-                                                        <div class="form-group">
-
-                                                            <select class="form-control select2_note" id="prog_date" name="prog_date">
-
-                                                                <option value="Days">Days</option>
-
-                                                                <option value="Weeks">Weeks</option>
-
-                                                                <option value="Months">Months</option>
-
-                                                                <option value="Years">Years</option>
-
-                                                            </select>
-                                                    <span id="prog_dateError" style="color: red; font-size:small"></span>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-lg-4">
-
-                                                    <div class="inner_element w-100">
-
-                                                        <div class="form-group">
-
-                                                            <input type="text" class="form-control" placeholder="Details  -  e.g OPD, CT Scan etc." name="prog_details">
 
                                                         </div>
 
                                                     </div>
 
-                                                </div>
+                                                    <div class="col-lg-4">
 
-                                                <div class="col-lg-3">
+                                                        <div class="automated_clinic_notes">
 
-                                                    <div class="form-check">
-
-                                                        <input class="form-check-input" type="checkbox" value="active" id="prog_recall_reminder" name="prog_recall_reminder">
-
-                                                        <label class="form-check-label" for="prog_recall_reminder">
-
-                                                            Save without a recall reminder
-
-                                                        </label>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-lg-12 mt-3  mb-3">
-
-                                            <div class="row align-items-center">
-
-                                                <div class="col-lg-4">
-
-                                                    <div class="inner_element w-100">
-
-                                                        <div class="form-group">
-
-                                                            <input type="text" class="form-control" placeholder="Email" name="prog_email" id="prog_email">
-                                                            <span id="prog_emailError" style="color: red; font-size:small"></span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-lg-4">
-
-                                                    <div class="inner_element w-100">
-
-                                                        <div class="form-group">
-
-                                                            <input type="text" class="form-control" placeholder="Mobile Phone" id="prog_mobile_no" name="prog_mobile_no">
-                                                            <span id="prog_mobile_noError" style="color: red; font-size:small"></span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-lg-4">
-
-                                                    <div class="form-check">
-
-                                                        <input class="form-check-input" type="checkbox" value="active" id="flexCheckCheckeda2" id="prog_invoice_item" name="prog_invoice_item">
-
-                                                        <label class="form-check-label" for="flexCheckCheckeda2">
-
-                                                            Create an Invoice Item
-
-                                                        </label>
-                                                        <span id="prog_invoice_itemError" style="color: red; font-size:small"></span>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-lg-12 mt-3" id="invoice_appoin">
-
-                                                    <div class="inner_element w-100">
-
-                                                        <div class="form-group">
-
-                                                            <select class="form-control select2_note" name="prog_appointment_type">
-
-                                                                <option value="">Appointment Type</option>
-
-                                                                <option value="CONSULTATION/Interventional Radiology">CONSULTATION/Interventional Radiology استشارة أشعة تداخلية</option>
-
-                                                                <option value="CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation">CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation علاج ألم المفاصل بالتردد الحراري بتوجية الأشعة</option>
-
-                                                                <option value="Follow up appointment">Follow up appointment</option>
-
-                                                                <option value="Hemorrhoids Embolization">Hemorrhoids Embolization</option>
-
-                                                                <option value="Image guided MSK inflammation / pain injection - PRP">Image guided MSK inflammation / pain injection - PRP حقن إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما QASTARAT & DAWALI CLINICS</option>
-
-                                                                <option value="Image guided MSK / pain injection - HA">Image guided MSK / pain injection - HA حقن إالتهاب/ألم المفاصل بتوجية الأشعة-حقن زيتية</option>
-
-                                                                <option value="Image (Ultrasound) guided Occipital Headache nerve block">Image (Ultrasound) guided Occipital Headache nerve block</option>
-
-                                                                <option value="INTRAVENOUS VITAMIN THERAPY">INTRAVENOUS VITAMIN THERAPY</option>
-
-                                                                <option value="IV DRIP ASCORBIC ACID (Essential dose)">IV DRIP ASCORBIC ACID (Essential dose) فيتامين سي الجرعه الأساسية</option>
-
-                                                                <option value="IV DRIP DETOX MASTER (ESSENTIAL DOSE)">IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل السميات (الجرعة الأساسية)</option>
-
-                                                                <option value="IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE)">IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE) معزز الطاقة الجرعة الأساسية</option>
-
-                                                                <option value="IV DRIP FAT BURNER (ESSENTIAL DOSE)">IV DRIP FAT BURNER (ESSENTIAL DOSE) مسرعات حرق الدهون (الجرعة الأساسية)</option>
-
-                                                                <option value="IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C">IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C</option>
-
-                                                                <option value="IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS COMBINATION ">IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS COMBINATION </option>
-
-                                                                <option value="IV Vitamin - Multivatamins w/ Iron">IV Vitamin - Multivatamins w/ Iron</option>
-
-
-                                                            </select>
+                                                            <a href="javascript:void(0)"
+                                                                id="automated_clinic_note">Automated Clinic Notes -
+                                                                <span>Click Here to Start!</span></a>
 
                                                         </div>
 
@@ -3878,17 +3875,279 @@
 
                                             </div>
 
+
+
+                                            <div class="col-lg-12">
+
+                                                <div class="mt-2 form-group">
+
+                                                    <textarea class="form-control" id="voiceInput" placeholder="Type your entry here" style="height:100px"
+                                                        id="prog_voice_recognition" name="prog_voice_recognition"></textarea>
+                                                    <span id="prog_voice_recognitionError"
+                                                        style="color: red; font-size:small"></span>
+
+                                                </div>
+
+                                                <h6 class="recall">Recall <span>Follow-up on this episode. Patient
+                                                        will be notified a week before and clinic staff will be notified
+                                                        on due date. </span></h6>
+
+                                            </div>
+
+                                            <div class="col-lg-12">
+
+                                                <div class="row align-items-center mt-3">
+
+                                                    <div class="col-lg-1">
+
+                                                        <div class="inner_element w-100">
+
+                                                            <div class="form-group">
+
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="" name="prog_day" id="prog_day">
+                                                                <span id="prog_dayError"
+                                                                    style="color: red; font-size:small"></span>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+
+                                                        <div class="inner_element w-100">
+
+                                                            <div class="form-group">
+
+                                                                <select class="form-control select2_note"
+                                                                    id="prog_date" name="prog_date">
+
+                                                                    <option value="Days">Days</option>
+
+                                                                    <option value="Weeks">Weeks</option>
+
+                                                                    <option value="Months">Months</option>
+
+                                                                    <option value="Years">Years</option>
+
+                                                                </select>
+                                                                <span id="prog_dateError"
+                                                                    style="color: red; font-size:small"></span>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+
+                                                        <div class="inner_element w-100">
+
+                                                            <div class="form-group">
+
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Details  -  e.g OPD, CT Scan etc."
+                                                                    name="prog_details">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-3">
+
+                                                        <div class="form-check">
+
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="active" id="prog_recall_reminder"
+                                                                name="prog_recall_reminder">
+
+                                                            <label class="form-check-label"
+                                                                for="prog_recall_reminder">
+
+                                                                Save without a recall reminder
+
+                                                            </label>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-lg-12 mt-3  mb-3">
+
+                                                <div class="row align-items-center">
+
+                                                    <div class="col-lg-4">
+
+                                                        <div class="inner_element w-100">
+
+                                                            <div class="form-group">
+
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Email" name="prog_email"
+                                                                    id="prog_email">
+                                                                <span id="prog_emailError"
+                                                                    style="color: red; font-size:small"></span>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+
+                                                        <div class="inner_element w-100">
+
+                                                            <div class="form-group">
+
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Mobile Phone" id="prog_mobile_no"
+                                                                    name="prog_mobile_no">
+                                                                <span id="prog_mobile_noError"
+                                                                    style="color: red; font-size:small"></span>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+
+                                                        <div class="form-check">
+
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="active" id="flexCheckCheckeda2"
+                                                                id="prog_invoice_item" name="prog_invoice_item">
+
+                                                            <label class="form-check-label"
+                                                                for="flexCheckCheckeda2">
+
+                                                                Create an Invoice Item
+
+                                                            </label>
+                                                            <span id="prog_invoice_itemError"
+                                                                style="color: red; font-size:small"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-12 mt-3" id="invoice_appoin">
+
+                                                        <div class="inner_element w-100">
+
+                                                            <div class="form-group">
+
+                                                                <select class="form-control select2_note"
+                                                                    name="prog_appointment_type">
+
+                                                                    <option value="">Appointment Type</option>
+
+                                                                    <option
+                                                                        value="CONSULTATION/Interventional Radiology">
+                                                                        CONSULTATION/Interventional Radiology استشارة
+                                                                        أشعة تداخلية</option>
+
+                                                                    <option
+                                                                        value="CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation">
+                                                                        CT / Fluro Guided joint / facet RFA
+                                                                        (Radio-Frequency) ablation علاج ألم المفاصل
+                                                                        بالتردد الحراري بتوجية الأشعة</option>
+
+                                                                    <option value="Follow up appointment">Follow up
+                                                                        appointment</option>
+
+                                                                    <option value="Hemorrhoids Embolization">
+                                                                        Hemorrhoids Embolization</option>
+
+                                                                    <option
+                                                                        value="Image guided MSK inflammation / pain injection - PRP">
+                                                                        Image guided MSK inflammation / pain injection -
+                                                                        PRP حقن إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما
+                                                                        QASTARAT & DAWALI CLINICS</option>
+
+                                                                    <option
+                                                                        value="Image guided MSK / pain injection - HA">
+                                                                        Image guided MSK / pain injection - HA حقن
+                                                                        إالتهاب/ألم المفاصل بتوجية الأشعة-حقن زيتية
+                                                                    </option>
+
+                                                                    <option
+                                                                        value="Image (Ultrasound) guided Occipital Headache nerve block">
+                                                                        Image (Ultrasound) guided Occipital Headache
+                                                                        nerve block</option>
+
+                                                                    <option value="INTRAVENOUS VITAMIN THERAPY">
+                                                                        INTRAVENOUS VITAMIN THERAPY</option>
+
+                                                                    <option
+                                                                        value="IV DRIP ASCORBIC ACID (Essential dose)">
+                                                                        IV DRIP ASCORBIC ACID (Essential dose) فيتامين
+                                                                        سي الجرعه الأساسية</option>
+
+                                                                    <option
+                                                                        value="IV DRIP DETOX MASTER (ESSENTIAL DOSE)">
+                                                                        IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل
+                                                                        السميات (الجرعة الأساسية)</option>
+
+                                                                    <option
+                                                                        value="IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE)">
+                                                                        IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE) معزز
+                                                                        الطاقة الجرعة الأساسية</option>
+
+                                                                    <option
+                                                                        value="IV DRIP FAT BURNER (ESSENTIAL DOSE)">IV
+                                                                        DRIP FAT BURNER (ESSENTIAL DOSE) مسرعات حرق
+                                                                        الدهون (الجرعة الأساسية)</option>
+
+                                                                    <option
+                                                                        value="IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C">
+                                                                        IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER
+                                                                        WITH VITAMIN C</option>
+
+                                                                    <option
+                                                                        value="IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS COMBINATION ">
+                                                                        IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI
+                                                                        HAIR LOSS COMBINATION </option>
+
+                                                                    <option
+                                                                        value="IV Vitamin - Multivatamins w/ Iron">IV
+                                                                        Vitamin - Multivatamins w/ Iron</option>
+
+
+                                                                </select>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+
                                         </div>
-
-
 
                                     </div>
 
+
+
+
+
+
+
                                 </div>
-
-
-
-
 
 
 
@@ -3898,25 +4157,22 @@
 
                         </div>
 
+                    </div>
 
+                    <div class="action text-end bottom_modal">
+
+                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+
+                            Save</button>
+
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
+
+                            Close</a>
 
                     </div>
 
                 </div>
-
-                <div class="action text-end bottom_modal">
-
-                    <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
-
-                        Save</button>
-
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
-
-                        Close</a>
-
-                </div>
-
-            </div>
             </form>
             <!-- <div class="modal-footer">
 
@@ -3940,7 +4196,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="order_imagenairy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="order_imagenairy" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog">
 
@@ -3950,12 +4207,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Order Imaginary Exam </h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="order_imaginary_exam_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -3980,12 +4238,14 @@
 
                                         <label for="validationCustom01" class="form-label">Select Tests</label>
 
-                                        <select class="form-control select2_imaginary_test" name="test_name[]" multiple="multiple">
+                                        <select class="form-control select2_imaginary_test" name="test_name[]"
+                                            multiple="multiple">
                                             @php
-                                            $test_names=App\Models\patient\Order_imaginary_exam_test::orderBy('id','desc')->get();
+                                                $test_names = App\Models\patient\Order_imaginary_exam_test::orderBy('id', 'desc')->get();
                                             @endphp
-                                            @foreach($test_names as $test_name)
-                                            <option value="{{ $test_name->id }}">{{ $test_name->test_name }}</option>
+                                            @foreach ($test_names as $test_name)
+                                                <option value="{{ $test_name->id }}">{{ $test_name->test_name }}
+                                                </option>
                                             @endforeach
 
                                         </select>
@@ -3997,12 +4257,12 @@
 
                             </div>
 
-                          <div class="col-lg-12">
-								<div class="mb-3 form-group">
-									<label for="validationCustom01" class="form-label">Write Summary</label>
-									<textarea class="form-control" placeholder="" style="height:150px"></textarea>
-								</div>
-							</div>
+                            <div class="col-lg-12">
+                                <div class="mb-3 form-group">
+                                    <label for="validationCustom01" class="form-label">Write Summary</label>
+                                    <textarea class="form-control" placeholder="" style="height:150px"></textarea>
+                                </div>
+                            </div>
 
 
 
@@ -4016,7 +4276,8 @@
 
                             Save</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Close</a>
 
@@ -4040,406 +4301,20 @@
 </div>
 
 
-<!----------------------------
-  MDT Review
----------------------------->
-<div class="modal fade edit_patient__" id="mdt_review" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h1 class="modal-title" id="exampleModalLabel"> MDT Review</h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="kapxq"><i class="fa-solid fa-xmark"></i></button>
-			</div>
-			<div class="modal-body padding-0">
-				<div class="inner_data">
-					<div class="row">
-						<div class="col-lg-12">
-						<div class="title_head">
-							<h4 class="mt-0">Choose MDT Decision</h4>
-						</div>
-					</div>
-					<div class="col-lg-6">
-                            <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input" type="checkbox" name="formRadiosRight" id="enableTextarea1">
-                                <label class="form-check-label" for="enableTextarea1">
-                                IR Procesure
-                                </label>
-                            </div>
-							<div class="form-check form-check-right mb-3 ps-0">
-								<textarea class="form-control" id="myTextarea1" placeholder="Enter Elaborate / notes here***" style="height: 100px" disabled=""></textarea>
-							</div>
-                        </div>
-						<div class="col-lg-6">
-                            <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input" type="checkbox" name="formRadiosRight" id="enableTextarea2">
-                                <label class="form-check-label" for="enableTextarea2">
-                                Medical Conservative
-                                </label>
-                            </div>
-							<div class="form-check form-check-right mb-3 ps-0">
-								<textarea class="form-control" id="myTextarea2" placeholder="Enter Elaborate / notes here***" style="height: 100px" disabled=""></textarea>
-							</div>
-                        </div>
-						<div class="col-lg-6">
-                            <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input" type="checkbox" name="formRadiosRight" id="enableTextarea3">
-                                <label class="form-check-label" for="enableTextarea3">
-                                Surgical
-                                </label>
-                            </div>
-							<div class="form-check form-check-right mb-3 ps-0">
-								<textarea class="form-control" id="myTextarea3" placeholder="Enter Elaborate / notes here***" style="height: 100px" disabled=""></textarea>
-							</div>
-                        </div>
-						<div class="col-lg-6">
-                            <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input" type="checkbox" name="formRadiosRight" id="enableTextarea4">
-                                <label class="form-check-label" for="enableTextarea4">
-                                Other Options
-                                </label>
-                            </div>
-							<div class="form-check form-check-right mb-3 ps-0">
-								<textarea class="form-control" id="myTextarea4" placeholder="Enter Elaborate / notes here***" style="height: 100px" disabled=""></textarea>
-							</div>
-                        </div>
-						<div class="col-lg-12">
-								<div class="mb-3 form-group">
-									<label for="validationCustom01" class="form-label">Write Summary</label>
-									<textarea class="form-control" placeholder="" style="height:100px"></textarea>
-								</div>
-							</div>
-
-					</div>
-				</div>
-				<div class="action text-end bottom_modal">
-					<a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
-					Save</a>
-                	<a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
-					Close</a>
-				</div>
-			</div>
-			<!-- <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div> -->
-		</div>
-	</div>
-</div>
-<!----------------------------
-  Eligibility Status
----------------------------->
-
-<div class="modal fade edit_patient__" id="eligibility_status" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h1 class="modal-title" id="exampleModalLabel"> Eligibility Status</h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-			</div>
-			<div class="modal-body padding-0">
-				<div class="inner_data">
-					<div class="row">
-						<!-- <div class="col-lg-12">
-						<div class="title_head">
-							<h4 class="mt-0">Choose MDT Decision</h4>
-						</div>
-					</div> -->
-					<div class="col-lg-12 mb-2">
-                        <div class="row align-items-center">
-                     <div class="col-lg-12 ">
-						<h6 class="question_title">Conservative - Topical Riparil</h6>
-					 </div>
-                                    <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="non_eligibile1_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight20" id="formRadiosRight_a5">
-                                        <label class="form-check-label" for="formRadiosRight_a5">
-                                          Non-Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="eligibile1_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight20" id="formRadiosRight_a6">
-                                        <label class="form-check-label" for="formRadiosRight_a6">
-										Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                           
-                              
-                                <div class="col-lg-12" id="eligibile1_textarea" style="display: none;">
-                                    <div class="form-check form-check-right mb-3 ps-0">
-                                      <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px"></textarea>
-                                    </div>
-                                </div>
-                          
-                                
-                            </div>
-                        </div>
-
-						<div class="col-lg-12 mb-2">
-                        <div class="row align-items-center">
-                     <div class="col-lg-12">
-						<h6 class="question_title">Conservative - Topical Analgesics</h6>
-					 </div>
-                                    <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="non_eligibile2_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight21" id="formRadiosRight_a7">
-                                        <label class="form-check-label" for="formRadiosRight_a7">
-                                          Non-Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="eligibile2_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight21" id="formRadiosRight_a8">
-                                        <label class="form-check-label" for="formRadiosRight_a8">
-										Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                           
-                              
-                                <div class="col-lg-12" id="eligibile2_textarea" style="display: none;">
-                                    <div class="form-check form-check-right mb-3 ps-0">
-                                      <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px"></textarea>
-                                    </div>
-                                </div>
-                          
-                                
-                            </div>
-                        </div>
-
-						<div class="col-lg-12 mb-2">
-                        <div class="row align-items-center">
-                     <div class="col-lg-12">
-						<h6 class="question_title">Conservative - PO Analgesics</h6>
-					 </div>
-                                    <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="non_eligibile3_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight22" id="formRadiosRight_a9">
-                                        <label class="form-check-label" for="formRadiosRight_a9">
-                                          Non-Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="eligibile3_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight22" id="formRadiosRight_a10">
-                                        <label class="form-check-label" for="formRadiosRight_a10">
-										Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                           
-                              
-                                <div class="col-lg-12" id="eligibile3_textarea" style="display: none;">
-                                    <div class="form-check form-check-right mb-3 ps-0">
-                                      <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px"></textarea>
-                                    </div>
-                                </div>
-                          
-                                
-                            </div>
-                        </div>
-
-
-						<div class="col-lg-12 mb-2">
-                        <div class="row align-items-center">
-                     <div class="col-lg-12">
-						<h6 class="question_title">Conservative - Glucasamine / Chondroitin</h6>
-					 </div>
-                                    <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="non_eligibile4_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight23" id="formRadiosRight_a11">
-                                        <label class="form-check-label" for="formRadiosRight_a11">
-                                          Non-Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="eligibile4_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight23" id="formRadiosRight_a12">
-                                        <label class="form-check-label" for="formRadiosRight_a12">
-										Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                           
-                              
-                                <div class="col-lg-12" id="eligibile4_textarea" style="display: none;">
-                                    <div class="form-check form-check-right mb-3 ps-0">
-                                      <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px"></textarea>
-                                    </div>
-                                </div>
-                          
-                                
-                            </div>
-                        </div>
-						<div class="col-lg-12 mb-2">
-                        <div class="row align-items-center">
-                     <div class="col-lg-12">
-						<h6 class="question_title">Conservative - PO - Collagen</h6>
-					 </div>
-                                    <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="non_eligibile5_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight24" id="formRadiosRight_a13">
-                                        <label class="form-check-label" for="formRadiosRight_a13">
-                                          Non-Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="eligibile5_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight24" id="formRadiosRight_a14">
-                                        <label class="form-check-label" for="formRadiosRight_a14">
-										Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                           
-                              
-                                <div class="col-lg-12" id="eligibile5_textarea" style="display: none;">
-                                    <div class="form-check form-check-right mb-3 ps-0">
-                                      <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px"></textarea>
-                                    </div>
-                                </div>
-                          
-                                
-                            </div>
-                        </div>
-
-						<div class="col-lg-12 mb-2">
-                        <div class="row align-items-center">
-                     <div class="col-lg-12">
-						<h6 class="question_title">Conservative - IV Vitamins</h6>
-					 </div>
-                                    <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="non_eligibile6_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight25" id="formRadiosRight_a15">
-                                        <label class="form-check-label" for="formRadiosRight_a15">
-                                          Non-Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="eligibile6_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight25" id="formRadiosRight_a16">
-                                        <label class="form-check-label" for="formRadiosRight_a16">
-										Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                           
-                              
-                                <div class="col-lg-12" id="eligibile6_textarea" style="display: none;">
-                                    <div class="form-check form-check-right mb-3 ps-0">
-                                      <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px"></textarea>
-                                    </div>
-                                </div>
-                          
-                                
-                            </div>
-                        </div>
-						<div class="col-lg-12 mb-2">
-                        <div class="row align-items-center">
-                     <div class="col-lg-12">
-						<h6 class="question_title">Conservative - IM Nurobion</h6>
-					 </div>
-                                    <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="non_eligibile7_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight26" id="formRadiosRight_a17">
-                                        <label class="form-check-label" for="formRadiosRight_a17">
-                                          Non-Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="eligibile7_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight26" id="formRadiosRight_a18">
-                                        <label class="form-check-label" for="formRadiosRight_a18">
-										Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                           
-                              
-                                <div class="col-lg-12" id="eligibile7_textarea" style="display: none;">
-                                    <div class="form-check form-check-right mb-3 ps-0">
-                                      <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px"></textarea>
-                                    </div>
-                                </div>
-                          
-                                
-                            </div>
-                        </div>
-
-						<div class="col-lg-12 mb-2">
-                        <div class="row align-items-center">
-                     <div class="col-lg-12">
-						<h6 class="question_title">Conservative - IM Collagen</h6>
-					 </div>
-                                    <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="non_eligibile8_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight27" id="formRadiosRight_a19">
-                                        <label class="form-check-label" for="formRadiosRight_a19">
-                                          Non-Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-check form-check-right mb-2" id="eligibile8_checkbox">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight27" id="formRadiosRight_a20">
-                                        <label class="form-check-label" for="formRadiosRight_a20">
-										Eligibile
-                                        </label>
-                                    </div>
-                                </div>
-                           
-                              
-                                <div class="col-lg-12" id="eligibile8_textarea" style="display: none;">
-                                    <div class="form-check form-check-right mb-3 ps-0">
-                                      <textarea class="form-control" placeholder="Enter Elaborate / notes here***" style="height: 100px"></textarea>
-                                    </div>
-                                </div>
-                          
-                                
-                            </div>
-                        </div>
-
-						<div class="col-lg-12">
-								<div class="mb-3 form-group">
-									<label for="validationCustom01" class="form-label">Write Summary</label>
-									<textarea class="form-control" placeholder="" style="height:100px"></textarea>
-								</div>
-							</div>
-					</div>
-				
-				</div>
-				<div class="action text-end bottom_modal">
-					<a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
-					Save</a>
-                	<a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
-					Close</a>
-				</div>
-			</div>
-			<!-- <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div> -->
-		</div>
-	</div>
-</div>
 
 <!----------------------------
 
                order imagenairy Exam
 
-            ---------------------------->
+      
+               ---------------------------->
 
-<div class="modal fade edit_patient__" id="consent_form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-    <div class="modal-dialog">
+
+<div class="modal fade edit_patient__" id="consent_form" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
 
@@ -4447,214 +4322,536 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Eligibility Forms</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
-        <form id="EligibilityForms" action="{{ route('user.slectEligibilityForms') }}" method="POST">
-            @csrf
-        <input type="hidden" name="patient_id" value="{{ @$id }}"/>
-            <div class="modal-body padding-0">
+            <form id="EligibilityForms" action="{{ route('user.slectEligibilityForms') }}" method="POST">
+                @csrf
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
+                <div class="modal-body padding-0">
 
-                <div class="inner_data">
+                    <div class="inner_data">
 
-                    <div class="row">
+                        <div class="row">
 
-                        <!-- <div class="col-lg-12">
 
-                                    <div class="title_head">
 
-                                        <h4>Schedule Appointment</h4>
+
+                            @if (!empty(@$id) && null != @$id)
+
+                                @php
+
+                                    $ids = decrypt(@$id);
+                                    // dd('ids',$ids);
+                                    $patient = App\Models\User::select('id')
+                                        ->where('id', $ids)
+                                        ->first();
+                                    $Thyroid_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                        ->where(['patient_id' => $patient->id, 'form_type' => 'thyroid_form'])
+                                        ->first();
+
+                                    if ($Thyroid_Eligibility_Forms !== null) {
+                                        $Thyroid_Eligibility_Forms = $Thyroid_Eligibility_Forms->toArray();
+                                    } else {
+                                        $Thyroid_Eligibility_Forms = [];
+                                    }
+                                @endphp
+
+                                <div class="col-lg-3 mb-4">
+
+                                    <label class="w-100">
+
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibility1" value="GeneralForm" />
+
+                                        <div class="form_box card-input">
+
+                                            <div class="form_img genral_form_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>General Form</h6>
+                                            </div>
+
+                                        </div>
+
+                                    </label>
+
+
+
+                                </div>
+                                @if (!in_array($ids, $Thyroid_Eligibility_Forms))
+                                    <div class="col-lg-3 mb-4">
+
+                                        <label class="w-100">
+
+                                            <input type="radio" name="EligibilityForm"
+                                                class="card-input-element" id="ThyroidAblation2"
+                                                value="ThyroidAblation" />
+
+                                            <div class="form_box card-input">
+
+                                                <div class="form_img form1_bg">
+                                                    <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                        alt="">
+
+                                                </div>
+
+                                                <div class="form_dt">
+                                                    <h6>Thyroid Ablation</h6>
+                                                </div>
+
+                                            </div>
+
+                                        </label>
+
+
 
                                     </div>
+                                @endif
+                                @php
 
-                                </div> -->
+                                    $Prostate_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                        ->where(['patient_id' => $patient->id, 'form_type' => 'prostate_form'])
+                                        ->first();
 
-                      
+                                    if ($Prostate_Eligibility_Forms !== null) {
+                                        $Prostate_Eligibility_Forms = $Prostate_Eligibility_Forms->toArray();
+                                    } else {
+                                        $Prostate_Eligibility_Forms = [];
+                                    }
+                                @endphp
+                                @if (!in_array($ids, $Prostate_Eligibility_Forms))
+                                    <div class="col-lg-3 mb-4">
+
+                                        <label class="w-100">
+
+                                            <input type="radio" name="EligibilityForm"
+                                                class="card-input-element"
+                                                id="ProstateArteryEmbolizationEligibility3"
+                                                value="ProstateArteryEmbolizationEligibility" />
+
+                                            <div class="form_box card-input">
+
+                                                <div class="form_img form2_bg">
+
+                                                    <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                        alt="">
+                                                </div>
+                                                <div class="form_dt">
+                                                    <h6>Prostate Embo</h6>
+                                                </div>
+
+                                            </div>
+
+                                        </label>
 
 
-
-                        <div class="col-lg-4">
-
-                            <label class="w-100">
-
-                                <input type="radio" name="EligibilityForm" class="card-input-element" id="ProstateArteryEmbolizationEligibility" value="ProstateArteryEmbolizationEligibility"/>
-
-                                <div class="form_box card-input">
-
-                                    <div class="form_img">
-
-                                        <img src="{{ url('public/assets') }}/images/new-images/forms.png" alt="">
 
                                     </div>
+                                @endif
+                                @php
 
-                                    <div class="form_dt">
+                                    $uterine_embo_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                        ->where(['patient_id' => $patient->id, 'form_type' => 'uterine_embo'])
+                                        ->first();
 
-                                        <h6>Prostate Artery Embolization Eligibility Form</h6>
+                                    if ($uterine_embo_Eligibility_Forms !== null) {
+                                        $uterine_embo_Eligibility_Forms = $uterine_embo_Eligibility_Forms->toArray();
+                                    } else {
+                                        $uterine_embo_Eligibility_Forms = [];
+                                    }
+                                @endphp
+
+
+
+                                @if (!in_array($ids, $uterine_embo_Eligibility_Forms))
+                                    <div class="col-lg-3 mb-4">
+
+                                        <label class="w-100">
+
+                                            <input type="radio" name="EligibilityForm"
+                                                class="card-input-element"
+                                                id="ProstateArteryEmbolizationEligibility"
+                                                value="UterineEmboForm" />
+
+                                            <div class="form_box card-input">
+
+                                                <div class="form_img form3_bg">
+
+                                                    <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                        alt="">
+
+                                                </div>
+
+                                                <div class="form_dt">
+                                                    <h6>Uterine Embo</h6>
+                                                </div>
+
+                                            </div>
+
+                                        </label>
+
+
 
                                     </div>
+                                @endif
+                                <div class="col-lg-3 mb-4 ">
+
+                                    <label class="w-100">
+
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibility4" value="VaricoceleEmboForm" />
+
+                                        <div class="form_box card-input">
+
+                                            <div class="form_img form4_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>Varicocele Embo (VE)</h6>
+                                            </div>
+
+                                        </div>
+
+                                    </label>
+
+
 
                                 </div>
 
-                            </label>
+                                @php
+
+                                $PelvicCongEmbo_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                    ->where(['patient_id' => $patient->id, 'form_type' => 'PelvicCongEmbo'])
+                                    ->first();
+
+                                if ($PelvicCongEmbo_Eligibility_Forms !== null) {
+                                    $PelvicCongEmbo_Eligibility_Forms = $PelvicCongEmbo_Eligibility_Forms->toArray();
+                                } else {
+                                    $PelvicCongEmbo_Eligibility_Forms = [];
+                                }
+                            @endphp
 
 
 
-                        </div>
+                            @if (!in_array($ids, $PelvicCongEmbo_Eligibility_Forms))
+                                <div class="col-lg-3 mb-4">
 
-                        <div class="col-lg-4">
+                                    <label class="w-100">
 
-                            <label class="w-100">
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibility5" value="PelvicCongEmbo" />
 
-                                <input type="radio" name="EligibilityForm" class="card-input-element" id="ThyroidAblation" value="ThyroidAblation"/>
+                                        <div class="form_box card-input">
 
-                                <div class="form_box card-input">
+                                            <div class="form_img form5_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>Pelvic Cong Embo (PCE)</h6>
+                                            </div>
 
-                                    <div class="form_img">
+                                        </div>
 
-                                        <img src="{{ url('public/assets') }}/images/new-images/forms.png" alt="">
+                                    </label>
 
-                                    </div>
 
-                                    <div class="form_dt">
-
-                                        <h6>Thyroid Ablation Form</h6>
-
-                                    </div>
 
                                 </div>
+                                    @endif
 
-                            </label>
+                                    @php
+
+                                    $VaricoseAblation_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                        ->where(['patient_id' => $patient->id, 'form_type' => 'VaricoseAblation'])
+                                        ->first();
+    
+                                    if ($VaricoseAblation_Eligibility_Forms !== null) {
+                                        $VaricoseAblation_Eligibility_Forms = $VaricoseAblation_Eligibility_Forms->toArray();
+                                    } else {
+                                        $VaricoseAblation_Eligibility_Forms = [];
+                                    }
+                                @endphp
+                            @if (!in_array($ids, $VaricoseAblation_Eligibility_Forms))
+                                <div class="col-lg-3 mb-4">
+
+                                    <label class="w-100">
+
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibility6" value="VaricoseAblation" />
+
+                                        <div class="form_box card-input">
+
+                                            <div class="form_img form6_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>Varicose Ablation (VA)</h6>
+                                            </div>
+
+                                        </div>
+
+                                    </label>
 
 
-
-                        </div>
-
-                        <div class="col-lg-4">
-
-                            <label class="w-100">
-
-                                <input type="radio" name="EligibilityForm" class="card-input-element" id="ProstateArteryEmbolizationEligibility" value="UterineEmboForm"/>
-
-                                <div class="form_box card-input">
-
-                                    <div class="form_img">
-
-                                        <img src="{{ url('public/assets') }}/images/new-images/forms.png" alt="">
-
-                                    </div>
-
-                                    <div class="form_dt">
-
-                                        <h6>Uterine Embo Form</h6>
-
-                                    </div>
 
                                 </div>
+                                @endif
+                                @php
 
-                            </label>
+                                $HaemorrhoidsEmbo_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                    ->where(['patient_id' => $patient->id, 'form_type' => 'HaemorrhoidsEmbo'])
+                                    ->first();
+
+                                if ($HaemorrhoidsEmbo_Eligibility_Forms !== null) {
+                                    $HaemorrhoidsEmbo_Eligibility_Forms = $HaemorrhoidsEmbo_Eligibility_Forms->toArray();
+                                } else {
+                                    $HaemorrhoidsEmbo_Eligibility_Forms = [];
+                                }
+                            @endphp
+                             @if (!in_array($ids, $HaemorrhoidsEmbo_Eligibility_Forms))
+                                <div class="col-lg-3 mb-4">
+
+                                    <label class="w-100">
+
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibility7" value="HaemorrhoidsEmbo" />
+
+                                        <div class="form_box card-input">
+
+                                            <div class="form_img form7_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>Haemorrhoids Embo (HE)</h6>
+                                            </div>
+
+                                        </div>
+
+                                    </label>
 
 
-
-                        </div>
-                        <div class="col-lg-4">
-
-                            <label class="w-100">
-
-                                <input type="radio" name="EligibilityForm" class="card-input-element" id="ProstateArteryEmbolizationEligibility" value="VaricoceleEmboForm"/>
-
-                                <div class="form_box card-input">
-
-                                    <div class="form_img">
-
-                                        <img src="{{ url('public/assets') }}/images/new-images/forms.png" alt="">
-
-                                    </div>
-
-                                    <div class="form_dt">
-
-                                        <h6>Varicocele Embo Form</h6>
-
-                                    </div>
 
                                 </div>
+                                @endif
+                                @php
 
-                            </label>
+                                $KneePain_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                    ->where(['patient_id' => $patient->id, 'form_type' => 'KneePain'])
+                                    ->first();
+
+                                if ($KneePain_Eligibility_Forms !== null) {
+                                    $KneePain_Eligibility_Forms = $KneePain_Eligibility_Forms->toArray();
+                                } else {
+                                    $KneePain_Eligibility_Forms = [];
+                                }
+                            @endphp
+                             @if (!in_array($ids, $KneePain_Eligibility_Forms))
+                                <div class="col-lg-3 mb-4">
+
+                                    <label class="w-100">
+
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibilityKneePain" value="KneePain" />
+
+                                        <div class="form_box card-input">
+
+                                            <div class="form_img form8a_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>Knee Pain</h6>
+                                            </div>
+
+                                        </div>
+
+                                    </label>
 
 
-
-                        </div>
-                        <div class="col-lg-4">
-
-                            <label class="w-100">
-
-                                <input type="radio" name="EligibilityForm" class="card-input-element" id="ProstateArteryEmbolizationEligibility" value="PelvicCongEmbo"/>
-
-                                <div class="form_box card-input">
-
-                                    <div class="form_img">
-
-                                        <img src="{{ url('public/assets') }}/images/new-images/forms.png" alt="">
-
-                                    </div>
-
-                                    <div class="form_dt">
-
-                                        <h6>Pelvic Cong Embo Form</h6>
-
-                                    </div>
 
                                 </div>
+                                @endif
+                                @php
 
-                            </label>
+                                $SpinePain_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                    ->where(['patient_id' => $patient->id, 'form_type' => 'SpinePain'])
+                                    ->first();
+
+                                if ($SpinePain_Eligibility_Forms !== null) {
+                                    $SpinePain_Eligibility_Forms = $SpinePain_Eligibility_Forms->toArray();
+                                } else {
+                                    $SpinePain_Eligibility_Forms = [];
+                                }
+                            @endphp
+                             @if (!in_array($ids, $SpinePain_Eligibility_Forms))
+                                <div class="col-lg-3 mb-4">
+
+                                    <label class="w-100">
+
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibilitySpinePain" value="SpinePain" />
+
+                                        <div class="form_box card-input">
+
+                                            <div class="form_img form8b_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>Spine Pain</h6>
+                                            </div>
+
+                                        </div>
+
+                                    </label>
 
 
-
-                        </div>
-                        <div class="col-lg-4">
-
-                            <label class="w-100">
-
-                                <input type="radio" name="EligibilityForm" class="card-input-element" id="ProstateArteryEmbolizationEligibility" value="VaricoseAblation"/>
-
-                                <div class="form_box card-input">
-
-                                    <div class="form_img">
-
-                                        <img src="{{ url('public/assets') }}/images/new-images/forms.png" alt="">
-
-                                    </div>
-
-                                    <div class="form_dt">
-
-                                        <h6>Varicose Ablation Form</h6>
-
-                                    </div>
 
                                 </div>
+                                @endif
+                                @php
 
-                            </label>
+                                $MSKPain_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                    ->where(['patient_id' => $patient->id, 'form_type' => 'MSKPain'])
+                                    ->first();
+
+                                if ($MSKPain_Eligibility_Forms !== null) {
+                                    $MSKPain_Eligibility_Forms = $MSKPain_Eligibility_Forms->toArray();
+                                } else {
+                                    $MSKPain_Eligibility_Forms = [];
+                                }
+                            @endphp
+                             @if (!in_array($ids, $MSKPain_Eligibility_Forms))
+                                <div class="col-lg-3 mb-4">
+
+                                    <label class="w-100">
+
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibilityMSKPain" value="MSKPain" />
+
+                                        <div class="form_box card-input">
+
+                                            <div class="form_img form8c_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>MSK-ST Pain</h6>
+                                            </div>
+
+                                        </div>
+
+                                    </label>
 
 
 
+                                </div>
+                                @endif
+                                @php
+
+                                $ShoulderPain_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                    ->where(['patient_id' => $patient->id, 'form_type' => 'ShoulderPain'])
+                                    ->first();
+
+                                if ($ShoulderPain_Eligibility_Forms !== null) {
+                                    $ShoulderPain_Eligibility_Forms = $ShoulderPain_Eligibility_Forms->toArray();
+                                } else {
+                                    $ShoulderPain_Eligibility_Forms = [];
+                                }
+                            @endphp
+                             @if (!in_array($ids, $ShoulderPain_Eligibility_Forms))
+                                <div class="col-lg-3 mb-4">
+
+                                    <label class="w-100">
+
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibilityShoulderPain" value="ShoulderPain" />
+
+                                        <div class="form_box card-input">
+
+                                            <div class="form_img form8d_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>Shoulder Pain </h6>
+                                            </div>
+
+                                        </div>
+
+                                    </label>
+
+
+
+                                </div>
+                                @endif
+                                @php
+
+                                $HeadachePain_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                    ->where(['patient_id' => $patient->id, 'form_type' => 'HeadachePain'])
+                                    ->first();
+
+                                if ($HeadachePain_Eligibility_Forms !== null) {
+                                    $HeadachePain_Eligibility_Forms = $HeadachePain_Eligibility_Forms->toArray();
+                                } else {
+                                    $HeadachePain_Eligibility_Forms = [];
+                                }
+                            @endphp
+                             @if (!in_array($ids, $HeadachePain_Eligibility_Forms))
+                                <div class="col-lg-3 mb-4">
+
+                                    <label class="w-100">
+
+                                        <input type="radio" name="EligibilityForm" class="card-input-element"
+                                            id="ProstateArteryEmbolizationEligibility" value="HeadachePain" />
+
+                                        <div class="form_box card-input">
+
+                                            <div class="form_img form8e_bg">
+                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="form_dt">
+                                                <h6>Headache Pain </h6>
+                                            </div>
+
+                                        </div>
+
+                                    </label>
+
+
+
+                                </div>
+                                @endif
+
+                            @endif
                         </div>
+
+                    </div>
+
+                    <div class="action text-end bottom_modal">
+
+                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+
+                            Next</button>
+
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
+
+                            Close</a>
+
                     </div>
 
                 </div>
-
-                <div class="action text-end bottom_modal">
-
-                    <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
-
-                        Next</button>
-
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
-
-                        Close</a>
-
-                </div>
-
-            </div>
-        </form>
+            </form>
             <!-- <div class="modal-footer">
 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -4679,7 +4876,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="invoice_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="invoice_add" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -4689,12 +4887,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Add a new invoice item</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="invoice_item_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -4725,7 +4924,9 @@
 
 
 
-                                            <input type="text" class="form-control" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" data-date-container='#datepicker22' data-provide="datepicker" name="date">
+                                            <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                                data-date-format="dd M, yyyy" data-date-container='#datepicker22'
+                                                data-provide="datepicker" name="date">
 
                                         </div>
                                         <span id="DateError" style="color: red;font-size:small"></span>
@@ -4747,7 +4948,8 @@
 
                                         <label for="validationCustom01" class="form-label">Type an item name</label>
 
-                                        <input type="search" class="form-control" id="" placeholder="" name="item_name">
+                                        <input type="search" class="form-control" id="" placeholder=""
+                                            name="item_name">
 
                                         <button class="btn search_btn">
 
@@ -4770,7 +4972,8 @@
 
                                         <label for="validationCustom01" class="form-label">Cost</label>
 
-                                        <input type="search" class="form-control" id="" placeholder="" name="cost">
+                                        <input type="search" class="form-control" id="" placeholder=""
+                                            name="cost">
 
                                         <span id="CostError" style="color: red;font-size:small"></span>
 
@@ -4788,7 +4991,8 @@
 
                                         <label for="validationCustom01" class="form-label">Code</label>
 
-                                        <input type="text" class="form-control" id="" placeholder="" name="code">
+                                        <input type="text" class="form-control" id="" placeholder=""
+                                            name="code">
 
                                         <span id="CodeError" style="color: red;font-size:small"></span>
 
@@ -4878,7 +5082,8 @@
 
                                 save</a> -->
 
-            <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+            <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                data-bs-dismiss="modal">
 
                 Close</a>
 
@@ -4908,7 +5113,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="new_task" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="new_task" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -4918,12 +5124,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">New Task on</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="new_task_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -4938,7 +5145,8 @@
 
 
 
-                                        <input type="search" class="form-control" id="" placeholder="Task" name="task_name">
+                                        <input type="search" class="form-control" id=""
+                                            placeholder="Task" name="task_name">
 
                                         <span id="TaskError" style="color: red;font-size:small"></span>
 
@@ -4960,7 +5168,9 @@
 
 
 
-                                            <input type="text" class="form-control" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" data-date-container='#datepicker23' data-provide="datepicker" name="task_date">
+                                            <input type="text" class="form-control" placeholder="dd M, yyyy"
+                                                data-date-format="dd M, yyyy" data-date-container='#datepicker23'
+                                                data-provide="datepicker" name="task_date">
 
                                         </div>
                                         <span id="DateError" style="color: red;font-size:small"></span>
@@ -5021,7 +5231,8 @@
 
                             save</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Close</a>
 
@@ -5052,7 +5263,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="discharge_instruction" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="discharge_instruction" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -5062,7 +5274,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Discharge Instruction</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -5076,7 +5289,8 @@
 
                             <div class="mb-3 form-group">
 
-                                <label for="validationCustom01" class="form-label">Write Discharge Instruction</label>
+                                <label for="validationCustom01" class="form-label">Write Discharge
+                                    Instruction</label>
 
                                 <textarea class="form-control" placeholder="" style="height:150px"></textarea>
 
@@ -5090,11 +5304,13 @@
 
                 <div class="action text-end bottom_modal">
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
+                        data-bs-dismiss="modal">
 
                         save</a>
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                        data-bs-dismiss="modal">
 
                         Close</a>
 
@@ -5124,7 +5340,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="followup_note" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="followup_note" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -5134,7 +5351,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Follow Up Note</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -5162,11 +5380,13 @@
 
                 <div class="action text-end bottom_modal">
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
+                        data-bs-dismiss="modal">
 
                         save</a>
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                        data-bs-dismiss="modal">
 
                         Close</a>
 
@@ -5196,7 +5416,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="attach_document" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="attach_document" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -5206,7 +5427,8 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Attach Document</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
 
@@ -5272,7 +5494,8 @@
 
                                     <div class="d-flex document pt-2">
 
-                                        <img src="{{ url('public/assets') }}/images/new-images/documents.png" class="avatar rounded me-3" alt="shreyu">
+                                        <img src="{{ url('public/assets') }}/images/new-images/documents.png"
+                                            class="avatar rounded me-3" alt="shreyu">
 
                                         <div class="flex-grow-1">
 
@@ -5290,7 +5513,8 @@
 
                                 <td>15 Nov, 2023</td>
 
-                                <td><a href="#" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a></td>
+                                <td><a href="#" class="trash_btn"><i
+                                            class="fa-regular fa-trash-can"></i></a></td>
 
                             </tr>
 
@@ -5304,11 +5528,13 @@
 
                 <div class="action text-end bottom_modal">
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
+                        data-bs-dismiss="modal">
 
                         save</a>
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                        data-bs-dismiss="modal">
 
                         Close</a>
 
@@ -5336,7 +5562,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="past_medical" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="past_medical" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -5346,12 +5573,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Past Medical History</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="past_medical_history_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -5372,10 +5600,14 @@
 
                                                 <div class="form-group">
 
-                                                    <label for="validationCustom01" class="form-label diseases_title"><span>Diseases Name</span> </label>
+                                                    <label for="validationCustom01"
+                                                        class="form-label diseases_title"><span>Diseases Name</span>
+                                                    </label>
 
-                                                    <input type="text" class="form-control" placeholder="Diseases Name" name="diseases_name[]">
-                                                    <span id="diseases_nameError" style="color: red;font-size:small"></span>
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Diseases Name" name="diseases_name[]">
+                                                    <span id="diseases_nameError"
+                                                        style="color: red;font-size:small"></span>
                                                 </div>
 
                                             </div>
@@ -5402,7 +5634,8 @@
                                 <div class="col-lg-12 text-end">
 
                                     <a href="#" class="diseases_name add_diseases_btn">+ Add More</a>
-                                    <span><a href="#" id="remove_disease"><i class="fa-regular fa-trash-can"></i></a></span>
+                                    <span><a href="#" id="remove_disease"><i
+                                                class="fa-regular fa-trash-can"></i></a></span>
                                 </div>
 
                             </div>
@@ -5423,7 +5656,8 @@
 
                             save</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Close</a>
 
@@ -5453,7 +5687,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="past_surgical" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="past_surgical" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
 
@@ -5463,12 +5698,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Past Surgical History</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="past_surgical_history_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -5483,10 +5719,13 @@
 
                                             <div class="form-group">
 
-                                                <label for="validationCustom01" class="form-label">Surgery Name</label>
+                                                <label for="validationCustom01" class="form-label">Surgery
+                                                    Name</label>
 
-                                                <input type="text" class="form-control" placeholder="Surgery Name" name="surgery_name[]">
-                                                <span id="surgery_nameError" style="color: red;font-size:small"></span>
+                                                <input type="text" class="form-control"
+                                                    placeholder="Surgery Name" name="surgery_name[]">
+                                                <span id="surgery_nameError"
+                                                    style="color: red;font-size:small"></span>
 
                                             </div>
 
@@ -5501,7 +5740,8 @@
                                             <label for="validationCustom01" class="form-label">Describe</label>
 
                                             <textarea class="form-control" placeholder="" style="height:60px" name="surgery_describe[]"></textarea>
-                                            <span id="surgery_describeError" style="color: red;font-size:small"></span>
+                                            <span id="surgery_describeError"
+                                                style="color: red;font-size:small"></span>
 
                                         </div>
 
@@ -5510,7 +5750,8 @@
                                 <div class="col-lg-12 text-end">
 
                                     <a href="#" class="diseases_name add_surgical_btn">+ Add More</a>
-                                    <span><a href="#" id="remove_surgical"><i class="fa-regular fa-trash-can"></i></a></span>
+                                    <span><a href="#" id="remove_surgical"><i
+                                                class="fa-regular fa-trash-can"></i></a></span>
                                 </div>
                             </div>
 
@@ -5528,7 +5769,8 @@
 
                             save</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Close</a>
 
@@ -5556,7 +5798,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="make_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="make_appointment" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -5566,13 +5809,14 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Make an Appointment</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="appointment_form">
 
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -5591,8 +5835,11 @@
 
 
 
-                                                <input type="text" class="form-control datepickerInput" placeholder="Click here to find availability" name="appointment_date">
-                                                <span id="appointment_dateError" style="color: red;font-size:small"></span>
+                                                <input type="text" class="form-control datepickerInput"
+                                                    placeholder="Click here to find availability"
+                                                    name="appointment_date">
+                                                <span id="appointment_dateError"
+                                                    style="color: red;font-size:small"></span>
                                             </div>
 
                                         </div>
@@ -5601,7 +5848,9 @@
 
                                     <div class="col-lg-3">
 
-                                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient add_appointment" id="appoin_btn_form">Next</a>
+                                        <a href="#"
+                                            class="btn r-04 btn--theme hover--tra-black add_patient add_appointment"
+                                            id="appoin_btn_form">Next</a>
 
                                     </div>
 
@@ -5621,60 +5870,106 @@
 
                                             <div class="form-group">
 
-                                                <select class="form-control select2_appointment" name="appointment_type">
+                                                <select class="form-control select2_appointment"
+                                                    name="appointment_type">
 
                                                     <option value="">Appointment Type</option>
 
-                                                    <option value="CONSULTATION/Interventional Radiology   استشارة أشعة تداخلية">CONSULTATION/Interventional Radiology استشارة أشعة تداخلية</option>
+                                                    <option
+                                                        value="CONSULTATION/Interventional Radiology   استشارة أشعة تداخلية">
+                                                        CONSULTATION/Interventional Radiology استشارة أشعة تداخلية
+                                                    </option>
 
-                                                    <option value="CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation علاج ألم المفاصل بالتردد الحراري بتوجية الأشعة">CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation علاج ألم المفاصل بالتردد الحراري بتوجية الأشعة</option>
+                                                    <option
+                                                        value="CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation علاج ألم المفاصل بالتردد الحراري بتوجية الأشعة">
+                                                        CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation
+                                                        علاج ألم المفاصل بالتردد الحراري بتوجية الأشعة</option>
 
-                                                    <option value="Follow up appointment">Follow up appointment</option>
+                                                    <option value="Follow up appointment">Follow up appointment
+                                                    </option>
 
-                                                    <option value="Hemorrhoids Embolization">Hemorrhoids Embolization</option>
+                                                    <option value="Hemorrhoids Embolization">Hemorrhoids Embolization
+                                                    </option>
 
-                                                    <option value="Image guided MSK inflammation / pain injection - PRP حقن إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما QASTARAT & DAWALI CLINICS">Image guided MSK inflammation / pain injection - PRP حقن إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما QASTARAT & DAWALI CLINICS</option>
+                                                    <option
+                                                        value="Image guided MSK inflammation / pain injection - PRP حقن إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما QASTARAT & DAWALI CLINICS">
+                                                        Image guided MSK inflammation / pain injection - PRP حقن
+                                                        إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما QASTARAT & DAWALI
+                                                        CLINICS</option>
 
-                                                    <option value="Image guided MSK / pain injection - HA حقن إالتهاب/ألم المفاصل بتوجية الأشعة-حقن زيتية">Image guided MSK / pain injection - HA حقن إالتهاب/ألم المفاصل بتوجية الأشعة-حقن زيتية</option>
+                                                    <option
+                                                        value="Image guided MSK / pain injection - HA حقن إالتهاب/ألم المفاصل بتوجية الأشعة-حقن زيتية">
+                                                        Image guided MSK / pain injection - HA حقن إالتهاب/ألم المفاصل
+                                                        بتوجية الأشعة-حقن زيتية</option>
 
-                                                    <option value="Image (Ultrasound) guided Occipital Headache nerve block">Image (Ultrasound) guided Occipital Headache nerve block</option>
+                                                    <option
+                                                        value="Image (Ultrasound) guided Occipital Headache nerve block">
+                                                        Image (Ultrasound) guided Occipital Headache nerve block
+                                                    </option>
 
-                                                    <option value="INTRAVENOUS VITAMIN THERAPY">INTRAVENOUS VITAMIN THERAPY</option>
+                                                    <option value="INTRAVENOUS VITAMIN THERAPY">INTRAVENOUS VITAMIN
+                                                        THERAPY</option>
 
-                                                    <option value="IV DRIP ASCORBIC ACID  (Essential dose) فيتامين سي الجرعه الأساسية">IV DRIP ASCORBIC ACID (Essential dose) فيتامين سي الجرعه الأساسية</option>
+                                                    <option
+                                                        value="IV DRIP ASCORBIC ACID  (Essential dose) فيتامين سي الجرعه الأساسية">
+                                                        IV DRIP ASCORBIC ACID (Essential dose) فيتامين سي الجرعه
+                                                        الأساسية</option>
 
-                                                    <option value="IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل السميات (الجرعة الأساسية)">IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل السميات (الجرعة الأساسية)</option>
+                                                    <option
+                                                        value="IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل السميات (الجرعة الأساسية)">
+                                                        IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل السميات (الجرعة
+                                                        الأساسية)</option>
 
-                                                    <option value="IV DRIP ENERGY BOOSTER  (ESSENTIAL DOSE)  معزز الطاقة الجرعة الأساسية">IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE) معزز الطاقة الجرعة الأساسية</option>
+                                                    <option
+                                                        value="IV DRIP ENERGY BOOSTER  (ESSENTIAL DOSE)  معزز الطاقة الجرعة الأساسية">
+                                                        IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE) معزز الطاقة الجرعة
+                                                        الأساسية</option>
 
-                                                    <option value="IV DRIP FAT BURNER   (ESSENTIAL DOSE)  مسرعات حرق الدهون (الجرعة الأساسية)">IV DRIP FAT BURNER (ESSENTIAL DOSE) مسرعات حرق الدهون (الجرعة الأساسية)</option>
+                                                    <option
+                                                        value="IV DRIP FAT BURNER   (ESSENTIAL DOSE)  مسرعات حرق الدهون (الجرعة الأساسية)">
+                                                        IV DRIP FAT BURNER (ESSENTIAL DOSE) مسرعات حرق الدهون (الجرعة
+                                                        الأساسية)</option>
 
-                                                    <option value="IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C">IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C</option>
+                                                    <option
+                                                        value="IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C">
+                                                        IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C
+                                                    </option>
 
-                                                    <option value="IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS COMBINATION ">IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS COMBINATION </option>
+                                                    <option
+                                                        value="IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS COMBINATION ">
+                                                        IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS
+                                                        COMBINATION </option>
 
-                                                    <option value="IV Vitamin - Multivatamins w/ Iron">IV Vitamin - Multivatamins w/ Iron</option>
+                                                    <option value="IV Vitamin - Multivatamins w/ Iron">IV Vitamin -
+                                                        Multivatamins w/ Iron</option>
 
-                                                    <option value="PIRIFORMIS MUSCLE INJECTION">PIRIFORMIS MUSCLE INJECTION</option>
+                                                    <option value="PIRIFORMIS MUSCLE INJECTION">PIRIFORMIS MUSCLE
+                                                        INJECTION</option>
 
                                                     <option value="PRESSURE STOCKING">PRESSURE STOCKING</option>
 
-                                                    <option value="SPERM DNA FRAGMENTATION">SPERM DNA FRAGMENTATION</option>
+                                                    <option value="SPERM DNA FRAGMENTATION">SPERM DNA FRAGMENTATION
+                                                    </option>
 
-                                                    <option value="Spider / Reticular Veins Sclerotherapy">Spider / Reticular Veins Sclerotherapy</option>
+                                                    <option value="Spider / Reticular Veins Sclerotherapy">Spider /
+                                                        Reticular Veins Sclerotherapy</option>
 
-                                                    <option value="Ultrasound doppler of VENOUS MAPPING">Ultrasound doppler of VENOUS MAPPING</option>
+                                                    <option value="Ultrasound doppler of VENOUS MAPPING">Ultrasound
+                                                        doppler of VENOUS MAPPING</option>
 
                                                     <option value="Ultrasound/General">Ultrasound/General</option>
 
-                                                    <option value="Ultrasound NERVE MAPPING">Ultrasound NERVE MAPPING </option>
+                                                    <option value="Ultrasound NERVE MAPPING">Ultrasound NERVE MAPPING
+                                                    </option>
 
-                                                    <option value="Varicocele Embolization - قسطرة دوالي الخصية-">Varicocele Embolization - قسطرة دوالي الخصية-</option>
+                                                    <option value="Varicocele Embolization - قسطرة دوالي الخصية-">
+                                                        Varicocele Embolization - قسطرة دوالي الخصية-</option>
 
 
 
                                                 </select>
-                                                <span id="appointment_typeError" style="color: red;font-size:small"></span>
+                                                <span id="appointment_typeError"
+                                                    style="color: red;font-size:small"></span>
 
                                             </div>
 
@@ -5698,7 +5993,8 @@
 
                                                     <option value="DUBAI">DUBAI</option>
 
-                                                    <option value="QASTARAT & DAWALI CLINICS">QASTARAT & DAWALI CLINICS</option>
+                                                    <option value="QASTARAT & DAWALI CLINICS">QASTARAT & DAWALI
+                                                        CLINICS</option>
 
                                                 </select>
                                                 <span id="locationError" style="color: red;font-size:small"></span>
@@ -5716,8 +6012,10 @@
 
 
 
-                                                <input type="text" class="form-control datepickerInput" placeholder="17 Nov,2023" name="start_date">
-                                                <span id="start_dateError" style="color: red;font-size:small"></span>
+                                                <input type="text" class="form-control datepickerInput"
+                                                    placeholder="17 Nov,2023" name="start_date">
+                                                <span id="start_dateError"
+                                                    style="color: red;font-size:small"></span>
                                             </div>
 
                                         </div>
@@ -5732,8 +6030,10 @@
 
 
 
-                                                <input type="text" class="form-control timepicker-custom" placeholder="12:00" name="start_time">
-                                                <span id="start_timeError" style="color: red;font-size:small"></span>
+                                                <input type="text" class="form-control timepicker-custom"
+                                                    placeholder="12:00" name="start_time">
+                                                <span id="start_timeError"
+                                                    style="color: red;font-size:small"></span>
                                             </div>
 
                                         </div>
@@ -5748,7 +6048,8 @@
 
 
 
-                                                <input type="text" class="form-control datepickerInput" placeholder="17 Nov,2023" name="end_date">
+                                                <input type="text" class="form-control datepickerInput"
+                                                    placeholder="17 Nov,2023" name="end_date">
                                                 <span id="end_dateError" style="color: red;font-size:small"></span>
                                             </div>
 
@@ -5764,7 +6065,8 @@
 
 
 
-                                                <input type="text" class="form-control timepicker-custom" placeholder="12:00" name="end_time">
+                                                <input type="text" class="form-control timepicker-custom"
+                                                    placeholder="12:00" name="end_time">
                                                 <span id="end_timeError" style="color: red;font-size:small"></span>
                                             </div>
 
@@ -5780,7 +6082,8 @@
 
 
 
-                                                <input type="text" class="form-control" placeholder="Cost" name="app_cost">
+                                                <input type="text" class="form-control" placeholder="Cost"
+                                                    name="app_cost">
                                                 <span id="app_costError" style="color: red;font-size:small"></span>
                                             </div>
 
@@ -5796,7 +6099,8 @@
 
 
 
-                                                <input type="text" class="form-control" placeholder="Code" name="app_code">
+                                                <input type="text" class="form-control" placeholder="Code"
+                                                    name="app_code">
                                                 <span id="app_codeError" style="color: red;font-size:small"></span>
                                             </div>
 
@@ -5832,14 +6136,16 @@
 
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="checkbox" id="flexCheckChecked" name="is_confirmation" value="confirmationed">
+                                            <input class="form-check-input" type="checkbox" id="flexCheckChecked"
+                                                name="is_confirmation" value="confirmationed">
 
                                             <label class="form-check-label" for="flexCheckChecked">
 
                                                 Send appointment confirmation immediately
 
                                             </label>
-                                            <span id="is_confirmationError" style="color: red;font-size:small"></span>
+                                            <span id="is_confirmationError"
+                                                style="color: red;font-size:small"></span>
                                         </div>
 
                                     </div>
@@ -5858,11 +6164,13 @@
 
                     <div class="action text-end bottom_modal">
 
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" id="book_app">
+                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient"
+                            id="book_app">
 
                             Book</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Close</a>
 
@@ -5893,7 +6201,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="video_meeting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="video_meeting" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -5903,12 +6212,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Start a Video call</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="video_call_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -5925,18 +6235,24 @@
 
                                             <div class="form-group mb-3">
 
-                                                <label for="validationCustom01" class="form-label">Select Date</label>
+                                                <label for="validationCustom01" class="form-label">Select
+                                                    Date</label>
 
-                                                <input type="text" class="form-control datepickerInput" placeholder="" name="meeting_date">
-                                                <span id="meeting_dateError" style="color: red;font-size:small"></span>
+                                                <input type="text" class="form-control datepickerInput"
+                                                    placeholder="" name="meeting_date">
+                                                <span id="meeting_dateError"
+                                                    style="color: red;font-size:small"></span>
                                             </div>
 
                                             <div class="form-group">
 
-                                                <label for="validationCustom01" class="form-label">Paste Meeting URL</label>
+                                                <label for="validationCustom01" class="form-label">Paste Meeting
+                                                    URL</label>
 
-                                                <input type="text" class="form-control " placeholder="Paste Meeting URL" name="meeting_url">
-                                                <span id="meeting_urlError" style="color: red;font-size:small"></span>
+                                                <input type="text" class="form-control "
+                                                    placeholder="Paste Meeting URL" name="meeting_url">
+                                                <span id="meeting_urlError"
+                                                    style="color: red;font-size:small"></span>
                                             </div>
 
                                         </div>
@@ -5969,7 +6285,8 @@
 
                             Save</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Close</a>
 
@@ -5999,7 +6316,8 @@
 
             ---------------------------->
 
-<div class="modal fade edit_patient__" id="lab_test" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade edit_patient__" id="lab_test" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog ">
 
@@ -6009,12 +6327,13 @@
 
                 <h1 class="modal-title" id="exampleModalLabel">Order Lab Test</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
 
             </div>
             <form id="order_lab_test_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -6031,10 +6350,11 @@
 
                                         <select id="sumo-select" multiple name="lab_test_names[]">
                                             @php
-                                            $patient_order_labs=App\Models\patient\Order_lab_test::orderBy('id','desc')->get();
+                                                $patient_order_labs = App\Models\patient\Order_lab_test::orderBy('id', 'desc')->get();
                                             @endphp
-                                            @foreach($patient_order_labs as $patient_order_lab)
-                                            <option value="{{ $patient_order_lab->id }}">{{ $patient_order_lab->test_name }}</option>
+                                            @foreach ($patient_order_labs as $patient_order_lab)
+                                                <option value="{{ $patient_order_lab->id }}">
+                                                    {{ $patient_order_lab->test_name }}</option>
                                             @endforeach
                                         </select>
                                         <span id="LabTestNamesError" style="color: red;"></span>
@@ -6048,7 +6368,9 @@
 
                                         <div class="add_data_diagnosis mt-3">
 
-                                            <h6 class="selected_testtitle"><span>Selected Tests <i class="fa-solid fa-cart-shopping"></i></span> <span><a href="all-lab-tests.php">View all Tests</a></span></h6>
+                                            <h6 class="selected_testtitle"><span>Selected Tests <i
+                                                        class="fa-solid fa-cart-shopping"></i></span> <span><a
+                                                        href="all-lab-tests.php">View all Tests</a></span></h6>
 
                                             <table class="table lab_order_list">
 
@@ -6114,7 +6436,8 @@
 
                             Order</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
 
                             Cancel</a>
 
@@ -6139,13 +6462,15 @@
 
 <!----------------------------
 
-                    High level 
+                    High level
 
             ---------------------------->
 
-<div class="offcanvas offcanvas-bottom offcanvas-h-custom-50" tabindex="-1" id="high_level" aria-labelledby="offcanvasBottomLabel">
+<div class="offcanvas offcanvas-bottom offcanvas-h-custom-50" tabindex="-1" id="high_level"
+    aria-labelledby="offcanvasBottomLabel">
 
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-regular fa-circle-down"></i> Close</button>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i
+            class="fa-regular fa-circle-down"></i> Close</button>
 
 
 
@@ -6191,9 +6516,11 @@
 
             <!-- <button type="submit" class="btn btn-primary  edit__green">Edit</button> -->
 
-            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="offcanvas">Save</button>
+            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient"
+                data-bs-dismiss="offcanvas">Save</button>
 
-            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="offcanvas">Close</button>
+            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                data-bs-dismiss="offcanvas">Close</button>
 
         </div>
 
@@ -6202,56 +6529,54 @@
 </div>
 
 <script>
-       
-const micIcon = document.getElementById('startRecognition');
-const tooltip = document.querySelector('.tooltip');
+    const micIcon = document.getElementById('startRecognition');
+    const tooltip = document.querySelector('.tooltip');
 
-let recognition;
+    let recognition;
 
-micIcon.addEventListener('click', toggleRecognition);
+    micIcon.addEventListener('click', toggleRecognition);
 
-function toggleRecognition() {
-    if (!recognition) {
-        recognition = new webkitSpeechRecognition();
-        recognition.continuous = true;
-        recognition.interimResults = true;
-        recognition.onresult = handleRecognitionResult;
-        recognition.onerror = handleError;
-        recognition.onend = handleRecognitionEnd;
-        micIcon.classList.remove('fa-microphone');
-        micIcon.classList.add('fa-times');
-        tooltip.textContent = 'Voice recognition is on';
-        recognition.start();
-    } else {
-        recognition.stop();
+    function toggleRecognition() {
+        if (!recognition) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.onresult = handleRecognitionResult;
+            recognition.onerror = handleError;
+            recognition.onend = handleRecognitionEnd;
+            micIcon.classList.remove('fa-microphone');
+            micIcon.classList.add('fa-times');
+            tooltip.textContent = 'Voice recognition is on';
+            recognition.start();
+        } else {
+            recognition.stop();
+            recognition = null;
+            micIcon.classList.remove('fa-times');
+            micIcon.classList.add('fa-microphone');
+            tooltip.textContent = 'Click the icon to start voice recognition.';
+        }
+    }
+
+    function handleRecognitionResult(event) {
+        const transcript = Array.from(event.results)
+            .map(result => result[0].transcript)
+            .join('');
+
+        voiceInput.value = transcript;
+    }
+
+    function handleError(event) {
+        console.error('Speech recognition error:', event.error);
+        tooltip.textContent = 'Speech recognition error. Please try again.';
+    }
+
+    function handleRecognitionEnd() {
         recognition = null;
         micIcon.classList.remove('fa-times');
         micIcon.classList.add('fa-microphone');
         tooltip.textContent = 'Click the icon to start voice recognition.';
     }
-}
-
-function handleRecognitionResult(event) {
-    const transcript = Array.from(event.results)
-                .map(result => result[0].transcript)
-                .join('');
-
-            voiceInput.value = transcript;
-}
-
-function handleError(event) {
-    console.error('Speech recognition error:', event.error);
-    tooltip.textContent = 'Speech recognition error. Please try again.';
-}
-
-function handleRecognitionEnd() {
-    recognition = null;
-    micIcon.classList.remove('fa-times');
-    micIcon.classList.add('fa-microphone');
-    tooltip.textContent = 'Click the icon to start voice recognition.';
-}
-
-    </script>
+</script>
 
 
 
@@ -6279,15 +6604,18 @@ function handleRecognitionEnd() {
 
             ---------------------------->
 
-<div class="offcanvas offcanvas-bottom offcanvas-h-custom-90" tabindex="-1" id="new_letter" aria-labelledby="offcanvasBottomLabel">
+<div class="offcanvas offcanvas-bottom offcanvas-h-custom-90" tabindex="-1" id="new_letter"
+    aria-labelledby="offcanvasBottomLabel">
 
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-regular fa-circle-down"></i> Close</button>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i
+            class="fa-regular fa-circle-down"></i> Close</button>
 
 
 
     <div class="offcanvas-header">
 
-        <h5 class="offcanvas-title" id="offcanvasBottomLabel"> <i class="fa-regular fa-file-lines"></i> New Letter </h5>
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel"> <i class="fa-regular fa-file-lines"></i> New Letter
+        </h5>
 
         <!-- <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-regular fa-circle-down"></i></button> -->
 
@@ -6353,7 +6681,8 @@ function handleRecognitionEnd() {
 
                             <div class="form-check">
 
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
+                                <input class="form-check-input" type="checkbox" value=""
+                                    id="flexCheckDefault4">
 
                                 <label class="form-check-label" for="flexCheckDefault4">
 
@@ -6379,7 +6708,8 @@ function handleRecognitionEnd() {
 
                         <div class="form-check">
 
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
+                            <input class="form-check-input" type="checkbox" value=""
+                                id="flexCheckDefault5">
 
                             <label class="form-check-label" for="flexCheckDefault5">
 
@@ -6399,7 +6729,8 @@ function handleRecognitionEnd() {
 
                         <div class="form-check">
 
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" disabled>
+                            <input class="form-check-input" type="checkbox" value=""
+                                id="flexCheckDefault6" disabled>
 
                             <label class="form-check-label" for="flexCheckDefault6">
 
@@ -6419,7 +6750,8 @@ function handleRecognitionEnd() {
 
                         <div class="form-check">
 
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7" disabled>
+                            <input class="form-check-input" type="checkbox" value=""
+                                id="flexCheckDefault7" disabled>
 
                             <label class="form-check-label" for="flexCheckDefault7">
 
@@ -6437,7 +6769,8 @@ function handleRecognitionEnd() {
 
                     <div class="form-group">
 
-                        <p class="add_contact" id="add_address_new">Contact not in list? <a href="#">Add New</a></p>
+                        <p class="add_contact" id="add_address_new">Contact not in list? <a href="#">Add
+                                New</a></p>
 
                     </div>
 
@@ -6619,7 +6952,8 @@ function handleRecognitionEnd() {
 
                             <div class="form-check">
 
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11">
+                                <input class="form-check-input" type="checkbox" value=""
+                                    id="flexCheckDefault11">
 
                                 <label class="form-check-label" for="flexCheckDefault11">
 
@@ -6641,9 +6975,12 @@ function handleRecognitionEnd() {
 
                         <!-- <button type="submit" class="btn btn-primary  edit__green">Edit</button> -->
 
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">Save</button>
+                        <button type="submit"
+                            class="btn r-04 btn--theme hover--tra-black add_patient">Save</button>
 
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" id="cancel_btn_address">Cancel</button>
+                        <button type="submit"
+                            class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            id="cancel_btn_address">Cancel</button>
 
                     </div>
 
@@ -6723,7 +7060,8 @@ function handleRecognitionEnd() {
 
             <div class="payg_">
 
-                <p><a href="#" class="mic_btn"><i class="fa-solid fa-microphone"></i></a> Add a voice note</p>
+                <p><a href="#" class="mic_btn"><i class="fa-solid fa-microphone"></i></a> Add a voice note
+                </p>
 
             </div>
 
@@ -6745,7 +7083,8 @@ function handleRecognitionEnd() {
 
                     <div class="form-group">
 
-                        <input type="search" class="form-control sign_input" id="" placeholder="Signature Text - e.g Yours Sincerely, Your Name, Designation, Electronically Signed  etc. ">
+                        <input type="search" class="form-control sign_input" id=""
+                            placeholder="Signature Text - e.g Yours Sincerely, Your Name, Designation, Electronically Signed  etc. ">
 
                     </div>
 
@@ -6759,7 +7098,8 @@ function handleRecognitionEnd() {
 
                             <div class="form-check" id="sign_btn_upload">
 
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8">
+                                <input class="form-check-input" type="checkbox" value=""
+                                    id="flexCheckDefault8">
 
                                 <label class="form-check-label" for="flexCheckDefault8">
 
@@ -6783,7 +7123,8 @@ function handleRecognitionEnd() {
 
                             <div class="form-check">
 
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9">
+                                <input class="form-check-input" type="checkbox" value=""
+                                    id="flexCheckDefault9">
 
                                 <label class="form-check-label" for="flexCheckDefault9">
 
@@ -6807,7 +7148,8 @@ function handleRecognitionEnd() {
 
                             <div class="form-check">
 
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10">
+                                <input class="form-check-input" type="checkbox" value=""
+                                    id="flexCheckDefault10">
 
                                 <label class="form-check-label" for="flexCheckDefault10">
 
@@ -6853,9 +7195,11 @@ function handleRecognitionEnd() {
 
             <!-- <button type="submit" class="btn btn-primary  edit__green">Edit</button> -->
 
-            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="offcanvas">Save</button>
+            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient"
+                data-bs-dismiss="offcanvas">Save</button>
 
-            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="offcanvas">Close</button>
+            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                data-bs-dismiss="offcanvas">Close</button>
 
         </div>
 
@@ -6875,15 +7219,18 @@ function handleRecognitionEnd() {
 
             ---------------------------->
 
-<div class="offcanvas offcanvas-bottom offcanvas-h-custom-80" tabindex="-1" id="add_vitals" aria-labelledby="offcanvasBottomLabel">
+<div class="offcanvas offcanvas-bottom offcanvas-h-custom-80" tabindex="-1" id="add_vitals"
+    aria-labelledby="offcanvasBottomLabel">
 
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-regular fa-circle-down"></i> Close </button>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i
+            class="fa-regular fa-circle-down"></i> Close </button>
 
 
 
     <div class="offcanvas-header">
 
-        <h5 class="offcanvas-title" id="offcanvasBottomLabel"><i class="fa-solid fa-temperature-three-quarters"></i> Enter Vitals </h5>
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel"><i
+                class="fa-solid fa-temperature-three-quarters"></i> Enter Vitals </h5>
 
         <!-- <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-regular fa-circle-down"></i></button> -->
 
@@ -6898,7 +7245,7 @@ function handleRecognitionEnd() {
                 <div class="col-lg-9 left_side_cnt_mm">
                     <form id="add_measurement">
                         @csrf
-                        <input type="hidden" name="patient_id" value="{{ @$id}}">
+                        <input type="hidden" name="patient_id" value="{{ @$id }}">
                         <div class="row">
 
                             <div class="col-lg-3">
@@ -6909,7 +7256,8 @@ function handleRecognitionEnd() {
 
 
 
-                                        <input type="text" class="form-control datepickerInput" placeholder="dd M, yyyy" name="date">
+                                        <input type="text" class="form-control datepickerInput"
+                                            placeholder="dd M, yyyy" name="date">
                                         <span id="dateError" style="color: red;font-size:small"></span>
                                     </div>
 
@@ -6975,7 +7323,8 @@ function handleRecognitionEnd() {
 
                                     <div class="form-group">
 
-                                        <input type="text" class="form-control" id="" placeholder="Value" name="value">
+                                        <input type="text" class="form-control" id=""
+                                            placeholder="Value" name="value">
                                         <span id="valueError" style="color: red;font-size:small"></span>
                                     </div>
 
@@ -6987,7 +7336,9 @@ function handleRecognitionEnd() {
 
                                 <div class="inner_element">
 
-                                    <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient add_vitals_btn">Add Vitals<i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                                    <button type="submit"
+                                        class="btn r-04 btn--theme hover--tra-black add_patient add_vitals_btn">Add
+                                        Vitals<i class="fa-solid fa-arrow-right-to-bracket"></i></button>
 
                                 </div>
 
@@ -7126,9 +7477,11 @@ function handleRecognitionEnd() {
 
             <!-- <button type="submit" class="btn btn-primary  edit__green">Edit</button> -->
 
-            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="offcanvas">Save</button>
+            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient"
+                data-bs-dismiss="offcanvas">Save</button>
 
-            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="offcanvas">Close</button>
+            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                data-bs-dismiss="offcanvas">Close</button>
 
         </div>
 
@@ -7150,25 +7503,27 @@ function handleRecognitionEnd() {
 
 <!---- prescription_day model ---->
 
-<div class="modal fade edit_patient__" id="prescription_day" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade edit_patient__" id="prescription_day" tabindex="-1" aria-labelledby="exampleModalLabel"
+    style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title" id="exampleModalLabel">Prescription a day</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
             </div>
             <form id="prescription_day_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
 
                 <div class="modal-body padding-0">
                     <div class="inner_data">
                         <div class="row">
                             <!-- <div class="col-lg-12">
-						<div class="title_head">
-							<h4>Schedule Appointment</h4>
-						</div>
-					</div> -->
+      <div class="title_head">
+       <h4>Schedule Appointment</h4>
+      </div>
+     </div> -->
 
                             <div class="col-lg-12">
 
@@ -7190,15 +7545,16 @@ function handleRecognitionEnd() {
                     <div class="action text-end bottom_modal">
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
                             Save</button>
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
                             Close</a>
                     </div>
                 </div>
             </form>
             <!-- <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div> -->
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+   </div> -->
         </div>
     </div>
 </div>
@@ -7206,32 +7562,35 @@ function handleRecognitionEnd() {
 
 <!------Order Special Invistigation model ---->
 
-<div class="modal fade edit_patient__" id="order_supportive_surface" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade edit_patient__" id="order_supportive_surface" tabindex="-1"
+    aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title" id="exampleModalLabel"> Order Special Invistigation</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
             </div>
             <form id="order_supportive_surface_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
 
                 <div class="modal-body padding-0">
                     <div class="inner_data">
                         <div class="row">
                             <!-- <div class="col-lg-12">
-						<div class="title_head">
-							<h4>Schedule Appointment</h4>
-						</div>
-					</div> -->
+      <div class="title_head">
+       <h4>Schedule Appointment</h4>
+      </div>
+     </div> -->
 
                             <div class="col-lg-12">
 
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="mb-3 form-group">
-                                            <label for="validationCustom01" class="form-label">Write Special Invistigation</label>
+                                            <label for="validationCustom01" class="form-label">Write Special
+                                                Invistigation</label>
                                             <textarea class="form-control" placeholder="" style="height:150px" name="invistigation"></textarea>
                                             <span id="invistigationError" style="color: red;font-size:small"></span>
                                         </div>
@@ -7246,15 +7605,16 @@ function handleRecognitionEnd() {
                     <div class="action text-end bottom_modal">
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
                             Save</button>
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
                             Close</a>
                     </div>
                 </div>
             </form>
             <!-- <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div> -->
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+   </div> -->
         </div>
     </div>
 </div>
@@ -7263,25 +7623,27 @@ function handleRecognitionEnd() {
 
 
 <!------Order Order Procedure model ---->
-<div class="modal fade edit_patient__" id="order_procedure" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" data-select2-id="order_procedure" aria-hidden="true">
+<div class="modal fade edit_patient__" id="order_procedure" tabindex="-1" aria-labelledby="exampleModalLabel"
+    style="display: none;" data-select2-id="order_procedure" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title" id="exampleModalLabel"> Order Procedure</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
             </div>
             <form id="order_procedure_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{@$id}}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
 
                 <div class="modal-body padding-0">
                     <div class="inner_data">
                         <div class="row">
                             <!-- <div class="col-lg-12">
-						<div class="title_head">
-							<h4>Schedule Appointment</h4>
-						</div>
-					</div> -->
+      <div class="title_head">
+       <h4>Schedule Appointment</h4>
+      </div>
+     </div> -->
                             <div class="col-lg-12">
                                 <div class="inner_element">
                                     <div class="mb-3 form-group">
@@ -7300,7 +7662,8 @@ function handleRecognitionEnd() {
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="mb-3 form-group">
-                                            <label for="validationCustom01" class="form-label">Type your entry here</label>
+                                            <label for="validationCustom01" class="form-label">Type your entry
+                                                here</label>
                                             <textarea class="form-control" placeholder="" style="height:100px" name="entry"></textarea>
                                             <span id="entryError" style="color: red;font-size:small"></span>
                                         </div>
@@ -7324,15 +7687,16 @@ function handleRecognitionEnd() {
                     <div class="action text-end bottom_modal">
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
                             Save</button>
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
                             Close</a>
                     </div>
                 </div>
             </form>
             <!-- <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div> -->
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+   </div> -->
         </div>
     </div>
 </div>
@@ -7344,9 +7708,11 @@ function handleRecognitionEnd() {
 
             ---------------------------->
 
-<div class="offcanvas offcanvas-bottom offcanvas-h-custom-80  centercanvas" tabindex="-1" id="user-invoice" aria-labelledby="offcanvasBottomLabel">
+<div class="offcanvas offcanvas-bottom offcanvas-h-custom-80  centercanvas" tabindex="-1" id="user-invoice"
+    aria-labelledby="offcanvasBottomLabel">
 
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-regular fa-circle-down"></i> Close</button>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i
+            class="fa-regular fa-circle-down"></i> Close</button>
 
 
 
@@ -7416,13 +7782,17 @@ function handleRecognitionEnd() {
 
                             <td data-th="Invoice Number">
 
-                                <div class="amountpaid_input input_width"><input type="text" class="form-control comoninpt_border"></div>
+                                <div class="amountpaid_input input_width"><input type="text"
+                                        class="form-control comoninpt_border"></div>
 
                             </td>
 
                             <td data-th="Invoice Date ">
 
-                                <div class="invdate_input input_width"><input type="text" class="form-control datepickerInput comoninpt_border" placeholder="20/11/2023"><iconify-icon icon="solar:calendar-linear"></iconify-icon></div>
+                                <div class="invdate_input input_width"><input type="text"
+                                        class="form-control datepickerInput comoninpt_border"
+                                        placeholder="20/11/2023"><iconify-icon
+                                        icon="solar:calendar-linear"></iconify-icon></div>
 
                             </td>
 
@@ -7476,7 +7846,8 @@ function handleRecognitionEnd() {
 
                         <label for="exampleFormControlTextarea1" class="form-label">Add Note</label>
 
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Type any notes related to this invoice here..."></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            placeholder="Type any notes related to this invoice here..."></textarea>
 
                     </div>
 
@@ -7496,13 +7867,15 @@ function handleRecognitionEnd() {
 
             <a href="invoicing.php">
 
-                <button type="submit" class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black add_patient">Save Note</button>
+                <button type="submit"
+                    class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black add_patient">Save Note</button>
 
             </a>
 
             <a href="invoicing.php">
 
-                <button type="submit" class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black  secondary_btn">Save</button>
+                <button type="submit"
+                    class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black  secondary_btn">Save</button>
 
             </a>
 
@@ -7520,62 +7893,70 @@ function handleRecognitionEnd() {
      Symptoms
 ---------------------------->
 
-<div class="modal fade edit_patient__" id="symptoms_add2" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-	<div class="modal-dialog ">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h1 class="modal-title" id="exampleModalLabel">Severity Symptoms Scale </h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" fdprocessedid="0d6mcr"><i class="fa-solid fa-xmark"></i></button>
-			</div>
-			<div class="modal-body padding-0">
-				<div class="inner_data">
-					<div class="row">
-						<!-- <div class="col-lg-12">
-						<div class="title_head">
-							<h4>Schedule Appointment</h4>
-						</div>
-					</div> -->
+<div class="modal fade edit_patient__" id="symptoms_add2" tabindex="-1" aria-labelledby="exampleModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">Severity Symptoms Scale </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    fdprocessedid="0d6mcr"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body padding-0">
+                <div class="inner_data">
+                    <div class="row">
+                        <!-- <div class="col-lg-12">
+      <div class="title_head">
+       <h4>Schedule Appointment</h4>
+      </div>
+     </div> -->
 
-					<div class="col-lg-12">
-							<div class="add_categoryweb">
+                        <div class="col-lg-12">
+                            <div class="add_categoryweb">
 
-								<div class="row">
-									<div class="col-lg-12">
-										<label for="validationCustom01" class="form-label">Type Symptoms</label>
-										<div class="category-container" id="category-container-1">
-											<input type="text" class="form-control category-input" placeholder="Type Symptoms here..." fdprocessedid="b2lsu">
-											<button class="btn r-04 btn--theme hover--tra-black add_patient add-category" type="button" fdprocessedid="30sk7"><i class="fa-solid fa-plus"></i> Add</button>
-										</div>
-										<div class="categories-list" id="categories-list-1">
-											<!-- Categories will be displayed here -->
-										</div>
-									</div>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-lg-12">
-								<div class="mb-3 form-group">
-									<label for="validationCustom01" class="form-label">Write Summary</label>
-									<textarea class="form-control" placeholder="" style="height:150px"></textarea>
-								</div>
-							</div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label for="validationCustom01" class="form-label">Type Symptoms</label>
+                                        <div class="category-container" id="category-container-1">
+                                            <input type="text" class="form-control category-input"
+                                                placeholder="Type Symptoms here..." fdprocessedid="b2lsu">
+                                            <button
+                                                class="btn r-04 btn--theme hover--tra-black add_patient add-category"
+                                                type="button" fdprocessedid="30sk7"><i
+                                                    class="fa-solid fa-plus"></i> Add</button>
+                                        </div>
+                                        <div class="categories-list" id="categories-list-1">
+                                            <!-- Categories will be displayed here -->
+                                        </div>
+                                    </div>
+                                </div>
 
-					</div>
-				</div>
-				<div class="action text-end bottom_modal">
-					<a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
-					Save</a>
-                	<a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
-					Close</a>
-				</div>
-			</div>
-			<!-- <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div> -->
-		</div>
-	</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="mb-3 form-group">
+                                <label for="validationCustom01" class="form-label">Write Summary</label>
+                                <textarea class="form-control" placeholder="" style="height:150px"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="action text-end bottom_modal">
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
+                        data-bs-dismiss="modal">
+                        Save</a>
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                        data-bs-dismiss="modal">
+                        Close</a>
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+   </div> -->
+        </div>
+    </div>
 </div>
 
 
@@ -7637,172 +8018,109 @@ function handleRecognitionEnd() {
 
 
 <!-- <script>
+    $(document).on({
 
-                        $(document).on({
+        "contextmenu": function(e) {
 
-                            "contextmenu": function (e) {
+            console.log("ctx menu button:", e.which);
 
-                                console.log("ctx menu button:", e.which); 
 
-            
 
-                             
 
-                                e.preventDefault();
 
-                            },
+            e.preventDefault();
 
-                            "mousedown": function(e) { 
+        },
 
-                                console.log("normal mouse down:", e.which); 
+        "mousedown": function(e) {
 
-                            },
+            console.log("normal mouse down:", e.which);
 
-                            "mouseup": function(e) { 
+        },
 
-                                console.log("normal mouse up:", e.which); 
+        "mouseup": function(e) {
 
-                            }
+            console.log("normal mouse up:", e.which);
 
-                        });
+        }
 
-                    </script> -->
+    });
+</script> -->
 
 
 
 <script>
     $(function() {
-
         $(".switch").click(function() {
-
             $("body").toggleClass("theme--dark");
-
             if ($("body").hasClass("theme--dark")) {
-
                 $(".switch").text("Light Mode");
-
             } else {
-
                 $(".switch").text("Dark Mode");
-
             }
-
         });
-
     });
 </script>
 
-
-
 <script>
     $(document).ready(function() {
-
         if ($("body").hasClass("theme--dark")) {
-
             $(".switch").text("Light Mode");
-
         } else {
-
             $(".switch").text("Dark Mode");
-
         }
-
     });
 </script>
-
 <script>
     $(function() {
-
         $('#sign_upload').hide();
-
     })
-
     var check = $('#flexCheckDefault8').val();
-
     $('#flexCheckDefault8').change(function() {
-
         if (this.checked) {
-
             $('#sign_upload').show();
-
         } else {
-
             $('#sign_upload').hide();
-
         }
-
-
 
     });
 </script>
-
 <script>
     $(function() {
-
         $('#invoice_appoin').hide();
-
     })
-
     var check = $('#flexCheckCheckeda2').val();
-
     $('#flexCheckCheckeda2').change(function() {
-
         if (this.checked) {
-
             $('#invoice_appoin').show();
-
         } else {
-
             $('#invoice_appoin').hide();
-
         }
-
-
 
     });
 </script>
-
 <script>
     $(function() {
-
         $('#refer_note').hide();
-
     })
-
     var check = $('.check_dr').val();
-
     $('.check_dr').change(function() {
-
         if (this.checked) {
-
             $('#refer_note').show();
-
         } else {
-
             $('#refer_note').hide();
-
         }
-
-
 
     });
 </script>
-
 <!-- book appointment form toggle -->
-
 <script>
     $(document).ready(function() {
-
         $('#book_appointment_box').hide();
 
-
-
         $('#appoin_btn_form').click(function() {
-
             $('#book_appointment_box').toggle();
-
         });
-
     });
 </script>
 
@@ -7811,25 +8129,27 @@ function handleRecognitionEnd() {
 <!--
 
                     <script>
-
                         var _gaq = _gaq || [];
 
                         _gaq.push(['_setAccount', 'UA-XXXXX-X']);
 
                         _gaq.push(['_trackPageview']);
 
-            
+
 
                         (function() {
 
-                            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                            var ga = document.createElement('script');
+                            ga.type = 'text/javascript';
+                            ga.async = true;
 
-                            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +
+                                '.google-analytics.com/ga.js';
 
-                            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(ga, s);
 
                         })();
-
                     </script>
 
                     -->
@@ -7843,61 +8163,35 @@ function handleRecognitionEnd() {
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	 -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
-
 <script>
     $('.service_slider').owlCarousel({
-
         loop: true,
-
         margin: 15,
-
         dots: false,
-
         nav: false,
-
         items: 3,
-
         center: true,
-
         autoplay: true,
-
     })
 </script>
-
 <script>
     $('.doctor_slider').owlCarousel({
-
         loop: true,
-
         margin: 15,
-
         dots: false,
-
         nav: false,
-
         items: 4,
-
         autoplay: true,
-
     })
 </script>
-
 <script>
     let profile = document.querySelector(".profile");
-
     let menu = document.querySelector(".menu__");
 
-
-
     profile.onclick = function() {
-
         menu.classList.toggle("active");
-
     };
 </script>
-
-
-
 
 
 <!-- iconify icons js -->
@@ -8007,696 +8301,567 @@ function handleRecognitionEnd() {
 <!--  Flatpickr  -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
-
 <script>
     $("#timePicker").flatpickr({
-
         enableTime: true,
-
         noCalendar: true,
-
         time_24hr: true,
-
         dateFormat: "H:i",
-
     });
 </script>
-
 <!-- Dropify Js  -->
-
 <script>
     $('.dropify').dropify();
 </script>
 
-
-
 <!-- Select 2 js without searchbar -->
-
 <script>
     $('.select2_without_search').select2({
-
         minimumResultsForSearch: -1 // for no searchbar
 
-
-
     });
 </script>
-
+<script>
+    $('.select_diagnosis').select2({
+        dropdownParent: $('#diagnosis')
+    });
+</script>
+<script>
+    $('.select_symptoms').select2({
+        dropdownParent: $('#symptoms_add')
+    });
+</script>
 <script>
     $('.select2_modal').select2({
-
         dropdownParent: $('.add_patient__')
 
-
-
     });
 </script>
-
 <script>
     $('.select2_edit_info').select2({
-
         dropdownParent: $('#edit_patient')
-
     });
-
-
 
     $('.select2_extract_code').select2({
-
         dropdownParent: $('#extract_code')
-
     });
-
     $('.select2_note').select2({
-
         dropdownParent: $('#new_letter'),
-
         minimumResultsForSearch: -1
-
     });
-
     $('.select2_task').select2({
-
         dropdownParent: $('#new_task'),
-
         minimumResultsForSearch: -1
-
     });
-
     $('.select2_vitals').select2({
-
         dropdownParent: $('#add_vitals'),
-
         minimumResultsForSearch: -1
-
     });
-
     $('.select2_appointment').select2({
-
         dropdownParent: $('#make_appointment'),
-
         minimumResultsForSearch: -1
-
     });
-
-    $('.select2_procedure').select2({
-
-        dropdownParent: $('#order_procedure'),
-
+    $('.select2_appointment').select2({
+        dropdownParent: $('#event-modal'),
         minimumResultsForSearch: -1
-
     });
-
     $('.select2_note').select2({
-
         dropdownParent: $('#add_new_note'),
-
         minimumResultsForSearch: -1
-
     });
-
     $('.paymenttype_select select').select2({
-
         dropdownParent: $('#user-invoice')
-
     });
-
     $('.select2_imaginary_test').select2({
-
         dropdownParent: $('#order_imagenairy'),
-
         minimumResultsForSearch: -1
-
+    });
+    $('.select2_procedure').select2({
+        dropdownParent: $('#order_procedure'),
+        minimumResultsForSearch: -1
     });
 </script>
 
 
 
-
-
-<!-- add subcat js -->
-
-<script>
-    // Updated JavaScript (script.js)
-
-    $(document).ready(function() {
-
-        function setupCategorySection(containerID, inputClass, addButtonClass, listID) {
-
-            var categories = [];
-
-
-
-            $(containerID).on('click', addButtonClass, function() {
-
-                var category = $(inputClass, containerID).val();
-
-                if (category.trim() !== '') {
-
-                    categories.push(category);
-
-                    var categoryItem = $('<div class="category">' + category +
-
-                        '<i class="remove-category fas fa-times"></i></div>');
-
-                    $(listID).append(categoryItem);
-
-                    $(inputClass, containerID).val('');
-
-                }
-
-            });
-
-
-
-            $(inputClass, containerID).keypress(function(event) {
-
-                if (event.which === 13) {
-
-                    var category = $(inputClass, containerID).val();
-
-                    if (category.trim() !== '') {
-
-                        categories.push(category);
-
-                        var categoryItem = $('<div class="category">' + category +
-
-                            '<i class="remove-category fas fa-times"></i></div>');
-
-                        $(listID).append(categoryItem);
-
-                        $(inputClass, containerID).val('');
-
-                    }
-
-                }
-
-            });
-
-
-
-            $(listID).on('click', '.remove-category', function() {
-
-                var category = $(this).parent().text().trim();
-
-                categories = categories.filter(function(item) {
-
-                    return item !== category;
-
-                });
-
-                $(this).parent().remove();
-
-            });
-
-        }
-
-
-
-        setupCategorySection('#category-container-1', '.category-input', '.add-category', '#categories-list-1');
-
-        setupCategorySection('#category-container-2', '.category-input', '.add-category', '#categories-list-2');
-
-        setupCategorySection('#category-container-3', '.category-input', '.add-category', '#categories-list-3');
-
-    });
-</script>
-
-<!-- end -->
-
-
-
 <script>
     $(document).ready(function() {
-
         $('#text_area').hide();
-
         $('.text_area_show').click(function() {
-
             $('#text_area').show();
-
         });
-
         $('.text_area_hide').click(function() {
-
             $('#text_area').hide();
-
         });
-
     });
 </script>
 
 
-
-
-
 <script>
     $(document).ready(function() {
-
         $('#text_pae').hide();
-
         $('#pae_yes').click(function() {
-
             $('#text_pae').show();
-
         });
-
         $('#pae_no').click(function() {
-
             $('#text_pae').hide();
-
         });
-
     });
 </script>
 
-
-
 <script>
     $(document).ready(function() {
-
         $('#eligibility_text_area').hide();
-
         $('#eligibility_other').click(function() {
-
             $('#eligibility_text_area').show();
-
         });
-
         $('.hide_eligibility_textarea').click(function() {
-
             $('#eligibility_text_area').hide();
-
         });
-
     });
 </script>
-
 <script>
     $(document).ready(function() {
-
         $('#Nephrology_textarea').hide();
-
         $('#PevicRehab_textarea').hide();
 
-
-
         $('#Nephrology_checkbox').click(function() {
-
             $('#Nephrology_textarea').show();
-
             $('#PevicRehab_textarea').hide();
-
         });
-
         $('#PevicRehab_checkbox').click(function() {
-
             $('#Nephrology_textarea').hide();
-
             $('#PevicRehab_textarea').show();
-
         });
-
     });
 </script>
-
-
 
 <!-- jQuery and jQuery UI JS -->
-
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
 <script>
     $(document).ready(function() {
-
         // Initialize jQuery UI datepicker
-
         $('.datepickerInput').datepicker({
-
             dateFormat: 'dd M, yy'
-
         });
 
-
-
     });
 </script>
-
 <script>
     $(document).ready(function() {
-
         $('#add_address_new_form').hide();
-
         $('#add_address_new').click(function() {
-
             $('#add_address_new_form').toggle();
-
         })
-
         $('#cancel_btn_address').click(function() {
-
             $('#add_address_new_form').hide();
-
         })
-
     });
 </script>
-
 <script>
     $(document).ready(function() {
-
         $('#context_add').hide();
-
         $('#entry_add_btn').click(function() {
-
             $('#context_add').toggle();
-
         })
-
-
 
     });
 </script>
-
-
-
-
 
 
 
 <script>
     $(function() {
-
         // Initialize the timepicker
-
         $('.timepicker-custom').timepicker({
-
             'step': 1,
-
             'timeFormat': 'h:i A' // Use 'h:i A' for AM/PM format
-
         });
-
     });
 </script>
-
-
 
 <!-- three dot dropdown js -->
 
-
-
 <script>
     $(document).ready(function() {
-
         // jQuery code to handle the dropdown animation
-
         $(".customdotdropdown").hover(
-
             function() {
-
                 // Close any open dropdowns
-
                 $(".dropdown-content").stop().slideUp("fast");
 
-
-
                 // Open the current dropdown
-
                 $(this).find(".dropdown-content").stop().slideDown("fast");
-
             },
-
             function() {
-
                 // Hover out - close the dropdown
-
                 $(this).find(".dropdown-content").stop().slideUp("fast");
-
             }
-
         );
 
-
-
         // Close the dropdown on outside click
-
         $(document).on("click", function(event) {
-
             var dropdown = $(".customdotdropdown");
-
             if (!dropdown.is(event.target) && dropdown.has(event.target).length === 0) {
-
                 $(".dropdown-content").slideUp("fast");
-
             }
-
         });
-
     });
 </script>
-
-
-
 
 
 <!-- comon select call -->
-
 <script>
-    $('.comon_selectrtj').select2({
-
-    });
+    $('.comon_selectrtj').select2({});
 </script>
-
-
 
 <script>
     $(document).ready(function() {
-
         $('#symptom_input').hide();
-
         $('#add_symptom').click(function() {
-
             $('#symptom_input').show();
-
         })
-
-
 
         $('#remove_symptom').click(function() {
-
             $('#symptom_input').hide();
-
         })
-
     });
 </script>
 
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sumoselect/3.4.9/jquery.sumoselect.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Initialize SumoSelect with search
+        $('#sumo-select').SumoSelect({
+            search: true,
+            dropdownParent: $('#lab_test')
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Initialize SumoSelect with search
+        $('#sumo-select4').SumoSelect({
+            search: true,
+            dropdownParent: $('#order_imagenairy')
+        });
+    });
+</script>
+<script>
+    // $(document).ready(function() {
+    // $('#add_diseases').hide()
+    // $('#add_diseases_btn').click(function(){
+    // 	$('#add_diseases').show();
+    // })
+    // $('#remove_disease').click(function(){
+    // 	$('#add_diseases').hide();
+    // })
+    // });
+</script>
+<script>
+    // $(document).ready(function() {
+    // $('#add_surgery').hide()
+    // $('#add_surgery_btn').click(function(){
+    // 	$('#add_surgery').show();
+    // })
+    // $('#remove_surgery').click(function(){
+    // 	$('#add_surgery').hide();
+    // })
+    // });
+</script>
+
+
+<!-- Annotate image js  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/konva/8.1.1/konva.min.js"></script>
+
+<script>
+    const stage = new Konva.Stage({
+        container: 'image-container',
+        width: 800,
+        height: 600,
+    });
+
+    const layer = new Konva.Layer();
+    stage.add(layer);
+
+    let isDrawing = false;
+    let annotationMode = false;
+    let lastLine;
+
+    const imageObj = new Image();
+    imageObj.src = '{{ asset('public/assets/images/new-images/nodules.png') }}';
+
+    imageObj.onload = function() {
+        const image = new Konva.Image({
+            image: imageObj,
+            width: 500,
+            height: 600,
+        });
+
+        layer.add(image);
+        stage.draw();
+    };
+
+    stage.on('mousedown touchstart', function(e) {
+        if (annotationMode) {
+            const text = prompt('Enter annotation text:');
+            if (text) {
+                const pos = stage.getPointerPosition();
+                const annotation = new Konva.Label({
+                    x: pos.x,
+                    y: pos.y,
+                });
+
+                annotation.add(
+                    new Konva.Tag({
+                        fill: 'transparent',
+                    })
+                );
+
+                annotation.add(
+                    new Konva.Text({
+                        text: text,
+                        fontSize: 18,
+                        fontStyle: 'bold',
+                        fontFamily: 'Arial',
+                        fill: '#000',
+                    })
+                );
+
+                layer.add(annotation);
+                stage.draw();
+            }
+        } else {
+            isDrawing = true;
+            const pos = stage.getPointerPosition();
+            lastLine = new Konva.Line({
+                stroke: '#2760a4',
+                strokeWidth: 3,
+                globalCompositeOperation: 'source-over',
+                points: [pos.x, pos.y],
+            });
+            layer.add(lastLine);
+        }
+    });
+
+    stage.on('mousemove touchmove', function() {
+        if (!isDrawing) {
+            return;
+        }
+
+        const pos = stage.getPointerPosition();
+        const newPoints = lastLine.points().concat([pos.x, pos.y]);
+        lastLine.points(newPoints);
+        layer.batchDraw();
+    });
+
+    stage.on('mouseup touchend', function() {
+        isDrawing = false;
+        lastLine = null;
+    });
+
+    document.getElementById('draw-mode').addEventListener('click', function() {
+        annotationMode = false;
+    });
+
+    document.getElementById('annotate-mode').addEventListener('click', function() {
+        annotationMode = true;
+    });
+
+    document.getElementById('download-image').addEventListener('click', function() {
+        const dataURL = stage.toDataURL({
+            mimeType: 'image/png'
+        });
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'drawn-image.png';
+        link.click();
+    });
+</script>
+
+<script>
+    // Function to toggle textarea based on checkbox state
+    function toggleTextarea(checkboxId, textareaId) {
+        var checkbox = document.getElementById(checkboxId);
+        var textarea = document.getElementById(textareaId);
+
+        checkbox.addEventListener('change', function() {
+            textarea.disabled = !checkbox.checked;
+
+            if (!checkbox.checked) {
+                textarea.value = '';
+            }
+        });
+    }
+
+    // Apply the function to each instance
+    toggleTextarea('enableTextarea1', 'myTextarea1');
+    toggleTextarea('enableTextarea2', 'myTextarea2');
+    toggleTextarea('enableTextarea3', 'myTextarea3');
+    toggleTextarea('enableTextarea4', 'myTextarea4');
+</script>
 
 <script>
     $(document).ready(function() {
+        $('#eligibile1_textarea').hide();
+        $('#eligibile2_textarea').hide();
+        $('#eligibile3_textarea').hide();
+        $('#eligibile4_textarea').hide();
+        $('#eligibile5_textarea').hide();
+        $('#eligibile6_textarea').hide();
+        $('#eligibile7_textarea').hide();
+        $('#eligibile8_textarea').hide();
 
-        // Initialize SumoSelect with search
 
-        $('#sumo-select').SumoSelect({
 
-            search: true,
-
-            dropdownParent: $('#lab_test')
-
+        $('#non_eligibile1_checkbox').click(function() {
+            $('#eligibile1_textarea').hide();
+        });
+        $('#eligibile1_checkbox').click(function() {
+            $('#eligibile1_textarea').show();
         });
 
+
+        $('#non_eligibile2_checkbox').click(function() {
+            $('#eligibile2_textarea').hide();
+        });
+        $('#eligibile2_checkbox').click(function() {
+            $('#eligibile2_textarea').show();
+        });
+
+
+        $('#non_eligibile3_checkbox').click(function() {
+            $('#eligibile3_textarea').hide();
+        });
+        $('#eligibile3_checkbox').click(function() {
+            $('#eligibile3_textarea').show();
+        });
+
+
+        $('#non_eligibile4_checkbox').click(function() {
+            $('#eligibile4_textarea').hide();
+        });
+        $('#eligibile4_checkbox').click(function() {
+            $('#eligibile4_textarea').show();
+        });
+
+
+        $('#non_eligibile5_checkbox').click(function() {
+            $('#eligibile5_textarea').hide();
+        });
+        $('#eligibile5_checkbox').click(function() {
+            $('#eligibile5_textarea').show();
+        });
+
+
+        $('#non_eligibile6_checkbox').click(function() {
+            $('#eligibile6_textarea').hide();
+        });
+        $('#eligibile6_checkbox').click(function() {
+            $('#eligibile6_textarea').show();
+        });
+
+
+        $('#non_eligibile7_checkbox').click(function() {
+            $('#eligibile7_textarea').hide();
+        });
+        $('#eligibile7_checkbox').click(function() {
+            $('#eligibile7_textarea').show();
+        });
+
+
+
+        $('#non_eligibile8_checkbox').click(function() {
+            $('#eligibile8_textarea').hide();
+        });
+        $('#eligibile8_checkbox').click(function() {
+            $('#eligibile8_textarea').show();
+        });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $("#abnormal_c2").hide();
+        $("#abnormal_c4").hide();
+
+        $("#clinic_exam_1").click(function() {
+            $("#abnormal_c2").hide();
+        });
+        $("#clinic_exam_2").click(function() {
+            $("#abnormal_c2").show();
+        });
+
+        $("#clinic_exam_3").click(function() {
+            $("#abnormal_c4").hide();
+        });
+        $("#clinic_exam_4").click(function() {
+            $("#abnormal_c4").show();
+        });
+    })
+</script>
+
+
 <!-- add_diseases_btn start-->
 <script>
- $(document).ready(function() {
-    let counter = 1;
+    $(document).ready(function() {
+        let counter = 1;
 
-    $(document).on('click', '.add_diseases_btn', function(e) {
-        e.preventDefault();
+        $(document).on('click', '.add_diseases_btn', function(e) {
+            e.preventDefault();
 
-        let newSection = $('#add_diseases').clone();
+            let newSection = $('#add_diseases').clone();
 
-        newSection.attr('id', 'add_diseases_' + counter);
-        newSection.find('input[type="text"]').val('');
-        newSection.find('textarea').val('');
+            newSection.attr('id', 'add_diseases_' + counter);
+            newSection.find('input[type="text"]').val('');
+            newSection.find('textarea').val('');
 
-        $('#dynamic-sections').append(newSection);
-        counter++;
+            $('#dynamic-sections').append(newSection);
+            counter++;
+        });
+
+        $(document).on('click', '#remove_disease', function(e) {
+            e.preventDefault();
+            if (counter != 1) {
+                $(this).closest('.col-lg-12').parent().remove();
+                counter--;
+            }
+
+        });
     });
-
-    $(document).on('click', '#remove_disease', function(e) {
-        e.preventDefault();
-        if(counter!=1){
-            $(this).closest('.col-lg-12').parent().remove();
-            counter--;
-        }
-       
-    });
-});
-
-
-
-
 </script>
 <!-- add_diseases_btn end here -->
 <!-- add_surgical_btn start-->
 
 <script>
-     $(document).ready(function() {
-    let counter = 1;
+    $(document).ready(function() {
+        let counter = 1;
 
-    $(document).on('click', '.add_surgical_btn', function(e) {
-        e.preventDefault();
+        $(document).on('click', '.add_surgical_btn', function(e) {
+            e.preventDefault();
 
-        let newSection = $('#add_surgical').clone();
+            let newSection = $('#add_surgical').clone();
 
-        newSection.attr('id', 'add_surgicals_' + counter);
-        newSection.find('input[type="text"]').val('');
-        newSection.find('textarea').val('');
+            newSection.attr('id', 'add_surgicals_' + counter);
+            newSection.find('input[type="text"]').val('');
+            newSection.find('textarea').val('');
 
-        $('#surgical-dynamic-sections').append(newSection);
-        counter++;
+            $('#surgical-dynamic-sections').append(newSection);
+            counter++;
+        });
+
+        $(document).on('click', '#remove_surgical', function(e) {
+            e.preventDefault();
+            if (counter != 1) {
+                $(this).closest('.col-lg-12').parent().remove();
+                counter--;
+            }
+
+        });
     });
-
-    $(document).on('click', '#remove_surgical', function(e) {
-        e.preventDefault();
-        if(counter!=1){
-            $(this).closest('.col-lg-12').parent().remove();
-            counter--;
-        }
-       
-    });
-});
-    
 </script>
 <!-- add_surgical_btn end here -->
- 
-<!-- Annotate image js  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/konva/8.1.1/konva.min.js"></script>
-
-<script>
-        const stage = new Konva.Stage({
-            container: 'image-container',
-            width: 800,
-            height: 600,
-        });
-
-        const layer = new Konva.Layer();
-        stage.add(layer);
-
-        let isDrawing = false;
-        let annotationMode = false;
-        let lastLine;
-
-        const imageObj = new Image();
-        imageObj.src = "{{ asset('public/assets/images/new-images/nodules.png') }}";
-
-        imageObj.onload = function () {
-            const image = new Konva.Image({
-                image: imageObj,
-                width: 500,
-                height: 600,
-            });
-
-            layer.add(image);
-            stage.draw();
-        };
-
-        stage.on('mousedown touchstart', function (e) {
-            if (annotationMode) {
-                const text = prompt('Enter annotation text:');
-                if (text) {
-                    const pos = stage.getPointerPosition();
-                    const annotation = new Konva.Label({
-                        x: pos.x,
-                        y: pos.y,
-                    });
-
-                    annotation.add(
-                        new Konva.Tag({
-                            fill: 'transparent',
-                        })
-                    );
-
-                    annotation.add(
-                        new Konva.Text({
-                            text: text,
-                            fontSize: 18,
-                            fontStyle:'bold',
-                            fontFamily: 'Arial',
-                            fill: '#000',
-                        })
-                    );
-
-                    layer.add(annotation);
-                    stage.draw();
-                }
-            } else {
-                isDrawing = true;
-                const pos = stage.getPointerPosition();
-                lastLine = new Konva.Line({
-                    stroke: '#2760a4',
-                    strokeWidth: 3,
-                    globalCompositeOperation: 'source-over',
-                    points: [pos.x, pos.y],
-                });
-                layer.add(lastLine);
-            }
-        });
-
-        stage.on('mousemove touchmove', function () {
-            if (!isDrawing) {
-                return;
-            }
-
-            const pos = stage.getPointerPosition();
-            const newPoints = lastLine.points().concat([pos.x, pos.y]);
-            lastLine.points(newPoints);
-            layer.batchDraw();
-        });
-
-        stage.on('mouseup touchend', function () {
-            isDrawing = false;
-            lastLine = null;
-        });
-
-        document.getElementById('draw-mode').addEventListener('click', function () {
-            annotationMode = false;
-        });
-
-        document.getElementById('annotate-mode').addEventListener('click', function () {
-            annotationMode = true;
-        });
-
-        document.getElementById('download-image').addEventListener('click', function () {
-            const dataURL = stage.toDataURL({ mimeType: 'image/png' });
-            const link = document.createElement('a');
-            link.href = dataURL;
-            link.download = 'drawn-image.png';
-            link.click();
-        });
-    </script>
-<!-- summer note editor start here -->
 
 @stack('custom-js')
-
-<!-- Display SweetAlert component -->
-
-
-
-@isset($sweetAlert)
-
-<x-sweet-alert :title="$sweetAlert->title" :message="$sweetAlert->message" :type="$sweetAlert->type" />
-
-@endisset
-
-
-
 
 
 </body>

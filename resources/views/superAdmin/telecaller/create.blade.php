@@ -21,7 +21,7 @@
         <section class="content">
         <div class="row">
         <div class="col-12">
-            <form action="{{ route('telecallers.create') }}" method="post"> @csrf
+            <form action="{{ route('telecallers.create') }}" method="post" enctype="multipart/form-data" enctype="multipart/form-data"> @csrf
             <div class="box">
                 <div class="box-body">
                     <div class="row">
@@ -32,7 +32,7 @@
 						</div>
                     <div class="col-md-3">
 					  <div class="form-group">
-						<label class="form-label">Title</label>
+						<label class="form-label">Title<span class="clr"> * </span></label>
 						<select class="form-control select2" name="title" style="width: 100%;" required>
                             <option value="">Select Any One</option>
                              <option value="Mr" {{ old('title') == 'Mr' ? 'selected' : '' }}>Mr</option>
@@ -54,7 +54,7 @@
 					</div>
                        <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label">Name</label>
+                            <label class="form-label">Name<span class="clr"> * </span></label>
                             <input type="text" class="form-control" value="{{ old('name') }}" placeholder="" name="name">
                             @error('name')
                             <span class="error text-danger">{{ $message }}</span>
@@ -63,13 +63,13 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                    <label class="form-label">Date of Birth</label>
+                                    <label class="form-label">Date of Birth<span class="clr"> * </span></label>
 
                                     <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input value="{{ old('birth_date') }}" type="text" class="form-control pull-right" id="datepicker" name="birth_date">
+                                    <input value="{{ old('birth_date') }}" type="text" class="form-control pull-right datepicker"  name="birth_date">
                                     @error('birth_date')
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
@@ -79,8 +79,9 @@
                         </div>
                             <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Gender</label>
+                                <label class="form-label">Gender<span class="clr"> * </span></label>
                                 <select class="form-control select2" name="gendar" style="width: 100%;">
+                                    <option value="">Select Any One</option>
                                     <option value="Male" {{ old('gendar') == 'Male' ? 'selected' : '' }}>Male</option>
                                     <option value="Female" {{ old('gendar') == 'Female' ? 'selected' : '' }}>Female</option>
                                     <option value="Other" {{ old('gendar') == 'Other' ? 'selected' : '' }}>Other</option>
@@ -91,6 +92,54 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
+                      
+                        <div class="col-lg-12 mt-3">
+							<div class="title_head">
+								<h4>Phone & Email</h4>
+							</div>
+						</div>
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Email Address<span class="clr"> * </span></label>
+                            <input type="text" class="form-control" placeholder="" name="email" value="{{ old('email') }}">
+                            @error('email')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Password <span class="clr">*</span></label>
+                                <div class="wrap-input">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                    <span class="btn-show-pass ico-20 " >
+                                        <span class="  eye-pass flaticon-visibility "></span>
+                                    </span>
+                                </div>
+                                @error('password')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Mobile Phone<span class="clr">*</span></label>
+                            <input type="text" class="form-control" placeholder="" name="mobile_no" value="{{ old('mobile_no') }}" minlength="10" maxlength="15">
+                            @error('mobile_no')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                        </div>
+                       
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Landline</label>
+                            <input type="text" class="form-control" placeholder="" name="landline"  value="{{ old('landline') }}">
+                            @error('landline')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                        </div>
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Postal Address</h4>
@@ -99,7 +148,7 @@
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Post Code</label>
-                            <input type="text" class="form-control" placeholder="" name="post_code" value="{{ old('post_code') }}">
+                            <input type="text" class="form-control" placeholder="" name="post_code" value="{{ old('post_code') }}" minlength="4" maxlength="8">
                             @error('post_code')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -138,48 +187,6 @@
                         </div>
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
-								<h4>Phone & Email</h4>
-							</div>
-						</div>
-                        <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="text" class="form-control" placeholder="" name="email" value="{{ old('email') }}">
-                            @error('email')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                        </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control" placeholder="">
-                                @error('password')
-                                <span class="error text-danger">{{ $message }}</span>
-                            @enderror
-                            </div>
-                            </div>
-                        <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Mobile Phone</label>
-                            <input type="text" class="form-control" placeholder="" name="mobile_no" value="{{ old('mobile_no') }}">
-                            @error('mobile_no')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                        </div>
-                        </div>
-                       
-                        <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Landline</label>
-                            <input type="text" class="form-control" placeholder="" name="landline"  value="{{ old('landline') }}">
-                            @error('landline')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                        </div>
-                        </div>
-                        <div class="col-lg-12 mt-3">
-							<div class="title_head">
 								<h4>Educational Background</h4>
 							</div>
 						</div>
@@ -196,9 +203,9 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Qualifications</label>
-                                <input type="text" name="qualifications" value="{{ old('qualifications') }}" class="form-control" placeholder="">
-                                @error('qualifications')
+                                <label class="form-label">Degree</label>
+                                <input type="text" name="Degree" value="{{ old('Degree') }}" class="form-control" placeholder="">
+                                @error('Degree')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
                             </div>
@@ -223,7 +230,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Experience</label>
+                                <label class="form-label">Work Experience</label>
                                 <input type="text" name="experience" value="{{ old('experience') }}" class="form-control" placeholder="">
                                 @error('experience')
                                 <span class="error text-danger">{{ $message }}</span>
@@ -253,6 +260,12 @@
                             @enderror
                             </div>
                         <!-- /.form-group -->
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="form-label">Profile Image</label>
+                                  <input type="file" class="dropify" name="patient_profile_img" accept="image/*"/>
+                            </div>
                         </div>
 
                     </div>

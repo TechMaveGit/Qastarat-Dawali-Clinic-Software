@@ -22,7 +22,7 @@
         <div class="row">
 				<div class="col-xl-8 col-12">
 					<div class="box">
-						<div class="box-body text-end min-h-150" style="background-image:url({{ asset('public/assets/images/gallery/landscape14.jpg')}}); background-repeat: no-repeat; background-position: center;background-size: cover;">
+						<div class="box-body text-end min-h-150" style="background-image:url('{{ asset('public/superAdmin/images/gallery/landscape14.jpg')}}'); background-repeat: no-repeat; background-position: center;background-size: cover;">
 							<a href="{{ route('doctors.edit',['id'=>$doctor->id]) }}" class="btn-md btn btn-success"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
 						</div>
 						<div class="box-body wed-up position-relative">
@@ -33,7 +33,13 @@
 
                                         {{-- https://techmavesoftwaredev.com/webclinic/public/superAdmin/images/avatar/avatar-1.png --}}
 
-                                    <img class="profile-pic" src="{{ asset('public/superAdmin/images/avatar3.png')}}">
+                                        @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
+                                        <img src="{{ asset('/public/assets/doctor_profile/' . $doctor->patient_profile_img) }}" alt="">
+                                        @else
+                                        <img class="profile-pic" src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+
+                                        @endif
+
 
                                     </div>
                                     {{-- <div class="p-image">
@@ -163,7 +169,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/1.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Shawn Hampton</p>
@@ -178,7 +184,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/2.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Polly Paul</p>
@@ -193,7 +199,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/3.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Johen Doe</p>
@@ -208,7 +214,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/4.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Harmani Doe</p>
@@ -223,7 +229,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/5.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Mark Wood</p>
@@ -238,7 +244,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/6.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Shawn Marsh</p>
@@ -253,7 +259,7 @@
                                 <div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/7.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Polly Paul</p>
@@ -268,7 +274,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/8.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Johen Doe</p>
@@ -283,7 +289,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/9.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Harmani Doe</p>
@@ -298,7 +304,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/1.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Mark Wood</p>
@@ -313,7 +319,7 @@
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
-											<img src="images/avatar/2.jpg" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">Shawn Marsh</p>

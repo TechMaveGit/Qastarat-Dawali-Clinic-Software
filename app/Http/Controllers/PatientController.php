@@ -38,14 +38,20 @@ use Throwable;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class PatientController extends Controller
 {
     //
 
-    public function home()
+    public function dashboard()
     {
-        return view('front/home');
+        $id = auth('web')->user()->id;
+        $patient = User::findOrFail($id);
+        $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->orderBy('id', 'desc')->first();
+        $Patient_appointments = Patient_appointment::where('patient_id', $id)->orderBy('id', 'desc')->get();
+        return view('back/patient-dashboard', compact('id', 'patient', 'Patient_insurer', 'Patient_appointments'));
     }
 
 
@@ -66,13 +72,18 @@ class PatientController extends Controller
         $patient = User::findOrFail($id);
         $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->orderBy('id', 'desc')->first();
         $Patient_appointments = Patient_appointment::where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $id = Crypt::encrypt($id);
         return view('back/patient-detail', compact('id', 'patient', 'Patient_insurer', 'Patient_appointments'));
+
     }
     public function patient_medical_detail(Request $request, $id)
     {
 
         $id = Crypt::decrypt($id);
         $patient = User::findOrFail($id);
+
+       $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'general_form'])->get();
+       $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'general_form'])->get();
         $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
         $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -80,6 +91,36 @@ class PatientController extends Controller
         $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $ThyroidDiagnosis = ThyroidDiagnosis::query();
+        $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+
+
+        $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+
+        $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        // dd($symptoms);
+        $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+
+        $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+
+        $AntithyroidAntibodiesTests = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        $rightLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        $leftLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'leftLobeScore', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        $Retrosternalextension = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Retrosternalextension', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $EnlargedLymphnodes = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'EnlargedLymphnodes', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $paralysis = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'paralysis', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $MRCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'MRCIR48', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $CTCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'CTCIR48', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $NmThyroidScan = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $HistopathRightThyroidFNA = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $data = [
             'patient' => $patient,
             'id' => Crypt::encrypt($id),
@@ -89,15 +130,43 @@ class PatientController extends Controller
             'patient_future_plan' => $Patient_future_plan,
             'procedures' => $Procedure,
             'prescriptions' => $Prescription,
-            'insurer' => $Patient_insurer
+            'insurer' => $Patient_insurer,
+            'diagnosis_generals' => $diagnosis_general,
+            'diagnosis_cids' => $diagnosis_cid,
+            'symptoms_db' => $symptoms,
+            'symptoms_scores_db' => $symptoms_scores,
+            'Referrals' => $Referrals,
+            'supportives' => $supportives,
+            'SpecialInvestigations_db' => $SpecialInvestigations,
+            'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+            'Interventions' => $Interventions,
+            'MDTs_db' => $MDTs,
+            'Labs' => $Labs,
+            'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+            'ClinicalIndicator_db' => $ClinicalIndicator,
+            'ClinicalExam_db' => $ClinicalExam,
+            'rightLobeScores' => $rightLobeScore,
+            'leftLobeScores' => $leftLobeScore,
+            'Retrosternalextension' => $Retrosternalextension,
+            'EnlargedLymphnodes' => $EnlargedLymphnodes,
+            'paralysis' => $paralysis,
+            'MRCIR48' => $MRCIR48,
+            'NmThyroidScan' => $NmThyroidScan,
+            'HistopathRightThyroidFNA' => $HistopathRightThyroidFNA,
+            'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+            'Patient_order_labs'=>$Patient_order_labs
+
         ];
-        return view('back/view-medical-report')->with($data);
+        return view('back/view-general-report')->with($data);
     }
 
     public function ViewThyroidAblationForm(Request $request, $id)
     {
+
         $id = Crypt::decrypt($id);
         $patient = User::findOrFail($id);
+        $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'thyroid_form'])->get();
+        $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'thyroid_form'])->get();
         $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
         $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -105,6 +174,37 @@ class PatientController extends Controller
         $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+
+        $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+        $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+
+        $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+
+        $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+        // dd($symptoms);
+        $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+
+        $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+        $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+        $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+        $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+
+        $AntithyroidAntibodiesTests = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+        $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+        $rightLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+        $leftLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'leftLobeScore', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
+        $Retrosternalextension = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Retrosternalextension', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $EnlargedLymphnodes = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'EnlargedLymphnodes', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $paralysis = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'paralysis', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $MRCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'MRCIR48', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $CTCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'CTCIR48', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $NmThyroidScan = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $HistopathRightThyroidFNA = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $data = [
             'patient' => $patient,
             'id' => Crypt::encrypt($id),
@@ -114,7 +214,32 @@ class PatientController extends Controller
             'patient_future_plan' => $Patient_future_plan,
             'procedures' => $Procedure,
             'prescriptions' => $Prescription,
-            'insurer' => $Patient_insurer
+            'insurer' => $Patient_insurer,
+            'diagnosis_generals' => $diagnosis_general,
+            'diagnosis_cids' => $diagnosis_cid,
+            'symptoms_db' => $symptoms,
+            'symptoms_scores_db' => $symptoms_scores,
+            'Referrals' => $Referrals,
+            'supportives' => $supportives,
+            'SpecialInvestigations_db' => $SpecialInvestigations,
+            'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+            'Interventions' => $Interventions,
+            'MDTs_db' => $MDTs,
+            'Labs' => $Labs,
+            'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+            'ClinicalIndicator_db' => $ClinicalIndicator,
+            'ClinicalExam_db' => $ClinicalExam,
+            'rightLobeScores' => $rightLobeScore,
+            'leftLobeScores' => $leftLobeScore,
+            'Retrosternalextension' => $Retrosternalextension,
+            'EnlargedLymphnodes' => $EnlargedLymphnodes,
+            'paralysis' => $paralysis,
+            'MRCIR48' => $MRCIR48,
+            'NmThyroidScan' => $NmThyroidScan,
+            'HistopathRightThyroidFNA' => $HistopathRightThyroidFNA,
+            'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+            'Patient_order_labs'=>$Patient_order_labs
+
         ];
         return view('back/view-thyroid-ablation-report')->with($data);
     }
@@ -221,6 +346,319 @@ class PatientController extends Controller
         $Patient_vitals = Patient_vital::orderBy('id', 'desc')->get();
         return response()->json($Patient_vitals);
     }
+
+
+    public function Add_Diagnosis(Request $request)
+    {
+
+        $doctor_id = auth()->guard('doctor')->id();
+
+        $id = decrypt($request->patient_id);
+        $diagnosis_general = $request->Diagnosis['general'];
+        $diagnosis_cid = $request->Diagnosis['icd'];
+        $form_type = $request->form_type;
+        $dataToInsert = [];
+    // dd('diagnosis_general',$diagnosis_general,'diagnosis_cid',$diagnosis_cid,'form_type',$form_type);
+
+        if (isset($diagnosis_general) && is_array($diagnosis_general) && !empty($diagnosis_general)) {
+            $filteredDiagnosisGeneral = array_filter($diagnosis_general, function ($value) {
+                return $value !== null && $value !== '';
+            });
+
+
+            if ($filteredDiagnosisGeneral) {
+                $associativeArray = [];
+                foreach ($filteredDiagnosisGeneral as $index => $value) {
+                    $associativeArray['GEN' . ($index + 1)] = [$value];
+                }
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'diagnosis_general',
+                    'data_value' =>  json_encode($associativeArray),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => $form_type
+                ];
+            }
+        }
+        if (isset($diagnosis_cid) && is_array($diagnosis_cid) && !empty($diagnosis_cid)) {
+            $filteredDiagnosisGeneral =  array_filter($diagnosis_cid, function ($value) {
+                return $value !== null && $value !== '';
+            });
+
+
+            if ($filteredDiagnosisGeneral) {
+                $associativeArray = [];
+                foreach ($filteredDiagnosisGeneral as $index => $value) {
+                    $associativeArray['ICD' . ($index + 1)] =[$value];
+                }
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'diagnosis_cid',
+                    'data_value' =>  json_encode($associativeArray),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => $form_type
+                ];
+            }
+        }
+
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $dataToInsert);
+        // Filter out empty subarrays
+        $final_result = array_filter($filteredDiagnosisGeneral, function($subarray) {
+            return !empty($subarray);
+        });
+        $inserted=false;
+        if(isset( $final_result) && count($final_result) !== 0){
+            $inserted =   ThyroidDiagnosis::insert($dataToInsert);
+        }
+        
+
+        return response()->json($inserted);
+    }
+
+    public function Add_Symptoms(Request $request)
+    {
+
+
+       $data=$request->all();
+
+        $doctor_id = auth()->guard('doctor')->id();
+
+        $id = decrypt($request->patient_id);
+
+        $form_type = $request->formType;
+        $dataToInsert = [];
+        $combinedArray = [];
+
+        foreach ($data['SymptomType'] as $index => $type) {
+            $combinedArray[] = [
+                'SymptomType' => $type ?? '',
+                'SymptomDurationValue' => $data['SymptomDurationValue'][$index] ?? '',
+                'SymptomDurationType' => $data['SymptomDurationType'][$index] ?? '',
+                'SymptomDurationNote' => $data['SymptomDurationNote'][$index] ?? ''
+            ];
+        }
+
+
+    if (isset($combinedArray) && is_array($combinedArray) && !empty($combinedArray)) {
+        $filteredSymptoms = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $combinedArray);
+
+        // Check if there's any non-empty array in $filteredSymptoms
+        $nonEmptyArraysExist = false;
+        foreach ($filteredSymptoms as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+
+        if ($nonEmptyArraysExist) {
+            $filteredSymptoms = array_filter($filteredSymptoms);
+            // dd($filteredSymptoms);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredSymptoms),
+                'doctor_id' => $doctor_id,
+                'form_type' => $form_type
+            ];
+        }
+    }
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $dataToInsert);
+        // Filter out empty subarrays
+        $final_result = array_filter($filteredDiagnosisGeneral, function($subarray) {
+            return !empty($subarray);
+        });
+        $inserted=false;
+        if(isset( $final_result) && count($final_result) !== 0){
+            $inserted =   ThyroidDiagnosis::insert($dataToInsert);
+        }
+        
+
+        return response()->json($inserted);
+
+
+    }
+
+    public function OrderSpecialInvistigation(Request $request)
+    {
+
+
+
+
+        $doctor_id = auth()->guard('doctor')->id();
+
+        $id = decrypt($request->patient_id);
+
+        $form_type = $request->formType;
+        $dataToInsert = [];
+
+        $combinedArray = ['title'=>$request->Title ?? '','subtile'=>$request->SubTitle ?? '','invistigation'=>$request->Invistigation ?? ''];
+
+
+
+
+
+        if ($combinedArray) {
+            $filteredOrderSpecialInvistigation= array_filter($combinedArray);
+            // dd($filteredSymptoms);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredOrderSpecialInvistigation),
+                'doctor_id' => $doctor_id,
+                'form_type' => $form_type
+            ];
+        }
+
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $dataToInsert);
+        // Filter out empty subarrays
+        $final_result = array_filter($filteredDiagnosisGeneral, function($subarray) {
+            return !empty($subarray);
+        });
+        $inserted=false;
+        if(isset( $final_result) && count($final_result) !== 0){
+            $inserted =   ThyroidDiagnosis::insert($dataToInsert);
+        }
+        
+
+        return response()->json($inserted);
+
+
+    }
+
+    public function MDTReview(Request $request)
+    {
+
+
+        $mdt_decisions=$request->mdt_decision;
+        $mdt_elaborates=$request->mdt_elaborate;
+        $doctor_id = auth()->guard('doctor')->id();
+
+        $id = decrypt($request->patient_id);
+
+        $form_type = $request->formType;
+        $dataToInsert = [];
+
+        $newArray = [];
+        // dd($request->all());
+        if(!empty($mdt_decisions)){
+            foreach ($mdt_decisions as $key => $value) {
+                if($value === null || empty($value)){
+                    continue;
+                }
+                $newArray[$value] = ['asd' => $mdt_elaborates[$key]];
+            }
+        }
+
+
+
+        if ($newArray) {
+            $filteredOrderSpecialInvistigation= array_filter($newArray);
+            // dd($filteredSymptoms);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredOrderSpecialInvistigation),
+                'doctor_id' => $doctor_id,
+                'form_type' => $form_type
+            ];
+        }
+
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $dataToInsert);
+        // Filter out empty subarrays
+        $final_result = array_filter($filteredDiagnosisGeneral, function($subarray) {
+            return !empty($subarray);
+        });
+        $inserted=false;
+        
+        if(isset($final_result) && count($final_result) !== 0){
+            $inserted =   ThyroidDiagnosis::insert($dataToInsert);
+        }
+        
+
+        return response()->json($inserted);
+
+    }
+
+
+    public function EligibilityStatus(Request $request)
+    {
+
+
+        $eligiblity_titles=$request->eligiblity_titles;
+        $eligiblity_notes=$request->eligiblity_notes;
+        $doctor_id = auth()->guard('doctor')->id();
+
+        $id = decrypt($request->patient_id);
+
+        $form_type = $request->formType;
+        $dataToInsert = [];
+
+        $newArray = [];
+        if(!empty($eligiblity_titles)){
+            foreach ($eligiblity_titles as $key => $value) {
+                if($value === null || empty($value)){
+                    continue;
+                }
+                $newArray[$value] = ['asd' => $eligiblity_notes[$key]];
+            }
+        }
+
+
+
+        if ($newArray) {
+            $filteredOrderSpecialInvistigation= array_filter($newArray);
+            // dd($filteredSymptoms);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredOrderSpecialInvistigation),
+                'doctor_id' => $doctor_id,
+                'form_type' => $form_type
+            ];
+        }
+
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $dataToInsert);
+        // Filter out empty subarrays
+        $final_result = array_filter($filteredDiagnosisGeneral, function($subarray) {
+            return !empty($subarray);
+        });
+        $inserted=false;
+        
+        if(isset($final_result) && count($final_result) !== 0){
+            $inserted =   ThyroidDiagnosis::insert($dataToInsert);
+        }
+        
+
+        return response()->json($inserted);
+
+    }
+
     public function patient_vital_list(Request $request)
     {
 
@@ -279,54 +717,147 @@ class PatientController extends Controller
     public function order_imaginary_exam(Request $request)
     {
         $data = $request->all();
+        $doctor_id=auth('doctor')->user()->id;
+        $doctor_nurses=DB::table('doctor_nurse')->where('doctor_id',$doctor_id)->pluck('nurse_id');
         $patientId = decrypt($data['patient_id']);
-
-        $testNames = $data['test_name'];
-        foreach ($testNames as $testName) {
-            Patient_order_imaginary_exam::create([
+        $result=false;
+        $dataInsertedTo=[];
+        $lab_test_names = $data['lab_test_names'];
+        $formType=$request->formType;
+        $filtered_lab_test_names  = array_filter($lab_test_names, function ($value) {
+            return $value !== null && $value !== '';
+        });
+       
+        foreach ($doctor_nurses as $nurse_id) {
+            
+            $dataInsertedTo[]=[
                 'patient_id' => $patientId,
-                'order_imaginary_exam_tests_id' => $testName,
+                'pathology_price_list_id' => json_encode($filtered_lab_test_names),
+                'doctor_id'=>$doctor_id,
+                'form_type'=>$formType,
+                'nurse_id'=>$nurse_id,
+                'test_type'=>'radiology'
 
-            ]);
+            ];
+
         }
 
 
-        return response()->json($testNames);
+
+
+        // foreach ($lab_test_names as $lab_test_name) {
+        //     $dataInsertedTo[]=[
+        //         'patient_id' => $patientId,
+        //         'pathology_price_list_id' => $lab_test_name,
+        //         'doctor_id'=>$doctor_id,
+        //         'form_type'=>$formType
+
+        //     ];
+
+        // }
+
+        if(!empty($dataInsertedTo)){
+          $result=  DB::table('nurse_tasks')->insert($dataInsertedTo);
+        }
+
+
+        return response()->json($result);
+        // $data = $request->all();
+        // $doctor_id=auth('doctor')->user()->id;
+        // $patientId = decrypt($data['patient_id']);
+        // $result=false;
+        // $dataInsertedTo=[];
+        // $testNames = $data['test_name'];
+        // $formType=$request->formType;
+        // $testNames = array_filter($testNames);
+        // foreach ($testNames as $testName) {
+        //     $dataInsertedTo[]=[
+        //         'patient_id' => $patientId,
+        //         'test_id' => $testName,
+        //         'doctor_id'=>$doctor_id,
+        //         'form_type'=>$formType,
+        //         'summery'=>$request->test_summery
+        //     ];
+
+        // }
+        // if(!empty($dataInsertedTo)){
+        //   $result=  Patient_order_imaginary_exam::insert($dataInsertedTo);
+        // }
+
+
+        // return response()->json($result);
     }
 
     public function order_lab_test(Request $request)
     {
-
         $data = $request->all();
-
+        $doctor_id=auth('doctor')->user()->id;
+        $doctor_nurses=DB::table('doctor_nurse')->where('doctor_id',$doctor_id)->pluck('nurse_id');
         $patientId = decrypt($data['patient_id']);
-
+        $result=false;
+        $dataInsertedTo=[];
         $lab_test_names = $data['lab_test_names'];
-        foreach ($lab_test_names as $testName) {
-            Patient_order_lab::create([
+        $formType=$request->formType;
+        $filtered_lab_test_names  = array_filter($lab_test_names, function ($value) {
+            return $value !== null && $value !== '';
+        });
+       
+        foreach ($doctor_nurses as $nurse_id) {
+            
+            $dataInsertedTo[]=[
                 'patient_id' => $patientId,
-                'order_lab_tests_id' => $testName,
+                'pathology_price_list_id' => json_encode($filtered_lab_test_names),
+                'doctor_id'=>$doctor_id,
+                'form_type'=>$formType,
+                'nurse_id'=>$nurse_id,
+                'test_type'=>'pathology'
 
-            ]);
+            ];
+
         }
 
 
-        return response()->json($lab_test_names);
+
+
+        // foreach ($lab_test_names as $lab_test_name) {
+        //     $dataInsertedTo[]=[
+        //         'patient_id' => $patientId,
+        //         'pathology_price_list_id' => $lab_test_name,
+        //         'doctor_id'=>$doctor_id,
+        //         'form_type'=>$formType
+
+        //     ];
+
+        // }
+
+        if(!empty($dataInsertedTo)){
+          $result=  DB::table('nurse_tasks')->insert($dataInsertedTo);
+        }
+
+
+        return response()->json($result);
+
+
+
+
     }
 
     public function order_lab_test_list(Request $request)
     {
 
         $patient_id = Crypt::decrypt($request->patient_id);
-        $latestOrderLabs = DB::table('patient_order_labs')
-            ->join('order_lab_tests', 'patient_order_labs.order_lab_tests_id', '=', 'order_lab_tests.id')
+        $doctor_id=auth('doctor')->user()->id;
+
+        $latestOrderLabs = DB::table('nurse_tasks')
+            
             ->select(
-                'patient_order_labs.id as lab_id',
-                'patient_order_labs.created_at as lab_created_at',
-                'order_lab_tests.test_name as test_name'
+                'id',
+                'doctor_id',
+                'patient_id',
+                'form_type'
             )
-            ->where('patient_order_labs.patient_id', $patient_id)
-            ->orderByDesc('patient_order_labs.id')
+            ->where('doctor_id',)
+            ->orderByDesc('doctor_id',$doctor_id)
             ->take(5)
             ->get();
 
@@ -335,7 +866,7 @@ class PatientController extends Controller
     public function order_lab_test_list_delete(Request $request)
     {
 
-        $Patient_order_lab = Patient_order_lab::where('id', $request->lab_id)->delete();
+        $Patient_order_lab = DB::table('nurse_tasks')->where('id', $request->lab_id)->delete();
         return response()->json($Patient_order_lab);
     }
     public function invoice_item_add(Request $request)
@@ -583,7 +1114,7 @@ class PatientController extends Controller
                 'patient_id' => $patientId,
                 'title_name' => 'Symptoms',
                 'data_value' => json_encode($symptom_value),
-                'doctor_id' =>auth()->guard('doctor')->id()
+                'doctor_id' => auth()->guard('doctor')->id()
             ]);
         }
 
@@ -594,19 +1125,64 @@ class PatientController extends Controller
 
     public function clinical_exam_add(Request $request)
     {
-        $data = $request->all();
-        $patientId = decrypt($data['patient_id']);
+        $data=$request->all();
+    // dd($data);
+        $doctor_id = auth()->guard('doctor')->id();
 
-        $write_text = $data['write_text'];
+        $id = decrypt($request->patient_id);
 
-        Patient_clinical_exam::create([
-            'patient_id' => $patientId,
-            'write_text' => $write_text
-        ]);
-
+        $form_type = $request->formType;
+        $dataToInsert = [];
 
 
-        return response()->json($data);
+
+        if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->clinical_exam);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'ClinicalExam',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => $form_type
+                ];
+            }
+        }
+
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $dataToInsert);
+        // Filter out empty subarrays
+        $final_result = array_filter($filteredDiagnosisGeneral, function($subarray) {
+            return !empty($subarray);
+        });
+        $inserted=false;
+        if(isset( $final_result) && count($final_result) !== 0){
+            $inserted =   ThyroidDiagnosis::insert($dataToInsert);
+        }
+        
+
+        return response()->json($inserted);
+
+
+
     }
     public function future_plan_add(Request $request)
     {
@@ -719,6 +1295,7 @@ class PatientController extends Controller
     }
     public function patient_info_edit(Request $request)
     {
+
         $patient_id = decrypt($request->patient_id);
         $Patient_info = User::where('id', $patient_id)->orderBy('id', 'desc')->first();
         $Patient_insurer = Patient_insurer::select('id', 'insurer_name', 'status')->where('patient_id', $patient_id)->orderBy('id', 'desc')->get();
@@ -733,10 +1310,33 @@ class PatientController extends Controller
     }
     public function patient_info_update(Request $request)
     {
-
         $data = $request->all();
 
         $patientId = decrypt($data['patient_id']);
+        $validator = Validator::make($request->all(), [
+            'email' => [
+
+                'email',
+                Rule::unique('users')->ignore($patientId),
+            ],
+            'post_code' => 'numeric',
+
+            'landline' => 'numeric',
+            'mobile_no' => [
+
+                'numeric',
+                Rule::unique('users')->ignore($patientId),
+            ],
+
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+
+
 
         $patient_sirname = $data['patient_sirname'];
         $patient_name = $data['patient_name'];
@@ -757,8 +1357,8 @@ class PatientController extends Controller
         $patient_document_type = $data['patient_document_type'];
         $patient_edit_id = $data['patient_edit_id'];
         $patient_tags_list = $data['patient_tags_list'];
-        
-    
+
+
         $patient_info = User::where('id', $patientId)->first();
         $userEmailExists = User::where('email', $patient_email)
             ->exists();
@@ -800,25 +1400,25 @@ class PatientController extends Controller
             $Patient_insurer->status = 'active';
             $Patient_insurer->save();
         }
-            // handle profile_image 
-            if ($request->hasFile('profile_image')) {
-                
-                $oldFilePath = public_path('assets/patient_profile') . '/' . $patient_info->patient_profile_img;
+        // handle profile_image
+        if ($request->hasFile('profile_image')) {
 
-                if (file_exists($oldFilePath) && is_file($oldFilePath)) {
-            //    dd($oldFilePath);
-                    unlink($oldFilePath);
-                    $image = $request->file('profile_image');
-                    $new_name = rand() . '.' . $image->getClientOriginalExtension();
-                    $image->move(public_path('assets/patient_profile'), $new_name);
-                    $patient_info->patient_profile_img = $new_name;
-                }else{
-                    $image = $request->file('profile_image');
-                    $new_name = rand() . '.' . $image->getClientOriginalExtension();
-                    $image->move(public_path('assets/patient_profile'), $new_name);
-                    $patient_info->patient_profile_img = $new_name;
-                }
+            $oldFilePath = public_path('assets/patient_profile') . '/' . $patient_info->patient_profile_img;
+
+            if (file_exists($oldFilePath) && is_file($oldFilePath)) {
+                //    dd($oldFilePath);
+                unlink($oldFilePath);
+                $image = $request->file('profile_image');
+                $new_name = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('assets/patient_profile'), $new_name);
+                $patient_info->patient_profile_img = $new_name;
+            } else {
+                $image = $request->file('profile_image');
+                $new_name = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('assets/patient_profile'), $new_name);
+                $patient_info->patient_profile_img = $new_name;
             }
+        }
 
         $patient_info->save();
         return response()->json($data);
@@ -834,7 +1434,17 @@ class PatientController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email',
+            'mobile_no' => 'numeric|unique:users,mobile_no',
+            'post_code' => 'numeric',
+
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
         $new_name = '';
         if ($request->file('profile_image') != '') {
             $image = $request->file('profile_image');
@@ -890,8 +1500,28 @@ class PatientController extends Controller
         //
         $patients = $patient->orderBy('id', 'desc')->get();
 
-        return response()->json($patients);
+        $patientData = [];
+        foreach ($patients as $patient) {
+            if (!is_null($patient->id)) {
+                $encryptedId = Crypt::encrypt($patient->id);
+                $patientData[] = [
+                    'id' => $encryptedId,
+                    'name' => $patient->name,
+                    'street' => $patient->street,
+                    'email' => $patient->email,
+                    'post_code' => $patient->post_code,
+                    'mobile_no' => $patient->mobile_no,
+                    'patient_id' => $patient->patient_id,
+                ];
+            }
+        }
+
+
+        $patientDataObject = (object) $patientData;
+
+        return response()->json($patientDataObject);
     }
+
     public function slectEligibilityForms(Request $request)
     {
         $EligibilityForm = $request->EligibilityForm;
@@ -905,23 +1535,73 @@ class PatientController extends Controller
         } elseif ($EligibilityForm == "UterineEmboForm") {
             return redirect()->route('user.UterineEmboEmbolizationEligibilityForms', ['patient_id' => $patient_id]);
         } elseif ($EligibilityForm == "VaricoceleEmboForm") {
-            return redirect()->route('user.VaricoceleEmboEmbolizationEligibilityForms', ['patient_id' => $patient_id]);
+            return redirect()->route('user.VaricoceleEmbolizationEligibilityForms', ['patient_id' => $patient_id]);
         } elseif ($EligibilityForm == "PelvicCongEmbo") {
-            return redirect()->route('user.PelvicCongEmboEligibilityForms', ['patient_id' => $patient_id]);
+            return redirect()->route('user.PelvicCongEmbolizationEligibilityForms', ['patient_id' => $patient_id]);
         } elseif ($EligibilityForm == "VaricoseAblation") {
-            return redirect()->route('user.VaricoseAblationEligibilityForms', ['patient_id' => $patient_id]);
-        } else {
+            return redirect()->route('user.VaricoseAblationlizationEligibilityForms', ['patient_id' => $patient_id]);
+        }
+        elseif ($EligibilityForm == "HaemorrhoidsEmbo") {
+            return redirect()->route('user.HaemorrhoidsEmbolizationEligibilityForms', ['patient_id' => $patient_id]);
+        }
+        elseif ($EligibilityForm == "KneePain") {
+            return redirect()->route('user.KneePainlizationEligibilityForms', ['patient_id' => $patient_id]);
+        }
+        elseif ($EligibilityForm == "SpinePain") {
+            return redirect()->route('user.SpinePainlizationEligibilityForms', ['patient_id' => $patient_id]);
+        }
+        elseif ($EligibilityForm == "MSKPain") {
+            return redirect()->route('user.MSKPainlizationEligibilityForms', ['patient_id' => $patient_id]);
+        }
+        elseif ($EligibilityForm == "ShoulderPain") {
+            return redirect()->route('user.ShoulderPainlizationEligibilityForms', ['patient_id' => $patient_id]);
+        }
+        elseif ($EligibilityForm == "HeadachePain") {
+            return redirect()->route('user.HeadachePainlizationEligibilityForms', ['patient_id' => $patient_id]);
+        }
+        elseif ($EligibilityForm == "GeneralForm") {
+            return redirect()->route('user.patient_medical_detail', ['id' => $patient_id]);
+        }
+       
+        else {
             abort(404);
         }
     }
-    public function PelvicCongEmboEligibilityForms(Request $request, $patient_id)
+
+    public function HeadachePainEmbolizationEligibilityForms(Request $request, $patient_id)
     {
-        return view('back/pelvic_cong_embo', compact('patient_id'));
+        return view('back/headache-pain', compact('patient_id'));
     }
-    public function VaricoseAblationEligibilityForms(Request $request, $patient_id)
+    public function ShoulderPainEmbolizationEligibilityForms(Request $request, $patient_id)
+    {
+        return view('back/shoulder-pain', compact('patient_id'));
+    }
+    public function MSKPainEmbolizationEligibilityForms(Request $request, $patient_id)
+    {
+        return view('back/msk-pain', compact('patient_id'));
+    }
+    public function SpinePainEmbolizationEligibilityForms(Request $request, $patient_id)
+    {
+        return view('back/spine-pain', compact('patient_id'));
+    }
+
+    public function KneePainEmbolizationEligibilityForms(Request $request, $patient_id)
+    {
+        return view('back/knee-pain', compact('patient_id'));
+    }
+    public function HaemorrhoidsEmboEmbolizationEligibilityForms(Request $request, $patient_id)
+    {
+        return view('back/haemorrhoids_embo', compact('patient_id'));
+    }
+    public function VaricoseAblationEmbolizationEligibilityForms(Request $request, $patient_id)
     {
         return view('back/varicose_ablation', compact('patient_id'));
     }
+    public function PelvicCongEmboEmbolizationEligibilityForms(Request $request, $patient_id)
+    {
+        return view('back/pelvic_cong_embo', compact('patient_id'));
+    }
+   
     public function ProstateArteryEmbolizationEligibilityForm(Request $request, $patient_id)
     {
         return view('back/prostate', compact('patient_id'));
@@ -939,7 +1619,5484 @@ class PatientController extends Controller
         return view('back/varicocele_embo', compact('patient_id'));
     }
 
+    // Varicocele Embo form save 
+    public function storeVaricoceleEmboEligibilityForms(Request $request)
+    {
 
+        $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoceleEmbo'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+
+    return  redirect()->route('user.viewVaricoceleEmboEligibilityForms', ['id' => $request->patient_id]);
+    }
+   
+// HeadachePain form edit method
+public function editHeadachePainEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    $Prescription = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Prescription', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    // dd($Prescription);
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+        'Imaging'=>$Imaging,
+        'Prescription'=>$Prescription
+
+
+    ];
+    return view('back/Edit_headache_pain', $data);
+}
+
+// HeadachePain form update method
+public function updateHeadachePainEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'HeadachePain')->delete();
+
+    $this->storeHeadachePainEligibilityForms($request);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
+}
+
+
+
+// HeadachePain form store method
+public function storeHeadachePainEligibilityForms(Request $request)
+{
+
+    $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    if (isset($request->Prescription) && is_array($request->Prescription) && !empty($request->Prescription)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Prescription);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Prescription',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HeadachePain'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
+}
+
+// HeadachePain form view method Edit_varicose_ablation
+public function viewHeadachePainEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'HeadachePain'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'HeadachePain'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    // $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $Prescription = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Prescription', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+    
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+
+    
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+        'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-headache-pain-report')->with($data);
+}
+
+
+
+
+// ShoulderPain form edit method
+public function editShoulderPainEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    $Prescription = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Prescription', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    // dd($Prescription);
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+        'Imaging'=>$Imaging,
+        'Prescription'=>$Prescription
+
+
+    ];
+    return view('back/Edit_shoulder_pain', $data);
+}
+
+// ShoulderPain form update method
+public function updateShoulderPainEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'ShoulderPain')->delete();
+
+    $this->storeShoulderPainEligibilityForms($request);
+    return  redirect()->route('user.viewShoulderPainEligibilityForms', ['id' => $request->patient_id]);
+}
+
+
+// ShoulderPain form store method
+public function storeShoulderPainEligibilityForms(Request $request)
+{
+
+    $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    if (isset($request->Prescription) && is_array($request->Prescription) && !empty($request->Prescription)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Prescription);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Prescription',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'ShoulderPain'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+
+    return  redirect()->route('user.viewShoulderPainEligibilityForms', ['id' => $request->patient_id]);
+}
+
+// ShoulderPain form view method Edit_varicose_ablation
+public function viewShoulderPainEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'ShoulderPain'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'ShoulderPain'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    // $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $Prescription = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Prescription', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+    
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+        'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-shoulder-pain-report')->with($data);
+}
+
+
+
+// MSKPain form edit method
+public function editMSKPainEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'MSKPain'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'MSKPain'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'MSKPain'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    $Prescription = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Prescription', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    // dd($Prescription);
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+        'Imaging'=>$Imaging,
+        'Prescription'=>$Prescription
+
+
+    ];
+    return view('back/Edit_msk_pain', $data);
+}
+
+// MSKPain form update method
+public function updateMSKPainEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'MSKPain')->delete();
+
+    $this->storeMSKPainEligibilityForms($request);
+    return  redirect()->route('user.viewMSKPainEligibilityForms', ['id' => $request->patient_id]);
+}
+
+
+// MSKPain form store method
+public function storeMSKPainEligibilityForms(Request $request)
+{
+
+    $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    if (isset($request->Prescription) && is_array($request->Prescription) && !empty($request->Prescription)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Prescription);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Prescription',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'MSKPain'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+
+    return  redirect()->route('user.viewMSKPainEligibilityForms', ['id' => $request->patient_id]);
+}
+
+// MSKPain form view method Edit_varicose_ablation
+public function viewMSKPainEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'MSKPain'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'MSKPain'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    // $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $Prescription = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Prescription', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+    
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+        'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-msk-pain-report')->with($data);
+}
+
+
+
+// SpinePain form edit method
+public function editSpinePainEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'SpinePain'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'SpinePain'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'SpinePain'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    $Prescription = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Prescription', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    // dd($Prescription);
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'SpinePain'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+        'Imaging'=>$Imaging,
+        'Prescription'=>$Prescription
+
+
+    ];
+    return view('back/Edit_spine_pain', $data);
+}
+
+// SpinePain form update method
+public function updateSpinePainEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'SpinePain')->delete();
+
+    $this->storeSpinePainEligibilityForms($request);
+    return  redirect()->route('user.viewSpinePainEligibilityForms', ['id' => $request->patient_id]);
+}
+
+
+// SpinePain form store method
+public function storeSpinePainEligibilityForms(Request $request)
+{
+
+    $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    if (isset($request->Prescription) && is_array($request->Prescription) && !empty($request->Prescription)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Prescription);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Prescription',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'SpinePain'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+
+    return  redirect()->route('user.viewSpinePainEligibilityForms', ['id' => $request->patient_id]);
+}
+
+// SpinePain form view method Edit_varicose_ablation
+public function viewSpinePainEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'SpinePain'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'SpinePain'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    // $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $Prescription = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Prescription', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+    
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+        'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-spine-pain-report')->with($data);
+}
+
+
+// KneePain form store method
+public function storeKneePainEligibilityForms(Request $request)
+{
+
+    $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    if (isset($request->Prescription) && is_array($request->Prescription) && !empty($request->Prescription)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Prescription);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Prescription',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'KneePain'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+
+    return  redirect()->route('user.viewKneePainEligibilityForms', ['id' => $request->patient_id]);
+}
+
+// knee pain form view method Edit_varicose_ablation
+public function viewKneePainEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'KneePain'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'KneePain'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    // $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $Prescription = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Prescription', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+    
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+        'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-knee-pain-report')->with($data);
+}
+// KneePain form edit method
+public function editKneePainEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'KneePain'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'KneePain'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'KneePain'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $Prescription = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Prescription', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    // dd($Prescription);
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+        'Imaging'=>$Imaging,
+        'Prescription'=>$Prescription
+
+
+    ];
+    return view('back/Edit_knee_pain', $data);
+}
+
+// KneePain form update method
+public function updateKneePainEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'KneePain')->delete();
+
+    $this->storeKneePainEligibilityForms($request);
+    return  redirect()->route('user.viewKneePainEligibilityForms', ['id' => $request->patient_id]);
+}
+// HaemorrhoidsEmbo form store method
+public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
+{
+
+    $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'HaemorrhoidsEmbo'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+
+    return  redirect()->route('user.viewHaemorrhoidsEmboEligibilityForms', ['id' => $request->patient_id]);
+}
+// HaemorrhoidsEmbo form view method Edit_varicose_ablation
+public function viewHaemorrhoidsEmboEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'HaemorrhoidsEmbo'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'HaemorrhoidsEmbo'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+        'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-haemorrhoids-embo-report')->with($data);
+}
+
+// HaemorrhoidsEmbo form edit method
+public function editHaemorrhoidsEmboEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+        'Imaging'=>$Imaging
+
+
+    ];
+    return view('back/Edit_haemorrhoids_embo', $data);
+}
+
+// HaemorrhoidsEmbo form update method
+public function updateHaemorrhoidsEmboEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'HaemorrhoidsEmbo')->delete();
+
+    $this->storeHaemorrhoidsEmboEligibilityForms($request);
+    return  redirect()->route('user.viewHaemorrhoidsEmboEligibilityForms', ['id' => $request->patient_id]);
+}
+// VaricoseAblation form store method
+public function storeVaricoseAblationEligibilityForms(Request $request)
+{
+
+    $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'VaricoseAblation'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+
+    return  redirect()->route('user.viewVaricoseAblationEligibilityForms', ['id' => $request->patient_id]);
+}
+
+// VaricoseAblation form edit method
+public function editVaricoseAblationEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+        'Imaging'=>$Imaging
+
+
+    ];
+    return view('back/Edit_varicose_ablation', $data);
+}
+
+// VaricoseAblation form update method
+public function updateVaricoseAblationEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'VaricoseAblation')->delete();
+
+    $this->storeVaricoseAblationEligibilityForms($request);
+    return  redirect()->route('user.viewVaricoseAblationEligibilityForms', ['id' => $request->patient_id]);
+}
+
+
+// VaricoseAblation form view method Edit_varicose_ablation
+public function viewVaricoseAblationEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'VaricoseAblation'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'VaricoseAblation'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+        'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-varicose-ablation-report')->with($data);
+}
+
+// PelvicCongEmbo form store method
+public function storePelvicCongEmboEligibilityForms(Request $request)
+{
+
+    $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'PelvicCongEmbo'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+
+    return  redirect()->route('user.viewPelvicCongEmboEligibilityForms', ['id' => $request->patient_id]);
+}
+// PelvicCongEmbo form edit method
+public function editPelvicCongEmboEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+        'Imaging'=>$Imaging
+
+
+    ];
+    return view('back/Edit_pelvic_cong_embo', $data);
+}
+
+// PelvicCongEmbo form update method
+public function updatePelvicCongEmboEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'PelvicCongEmbo')->delete();
+
+    $this->storePelvicCongEmboEligibilityForms($request);
+    return  redirect()->route('user.viewPelvicCongEmboEligibilityForms', ['id' => $request->patient_id]);
+}
+
+// PelvicCongEmbo form view method
+public function viewPelvicCongEmboEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'PelvicCongEmbo'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'PelvicCongEmbo'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+        'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-pelvic-cong-embo-report')->with($data);
+}
+
+// uterine_embo form store method
+public function storeUterineEmboEligibilityForms(Request $request)
+{
+
+    $doctor_id = auth()->guard('doctor')->id();
+
+    $id = decrypt($request->patient_id);
+    $dataToInsert = [];
+
+
+    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_general);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_general',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->diagnosis_cid);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'diagnosis_cid',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+    $data=$request->symptoms;
+    $newArray = [];
+
+    foreach ($data as $item) {
+        $newArray[] = [
+            'SymptomType' => $item[0] ?? '',
+            'SymptomDurationValue' => $item[1] ?? '',
+            'SymptomDurationType' => $item[2] ?? '',
+            'SymptomDurationNote' => $item[3] ?? ''
+        ];
+    }
+
+
+    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $newArray);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->symptoms_score);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'symptoms_score',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+
+    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Referral);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Referral',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Supportive);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Supportive',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->SpecialInvestigation);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'SpecialInvestigation',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->ElegibilitySTATUS);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ElegibilitySTATUS',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+
+    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Intervention);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Intervention',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->MDT);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'MDT',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Lab);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Lab',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+
+    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->Imaging);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'Imaging',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+
+
+    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_indicator);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalIndicator',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+        $filteredDiagnosisGeneral = array_map(function ($subarray) {
+            return array_filter($subarray, function ($value) {
+                return $value !== null && $value !== '';
+            });
+        }, $request->clinical_exam);
+
+        // Check if there's any non-empty array in $filteredDiagnosisGeneral
+        $nonEmptyArraysExist = false;
+        foreach ($filteredDiagnosisGeneral as $subarray) {
+            if (!empty($subarray)) {
+                $nonEmptyArraysExist = true;
+                break;
+            }
+        }
+
+        if ($nonEmptyArraysExist) {
+            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+            $dataToInsert[] = [
+                'patient_id' => $id,
+                'title_name' => 'ClinicalExam',
+                'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                'doctor_id' => $doctor_id,
+                'form_type' => 'uterine_embo'
+            ];
+        }
+    }
+
+
+
+
+    if(!empty($dataToInsert)){
+        ThyroidDiagnosis::insert($dataToInsert);
+
+    }
+
+
+    return  redirect()->route('user.viewUterineEmboEligibilityForms', ['id' => $request->patient_id]);
+}
+// uterine_embo form edit method
+public function editUterineEmboEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+
+        'Imaging'=>$Imaging
+
+
+    ];
+    return view('back/Edit_uterine_embo', $data);
+}
+// uterine_embo form update method
+public function updateUterineEmboEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'uterine_embo')->delete();
+
+    $this->storeUterineEmboEligibilityForms($request);
+    return  redirect()->route('user.viewUterineEmboEligibilityForms', ['id' => $request->patient_id]);
+}
+// uterine_embo form view method
+public function viewUterineEmboEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'uterine_embo'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'uterine_embo'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+            'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-uterine-embo-report')->with($data);
+}
+
+    // prostate form store method
     public function storeProstateEligibilityForms(Request $request)
     {
 
@@ -947,185 +7104,585 @@ class PatientController extends Controller
 
         $id = decrypt($request->patient_id);
         $dataToInsert = [];
-       
+
 
         if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
+                    return $value !== null && $value !== '';
                 });
             }, $request->diagnosis_general);
-            if ($filteredDiagnosisGeneral) {
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'diagnosis_general',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-
-                    'doctor_id' => $doctor_id
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
                 ];
             }
         }
         if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
+                    return $value !== null && $value !== '';
                 });
             }, $request->diagnosis_cid);
-            if ($filteredDiagnosisGeneral) {
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'diagnosis_cid',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
+                ];
+            }
+        }
+        $data=$request->symptoms;
+        $newArray = [];
+
+        foreach ($data as $item) {
+            $newArray[] = [
+                'SymptomType' => $item[0] ?? '',
+                'SymptomDurationValue' => $item[1] ?? '',
+                'SymptomDurationType' => $item[2] ?? '',
+                'SymptomDurationNote' => $item[3] ?? ''
+            ];
+        }
+
+
+        if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $newArray);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'symptoms',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
                 ];
             }
         }
         if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
+                    return $value !== null && $value !== '';
                 });
             }, $request->symptoms_score);
-            if ($filteredDiagnosisGeneral) {
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'symptoms_score',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
                 ];
             }
         }
+
         if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
+                    return $value !== null && $value !== '';
                 });
             }, $request->Referral);
-            if ($filteredDiagnosisGeneral) {
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'referral',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
+                    'title_name' => 'Referral',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
                 ];
             }
         }
         if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
+                    return $value !== null && $value !== '';
                 });
             }, $request->Supportive);
-            if ($filteredDiagnosisGeneral) {
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'supportive',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
+                    'title_name' => 'Supportive',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
                 ];
             }
         }
-        if (isset($request->InterventionProcedure) && is_array($request->InterventionProcedure) && !empty($request->InterventionProcedure)) {
-            $filteredDiagnosisGeneral =  array_map(function ($subarray) {
-                return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
-                });
-            }, $request->InterventionProcedure);
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'intervention_procedure',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
-                ];
-            }
-        }
-        if (isset($request->elegibilityStatus) && is_array($request->elegibilityStatus) && !empty($request->elegibilityStatus)) {
-            $filteredDiagnosisGeneral =  array_map(function ($subarray) {
-                return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
-                });
-            }, $request->elegibilityStatus);
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'elegibility_status',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
-                ];
-            }
-        }
-        if (isset($request->mdt) && is_array($request->mdt) && !empty($request->mdt)) {
+        if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
+                    return $value !== null && $value !== '';
                 });
-            }, $request->mdt);
-            if ($filteredDiagnosisGeneral) {
+            }, $request->SpecialInvestigation);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'mdt',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
+                    'title_name' => 'SpecialInvestigation',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
                 ];
             }
         }
-        if (isset($request->lab) && is_array($request->lab) && !empty($request->lab)) {
+        if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
+                    return $value !== null && $value !== '';
                 });
-            }, $request->lab);
-            if ($filteredDiagnosisGeneral) {
+            }, $request->ElegibilitySTATUS);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'lab',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
+                    'title_name' => 'ElegibilitySTATUS',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
                 ];
             }
         }
-        // $dataToInsert[] = [
-        //     'patient_id' => $id,
-        //     'title_name' => 'image_annotation',
-        //     'data_value' => json_encode(array_filter($request->ImageAnnotation)),
-        // ];
-        if (isset($request->imaging) && is_array($request->imaging) && !empty($request->imaging)) {
-            $filteredDiagnosisGeneral =  array_map(function ($subarray) {
+
+        if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
+                    return $value !== null && $value !== '';
                 });
-            }, $request->imaging);
-            if ($filteredDiagnosisGeneral) {
+            }, $request->Intervention);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'Intervention',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
+                ];
+            }
+        }
+        if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->MDT);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'MDT',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
+                ];
+            }
+        }
+        if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Lab);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'Lab',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
+                ];
+            }
+        }
+
+
+
+        if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Imaging);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'Imaging',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
                 ];
             }
         }
+
         if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
-            $filteredDiagnosisGeneral =  array_map(function ($subarray) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
-                    return $value != null && $value != '';
+                    return $value !== null && $value !== '';
                 });
             }, $request->clinical_indicator);
-            if ($filteredDiagnosisGeneral) {
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'ClinicalIndicator',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                    'doctor_id' => $doctor_id
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
+                ];
+            }
+        }
+        if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->clinical_exam);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'ClinicalExam',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'prostate_form'
                 ];
             }
         }
 
-        Diagnosis::insert($dataToInsert);
+        if(!empty($dataToInsert)){
+            ThyroidDiagnosis::insert($dataToInsert);
 
-        return  redirect()->route('user.patient_medical_detail', ['id' => $request->patient_id]);
+        }
+
+
+        return  redirect()->route('user.ViewProstateEligibilityForms', ['id' => $request->patient_id]);
+    }
+    public function editProstateEligibilityForms(Request $request)
+    {
+        $id = decrypt($request->patient_id);
+        // $id = decrypt();
+        $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+        $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'prostate_form'])->get();
+        $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'prostate_form'])->get();
+
+        $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->first();
+        $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'prostate_form'])->get();
+
+        $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $USGENERAL70 = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'USGENERAL70', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $BPHTYPE=ThyroidDiagnosis::select('data_value')->where(['title_name' => 'BPHTYPE', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+       $rdlobe=ThyroidDiagnosis::select('data_value')->where(['title_name' => 'rdlobe', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+       $ProstateAbscess=ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ProstateAbscess', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+       $CTCIR48RIGHT=ThyroidDiagnosis::select('data_value')->where(['title_name' => 'CTCIR48RIGHT', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+       $CTCIR48LEFT=ThyroidDiagnosis::select('data_value')->where(['title_name' => 'CTCIR48LEFT', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $USBIOPSYPROSTETE690=ThyroidDiagnosis::select('data_value')->where(['title_name' => 'USBIOPSYPROSTETE690', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+       $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $rightLobeScore = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $leftLobeScore = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'leftLobeScore', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $Retrosternalextension = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Retrosternalextension', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $EnlargedLymphnodes = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'EnlargedLymphnodes', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $paralysis = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'paralysis', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $MRCIR48 = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MRCIR48', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $CTCIR48 = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'CTCIR48', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $NmThyroidScan = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $NmParaThyroidScan = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'NmParaThyroidScan', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $HistopathRightThyroidFNA = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $HistopathLeftThyroidFNA = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'HistopathLeftThyroidFNA', 'patient_id' => $id, 'form_type' => 'prostate_form'])->first();
+        $data = [
+            'patient_id' => Crypt::encrypt($id),
+            'diagnosis_generals_db' => $diagnosis_general,
+            'diagnosis_cids_db' => $diagnosis_cid,
+            'symptoms' => $symptoms,
+            'symptoms_scores' => $symptoms_scores,
+            'Referrals' => $Referrals,
+            'supportives' => $supportives,
+            'SpecialInvestigations' => $SpecialInvestigations,
+            'ElegibilitySTATUS' => $ElegibilitySTATUS,
+            'Interventions' => $Interventions,
+            'MDTs' => $MDTs,
+            'Labs' => $Labs,
+            'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+            'clinical_indicators' => $ClinicalIndicator,
+            'ClinicalExam' => $ClinicalExam,
+            'rightLobeScore' => $rightLobeScore,
+            'leftLobeScore' => $leftLobeScore,
+            'Retrosternalextension' => $Retrosternalextension,
+            'EnlargedLymphnodes' => $EnlargedLymphnodes,
+            'paralysis' => $paralysis,
+            'MRCIR48' => $MRCIR48,
+            'CTCIR48' => $CTCIR48,
+            'NmThyroidScan' => $NmThyroidScan,
+            'NmParaThyroidScan' => $NmParaThyroidScan,
+            'HistopathRightThyroidFNA' => $HistopathRightThyroidFNA,
+            'HistopathLeftThyroidFNA' => $HistopathLeftThyroidFNA,
+            'USGENERAL70'=>$USGENERAL70,
+            'BPHTYPE'=>$BPHTYPE,
+            'rdlobe'=>$rdlobe,
+            'ProstateAbscess'=>$ProstateAbscess,
+            'CTCIR48RIGHT'=>$CTCIR48RIGHT,
+            'CTCIR48LEFT'=>$CTCIR48LEFT,
+            'USBIOPSYPROSTETE690'=>$USBIOPSYPROSTETE690,
+            'Imaging'=>$Imaging
+
+        ];
+        return view('back/Edit_prostate', $data);
     }
 
+    public function UpdateProstateEligibilityForms(Request $request)
+    {
+        ThyroidDiagnosis::where('form_type', 'prostate_form')->delete();
+
+        $this->storeProstateEligibilityForms($request);
+        return  redirect()->route('user.ViewProstateEligibilityForms', ['id' => $request->patient_id]);
+    }
+
+    public function ViewProstateEligibilityForms(Request $request, $id)
+    {
+        $id = Crypt::decrypt($id);
+        $patient = User::findOrFail($id);
+
+       $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'prostate_form'])->get();
+       $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'prostate_form'])->get();
+        $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+        $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $ThyroidDiagnosis = ThyroidDiagnosis::query();
+        $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+
+
+        $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+
+        $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        // dd($symptoms);
+        $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+
+        $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+
+        $AntithyroidAntibodiesTests = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        // $rightLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        // $leftLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'leftLobeScore', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        $Retrosternalextension = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Retrosternalextension', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $EnlargedLymphnodes = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'EnlargedLymphnodes', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $paralysis = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'paralysis', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $MRCIR48 = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'MRCIR48', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->first();
+        $CTCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'CTCIR48', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $NmThyroidScan = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $HistopathRightThyroidFNA = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $data = [
+            'patient' => $patient,
+            'id' => Crypt::encrypt($id),
+            'patient_past_history' => $Patient_past_medical_history,
+            'patient_past_surgical' => $Patient_past_surgical_history,
+            'patient_current_med' => $Patient_current_med,
+            'patient_future_plan' => $Patient_future_plan,
+            'procedures' => $Procedure,
+            'prescriptions' => $Prescription,
+            'insurer' => $Patient_insurer,
+            'diagnosis_generals' => $diagnosis_general,
+            'diagnosis_cids' => $diagnosis_cid,
+            'symptoms_db' => $symptoms,
+            'symptoms_scores_db' => $symptoms_scores,
+            'Referrals' => $Referrals,
+            'supportives' => $supportives,
+            'SpecialInvestigations_db' => $SpecialInvestigations,
+            'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+            'Interventions' => $Interventions,
+            'MDTs_db' => $MDTs,
+            'Labs' => $Labs,
+            'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+            'ClinicalIndicator_db' => $ClinicalIndicator,
+            'ClinicalExam_db' => $ClinicalExam,
+
+            'Retrosternalextension' => $Retrosternalextension,
+            'EnlargedLymphnodes' => $EnlargedLymphnodes,
+            'paralysis' => $paralysis,
+            'MRCIR48' => $MRCIR48,
+            'NmThyroidScan' => $NmThyroidScan,
+            'HistopathRightThyroidFNA' => $HistopathRightThyroidFNA,
+            'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+            'Patient_order_labs'=>$Patient_order_labs,
+            'Imaging'=>$Imaging
+
+        ];
+        return view('back/view-prostate-report')->with($data);
+    }
     public function ProstateArteryEmbolizationEligibilityFormDiagnosisList(Request $request)
     {
         $patient_id = decrypt($request->patient_id);
@@ -1138,970 +7695,814 @@ class PatientController extends Controller
         return response()->json($Diagnosis);
     }
 
+    public function editThyroidEligibilityForms(Request $request)
+    {
+        $id = decrypt($request->patient_id);
+        // $id = decrypt();
+        $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+        $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->get();
+        $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->get();
+
+
+        $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->get();
+
+        $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $rightLobeScore = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $leftLobeScore = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'leftLobeScore', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $Retrosternalextension = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Retrosternalextension', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $EnlargedLymphnodes = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'EnlargedLymphnodes', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $paralysis = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'paralysis', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $MRCIR48 = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MRCIR48', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $CTCIR48 = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'CTCIR48', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $NmThyroidScan = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $NmParaThyroidScan = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'NmParaThyroidScan', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $HistopathRightThyroidFNA = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $HistopathLeftThyroidFNA = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'HistopathLeftThyroidFNA', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $data = [
+            'patient_id' => Crypt::encrypt($id),
+            'diagnosis_generals_db' => $diagnosis_general,
+            'diagnosis_cids_db' => $diagnosis_cid,
+            'symptoms' => $symptoms,
+            'symptoms_scores' => $symptoms_scores,
+            'Referrals' => $Referrals,
+            'supportives' => $supportives,
+            'SpecialInvestigations' => $SpecialInvestigations,
+            'ElegibilitySTATUS' => $ElegibilitySTATUS,
+            'Interventions' => $Interventions,
+            'MDTs' => $MDTs,
+            'Labs' => $Labs,
+            'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+            'clinical_indicators' => $ClinicalIndicator,
+            'ClinicalExam' => $ClinicalExam,
+            'rightLobeScore' => $rightLobeScore,
+            'leftLobeScore' => $leftLobeScore,
+            'Retrosternalextension' => $Retrosternalextension,
+            'EnlargedLymphnodes' => $EnlargedLymphnodes,
+            'paralysis' => $paralysis,
+            'MRCIR48' => $MRCIR48,
+            'CTCIR48' => $CTCIR48,
+            'NmThyroidScan' => $NmThyroidScan,
+            'NmParaThyroidScan' => $NmParaThyroidScan,
+            'HistopathRightThyroidFNA' => $HistopathRightThyroidFNA,
+            'HistopathLeftThyroidFNA' => $HistopathLeftThyroidFNA,
+
+        ];
+        return view('back/Edit_thyroid', $data);
+    }
+
+    public function UpdateThyroidEligibilityForms(Request $request)
+    {
+        ThyroidDiagnosis::where('form_type', 'thyroid_form')->delete();
+
+        $this->storeThyroidEligibilityForms($request);
+        return  redirect()->route('user.ViewThyroidAblationForm', ['id' => $request->patient_id]);
+    }
+
     public function storeThyroidEligibilityForms(Request $request)
     {
 
-        // dd($request->all());
+
+        $doctor_id = auth()->guard('doctor')->id();
+
         $id = decrypt($request->patient_id);
         $dataToInsert = [];
-        //    $diagnosis_general= $request->diagnosis_general;
-        //    $diagnosis_cid= $request->diagnosis_cid;
 
 
         if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
-            // Remove elements with null values
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_general, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->diagnosis_general);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'diagnosis_general',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
         if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_cid, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->diagnosis_cid);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'diagnosis_cid',
-                    'data_value' =>  json_encode($filteredDiagnosisGeneral)
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
-        if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
-            $filteredDiagnosisGeneral = array_filter($request->symptoms_score, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'symptoms_score',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
+        $data=$request->symptoms;
+        $newArray = [];
+
+        foreach ($data as $item) {
+            $newArray[] = [
+                'SymptomType' => $item[0] ?? '',
+                'SymptomDurationValue' => $item[1] ?? '',
+                'SymptomDurationType' => $item[2] ?? '',
+                'SymptomDurationNote' => $item[3] ?? ''
+            ];
         }
-        if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
-            $filteredDiagnosisGeneral = array_filter($request->clinical_indicator, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'ClinicalIndicator',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
+
+
+        if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $newArray);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
             }
-        }
-        if (isset($request->right_lobe_score) && is_array($request->right_lobe_score) && !empty($request->right_lobe_score)) {
-            $filteredDiagnosisGeneral = array_filter($request->right_lobe_score, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'right_lobe_score',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->left_lobe_score) && is_array($request->left_lobe_score) && !empty($request->left_lobe_score)) {
-            $filteredDiagnosisGeneral = array_filter($request->left_lobe_score, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'left_lobe_score',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->Retrosternalextension) && is_array($request->Retrosternalextension) && !empty($request->Retrosternalextension)) {
-            $filteredDiagnosisGeneral = array_filter($request->Retrosternalextension, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'Retrosternalextension',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->EnlargedLymphnodes) && is_array($request->EnlargedLymphnodes) && !empty($request->EnlargedLymphnodes)) {
-            $filteredDiagnosisGeneral = array_filter($request->EnlargedLymphnodes, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'EnlargedLymphnodes',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->EnlargedLymphnodes) && is_array($request->EnlargedLymphnodes) && !empty($request->EnlargedLymphnodes)) {
-            $filteredDiagnosisGeneral = array_filter($request->EnlargedLymphnodes, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'EnlargedLymphnodes',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->paralysis) && is_array($request->paralysis) && !empty($request->paralysis)) {
-            $filteredDiagnosisGeneral = array_filter($request->paralysis, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'paralysis',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->MRCIR48) && is_array($request->MRCIR48) && !empty($request->MRCIR48)) {
-            $filteredDiagnosisGeneral = array_filter($request->MRCIR48, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'MRCIR48',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->CTCIR48) && is_array($request->CTCIR48) && !empty($request->CTCIR48)) {
-            $filteredDiagnosisGeneral = array_filter($request->CTCIR48, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'CTCIR48',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->NMTHYROIDSCANCEIR78) && is_array($request->NMTHYROIDSCANCEIR78) && !empty($request->NMTHYROIDSCANCEIR78)) {
-            $filteredDiagnosisGeneral = array_filter($request->NMTHYROIDSCANCEIR78, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'NMTHYROIDSCANCEIR78',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->Hashimoto) && is_array($request->Hashimoto) && !empty($request->Hashimoto)) {
-            $filteredDiagnosisGeneral = array_filter($request->Hashimoto, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'Hashimoto',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->diffuse) && is_array($request->diffuse) && !empty($request->diffuse)) {
-            $filteredDiagnosisGeneral = array_filter($request->diffuse, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'diffuse',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->NMPARATHYROIDSCANCEIR78) && is_array($request->NMPARATHYROIDSCANCEIR78) && !empty($request->NMPARATHYROIDSCANCEIR78)) {
-            $filteredDiagnosisGeneral = array_filter($request->NMPARATHYROIDSCANCEIR78, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'NMPARATHYROIDSCANCEIR78',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->USFNATHYROIDUL320) && is_array($request->USFNATHYROIDUL320) && !empty($request->USFNATHYROIDUL320)) {
-            $filteredDiagnosisGeneral = array_filter($request->USFNATHYROIDUL320, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'USFNATHYROIDUL320',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->USFNATHYROIDBL380) && is_array($request->USFNATHYROIDBL380) && !empty($request->USFNATHYROIDBL380)) {
-            $filteredDiagnosisGeneral = array_filter($request->USFNATHYROIDBL380, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'USFNATHYROIDBL380',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
-            $filteredDiagnosisGeneral = array_filter($request->Lab, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'lab',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
-            $filteredDiagnosisGeneral = array_filter($request->MDT, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'MDT',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'title_name' => 'symptoms',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
 
-        if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
-            $filteredDiagnosisGeneral = array_filter($request->Referral, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+        if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->symptoms_score);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'referral',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'title_name' => 'symptoms_score',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
+                ];
+            }
+        }
+        if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Referral);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'Referral',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
         if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
-            $filteredDiagnosisGeneral = array_filter($request->Supportive, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Supportive);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'supportive',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'title_name' => 'Supportive',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
+        if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->SpecialInvestigation);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'SpecialInvestigation',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
+                ];
+            }
+        }
+        if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->ElegibilitySTATUS);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'ElegibilitySTATUS',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
+                ];
+            }
+        }
+
         if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
-            $filteredDiagnosisGeneral = array_filter($request->Intervention, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Intervention);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'Intervention',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->elegibility_status) && is_array($request->elegibility_status) && !empty($request->elegibility_status)) {
-            $filteredDiagnosisGeneral = array_filter($request->elegibility_status, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'elegibility_status',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-
-
-        // $dataToInsert[] = [
-        //     'patient_id' => $id,
-        //     'title_name' => 'image_annotation',
-        //     'data_value' => json_encode(array_filter($request->ImageAnnotation)),
-        // ];
-        if (isset($request->imaging) && is_array($request->imaging) && !empty($request->imaging)) {
-            $filteredDiagnosisGeneral = array_filter($request->imaging, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'Imaging',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-
-        ThyroidDiagnosis::insert($dataToInsert);
-
-        return  redirect()->route('user.patient_medical_detail', ['id' => $request->patient_id]);
-    }
-
-    public function storeUterineEmboEligibilityForms(Request $request)
-    {
-
-        // echo "<pre>";
-        // print_r($request->all());
-        // die;
-        $id = decrypt($request->patient_id);
-        $dataToInsert = [];
-        //    $diagnosis_general= $request->diagnosis_general;
-        //    $diagnosis_cid= $request->diagnosis_cid;
-
-
-        if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
-            // Remove elements with null values
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_general, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'diagnosis_general',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_cid, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'diagnosis_cid',
-                    'data_value' =>  json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
-            $filteredDiagnosisGeneral = array_filter($request->symptoms_score, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'symptoms_score',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
-            $filteredDiagnosisGeneral = array_filter($request->Imaging, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'Imaging',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
-            $filteredDiagnosisGeneral = array_filter($request->clinical_indicator, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'ClinicalIndicator',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
-            $filteredDiagnosisGeneral = array_filter($request->Lab, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'Lab',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
         if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
-            $filteredDiagnosisGeneral = array_filter($request->MDT, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->MDT);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'MDT',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
-            $filteredDiagnosisGeneral = array_filter($request->Referral, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'referral',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
-            $filteredDiagnosisGeneral = array_filter($request->Supportive, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'supportive',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->InterventionProcedure) && is_array($request->InterventionProcedure) && !empty($request->InterventionProcedure)) {
-            $filteredDiagnosisGeneral = array_filter($request->InterventionProcedure, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'intervention_procedure',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->elegibilityStatus) && is_array($request->elegibilityStatus) && !empty($request->elegibilityStatus)) {
-            $filteredDiagnosisGeneral = array_filter($request->elegibilityStatus, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'elegibility_status',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-
-
-        // $dataToInsert[] = [
-        //     'patient_id' => $id,
-        //     'title_name' => 'image_annotation',
-        //     'data_value' => json_encode(array_filter($request->ImageAnnotation)),
-        // ];
-
-
-        UterineEmboDiagnosis::insert($dataToInsert);
-
-        return  redirect()->route('user.patient_medical_detail', ['id' => $request->patient_id]);
-    }
-    public function storeVaricoceleEmboEligibilityForms(Request $request)
-    {
-
-        // echo "<pre>";
-        // print_r($request->all());
-        // die;
-        $id = decrypt($request->patient_id);
-        $dataToInsert = [];
-        //    $diagnosis_general= $request->diagnosis_general;
-        //    $diagnosis_cid= $request->diagnosis_cid;
-
-
-        if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
-            // Remove elements with null values
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_general, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'diagnosis_general',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_cid, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'diagnosis_cid',
-                    'data_value' =>  json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
-            $filteredDiagnosisGeneral = array_filter($request->symptoms_score, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'symptoms_score',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
-            $filteredDiagnosisGeneral = array_filter($request->Imaging, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'Imaging',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
-            $filteredDiagnosisGeneral = array_filter($request->clinical_indicator, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'ClinicalIndicator',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
         if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
-            $filteredDiagnosisGeneral = array_filter($request->Lab, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Lab);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'Lab',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->mdt) && is_array($request->mdt) && !empty($request->mdt)) {
-            $filteredDiagnosisGeneral = array_filter($request->mdt, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'mdt',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
-            $filteredDiagnosisGeneral = array_filter($request->Referral, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'referral',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
-            $filteredDiagnosisGeneral = array_filter($request->Supportive, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'supportive',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->InterventionProcedure) && is_array($request->InterventionProcedure) && !empty($request->InterventionProcedure)) {
-            $filteredDiagnosisGeneral = array_filter($request->InterventionProcedure, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'intervention_procedure',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->elegibilityStatus) && is_array($request->elegibilityStatus) && !empty($request->elegibilityStatus)) {
-            $filteredDiagnosisGeneral = array_filter($request->elegibilityStatus, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'elegibility_status',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
 
+        if (isset($request->AntithyroidAntibodiesTests) && is_array($request->AntithyroidAntibodiesTests) && !empty($request->AntithyroidAntibodiesTests)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->AntithyroidAntibodiesTests);
 
-        // $dataToInsert[] = [
-        //     'patient_id' => $id,
-        //     'title_name' => 'image_annotation',
-        //     'data_value' => json_encode(array_filter($request->ImageAnnotation)),
-        // ];
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
 
-
-        VaricoceleEmboDiagnosis::insert($dataToInsert);
-
-        return  redirect()->route('user.patient_medical_detail', ['id' => $request->patient_id]);
-    }
-    // StorePelvicCongEmboEligibilityForms
-    public function StorePelvicCongEmboEligibilityForms(Request $request)
-    {
-
-        // echo "<pre>";
-        // print_r($request->all());
-        // die;
-        $id = decrypt($request->patient_id);
-        $dataToInsert = [];
-        //    $diagnosis_general= $request->diagnosis_general;
-        //    $diagnosis_cid= $request->diagnosis_cid;
-
-
-        if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
-            // Remove elements with null values
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_general, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'diagnosis_general',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
+                    'title_name' => 'AntithyroidAntibodiesTests',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
-        if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_cid, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'diagnosis_cid',
-                    'data_value' =>  json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
-            $filteredDiagnosisGeneral = array_filter($request->symptoms_score, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'symptoms_score',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
+
         if (isset($request->imaging) && is_array($request->imaging) && !empty($request->imaging)) {
-            $filteredDiagnosisGeneral = array_filter($request->imaging, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->imaging);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'Imaging',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
         if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
-            $filteredDiagnosisGeneral = array_filter($request->clinical_indicator, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->clinical_indicator);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
                     'title_name' => 'ClinicalIndicator',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
-        if (isset($request->lab) && is_array($request->lab) && !empty($request->lab)) {
-            $filteredDiagnosisGeneral = array_filter($request->lab, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+        if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->clinical_exam);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'lab',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'title_name' => 'ClinicalExam',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
-        if (isset($request->mdt) && is_array($request->mdt) && !empty($request->mdt)) {
-            $filteredDiagnosisGeneral = array_filter($request->mdt, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+
+        if (isset($request->right_lobe_score) && is_array($request->right_lobe_score) && !empty($request->right_lobe_score)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->right_lobe_score);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'mdt',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'title_name' => 'rightLobeScore',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
-        if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
-            $filteredDiagnosisGeneral = array_filter($request->Referral, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+
+        if (isset($request->left_lobe_score) && is_array($request->left_lobe_score) && !empty($request->left_lobe_score)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->left_lobe_score);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'referral',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'title_name' => 'leftLobeScore',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
-        if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
-            $filteredDiagnosisGeneral = array_filter($request->Supportive, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+
+        if (isset($request->Retrosternalextension) && is_array($request->Retrosternalextension) && !empty($request->Retrosternalextension)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Retrosternalextension);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'supportive',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'title_name' => 'Retrosternalextension',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
-        if (isset($request->InterventionProcedure) && is_array($request->InterventionProcedure) && !empty($request->InterventionProcedure)) {
-            $filteredDiagnosisGeneral = array_filter($request->InterventionProcedure, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+        if (isset($request->EnlargedLymphnodes) && is_array($request->EnlargedLymphnodes) && !empty($request->EnlargedLymphnodes)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->EnlargedLymphnodes);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'intervention_procedure',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'title_name' => 'EnlargedLymphnodes',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
-        if (isset($request->elegibilityStatus) && is_array($request->elegibilityStatus) && !empty($request->elegibilityStatus)) {
-            $filteredDiagnosisGeneral = array_filter($request->elegibilityStatus, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
+
+        if (isset($request->paralysis) && is_array($request->paralysis) && !empty($request->paralysis)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->paralysis);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
                     'patient_id' => $id,
-                    'title_name' => 'elegibility_status',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
+                    'title_name' => 'paralysis',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
+                ];
+            }
+        }
+
+        if (isset($request->MRCIR48) && is_array($request->MRCIR48) && !empty($request->MRCIR48)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->MRCIR48);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'MRCIR48',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
                 ];
             }
         }
 
 
-        // $dataToInsert[] = [
-        //     'patient_id' => $id,
-        //     'title_name' => 'image_annotation',
-        //     'data_value' => json_encode(array_filter($request->ImageAnnotation)),
-        // ];
+
+        if (isset($request->CTCIR48) && is_array($request->CTCIR48) && !empty($request->CTCIR48)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->CTCIR48);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'CTCIR48',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
+                ];
+            }
+        }
+
+        if (isset($request->NmParaThyroidScan) && is_array($request->NmParaThyroidScan) && !empty($request->NmParaThyroidScan)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->NmParaThyroidScan);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'NmParaThyroidScan',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
+                ];
+            }
+        }
 
 
-        PelvicCongEmbo_diagnosis::insert($dataToInsert);
 
-        return  redirect()->route('user.patient_medical_detail', ['id' => $request->patient_id]);
+        if (isset($request->HistopathRightThyroidFNA) && is_array($request->HistopathRightThyroidFNA) && !empty($request->HistopathRightThyroidFNA)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->HistopathRightThyroidFNA);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'HistopathRightThyroidFNA',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
+                ];
+            }
+        }
+
+
+        if (isset($request->HistopathLeftThyroidFNA) && is_array($request->HistopathLeftThyroidFNA) && !empty($request->HistopathLeftThyroidFNA)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->HistopathLeftThyroidFNA);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'HistopathLeftThyroidFNA',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'form_type' => 'thyroid_form'
+                ];
+            }
+        }
+
+        if(!empty($dataToInsert)){
+            ThyroidDiagnosis::insert($dataToInsert);
+
+        }
+
+
+        return  redirect()->route('user.ViewThyroidAblationForm', ['id' => $request->patient_id]);
     }
-    // StoreVaricoseAblationEligibilityForms
-    public function StoreVaricoseAblationEligibilityForms(Request $request)
-    {
 
 
-
-        $id = decrypt($request->patient_id);
-        $dataToInsert = [];
-        //    $diagnosis_general= $request->diagnosis_general;
-        //    $diagnosis_cid= $request->diagnosis_cid;
-
-
-        if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
-            // Remove elements with null values
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_general, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'diagnosis_general',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
-            $filteredDiagnosisGeneral = array_filter($request->diagnosis_cid, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'diagnosis_cid',
-                    'data_value' =>  json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
-            $filteredDiagnosisGeneral = array_filter($request->symptoms_score, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'symptoms_score',
-                    'data_value' => json_encode($filteredDiagnosisGeneral)
-                ];
-            }
-        }
-        if (isset($request->imaging) && is_array($request->imaging) && !empty($request->imaging)) {
-            $filteredDiagnosisGeneral = array_filter($request->imaging, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'Imaging',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
-            $filteredDiagnosisGeneral = array_filter($request->clinical_indicator, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'ClinicalIndicator',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->lab) && is_array($request->lab) && !empty($request->lab)) {
-            $filteredDiagnosisGeneral = array_filter($request->lab, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'lab',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->mdt) && is_array($request->mdt) && !empty($request->mdt)) {
-            $filteredDiagnosisGeneral = array_filter($request->mdt, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'mdt',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
-            $filteredDiagnosisGeneral = array_filter($request->Referral, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'referral',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
-            $filteredDiagnosisGeneral = array_filter($request->Supportive, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'supportive',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->InterventionProcedure) && is_array($request->InterventionProcedure) && !empty($request->InterventionProcedure)) {
-            $filteredDiagnosisGeneral = array_filter($request->InterventionProcedure, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'intervention_procedure',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-        if (isset($request->elegibilityStatus) && is_array($request->elegibilityStatus) && !empty($request->elegibilityStatus)) {
-            $filteredDiagnosisGeneral = array_filter($request->elegibilityStatus, function ($value) {
-                return $value != null;
-            });
-            if ($filteredDiagnosisGeneral) {
-                $dataToInsert[] = [
-                    'patient_id' => $id,
-                    'title_name' => 'elegibility_status',
-                    'data_value' => json_encode($filteredDiagnosisGeneral),
-                ];
-            }
-        }
-
-
-        // $dataToInsert[] = [
-        //     'patient_id' => $id,
-        //     'title_name' => 'image_annotation',
-        //     'data_value' => json_encode(array_filter($request->ImageAnnotation)),
-        // ];
-
-
-        VaricoseAblationDiagnosis::insert($dataToInsert);
-
-        return  redirect()->route('user.patient_medical_detail', ['id' => $request->patient_id]);
-    }
+   
+  
 
 
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();
-       
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

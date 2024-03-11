@@ -42,6 +42,7 @@
                          <table id="custom_table" class="custom_table table  table-striped table-hover" style="width:100%">
                                           <thead>
                                               <tr>
+                                                <th hidden></th>
                                                   <th>S.No</th>
                                                   <th>Test Name</th>
                                                   <th>Test Code</th>
@@ -59,10 +60,11 @@
 
 
                                                 <tr>
+                                                    <td hidden></td>
                                                     <td>{{ $key+1 }}</td>
                                                     <td>{{ $allpathology_price_list->test_name }}</td>
                                                     <td>{{ $allpathology_price_list->test_code }}</td>
-                                                    <td>17 {{ $allpathology_price_list->included_tests }}</td>
+                                                    <td>{{ $allpathology_price_list->included_tests }}</td>
                                                     <td>{{ $allpathology_price_list->turnaround }}</td>
                                                     <td>{{ $allpathology_price_list->note }}</td>
                                                     <td>{{ $allpathology_price_list->price }}</td>
@@ -113,7 +115,7 @@ Launch demo modal
 <div class="modal fade" id="edit_test_info" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">
 
-       <form action="{{ route('price.pathologyPriceList') }}" method="post" /> @csrf
+       <form action="{{ route('price.pathologyPriceList') }}" method="post" > @csrf
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Edit Test Info</h5>

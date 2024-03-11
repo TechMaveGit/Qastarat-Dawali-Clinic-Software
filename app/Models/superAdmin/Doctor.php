@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use App\Models\patient\ThyroidDiagnosis;
 use Auth;
 use DB;
 
@@ -21,6 +22,10 @@ class Doctor extends Model implements Authenticatable
     use HasFactory,AuthenticableTrait;
     protected $fillable = [
         'title',
+        'patient_profile_img',
+        'role_id',
+        'NursingSchool',
+        'Degree',
         'name',
         'email',
         'password',
@@ -45,6 +50,13 @@ class Doctor extends Model implements Authenticatable
         'college_name',
         'graduation_year',
         'soft_skill',
-        'communication_skill'
+        'communication_skill',
+        'lab_name',
+        'LicenseUpload',
+        'AcademicDocumentUpload'
+
     ];
+    public function thyroidDiagnoses() {
+        return $this->hasMany(ThyroidDiagnosis::class, 'doctor_id');
+    }
 }

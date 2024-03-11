@@ -8,30 +8,17 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 class Nurse extends Model implements Authenticatable
 {
-    protected $table = "nurses";
+    protected $table = "nurse_tasks";
 
     use HasFactory, AuthenticableTrait;
     protected $fillable = [
-        'title',
-        'email',
-        'nurses_id',
-        'name',
-        'birth_date',
-        'gender',
-        'post_code',
-        'street',
-        'town',
-        'country',
-        'email_address',
-        'mobile_phone',
-        'landline',
-        'specialty',
-        'qualifications',
-        'experience',
-        'working_hours',
-        'languages_spoken',
-        'license_number',
-        'license_upload',
-        'academic_document_upload',
+        'patient_id',
+        'doctor_id',
+        'nurse_id',
+        'pathology_price_list_id',
+        'status',
+        'form_type',
+        'test_type'
+       
     ];
 }

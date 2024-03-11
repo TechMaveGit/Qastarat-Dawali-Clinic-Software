@@ -17,7 +17,8 @@
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
             </div>
-            <form action="{{route('patients.delete')}}" method="post">@csrf
+            <form action="{{route('patients.patient_delete')}}" method="POST">
+                @csrf
             <div class="modal-body">
                 <div class="mt-2 text-center">
                     <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
@@ -25,12 +26,12 @@
                         <h4>Are you Sure ?</h4>
                         <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
                     </div>
-                    <input type="hidden" name="common" id="hidden_id" value=""/>
+                    <input type="hidden" name="common" id="hidden_id"/>
 
                 </div>
                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                     <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="sumit" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
+                    <button type="submit" class="btn w-sm btn-danger">Yes, Delete It! </button>
                 </div>
             </div>
           </form>
@@ -139,7 +140,7 @@
 
                    <td>{{ $loop->iteration }}</td>
 
-                   <td>MA760607</td>
+                   <td>{{ $allUsers->patient_id }}</td>
 
                    <td>
 
@@ -147,7 +148,15 @@
 
                     <div class="patient_profile">
 
-                        <img src="images/newimages/avtar.jpg" alt="">
+
+                        @if ($allUsers->patient_profile_img)
+
+                        <img src="{{ asset('/public/assets/patient_profile/' . $allUsers->patient_profile_img) }}" alt="">
+
+                        @else
+                        <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+
+                        @endif
 
                     </div>
 
@@ -185,7 +194,7 @@
 
                         <a class="dropdown-item" href="{{ route('patients.edit', ['id' => $allUsers->id]) }}">Edit</a>
 
-                        {{-- <a onclick="remove_patient('{{ $allUsers->id }}')" class="dropdown-item">Delete</a> --}}
+                        <a  onclick="remove_patient({{ $allUsers->id }})" class="dropdown-item">Delete</a>
 
                         </div>
 

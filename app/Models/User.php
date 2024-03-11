@@ -4,21 +4,24 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use App\Models\patient\ThyroidDiagnosis;
 use Illuminate\Support\Facades\Crypt;
-
-class User extends Authenticatable
+ use Auth;
+class User extends Model implements Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
+     use AuthenticableTrait;
+   
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+    protected $table = "users";
     protected $fillable = [
+        'id',
         'user_id',
         'name',
         'email',
@@ -43,15 +46,20 @@ class User extends Authenticatable
         'is_verified',
         'patient_profile_img',
         'role',
-        'email_verified_at'
+        'email_verified_at',
+        'title'
 
     ];
 
-    public function getIdAttribute($value)
-    {
-        return Crypt::encrypt($value);
-    }
+    // public function getIdAttribute($value)
+    // {
+    //     return Crypt::encrypt($value);
+    // }
 
+
+    public function thyroidDiagnoses() {
+        return $this->hasMany(ThyroidDiagnosis::class, 'patient_id')->select('title_name','created_at','patient_id','id');
+    }
     // public function setIdAttribute($value)
     // {
     //     $this->attributes['id'] = Crypt::decrypt($value);

@@ -13,11 +13,11 @@
   <!-- Content Header (Page header) -->
   <div class="content-header">
       <div class="d-flex">
-      <h4 class="page-title">Add Doctor</h4>
+      <h4 class="page-title">Add Staff</h4>
       <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Doctor</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Add Doctor</li>
+                  <li class="breadcrumb-item"><a href="{{ route('accountants.index') }}">Accountant</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Add Accountant</li>
               </ol>
           </nav>
       </div>
@@ -27,7 +27,7 @@
       <div class="row">
       <div class="col-12">
 
-          <form action="{{ route('accountants.create') }}" method="post"/> @csrf
+          <form action="{{ route('accountants.create') }}" method="post" enctype="multipart/form-data"> @csrf
           <div class="box">
               <div class="box-body">
                   <div class="row">
@@ -38,8 +38,10 @@
                       </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label class="form-label">Title</label>
+                      <label class="form-label">Title<span class="clr"> * </span></label>
                       <select class="form-control select2" name="title" style="width: 100%;">
+                        <option value="">Select Any One</option>
+
                                   <option value="Mr" {{ old('title') == 'Mr' ? 'selected' : '' }}>Mr</option>
                                   <option value="Mrs" {{ old('title') == 'Mrs' ? 'selected' : '' }} >Mrs</option>
                                   <option value="Miss" {{ old('title') == 'Miss' ? 'selected' : '' }}>Miss</option>
@@ -59,7 +61,7 @@
                   </div>
                      <div class="col-md-3">
                       <div class="form-group">
-                          <label class="form-label"> Name</label>
+                          <label class="form-label"> Name<span class="clr"> * </span></label>
                           <input type="text" name="name"  value="{{ old('name') }}" class="form-control" placeholder="">
                           @error('name')
                                     <span class="error text-danger">{{ $message }}</span>
@@ -69,13 +71,13 @@
 
                       <div class="col-md-3">
                           <div class="form-group">
-                                  <label class="form-label">Date of Birth</label>
+                                  <label class="form-label">Date of Birth<span class="clr"> * </span></label>
 
                                   <div class="input-group date">
                                   <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" name="birth_date"  value="{{ old('birth_date') }}" class="form-control pull-right" id="datepicker">
+                                  <input type="text" name="birth_date"  value="{{ old('birth_date') }}" class="form-control pull-right datepicker">
                                   @error('birth_date')
                                   <span class="error text-danger">{{ $message }}</span>
                               @enderror
@@ -85,8 +87,9 @@
                       </div>
                           <div class="col-md-3">
                           <div class="form-group">
-                              <label class="form-label">Gender</label>
+                              <label class="form-label">Gender<span class="clr"> * </span></label>
                               <select class="form-control select2" name="gendar" style="width: 100%;">
+                                <option value="">Select Any One</option>
                                   <option value="Male" {{ old('gendar') == 'Male' ? 'selected' : '' }}>Male</option>
                                   <option value="Female" {{ old('gendar') == 'Female' ? 'selected' : '' }}>Female</option>
                                   <option value="Other" {{ old('gendar') == 'Other' ? 'selected' : '' }}>Other</option>
@@ -98,51 +101,7 @@
                       <!-- /.form-group -->
                       </div>
 
-                      <div class="col-lg-12 mt-3">
-                          <div class="title_head">
-                              <h4>Postal Address</h4>
-                          </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Post Code</label>
-                          <input type="text" name="post_code" value="{{ old('post_code') }}" class="form-control" placeholder="">
-                          @error('post_code')
-                              <span class="error text-danger">{{ $message }}</span>
-                          @enderror
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                          <div class="form-group">
-                              <label class="form-label">Street</label>
-                              <input type="text" name="street" value="{{ old('street') }}" class="form-control" placeholder="">
-                              @error('street')
-                              <span class="error text-danger">{{ $message }}</span>
-                          @enderror
-                          </div>
-                          </div>
-                          <div class="col-md-3">
-                          <div class="form-group">
-                              <label class="form-label">Town</label>
-                              <input type="text" name="town"  value="{{ old('town') }}" class="form-control" placeholder="">
-                              @error('town')
-                              <span class="error text-danger">{{ $message }}</span>
-                          @enderror
-                          </div>
-                          </div>
-                          <div class="col-md-3">
-                              <div class="form-group">
-                                  <label class="form-label">Country</label>
-                                  <select class="form-control" name="country" id="countries" style="width: 100%;">
-                                      <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
-                                      <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
-                                  </select>
-                                  @error('country')
-                                  <span class="error text-danger">{{ $message }}</span>
-                              @enderror
-                              </div>
-                          <!-- /.form-group -->
-                          </div>
+                      
                       <div class="col-lg-12 mt-3">
                           <div class="title_head">
                               <h4>Phone & Email</h4>
@@ -151,7 +110,7 @@
 
                       <div class="col-md-3">
                           <div class="form-group">
-                              <label class="form-label">Email Address</label>
+                              <label class="form-label">Email Address<span class="clr"> * </span></label>
                               <input type="text" name="email"  value="{{ old('email') }}" class="form-control" placeholder="">
 
                               @error('email')
@@ -162,19 +121,24 @@
                           </div>
 
                           <div class="col-md-3">
-                              <div class="form-group">
-                                  <label class="form-label">Password</label>
-                                  <input type="password" name="password" class="form-control" placeholder="">
-                                  @error('password')
-                                  <span class="error text-danger">{{ $message }}</span>
-                              @enderror
-                              </div>
-                              </div>
+                            <div class="form-group">
+                                <label class="form-label">Password <span class="clr">*</span></label>
+                                <div class="wrap-input">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                    <span class="btn-show-pass ico-20 " >
+                                        <span class="  eye-pass flaticon-visibility "></span>
+                                    </span>
+                                </div>
+                                @error('password')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
                           <div class="col-md-3">
                           <div class="form-group">
-                              <label class="form-label">Mobile Phone</label>
-                              <input type="text" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="">
+                              <label class="form-label">Mobile Phone<span class="clr"> * </span></label>
+                              <input type="text" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="" minlength="10" maxlength="15">
 
                               @error('mobile_no')
                               <span class="error text-danger">{{ $message }}</span>
@@ -185,72 +149,114 @@
                           <div class="col-md-3">
                           <div class="form-group">
                               <label class="form-label">Landline</label>
-                              <input type="number" min="0" name="landline" value="{{ old('landline') }}" class="form-control" placeholder="">
+                              <input type="text"  name="landline" value="{{ old('landline') }}" class="form-control" placeholder="">
                               @error('landline')
                               <span class="error text-danger">{{ $message }}</span>
                           @enderror
                           </div>
                           </div>
-
+                          <div class="col-lg-12 mt-3">
+                            <div class="title_head">
+                                <h4>Postal Address</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Post Code</label>
+                            <input type="text" name="post_code" value="{{ old('post_code') }}" class="form-control" placeholder="" minlength="4" maxlength="8">
+                            @error('post_code')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Street</label>
+                                <input type="text" name="street" value="{{ old('street') }}" class="form-control" placeholder="">
+                                @error('street')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
+                            </div>
+                            </div>
+                            <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Town</label>
+                                <input type="text" name="town"  value="{{ old('town') }}" class="form-control" placeholder="">
+                                @error('town')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
+                            </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Country</label>
+                                    <select class="form-control" name="country" id="countries" style="width: 100%;">
+                                        <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
+                                        <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
+                                    </select>
+                                    @error('country')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                            <!-- /.form-group -->
+                            </div>
                       <div class="col-lg-12 mt-3">
                           <div class="title_head">
-                              <h4>Skills Info.</h4>
+                              <h4>Educational Background</h4>
                           </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                          <label class="form-label">Specialty</label>
-                          <input type="text" name="specialty" value="{{ old('specialty') }}" class="form-control" placeholder="">
-                          @error('specialty')
+                          <label class="form-label">Name of University/College</label>
+                          <input type="text" name="college_name" value="{{ old('college_name') }}" class="form-control" placeholder="">
+                          @error('college_name')
                           <span class="error text-danger">{{ $message }}</span>
                       @enderror
                       </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                          <label class="form-label">Qualifications</label>
-                          <input type="text" name="qualifications" value="{{ old('qualifications') }}" class="form-control" placeholder="">
-                          @error('qualifications')
+                          <label class="form-label">Degree</label>
+                          <input type="text" name="Degree" value="{{ old('Degree') }}" class="form-control" placeholder="">
+                          @error('Degree')
                           <span class="error text-danger">{{ $message }}</span>
                       @enderror
                       </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                          <label class="form-label">Experience</label>
+                          <label class="form-label">Graduation Year</label>
+                          <input type="text" name="graduation_year" value="{{ old('graduation_year') }}" class="form-control" placeholder="">
+                          @error('graduation_year')
+                          <span class="error text-danger">{{ $message }}</span>
+                      @enderror
+                      </div>
+                      </div>
+                      <div class="col-md-3">
+                      <div class="form-group">
+                          <label class="form-label">Soft Skill</label>
+                          <input type="text" name="soft_skill" value="{{ old('soft_skill') }}" class="form-control" placeholder="">
+                          @error('soft_skill')
+                          <span class="error text-danger">{{ $message }}</span>
+                      @enderror
+                      </div>
+                      </div>
+                      <div class="col-md-3">
+                      <div class="form-group">
+                          <label class="form-label">Work Experience</label>
                           <input type="text" name="experience" value="{{ old('experience') }}" class="form-control" placeholder="">
                           @error('experience')
                           <span class="error text-danger">{{ $message }}</span>
                       @enderror
                       </div>
                       </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Working Hours</label>
-                          <input type="text" name="working_hours" value="{{ old('working_hours') }}" class="form-control" placeholder="">
-                          @error('working_hours')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Languages Spoken</label>
-                          <input type="text" name="languages_spoken" value="{{ old('languages_spoken') }}" class="form-control" placeholder="">
-                          @error('languages_spoken')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">License Number</label>
-                          <input type="text" name="lincense_no" value="{{ old('lincense_no') }}" class="form-control" placeholder="">
-                          @error('lincense_no')
-                          <span class="error text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                      </div>
+                      
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="form-label">Profile Image</label>
+                              <input type="file" class="dropify" name="patient_profile_img" accept="image/*"/>
+                        </div>
+                    </div>
                       {{-- <div class="col-lg-12 mt-3">
                           <div class="title_head">
                               <h4>Document</h4>
