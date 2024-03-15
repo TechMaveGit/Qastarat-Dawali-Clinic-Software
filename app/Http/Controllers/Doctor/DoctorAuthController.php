@@ -35,6 +35,39 @@ class DoctorAuthController extends Controller
         return view('back/admin/login');
     }
 
+
+    public function patientLogin(Request $request)
+    {
+        
+        $credentials = $request->only('email', 'password');
+        if (Auth::guard('web')->once($credentials)) {
+            if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]))
+                
+            return response()->json(['error' => 200]);
+        }
+        else {
+            
+            return response()->json(['error' => 'Invalid email or password'], 422);
+        }
+
+    }
+
+    public function staffLogin(Request $request)
+    {
+        
+        $credentials = $request->only('email', 'password');
+        if (Auth::guard('doctor')->once($credentials)) {
+            Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password]);
+                
+            return response()->json(['error' => 200]);
+        }
+        else {
+            
+            return response()->json(['error' => 'Invalid email or password'], 422);
+        }
+
+    }
+
     public function showRegistrationForm()
     {
         return view('front/sign-up');
@@ -132,12 +165,13 @@ class DoctorAuthController extends Controller
 
     public function logout(Request $request)
     {
+        
         Auth::guard('doctor')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('common.login');
+        return redirect()->route('front.home.page');
     }
 }

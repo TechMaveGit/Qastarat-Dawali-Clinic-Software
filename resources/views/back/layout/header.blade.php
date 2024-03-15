@@ -162,13 +162,6 @@
 	</head>
 
 
-
-
-
-
-
-
-
 <body>
 
 
@@ -182,60 +175,6 @@
  }
  ?>
 
-
-
-
-
-
-
-
-		<!-- PRELOADER SPINNER
-
-		============================================= -->
-
-		<!-- <div id="loading" class="loading--theme">
-
-			<div id="loading-center"><span class="loader"></span></div>
-
-		</div> -->
-
-
-
-	<!-- STYLE SWITCHER
-
-		============================================= -->
-
-		<!-- <div id="stlChanger">
-
-			<div class="blockChanger bgChanger">
-
-            	<a href="#" class="chBut icon-xs"><span class="flaticon-control-panel"></span></a>
-
-                <div class="chBody white-color">
-
-
-
-                	<div class="stBlock text-center" style="margin: 30px 20px 20px 26px;">
-
-						<div class="stBgs">
-
-							<p class="switch"></p>
-
-
-
-
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>	 -->
-
-		  <!-- END SWITCHER -->
 
 			<!-- PAGE CONTENT
 
@@ -267,7 +206,7 @@
 
 				    <div class="wsmobileheader clearfix">
 
-				    	<span class="smllogo"><img src="{{ url('public/assets') }}/images/new-images/qastrat-logo2.png" alt="mobile-logo"></span>
+				    	<span class="smllogo"><img src="{{ asset('public/assets/images/new-images/qastara-logo-new.png') }}" alt="mobile-logo"></span>
 
 				    	<a id="wsnavtoggle" class="wsanimated-arrow"><span></span></a>
 
@@ -286,24 +225,15 @@
 
 
 
+							<!-- HEADER BLACK LOGO -->
+							<div class="desktoplogo">
+								<a href="{{ route('admin.dashboard') }}" class="logo-black">
+									<img class="light-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo light">
+									<img class="dark-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo dark">
+								</a>
+							</div>
 
-	    					<!-- HEADER BLACK LOGO -->
-
-	    					<div class="desktoplogo">
-
-	    						<a href="{{ route('admin.dashboard') }}" class="logo-black">
-
-	    							<img class="light-theme-img" src="{{ url('public/assets') }}/images/new-images/qastrat-logo2.png" alt="logo">
-
-	    							<img class="dark-theme-img" src="{{ url('public/assets') }}/images/new-images/qastrat-logo2.png" alt="logo">
-
-	    						</a>
-
-	    					</div>
-
-
-
-	    					<!-- HEADER WHITE LOGO -->
+							<!-- HEADER WHITE LOGO -->
 
 	    					<!-- <div class="desktoplogo">
 
@@ -354,27 +284,27 @@
 
 
 
-                                    <!-- SIMPLE NAVIGATION LINK -->
+                                    <!-- SIMPLE NAVIGATION LINK in_array("84", $arr) || in_array("85", $arr) || in_array("86", $arr) || in_array("87", $arr) || in_array("88", $arr) || in_array("89", $arr)-->
 
-                                    @if(in_array("84", $arr) || in_array("85", $arr) || in_array("86", $arr) || in_array("87", $arr) || in_array("88", $arr) || in_array("89", $arr))
-                                    <li class="nl-simple" aria-haspopup="true"><a href="{{ route('nurseTask') }}" class="h-link">Tasks</a></li>
+                                    @if( true)
+                                    <li class="nl-simple {{  request()->routeIs('nurseTask') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('nurseTask') }}" class="h-link">Tasks</a></li>
                                     @endif
 
 
                                     @if(in_array("1", $arr) || in_array("2", $arr) || in_array("3", $arr) ||in_array("4", $arr))
-                                    <li class="nl-simple {{ Request::segment(2)=='invoice' ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.patient') }}" class="h-link">Patient</a></li>
+                                    <li class="nl-simple {{  request()->routeIs('user.patient') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.patient') }}" class="h-link">Patient</a></li>
                                     @endif
 
 
                                     <!-- SIMPLE NAVIGATION LINK -->
 
-                                     <li class="nl-simple {{ Request::segment(2)=='invoice' ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.invoice') }}" class="h-link">Invoices</a></li>
+                                     <li class="nl-simple {{  request()->routeIs('user.invoice') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.invoice') }}" class="h-link">Invoices</a></li>
 
 
 
                                     <!-- SIMPLE NAVIGATION LINK -->
 
-                                    <li class="nl-simple {{ Request::segment(2)=='calendar' ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.calendar') }}" class="h-link">Calendar</a></li>
+                                    <li class="nl-simple {{  request()->routeIs('user.calendar') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.calendar') }}" class="h-link">Calendar</a></li>
 
 
 
@@ -422,7 +352,7 @@
 
                                         <div class="user">
 
-                                            <h3>{{ auth('doctor')->user()->name ?? '' }}</h3>
+                                            <h3 class="h-link text-white" aria-haspopup="true">{{ auth('doctor')->user()->name ?? '' }}</h3>
 
                                          </div>
 
@@ -439,7 +369,7 @@
 												<li><a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a></li>
 												<li><a href="{{ route('doctor.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
 												@endif
-										@endauth
+										    @endauth
 
 										{{-- @auth('admin')
 											<li><a href="{{ route('admin.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>

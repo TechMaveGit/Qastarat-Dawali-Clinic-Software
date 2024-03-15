@@ -7,13 +7,7 @@
 @section('content-section')
 
     @push('custom-css')
-        <style>
-            .wsmainwp {
-
-                background: #f9f9fd;
-
-            }
-        </style>
+        
     @endpush
 
 
@@ -3563,7 +3557,7 @@
                                             <label for="validationCustom01" class="form-label">Select Lab Tests</label>
                                             <select id="sumo-select" multiple name="lab_test_names[]">
                                                 @php
-                                                    $patient_order_labs = DB::table('pathology_price_list')->where('price_type', '0')->orderBy('id', 'desc')->get();
+                                                    $patient_order_labs = DB::table('pathology_price_list')->distinct('test_name')->where('price_type', '0')->orderBy('id', 'desc')->get();
                                                 @endphp
                                                 @foreach ($patient_order_labs as $patient_order_lab)
                                                     <option value="{{ $patient_order_lab->id }}">

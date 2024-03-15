@@ -1,6 +1,6 @@
 @extends('superAdmin.superAdminLayout.main')
 @push('title')
-    <title>All Nurses | Super Admin</title>
+    <title>All Staffs | Super Admin</title>
 @endpush
 @section('content')
 
@@ -38,11 +38,11 @@
 	<!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="d-flex">
-        <h4 class="page-title">All Nurse</h4>
+        <h4 class="page-title">All staffs</h4>
         <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('nurses.index') }}">Staff</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Nurse</li>
+                    <li class="breadcrumb-item active" aria-current="page">list</li>
                 </ol>
             </nav>
         </div>
@@ -55,7 +55,7 @@
 <div class="box">
    <div class="box-header with-border">
     <div class="top_area">
-    <h3 class="box-title">All Nurse</h3>
+    <h3 class="box-title">All Staffs</h3>
     <a href="{{ route('nurses.create') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add Nurse</a>
     </div>
 
@@ -67,10 +67,11 @@
            <thead>
                <tr>
                    <th hidden></th>
-                   <th>Nurse Id</th>
-                   <th>Nurse Name</th>
+                   <th>Staff Id</th>
+                   <th> Name</th>
                    <th>Mobile No.</th>
                    <th>Email Address</th>
+                   <th>Staff Type</th>
                    <th>Postal Code</th>
                    <th>Action</th>
 
@@ -101,6 +102,7 @@
                    </td>
                    <td>{{ $allnurse->mobile_no}}</td>
                    <td>{{ $allnurse->email}}</td>
+                   <td>{{ $allnurse->user_type}}</td>
                    <td>{{ $allnurse->post_code}}</td>
                    <td>
                    <div class="btn-group">

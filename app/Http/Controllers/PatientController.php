@@ -792,10 +792,13 @@ class PatientController extends Controller
     {
         $data = $request->all();
         $doctor_id=auth('doctor')->user()->id;
+        $receptionists=DB::table('doctors')->where(['user_type'=>'Receptionist','role_id'=>11])->pluck('id');
+        
         $doctor_nurses=DB::table('doctor_nurse')->where('doctor_id',$doctor_id)->pluck('nurse_id');
         $patientId = decrypt($data['patient_id']);
         $result=false;
         $dataInsertedTo=[];
+        $dataInsertedToReceptionist=[];
         $lab_test_names = $data['lab_test_names'];
         $formType=$request->formType;
         $filtered_lab_test_names  = array_filter($lab_test_names, function ($value) {
@@ -804,35 +807,40 @@ class PatientController extends Controller
        
         foreach ($doctor_nurses as $nurse_id) {
             
-            $dataInsertedTo[]=[
+            $dataInsertedTo=[
                 'patient_id' => $patientId,
                 'pathology_price_list_id' => json_encode($filtered_lab_test_names),
                 'doctor_id'=>$doctor_id,
                 'form_type'=>$formType,
                 'nurse_id'=>$nurse_id,
                 'test_type'=>'pathology'
+               
 
             ];
+            if(!empty($dataInsertedTo)){
+                $inserted_id=  DB::table('nurse_tasks')->insertGetId($dataInsertedTo);
+                
+                if(isset($receptionists)){
+
+               
+                foreach ($receptionists as $receptionist_id) {
+
+                    $dataInsertedToReceptionist=[
+                        'nurse_task_id' => $inserted_id,
+                        'receptionist_id' => $receptionist_id
+                       
+                    ];
+                    $result=  DB::table('receptionist_tasks')->insertGetId($dataInsertedToReceptionist);
+                    $result=true;
+
+                }
+            }
+
+              }
 
         }
 
-
-
-
-        // foreach ($lab_test_names as $lab_test_name) {
-        //     $dataInsertedTo[]=[
-        //         'patient_id' => $patientId,
-        //         'pathology_price_list_id' => $lab_test_name,
-        //         'doctor_id'=>$doctor_id,
-        //         'form_type'=>$formType
-
-        //     ];
-
-        // }
-
-        if(!empty($dataInsertedTo)){
-          $result=  DB::table('nurse_tasks')->insert($dataInsertedTo);
-        }
+        
 
 
         return response()->json($result);
@@ -1619,6 +1627,137 @@ class PatientController extends Controller
         return view('back/varicocele_embo', compact('patient_id'));
     }
 
+// Varicocele Embo form edit method
+public function editVaricoceleEmboEligibilityForms(Request $request)
+{
+    $id = decrypt($request->patient_id);
+    // $id = decrypt();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->get();
+    $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->get();
+
+
+    $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->first();
+    $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+
+   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    $Prescription = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Prescription', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    // dd($Prescription);
+    $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+    $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->first();
+
+    $data = [
+        'patient_id' => Crypt::encrypt($id),
+        'diagnosis_generals_db' => $diagnosis_general,
+        'diagnosis_cids_db' => $diagnosis_cid,
+        'symptoms' => $symptoms,
+        'symptoms_scores' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations' => $SpecialInvestigations,
+        'ElegibilitySTATUS' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs' => $MDTs,
+        'Labs' => $Labs,
+        'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
+        'clinical_indicators' => $ClinicalIndicator,
+        'ClinicalExam' => $ClinicalExam,
+        'Imaging'=>$Imaging,
+        'Prescription'=>$Prescription
+
+
+    ];
+    return view('back/Edit_varicocele_embo', $data);
+}
+
+// Varicocele Embo  form update method
+public function updateVaricoceleEmboEligibilityForms(Request $request)
+{
+    ThyroidDiagnosis::where('form_type', 'VaricoceleEmboForm')->delete();
+
+    $this->storeVaricoceleEmboEligibilityForms($request);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
+}
+
+
+    //Varicocele Embo  form view method
+public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
+{
+    $id = Crypt::decrypt($id);
+    $patient = User::findOrFail($id);
+
+   $Patient_order_imaginary_exams= Patient_order_imaginary_exam::with('test','doctor')->where(['patient_id'=>$id,'form_type'=>'VaricoceleEmboForm'])->get();
+   $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'VaricoceleEmboForm'])->get();
+    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+    $ThyroidDiagnosis = ThyroidDiagnosis::query();
+    $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+    $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+
+    $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+    $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+    $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+
+    $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+    // dd($symptoms);
+    $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+
+    $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+    $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+    $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+    $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+
+    $data = [
+        'patient' => $patient,
+        'id' => Crypt::encrypt($id),
+        'patient_past_history' => $Patient_past_medical_history,
+        'patient_past_surgical' => $Patient_past_surgical_history,
+        'patient_current_med' => $Patient_current_med,
+        'patient_future_plan' => $Patient_future_plan,
+        'procedures' => $Procedure,
+        'prescriptions' => $Prescription,
+        'insurer' => $Patient_insurer,
+        'diagnosis_generals' => $diagnosis_general,
+        'diagnosis_cids' => $diagnosis_cid,
+        'symptoms_db' => $symptoms,
+        'symptoms_scores_db' => $symptoms_scores,
+        'Referrals' => $Referrals,
+        'supportives' => $supportives,
+        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
+        'Interventions' => $Interventions,
+        'MDTs_db' => $MDTs,
+        'Labs' => $Labs,
+        'Patient_order_imaginary_exams'=>$Patient_order_imaginary_exams,
+        'Patient_order_labs'=>$Patient_order_labs,
+        'Imaging'=>$Imaging,
+        'ClinicalIndicator_db' => $ClinicalIndicator,
+        'ClinicalExam_db' => $ClinicalExam,
+
+    ];
+
+    return view('back/view-varicocele-embo-report')->with($data);
+}
+
     // Varicocele Embo form save 
     public function storeVaricoceleEmboEligibilityForms(Request $request)
     {
@@ -1651,7 +1790,7 @@ class PatientController extends Controller
                 'title_name' => 'diagnosis_general',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1677,7 +1816,7 @@ class PatientController extends Controller
                 'title_name' => 'diagnosis_cid',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1718,7 +1857,7 @@ class PatientController extends Controller
                 'title_name' => 'symptoms',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1745,7 +1884,7 @@ class PatientController extends Controller
                 'title_name' => 'symptoms_score',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1773,7 +1912,7 @@ class PatientController extends Controller
                 'title_name' => 'Referral',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1800,7 +1939,7 @@ class PatientController extends Controller
                 'title_name' => 'Supportive',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1827,7 +1966,7 @@ class PatientController extends Controller
                 'title_name' => 'SpecialInvestigation',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1854,7 +1993,7 @@ class PatientController extends Controller
                 'title_name' => 'ElegibilitySTATUS',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1882,7 +2021,7 @@ class PatientController extends Controller
                 'title_name' => 'Intervention',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1909,7 +2048,7 @@ class PatientController extends Controller
                 'title_name' => 'MDT',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1936,7 +2075,7 @@ class PatientController extends Controller
                 'title_name' => 'Lab',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1964,7 +2103,7 @@ class PatientController extends Controller
                 'title_name' => 'Imaging',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -1993,7 +2132,7 @@ class PatientController extends Controller
                 'title_name' => 'ClinicalIndicator',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -2020,7 +2159,7 @@ class PatientController extends Controller
                 'title_name' => 'ClinicalExam',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoceleEmbo'
+                'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
@@ -2034,7 +2173,9 @@ class PatientController extends Controller
     }
 
 
-    return  redirect()->route('user.viewVaricoceleEmboEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
     }
    
 // HeadachePain form edit method
@@ -8507,6 +8648,6 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('common.login');
+        return redirect()->route('front.home.page');
     }
 }

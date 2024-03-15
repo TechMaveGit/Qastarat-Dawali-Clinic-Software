@@ -21,6 +21,7 @@ class DoctorController extends Controller
     {
         if(request()->isMethod("post"))
         {
+            // dd($request->all());
             $validatedData = $request->validate([
                 'email' => [
                     'required',
@@ -48,11 +49,11 @@ class DoctorController extends Controller
                 'name' => 'required',
                 'gendar'=>'required',
                 'title' => 'required',
-                'nurse' => 'required',
+                'coordinator' => 'required',
                 'birth_date'=>'required'
             ], [
                 'email.required' => 'Email is required.',
-                'nurse.required' => 'Nurse is required.',
+                'coordinator.required' => 'coordinator is required.',
                 'email.email' => 'Please enter a valid email address.',
                 'email.unique' => 'This email is already taken.',
                 'post_code.digits_between' => 'Post code must be between 4 and 8 digits.',
@@ -71,9 +72,9 @@ class DoctorController extends Controller
                 'title.required' => 'Title  is required.',
             ]);
 
-            $doctorData = $request->except(['_token','submit','nurse']);
+            $doctorData = $request->except(['_token','submit','coordinator']);
             
-            $doctorData['doctor_id'] = "QC" . rand('00000', '99999' . '0');
+            $doctorData['doctor_id'] = "DR" . rand('00000', '99999' . '0');
             $doctorData['user_type'] = 'doctor';
             $doctorData['role_id'] = intval($doctorData['role_id']);
             // $doctorData['role_id'] = 'doctor';
@@ -136,7 +137,7 @@ class DoctorController extends Controller
             $lastInsertedId = $doctor->id;
 
                 // Nurse insert
-                $nurse = $request->input('nurse');
+                $nurse = $request->input('coordinator');
             //    dd(intval($nurse[0]));
                    if (isset($nurse) && !empty($nurse)) {
                         $hgcount1 = count($nurse);
@@ -199,7 +200,7 @@ class DoctorController extends Controller
                     Rule::unique('doctors')->ignore($id),
                 ],
             ]);
-            $doctorData = $request->except(['_token','submit','nurse']);
+            $doctorData = $request->except(['_token','submit','coordinator']);
             $doctorData['role_id'] = intval($doctorData['role_id']);
 
             $doctor_info = Doctor::where('id', $id)->first();
@@ -263,7 +264,7 @@ class DoctorController extends Controller
                  $doctorData['birth_date']=$carbonDate->format('d M, Y');
 
                 $result= DB::table('doctor_nurse')->where('doctor_id',$id)->delete();
-                $nurse = $request->input('nurse');
+                $nurse = $request->input('coordinator');
                 if(isset($nurse) && !empty($nurse)  ){
 
                     // Nurse insert

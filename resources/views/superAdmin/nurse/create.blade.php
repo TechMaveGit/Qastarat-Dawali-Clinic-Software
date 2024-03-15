@@ -1,6 +1,6 @@
 @extends('superAdmin.superAdminLayout.main')
 @push('title')
-    <title>Add Nurse | Super Admin</title>
+    <title>Add Staff | Super Admin</title>
 @endpush
 @section('content')
 
@@ -19,10 +19,9 @@
         <div class="d-flex">
         <h4 class="page-title">Add Staff</h4>
         <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('nurses.index') }}">Nurse</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Add Nurse</li>
-                </ol>
+                <!--<ol class="breadcrumb">-->
+                <!--    <li class="breadcrumb-item active" aria-current="page">Add Staff</li>-->
+                <!--</ol>-->
             </nav>
         </div>
 		</div>
@@ -101,6 +100,22 @@
                             @enderror
                             </div>
                         <!-- /.form-group -->
+                        </div>
+                        
+                          <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Select Role</label>
+                                <select class="form-control select2" name="role_id" style="width: 100%;">
+                                    <option value="">Select any one</option>
+                                    @forelse ($roles as $allrole)
+                                    <option value="{{ $allrole->id }}" {{ old('role_id') == $allrole->id ? 'selected' : '' }}>{{ $allrole->name }}</option>
+
+                                    @empty
+
+                                    @endforelse
+
+                                </select>
+                            </div>
                         </div>
                       
 
@@ -208,7 +223,7 @@
 						</div>
                         <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label">Name of Nursing School</label>
+                            <label class="form-label">Name of Staff School</label>
                             <input type="text" name="NursingSchool" value="{{ old('NursingSchool') }}" class="form-control" placeholder="">
                             @error('NursingSchool')
                             <span class="error text-danger">{{ $message }}</span>
@@ -272,21 +287,7 @@
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                 @enderror
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label">Select Role</label>
-                                <select class="form-control select2" name="role_id" style="width: 100%;">
-                                    <option value="">Select any one</option>
-                                    @forelse ($roles as $allrole)
-                                    <option value="{{ $allrole->id }}" {{ old('role_id') == $allrole->id ? 'selected' : '' }}>{{ $allrole->name }}</option>
-
-                                    @empty
-
-                                    @endforelse
-
-                                </select>
-                            </div>
-                        </div>
+                      
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label class="form-label">Profile Image</label>

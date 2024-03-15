@@ -85,7 +85,9 @@ Route::get('/service', function () {
 
 Route::prefix('login')->group(function () {
 
-    Route::any('/', [DoctorAuthController::class, 'login'])->name('common.login');
+    Route::any('/common-login', [DoctorAuthController::class, 'login'])->name('common.login');
+    Route::post('/patient-login', [DoctorAuthController::class, 'patientLogin'])->name('patient.login');
+    Route::post('/staff-login', [DoctorAuthController::class, 'staffLogin'])->name('staff.login');
     Route::get('register', [DoctorAuthController::class, 'showRegistrationForm'])->name('admin.register');
     Route::post('register', [DoctorAuthController::class, 'register'])->name('admin.register.submit');
     Route::get('forget-password', [DoctorAuthController::class, 'showLinkRequestForm'])->name('admin.forget.password');
@@ -104,6 +106,9 @@ Route::prefix('login')->group(function () {
 
         Route::get('patient', [PatientController::class, 'index'])->name('user.patient');
         Route::get('task', [NurseLoginWeb::class, 'nurseTask'])->name('nurseTask');
+        Route::post('task-assigned-to-nurse', [NurseLoginWeb::class, 'taskAssignedToNurse'])->name('taskAssignedToNurse');
+        Route::get('task-assigned-to-lab', [NurseLoginWeb::class, 'taskAssignedToLab'])->name('taskAssignedToLab');
+        Route::post('lab-document-upload', [NurseLoginWeb::class, 'labDocumentUpload'])->name('labDocumentUpload');
 
         Route::get('dashboard', [DoctorDashboadController::class, 'index'])->name('admin.dashboard');
         Route::get('logout', [DoctorAuthController::class, 'logout'])->name('doctor.logout');
@@ -341,7 +346,7 @@ Route::prefix('admin')->group(function () {
         Route::prefix('staffs')->group(function () {
 
             // Nurse Routes
-            Route::name('nurses.')->prefix('nurses')->controller(NurseController::class)->group(function () {
+            Route::name('nurses.')->controller(NurseController::class)->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::post('/delete', 'nurse_delete')->name('nurse_delete');
                 Route::any('/create', 'create')->name('create');

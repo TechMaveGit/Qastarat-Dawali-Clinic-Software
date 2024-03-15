@@ -375,6 +375,39 @@
 </div>
 @endif
 
+
+
+@php
+
+    $VaricoceleEmboForm_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+        ->where(['patient_id' => $patient->id, 'form_type' => 'VaricoceleEmboForm'])
+        ->first();
+
+    if ($VaricoceleEmboForm_Eligibility_Forms !== null) {
+        $VaricoceleEmboForm_Eligibility_Forms = $VaricoceleEmboForm_Eligibility_Forms->toArray();
+    } else {
+        $VaricoceleEmboForm_Eligibility_Forms = [];
+    }
+@endphp
+    @if (in_array($patient_ids, $VaricoceleEmboForm_Eligibility_Forms))
+    <div class="customdotdropdown fill_forms_icon">
+  <div class="buttondrop_dot action_btn_tooltip form4_bg">
+    <iconify-icon icon="healthicons:health-worker-form-outline" width="22"></iconify-icon>
+    <span class="toolTip">Varicocele Embo (VE)</span>
+  </div>
+  <div class="dropdown-content">
+    <a href="{{ route('user.viewVaricoceleEmboEligibilityForms', ['id' => @$id]) }}"
+        class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
+    </a>
+    <a target="_blank"
+        href="{{ route('user.editVaricoceleEmboEligibilityForms', ['patient_id' => @$id]) }}"
+        class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
+    </a>
+    
+  </div>
+</div>
+@endif
+
         {{-- endif --}}
         @endif
     </div>

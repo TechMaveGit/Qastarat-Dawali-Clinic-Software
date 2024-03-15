@@ -2,7 +2,7 @@
 
 @push('title')
 
-Home | QASTARAT & DAWALI CLINICS 
+Dashboard  | QASTARAT & DAWALI CLINICS 
 
 @endpush
 

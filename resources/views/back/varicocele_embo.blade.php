@@ -1655,7 +1655,7 @@
                          
                         <div class="col-lg-6">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[Grade1][]" value="Grade I (Reflux to Groin (with Vulsalva)" id="formRadiosRight48">
+                                        <input class="form-check-input"type="radio" name="Imaging[Grade][]" value="Grade I (Reflux to Groin (with Vulsalva)" id="formRadiosRight48">
                                         <label class="form-check-label" for="formRadiosRight48">
                                         Grade I (Reflux to Groin (with Vulsalva)
                                         </label>
@@ -1664,7 +1664,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[Grade1][]" value=" Grade II (Reflux to upper scrotum (with Vulsalva)" id="formRadiosRight49">
+                                        <input class="form-check-input"type="radio" name="Imaging[Grade][]" value=" Grade II (Reflux to upper scrotum (with Vulsalva)" id="formRadiosRight49">
                                         <label class="form-check-label" for="formRadiosRight49">
                                         Grade II (Reflux to upper scrotum (with Vulsalva)
                                         </label>
@@ -1672,7 +1672,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[Grade2][]" value="Grade III Reflux to lower scrotum (with Vulsalva)" id="formRadiosRightd10">
+                                        <input class="form-check-input"type="radio" name="Imaging[Grade][]" value="Grade III Reflux to lower scrotum (with Vulsalva)" id="formRadiosRightd10">
                                         <label class="form-check-label" for="formRadiosRightd10">
                                         Grade III Reflux to lower scrotum (with Vulsalva)
                                         </label>
@@ -1681,7 +1681,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[Grade2][]" value="Grade IV (Spontoneous Reflux)" id="formRadiosRightd11">
+                                        <input class="form-check-input"type="radio" name="Imaging[Grade][]" value="Grade IV (Spontoneous Reflux)" id="formRadiosRightd11">
                                         <label class="form-check-label" for="formRadiosRightd11">
                                         Grade IV (Spontoneous Reflux)
                                         </label>
@@ -1689,7 +1689,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[Grade3][]" value="Grade V (Spontoneous Reflux with testicular atrophy)" id="formRadiosRightd12">
+                                        <input class="form-check-input"type="radio" name="Imaging[Grade][]" value="Grade V (Spontoneous Reflux with testicular atrophy)" id="formRadiosRightd12">
                                         <label class="form-check-label" for="formRadiosRightd12">
                                         Grade V (Spontoneous Reflux with testicular atrophy)
                                         </label>
@@ -2405,7 +2405,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="checkbox" name="Lab[RESULTS][]" value=" < 1.5 ml " id="formRadiosRight83">
+                                        <input class="form-check-input" type="checkbox" name="Lab[RESULTS1][]" value=" < 1.5 ml " id="formRadiosRight83">
                                         <label class="form-check-label" for="formRadiosRight83">
                                         < 1.5 ml 
                                         </label>
@@ -2413,7 +2413,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="checkbox" name="Lab[RESULTS][]" value="AbNormal (>30%)" id="formRadiosRightd72">
+                                        <input class="form-check-input" type="checkbox" name="Lab[RESULTS2][]" value="AbNormal (>30%)" id="formRadiosRightd72">
                                         <label class="form-check-label" for="formRadiosRightd72">
                                         AbNormal (>30%)
                                         </label>
@@ -2421,7 +2421,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="checkbox" name="Lab[RESULTS][]" value=" < 39 Million  (VE Faverable)" id="formRadiosRightd73">
+                                        <input class="form-check-input" type="checkbox" name="Lab[RESULTS3][]" value=" < 39 Million  (VE Faverable)" id="formRadiosRightd73">
                                         <label class="form-check-label" for="formRadiosRightd73">
                                         < 39 Million  (VE Faverable)
                                         </label>
@@ -2436,12 +2436,12 @@
                         <div class="col-lg-12  mb-2">
                             <h6 class="section_title__">Special Investigation <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn ">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                             <div class="title_head">
-                                  <h4>REQPNSENTEVALUATION190</h4>
+                                  <h4>REQDNAFRAGTEST320</h4>
                               </div>
                         
                               <div class="row align-items-center">
                               <div class="col-lg-4">
-                                  <h6 class="mb-3 lut_title">Para-Nasal Sinus endoscopic evaluation</h6>
+                                  <h6 class="mb-3 lut_title">DNA Fragmentation test</h6>
                                   </div>
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
@@ -2604,12 +2604,12 @@
                                     </div> -->
                                     <div class="col-lg-12" id="textarea_90" style="">
                                         <div class="form-check form-check-right mb-3">
-                                          <textarea class="form-control" placeholder="Enter Elaborate  VE / notes here***" style="height: 100px"></textarea>
+                                          <textarea class="form-control" placeholder="Enter Elaborate  VE / notes here***" style="height: 100px" name="ElegibilitySTATUS[VARICOCELEEMBOLIZATIONNote][]"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12" id="textarea_91" style="">
                                         <div class="form-check form-check-right mb-3">
-                                          <textarea class="form-control" placeholder="Enter Elaborate Other / notes here***" style="height: 100px"></textarea>
+                                          <textarea class="form-control" placeholder="Enter Elaborate Other / notes here***" style="height: 100px" name="ElegibilitySTATUS[OTHERSNote][]"></textarea>
                                         </div>
                                     </div>
                                     <!-- <div class="col-lg-12" id="textarea_92">
@@ -2773,86 +2773,92 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <div class="row align-items-center">
+                            <div class="row">
                         
                                 <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3 ">
-                                    <input class="form-check-input" type="radio" name="Referral[option][]" value="Pelvic Rehab / Physiotherapy" id="formRadiosRightb48">
+                                    <input class="form-check-input" type="checkbox" name="Referral[Physiotherapy][]" value="Physiotherapy" id="formRadiosRightb48">
                                     <label class="form-check-label" for="formRadiosRightb48">
                                     Pelvic Rehab / Physiotherapy
                                     </label>
                                 </div>
+                                <div class="col-lg-12" id="textarea_b48" style="">
+                                <div class="form-check form-check-right mb-3">
+                                <textarea class="form-control" placeholder="Enter note to referring physician here" style="height: 100px" name="Referral[PhysiotherapyNote][]" ></textarea>
+                                </div>
+                            </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3 ">
-                                    <input class="form-check-input" type="radio" name="Referral[option][]" value="IVF" id="formRadiosRightb49">
+                                    <input class="form-check-input" type="checkbox" name="Referral[IVF][]" value="IVF" id="formRadiosRightb49">
                                     <label class="form-check-label" for="formRadiosRightb49">
                                     IVF
                                     </label>
                                 </div>
+                                <div class="col-lg-12" id="textarea_b49" style="">
+                                <div class="form-check form-check-right mb-3">
+                                <textarea class="form-control" placeholder="Enter note to referring physician here" style="height: 100px " name="Referral[IVFNote][]" ></textarea>
+                                </div>
+                            </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3 ">
-                                    <input class="form-check-input" type="radio" name="Referral[option][]" value="Urology" id="formRadiosRightb50">
+                                    <input class="form-check-input" type="checkbox" name="Referral[Urology][]" value="Urology" id="formRadiosRightb50">
                                     <label class="form-check-label" for="formRadiosRightb50">
                                     Urology
                                     </label>
                                 </div>
+                                <div class="col-lg-12" id="textarea_b50" style="">
+                                <div class="form-check form-check-right mb-3">
+                                <textarea class="form-control" placeholder="Enter note to referring physician here" style="height: 100px" name="Referral[UrologyNote][]"></textarea>
+                                </div>
+                            </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3">
-                                    <input class="form-check-input" type="radio" name="Referral[option][]" value="Andrology" id="formRadiosRightb51">
+                                    <input class="form-check-input" type="checkbox" name="Referral[Andrology][]" value="Andrology" id="formRadiosRightb51">
                                     <label class="form-check-label" for="formRadiosRightb51">
                                     Andrology
                                     </label>
                                 </div>
+                                <div class="col-lg-12" id="textarea_b51" style="">
+                                <div class="form-check form-check-right mb-3">
+                                <textarea class="form-control" placeholder="Enter note to referring physician here" style="height: 100px" name="Referral[AndrologyNote][]"></textarea>
+                                </div>
+                            </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3">
-                                    <input class="form-check-input" type="radio" name="Referral[option][]" value="Endocrinology" id="formRadiosRightb52">
+                                    <input class="form-check-input" type="checkbox" name="Referral[Endocrinology][]" value="Endocrinology" id="formRadiosRightb52">
                                     <label class="form-check-label" for="formRadiosRightb52">
                                     Endocrinology
                                     </label>
                                 </div>
+                                <div class="col-lg-12" id="textarea_b52" style="">
+                                <div class="form-check form-check-right mb-3">
+                                <textarea class="form-control" placeholder="Enter note to referring physician here" style="height: 100px" name="Referral[EndocrinologyNote][]"></textarea>
+                                </div>
+                            </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3">
-                                    <input class="form-check-input" type="radio" name="Referral[option][]" value="Others" id="formRadiosRightb53">
+                                    <input class="form-check-input" type="checkbox" name="Referral[Others][]" value="Others" id="formRadiosRightb53">
                                     <label class="form-check-label" for="formRadiosRightb53">
                                     Others
                                     </label>
                                 </div>
-                            </div>
-                            <div class="col-lg-12" id="textarea_b48">
+                                <div class="col-lg-12" id="textarea_b53" style="">
                                 <div class="form-check form-check-right mb-3">
-                                <textarea class="form-control" placeholder="Enter Elaborate   Pelvic Rehab / Physiotherapy / notes here***"  style="height: 100px" name="Referral[NOTE][]"></textarea>
+                                <textarea class="form-control" placeholder="Enter note to referring physician here" style="height: 100px" name="Referral[OthersNote][]"></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-12" id="textarea_b49">
-                                <div class="form-check form-check-right mb-3">
-                                <textarea class="form-control" placeholder="Enter Elaborate   IVF / Head and Neck surgery   / notes here***"  style="height: 100px" name="Referral[NOTE][]"></textarea>
-                                </div>
                             </div>
-                            <div class="col-lg-12" id="textarea_b50">
-                                <div class="form-check form-check-right mb-3">
-                                <textarea class="form-control" placeholder="Enter Elaborate Urology  / notes here***"  style="height: 100px" name="Referral[NOTE][]"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-lg-12" id="textarea_b51">
-                                <div class="form-check form-check-right mb-3">
-                                <textarea class="form-control" placeholder="Enter Elaborate Andrology / notes here***"  style="height: 100px" name="Referral[NOTE][]"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-lg-12" id="textarea_b52">
-                                <div class="form-check form-check-right mb-3">
-                                <textarea class="form-control" placeholder="Enter Elaborate Endocrinology / notes here***"  style="height: 100px" name="Referral[NOTE][]"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-lg-12" id="textarea_b53">
-                                <div class="form-check form-check-right mb-3">
-                                <textarea class="form-control" placeholder="Enter Elaborate OTHERS / notes here***"  style="height: 100px" name="Referral[NOTE][]"></textarea>
-                                </div>
-                            </div>
+                       
+                          
+                            
+                            
+                        
+                          
                         </div>
                         </div>
 
@@ -2861,7 +2867,8 @@
               
                 </div>
                 <div class="action_btns">
-            <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE DRAFT</a>
+            
+            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE DRAFT</button>
             <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE FINAL</button>
           </div>
             </div>
@@ -2943,68 +2950,42 @@
             });
         })
     </script>
-    <script>
-        $(document).ready(function(){
-            $("#textarea_b48").hide();
-            $("#textarea_b49").hide();
-            $("#textarea_b50").hide();
-            $("#textarea_b51").hide();
-            $("#textarea_b52").hide();
-            $("#textarea_b53").hide();
-    
-    
-    
-            $("#formRadiosRightb48").click(function(){
-                $("#textarea_b48").show();
-                $("#textarea_b49").hide();
-                $("#textarea_b50").hide();
-                $("#textarea_b51").hide();
-                $("#textarea_b52").hide();
-                $("#textarea_b53").hide();
-            });
-            $("#formRadiosRightb49").click(function(){
-                $("#textarea_b48").hide();
-                $("#textarea_b49").show();
-                $("#textarea_b50").hide();
-                $("#textarea_b51").hide();
-                $("#textarea_b52").hide();
-                $("#textarea_b53").hide();
-            });
-            $("#formRadiosRightb50").click(function(){
-                $("#textarea_b48").hide();
-                $("#textarea_b49").hide();
-                $("#textarea_b50").show();
-                $("#textarea_b51").hide();
-                $("#textarea_b52").hide();
-                $("#textarea_b53").hide();
-            });
-            $("#formRadiosRightb51").click(function(){
-                $("#textarea_b48").hide();
-                $("#textarea_b49").hide();
-                $("#textarea_b50").hide();
-                $("#textarea_b51").show();
-                $("#textarea_b52").hide();
-                $("#textarea_b53").hide();
-            });
-            $("#formRadiosRightb52").click(function(){
-                $("#textarea_b48").hide();
-                $("#textarea_b49").hide();
-                $("#textarea_b50").hide();
-                $("#textarea_b51").hide();
-                $("#textarea_b52").show();
-                $("#textarea_b53").hide();
-            });
-            $("#formRadiosRightb53").click(function(){
-                $("#textarea_b48").hide();
-                $("#textarea_b49").hide();
-                $("#textarea_b50").hide();
-                $("#textarea_b51").hide();
-                $("#textarea_b52").hide();
-                $("#textarea_b53").show();
-            });
-           
-        })
-    </script>
+   <script>
+    $(document).ready(function(){
+        $("#textarea_b48").hide();
+        $("#textarea_b49").hide();
+        $("#textarea_b50").hide();
+        $("#textarea_b51").hide();
+        $("#textarea_b52").hide();
+        $("#textarea_b53").hide();
+
+
+
+        $("#formRadiosRightb48").click(function(){
+            $("#textarea_b48").toggle();
+        
+        });
+        $("#formRadiosRightb49").click(function(){
+            $("#textarea_b49").toggle();
+        });
+        $("#formRadiosRightb50").click(function(){
+           $("#textarea_b50").toggle();
+        
+        });
+        $("#formRadiosRightb51").click(function(){
+            $("#textarea_b51").toggle();
+          
+        });
+        $("#formRadiosRightb52").click(function(){
+            $("#textarea_b52").toggle();
+            
+        });
+        $("#formRadiosRightb53").click(function(){
+            $("#textarea_b53").toggle();
+        });
+       
+    })
+</script>
      <script>
         $(document).ready(function() {
             $("#textarea_z1").hide();
@@ -3065,26 +3046,7 @@
     })
 </script>
 
-<script>
-    $(document).ready(function(){
-        $("#textarea_a890").hide();
-        $("#textarea_a789").hide();
-        
-        $("#formRadiosRightbf5").click(function(){
-            $("#textarea_a789").hide();
-        });
-        $("#formRadiosRightbf7").click(function(){
-            $("#textarea_a789").show();
-        });
 
-        $("#formRadiosRightbf8").click(function(){
-            $("#textarea_a890").toggle();
-        });
-        $("#formRadiosRightbf9").click(function(){
-            $("#textarea_a890").toggle();
-        });
-          });
-</script>
 
     {{-- sysmtoms scrore calculation --}}
 <script>
@@ -3229,16 +3191,34 @@
     });
 </script>
 <script>
+    $(document).ready(function(){
+        $("#textarea_a890").hide();
+        $("#textarea_a789").hide();
+        
+        $("#formRadiosRightbf5").click(function(){
+            $("#textarea_a789").hide();
+        });
+        $("#formRadiosRightbf7").click(function(){
+            $("#textarea_a789").show();
+        });
+
+        $("#formRadiosRightbf8").click(function(){
+            $("#textarea_a890").toggle();
+        });
+        $("#formRadiosRightbf9").click(function(){
+            $("#textarea_a890").toggle();
+        });
+          });
+</script>
+<script>
     $(document).ready(function() {
         $("#textarea_a852").hide();
-        $("#textarea_a789").hide();
+        
 
         $("#formRadiosRightbf1").click(function() {
             $("#textarea_a852").toggle();
         });
-        $("#formRadiosRightbf7").click(function() {
-            $("#textarea_a789").toggle();
-        });
+      
     });
 </script>
 <script>

@@ -18,7 +18,10 @@ class Nurse extends Model implements Authenticatable
         'pathology_price_list_id',
         'status',
         'form_type',
-        'test_type'
+        'test_type',
+        
+        'assigned_id'
+
        
     ];
 }

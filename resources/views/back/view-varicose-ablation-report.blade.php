@@ -7,13 +7,7 @@
 @section('content-section')
 
     @push('custom-css')
-        <style>
-            .wsmainwp {
-
-                background: #f9f9fd;
-
-            }
-        </style>
+       
     @endpush
 
 

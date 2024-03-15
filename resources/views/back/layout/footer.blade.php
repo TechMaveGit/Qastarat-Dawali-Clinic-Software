@@ -1,8 +1,10 @@
-<footer id="footer-3" class="pt-100 footer ft-3-ntr">
+<!-- FOOTER-3
+
+   ============================================= -->
+
+   <footer id="footer-3" class="pt-100 footer ft-3-ntr">
 
     <div class="container">
-
-
 
         @php
             $footer = App\Models\Footer::first();
@@ -12,329 +14,163 @@
 
         <div class="row">
 
-
-
-
-
             <!-- FOOTER LOGO -->
 
+            <!-- FOOTER LOGO -->
             <div class="col-xl-3">
-
                 <div class="footer-info mb-0">
-
-                    <img class="footer-logo" src="{{ url('public/assets') }}/images/new-images/{{ $footer->img }}"
+                    <img class="footer-logo" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
                         alt="footer-logo">
-
-                    <img class="footer-logo-dark" src="{{ url('public/assets') }}/images/new-images/{{ $footer->img2 }}"
+                    <img class="footer-logo-dark" src="{{ asset('public/assets/images/new-images/qastrat-logo2.png') }}"
                         alt="footer-logo">
-
                 </div>
-
-                <p class="intro_para">{{ $footer->desc }}</p>
-
+                <p class="intro_para">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore inventore
+                    sapiente corporis voluptates at rerum.</p>
             </div>
 
-
-
-
-
             <!-- FOOTER LINKS -->
-
             <div class="col-sm-4 col-lg-3 col-xl-2">
-
                 <div class="footer-links fl-1">
 
-
-
                     <!-- Title -->
-
                     <h6 class="s-17 w-700">Quick Links</h6>
 
-
-
                     <!-- Links -->
-
                     <ul class="foo-links clearfix">
-
                         <li>
-
-                            <p><a href="{{ route('front.home.page') }}">Home</a></p>
-
+                            <p><a href="#">Home</a></p>
                         </li>
-
                         <li>
-
                             <p><a href="#">Patients</a></p>
-
                         </li>
-
                         <li>
-
-                            <p><a href="{{ route('front.service.page') }}">Services</a></p>
-
+                            <p><a href="#">Services</a></p>
                         </li>
-
                         <li>
-
                             <p><a href="#">Contact Us</a></p>
-
                         </li>
-
                     </ul>
 
-
-
                 </div>
-
             </div> <!-- END FOOTER LINKS -->
 
 
-
-
-
-
-
-
-
-
-
             <!-- FOOTER LINKS -->
-
             <div class="col-sm-4 col-lg-3 col-xl-2">
-
                 <div class="footer-links fl-3">
 
-
-
                     <!-- Title -->
-
                     <h6 class="s-17 w-700">Legal</h6>
 
-
-
                     <!-- Links -->
-
                     <ul class="foo-links clearfix">
-
                         <li>
-
                             <p><a href="#">Terms of Use</a></p>
-
                         </li>
-
                         <li>
-
                             <p><a href="#">Privacy Policy</a></p>
-
                         </li>
-
                         <li>
-
                             <p><a href="#">Cookie Policy</a></p>
-
                         </li>
-
-
 
                     </ul>
 
-
-
                 </div>
-
             </div> <!-- END FOOTER LINKS -->
 
             <!-- FOOTER LINKS -->
-
             <div class="col-sm-4 col-lg-3 col-xl-2">
-
                 <div class="footer-links fl-3">
 
-
-
                     <!-- Title -->
-
                     <h6 class="s-17 w-700">Quick Connect</h6>
 
-
-
                     <!-- Links -->
-
                     <ul class="foo-links clearfix address_ul">
-
                         <li><i class="fa-solid fa-location-dot"></i>
-
-                            <p><a href="#">{{ $footer->address }}</a></p>
-
+                            <p><a href="#">Main Branch Muscat - OMAN</a></p>
                         </li>
-
                         <li><i class="fa-solid fa-envelope"></i>
-
-                            <p><a href="#">{{ $footer->email }}</a></p>
-
+                            <p><a href="mailto:admin@qastaratclinics.com">admin@qastaratclinics.com</a></p>
                         </li>
-
                         <li><i class="fa-solid fa-phone"></i>
-
-                            <p><a href="#">+91-{{ $footer->phone }}</a></p>
-
+                            <p><a href="tel:+971581114000">+971581114000</a></p>
                         </li>
-
-
 
                     </ul>
 
-
-
                 </div>
-
             </div> <!-- END FOOTER LINKS -->
 
 
 
             <!-- FOOTER NEWSLETTER FORM -->
-
             <div class="col-sm-10 col-md-8 col-lg-4 col-xl-3">
-
                 <div class="footer-form">
 
-
-
                     <!-- Title -->
-
                     <h6 class="s-17 w-700">Follow the Best</h6>
 
-
-
                     <!-- Newsletter Form Input -->
-
                     <form class="newsletter-form">
 
-
-
                         <div class="input-group r-06">
-
                             <input type="email" class="form-control" placeholder="Email Address" required
                                 id="s-email">
-
                             <span class="input-group-btn ico-15">
-
                                 <button type="submit" class="btn color--theme">
-
                                     <span class="flaticon-right-arrow-1 submit_btn"></span>
-
                                 </button>
-
                             </span>
-
                         </div>
 
-
-
                         <!-- Newsletter Form Notification -->
-
                         <label for="s-email" class="form-notification"></label>
-
-
 
                     </form>
 
-
-
                 </div>
-
             </div> <!-- END FOOTER NEWSLETTER FORM -->
-
-
-
 
 
         </div> <!-- END FOOTER CONTENT -->
 
-
-
-
-
         <hr> <!-- FOOTER DIVIDER LINE -->
 
-
-
-
-
         <!-- BOTTOM FOOTER -->
-
         <div class="bottom-footer">
-
             <div class="row row-cols-1 row-cols-md-2 d-flex align-items-center">
 
 
-
-
-
                 <!-- FOOTER COPYRIGHT -->
-
                 <div class="col-lg-8">
-
                     <div class="footer-copyright">
-
-                        <p class="p-sm">{{ $footer->custom_date }}, {{ $footer->footer_content }} <a
+                        <p class="p-sm">2023-24, All Right Reserved by Qastarat & Dawali Clinics - Developed by <a
                                 href="https://techmavesoftware.com/">TechMave Software</a> .</p>
-
                     </div>
-
                 </div>
-
-
-
 
 
                 <!-- FOOTER SOCIALS -->
-
                 <div class="col-lg-4">
-
                     <ul class="bottom-footer-socials ico-20 text-end">
-
-                        <li><a href="{{ $footer->facebook_link }}"><span class="fa-brands fa-facebook-f"></span></a>
-                        </li>
-
-                        <li><a href="{{ $footer->twitter_link }}"><span class="fa-brands fa-x-twitter"></span></a></li>
-
-                        <li><a href="{{ $footer->instagram_link }}"><span class="fa-brands fa-instagram"></span></a>
-                        </li>
-
-                        <li><a href="{{ $footer->linkedin_link }}"><span class="fa-brands fa-linkedin-in"></span></a>
-                        </li>
-
+                        <li><a href="#"><span class="fa-brands fa-facebook-f"></span></a></li>
+                        <li><a href="#"><span class="fa-brands fa-x-twitter"></span></a></li>
+                        <li><a href="#"><span class="fa-brands fa-instagram"></span></a></li>
+                        <li><a href="#"><span class="fa-brands fa-linkedin-in"></span></a></li>
                     </ul>
-
                 </div>
-
                 <!-- <i class="fa-brands fa-x-twitter"></i>
-
-                            <i class="fa-brands fa-facebook-f"></i>
-
-                            <i class="fa-brands fa-instagram"></i>
-
-                            <i class="fa-brands fa-linkedin-in"></i> -->
-
+       <i class="fa-brands fa-facebook-f"></i>
+       <i class="fa-brands fa-instagram"></i>
+       <i class="fa-brands fa-linkedin-in"></i> -->
             </div> <!-- End row -->
-
         </div> <!-- END BOTTOM FOOTER -->
-
-
-
-
 
     </div> <!-- End container -->
 
 </footer> <!-- END FOOTER-3 -->
-
-
-
-
-
-
-
 
 
 </div> <!-- END PAGE CONTENT -->

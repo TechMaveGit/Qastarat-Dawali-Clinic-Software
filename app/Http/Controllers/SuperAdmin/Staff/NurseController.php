@@ -15,10 +15,13 @@ class NurseController extends Controller
 
     public function index()
     {
-        $data['nurse'] = Doctor::select('id','patient_profile_img', 'doctor_id', 'name', 'email','post_code', 'mobile_no')->where('user_type', 'nurse')
-                            ->orderBy('id', 'desc')
-                            ->get();
-        $data['role'] = DB::table('roles')->get();
+        $data['nurse'] =   Doctor::select('id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'post_code', 'mobile_no', 'user_type')
+                                    ->whereNotIn('user_type', ['doctor', 'radiology','pathology'])
+                                    ->orderBy('id', 'desc')
+                                    ->get();
+                            
+
+        $data['role'] = DB::table('roles')->where('id','!=',1)->get();
         return view('superAdmin.nurse.index',$data);
     }
 
@@ -26,6 +29,8 @@ class NurseController extends Controller
     {
         if(request()->isMethod("post"))
         {
+
+           
             $request->validate([
                 'email' => [
                     'required',
@@ -41,7 +46,7 @@ class NurseController extends Controller
                             }
                         }
                         if (!$valid) {
-                            $fail('The ' . $attribute . ' must end with .com or .in');
+                            $fail('The ' . $attribute . ' must end with .com ');
                         }
                     },
                 ],
@@ -89,8 +94,27 @@ class NurseController extends Controller
                 $nurses['patient_profile_img'] = $file_name;
             }
            
-            $nurses['doctor_id'] = "NA".rand('00000','99999'.'0');
-            $nurses['user_type'] = 'nurse';
+            if($nurses['role_id']==11){
+                $nurses['doctor_id'] = "CO".rand('00000','99999'.'0');
+                $nurses['user_type'] = 'Coordinator';
+
+            }elseif($nurses['role_id']==10){
+                $nurses['doctor_id'] = "REC".rand('00000','99999'.'0');
+                $nurses['user_type'] = 'Receptionist';
+            }elseif($nurses['role_id']==6){
+                $nurses['doctor_id'] = "TEL".rand('00000','99999'.'0');
+                $nurses['user_type'] = 'Telecaller';
+            }elseif($nurses['role_id']==5){
+                $nurses['doctor_id'] = "Acc".rand('00000','99999'.'0');
+                $nurses['user_type'] = 'Accountant';
+            }elseif($nurses['role_id']==2){
+                $nurses['doctor_id'] = "NUR".rand('00000','99999'.'0');
+                $nurses['user_type'] = 'Nurse';
+            }
+
+           
+
+
             $nurses['role_id'] = intval($nurses['role_id']);
             $nurses['password'] = Hash::make($request->input('password'));
             $currentDate = $request->input('birth_date');
@@ -131,7 +155,10 @@ class NurseController extends Controller
                  }
             return to_route('nurses.index')->with('message', 'Nurse Updated Successfully.');
         }
-        $data['roles'] = DB::table('roles')->get();
+        $data['roles'] = DB::table('roles')
+                            ->where('id', '!=', 1)
+                            ->get();
+                            
         return view('superAdmin.nurse.create',$data);
     }
 

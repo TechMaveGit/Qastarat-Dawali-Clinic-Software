@@ -94,6 +94,25 @@
                           </div>
                       <!-- /.form-group -->
                       </div>
+                      @php
+                      $roleData=DB::table('roles')->get();
+                      @endphp
+                      
+                       <div class="col-md-3">
+                          <div class="form-group">
+                              <label class="form-label">Role</label>
+                              <select class="form-control select2" name="gendar" style="width: 100%;">
+                                  @foreach($roleData as $addRoleData)
+                                  <option value="{{ $addRoleData->id }}" {{ $addRoleData->name  == $nurse->user_type ? 'selected' : '' }}>{{ $addRoleData->name}}</option>
+                                  @endforeach
+                              </select>
+                              @error('gendar')
+                              <span class="error text-danger">{{ $message }}</span>
+                          @enderror
+                          </div>
+                      <!-- /.form-group -->
+                      </div>
+                      
                       <div class="col-lg-12 mt-3">
                         <div class="title_head">
                             <h4>Phone & Email</h4>

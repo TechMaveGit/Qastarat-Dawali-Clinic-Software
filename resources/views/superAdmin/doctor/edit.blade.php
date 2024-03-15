@@ -261,7 +261,7 @@
                             </div>
                         </div>
                         @php
-                        $doctors = \App\Models\superAdmin\Doctor::where('user_type','nurse')->get();
+                        $doctors = \App\Models\superAdmin\Doctor::where('user_type','Coordinator')->get();
                         $doctor_nurses=DB::table('doctor_nurse')->select('id','doctor_id','nurse_id')->where('doctor_id',@$id)->get();
                         
                         
@@ -269,8 +269,8 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Select Nurse<span class="clr"> * </span></label>
-                                <select class="form-control select2 form-select" name="nurse[]" style="width: 100%;" multiple>
+                                <label class="form-label">Select coordinator<span class="clr"> * </span></label>
+                                <select class="form-control select2 form-select" name="coordinator[]" style="width: 100%;" multiple>
                                     <option value="">Select Any One </option>
                                     @forelse ($doctors as $doctor)
                                         @php
@@ -288,7 +288,7 @@
                                 </select>
                                 
                             </div>
-                                @error('nurse')
+                                @error('coordinator')
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                 @enderror
                         </div>
