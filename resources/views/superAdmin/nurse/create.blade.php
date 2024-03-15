@@ -142,7 +142,7 @@
                                     <label class="form-label">Password <span class="clr">*</span></label>
                                     <div class="wrap-input">
                                         <input type="password" name="password" id="password" class="form-control" placeholder="">
-                                        <span class="btn-show-pass ico-20 " >
+                                        <span class="btn-show-pass ico-20 ">
                                             <span class="  eye-pass flaticon-visibility "></span>
                                         </span>
                                     </div>

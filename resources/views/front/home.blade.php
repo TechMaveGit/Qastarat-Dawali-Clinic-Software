@@ -17,9 +17,9 @@
                     <div class="hero-15-txt wow fadeInRight">
 
                         <div class="ContentLoginbanner">
-
-                            <h6>Hello future , <img src="{{ asset('public/assets/images/new-images/hi.png') }}"
-                                    alt=""> <br>
+{{-- <img src="{{ asset('public/assets/images/new-images/hi.png') }}"
+                                    alt=""> --}}
+                            <h6>  <br>
                                 Welcome to Qastarat clinics platform</h6>
                             <h2 class="bnr_title">Amazing therapies of Future <span>..delivered today!</span></h2>
 
@@ -829,8 +829,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center_section">
-                        <h6 class="center_sub_title">Our doctors</h6>
-                        <h1 class="center_title">Professional Qastarat Team </h1>
+                        <h6 class="center_sub_title">Our Teams</h6>
+                        <h1 class="center_title"> </h1>
                     </div>
                 </div>
             </div>
@@ -1219,7 +1219,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Patient Login</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <iconify-icon icon="entypo:cross"></iconify-icon>
                     </button>
@@ -1231,18 +1231,18 @@
                         <form class="form_container loginFormcontainer" id="patientLoginForm" method="POST">
 								@csrf
                             <div class="input_container">
-                                <label class="input_label" for="email_field">Email</label>
+                                <label class="input_label" for="email_field"></label>
                                 <iconify-icon icon="mage:email" class="icon"></iconify-icon>
-                                <input placeholder="Enter your Email" title="Inpit title" name="email"
+                                <input placeholder="Enter Email" title="Inpit title" name="email"
                                     type="text" class="input_field" id="email_field">
 									
                             </div>
 							<span class="text-danger" style="font-size: 14px" id="emailError"></span>
 							
                             <div class="input_container">
-                                <label class="input_label" for="password_field">Password</label>
+                                <label class="input_label" for="password_field">&nbsp;</label>
                                 <iconify-icon icon="mdi:password-minus-outline" class="icon"></iconify-icon>
-                                <input placeholder="Enter your Password" title="Input title" name="password"
+                                <input placeholder="Enter Password" title="Input title" name="password"
                                     type="password" class="input_field" id="password_field">
                                 <!-- Eye icon to toggle password visibility -->
                                 <iconify-icon class="eyeiconpassword" icon="mdi:eye-outline"
@@ -1254,12 +1254,12 @@
                                 <span>Log In</span>
 							</button>
 
-                            <button title="Sign In" type="submit" class="sign-in_ggl">
+                            {{-- <button title="Sign In" type="submit" class="sign-in_ggl">
 
                                 <span>Not Registered? Request an access</span>
-                            </button>
+                            </button> --}}
 
-                            <a href="##" class="note">Forgot password? RESET here
+                            <a href="##" class="note">Forgot password?
                             </a>
                         </form>
 
@@ -1277,7 +1277,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">IR Staff Login</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <iconify-icon icon="entypo:cross"></iconify-icon>
                     </button>
@@ -1285,20 +1285,20 @@
                 <div class="modal-body">
                     <div class="FormpatientLoginContainer">
 
-                        <h6 class="role_title"><span>Heal Better</span> <br> Your Treatment without surgical cuts! </h6>
+                        <h6 class="role_title"><span></span> <br> IR Clinic & Patient Management Simplified!  </h6>
                         <form class="form_container loginFormcontainer" id="StaffLoginForm" method="POST">
 								@csrf
                             <div class="input_container">
-                                <label class="input_label" for="staffemail">Email</label>
+                                <label class="input_label" for="staffemail"></label>
                                 <iconify-icon icon="fa6-regular:user" class="icon"></iconify-icon>
-                                <input placeholder="Enter your Email" title="Inpit title" name="email"
+                                <input placeholder="Enter Email" title="Inpit title" name="email"
                                     type="text" class="input_field" id="staffemail">
                             </div>
 							<span class="text-danger" style="font-size: 14px" id="staffemailError"></span>
                             <div class="input_container">
-                                <label class="input_label" for="staffpassword">Password</label>
+                                <label class="input_label" for="staffpassword">&nbsp;</label>
                                 <iconify-icon icon="mdi:password-minus-outline" class="icon"></iconify-icon>
-                                <input placeholder="Enter your Password" title="Input title" name="password"
+                                <input placeholder="Enter Password" title="Input title" name="password"
                                     type="password" class="input_field" id="staffpassword">
                                 <!-- Eye icon to toggle password visibility -->
                                 <iconify-icon class="eyeiconpassword" icon="mdi:eye-outline"
@@ -1309,12 +1309,12 @@
                                 <span>Log In</span>
 							</button>
 
-                            <button title="Sign In" class="sign-in_ggl">
+                            {{-- <button title="Sign In" class="sign-in_ggl">
 
                                 <span>Not Registered? Request an access</span>
-                            </button>
+                            </button> --}}
 
-                            <a href="##" class="note">Forgot password? RESET here
+                            <a href="##" class="note">Forgot password?
                             </a>
                         </form>
 
@@ -1357,7 +1357,7 @@
 
     <script>
         function togglePasswordVisibility2() {
-            var passwordField = document.getElementById("password_field2");
+            var passwordField = document.getElementById("staffpassword");
             var icon = document.querySelector('.iconify-icon');
             if (passwordField.type === "password") {
                 passwordField.type = "text";
@@ -1454,8 +1454,8 @@
 
 						if (result.error==200) {
 							swal.fire(
-								'Success',
-								'Patient Login successfully!',
+								'',
+								'Login successfully!',
 								'success'
 							).then(function() {
                                                 
@@ -1546,8 +1546,8 @@
 
 						if (result.error==200) {
 							swal.fire(
-								'Success',
-								'Staff Login successfully!',
+								'',
+								'Login successfully!',
 								'success'
 							).then(function() {
                                                 

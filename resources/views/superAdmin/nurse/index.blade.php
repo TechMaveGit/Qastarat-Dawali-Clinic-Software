@@ -36,7 +36,7 @@
 <div class="content-wrapper">
 	  <div class="container-full">
 	<!-- Content Header (Page header) -->
-    <div class="content-header">
+    {{-- <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">All staffs</h4>
         <nav aria-label="breadcrumb">
@@ -47,7 +47,7 @@
             </nav>
         </div>
 
-		</div>
+		</div> --}}
         <section class="content">
         <div class="row">
         <div class="col-12">

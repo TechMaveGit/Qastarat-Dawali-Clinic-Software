@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ asset('public/superAdmin/images/newimages/iconlogo.png')}}">
+	<link class="dark-theme-img" rel="icon" href="{{ asset('public/assets/images/new-images/logofwhite.png') }}" type="image/x-icon">
 
     @stack('title')
 
@@ -348,7 +348,7 @@
 					<ul class="treeview-menu" {{ Route::is('price.pathologyPriceList','price.radiologyPriceList','price.radiologyPriceList') ? 'active menu-open' : '' }}>
 							<li {{ Route::is('price.pathologyPriceList') ? 'active' : '' }}><a href="{{ route('price.pathologyPriceList') }}"><i class="fa-solid fa-minus"></i> Pathology Price</a></li>
 							<li {{ Route::is('price.radiologyPriceList') ? 'active' : '' }}><a href="{{ route('price.radiologyPriceList') }}"><i class="fa-solid fa-minus"></i> Radiology Price</a></li>
-							<li><a href="https://techmavesoftwaredev.com/webclinic/admin/other-expense"><i class="fa-solid fa-minus"></i> Other Expense</a></li>
+							<li><a href="{{ route('expense.index') }}"><i class="fa-solid fa-minus"></i> Other Price</a></li>
 					</li>
 					<!-- <li><a href="radiology-department-create.php" class="create_new"><i data-feather="plus-circle"></i> Create New Radio..</a></li> -->
 				  </ul>

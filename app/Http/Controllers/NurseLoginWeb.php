@@ -98,10 +98,11 @@ class NurseLoginWeb extends Controller
 
     public function labDocumentUpload(Request $request)
     {
-            // dd($request->all());
+          
             $task_id=(int)$request->task_id;
         if ($request->file('document') != '') {
             $document = $request->file('document');
+        
             $rename_document = rand() . '.' . $document->getClientOriginalExtension();
             $document->move(public_path('assets/labTestDocument'), $rename_document);
            

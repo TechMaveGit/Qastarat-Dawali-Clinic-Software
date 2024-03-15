@@ -20,7 +20,7 @@
 
 		<!-- FAVICON AND TOUCH ICONS -->
 
-		<link rel="icon" href="{{ url('public/assets') }}/images/new-images/favicon-qastarat.png" type="image/x-icon">
+		<link class="dark-theme-img" rel="icon" href="{{ asset('public/assets/images/new-images/logofwhite.png') }}" type="image/x-icon">
 
 
 
@@ -310,7 +310,7 @@
 
                                     <!-- SIMPLE NAVIGATION LINK -->
 
-							    	<li class="nl-simple" aria-haspopup="true"><a href="#" class="h-link">Services</a></li>
+							    	<li class="nl-simple {{  request()->routeIs('front.service.page') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('front.service.page') }}" class="h-link">Services</a></li>
 
 
 

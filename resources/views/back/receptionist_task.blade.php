@@ -32,7 +32,7 @@ foreach($D as $v)
             <div class="col-lg-12">
                 <div class="card listtableCard">
                     <div class="card-body p-0">
-                        <h4 class="cr_title_kj">Tests List</h4>
+                        <h4 class="cr_title_kj">All Tests</h4>
                         <div class="inner_tb_flo">
                             <table class="table task_table listTable_custom  dt-responsive nowrap w-100">
                                 <thead>
@@ -53,7 +53,7 @@ foreach($D as $v)
                                                         <div class="taskOtherDetails">
                                                             <ul class="book_li">
                                                                 <li>
-                                                                    <div class="tb_listTitle_label labe_test">Tests :
+                                                                    <div class="tb_listTitle_label labe_test">Test :
                                                                     </div>
                                                                     @php
                                                                     $pathology_price_list_ids  = json_decode($nurse_task->pathology_price_list_id);
@@ -90,13 +90,14 @@ foreach($D as $v)
                                                             $patient=DB::table('users')->where('id',$nurse_task->patient_id)->first();
                                                            @endphp
                                                             <ul>
-                                                                <li>
-                                                                    <div class="tb_listTitle_label">Patient Id</div>
-                                                                    <span>{{ $patient->patient_id }}</span>
-                                                                </li>
+                                                                
                                                                 <li>
                                                                     <div class="tb_listTitle_label"> Patient Name</div>
                                                                     <span>{{ $patient->name }}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="tb_listTitle_label">Patient Id</div>
+                                                                    <span>{{ $patient->patient_id }}</span>
                                                                 </li>
 
                                                                 <li>
@@ -112,6 +113,15 @@ foreach($D as $v)
                                                                          $receptionist_task_status= DB::table('receptionist_tasks')->where('nurse_task_id',$nurse_task->id)->first();
                                                                          
                                                                     @endphp
+                                                                    <li>
+                                                                        <div class="tb_listTitle_label">Appoinment Date</div>
+                                                                        @if (isset($receptionist_task_status->appoinment_date))
+                                                                        <span>{{ \Carbon\Carbon::parse($receptionist_task_status->appoinment_date)->format('d M, Y') }}</span>
+                                                                        @else
+                                                                        <span>&nbsp;</span>
+                                                                        @endif
+                                                                        
+                                                                    </li>
 
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Status</div>
@@ -127,15 +137,7 @@ foreach($D as $v)
                                                                     
                                                                 </li>
 
-                                                                <li>
-                                                                    <div class="tb_listTitle_label">Appoinment Date</div>
-                                                                    @if (isset($receptionist_task_status->appoinment_date))
-                                                                    <span>{{ \Carbon\Carbon::parse($receptionist_task_status->appoinment_date)->format('d M, Y') }}</span>
-                                                                    @else
-                                                                    <span>&nbsp;</span>
-                                                                    @endif
-                                                                    
-                                                                </li>
+                                                                
 
                                                                 <li class="book_bx_">
                                                                    

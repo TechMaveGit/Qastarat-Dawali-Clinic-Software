@@ -420,7 +420,7 @@ Route::prefix('admin')->group(function () {
         });
 
 
-        Route::name('expense.')->prefix('other-expense')->controller(OtherExpenseController::class)->group(function () {
+        Route::name('expense.')->prefix('other-price')->controller(OtherExpenseController::class)->group(function () {
             Route::match(['get', 'post'], '/', 'index')->name('index');
             Route::match(['get', 'post'], '/add', 'add')->name('add');
             Route::post('/update', 'edit')->name('edit');
