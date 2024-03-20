@@ -68,6 +68,26 @@ class DoctorAuthController extends Controller
 
     }
 
+    public function profile()
+    {
+        return view('back/profile');
+    }
+    public function orderMedicalReport()
+    {
+        return view('back/orderMedicalReport');
+    }
+    public function myRadiologyReport()
+    {
+        return view('back/myRadiologyReport');
+    }
+    public function myLabResult()
+    {
+        return view('back/myLabResult');
+    }
+    public function service()
+    {
+        return view('back/services');
+    }
     public function showRegistrationForm()
     {
         return view('front/sign-up');

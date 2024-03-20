@@ -109,6 +109,11 @@ Route::prefix('login')->group(function () {
         Route::post('task-assigned-to-nurse', [NurseLoginWeb::class, 'taskAssignedToNurse'])->name('taskAssignedToNurse');
         Route::get('task-assigned-to-lab', [NurseLoginWeb::class, 'taskAssignedToLab'])->name('taskAssignedToLab');
         Route::post('lab-document-upload', [NurseLoginWeb::class, 'labDocumentUpload'])->name('labDocumentUpload');
+        Route::get('profile', [DoctorAuthController::class, 'profile'])->name('profile');
+        Route::get('order-medical-report', [DoctorAuthController::class, 'orderMedicalReport'])->name('orderMedicalReport');
+        Route::get('my-radiology-report', [DoctorAuthController::class, 'myRadiologyReport'])->name('myRadiologyReport');
+        Route::get('my-lab-result', [DoctorAuthController::class, 'myLabResult'])->name('myLabResult');
+        Route::get('service', [DoctorAuthController::class, 'service'])->name('service');
 
         Route::get('dashboard', [DoctorDashboadController::class, 'index'])->name('admin.dashboard');
         Route::get('logout', [DoctorAuthController::class, 'logout'])->name('doctor.logout');

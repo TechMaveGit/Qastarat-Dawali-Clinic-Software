@@ -29,7 +29,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
 
         <div class="container">
             <div class="form_inner_dt">
-                <form method="POST" action="{{ route('user.updateShoulderPainEligibilityForms') }}"
+                <form id="updateShoulderPainEligibilityForms" method="POST" action="{{ route('user.updateShoulderPainEligibilityForms') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
@@ -886,8 +886,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[0][3]">{{ trim($disfiguringSymptoms1['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[0][3]">{{ trim($disfiguringSymptoms1['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1056,8 +1055,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[3][3]">{{ trim($disfiguringSymptoms4['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[3][3]">{{ trim($disfiguringSymptoms4['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1113,8 +1111,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[4][3]">{{ trim($disfiguringSymptoms5['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[4][3]">{{ trim($disfiguringSymptoms5['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1172,8 +1169,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[5][3]">{{ trim($disfiguringSymptoms6['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[5][3]">{{ trim($disfiguringSymptoms6['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1231,8 +1227,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[6][3]">{{ trim($disfiguringSymptoms7['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[6][3]">{{ trim($disfiguringSymptoms7['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1987,7 +1982,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewShoulderPainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                       </div>
                                       
                                       <div class="col-lg-12">
@@ -2272,7 +2267,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                 @endphp
 
 <div class="col-lg-12">
-    <h6 class="section_title__">Lab <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+    <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewShoulderPainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
   </div>
   <div class="col-lg-12">
     <div class="title_head">
@@ -2521,7 +2516,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
     
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#"
+                                        <h6 class="section_title__">Special Investigation <a href="javascript:void(0)"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
@@ -3683,7 +3678,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                     @endphp
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Prescription <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Prescription <a target="_blank"  href="{{ route('user.viewShoulderPainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
                                               <h4>ADD A DRUG </h4>
                                           </div>
@@ -3768,7 +3763,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
@@ -4825,6 +4820,344 @@ $("#formRadiosRight_j37").click(function(){
             $('#textarea_122').show();
         });
     })
+</script>
+
+
+{{--  Symptoms fields validation  --}}
+<script>
+    $(document).ready(function() {
+        
+        function validateForm() {
+
+            // Shoulder pain start  
+            var isChecked_sym_a1 = $("#sym_a1").is(":checked");
+           
+            var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
+            
+            var sym_a1_durationType = $("select[name='symptoms[0][2]']").val();
+            var sym_a1_description = $("textarea[name='symptoms[0][3]']").val();
+
+            if (sym_a1_durationValue !== "" || sym_a1_durationType !== "" || sym_a1_description !== "") {
+               
+                if(isChecked_sym_a1 ===false){
+                    
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please fill out Shoulder pain fields in Symptoms.',
+                            confirmButtonText: 'OK'
+                        }).then(function () {
+                            setTimeout(function() {
+                                var elementToScroll = document.getElementById('sym_a1');
+                                if (elementToScroll) {
+                                    // Scroll to the element's position
+                                    elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                                }
+                            }, 1000);
+                        });
+                        return false;
+                 }
+
+
+        }
+// Shoulder pain end  
+
+
+// Shoulder joint Stiffness start
+var isChecked_sym_a2 = $("#sym_a2").is(":checked");
+           
+           var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
+           
+           var sym_a2_durationType = $("select[name='symptoms[1][2]']").val();
+           var sym_a2_description = $("textarea[name='symptoms[1][3]']").val();
+
+           if (sym_a2_durationValue !== "" || sym_a2_durationType !== "" || sym_a2_description !== "") {
+              
+               if(isChecked_sym_a2 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Shoulder joint Stiffness fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a2');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Shoulder joint Stiffness end 
+
+
+
+// Shoulder Muscle Spasm start
+var isChecked_sym_a3 = $("#sym_a3").is(":checked");
+           
+           var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
+           
+           var sym_a3_durationType = $("select[name='symptoms[2][2]']").val();
+           var sym_a3_description = $("textarea[name='symptoms[2][3]']").val();
+
+           if (sym_a3_durationValue !== "" || sym_a3_durationType !== "" || sym_a3_description !== "") {
+              
+               if(isChecked_sym_a3 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Shoulder Muscle Spasm fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a3');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Shoulder Muscle Spasm end 
+
+
+//   Pain to distal arm start
+var isChecked_sym_a4 = $("#sym_a4").is(":checked");
+           
+           var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
+           
+           var sym_a4_durationType = $("select[name='symptoms[3][2]']").val();
+           var sym_a4_description = $("textarea[name='symptoms[3][3]']").val();
+
+           if (sym_a4_durationValue !== "" || sym_a4_durationType !== "" || sym_a4_description !== "") {
+              
+               if(isChecked_sym_a4 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out  Pain to distal arm fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a4');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//   Pain to distal arm end 
+
+
+
+//  Numbness on lifting weight start
+var isChecked_sym_a5 = $("#sym_a5").is(":checked");
+           
+           var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
+           
+           var sym_a5_durationType = $("select[name='symptoms[4][2]']").val();
+           var sym_a5_description = $("textarea[name='symptoms[4][3]']").val();
+
+           if (sym_a5_durationValue !== "" || sym_a5_durationType !== "" || sym_a5_description !== "") {
+              
+               if(isChecked_sym_a5 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out  Numbness on lifting weight fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a5');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Numbness on lifting weight end 
+
+
+
+//   Pain on lifting weight start
+var isChecked_sym_a6 = $("#sym_a6").is(":checked");
+           
+           var sym_a6_durationValue = $("select[name='symptoms[5][1]']").val();
+           
+           var sym_a6_durationType = $("select[name='symptoms[5][2]']").val();
+           var sym_a6_description = $("textarea[name='symptoms[5][3]']").val();
+
+           if (sym_a6_durationValue !== "" || sym_a6_durationType !== "" || sym_a6_description !== "") {
+              
+               if(isChecked_sym_a6 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out  Pain on lifting weight fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a6');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//   Pain on lifting weight end 
+
+
+
+//  Warm Shoulder  start
+var isChecked_sym_aa6 = $("#sym_aa6").is(":checked");
+           
+           var sym_aa6_durationValue = $("select[name='symptoms[6][1]']").val();
+           
+           var sym_aa6_durationType = $("select[name='symptoms[6][2]']").val();
+           var sym_aa6_description = $("textarea[name='symptoms[6][3]']").val();
+
+           if (sym_aa6_durationValue !== "" || sym_aa6_durationType !== "" || sym_aa6_description !== "") {
+              
+               if(isChecked_sym_aa6 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Warm Shoulder fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_aa6');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Warm Shoulder  end 
+
+
+//  Other start
+var isChecked_sym_a18= $("#sym_a18").is(":checked");
+           
+           var sym_a18_durationValue = $("select[name='symptoms[17][1]']").val();
+           
+           var sym_a18_durationType = $("select[name='symptoms[17][2]']").val();
+           var sym_a18_description = $("textarea[name='symptoms[17][3]']").val();
+
+           if (sym_a18_durationValue !== "" || sym_a18_durationType !== "" || sym_a18_description !== "") {
+              
+               if(isChecked_sym_a18 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Other fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a18');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Other end 
+            return true; 
+        }
+
+        
+        $("#updateShoulderPainEligibilityForms").submit(function(event) {
+            
+            event.preventDefault();
+            let formData = new FormData(this);
+            if (!validateForm()) {
+                e.preventDefault(); 
+            } 
+            else {
+                if(validateForm()){
+
+                
+                
+                $.ajax({
+                                url: '{{ route("user.updateShoulderPainEligibilityForms") }}',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(response) {
+                                    
+                                    var patientId = response.patient_id;
+                                    if(response!=''){
+              
+                                        swal.fire(
+              
+                                            'Success',
+              
+                                            'Shoulder Pain form updated successfully!',
+              
+                                            'success'
+              
+                                        ).then(function() {
+                                                
+                                               
+                                            var redirectUrl = "{{ route('user.viewShoulderPainEligibilityForms', ['id' => ':id']) }}";
+                                            redirectUrl = redirectUrl.replace(':id', patientId);
+                                            window.location.href = redirectUrl;
+                                            });
+                                       
+                                       
+                                        }
+                                }
+                             
+                                
+                            });
+              
+                
+            }
+        }
+        });
+    });
 </script>
     @endpush
 @endsection

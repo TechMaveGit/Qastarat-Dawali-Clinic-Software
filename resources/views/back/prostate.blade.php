@@ -29,7 +29,7 @@
 
         <div class="container">
             <div class="form_inner_dt">
-                <form method="POST" action="{{ route('user.storeProstateEligibilityForms') }}"
+                <form id="storeProstateEligibilityForms" method="POST" action="{{ route('user.storeProstateEligibilityForms') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
@@ -442,8 +442,7 @@
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[0][3]"></textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[0][3]"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -679,8 +678,7 @@
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[3][3]"></textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[3][3]"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1608,8 +1606,8 @@
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Order Now <i
+                                        <h6 class="section_title__">Clinical Exam <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
@@ -1677,8 +1675,8 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Order Now <i
+                                        <h6 class="section_title__">Imaging <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
                                             <h4>USGENERAL70 </h4>
@@ -2013,7 +2011,7 @@
                                     <div class="col-lg-12">
                                         <h6 class="section_title__">Image Annotation</h6>
                                         <div class="title_head">
-                                            <h4>Annotate Thyroid / Parathyroid findings</h4>
+                                            <h4>Annotate prostate  findings</h4>
                                         </div>
                                         <!-- <h6 class="mb-3 lut_title">Calculate TI-RARDS - RIGHT LOBE score</h6> -->
                                     </div>
@@ -2035,7 +2033,7 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Lab <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                       </div>
                                         <div class="col-lg-12">
                                           <div class="title_head">
@@ -2224,7 +2222,7 @@
                                           </div>
                                       </div>
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Special Investigation <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
                                               <h4>REQUROFLONONI5</h4>
                                           </div>
@@ -2317,8 +2315,8 @@
             
                                       </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Medical Record <i
+                                        <h6 class="section_title__">MDT <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
                                     <div class="col-lg-12">
@@ -2397,8 +2395,8 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Medical Record <i
+                                        <h6 class="section_title__">Elegibility STATUS <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
                                     <div class="col-lg-12">
@@ -2476,7 +2474,7 @@
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <h6 class="section_title__">Intervention PROCEDURE / Rx <a
-                                                target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
+                                            href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
                                     <div class="col-lg-12">
@@ -2534,8 +2532,8 @@
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Medical Record <i
+                                        <h6 class="section_title__">Supportive <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
                                     <div class="col-lg-12">
@@ -2606,7 +2604,7 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
@@ -3196,6 +3194,446 @@
             $("#textarea_a890").toggle();
         });
           });
+</script>
+
+  
+<script>
+   
+    function showConfirmation() {
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You need to save your current form first!',
+            icon: 'warning',
+            showCancelButton: true,
+            // confirmButtonText: 'save Form',
+            // cancelButtonText: 'Cancel'
+        })
+
+        // .then((result) => {
+            // if (result.isConfirmed) {
+               
+            //    window.location.href = "{{ route('user.updateHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}";
+        //    }
+    //    });
+    }
+
+        $(document).ready(function(){
+            $(".order-now_btn_alt").on('click',function(event){
+                event.preventDefault();
+                showConfirmation();
+            });
+    });
+   
+</script>
+
+
+
+{{--  Symptoms fields validation  --}}
+<script>
+    $(document).ready(function() {
+        
+        function validateForm() {
+
+            // Urinary Frequency start  
+            var isChecked_sym_a1 = $("#sym_a1").is(":checked");
+           
+            var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
+            
+            var sym_a1_durationType = $("select[name='symptoms[0][2]']").val();
+            var sym_a1_description = $("textarea[name='symptoms[0][3]']").val();
+
+            if (sym_a1_durationValue !== "" || sym_a1_durationType !== "" || sym_a1_description !== "") {
+               
+                if(isChecked_sym_a1 ===false){
+                    
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please fill out Urinary Frequency fields in Symptoms.',
+                            confirmButtonText: 'OK'
+                        }).then(function () {
+                            setTimeout(function() {
+                                var elementToScroll = document.getElementById('sym_a1');
+                                if (elementToScroll) {
+                                    // Scroll to the element's position
+                                    elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                                }
+                            }, 1000);
+                        });
+                        return false;
+                 }
+
+
+        }
+// Urinary Frequency end  
+
+
+// Urgency start
+var isChecked_sym_a2 = $("#sym_a2").is(":checked");
+           
+           var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
+           
+           var sym_a2_durationType = $("select[name='symptoms[1][2]']").val();
+           var sym_a2_description = $("textarea[name='symptoms[1][3]']").val();
+
+           if (sym_a2_durationValue !== "" || sym_a2_durationType !== "" || sym_a2_description !== "") {
+              
+               if(isChecked_sym_a2 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Urgency fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a2');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Urgency end 
+
+
+
+// Intermittency start
+var isChecked_sym_a3 = $("#sym_a3").is(":checked");
+           
+           var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
+           
+           var sym_a3_durationType = $("select[name='symptoms[2][2]']").val();
+           var sym_a3_description = $("textarea[name='symptoms[2][3]']").val();
+
+           if (sym_a3_durationValue !== "" || sym_a3_durationType !== "" || sym_a3_description !== "") {
+              
+               if(isChecked_sym_a3 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Intermittency fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a3');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Intermittency end 
+
+
+//  Straining start
+var isChecked_sym_a4 = $("#sym_a4").is(":checked");
+           
+           var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
+           
+           var sym_a4_durationType = $("select[name='symptoms[3][2]']").val();
+           var sym_a4_description = $("textarea[name='symptoms[3][3]']").val();
+
+           if (sym_a4_durationValue !== "" || sym_a4_durationType !== "" || sym_a4_description !== "") {
+              
+               if(isChecked_sym_a4 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Straining fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a4');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Straining end 
+
+
+
+//  Weak Stream start
+var isChecked_sym_a5 = $("#sym_a5").is(":checked");
+           
+           var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
+           
+           var sym_a5_durationType = $("select[name='symptoms[4][2]']").val();
+           var sym_a5_description = $("textarea[name='symptoms[4][3]']").val();
+
+           if (sym_a5_durationValue !== "" || sym_a5_durationType !== "" || sym_a5_description !== "") {
+              
+               if(isChecked_sym_a5 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Weak Stream fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a5');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Weak Stream end 
+
+
+
+//  Incomplete emptying start
+var isChecked_sym_a7= $("#sym_a7").is(":checked");
+           
+           var sym_a7_durationValue = $("select[name='symptoms[6][1]']").val();
+           
+           var sym_a7_durationType = $("select[name='symptoms[6][2]']").val();
+           var sym_a7_description = $("textarea[name='symptoms[6][3]']").val();
+
+           if (sym_a7_durationValue !== "" || sym_a7_durationType !== "" || sym_a7_description !== "") {
+              
+               if(isChecked_sym_a7 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Incomplete emptying fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a7');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Incomplete emptying end 
+
+
+
+//  Nocturia start
+var isChecked_sym_a8 = $("#sym_a8").is(":checked");
+           
+           var sym_a8_durationValue = $("select[name='symptoms[7][1]']").val();
+           
+           var sym_a8_durationType = $("select[name='symptoms[7][2]']").val();
+           var sym_a8_description = $("textarea[name='symptoms[7][3]']").val();
+
+           if (sym_a8_durationValue !== "" || sym_a8_durationType !== "" || sym_a8_description !== "") {
+              
+               if(isChecked_sym_a8 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Nocturia fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a8');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Nocturia end 
+
+
+
+//   Erectile Dysfunction start
+var isChecked_sym_a9 = $("#sym_a9").is(":checked");
+           
+           var sym_a9_durationValue = $("select[name='symptoms[8][1]']").val();
+           
+           var sym_a9_durationType = $("select[name='symptoms[8][2]']").val();
+           var sym_a9_description = $("textarea[name='symptoms[8][3]']").val();
+
+           if (sym_a9_durationValue !== "" || sym_a9_durationType !== "" || sym_a9_description !== "") {
+              
+               if(isChecked_sym_a9 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out  Erectile Dysfunction fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a9');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//   Erectile Dysfunction end 
+
+
+
+//  Recurrent Urinary infections start
+var isChecked_sym_a9 = $("#sym_a10").is(":checked");
+           
+           var _sym_a10_durationValue = $("select[name='symptoms[9][1]']").val();
+           
+           var _sym_a10_durationType = $("select[name='symptoms[9][2]']").val();
+           var _sym_a10_description = $("textarea[name='symptoms[9][3]']").val();
+
+           if (_sym_a10_durationValue !== "" || _sym_a10_durationType !== "" || _sym_a10_description !== "") {
+              
+               if(isChecked_sym_a10 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Recurrent Urinary infections fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a10');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Recurrent Urinary infections end 
+
+
+// Other start
+var isChecked_sym_a18 = $("#sym_a18").is(":checked");
+           
+           var sym_a18_durationValue = $("select[name='symptoms[17][1]']").val();
+           
+           var sym_a18_durationType = $("select[name='symptoms[17][2]']").val();
+           var sym_a18_description = $("textarea[name='symptoms[17][3]']").val();
+
+           if (sym_a18_durationValue !== "" || sym_a18_durationType !== "" || sym_a18_description !== "") {
+              
+               if(isChecked_sym_a18 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Other fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a18');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Other end
+            return true; 
+        }
+
+        
+        $("#storeProstateEligibilityForms").submit(function(event) {
+            
+            event.preventDefault();
+            let formData = new FormData(this);
+            if (!validateForm()) {
+                e.preventDefault(); 
+            } 
+            else {
+                if(validateForm()){
+
+                
+                
+                $.ajax({
+                                url: '{{ route("user.storeProstateEligibilityForms") }}',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(response) {
+                                    
+                                    var patientId = response.patient_id;
+                                    if(response!=''){
+              
+                                        swal.fire(
+              
+                                            'Success',
+              
+                                            'Prostate form saved successfully!',
+              
+                                            'success'
+              
+                                        ).then(function() {
+                                                
+                                               
+                                            var redirectUrl = "{{ route('user.ViewProstateEligibilityForms', ['id' => ':id']) }}";
+                                            redirectUrl = redirectUrl.replace(':id', patientId);
+                                            window.location.href = redirectUrl;
+                                            });
+                                       
+                                       
+                                        }
+                                }
+                             
+                                
+                            });
+              
+                
+            }
+        }
+        });
+    });
 </script>
     @endpush
 @endsection

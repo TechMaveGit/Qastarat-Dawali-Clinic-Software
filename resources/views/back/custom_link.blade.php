@@ -344,37 +344,6 @@
 </div>
 @endif
 
-@php
-
-    $HeadachePain_form_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
-        ->where(['patient_id' => $patient->id, 'form_type' => 'HeadachePain'])
-        ->first();
-
-    if ($HeadachePain_form_Eligibility_Forms !== null) {
-        $HeadachePain_form_Eligibility_Forms = $HeadachePain_form_Eligibility_Forms->toArray();
-    } else {
-        $HeadachePain_form_Eligibility_Forms = [];
-    }
-@endphp
-    @if (in_array($patient_ids, $HeadachePain_form_Eligibility_Forms))
-    <div class="customdotdropdown fill_forms_icon">
-  <div class="buttondrop_dot action_btn_tooltip form8e_bg">
-    <iconify-icon icon="healthicons:health-worker-form-outline" width="22"></iconify-icon>
-    <span class="toolTip">Headache Pain</span>
-  </div>
-  <div class="dropdown-content">
-    <a href="{{ route('user.viewHeadachePainEligibilityForms', ['id' => @$id]) }}"
-        class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
-    </a>
-    <a target="_blank"
-        href="{{ route('user.editHeadachePainEligibilityForms', ['patient_id' => @$id]) }}"
-        class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
-    </a>
-    
-  </div>
-</div>
-@endif
-
 
 
 @php
@@ -401,6 +370,37 @@
     </a>
     <a target="_blank"
         href="{{ route('user.editVaricoceleEmboEligibilityForms', ['patient_id' => @$id]) }}"
+        class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
+    </a>
+    
+  </div>
+</div>
+@endif
+
+@php
+
+    $HeadachePain_form_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+        ->where(['patient_id' => $patient->id, 'form_type' => 'HeadachePain'])
+        ->first();
+
+    if ($HeadachePain_form_Eligibility_Forms !== null) {
+        $HeadachePain_form_Eligibility_Forms = $HeadachePain_form_Eligibility_Forms->toArray();
+    } else {
+        $HeadachePain_form_Eligibility_Forms = [];
+    }
+@endphp
+    @if (in_array($patient_ids, $HeadachePain_form_Eligibility_Forms))
+    <div class="customdotdropdown fill_forms_icon">
+  <div class="buttondrop_dot action_btn_tooltip form8e_bg">
+    <iconify-icon icon="healthicons:health-worker-form-outline" width="22"></iconify-icon>
+    <span class="toolTip">Headache Pain</span>
+  </div>
+  <div class="dropdown-content">
+    <a href="{{ route('user.viewHeadachePainEligibilityForms', ['id' => @$id]) }}"
+        class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
+    </a>
+    <a target="_blank"
+        href="{{ route('user.editHeadachePainEligibilityForms', ['patient_id' => @$id]) }}"
         class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
     </a>
     

@@ -29,7 +29,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
 
         <div class="container">
             <div class="form_inner_dt">
-                <form method="POST" action="{{ route('user.updateKneePainEligibilityForms') }}"
+                <form id="updateKneePainEligibilityForms" method="POST" action="{{ route('user.updateKneePainEligibilityForms') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
@@ -999,8 +999,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[0][3]">{{ trim($disfiguringSymptoms1['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[0][3]">{{ trim($disfiguringSymptoms1['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1169,8 +1168,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[3][3]">{{ trim($disfiguringSymptoms4['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[3][3]">{{ trim($disfiguringSymptoms4['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1226,8 +1224,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[4][3]">{{ trim($disfiguringSymptoms5['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[4][3]">{{ trim($disfiguringSymptoms5['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1285,8 +1282,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[5][3]">{{ trim($disfiguringSymptoms6['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[5][3]">{{ trim($disfiguringSymptoms6['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1344,8 +1340,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[6][3]">{{ trim($disfiguringSymptoms7['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[6][3]">{{ trim($disfiguringSymptoms7['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1403,8 +1398,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[7][3]">{{ trim($disfiguringSymptoms8['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[7][3]">{{ trim($disfiguringSymptoms8['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1463,8 +1457,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[8][3]">{{ trim($disfiguringSymptoms9['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[8][3]">{{ trim($disfiguringSymptoms9['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1522,8 +1515,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[9][3]">{{ trim($disfiguringSymptoms10['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"  name="symptoms[9][3]">{{ trim($disfiguringSymptoms10['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1581,8 +1573,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[10][3]">{{ trim($disfiguringSymptoms11['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[10][3]">{{ trim($disfiguringSymptoms11['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1640,8 +1631,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[11][3]">{{ trim($disfiguringSymptoms12['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[11][3]">{{ trim($disfiguringSymptoms12['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2506,7 +2496,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                       </div>
                                       
                                       <div class="col-lg-12">
@@ -2840,7 +2830,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                 @endphp
 
 <div class="col-lg-12">
-    <h6 class="section_title__">Lab <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+    <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
   </div>
   <div class="col-lg-12">
     <div class="title_head">
@@ -3125,7 +3115,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
     
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#"
+                                        <h6 class="section_title__">Special Investigation <a href="javascript:void(0)"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
@@ -3901,7 +3891,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <h6 class="section_title__">Intervention PROCEDURE / Rx <a
-                                                target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
+                                            target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
 
@@ -4364,7 +4354,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     @endphp
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Prescription <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Prescription <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
                                               <h4>ADD A DRUG </h4>
                                           </div>
@@ -4460,7 +4450,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
@@ -5430,6 +5420,512 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
         });
         
        
+    });
+</script>
+
+
+{{--  Symptoms fields validation  --}}
+<script>
+    $(document).ready(function() {
+        
+        function validateForm() {
+
+            // Medial knee pain start  
+            var isChecked_sym_a1 = $("#sym_a1").is(":checked");
+           
+            var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
+            
+            var sym_a1_durationType = $("select[name='symptoms[0][2]']").val();
+            var sym_a1_description = $("textarea[name='symptoms[0][3]']").val();
+
+            if (sym_a1_durationValue !== "" || sym_a1_durationType !== "" || sym_a1_description !== "") {
+               
+                if(isChecked_sym_a1 ===false){
+                    
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please fill out Medial knee pain fields in Symptoms.',
+                            confirmButtonText: 'OK'
+                        }).then(function () {
+                            setTimeout(function() {
+                                var elementToScroll = document.getElementById('sym_a1');
+                                if (elementToScroll) {
+                                    // Scroll to the element's position
+                                    elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                                }
+                            }, 1000);
+                        });
+                        return false;
+                 }
+
+
+        }
+// Medial knee pain end  
+
+
+// Anterior Knee Pain start
+var isChecked_sym_a2 = $("#sym_a2").is(":checked");
+           
+           var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
+           
+           var sym_a2_durationType = $("select[name='symptoms[1][2]']").val();
+           var sym_a2_description = $("textarea[name='symptoms[1][3]']").val();
+
+           if (sym_a2_durationValue !== "" || sym_a2_durationType !== "" || sym_a2_description !== "") {
+              
+               if(isChecked_sym_a2 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Anterior Knee Pain fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a2');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Anterior Knee Pain end 
+
+
+
+// Audiable knee sound start
+var isChecked_sym_a3 = $("#sym_a3").is(":checked");
+           
+           var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
+           
+           var sym_a3_durationType = $("select[name='symptoms[2][2]']").val();
+           var sym_a3_description = $("textarea[name='symptoms[2][3]']").val();
+
+           if (sym_a3_durationValue !== "" || sym_a3_durationType !== "" || sym_a3_description !== "") {
+              
+               if(isChecked_sym_a3 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Audiable knee sound fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a3');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Audiable knee sound end 
+
+
+//  Knee swellimg start
+var isChecked_sym_a4 = $("#sym_a4").is(":checked");
+           
+           var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
+           
+           var sym_a4_durationType = $("select[name='symptoms[3][2]']").val();
+           var sym_a4_description = $("textarea[name='symptoms[3][3]']").val();
+
+           if (sym_a4_durationValue !== "" || sym_a4_durationType !== "" || sym_a4_description !== "") {
+              
+               if(isChecked_sym_a4 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Knee swellimg fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a4');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Knee swellimg end 
+
+
+
+// Restricted knee flextion start
+var isChecked_sym_a5 = $("#sym_a5").is(":checked");
+           
+           var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
+           
+           var sym_a5_durationType = $("select[name='symptoms[4][2]']").val();
+           var sym_a5_description = $("textarea[name='symptoms[4][3]']").val();
+
+           if (sym_a5_durationValue !== "" || sym_a5_durationType !== "" || sym_a5_description !== "") {
+              
+               if(isChecked_sym_a5 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Restricted knee flextion fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a5');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Restricted knee flextion end 
+
+
+
+//  Restricted Walking / running start
+var isChecked_sym_a6 = $("#sym_a6").is(":checked");
+           
+           var sym_a6_durationValue = $("select[name='symptoms[5][1]']").val();
+           
+           var sym_a6_durationType = $("select[name='symptoms[5][2]']").val();
+           var sym_a6_description = $("textarea[name='symptoms[5][3]']").val();
+
+           if (sym_a6_durationValue !== "" || sym_a6_durationType !== "" || sym_a6_description !== "") {
+              
+               if(isChecked_sym_a6 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Restricted Walking / running fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a6');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Restricted Walking / running end 
+
+
+
+//  Restricted knee extensiom  start
+var isChecked_sym_aa6 = $("#sym_aa6").is(":checked");
+           
+           var sym_aa6_durationValue = $("select[name='symptoms[6][1]']").val();
+           
+           var sym_aa6_durationType = $("select[name='symptoms[6][2]']").val();
+           var sym_aa6_description = $("textarea[name='symptoms[6][3]']").val();
+
+           if (sym_aa6_durationValue !== "" || sym_aa6_durationType !== "" || sym_aa6_description !== "") {
+              
+               if(isChecked_sym_aa6 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Restricted knee extensiom fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_aa6');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Restricted knee extensiom  end 
+
+
+
+//   Unstable knee / locking knee start
+var isChecked_sym_aaa6 = $("#sym_aaa6").is(":checked");
+           
+           var sym_aaa6_durationValue = $("select[name='symptoms[7][1]']").val();
+           
+           var sym_aaa6_durationType = $("select[name='symptoms[7][2]']").val();
+           var sym_aaa6_description = $("textarea[name='symptoms[7][3]']").val();
+
+           if (sym_aaa6_durationValue !== "" || sym_aaa6_durationType !== "" || sym_aaa6_description !== "") {
+              
+               if(isChecked_sym_aaa6 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out  Unstable knee / locking knee fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_aaa6');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//   Unstable knee / locking knee end 
+
+
+
+//  Deformed Valgus /Varus or Valgus knee start
+var isChecked_sym_aaaa61 = $("#sym_aaaa61").is(":checked");
+           
+           var _sym_aaaa61_durationValue = $("select[name='symptoms[8][1]']").val();
+           
+           var _sym_aaaa61_durationType = $("select[name='symptoms[8][2]']").val();
+           var _sym_aaaa61_description = $("textarea[name='symptoms[8][3]']").val();
+
+           if (_sym_aaaa61_durationValue !== "" || _sym_aaaa61_durationType !== "" || _sym_aaaa61_description !== "") {
+              
+               if(isChecked_sym_aaaa61 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Deformed Valgus /Varus or Valgus knee fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_aaaa61');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Deformed Valgus /Varus or Valgus knee end 
+
+
+//  Warm knee start
+var isChecked_sym_aaaa62 = $("#sym_aaaa62").is(":checked");
+           
+           var _sym_aaaa62_durationValue = $("select[name='symptoms[9][1]']").val();
+           
+           var _sym_aaaa62_durationType = $("select[name='symptoms[9][2]']").val();
+           var _sym_aaaa62_description = $("textarea[name='symptoms[9][3]']").val();
+
+           if (_sym_aaaa62_durationValue !== "" || _sym_aaaa62_durationType !== "" || _sym_aaaa62_description !== "") {
+              
+               if(isChecked_sym_aaaa62 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Warm knee fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_aaaa62');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Warm knee end 
+
+
+//  Lethargy start
+var isChecked_sym_aaaa621 = $("#sym_aaaa621").is(":checked");
+           
+           var sym_aaaa621_durationValue = $("select[name='symptoms[10][1]']").val();
+           
+           var sym_aaaa621_durationType = $("select[name='symptoms[10][2]']").val();
+           var sym_aaaa621_description = $("textarea[name='symptoms[10][3]']").val();
+
+           if (sym_aaaa621_durationValue !== "" || sym_aaaa621_durationType !== "" || sym_aaaa621_description !== "") {
+              
+               if(isChecked_sym_aaaa621 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Lethargy fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_aaaa621');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Lethargy end 
+//  Fatigue start
+var isChecked_sym_aaaa6211 = $("#sym_aaaa6211").is(":checked");
+           
+           var sym_aaaa6211_durationValue = $("select[name='symptoms[11][1]']").val();
+           
+           var sym_aaaa6211_durationType = $("select[name='symptoms[11][2]']").val();
+           var sym_aaaa6211_description = $("textarea[name='symptoms[11][3]']").val();
+
+           if (sym_aaaa6211_durationValue !== "" || sym_aaaa6211_durationType !== "" || sym_aaaa6211_description !== "") {
+              
+               if(isChecked_sym_aaaa6211 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Fatigue fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_aaaa6211');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Fatigue end 
+//  Other start
+var isChecked_sym_a18= $("#sym_a18").is(":checked");
+           
+           var sym_a18_durationValue = $("select[name='symptoms[17][1]']").val();
+           
+           var sym_a18_durationType = $("select[name='symptoms[17][2]']").val();
+           var sym_a18_description = $("textarea[name='symptoms[17][3]']").val();
+
+           if (sym_a18_durationValue !== "" || sym_a18_durationType !== "" || sym_a18_description !== "") {
+              
+               if(isChecked_sym_a18 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Other fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a18');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Other end 
+            return true; 
+        }
+
+        
+        $("#updateKneePainEligibilityForms").submit(function(event) {
+            
+            event.preventDefault();
+            let formData = new FormData(this);
+            if (!validateForm()) {
+                e.preventDefault(); 
+            } 
+            else {
+                if(validateForm()){
+
+                
+                
+                $.ajax({
+                                url: '{{ route("user.updateKneePainEligibilityForms") }}',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(response) {
+                                    
+                                    var patientId = response.patient_id;
+                                    if(response!=''){
+              
+                                        swal.fire(
+              
+                                            'Success',
+              
+                                            'Knee Pain form updated successfully!',
+              
+                                            'success'
+              
+                                        ).then(function() {
+                                                
+                                               
+                                            var redirectUrl = "{{ route('user.viewKneePainEligibilityForms', ['id' => ':id']) }}";
+                                            redirectUrl = redirectUrl.replace(':id', patientId);
+                                            window.location.href = redirectUrl;
+                                            });
+                                       
+                                       
+                                        }
+                                }
+                             
+                                
+                            });
+              
+                
+            }
+        }
+        });
     });
 </script>
     @endpush

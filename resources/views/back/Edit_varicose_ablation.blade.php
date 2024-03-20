@@ -29,7 +29,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
         <div class="container">
             <div class="form_inner_dt">
-                <form method="POST" action="{{ route('user.updateVaricoseAblationEligibilityForms') }}"
+                <form id="updateVaricoseAblationEligibilityForms" method="POST" action="{{ route('user.updateVaricoseAblationEligibilityForms') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
@@ -547,8 +547,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[0][3]">{{ trim($disfiguringSymptoms1['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[0][3]">{{ trim($disfiguringSymptoms1['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -717,8 +716,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[3][3]">{{ trim($disfiguringSymptoms4['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[3][3]">{{ trim($disfiguringSymptoms4['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -774,8 +772,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[4][3]">{{ trim($disfiguringSymptoms5['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[4][3]">{{ trim($disfiguringSymptoms5['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -834,8 +831,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[5][3]">{{ trim($disfiguringSymptoms6['SymptomDurationNote'] ?? '') }}</textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[5][3]">{{ trim($disfiguringSymptoms6['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -849,9 +845,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                     <input class="form-check-input" type="checkbox"
                                                         name="symptoms[6][0]" value="Leg pins & needles"
                                                         id="sym_a7"
-                                                        {{ isset($disfiguringSymptoms7['SymptomType']) && $disfiguringSymptoms7['SymptomType'] == 'Leg pins & needles' ? 'checked' : '' }}
-
-                                                        >
+                                                        {{ isset($disfiguringSymptoms7['SymptomType']) && $disfiguringSymptoms7['SymptomType'] == 'Leg pins & needles' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="sym_a7">
                                                         Leg pins & needles
                                                     </label>
@@ -954,8 +948,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[8][3]">{{ trim($disfiguringSymptoms9['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[8][3]">{{ trim($disfiguringSymptoms9['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -967,10 +960,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[9][0]" id="sym_a9" value="Night cramps"
+                                                        name="symptoms[9][0]" id="sym_a91" value="Night cramps"
                                                         {{ isset($disfiguringSymptoms10['SymptomType']) && $disfiguringSymptoms10['SymptomType'] == 'Night cramps' ? 'checked' : '' }}
                                                         >
-                                                    <label class="form-check-label" for="sym_a9">
+                                                    <label class="form-check-label" for="sym_a91">
                                                         Night cramps
                                                     </label>
                                                 </div>
@@ -1013,8 +1006,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[9][3]">{{ trim($disfiguringSymptoms10['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[9][3]">{{ trim($disfiguringSymptoms10['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1026,10 +1018,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[10][0]" id="sym_a9" value="Skin pigmentation"
+                                                        name="symptoms[10][0]" id="sym_a92" value="Skin pigmentation"
                                                         {{ isset($disfiguringSymptoms11['SymptomType']) && $disfiguringSymptoms11['SymptomType'] == 'Skin pigmentation' ? 'checked' : '' }}
                                                         >
-                                                    <label class="form-check-label" for="sym_a9">
+                                                    <label class="form-check-label" for="sym_a92">
                                                         Skin pigmentation
                                                     </label>
                                                 </div>
@@ -1072,8 +1064,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[10][3]">{{ trim($disfiguringSymptoms11['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[10][3]">{{ trim($disfiguringSymptoms11['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1084,10 +1075,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[11][0]" id="sym_a9" value="General malise"
+                                                        name="symptoms[11][0]" id="sym_a923" value="General malise"
                                                         {{ isset($disfiguringSymptoms12['SymptomType']) && $disfiguringSymptoms12['SymptomType'] == 'General malise' ? 'checked' : '' }}
                                                         >
-                                                    <label class="form-check-label" for="sym_a9">
+                                                    <label class="form-check-label" for="sym_a923">
                                                         General malise
                                                     </label>
                                                 </div>
@@ -1130,8 +1121,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[11][3]">{{ trim($disfiguringSymptoms12['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[11][3]">{{ trim($disfiguringSymptoms12['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1142,10 +1132,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[12][0]" id="sym_a9" value="Leg Ulcers"
+                                                        name="symptoms[12][0]" id="sym_a920" value="Leg Ulcers"
                                                         {{ isset($disfiguringSymptoms13['SymptomType']) && $disfiguringSymptoms13['SymptomType'] == 'Leg Ulcers' ? 'checked' : '' }}
                                                         >
-                                                    <label class="form-check-label" for="sym_a9">
+                                                    <label class="form-check-label" for="sym_a920">
                                                         Leg Ulcers
                                                     </label>
                                                 </div>
@@ -1188,8 +1178,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[12][3]">{{ trim($disfiguringSymptoms13['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[12][3]">{{ trim($disfiguringSymptoms13['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2040,7 +2029,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
@@ -2128,7 +2117,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                       </div>
                                       
                                       <div class="col-lg-12">
@@ -2872,7 +2861,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                 @endphp
 
 <div class="col-lg-12">
-    <h6 class="section_title__">Lab <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+    <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
   </div>
     <div class="col-lg-12">
       <div class="title_head">
@@ -2994,7 +2983,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
@@ -3088,7 +3077,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
@@ -3178,7 +3167,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <h6 class="section_title__">Intervention PROCEDURE / Rx <a
-                                                target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
+                                            target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
 
@@ -3391,7 +3380,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
@@ -4093,6 +4082,511 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
             $("#textarea_a890").toggle();
         });
           });
+</script>
+
+{{--  Symptoms fields validation  --}}
+<script>
+    $(document).ready(function() {
+        
+        function validateForm() {
+
+            // Dilated leg veins start  
+            var isChecked_sym_a1 = $("#sym_a1").is(":checked");
+           
+            var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
+            
+            var sym_a1_durationType = $("select[name='symptoms[0][2]']").val();
+            var sym_a1_description = $("textarea[name='symptoms[0][3]']").val();
+
+            if (sym_a1_durationValue !== "" || sym_a1_durationType !== "" || sym_a1_description !== "") {
+               
+                if(isChecked_sym_a1 ===false){
+                    
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please fill out Dilated leg veins fields in Symptoms.',
+                            confirmButtonText: 'OK'
+                        }).then(function () {
+                            setTimeout(function() {
+                                var elementToScroll = document.getElementById('sym_a1');
+                                if (elementToScroll) {
+                                    // Scroll to the element's position
+                                    elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                                }
+                            }, 1000);
+                        });
+                        return false;
+                 }
+
+
+        }
+// Dilated leg veins end  
+
+
+// Leg edema / swelling start
+var isChecked_sym_a2 = $("#sym_a2").is(":checked");
+           
+           var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
+           
+           var sym_a2_durationType = $("select[name='symptoms[1][2]']").val();
+           var sym_a2_description = $("textarea[name='symptoms[1][3]']").val();
+
+           if (sym_a2_durationValue !== "" || sym_a2_durationType !== "" || sym_a2_description !== "") {
+              
+               if(isChecked_sym_a2 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Leg edema / swelling fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a2');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Leg edema / swelling end 
+
+
+
+// Warm legs / feet start
+var isChecked_sym_a3 = $("#sym_a3").is(":checked");
+           
+           var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
+           
+           var sym_a3_durationType = $("select[name='symptoms[2][2]']").val();
+           var sym_a3_description = $("textarea[name='symptoms[2][3]']").val();
+
+           if (sym_a3_durationValue !== "" || sym_a3_durationType !== "" || sym_a3_description !== "") {
+              
+               if(isChecked_sym_a3 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Warm legs / feet fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a3');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Warm legs / feet end 
+
+
+//  Leg heaviness start
+var isChecked_sym_a4 = $("#sym_a4").is(":checked");
+           
+           var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
+           
+           var sym_a4_durationType = $("select[name='symptoms[3][2]']").val();
+           var sym_a4_description = $("textarea[name='symptoms[3][3]']").val();
+
+           if (sym_a4_durationValue !== "" || sym_a4_durationType !== "" || sym_a4_description !== "") {
+              
+               if(isChecked_sym_a4 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Leg heaviness fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a4');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Leg heaviness end 
+
+
+
+// Perineal varicosities start
+var isChecked_sym_a5 = $("#sym_a5").is(":checked");
+           
+           var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
+           
+           var sym_a5_durationType = $("select[name='symptoms[4][2]']").val();
+           var sym_a5_description = $("textarea[name='symptoms[4][3]']").val();
+
+           if (sym_a5_durationValue !== "" || sym_a5_durationType !== "" || sym_a5_description !== "") {
+              
+               if(isChecked_sym_a5 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Perineal varicosities fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a5');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Perineal varicosities end 
+
+
+
+//  Leg Pain / burning start
+var isChecked_sym_a6 = $("#sym_a6").is(":checked");
+           
+           var sym_a6_durationValue = $("select[name='symptoms[5][1]']").val();
+           
+           var sym_a6_durationType = $("select[name='symptoms[5][2]']").val();
+           var sym_a6_description = $("textarea[name='symptoms[5][3]']").val();
+
+           if (sym_a6_durationValue !== "" || sym_a6_durationType !== "" || sym_a6_description !== "") {
+              
+               if(isChecked_sym_a6 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Leg Pain / burning fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a6');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Leg Pain / burning end 
+
+
+
+//  Leg pins & needles  start
+var isChecked_sym_a7 = $("#sym_a7").is(":checked");
+           
+           var sym_a7_durationValue = $("select[name='symptoms[6][1]']").val();
+           
+           var sym_a7_durationType = $("select[name='symptoms[6][2]']").val();
+           var sym_a7_description = $("textarea[name='symptoms[6][3]']").val();
+
+           if (sym_a7_durationValue !== "" || sym_a7_durationType !== "" || sym_a7_description !== "") {
+              
+               if(isChecked_sym_a7 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Leg pins & needles fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a7');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Leg pins & needles  end 
+
+
+
+//   Leg itching start
+var isChecked_sym_a9 = $("#sym_a9").is(":checked");
+           
+           var sym_a9_durationValue = $("select[name='symptoms[8][1]']").val();
+           
+           var sym_a9_durationType = $("select[name='symptoms[8][2]']").val();
+           var sym_a9_description = $("textarea[name='symptoms[8][3]']").val();
+
+           if (sym_a9_durationValue !== "" || sym_a9_durationType !== "" || sym_a9_description !== "") {
+              
+               if(isChecked_sym_a9 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out  Leg itching fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a9');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//   Leg itching end 
+
+
+
+//  Night cramps start
+var isChecked_sym_a91 = $("#sym_a91").is(":checked");
+           
+           var _sym_a91_durationValue = $("select[name='symptoms[9][1]']").val();
+           
+           var _sym_a91_durationType = $("select[name='symptoms[9][2]']").val();
+           var _sym_a91_description = $("textarea[name='symptoms[9][3]']").val();
+
+           if (_sym_a91_durationValue !== "" || _sym_a91_durationType !== "" || _sym_a91_description !== "") {
+              
+               if(isChecked_sym_a91 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Night cramps fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a91');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Night cramps end 
+
+
+//  Skin pigmentation start
+var isChecked_sym_a92 = $("#sym_a92").is(":checked");
+           
+           var _sym_a92_durationValue = $("select[name='symptoms[10][1]']").val();
+           
+           var _sym_a92_durationType = $("select[name='symptoms[10][2]']").val();
+           var _sym_a92_description = $("textarea[name='symptoms[10][3]']").val();
+
+           if (_sym_a92_durationValue !== "" || _sym_a92_durationType !== "" || _sym_a92_description !== "") {
+              
+               if(isChecked_sym_a92 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Skin pigmentation fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a92');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Skin pigmentation end 
+
+
+//  General malise start
+var isChecked_sym_a923 = $("#sym_a923").is(":checked");
+           
+           var sym_a923_durationValue = $("select[name='symptoms[11][1]']").val();
+           
+           var sym_a923_durationType = $("select[name='symptoms[11][2]']").val();
+           var sym_a923_description = $("textarea[name='symptoms[11][3]']").val();
+
+           if (sym_a923_durationValue !== "" || sym_a923_durationType !== "" || sym_a923_description !== "") {
+              
+               if(isChecked_sym_a923 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out General malise fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a923');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  General malise end 
+//  Leg Ulcers start
+var isChecked_sym_a920 = $("#sym_a920").is(":checked");
+           
+           var sym_a920_durationValue = $("select[name='symptoms[12][1]']").val();
+           
+           var sym_a920_durationType = $("select[name='symptoms[12][2]']").val();
+           var sym_a920_description = $("textarea[name='symptoms[12][3]']").val();
+
+           if (sym_a920_durationValue !== "" || sym_a920_durationType !== "" || sym_a920_description !== "") {
+              
+               if(isChecked_sym_a920 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Leg Ulcers fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a920');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Leg Ulcers end 
+//  Other start
+var isChecked_sym_a18= $("#sym_a18").is(":checked");
+           
+           var sym_a18_durationValue = $("select[name='symptoms[17][1]']").val();
+           
+           var sym_a18_durationType = $("select[name='symptoms[17][2]']").val();
+           var sym_a18_description = $("textarea[name='symptoms[17][3]']").val();
+
+           if (sym_a18_durationValue !== "" || sym_a18_durationType !== "" || sym_a18_description !== "") {
+              
+               if(isChecked_sym_a18 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Other fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a18');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Other end 
+            return true; 
+        }
+
+        
+        $("#updateVaricoseAblationEligibilityForms").submit(function(event) {
+            
+            event.preventDefault();
+            let formData = new FormData(this);
+            if (!validateForm()) {
+                e.preventDefault(); 
+            } 
+            else {
+                if(validateForm()){
+
+                
+                
+                $.ajax({
+                                url: '{{ route("user.updateVaricoseAblationEligibilityForms") }}',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(response) {
+                                    
+                                    var patientId = response.patient_id;
+                                    if(response!=''){
+              
+                                        swal.fire(
+              
+                                            'Success',
+              
+                                            'Varicose Ablation form updated successfully!',
+              
+                                            'success'
+              
+                                        ).then(function() {
+                                                
+                                               
+                                            var redirectUrl = "{{ route('user.viewVaricoseAblationEligibilityForms', ['id' => ':id']) }}";
+                                            redirectUrl = redirectUrl.replace(':id', patientId);
+                                            window.location.href = redirectUrl;
+                                            });
+                                       
+                                       
+                                        }
+                                }
+                             
+                                
+                            });
+              
+                
+            }
+        }
+        });
+    });
 </script>
     @endpush
 @endsection

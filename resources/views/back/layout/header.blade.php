@@ -310,7 +310,7 @@
 
                                     <!-- SIMPLE NAVIGATION LINK -->
 
-							    	<li class="nl-simple {{  request()->routeIs('front.service.page') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('front.service.page') }}" class="h-link">Services</a></li>
+							    	<li class="nl-simple {{  request()->routeIs('service') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('service') }}" class="h-link">Services</a></li>
 
 
 
@@ -364,9 +364,12 @@
 
 											@auth('doctor')
 											@if(Auth::guard('doctor')->check())
-												<li><a href="#"><i class="fa-solid fa-user"></i>&nbsp;Profile</a></li>
+												<li><a href="{{ route('profile') }}"><i class="fa-solid fa-user"></i>&nbsp;Profile</a></li>
 
 												<li><a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a></li>
+												<li><a href="{{ route('orderMedicalReport') }}"><i class="fa-solid fa-file-medical"></i>&nbsp;Order medical report</a></li>
+												<li><a href="{{ route('myRadiologyReport') }}"><i class="fa-solid fa-x-ray"></i>&nbsp;My Radiology report</a></li>
+												<li><a href="{{ route('myLabResult') }}"><i class="fa-solid fa-flask-vial"></i>&nbsp;My lab result</a></li>
 												<li><a href="{{ route('doctor.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
 												@endif
 										    @endauth

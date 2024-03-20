@@ -29,7 +29,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
 
         <div class="container">
             <div class="form_inner_dt">
-                <form method="POST" action="{{ route('user.storeUterineEmboEligibilityForms') }}"
+                <form id="storeUterineEmboEligibilityForms" method="POST" action="{{ route('user.storeUterineEmboEligibilityForms') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
@@ -716,8 +716,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[3][3]"></textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[3][3]"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1614,8 +1613,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Order Now <i
+                                        <h6 class="section_title__">Clinical Exam <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
@@ -1684,7 +1683,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
                                     
                         <div class="col-lg-12">
-                            <h6 class="section_title__">Imaging <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">Imaging <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                           </div>
                           
                           <div class="col-lg-12">
@@ -1945,7 +1944,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Lab <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Lab <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                       </div>
                                         <div class="col-lg-12">
                                           <div class="title_head">
@@ -2187,8 +2186,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                           </div>
                                           
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Medical Record <i
+                                        <h6 class="section_title__">MDT <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
                                     <div class="col-lg-12">
@@ -2267,8 +2266,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Medical Record <i
+                                        <h6 class="section_title__">Elegibility STATUS <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
                                     <div class="col-lg-12">
@@ -2346,7 +2345,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <h6 class="section_title__">Intervention PROCEDURE / Rx <a
-                                                target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
+                                            href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
                                     <div class="col-lg-12">
@@ -2424,8 +2423,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewUterineEmboEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Medical Record <i
+                                        <h6 class="section_title__">Supportive <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
                                     <div class="col-lg-12">
@@ -2496,7 +2495,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
@@ -3059,6 +3058,411 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
             $("#textarea_a890").toggle();
         });
           });
+</script>
+
+<script>
+   
+    function showConfirmation() {
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You need to save your current form first!',
+            icon: 'warning',
+            showCancelButton: true,
+            // confirmButtonText: 'save Form',
+            // cancelButtonText: 'Cancel'
+        })
+
+        // .then((result) => {
+            // if (result.isConfirmed) {
+               
+            //    window.location.href = "{{ route('user.updateHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}";
+        //    }
+    //    });
+    }
+
+        $(document).ready(function(){
+            $(".order-now_btn_alt").on('click',function(event){
+                event.preventDefault();
+                showConfirmation();
+            });
+    });
+   
+</script>
+
+
+
+{{--  Symptoms fields validation  --}}
+<script>
+    $(document).ready(function() {
+        
+        function validateForm() {
+
+            // Heavy Period start  
+            var isChecked_sym_a1 = $("#sym_a1").is(":checked");
+           
+            var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
+            
+            var sym_a1_durationType = $("select[name='symptoms[0][2]']").val();
+            var sym_a1_description = $("textarea[name='symptoms[0][3]']").val();
+
+            if (sym_a1_durationValue !== "" || sym_a1_durationType !== "" || sym_a1_description !== "") {
+               
+                if(isChecked_sym_a1 ===false){
+                    
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please fill out Heavy Period fields in Symptoms.',
+                            confirmButtonText: 'OK'
+                        }).then(function () {
+                            setTimeout(function() {
+                                var elementToScroll = document.getElementById('sym_a1');
+                                if (elementToScroll) {
+                                    // Scroll to the element's position
+                                    elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                                }
+                            }, 1000);
+                        });
+                        return false;
+                 }
+
+
+        }
+// Heavy Period end  
+
+
+// Dysmenorrhea start
+var isChecked_sym_a2 = $("#sym_a2").is(":checked");
+           
+           var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
+           
+           var sym_a2_durationType = $("select[name='symptoms[1][2]']").val();
+           var sym_a2_description = $("textarea[name='symptoms[1][3]']").val();
+
+           if (sym_a2_durationValue !== "" || sym_a2_durationType !== "" || sym_a2_description !== "") {
+              
+               if(isChecked_sym_a2 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Dysmenorrhea fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a2');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Dysmenorrhea end 
+
+
+
+// Compressive symptoms start
+var isChecked_sym_a3 = $("#sym_a3").is(":checked");
+           
+           var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
+           
+           var sym_a3_durationType = $("select[name='symptoms[2][2]']").val();
+           var sym_a3_description = $("textarea[name='symptoms[2][3]']").val();
+
+           if (sym_a3_durationValue !== "" || sym_a3_durationType !== "" || sym_a3_description !== "") {
+              
+               if(isChecked_sym_a3 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Compressive symptoms fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a3');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Compressive symptoms end 
+
+
+//  Compressive symptoms - Constipation start
+var isChecked_sym_a4 = $("#sym_a4").is(":checked");
+           
+           var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
+           
+           var sym_a4_durationType = $("select[name='symptoms[3][2]']").val();
+           var sym_a4_description = $("textarea[name='symptoms[3][3]']").val();
+
+           if (sym_a4_durationValue !== "" || sym_a4_durationType !== "" || sym_a4_description !== "") {
+              
+               if(isChecked_sym_a4 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Compressive symptoms - Constipation fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a4');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Compressive symptoms - Constipation end 
+
+
+
+//  Compressive symptoms - Low back pain start
+var isChecked_sym_a5 = $("#sym_a5").is(":checked");
+           
+           var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
+           
+           var sym_a5_durationType = $("select[name='symptoms[4][2]']").val();
+           var sym_a5_description = $("textarea[name='symptoms[4][3]']").val();
+
+           if (sym_a5_durationValue !== "" || sym_a5_durationType !== "" || sym_a5_description !== "") {
+              
+               if(isChecked_sym_a5 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Compressive symptoms - Low back pain fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a5');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Compressive symptoms - Low back pain end 
+
+
+
+//  Symptomatic anemia start
+var isChecked_sym_a7= $("#sym_a7").is(":checked");
+           
+           var sym_a7_durationValue = $("select[name='symptoms[6][1]']").val();
+           
+           var sym_a7_durationType = $("select[name='symptoms[6][2]']").val();
+           var sym_a7_description = $("textarea[name='symptoms[6][3]']").val();
+
+           if (sym_a7_durationValue !== "" || sym_a7_durationType !== "" || sym_a7_description !== "") {
+              
+               if(isChecked_sym_a7 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Symptomatic anemia fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a7');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Symptomatic anemia end 
+
+
+
+//  Abdominal mass start
+var isChecked_sym_a8 = $("#sym_a8").is(":checked");
+           
+           var sym_a8_durationValue = $("select[name='symptoms[7][1]']").val();
+           
+           var sym_a8_durationType = $("select[name='symptoms[7][2]']").val();
+           var sym_a8_description = $("textarea[name='symptoms[7][3]']").val();
+
+           if (sym_a8_durationValue !== "" || sym_a8_durationType !== "" || sym_a8_description !== "") {
+              
+               if(isChecked_sym_a8 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Abdominal mass fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a8');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Abdominal mass end 
+
+
+
+//   Recurrent Urinary infections start
+var isChecked_sym_a9 = $("#sym_a9").is(":checked");
+           
+           var sym_a9_durationValue = $("select[name='symptoms[8][1]']").val();
+           
+           var sym_a9_durationType = $("select[name='symptoms[8][2]']").val();
+           var sym_a9_description = $("textarea[name='symptoms[8][3]']").val();
+
+           if (sym_a9_durationValue !== "" || sym_a9_durationType !== "" || sym_a9_description !== "") {
+              
+               if(isChecked_sym_a9 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out  Recurrent Urinary infections fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a9');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//   Recurrent Urinary infections end 
+
+
+
+// Other start
+var isChecked_sym_a18 = $("#sym_a18").is(":checked");
+           
+           var sym_a18_durationValue = $("select[name='symptoms[17][1]']").val();
+           
+           var sym_a18_durationType = $("select[name='symptoms[17][2]']").val();
+           var sym_a18_description = $("textarea[name='symptoms[17][3]']").val();
+
+           if (sym_a18_durationValue !== "" || sym_a18_durationType !== "" || sym_a18_description !== "") {
+              
+               if(isChecked_sym_a18 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Other fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a18');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Other end
+            return true; 
+        }
+
+        
+        $("#storeUterineEmboEligibilityForms").submit(function(event) {
+            
+            event.preventDefault();
+            let formData = new FormData(this);
+            if (!validateForm()) {
+                e.preventDefault(); 
+            } 
+            else {
+                if(validateForm()){
+
+                
+                
+                $.ajax({
+                                url: '{{ route("user.storeUterineEmboEligibilityForms") }}',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(response) {
+                                    
+                                    var patientId = response.patient_id;
+                                    if(response!=''){
+              
+                                        swal.fire(
+              
+                                            'Success',
+              
+                                            'Uterine embo  form saved successfully!',
+              
+                                            'success'
+              
+                                        ).then(function() {
+                                                
+                                               
+                                            var redirectUrl = "{{ route('user.viewUterineEmboEligibilityForms', ['id' => ':id']) }}";
+                                            redirectUrl = redirectUrl.replace(':id', patientId);
+                                            window.location.href = redirectUrl;
+                                            });
+                                       
+                                       
+                                        }
+                                }
+                             
+                                
+                            });
+              
+                
+            }
+        }
+        });
+    });
 </script>
     @endpush
 @endsection

@@ -29,7 +29,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
 
         <div class="container">
             <div class="form_inner_dt">
-                <form  id="storeVaricoceleEmboEligibilityForms" method="POST" action="{{ route('user.updateVaricoceleEmboEligibilityForms') }}"
+                <form  id="updateVaricoceleEmboEligibilityForms" method="POST" action="{{ route('user.updateVaricoceleEmboEligibilityForms') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
@@ -837,8 +837,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[4][3]">{{ trim($disfiguringSymptoms5['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[4][3]">{{ trim($disfiguringSymptoms5['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1017,8 +1016,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[7][3]">{{ trim($disfiguringSymptoms8['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[7][3]">{{ trim($disfiguringSymptoms8['SymptomDurationNote'] ?? '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1076,8 +1074,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[8][3]">{{ trim($disfiguringSymptoms10['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[8][3]">{{ trim($disfiguringSymptoms9['SymptomDurationNote'] ?? '')}}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1135,8 +1132,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[10][3]">{{ trim($disfiguringSymptoms10['SymptomDurationNote'] ?? '') }}
-                                                        </textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[9][3]">{{ trim($disfiguringSymptoms10['SymptomDurationNote'] ?? '')}}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -4353,7 +4349,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
         }
 
         
-        $("#storeVaricoceleEmboEligibilityForms").submit(function(event) {
+        $("#updateVaricoceleEmboEligibilityForms").submit(function(event) {
             
             event.preventDefault();
             let formData = new FormData(this);

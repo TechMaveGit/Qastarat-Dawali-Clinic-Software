@@ -4334,6 +4334,19 @@
 
                                     </div>
                                 @endif
+                                @php
+
+                                $VaricoceleEmboForm_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
+                                    ->where(['patient_id' => $patient->id, 'form_type' => 'VaricoceleEmboForm'])
+                                    ->first();
+
+                                if ($VaricoceleEmboForm_Eligibility_Forms !== null) {
+                                    $VaricoceleEmboForm_Eligibility_Forms = $VaricoceleEmboForm_Eligibility_Forms->toArray();
+                                } else {
+                                    $VaricoceleEmboForm_Eligibility_Forms = [];
+                                }
+                            @endphp
+                            @if (!in_array($ids, $VaricoceleEmboForm_Eligibility_Forms))
                                 <div class="col-lg-3 mb-4 ">
 
                                     <label class="w-100">
@@ -4358,6 +4371,7 @@
 
 
                                 </div>
+                                @endif
 
                                 @php
 

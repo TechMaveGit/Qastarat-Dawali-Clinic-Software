@@ -29,7 +29,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
 
         <div class="container">
             <div class="form_inner_dt">
-                <form method="POST" action="{{ route('user.storeMSKPainEligibilityForms') }}"
+                <form id="storeMSKPainEligibilityForms" method="POST" action="{{ route('user.storeMSKPainEligibilityForms') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
@@ -613,8 +613,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[0][3]"></textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px" name="symptoms[0][3]"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -850,8 +849,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-5">
                                                 <div class="inner_element">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"
-                                                            name="symptoms[3][3]"></textarea>
+                                                        <textarea class="form-control" placeholder="Type here..." style="height: 43px"  name="symptoms[3][3]"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1570,8 +1568,8 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Order Now <i
+                                        <h6 class="section_title__">Clinical Exam <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
@@ -1640,7 +1638,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                     </div>
                                     
                         <div class="col-lg-12">
-                            <h6 class="section_title__">Imaging <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">Imaging <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                           </div>
                           
                           <div class="col-lg-12">
@@ -1829,7 +1827,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Lab <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Lab <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                       </div>
                                         <div class="col-lg-12">
                                           <div class="title_head">
@@ -2028,7 +2026,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                         </div>
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Special Investigation <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
                                               <h4>REQNERVECON5</h4>
                                           </div>
@@ -2077,8 +2075,8 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                           </div>
                                           
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Medical Record <i
+                                        <h6 class="section_title__">MDT <a  href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
                                     <div class="col-lg-12">
@@ -2153,8 +2151,8 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Medical Record <i
+                                        <h6 class="section_title__">Elegibility STATUS <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
                                     <div class="col-lg-12">
@@ -2604,7 +2602,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     <div class="col-lg-12 mb-3">
                                         <h6 class="section_title__">Intervention PROCEDURE / Rx <a
-                                                target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
+                                            href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
                                     
@@ -2745,8 +2743,8 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                     
                                     
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
-                                                class="order-now_btn">Medical Record <i
+                                        <h6 class="section_title__">Supportive <a href="javascript:void(0)"
+                                                class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                     </div>
                                     <div class="col-lg-12">
@@ -2839,7 +2837,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Prescription <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Prescription <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
                                               <h4>ADD A DRUG </h4>
                                           </div>
@@ -2908,7 +2906,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                 </div>
                                 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>
                                         <div class="title_head">
@@ -3793,6 +3791,376 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
             $('#textarea_122').show();
         });
     })
+</script>
+
+
+<script>
+   
+    function showConfirmation() {
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You need to save your current form first!',
+            icon: 'warning',
+            showCancelButton: true,
+            // confirmButtonText: 'save Form',
+            // cancelButtonText: 'Cancel'
+        })
+
+        // .then((result) => {
+            // if (result.isConfirmed) {
+               
+            //    window.location.href = "{{ route('user.updateHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}";
+        //    }
+    //    });
+    }
+
+        $(document).ready(function(){
+            $(".order-now_btn_alt").on('click',function(event){
+                event.preventDefault();
+                showConfirmation();
+            });
+    });
+   
+</script>
+
+
+
+{{--  Symptoms fields validation  --}}
+<script>
+    $(document).ready(function() {
+        
+        function validateForm() {
+
+            // Focal soft tissue pain start  
+            var isChecked_sym_a1 = $("#sym_a1").is(":checked");
+           
+            var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
+            
+            var sym_a1_durationType = $("select[name='symptoms[0][2]']").val();
+            var sym_a1_description = $("textarea[name='symptoms[0][3]']").val();
+
+            if (sym_a1_durationValue !== "" || sym_a1_durationType !== "" || sym_a1_description !== "") {
+               
+                if(isChecked_sym_a1 ===false){
+                    
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please fill out Focal soft tissue pain fields in Symptoms.',
+                            confirmButtonText: 'OK'
+                        }).then(function () {
+                            setTimeout(function() {
+                                var elementToScroll = document.getElementById('sym_a1');
+                                if (elementToScroll) {
+                                    // Scroll to the element's position
+                                    elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                                }
+                            }, 1000);
+                        });
+                        return false;
+                 }
+
+
+        }
+// Focal soft tissue pain end  
+
+
+// Focal soft tissue swelling / bulge start
+var isChecked_sym_a2 = $("#sym_a2").is(":checked");
+           
+           var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
+           
+           var sym_a2_durationType = $("select[name='symptoms[1][2]']").val();
+           var sym_a2_description = $("textarea[name='symptoms[1][3]']").val();
+
+           if (sym_a2_durationValue !== "" || sym_a2_durationType !== "" || sym_a2_description !== "") {
+              
+               if(isChecked_sym_a2 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Focal soft tissue swelling / bulge fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a2');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Focal soft tissue swelling / bulge end 
+
+
+
+// Focal Muscular spasm start
+var isChecked_sym_a3 = $("#sym_a3").is(":checked");
+           
+           var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
+           
+           var sym_a3_durationType = $("select[name='symptoms[2][2]']").val();
+           var sym_a3_description = $("textarea[name='symptoms[2][3]']").val();
+
+           if (sym_a3_durationValue !== "" || sym_a3_durationType !== "" || sym_a3_description !== "") {
+              
+               if(isChecked_sym_a3 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Focal Muscular spasm fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a3');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+// Focal Muscular spasm end 
+
+
+//   Focal Muscular weakness start
+var isChecked_sym_a4 = $("#sym_a4").is(":checked");
+           
+           var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
+           
+           var sym_a4_durationType = $("select[name='symptoms[3][2]']").val();
+           var sym_a4_description = $("textarea[name='symptoms[3][3]']").val();
+
+           if (sym_a4_durationValue !== "" || sym_a4_durationType !== "" || sym_a4_description !== "") {
+              
+               if(isChecked_sym_a4 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out  Focal Muscular weakness fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a4');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//   Focal Muscular weakness end 
+
+
+
+//  Sleep disturbance start
+var isChecked_sym_a5 = $("#sym_a5").is(":checked");
+           
+           var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
+           
+           var sym_a5_durationType = $("select[name='symptoms[4][2]']").val();
+           var sym_a5_description = $("textarea[name='symptoms[4][3]']").val();
+
+           if (sym_a5_durationValue !== "" || sym_a5_durationType !== "" || sym_a5_description !== "") {
+              
+               if(isChecked_sym_a5 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out  Sleep disturbance fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a5');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Sleep disturbance end 
+
+
+
+//  Lethargy start
+var isChecked_sym_a75 = $("#sym_a75").is(":checked");
+           
+           var sym_a75_durationValue = $("select[name='symptoms[5][1]']").val();
+           
+           var sym_a75_durationType = $("select[name='symptoms[5][2]']").val();
+           var sym_a75_description = $("textarea[name='symptoms[5][3]']").val();
+
+           if (sym_a75_durationValue !== "" || sym_a75_durationType !== "" || sym_a75_description !== "") {
+              
+               if(isChecked_sym_a75 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Lethargy fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a75');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Lethargy end 
+
+
+
+//  Fatigue  start
+var isChecked_sym_a7 = $("#sym_a7").is(":checked");
+           
+           var sym_a7_durationValue = $("select[name='symptoms[6][1]']").val();
+           
+           var sym_a7_durationType = $("select[name='symptoms[6][2]']").val();
+           var sym_a7_description = $("textarea[name='symptoms[6][3]']").val();
+
+           if (sym_a7_durationValue !== "" || sym_a7_durationType !== "" || sym_a7_description !== "") {
+              
+               if(isChecked_sym_a7 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Fatigue fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a7');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Fatigue  end 
+
+
+//  Other start
+var isChecked_sym_a18= $("#sym_a18").is(":checked");
+           
+           var sym_a18_durationValue = $("select[name='symptoms[13][1]']").val();
+           
+           var sym_a18_durationType = $("select[name='symptoms[13][2]']").val();
+           var sym_a18_description = $("textarea[name='symptoms[13][3]']").val();
+
+           if (sym_a18_durationValue !== "" || sym_a18_durationType !== "" || sym_a18_description !== "") {
+              
+               if(isChecked_sym_a18 ===false){
+                   
+                   Swal.fire({
+                           icon: 'error',
+                           title: 'Oops...',
+                           text: 'Please fill out Other fields in Symptoms.',
+                           confirmButtonText: 'OK'
+                       }).then(function () {
+                           setTimeout(function() {
+                               var elementToScroll = document.getElementById('sym_a18');
+                               if (elementToScroll) {
+                                   // Scroll to the element's position
+                                   elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });
+                               }
+                           }, 1000);
+                       });
+                       return false;
+                }
+
+
+       }
+//  Other end 
+            return true; 
+        }
+
+        
+        $("#storeMSKPainEligibilityForms").submit(function(event) {
+            
+            event.preventDefault();
+            let formData = new FormData(this);
+            if (!validateForm()) {
+                e.preventDefault(); 
+            } 
+            else {
+                if(validateForm()){
+
+                
+                
+                $.ajax({
+                                url: '{{ route("user.storeMSKPainEligibilityForms") }}',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(response) {
+                                    
+                                    var patientId = response.patient_id;
+                                    if(response!=''){
+              
+                                        swal.fire(
+              
+                                            'Success',
+              
+                                            'Msk Pain form saved successfully!',
+              
+                                            'success'
+              
+                                        ).then(function() {
+                                                
+                                               
+                                            var redirectUrl = "{{ route('user.viewMSKPainEligibilityForms', ['id' => ':id']) }}";
+                                            redirectUrl = redirectUrl.replace(':id', patientId);
+                                            window.location.href = redirectUrl;
+                                            });
+                                       
+                                       
+                                        }
+                                }
+                             
+                                
+                            });
+              
+                
+            }
+        }
+        });
+    });
 </script>
     @endpush
 @endsection

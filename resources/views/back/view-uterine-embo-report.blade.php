@@ -1216,7 +1216,7 @@
 
                 <div class="col-lg-8">
                     <div class="right_side_mm_box">
-                        <div class="card mb-3 border_yellow">
+                        <div class="card mb-3 form3_bg">
                             <div class="card-body p-0">
                                 <div class="accordion acordignleft__small" id="accordionExample2">
                                     <div class="accordion-item mm_title">
@@ -1701,480 +1701,481 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-
-                                    <div class="accordion-item mm_title">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#collapseleft5"
-                                                aria-expanded="false" aria-controls="collapseleft5">
-                                                <div class="top_title_mm_box">
-
-                                                    <h6 class="action_flex_ghi">
-                                                        <a href="#" class="action_btn_tooltip"
-                                                            data-bs-toggle="modal" data-bs-target="#clinical_exam">
-                                                            <iconify-icon icon="healthicons:clinical-fe-outline"
-                                                                width="20"></iconify-icon>
-                                                            <span class="toolTip">Clinical Exam</span>
-                                                        </a>
-
-                                                        <div class="enterd_by">
-                                                            <span>Clinical Exam </span>
-                                                            <div class="right_side_hjkl">
-
-                                                                <div class="customdotdropdown">
-                                                                    <div class="buttondrop_dot">
-                                                                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                                    </div>
-                                                                    <div class="dropdown-content">
-                                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                                class="fa-solid fa-print"></i> Print
-                                                                        </a>
-                                                                        <a href="#" class="bottom_btn extract_btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#attach_document"><i
-                                                                                class="fa-solid fa-paperclip"></i> Attach
-                                                                        </a>
-
+                                        <div class="accordion-item mm_title">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseleft5"
+                                                    aria-expanded="false" aria-controls="collapseleft5">
+                                                    <div class="top_title_mm_box">
+    
+                                                        <h6 class="action_flex_ghi">
+                                                            <a href="#" class="action_btn_tooltip"
+                                                                data-bs-toggle="modal" data-bs-target="#clinical_exam">
+                                                                <iconify-icon icon="healthicons:clinical-fe-outline"
+                                                                    width="20"></iconify-icon>
+                                                                <span class="toolTip">Clinical Exam</span>
+                                                            </a>
+    
+                                                            <div class="enterd_by">
+                                                                <span>Clinical Exam </span>
+                                                                <div class="right_side_hjkl">
+    
+                                                                    <div class="customdotdropdown">
+                                                                        <div class="buttondrop_dot">
+                                                                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                                        </div>
+                                                                        <div class="dropdown-content">
+                                                                            <a href="#" class="bottom_btn copy_btn"><i
+                                                                                    class="fa-solid fa-print"></i> Print
+                                                                            </a>
+                                                                            <a href="#" class="bottom_btn extract_btn"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#attach_document"><i
+                                                                                    class="fa-solid fa-paperclip"></i> Attach
+                                                                            </a>
+    
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </h6>
-                                                </div>
-                                            </button>
-                                        </h2>
-                                        <div id="collapseleft5" class="accordion-collapse collapse"
-                                            data-bs-parent="#accordionExample5">
-                                            <div class="accordion-body">
-                                                <div class="appointments___list past_medical_history_ak diagnosis_data">
-                                                    <ul>
-                                                        @if (isset($ClinicalExam_db))
+                                                        </h6>
+                                                    </div>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseleft5" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample5">
+                                                <div class="accordion-body">
+                                                    <div class="appointments___list past_medical_history_ak diagnosis_data">
+                                                        <ul>
+                                                            @if (isset($ClinicalExam_db))
+                                                                
+                                                            @forelse ($ClinicalExam_db as $record)
+                                                                
                                                             
-                                                        @forelse ($ClinicalExam_db as $record)
-                                                            
-                                                        
-                                                        <li>
-
-                                                            <div class="appoin_date">
-                                                                <div class="read-more-content sypm_tom_cnt"
-                                                                    style="">
-                                                                    <div class="diagnosis_show">
-                                                                        <p class="diagnosis_date top_de"><span
-                                                                                class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
-                                                                                </span> <span
-                                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                                </span></p>
-                                                                                @php
-                                                                                $ClinicalExam = json_decode($record->data_value, true);
-                                                                                // echo "<pre>";
-                                                                                //     print_r($ClinicalExam);
-                                                                                //     die;
-                                                                            @endphp
-                                                                             @if (isset($ClinicalExam['RegionalExam']) && $ClinicalExam['RegionalExam'][0] == 'Abnormal')
-                                                                             <div class="ss_result_box">
-                                                                                 <div class="symp_title mb-1">
-                                                                                     <h6><span class="point_dia"><i
-                                                                                                 class="fa-regular fa-circle-dot"></i></span>
-                                                                                         Regional Exam</h6>
+                                                            <li>
+    
+                                                                <div class="appoin_date">
+                                                                    <div class="read-more-content sypm_tom_cnt"
+                                                                        style="">
+                                                                        <div class="diagnosis_show">
+                                                                            <p class="diagnosis_date top_de"><span
+                                                                                    class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                                    </span> <span
+                                                                                    class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                                    </span></p>
+                                                                                    @php
+                                                                                    $ClinicalExam = json_decode($record->data_value, true);
+                                                                                    // echo "<pre>";
+                                                                                    //     print_r($ClinicalExam);
+                                                                                    //     die;
+                                                                                @endphp
+                                                                                 @if (isset($ClinicalExam['RegionalExam']) && $ClinicalExam['RegionalExam'][0] == 'Abnormal')
+                                                                                 <div class="ss_result_box">
+                                                                                     <div class="symp_title mb-1">
+                                                                                         <h6><span class="point_dia"><i
+                                                                                                     class="fa-regular fa-circle-dot"></i></span>
+                                                                                             Regional Exam</h6>
+                                                                                     </div>
+                                                                                     <p class="ss_result">
+                                                                                         <strong>Abnormal</strong>
+                                                                                         -
+                                                                                         {{ $ClinicalExam['RegionalExamNote'][0] ?? '' }}.
+                                                                                     </p>
                                                                                  </div>
-                                                                                 <p class="ss_result">
-                                                                                     <strong>Abnormal</strong>
-                                                                                     -
-                                                                                     {{ $ClinicalExam['RegionalExamNote'][0] ?? '' }}.
-                                                                                 </p>
-                                                                             </div>
-                                                                         @endif
-
-
-                                                                         @if (isset($ClinicalExam['RegionalExam']) && $ClinicalExam['RegionalExam'][0] == 'Normal')
-                                                                             <div class="ss_result_box">
-                                                                                 <div class="symp_title mb-1">
-                                                                                     <h6><span class="point_dia"><i
-                                                                                                 class="fa-regular fa-circle-dot"></i></span>
-                                                                                         Regional Exam</h6>
+                                                                             @endif
+    
+    
+                                                                             @if (isset($ClinicalExam['RegionalExam']) && $ClinicalExam['RegionalExam'][0] == 'Normal')
+                                                                                 <div class="ss_result_box">
+                                                                                     <div class="symp_title mb-1">
+                                                                                         <h6><span class="point_dia"><i
+                                                                                                     class="fa-regular fa-circle-dot"></i></span>
+                                                                                             Regional Exam</h6>
+                                                                                     </div>
+                                                                                     <p class="ss_result">
+                                                                                         <strong>Normal</strong>
+    
                                                                                  </div>
-                                                                                 <p class="ss_result">
-                                                                                     <strong>Normal</strong>
-
-                                                                             </div>
-                                                                         @endif
-                                                                         @if (isset($ClinicalExam['SystemicExam']) && $ClinicalExam['SystemicExam'][0] == 'Abnormal')
-                                                                             <div class="ss_result_box">
-                                                                                 <div class="symp_title mb-1">
-                                                                                     <h6><span class="point_dia"><i
-                                                                                                 class="fa-regular fa-circle-dot"></i></span>
-                                                                                         Systemic Exam</h6>
+                                                                             @endif
+                                                                             @if (isset($ClinicalExam['SystemicExam']) && $ClinicalExam['SystemicExam'][0] == 'Abnormal')
+                                                                                 <div class="ss_result_box">
+                                                                                     <div class="symp_title mb-1">
+                                                                                         <h6><span class="point_dia"><i
+                                                                                                     class="fa-regular fa-circle-dot"></i></span>
+                                                                                             Systemic Exam</h6>
+                                                                                     </div>
+                                                                                     <p class="ss_result">
+                                                                                         <strong>Abnormal</strong>
+                                                                                         -
+                                                                                         {{ $ClinicalExam['SystemicExamNote'][0] ?? '' }}.
+                                                                                     </p>
                                                                                  </div>
-                                                                                 <p class="ss_result">
-                                                                                     <strong>Abnormal</strong>
-                                                                                     -
-                                                                                     {{ $ClinicalExam['SystemicExamNote'][0] ?? '' }}.
-                                                                                 </p>
-                                                                             </div>
-                                                                         @endif
-                                                                         @if (isset($ClinicalExam['SystemicExam']) && $ClinicalExam['SystemicExam'][0] == 'Normal')
-                                                                             <div class="ss_result_box">
-                                                                                 <div class="symp_title mb-1">
-                                                                                     <h6><span class="point_dia"><i
-                                                                                                 class="fa-regular fa-circle-dot"></i></span>
-                                                                                         Systemic Exam</h6>
+                                                                             @endif
+                                                                             @if (isset($ClinicalExam['SystemicExam']) && $ClinicalExam['SystemicExam'][0] == 'Normal')
+                                                                                 <div class="ss_result_box">
+                                                                                     <div class="symp_title mb-1">
+                                                                                         <h6><span class="point_dia"><i
+                                                                                                     class="fa-regular fa-circle-dot"></i></span>
+                                                                                             Systemic Exam</h6>
+                                                                                     </div>
+                                                                                     <p class="ss_result">
+                                                                                         <strong>Normal</strong>
+    
                                                                                  </div>
-                                                                                 <p class="ss_result">
-                                                                                     <strong>Normal</strong>
-
-                                                                             </div>
-                                                                         @endif
+                                                                             @endif
+                                                                        </div>
                                                                     </div>
+                                                                    <button
+                                                                        class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                        onclick="toggleReadMore(this)">Read More</button>
                                                                 </div>
-                                                                <button
-                                                                    class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
-                                                            </div>
-                                                        </li>
-                                                        @empty
-                                                            No Data Found
-                                                        @endforelse
-
-                                                        @endif
-
-                                                    </ul>
+                                                            </li>
+                                                            @empty
+                                                                No Data Found
+                                                            @endforelse
+    
+                                                            @endif
+    
+                                                        </ul>
+                                                    </div>
+    
                                                 </div>
-
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="accordion-item mm_title">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#collapseleft15"
-                                                aria-expanded="false" aria-controls="collapseleft15">
-                                                <div class="top_title_mm_box">
-                                                    <h6 class="action_flex_ghi">
-                                                        <a href="#" class="action_btn_tooltip"
-                                                            data-bs-toggle="modal" data-bs-target="#order_imagenairy">
-                                                            <iconify-icon icon="mdi:x-ray-box-outline"
-                                                                width="24"></iconify-icon>
-                                                            <span class="toolTip">Order Imaging Exam</span>
-                                                        </a>
-
-                                                        <div class="enterd_by">
-                                                            <span>Order Imaging Exam </span>
-                                                            <div class="right_side_hjkl">
-
-                                                                <div class="customdotdropdown">
-                                                                    <div class="buttondrop_dot">
-                                                                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                                    </div>
-                                                                    <div class="dropdown-content">
-                                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                                class="fa-solid fa-print"></i> Print
-                                                                        </a>
-                                                                        <a href="#" class="bottom_btn extract_btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#attach_document"><i
-                                                                                class="fa-solid fa-paperclip"></i> Attach
-                                                                        </a>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </h6>
-                                                </div>
-                                            </button>
-                                        </h2>
-                                        <div id="collapseleft15" class="accordion-collapse collapse"
-                                            data-bs-parent="#accordionExample15">
-                                            <div class="accordion-body">
-                                                <div class="appointments___list past_medical_history_ak diagnosis_data">
-                                                    <ul>
-                                                        <li>
-
-                                                            <div class="appoin_date">
-
-                                                                <div class="diagnosis_show">
-                                                                    <p class="diagnosis_date top_de"><span
-                                                                            class="enter_span_hivj"> {{ isset($Patient_order_imaginary_exams[0]) ? 'Entered By | ' . optional(optional($Patient_order_imaginary_exams[0])->doctor)->name ?? '' : '' }}
-                                                                             </span> <span
-                                                                            class="enter_span_hivj">{{ isset($Patient_order_imaginary_exams[0]) && isset($Patient_order_imaginary_exams[0]->created_at) ? $Patient_order_imaginary_exams[0]->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                            </span></p>
-
-                                                                    <div
-                                                                        class="datatable-container allinvoice_table custom_table_area table_test_fgi">
-                                                                        <table id="allinvoice_table" class="display">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th>Test Name</th>
-                                                                                    <th>Duration</th>
-                                                                                    <th>Status</th>
-                                                                                    <th>Action</th>
-
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                @forelse ($Patient_order_imaginary_exams as $Patient_order_imaginary_exam)
-                                                                                <tr>
-                                                                                    <td>{{ $Patient_order_imaginary_exam->test->test_name }}</td> 
-                                                                                    <td>{{ $Patient_order_imaginary_exam->test->duration }}</td> 
-                                                                                    @if ($Patient_order_imaginary_exam->status=='pending')
-                                                                                    <td><button
-                                                                                        class="pending-badge">Pending</button>
-                                                                                     </td>
-                                                                                        @else
-                                                                                        <td><button class="confirmed-badge">Complete</button></td>
-                                                                                    @endif
-                                                                                    
-                                                                                    
-                                                                                    <td>
-                                                                                        <a href="{{ $Patient_order_imaginary_exam->report_url }}" download="" class="download_rp_btn">
-                                                                                            <i class="fa-solid fa-file-arrow-down"></i> Download Report
-                                                                                        </a>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            @empty
-                                                                            <td colspan="4" class="text-center">No record found</td>
-                                                                            @endforelse
-                                                                            
-                                                                                {{-- <tr>
-                                                                                    <td>CT- Scan</td>
-                                                                                    <td>2 week</td>
-                                                                                    <td><button
-                                                                                            class="confirmed-badge">Complete</button>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <a href="images/new-images/dummy.pdf"
-                                                                                            download=""
-                                                                                            class="download_rp_btn"><i
-                                                                                                class="fa-solid fa-file-arrow-down"></i>
-                                                                                            Download Report</a>
-                                                                                    </td>
-
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Ultrasound</td>
-                                                                                    <td>1 day</td>
-                                                                                    <td><button
-                                                                                            class="pending-badge">Pending</button>
-                                                                                    </td>
-                                                                                    <td>
-
-                                                                                    </td>
-
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>MRI</td>
-                                                                                    <td>1 day</td>
-                                                                                    <td><button
-                                                                                            class="pending-badge">Pending</button>
-                                                                                    </td>
-                                                                                    <td>
-
-                                                                                    </td>
-
-
-                                                                                </tr> --}}
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-
-                                                                </div>
-
-
-
-
-
-                                                            </div>
-                                                        </li>
-                                                        @forelse ($Imaging as $record)
-                                                        <li>
-
-                                                            <div class="appoin_date">
-                                                                <div class="read-more-content sypm_tom_cnt"
-                                                                    style="">
-                                                                    <div class="diagnosis_show">
-
-
-                                                                        <p class="diagnosis_date top_de"><span
-                                                                                class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
-                                                                            </span> <span
-                                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                            </span></p>
-
-                                                                        @php
-
-                                                                            $jsonData = json_decode($record->data_value, true);
-                                                                            // echo "<pre>";
-                                                                            //     print_r($jsonData);
-                                                                            //     die;
-                                                                        @endphp
-                                                                        <!--USGENERAL70 > Ultrasound Uterus / Fibroids Findings start -->
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-3">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    USGENERAL70 > Ultrasound Uterus / Fibroids Findings</h6>
-                                                                            </div>
-
-                                                                            <div class="symp_title mb-3">
-
-                                                                                <p class="ss_result">
-                                                                                    {{ $jsonData['USGENERAL70Fibroids'][0] ?? '' }}</p>
-                                                                                
-                                                                                    
-
-                                                                            </div>
-
+                                        <div class="accordion-item mm_title">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseleft15"
+                                                    aria-expanded="false" aria-controls="collapseleft15">
+                                                    <div class="top_title_mm_box">
+                                                        <h6 class="action_flex_ghi">
+                                                            <a href="#" class="action_btn_tooltip"
+                                                                data-bs-toggle="modal" data-bs-target="#order_imagenairy">
+                                                                <iconify-icon icon="mdi:x-ray-box-outline"
+                                                                    width="24"></iconify-icon>
+                                                                <span class="toolTip">Order Imaging Exam</span>
+                                                            </a>
+    
+                                                            <div class="enterd_by">
+                                                                <span>Order Imaging Exam </span>
+                                                                <div class="right_side_hjkl">
+    
+                                                                    <div class="customdotdropdown">
+                                                                        <div class="buttondrop_dot">
+                                                                            <i class="fa-solid fa-ellipsis-vertical"></i>
                                                                         </div>
-                                                                 <!--USGENERAL70 > Ultrasound Uterus / Fibroids Findings end -->
-
-                                                                  <!--USGENERAL70 > Endometrium start -->
-                                                                  <div class="ss_result_box">
-                                                                    <div class="symp_title mb-3">
-                                                                        <h6><span class="point_dia"><i
-                                                                                    class="fa-regular fa-circle-dot"></i></span>
-                                                                            USGENERAL70 > Endometrium</h6>
+                                                                        <div class="dropdown-content">
+                                                                            <a href="#" class="bottom_btn copy_btn"><i
+                                                                                    class="fa-solid fa-print"></i> Print
+                                                                            </a>
+                                                                            <a href="#" class="bottom_btn extract_btn"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#attach_document"><i
+                                                                                    class="fa-solid fa-paperclip"></i> Attach
+                                                                            </a>
+    
+                                                                        </div>
                                                                     </div>
-
-                                                                    <div class="symp_title mb-3">
-
-                                                                            <p class="ss_result">
-                                                                            {{ $jsonData['USGENERAL70Endometrium'][0] ?? '' }}</p>
-                                                                             
-
-                                                                    </div>
-
                                                                 </div>
-                                                         <!--USGENERAL70 > Endometrium end -->
-                                                          <!--USGENERAL70 > Ovaries start -->
-                                                          <div class="ss_result_box">
-                                                            <div class="symp_title mb-3">
-                                                                <h6><span class="point_dia"><i
-                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                    USGENERAL70 > Ovaries</h6>
                                                             </div>
-
-                                                            <div class="symp_title mb-3">
-
-                                                                    <p class="ss_result">
-                                                                    {{ $jsonData['USGENERAL70Ovaries'][0] ?? '' }}</p>
-                                                                     
-
-                                                            </div>
-
-                                                        </div>
-                                                 <!--USGENERAL70 > Ovaries end -->
-                                                  <!--USGENERAL70 > PID start -->
-                                                  <div class="ss_result_box">
-                                                    <div class="symp_title mb-3">
-                                                        <h6><span class="point_dia"><i
-                                                                    class="fa-regular fa-circle-dot"></i></span>
-                                                            USGENERAL70 > PID</h6>
+                                                        </h6>
                                                     </div>
-
-                                                    <div class="symp_title mb-3">
-
-                                                            <p class="ss_result">
-                                                            {{ $jsonData['USGENERAL70PID'][0] ?? '' }}</p>
-                                                             
-
-                                                    </div>
-
-                                                </div>
-                                         <!--USGENERAL70 > PID end -->
-
-                                                          <!--MRCIR48 >Fibroids start -->
-                                                          <div class="ss_result_box">
-                                                            <div class="symp_title mb-3">
-                                                                <h6><span class="point_dia"><i
-                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                            MRCIR48 >CT - Uterus / Fibroids Findings > Fibroids</h6>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseleft15" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample15">
+                                                <div class="accordion-body">
+                                                    <div class="appointments___list past_medical_history_ak diagnosis_data">
+                                                        <ul>
+                                                            <li>
+    
+                                                                <div class="appoin_date">
+    
+                                                                    <div class="diagnosis_show">
+                                                                        <p class="diagnosis_date top_de"><span
+                                                                                class="enter_span_hivj"> {{ isset($Patient_order_imaginary_exams[0]) ? 'Entered By | ' . optional(optional($Patient_order_imaginary_exams[0])->doctor)->name ?? '' : '' }}
+                                                                                 </span> <span
+                                                                                class="enter_span_hivj">{{ isset($Patient_order_imaginary_exams[0]) && isset($Patient_order_imaginary_exams[0]->created_at) ? $Patient_order_imaginary_exams[0]->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                                </span></p>
+    
+                                                                        <div
+                                                                            class="datatable-container allinvoice_table custom_table_area table_test_fgi">
+                                                                            <table id="allinvoice_table" class="display">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Test Name</th>
+                                                                                        <th>Duration</th>
+                                                                                        <th>Status</th>
+                                                                                        <th>Action</th>
+    
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    @forelse ($Patient_order_imaginary_exams as $Patient_order_imaginary_exam)
+                                                                                    <tr>
+                                                                                        <td>{{ $Patient_order_imaginary_exam->test->test_name }}</td> 
+                                                                                        <td>{{ $Patient_order_imaginary_exam->test->duration }}</td> 
+                                                                                        @if ($Patient_order_imaginary_exam->status=='pending')
+                                                                                        <td><button
+                                                                                            class="pending-badge">Pending</button>
+                                                                                         </td>
+                                                                                            @else
+                                                                                            <td><button class="confirmed-badge">Complete</button></td>
+                                                                                        @endif
+                                                                                        
+                                                                                        
+                                                                                        <td>
+                                                                                            <a href="{{ $Patient_order_imaginary_exam->report_url }}" download="" class="download_rp_btn">
+                                                                                                <i class="fa-solid fa-file-arrow-down"></i> Download Report
+                                                                                            </a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                @empty
+                                                                                <td colspan="4" class="text-center">No record found</td>
+                                                                                @endforelse
+                                                                                
+                                                                                    {{-- <tr>
+                                                                                        <td>CT- Scan</td>
+                                                                                        <td>2 week</td>
+                                                                                        <td><button
+                                                                                                class="confirmed-badge">Complete</button>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a href="images/new-images/dummy.pdf"
+                                                                                                download=""
+                                                                                                class="download_rp_btn"><i
+                                                                                                    class="fa-solid fa-file-arrow-down"></i>
+                                                                                                Download Report</a>
+                                                                                        </td>
+    
+    
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>Ultrasound</td>
+                                                                                        <td>1 day</td>
+                                                                                        <td><button
+                                                                                                class="pending-badge">Pending</button>
+                                                                                        </td>
+                                                                                        <td>
+    
+                                                                                        </td>
+    
+    
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>MRI</td>
+                                                                                        <td>1 day</td>
+                                                                                        <td><button
+                                                                                                class="pending-badge">Pending</button>
+                                                                                        </td>
+                                                                                        <td>
+    
+                                                                                        </td>
+    
+    
+                                                                                    </tr> --}}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+    
+                                                                    </div>
+    
+    
+    
+    
+    
+                                                                </div>
+                                                            </li>
+                                                            @forelse ($Imaging as $record)
+                                                            <li>
+    
+                                                                <div class="appoin_date">
+                                                                    <div class="read-more-content sypm_tom_cnt"
+                                                                        style="">
+                                                                        <div class="diagnosis_show">
+    
+    
+                                                                            <p class="diagnosis_date top_de"><span
+                                                                                    class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                                </span> <span
+                                                                                    class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                                </span></p>
+    
+                                                                            @php
+    
+                                                                                $jsonData = json_decode($record->data_value, true);
+                                                                                // echo "<pre>";
+                                                                                //     print_r($jsonData);
+                                                                                //     die;
+                                                                            @endphp
+                                                                            <!--USGENERAL70 > Ultrasound Uterus / Fibroids Findings start -->
+                                                                            <div class="ss_result_box">
+                                                                                <div class="symp_title mb-3">
+                                                                                    <h6><span class="point_dia"><i
+                                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                        USGENERAL70 > Ultrasound Uterus / Fibroids Findings</h6>
+                                                                                </div>
+    
+                                                                                <div class="symp_title mb-3">
+    
+                                                                                    <p class="ss_result">
+                                                                                        {{ $jsonData['USGENERAL70Fibroids'][0] ?? '' }}</p>
+                                                                                    
+                                                                                        
+    
+                                                                                </div>
+    
+                                                                            </div>
+                                                                     <!--USGENERAL70 > Ultrasound Uterus / Fibroids Findings end -->
+    
+                                                                      <!--USGENERAL70 > Endometrium start -->
+                                                                      <div class="ss_result_box">
+                                                                        <div class="symp_title mb-3">
+                                                                            <h6><span class="point_dia"><i
+                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                USGENERAL70 > Endometrium</h6>
+                                                                        </div>
+    
+                                                                        <div class="symp_title mb-3">
+    
+                                                                                <p class="ss_result">
+                                                                                {{ $jsonData['USGENERAL70Endometrium'][0] ?? '' }}</p>
+                                                                                 
+    
+                                                                        </div>
+    
+                                                                    </div>
+                                                             <!--USGENERAL70 > Endometrium end -->
+                                                              <!--USGENERAL70 > Ovaries start -->
+                                                              <div class="ss_result_box">
+                                                                <div class="symp_title mb-3">
+                                                                    <h6><span class="point_dia"><i
+                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                        USGENERAL70 > Ovaries</h6>
+                                                                </div>
+    
+                                                                <div class="symp_title mb-3">
+    
+                                                                        <p class="ss_result">
+                                                                        {{ $jsonData['USGENERAL70Ovaries'][0] ?? '' }}</p>
+                                                                         
+    
+                                                                </div>
+    
                                                             </div>
-
-                                                            <div class="symp_title mb-3">
-
-                                                                    <p class="ss_result">
-                                                                    {{ $jsonData['MRCIR48Fibroids'][0] ?? '' }}</p>
-                                                                     
-
-                                                            </div>
-
+                                                     <!--USGENERAL70 > Ovaries end -->
+                                                      <!--USGENERAL70 > PID start -->
+                                                      <div class="ss_result_box">
+                                                        <div class="symp_title mb-3">
+                                                            <h6><span class="point_dia"><i
+                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                USGENERAL70 > PID</h6>
                                                         </div>
-                                                 <!--Fibroids  end -->
-                                                 <!--MRCIR48 >Ovaries start -->
+    
+                                                        <div class="symp_title mb-3">
+    
+                                                                <p class="ss_result">
+                                                                {{ $jsonData['USGENERAL70PID'][0] ?? '' }}</p>
+                                                                 
+    
+                                                        </div>
+    
+                                                    </div>
+                                             <!--USGENERAL70 > PID end -->
+    
+                                                              <!--MRCIR48 >Fibroids start -->
+                                                              <div class="ss_result_box">
+                                                                <div class="symp_title mb-3">
+                                                                    <h6><span class="point_dia"><i
+                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                MRCIR48 >CT - Uterus / Fibroids Findings > Fibroids</h6>
+                                                                </div>
+    
+                                                                <div class="symp_title mb-3">
+    
+                                                                        <p class="ss_result">
+                                                                        {{ $jsonData['MRCIR48Fibroids'][0] ?? '' }}</p>
+                                                                         
+    
+                                                                </div>
+    
+                                                            </div>
+                                                     <!--Fibroids  end -->
+                                                     <!--MRCIR48 >Ovaries start -->
+                                                     <div class="ss_result_box">
+                                                        <div class="symp_title mb-3">
+                                                            <h6><span class="point_dia"><i
+                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                        Ovaries</h6>
+                                                        </div>
+    
+                                                        <div class="symp_title mb-3">
+    
+                                                                <p class="ss_result">
+                                                                {{ $jsonData['MRCIR48Ovaries'][0] ?? '' }}</p>
+                                                                 
+    
+                                                        </div>
+    
+                                                    </div>
+                                                 <!--Ovaries  end -->
+                                                 <!--MRCIR48 >MRCIR48OAdnexalMass start -->
                                                  <div class="ss_result_box">
                                                     <div class="symp_title mb-3">
                                                         <h6><span class="point_dia"><i
                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                    Ovaries</h6>
+                                                                     Adnexal Mass / Complex Cyst</h6>
                                                     </div>
-
+    
                                                     <div class="symp_title mb-3">
-
+    
                                                             <p class="ss_result">
-                                                            {{ $jsonData['MRCIR48Ovaries'][0] ?? '' }}</p>
+                                                            {{ $jsonData['MRCIR48OAdnexalMass'][0] ?? '' }}</p>
                                                              
-
+    
                                                     </div>
-
+    
                                                 </div>
-                                             <!--Ovaries  end -->
-                                             <!--MRCIR48 >MRCIR48OAdnexalMass start -->
-                                             <div class="ss_result_box">
+                                             <!--MRCIR48OAdnexalMass  end -->
+                                              <!--MRCIR48 >Pelvic Lymph nodes enlargement / Free Fluid start -->
+                                              <div class="ss_result_box">
                                                 <div class="symp_title mb-3">
                                                     <h6><span class="point_dia"><i
                                                                 class="fa-regular fa-circle-dot"></i></span>
-                                                                 Adnexal Mass / Complex Cyst</h6>
+                                                                Pelvic Lymph nodes enlargement / Free Fluid</h6>
                                                 </div>
-
+    
                                                 <div class="symp_title mb-3">
-
+    
                                                         <p class="ss_result">
-                                                        {{ $jsonData['MRCIR48OAdnexalMass'][0] ?? '' }}</p>
+                                                        {{ $jsonData['MRCIR48OFreeFluid'][0] ?? '' }}</p>
                                                          
-
+    
                                                 </div>
-
+    
                                             </div>
-                                         <!--MRCIR48OAdnexalMass  end -->
-                                          <!--MRCIR48 >Pelvic Lymph nodes enlargement / Free Fluid start -->
+                                         <!--Pelvic Lymph nodes enlargement / Free Fluid  end -->
+                                          <!--MRCIR48 >PIDstart -->
                                           <div class="ss_result_box">
                                             <div class="symp_title mb-3">
                                                 <h6><span class="point_dia"><i
                                                             class="fa-regular fa-circle-dot"></i></span>
-                                                            Pelvic Lymph nodes enlargement / Free Fluid</h6>
+                                                            PID</h6>
                                             </div>
-
+    
                                             <div class="symp_title mb-3">
-
+    
                                                     <p class="ss_result">
-                                                    {{ $jsonData['MRCIR48OFreeFluid'][0] ?? '' }}</p>
+                                                    {{ $jsonData['MRCIR48OPID'][0] ?? '' }}</p>
                                                      
-
+    
                                             </div>
-
+    
                                         </div>
-                                     <!--Pelvic Lymph nodes enlargement / Free Fluid  end -->
-                                      <!--MRCIR48 >PIDstart -->
-                                      <div class="ss_result_box">
-                                        <div class="symp_title mb-3">
-                                            <h6><span class="point_dia"><i
-                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                        PID</h6>
-                                        </div>
-
-                                        <div class="symp_title mb-3">
-
-                                                <p class="ss_result">
-                                                {{ $jsonData['MRCIR48OPID'][0] ?? '' }}</p>
-                                                 
-
-                                        </div>
-
                                     </div>
+
+
+                                   
                                  <!--PID end -->
 
                                                   
@@ -2954,10 +2955,11 @@
                                         </div>
                                     </div>
 
-                                </div>
+                             
                             </div>
+                       
                         </div>
-
+                    </div>
                         <div class="card mb-3 border_yellow without_icon">
                             <div class="card-body p-0">
                                 <div class="accordion acordignleft__small" id="accordionExample2">
@@ -3257,7 +3259,7 @@
                                 </div>
                             </div>
                         </div>
-
+                   
                         <div class="card border_yellow without_icon">
                             <div class="card-body p-0">
                                 <div class="accordion acordignleft__small" id="accordionExample2">

@@ -1682,7 +1682,7 @@ public function editVaricoceleEmboEligibilityForms(Request $request)
 // Varicocele Embo  form update method
 public function updateVaricoceleEmboEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'VaricoceleEmboForm')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'VaricoceleEmboForm','patient_id'=>decrypt($request->patient_id)])->delete();
 
     $this->storeVaricoceleEmboEligibilityForms($request);
     $patientId=  $request->patient_id;
@@ -2233,7 +2233,7 @@ public function editHeadachePainEligibilityForms(Request $request)
 // HeadachePain form update method
 public function updateHeadachePainEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'HeadachePain')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'HeadachePain','patient_id'=>decrypt($request->patient_id)])->delete();
 
     $this->storeHeadachePainEligibilityForms($request);
     $patientId=  $request->patient_id;
@@ -2818,10 +2818,12 @@ public function editShoulderPainEligibilityForms(Request $request)
 // ShoulderPain form update method
 public function updateShoulderPainEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'ShoulderPain')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'ShoulderPain','patient_id'=>decrypt($request->patient_id)])->delete();
 
     $this->storeShoulderPainEligibilityForms($request);
-    return  redirect()->route('user.viewShoulderPainEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
 }
 
 
@@ -3267,7 +3269,9 @@ public function storeShoulderPainEligibilityForms(Request $request)
     }
 
 
-    return  redirect()->route('user.viewShoulderPainEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+       
+    return response()->json(['patient_id' => $patientId]);
 }
 
 // ShoulderPain form view method Edit_varicose_ablation
@@ -3396,10 +3400,13 @@ public function editMSKPainEligibilityForms(Request $request)
 // MSKPain form update method
 public function updateMSKPainEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'MSKPain')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'MSKPain','patient_id'=>decrypt($request->patient_id)])->delete();
 
     $this->storeMSKPainEligibilityForms($request);
-    return  redirect()->route('user.viewMSKPainEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
+
 }
 
 
@@ -3845,7 +3852,10 @@ public function storeMSKPainEligibilityForms(Request $request)
     }
 
 
-    return  redirect()->route('user.viewMSKPainEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+       
+        return response()->json(['patient_id' => $patientId]);
+
 }
 
 // MSKPain form view method Edit_varicose_ablation
@@ -3974,10 +3984,12 @@ public function editSpinePainEligibilityForms(Request $request)
 // SpinePain form update method
 public function updateSpinePainEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'SpinePain')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'SpinePain','patient_id'=>decrypt($request->patient_id)], )->delete();
 
     $this->storeSpinePainEligibilityForms($request);
-    return  redirect()->route('user.viewSpinePainEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
 }
 
 
@@ -4423,7 +4435,10 @@ public function storeSpinePainEligibilityForms(Request $request)
     }
 
 
-    return  redirect()->route('user.viewSpinePainEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+       
+    return response()->json(['patient_id' => $patientId]);
+
 }
 
 // SpinePain form view method Edit_varicose_ablation
@@ -4938,7 +4953,9 @@ public function storeKneePainEligibilityForms(Request $request)
     }
 
 
-    return  redirect()->route('user.viewKneePainEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+       
+    return response()->json(['patient_id' => $patientId]);
 }
 
 // knee pain form view method Edit_varicose_ablation
@@ -5064,10 +5081,12 @@ public function editKneePainEligibilityForms(Request $request)
 // KneePain form update method
 public function updateKneePainEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'KneePain')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'KneePain','patient_id'=>decrypt($request->patient_id)])->delete();
 
     $this->storeKneePainEligibilityForms($request);
-    return  redirect()->route('user.viewKneePainEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
 }
 // HaemorrhoidsEmbo form store method
 public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
@@ -5484,7 +5503,9 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
     }
 
 
-    return  redirect()->route('user.viewHaemorrhoidsEmboEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
 }
 // HaemorrhoidsEmbo form view method Edit_varicose_ablation
 public function viewHaemorrhoidsEmboEligibilityForms(Request $request, $id)
@@ -5605,10 +5626,12 @@ public function editHaemorrhoidsEmboEligibilityForms(Request $request)
 // HaemorrhoidsEmbo form update method
 public function updateHaemorrhoidsEmboEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'HaemorrhoidsEmbo')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'HaemorrhoidsEmbo','patient_id'=>decrypt($request->patient_id)])->delete();
 
     $this->storeHaemorrhoidsEmboEligibilityForms($request);
-    return  redirect()->route('user.viewHaemorrhoidsEmboEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
 }
 // VaricoseAblation form store method
 public function storeVaricoseAblationEligibilityForms(Request $request)
@@ -6025,7 +6048,9 @@ public function storeVaricoseAblationEligibilityForms(Request $request)
     }
 
 
-    return  redirect()->route('user.viewVaricoseAblationEligibilityForms', ['id' => $request->patient_id]);
+       $patientId=  $request->patient_id;
+       
+        return response()->json(['patient_id' => $patientId]);
 }
 
 // VaricoseAblation form edit method
@@ -6080,10 +6105,13 @@ public function editVaricoseAblationEligibilityForms(Request $request)
 // VaricoseAblation form update method
 public function updateVaricoseAblationEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'VaricoseAblation')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'VaricoseAblation','patient_id'=>decrypt($request->patient_id)])->delete();
 
     $this->storeVaricoseAblationEligibilityForms($request);
-    return  redirect()->route('user.viewVaricoseAblationEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+   
+       return response()->json(['patient_id' => $patientId]);
+
 }
 
 
@@ -6569,7 +6597,9 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
     }
 
 
-    return  redirect()->route('user.viewPelvicCongEmboEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+       
+        return response()->json(['patient_id' => $patientId]);
 }
 // PelvicCongEmbo form edit method
 public function editPelvicCongEmboEligibilityForms(Request $request)
@@ -6623,10 +6653,12 @@ public function editPelvicCongEmboEligibilityForms(Request $request)
 // PelvicCongEmbo form update method
 public function updatePelvicCongEmboEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'PelvicCongEmbo')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'PelvicCongEmbo','patient_id'=>decrypt($request->patient_id)])->delete();
 
     $this->storePelvicCongEmboEligibilityForms($request);
-    return  redirect()->route('user.viewPelvicCongEmboEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
 }
 
 // PelvicCongEmbo form view method
@@ -7111,7 +7143,9 @@ public function storeUterineEmboEligibilityForms(Request $request)
     }
 
 
-    return  redirect()->route('user.viewUterineEmboEligibilityForms', ['id' => $request->patient_id]);
+    $patientId=  $request->patient_id;
+       
+        return response()->json(['patient_id' => $patientId]);
 }
 // uterine_embo form edit method
 public function editUterineEmboEligibilityForms(Request $request)
@@ -7165,10 +7199,14 @@ public function editUterineEmboEligibilityForms(Request $request)
 // uterine_embo form update method
 public function updateUterineEmboEligibilityForms(Request $request)
 {
-    ThyroidDiagnosis::where('form_type', 'uterine_embo')->delete();
+    ThyroidDiagnosis::where(['form_type'=>'uterine_embo','patient_id'=>decrypt($request->patient_id)] )->delete();
 
     $this->storeUterineEmboEligibilityForms($request);
-    return  redirect()->route('user.viewUterineEmboEligibilityForms', ['id' => $request->patient_id]);
+    
+    $patientId=  $request->patient_id;
+   
+    return response()->json(['patient_id' => $patientId]);
+
 }
 // uterine_embo form view method
 public function viewUterineEmboEligibilityForms(Request $request, $id)
@@ -7649,8 +7687,9 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
 
         }
 
-
-        return  redirect()->route('user.ViewProstateEligibilityForms', ['id' => $request->patient_id]);
+        $patientId=  $request->patient_id;
+       
+        return response()->json(['patient_id' => $patientId]);
     }
     public function editProstateEligibilityForms(Request $request)
     {
@@ -7735,10 +7774,11 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
 
     public function UpdateProstateEligibilityForms(Request $request)
     {
-        ThyroidDiagnosis::where('form_type', 'prostate_form')->delete();
+        ThyroidDiagnosis::where(['form_type'=>'prostate_form','patient_id'=>decrypt($request->patient_id)])->delete();
 
         $this->storeProstateEligibilityForms($request);
-        return  redirect()->route('user.ViewProstateEligibilityForms', ['id' => $request->patient_id]);
+        $patientId=  $request->patient_id;
+        return response()->json(['patient_id' => $patientId]);
     }
 
     public function ViewProstateEligibilityForms(Request $request, $id)
@@ -7904,10 +7944,12 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
 
     public function UpdateThyroidEligibilityForms(Request $request)
     {
-        ThyroidDiagnosis::where('form_type', 'thyroid_form')->delete();
+        ThyroidDiagnosis::where(['form_type'=>'thyroid_form','patient_id'=>decrypt($request->patient_id)])->delete();
 
         $this->storeThyroidEligibilityForms($request);
-        return  redirect()->route('user.ViewThyroidAblationForm', ['id' => $request->patient_id]);
+        $patientId=  $request->patient_id;
+   
+       return response()->json(['patient_id' => $patientId]);
     }
 
     public function storeThyroidEligibilityForms(Request $request)
@@ -8632,7 +8674,10 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
         }
 
 
-        return  redirect()->route('user.ViewThyroidAblationForm', ['id' => $request->patient_id]);
+    
+        $patientId=  $request->patient_id;
+       
+        return response()->json(['patient_id' => $patientId]);
     }
 
 

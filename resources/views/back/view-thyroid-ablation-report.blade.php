@@ -1184,7 +1184,7 @@
 
                 <div class="col-lg-8">
                     <div class="right_side_mm_box">
-                        <div class="card mb-3 border_yellow">
+                        <div class="card mb-3 form1_bg">
                             <div class="card-body p-0">
                                 <div class="accordion acordignleft__small" id="accordionExample2">
                                     <div class="accordion-item mm_title">
