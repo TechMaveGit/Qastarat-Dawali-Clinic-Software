@@ -25,7 +25,7 @@
             }
         });
         var c = [{
-                title: "All Day Event",
+                title: "my event",
                 start: new Date(o, d, 1)
             }, {
                 title: "Long Event",
@@ -34,38 +34,38 @@
                 className: "bg-warning"
             }, {
                 id: 999,
-                title: "Repeating Event",
+                title: "customer",
                 start: new Date(o, d, n - 3, 16, 0),
                 allDay: !1,
                 className: "bg-info"
             }, {
                 id: 999,
-                title: "Repeating Event",
+                title: "hareram meeting",
                 start: new Date(o, d, n + 4, 16, 0),
                 allDay: !1,
                 className: "bg-primary"
             }, {
-                title: "Meeting",
+                title: "saurabh",
                 start: new Date(o, d, n, 10, 30),
                 allDay: !1,
                 className: "bg-success"
             }, {
-                title: "Lunch",
+                title: "test",
                 start: new Date(o, d, n, 12, 0),
                 end: new Date(o, d, n, 14, 0),
                 allDay: !1,
                 className: "bg-danger"
             }, {
-                title: "Birthday Party",
+                title: "hareram",
                 start: new Date(o, d, n + 1, 19, 0),
                 end: new Date(o, d, n + 1, 22, 30),
                 allDay: !1,
                 className: "bg-success"
             }, {
-                title: "Click for Google",
+                title: "test by hareeram",
                 start: new Date(o, d, 28),
                 end: new Date(o, d, 29),
-                url: "http://google.com/",
+                url: "https://techmavesoftwaredemo.com/webclinic/login/fullcalender",
                 className: "bg-dark"
             }],
             v = (document.getElementById("external-events"), document.getElementById("calendar"));

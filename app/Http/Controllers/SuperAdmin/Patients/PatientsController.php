@@ -25,16 +25,13 @@ class PatientsController extends Controller
 
     public function create(Request $request)
     {
-        $data['role'] = DB::table('roles')->get();
+        $data['doctors'] = DB::table('doctors')->get();
         return view('superAdmin.patient.create', $data);
     }
 
 
     public function addCreate(Request $request)
     {
-
-        
-
         $validatedData = $request->validate([
             'email' => [
                 'required',
@@ -106,6 +103,7 @@ class PatientsController extends Controller
                 }
                 $patient['birth_date'] = $carbonDate->format('d M, Y');
                 $patient['patient_id']  = "MA" . rand('00000', '99999' . '0');
+                $patient['doctor_id'] = $request->input('doctorName');
                 $patient['password'] = Hash::make($request->input('password'));
         
 
@@ -116,7 +114,18 @@ class PatientsController extends Controller
             $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $file_name);
             $patient['patient_profile_img'] = $file_name;
+        }    
+
+        $patient['id_proof'] = '';
+        if ($request->hasFile('id_proof')) {
+            $files = $request->file('id_proof');
+            $destinationPath = 'public/assets/patient_id';
+            $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $file_name);
+            $patient['id_proof'] = $file_name;
         }
+
+
         User::create($patient);
 
         return to_route('patients.index')->with('message', 'Patient added successfully.');
@@ -230,6 +239,7 @@ class PatientsController extends Controller
             $patient_info->update($patient);
             return to_route('patients.index')->with('message', 'Patient Updated Successfully.');
         }
+        $data['doctors']=Doctor::get();
         return view('superAdmin.patient.edit', $data);
     }
 }

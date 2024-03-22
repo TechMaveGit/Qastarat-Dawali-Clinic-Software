@@ -21,7 +21,6 @@ class RolePermissionController extends Controller
     {
         if(request()->isMethod("post"))
         {
-
             $this->validate($request, [
                 'role_type' => 'required|unique:roles,name',
              ]);
@@ -41,10 +40,20 @@ class RolePermissionController extends Controller
                                  'added_date'      => date('j,F,Y'),
                                 //  'status'          => $request->status,
                                  ]);
+
+            foreach($request->input('permission') as $value)
+            {
+                $permission = DB::table('role_has_permissions')->insert([
+                'role_id'       => $create,
+                'permission_id' => $value,
+                ]);
+            }
+
+
              return redirect()->route('permissions.index')->with('message', 'Role created successfully!');
         }
-
-        return view('superAdmin.role.create');
+        $data['permission']=DB::table('permissions')->get();
+        return view('superAdmin.role.create',$data);
 
     }
 
@@ -58,6 +67,8 @@ class RolePermissionController extends Controller
         $data['array'] = array_column($d, 'permission_id');
         if(request()->isMethod("post"))
         {
+           // return $request->all();
+
             $alphas = range('A', 'Z');
             shuffle($alphas);
             $alphas = array_slice($alphas, 0, 2);
@@ -78,11 +89,11 @@ class RolePermissionController extends Controller
                         ]);
                     }
                 }
-                  $id=$request->input('roleId');
+              //  return $request->input('status');
+
                   $coupon = [
                            "name" => $request->input('name'),
-                            "description" => $request->input('description'),
-                            "status" => $request->input('status'),
+                            "status" => $request->input('status')
                           ];
                 Roles::whereId($id)->update($coupon);
                 return redirect()->back()->with('message', 'Permission edited successfully!');

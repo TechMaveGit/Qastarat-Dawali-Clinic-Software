@@ -161,7 +161,10 @@ Route::prefix('login')->group(function () {
         Route::post('patient-info-update', [PatientController::class, 'patient_info_update'])->name('user.patient-info-update');
         Route::get('patient-medical-detail/{id}', [PatientController::class, 'patient_medical_detail'])->name('user.patient_medical_detail');
         Route::get('invoice', [InvoiceController::class, 'index'])->name('user.invoice');
-        Route::get('calendar', [CalendarController::class, 'index'])->name('user.calendar');
+        Route::get('fullcalender', [CalendarController::class, 'index'])->name('user.calendar');
+        Route::get('/user/calendar', [CalendarController::class, 'getEvents'])->name('user.calendar.getEvents');
+        Route::post('/create-update-event', [CalendarController::class, 'createOrUpdateEvent'])->name('user.calendar.event');
+        Route::get('/delete-event/{id}', [CalendarController::class, 'deleteEvent'])->name('user.delete.event');
         Route::get('view-medical-report', [ViewMedicalReportController::class, 'index'])->name('user.view-medical-report');
         Route::post('EligibilityForms', [PatientController::class, 'slectEligibilityForms'])->name('user.slectEligibilityForms');
       

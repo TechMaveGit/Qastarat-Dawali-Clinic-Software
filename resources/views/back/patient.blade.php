@@ -17,7 +17,7 @@
  }
  ?>
 
- @if(in_array("1", $arr) || in_array("2", $arr) || in_array("3", $arr) ||in_array("4", $arr))
+ @if(in_array("1", $arr) || in_array("2", $arr) || in_array("3", $arr) ||in_array("5", $arr))
 
     <div class="sub_bnr" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
         <div class="sub_bnr_cnt">
@@ -183,7 +183,7 @@
           </div> -->
     </div>
 
-    @if(in_array("4", $arr))
+    @if(in_array("3", $arr))
     <div class="patient_data">
         <div class="tabcontenttable_area">
             <div class="container">
@@ -635,19 +635,27 @@
                                                     '<td>' + patient.post_code + '</td>' +
                                                     '<td>';
 
-                                                @if(in_array("3", $arr))
-                                                    row += '<a href="' + patient.id  +
+                                              
+                                                row += '<a href="' + patient.id  +
                                                         '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
                                                         '<i class="fa-regular fa-file-lines"></i> View Invoice</a>&nbsp;';
-                                                @endif
+                                              
 
-                                                @if(in_array("2", $arr))
+                                                @if(in_array("2", $arr))    
                                                     row += '<a href="patient-medical-detail/' +  patient.id  +
                                                         '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
-                                                        '<i class="fa-regular fa-rectangle-list"></i> View Medical Record </a>';
+                                                        '<i class="fa-regular fa-rectangle-list"></i> View Medical Record</a>';
+                                                @endif
+                                                
+                                                @if(in_array("5", $arr))    
+                                                row += '<a href="patient-detail/' +  patient.id  +
+                                                        '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
+                                                        '<i class="fa-regular fa-rectangle-list"></i>Edit Patient </a>';
                                                 @endif
 
-                                                row += '</td></tr>';
+                                                        row += '</td></tr>';
+
+                                                
 
                                 allinvoice_table.row.add($(row)[0]);
 

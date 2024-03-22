@@ -30,12 +30,6 @@ Calender | QASTARAT & DAWALI CLINICS
    </div>
 </div>
 
-
-
-
-
-
-
 <div class="appoinmentcalendar_area">
     <div class="container">
         
@@ -65,10 +59,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                             </div> -->
                                         </div>
 
-                                        <div class="opencalendar_box">
-                                            <!-- Container for the calendar -->
-                                          <div id="calendarContainer"></div>
-                                        </div>
+                                       
 
                                         <div class="Clinicians_boxflt">
                                             <div class="fltr_eventhead">
@@ -141,7 +132,8 @@ Calender | QASTARAT & DAWALI CLINICS
                                     </div>
             
                                     <div class="modal-body p-4">
-                                        <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                                        <form class="needs-validation" name="event-form" id="form-event" novalidate method="POST">
+                                            @csrf
                                             <div class="row">
                                                 <!-- <div class="col-12">
                                                     <div class="mb-3">
@@ -158,25 +150,44 @@ Calender | QASTARAT & DAWALI CLINICS
                                                         <h6 class="book_appin_title">Book Appointment</h6>
                                                         <div class="col-12 mb-3">
                                                  
+                                                            <label class="form-label">Patient</label>
+                                                            <select class="form-control select2_appointment" name="patient_id" id="patient_id">
+                                                                <option  value=""> --Select-- </option>
+                                                                @forelse ($patients as $patient)
+                                                                <option value="{{ $patient->id }}">{{ $patient->name }}</option>
+                                                                @empty
+                                                                    
+                                                                @endforelse
+                                                               
+                                                               
+                                                            </select>
+                                                            <!-- <div class="invalid-feedback">Please select a valid event
+                                                                category</div> -->
+                                                      
+                                                    </div>
+                                                        <div class="col-12 mb-3">
+                                                 
                                                         <label class="form-label">Priority</label>
-                                                        <select class="form-control select2_appointment" name="category" id="event-category">
-                                                            <option  selected> --Select-- </option>
+                                                        <select class="form-control select2_appointment" name="priority" id="Priority">
+                                                            <option  value=""> --Select-- </option>
                                                             <option value="bg-danger">High</option>
                                                             <option value="bg-success">Medium</option>
                                                             <option value="bg-primary">Low</option>
-                                                            <!-- <option value="bg-info">Info</option>
-                                                            <option value="bg-dark">Dark</option>
-                                                            <option value="bg-warning">Warning</option> -->
+                                                           
                                                         </select>
                                                         <!-- <div class="invalid-feedback">Please select a valid event
+                                                               <option value="bg-danger">High</option>
+                                                            <option value="bg-success">Medium</option>
+                                                            <option value="bg-primary">Low</option>
                                                             category</div> -->
                                                   
                                                 </div>
+                                                
                                                         <div class="col-lg-6">
                                                         <div class="inner_element">
                                                                 <div class="form-group">
                                                                 <input class="form-control" placeholder="Appointment Type" type="text"
-                                                                    name="title" id="event-title" required value="">
+                                                                    name="appointment_type" id="appointment_type" required >
                                                                 <div class="invalid-feedback">Please provide a valid Appointment Type
                                                                 </div>
                                                                     <!-- <select class="form-control select2_appointment" id="event-category">
@@ -217,11 +228,11 @@ Calender | QASTARAT & DAWALI CLINICS
                                                                     name="title"  required value="">
                                                                 <div class="invalid-feedback">Please provide a valid Location
                                                                 </div> -->
-                                                                    <select class="form-control select2_appointment">
+                                                                    <select class="form-control select2_appointment" name="location" id="location">
                                                                         <option value="">Location</option>
-                                                                        <option value="">CLINIC</option>
-                                                                        <option value="">DUBAI</option>
-                                                                        <option value="">QASTARAT & DAWALI CLINICS</option>
+                                                                        <option value="CLINIC">CLINIC</option>
+                                                                        <option value="DUBAI">DUBAI</option>
+                                                                        <option value="QASTARAT & DAWALI CLINICS">QASTARAT & DAWALI CLINICS</option>
                                                                     </select>
                                                                 </div>
                                                         </div>
@@ -229,8 +240,9 @@ Calender | QASTARAT & DAWALI CLINICS
                                                         <div class="col-lg-6">
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
-                                                                        
-                                                                        <input type="text" class="form-control datepickerInput" placeholder="17 Nov,2023">
+                                                                        <input type="hidden" id="event_id" name="event_id" value="">
+
+                                                                        <input type="text" class="form-control datepickerInput" placeholder="17 Nov,2023" name="start_date">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -238,7 +250,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
                                                                         
-                                                                        <input type="text" class="form-control timepicker-custom" placeholder="12:00">
+                                                                        <input type="text" class="form-control timepicker-custom" placeholder="12:00" name="start_time">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -246,7 +258,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
                                                                         
-                                                                        <input type="text" class="form-control datepickerInput" placeholder="17 Nov,2023">
+                                                                        <input type="text" class="form-control datepickerInput" placeholder="17 Nov,2023" name="end_date">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -254,7 +266,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
                                                                         
-                                                                        <input type="text" class="form-control timepicker-custom" placeholder="12:00">
+                                                                        <input type="text" class="form-control timepicker-custom" placeholder="12:00" name="end_time">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -262,7 +274,7 @@ Calender | QASTARAT & DAWALI CLINICS
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
                                                                         
-                                                                        <input type="text" class="form-control" placeholder="Cost">
+                                                                        <input type="text" class="form-control" placeholder="Cost" name="cost" id="cost">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -270,23 +282,28 @@ Calender | QASTARAT & DAWALI CLINICS
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
                                                                         
-                                                                        <input type="text" class="form-control" placeholder="Code">
+                                                                        <input type="text" class="form-control" placeholder="Code" name="code" id="code">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4">
                                                             <div class="inner_element">
                                                                 <div class="form-group">
-                                                                    <select class="form-control select2_appointment">
+                                                                    <select class="form-control select2_appointment" name="clinician_id" id="clinician_id">
                                                                         <option value="">Select Clinician</option>
-                                                                        <option value="">SAIF ALZAABI</option>
+                                                                        @forelse ($doctors as $doctor)
+                                                                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                                                        @empty
+                                                                            
+                                                                        @endforelse
+                                                                        
                                                                     </select>
                                                                 </div>
                                                         </div>
                                                         </div>
                                                         <div class="col-lg-12">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                                                <input class="form-check-input" type="checkbox" value="checked" id="flexCheckChecked"  name="confirmation">
                                                                 <label class="form-check-label" for="flexCheckChecked">
                                                                 Send appointment confirmation immediately
                                                                 </label>
@@ -314,12 +331,10 @@ Calender | QASTARAT & DAWALI CLINICS
                            
                         </div>
 <!-- end modal-->
-                       
 
 @push('custom-js')
 
-
- <link rel="stylesheet" href="{{ url('public/assets') }}/libs/fullcalendar/core/main.min.css" type="text/css">
+<link rel="stylesheet" href="{{ url('public/assets') }}/libs/fullcalendar/core/main.min.css" type="text/css">
  <link rel="stylesheet" href="{{ url('public/assets') }}/libs/fullcalendar/daygrid/main.min.css" type="text/css">
  <link rel="stylesheet" href="{{ url('public/assets') }}/libs/fullcalendar/bootstrap/main.min.css" type="text/css">
  <link rel="stylesheet" href="{{ url('public/assets') }}/libs/fullcalendar/timegrid/main.min.css" type="text/css">
@@ -332,9 +347,11 @@ Calender | QASTARAT & DAWALI CLINICS
  <script src="{{ url('public/assets') }}/libs/fullcalendar/timegrid/main.min.js"></script>
  <script src="{{ url('public/assets') }}/libs/fullcalendar/interaction/main.min.js"></script>
  
- <script src="{{ url('public/assets') }}/js/calendar.init.js"></script>
- <script src="{{ url('public/assets') }}/js/app.js"></script>
 
+ <script src="{{ url('public/assets') }}/js/app.js"></script>
+   
+  
+   
  <script>
      document.addEventListener('DOMContentLoaded', function () {
    // Get all list items
@@ -358,11 +375,8 @@ Calender | QASTARAT & DAWALI CLINICS
 
  
  
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
- 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> 
  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
  <script>
    document.addEventListener('DOMContentLoaded', function () {
      flatpickr("#calendarContainer", {
@@ -373,6 +387,141 @@ Calender | QASTARAT & DAWALI CLINICS
      });
    });
  </script>
+<!-- fullcalender calculation handle  -->
+<script>
+    $(document).ready(function() {
+    var calendar = $('#calendar');
+    var modal = $('#event-modal');
+    var form = $('#form-event');
+    var deleteButton = $('#btn-delete-event');
+
+    function initCalendar(events) {
+        var m = new FullCalendar.Calendar(document.getElementById("calendar"), {
+            plugins: ["bootstrap", "interaction", "dayGrid", "timeGrid"],
+            editable: true,
+            droppable: true,
+            selectable: true,
+            defaultView: "dayGridMonth",
+            themeSystem: "bootstrap",
+            header: {
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+            },
+            events: events,
+            eventClick: function(info) {
+                modal.find('.modal-title').text('Edit Appointment');
+                form[0].reset();
+                form.find('#btn-save-event').text('Update');
+                deleteButton.show();
+
+                
+                form.find('input[name="event_id"]').val(info.event.id);
+                form.find('input[name="title"]').val(info.event.title);
+                form.find('select[name="patient_id"]').val(info.event.extendedProps.patient_id);
+                form.find('select[name="priority"]').val(info.event.extendedProps.priority);
+                form.find('input[name="appointment_type"]').val(info.event.extendedProps.appointment_type);
+                form.find('select[name="location"]').val(info.event.extendedProps.location);
+                form.find('input[name="start_date"]').val(info.event.start);
+                form.find('input[name="end_date"]').val(info.event.end);
+                form.find('input[name="start_time"]').val(info.event.extendedProps.start_time);
+                form.find('input[name="end_time"]').val(info.event.extendedProps.end_time);
+                form.find('input[name="cost"]').val(info.event.extendedProps.cost);
+                form.find('input[name="code"]').val(info.event.extendedProps.code);
+                form.find('select[name="clinician_id"]').val(info.event.extendedProps.clinician_id);
+                form.find('input[name="confirmation"]').prop('checked', info.event.extendedProps.confirmation === 'true');
+
+                modal.modal('show');
+            }
+        });
+
+        m.render();
+
+        form.on('submit', function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+         
+            $.ajax({
+                url: '{{ route("user.calendar.event") }}',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    
+                    console.log(response);
+                    m.refetchEvents(); 
+                    modal.modal('hide');
+                    if (response.message) {
+                            swal.fire(
+                                'Success',
+                                response.message,
+                                'success'
+                            ).then(function() {
+                                window.location.reload();
+                            });
+                        }
+                },
+                error: function(xhr, status, error) {
+                   
+                    console.error(error);
+                }
+            });
+        });
+
+        deleteButton.on('click', function() {
+            var eventId = form.find('input[name="event_id"]').val();
+            
+            
+            var deleteUrl = '{{ url("login/delete-event/") }}' + '/' + eventId;
+
+            if (eventId) {
+                $.ajax({
+                    url: deleteUrl,
+                    type: 'GET',
+                    data: {
+                        event_id: eventId
+                    },
+                    success: function(response) {
+                      
+                        console.log(response);
+                        m.refetchEvents(); 
+                        modal.modal('hide');
+                        if (response.message) {
+                            swal.fire(
+                                'Success',
+                                response.message,
+                                'success'
+                            ).then(function() {
+                                window.location.reload();
+                            });
+                        }
+
+                    },
+                    error: function(xhr, status, error) {
+                      
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    }
+
+   
+    $.ajax({
+        url: '{{ route("user.calendar.getEvents") }}',
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            initCalendar(response); 
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
+
+</script>
+
+    
 @endpush
 
 @endsection

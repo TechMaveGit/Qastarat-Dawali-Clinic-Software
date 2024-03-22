@@ -136,37 +136,35 @@ class DoctorController extends Controller
             $doctor = Doctor::create($doctorData);
             $lastInsertedId = $doctor->id;
 
-                // Nurse insert
-                $nurse = $request->input('coordinator');
-            //    dd(intval($nurse[0]));
-                   if (isset($nurse) && !empty($nurse)) {
+                   $nurse = $request->input('coordinator');
+                   if (isset($nurse) && !empty($nurse)) 
+                   {
                         $hgcount1 = count($nurse);
+                        for ($i = 0; $i < $hgcount1; $i++)
+                            {
+                                DB::table('doctor_nurse')->insert([
+                                                    'doctor_id' => $lastInsertedId,
+                                                    'nurse_id' => intval($nurse[$i]),
+                                                    'type' => 0
+                                                ]);
+                            }
+                  }
 
-                   for ($i = 0; $i < $hgcount1; $i++)
-                    {
-                        DB::table('doctor_nurse')->insert([
-                                            'doctor_id' => $lastInsertedId,
-                                            'nurse_id' => intval($nurse[$i]),
-                                        ]);
-                    }
-                }
-                    // Last insert nurse
 
-                    // Lab Insert
-                    // $lab   = $request->input('lab');
-                    // $lab = json_decode(json_encode($lab));
-                    // if ($lab) {
-                    //     $hgcount2 = count($lab);
-
-                    // for ($i = 0; $i < $hgcount2; $i++)
-                    //  {
-                    //      DB::table('doctor_labs')->insert([
-                    //                          'doctor_id' => $lastInsertedId,
-                    //                          'lab_id' => $lastInsertedId,
-                    //                      ]);
-                    //  }
-                    // }
-                     // End lab insert
+                  $addnurse = $request->input('nurse');
+                  if (isset($addnurse) && !empty($addnurse)) 
+                  {
+                       $hgcount1 = count($addnurse);
+                       for ($i = 0; $i < $hgcount1; $i++)
+                           {
+                               DB::table('doctor_nurse')->insert([
+                                                   'doctor_id' => $lastInsertedId,
+                                                   'nurse_id' => intval($addnurse[$i]),
+                                                   'type' => 1
+                                               ]);
+                           }
+                 }
+                  
 
                 return to_route('doctors.index')->with('message', 'Doctor added successfully.');
         }
@@ -183,23 +181,32 @@ class DoctorController extends Controller
         $data['id']= $id;
         if(request()->isMethod("post"))
         {
+
             $request->validate([
+
+                'business_name' => 'required|unique:main_companies,business_name,'.$mainComp->business_name.',business_name',
+                
                 'email' => [
                     'required',
                     'email',
-                    Rule::unique('doctors')->ignore($id),
+                    // Validate email uniqueness in 'doctors' table, ignoring the record with ID $id
+                    Rule::unique('doctors', 'email')->ignore($id),
                 ],
                 'post_code' => 'nullable|between:4,8',
-                'birth_date'=>'required',
+                'birth_date' => 'required',
                 'landline' => 'nullable|numeric',
                 'password' => 'nullable|min:6',
                 'mobile_no' => [
                     'required',
                     'numeric',
                     'regex:/^[0-9]{10,15}$/',
-                    Rule::unique('doctors')->ignore($id),
+                    // Validate mobile_no uniqueness in 'doctors' table, ignoring the record with ID $id
+                    Rule::unique('doctors', 'mobile_no')->ignore($id),
                 ],
             ]);
+            
+
+
             $doctorData = $request->except(['_token','submit','coordinator']);
             $doctorData['role_id'] = intval($doctorData['role_id']);
 
@@ -215,7 +222,7 @@ class DoctorController extends Controller
                 // If an existing file exists, delete it
                 if ($existingFilePath && file_exists(public_path($existingFilePath))) {
                     unlink(public_path($existingFilePath));
-                }
+                }   
            
                 $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $file_name);
@@ -263,26 +270,45 @@ class DoctorController extends Controller
               }
                  $doctorData['birth_date']=$carbonDate->format('d M, Y');
 
-                $result= DB::table('doctor_nurse')->where('doctor_id',$id)->delete();
-                $nurse = $request->input('coordinator');
-                if(isset($nurse) && !empty($nurse)  ){
 
-                    // Nurse insert
-              
-                //    dd(intval($nurse[0]));
-                       if (isset($nurse) && !empty($nurse)) {
-                            $hgcount1 = count($nurse);
-    
-                       for ($i = 0; $i < $hgcount1; $i++)
-                        {
-                            DB::table('doctor_nurse')->insert([
-                                                'doctor_id' => $id,
-                                                'nurse_id' => intval($nurse[$i]),
-                                            ]);
+                $coordinator = $request->input('coordinator');
+                if($coordinator)
+                {
+                        $result= DB::table('doctor_nurse')->where('doctor_id',$id)->where('type',0)->delete();
+                        if(isset($coordinator) && !empty($coordinator)  ){
+                            if (isset($coordinator) && !empty($coordinator)) {
+                                    $hgcount1 = count($coordinator);
+            
+                            for ($i = 0; $i < $hgcount1; $i++)
+                                {
+                                    DB::table('doctor_coordinator')->insert([
+                                                        'doctor_id' => $id,
+                                                        'nurse_id' => intval($coordinator[$i]),
+                                                    ]);
+                                }
+                            }
                         }
-                    }
-
                 }
+
+                // $nurse = $request->input('nurse');
+                // if($nurse)
+                // {
+                //         $result= DB::table('doctor_nurse')->where('doctor_id',$id)->where('type',1)->delete();
+                //         if(isset($nurse) && !empty($nurse)  ){
+                //             if (isset($nurse) && !empty($nurse)) {
+                //                     $hgcount1 = count($nurse);
+            
+                //             for ($i = 0; $i < $hgcount1; $i++)
+                //                 {
+                //                     DB::table('doctor_coordinator')->insert([
+                //                                         'doctor_id' => $id,
+                //                                         'nurse_id' => intval($nurse[$i]),
+                //                                     ]);
+                //                 }
+                //             }
+                //         }
+                // }
+                        
 
 
             Doctor::whereId($id)->update($doctorData);

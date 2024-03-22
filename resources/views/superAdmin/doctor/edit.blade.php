@@ -95,6 +95,64 @@
                         </div>
 
 
+                        @php
+                        $doctors = \App\Models\superAdmin\Doctor::where('user_type','Coordinator')->get();
+                        $nurse = \App\Models\superAdmin\Doctor::where('user_type','Nurse')->get();
+                        $doctor_nurses=DB::table('doctor_nurse')->select('id','doctor_id','nurse_id')->where('doctor_id',@$id)->get();
+                         @endphp
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Select coordinator<span class="clr"> * </span></label>
+                                <select class="form-control select2 form-select" name="coordinator[]" style="width: 100%;" multiple>
+                                    <option value="">Select Any One </option>
+                                    @forelse ($doctors as $doctor)
+                                        @php
+                                            $selected = '';
+                                            foreach ($doctor_nurses as $dn) {
+                                                if ($dn->nurse_id == $doctor->id) {
+                                                    $selected = 'selected';
+                                                    
+                                                }
+                                            }
+                                        @endphp
+                                        <option value="{{ $doctor->id }}" {{ $selected }}>{{ $doctor->name }} ({{ $doctor->email }})</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                            </div>
+                                @error('coordinator')
+                                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                @enderror
+                        </div>
+
+
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Select Nurse<span class="clr"> * </span></label>
+                                <select class="form-control select2 form-select" name="coordinator[]" style="width: 100%;" multiple>
+                                    <option value="">Select Any One </option>
+                                    @forelse ($nurse as $doctor)
+                                        @php
+                                            $selected = '';
+                                            foreach ($nurse as $dn) {
+                                                if ($dn->nurse_id == $doctor->id) {
+                                                    $selected = 'selected';
+                                                    
+                                                }
+                                            }
+                                        @endphp
+                                        <option value="{{ $doctor->id }}" {{ $selected }}>{{ $doctor->name }} ({{ $doctor->email }})</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                            </div>
+                                @error('coordinator')
+                                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                @enderror
+                        </div>
+
+
 
                         
                         <div class="col-lg-12 mt-3">
@@ -260,38 +318,9 @@
                                 
                             </div>
                         </div>
-                        @php
-                        $doctors = \App\Models\superAdmin\Doctor::where('user_type','Coordinator')->get();
-                        $doctor_nurses=DB::table('doctor_nurse')->select('id','doctor_id','nurse_id')->where('doctor_id',@$id)->get();
-                        
-                        
-                         @endphp
+                      
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label">Select coordinator<span class="clr"> * </span></label>
-                                <select class="form-control select2 form-select" name="coordinator[]" style="width: 100%;" multiple>
-                                    <option value="">Select Any One </option>
-                                    @forelse ($doctors as $doctor)
-                                        @php
-                                            $selected = '';
-                                            foreach ($doctor_nurses as $dn) {
-                                                if ($dn->nurse_id == $doctor->id) {
-                                                    $selected = 'selected';
-                                                    
-                                                }
-                                            }
-                                        @endphp
-                                        <option value="{{ $doctor->id }}" {{ $selected }}>{{ $doctor->name }} ({{ $doctor->email }})</option>
-                                    @empty
-                                    @endforelse
-                                </select>
-                                
-                            </div>
-                                @error('coordinator')
-                                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                                @enderror
-                        </div>
+
                         <div class="col-lg-6">
                             <div class="form-group">
                               <label class="form-label">License Upload</label>

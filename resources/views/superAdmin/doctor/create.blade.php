@@ -113,6 +113,60 @@
                         <!-- /.form-group -->
                         </div>
 
+                        @php
+                          $nurse = \App\Models\superAdmin\Doctor::where('user_type','Coordinator')->get();
+                         @endphp
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Select coordinator<span class="clr"> * </span></label>
+                                <select class="form-control select2 form-select" name="coordinator[]" style="width: 100%;" multiple>
+                                    <option value="">Select Any One </option>
+                                    @forelse ($nurse as $allnurse)
+                                     
+                                        <option value="{{ $allnurse->id }}">{{ $allnurse->name }} ( {{ $allnurse->email }} )</option>
+                                  
+                                    @empty
+                                    @endforelse
+
+                                </select>
+                            </div>
+                                @error('coordinator')
+                                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                @enderror
+                        </div>
+
+                        @php
+                        $addNurse = \App\Models\superAdmin\Doctor::where('user_type','Nurse')->get();
+                         @endphp
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Select Nurse<span class="clr"> * </span></label>
+                                <select class="form-control select2 form-select" name="nurse[]" style="width: 100%;" multiple>
+                                    <option value="">Select Any One </option>
+                                    @forelse ($addNurse as $allnurse)
+                                     
+                                        <option value="{{ $allnurse->id }}">{{ $allnurse->name }} ( {{ $allnurse->email }} )</option>
+                                  
+                                    @empty
+                                    @endforelse
+
+                                </select>
+                            </div>
+                                @error('coordinator')
+                                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                @enderror
+                        </div>
+
+
+
+
+
+
+
+
+
+
                        
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
@@ -263,29 +317,8 @@
                                 </select>
                             </div>
                         </div>
-                        @php
-                        $nurse = \App\Models\superAdmin\Doctor::where('user_type','Coordinator')->get();
-                        
-                         @endphp
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label">Select coordinator<span class="clr"> * </span></label>
-                                <select class="form-control select2 form-select" name="coordinator[]" style="width: 100%;" multiple>
-                                    <option value="">Select Any One </option>
-                                    @forelse ($nurse as $allnurse)
-                                     
-                                        <option value="{{ $allnurse->id }}">{{ $allnurse->name }} ( {{ $allnurse->email }} )</option>
-                                  
-                                    @empty
-                                    @endforelse
-
-                                </select>
-                            </div>
-                                @error('coordinator')
-                                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                                @enderror
-                        </div>
+                      
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Document</h4>

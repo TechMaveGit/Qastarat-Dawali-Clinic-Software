@@ -73,6 +73,21 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Add Doctor</label>
+                                <select class="form-control select2" style="width: 100%;">
+                                    @forelse ($doctors as $alldoctors)
+                                       <option value="{{$alldoctors->id}}">{{$alldoctors->name}}</option>
+                                    @empty
+                                        
+                                    @endforelse
+                                </select>
+                            </div>
+                        <!-- /.form-group -->
+                        </div>
+
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Postal Address</h4>
@@ -144,6 +159,16 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
+
+                           <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-label">Upload Document (PDF,IMAGE) </label>
+                              <input name="file1" type="file" class="dropify" data-height="100" />
+                              </div>
+                            </div>
+                            
+
+
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Patient Id</label>

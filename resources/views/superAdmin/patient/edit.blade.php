@@ -94,6 +94,27 @@
                         <!-- /.form-group -->
                         </div>
 
+
+
+                        <div class="col-md-3">    
+                            <div class="form-group">  
+                                <label class="form-label">Add Doctor</label>
+                                <select class="form-control select2" name="doctorName" style="width: 100%;" required>
+                                     <option value="">Select Any One</option>
+                                    @forelse ($doctors as $alldoctors)
+                                       <option value="{{$alldoctors->id}}" {{ $alldoctors->id == $patientId->doctor_id ? 'selected' : '' }} >{{$alldoctors->name}}</option>
+                                    @empty
+                                        
+                                    @endforelse
+                                </select>
+                            </div>
+                        <!-- /.form-group -->
+                        </div>
+
+
+
+
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Profile Image</label>
@@ -234,6 +255,15 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-label">Upload Document (PDF,IMAGE) </label>
+                              <input name="id_proof" type="file" class="dropify" data-height="100" />
+                              </div>
+                            </div>
+
+                            
                         {{-- <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Patient Id</label>

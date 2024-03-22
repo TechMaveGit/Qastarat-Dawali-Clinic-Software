@@ -4,8 +4,8 @@
 	  <div class="container-full">
 	<!-- Content Header (Page header) -->
     <div class="content-header">
-        <div class="d-flex">
-        <h4 class="page-title">Edit Role & Permission</h4>
+        <div class="d-flex">   
+        <h4 class="page-title">Edit Role & Permission</h4>     
         <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">User Permission</a></li>
@@ -32,18 +32,25 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-label" for="exampleInputEmail1">Role Name</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                        <input type="text" class="form-control" name="name" value="{{ $roleDetail->name}}" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" placeholder="">
-                                    </div>
+                                    </div>    
                                 </div>
 
 
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="exampleInputEmail1">Description</label>
-                                        <textarea name="description" class="form-control">sdfg</textarea>
-                                                                        </div>
+                                        <label class="form-label">Status</label>
+                                        <select class="form-control select2" name="status" style="width: 100%;">
+                                            <option value="">Select Any One</option>
+                                            <option value="1" {{ $roleDetail->status== '1' ? 'selected' : '' }}>Active</option>
+                                            <option value="0" {{ $roleDetail->status== '0' ? 'selected' : '' }}>Inactive</option>
+                                        </select>
+                                        @error('gendar')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
+                                    </div>
                                 </div>
 
 
@@ -64,7 +71,7 @@
          <div class="col-lg-12">
             <div class="box">
                <div class="box-header box_h">
-                    <div class="top_section_title">
+                    <div class="top_section_title">  
                         <h5>Patient</h5>
                     </div>
                 </div>
@@ -75,9 +82,11 @@
 
                     <th>Patient Action </th>
                     <th>Add  Patient </th>
-                    <th>View Medical Report</th>
+                    <th>Add  Medical Record </th>
+                    <th>View Medical Record</th>
                     <th>View Patient</th>
                     <th>Show Patient </th>
+                    <th>Edit Patient </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -97,668 +106,110 @@
                                 </td>
                                 @endif
                                 @endforeach
-                            </td>
-
-                    </tr>
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Patient Allergies</h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-
-                    <th>Menu / Action</th>
-
-                    <th>View</th>
-                    <th>Add</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                        <td class="text-">Patient Allergies</td>
-
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='2')
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
                         </td>
-                        @endif
-                        @endforeach
+
                     </tr>
                     </tbody>
                     </table>
                 </div>
             </div>
-         </div>
+          </div>
 
-         <div class="col-lg-12">
+
+
+          <div class="col-lg-12">
             <div class="box">
                <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Past Medical History</h5>
+                    <div class="top_section_title">  
+                        <h5>Invoices </h5>
                     </div>
                 </div>
                 <div class="box-body box_body_h">
                 <table class="table table-bordered table-hover mb-0" id="RoleTbl">
                     <thead>
-                    <tr>
 
-                    <th>Menu / Action</th>
-                    <th>View</th>
-                    <th>Add</th>
+                    <tr>
+                        <th>Patient Action </th>
+                        <th>Invoices</th>
+                        <th>Add  Invoice </th>
+                        <th>Edit  Invoice </th>
+                        <th>View Invoice</th>
                     </tr>
                     </thead>
                     <tbody>
 
                     <tr>
-                    <td class="text-">Past Medical History</td>
 
-
-                      @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='3')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-                    </tr>
-
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Past Surgical History</h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-
-                    <th>Menu / Action</th>
-                    <th>Add</th>
-                    <th>View</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">Past Surgical History</td>
-
-                     @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='4')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Old / Current meds</h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-
-                    <th>Menu / Action</th>
-                    <th>View</th>
-                    <th>Add</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">Old / Current meds</td>
-
-                    @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='5')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>List of procedures</h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-                        <th>Menu / Action</th>
-                        <th>View</th>
-                        <th>Add</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">List of procedures</td>
-
-
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='6')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-
-
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>List of Visit</h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-                        <th>Menu / Action</th>
-                        <th>View</th>
-                        <th>Add</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">List of Visit</td>
-
-
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='7')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Referrals</h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-                        <th>Menu / Action</th>
-                        <th>View</th>
-                        <th>Add</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">List of Visit</td>
-
-
-                        @foreach($permission as $key=>$value)
-                            @if ($value->verify_status=='8')
+                        <td class="text-">Action</td>
+                                @foreach($permission as $key=>$value)
+                                @if ($value->verify_status=='2')
                                 <td>
                                     <div class="form-check">
                                         <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
+                                        <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
 
-                                        </label>
-                                </div>
+                                            </label>
+                                    </div>
                                 </td>
-                            @endif
-                        @endforeach
-
+                                @endif
+                                @endforeach
+                        </td>
 
                     </tr>
-
                     </tbody>
                     </table>
                 </div>
             </div>
-         </div>
+          </div>
 
 
-
-         <div class="col-lg-12">
+          <div class="col-lg-12">
             <div class="box">
                <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Prescribed Medication</h5>
+                    <div class="top_section_title">  
+                        <h5>Task </h5>
                     </div>
                 </div>
                 <div class="box-body box_body_h">
                 <table class="table table-bordered table-hover mb-0" id="RoleTbl">
                     <thead>
+
                     <tr>
-                        <th>Menu / Action</th>
-                        <th>View</th>
-                        <th>Add</th>
+                        <th>Patient Action </th>
+                        <th>View Task</th>
+                        <th>Assign Task </th>
+                      
                     </tr>
                     </thead>
                     <tbody>
 
                     <tr>
-                    <td class="text-">Prescribed Medication</td>
 
+                        <td class="text-">Action</td>
+                                @foreach($permission as $key=>$value)
+                                @if ($value->verify_status=='3')
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
+                                        <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
 
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='9')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
+                                            </label>
+                                    </div>
+                                </td>
+                                @endif
+                                @endforeach
+                        </td>
 
                     </tr>
-
                     </tbody>
                     </table>
                 </div>
             </div>
+          </div>
+
+
+
          </div>
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5> Order Procedure</h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-                        <th>Menu / Action</th>
-                        <th>Add</th>
-                        <th>View</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-"> Order Procedure</td>
-
-
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='10')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-
-
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Order Special Invistigation
-                        </h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-                        <th>Menu / Action</th>
-                        <th>Add</th>
-                        <th>View</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">Order Special Invistigation
-                    </td>
-
-
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='11')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Future Plans
-                        </h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-                        <th>Menu / Action</th>
-                        <th>Add</th>
-                        <th>View</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">Future Plans
-                    </td>
-
-
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='12')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-
-
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Progress Note
-                        </h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-                        <th>Menu / Action</th>
-                        <th>Add</th>
-                        <th>View</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">Progress Note
-                    </td>
-
-
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='13')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Nurse Task Report
-                        </h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-                        <th>Menu / Action</th>
-                        <th>View Nurse Task</th>
-                        <th>Add Book Appointment</th>
-                        <th> View Updated Reports From Lab </th>
-                        <th>View Today Appointment</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">Nurse Task Report
-                    </td>
-
-
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='14')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-
-
-
-         <div class="col-lg-12">
-            <div class="box">
-               <div class="box-header box_h">
-                    <div class="top_section_title">
-                        <h5>Lab Test Patient Test's
-                        </h5>
-                    </div>
-                </div>
-                <div class="box-body box_body_h">
-                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
-                    <thead>
-                    <tr>
-                        <th>Menu / Action</th>
-                        <th>View Patient Test's</th>
-                        <th>Update Report</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                    <td class="text-">Lab Test Patient Test's
-                    </td>
-
-                        @foreach($permission as $key=>$value)
-                        @if ($value->verify_status=='15')
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
-                                    <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-
-                                    </label>
-                            </div>
-                            </td>
-                        @endif
-                        @endforeach
-
-
-                    </tr>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-         </div>
-
-
-
-
-
-
-            </div>
 
             <div class="box-footer">
                 <div class="row">
