@@ -57,29 +57,29 @@ foreach($D as $v)
                                                                     </div>
                                                                     @php
                                                                     $pathology_price_list_ids  = json_decode($nurse_task->pathology_price_list_id);
-                                                                   
+
                                                                   $pathology_price_list=  DB::table('pathology_price_list')->whereIn('id',$pathology_price_list_ids);
-                                                                  
+
                                                                     if($nurse_task->test_type == 'pathology'){
                                                                       $pathology_price_list=  $pathology_price_list->where('price_type', '0');
-                      
+
                                                                     }
                                                                     else {
-                                                                      
+
                                                                       $pathology_price_list=  $pathology_price_list->where('price_type', '1');
                                                                     }
-                                                                  
+
                                                                     $pathology_price_list =$pathology_price_list->pluck('test_name');
-                                                                   
+
                                                                   @endphp
                                                                     <div class="test_list">
                                                                         @forelse ($pathology_price_list as $value)
                                                                         <span>{{ $value }} </span>
-                                                                       
+
                                                                         @empty
-                                                                            
+
                                                                         @endforelse
-                                                                       
+
                                                                     </div>
                                                                 </li>
 
@@ -103,14 +103,14 @@ foreach($D as $v)
                                                                     <div class="tb_listTitle_label">Mobile No.</div>
                                                                     <span>{{ $patient->mobile_no }}</span>
                                                                 </li>
-                                                                
+
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Order Date</div>
                                                                     <span>{{ \Carbon\Carbon::parse($patient->created_at)->format('d M, Y') }}</span>
                                                                 </li>
                                                                     @php
                                                                          $receptionist_task_status= DB::table('receptionist_tasks')->where('nurse_task_id',$nurse_task->id)->first();
-                                                                         
+
                                                                     @endphp
                                                                     <li>
                                                                         <div class="tb_listTitle_label">Appoinment Date</div>
@@ -119,7 +119,7 @@ foreach($D as $v)
                                                                         @else
                                                                         <span>&nbsp;</span>
                                                                         @endif
-                                                                        
+
                                                                     </li>
 
                                                                 <li>
@@ -133,15 +133,15 @@ foreach($D as $v)
                                                                     @elseif (isset($receptionist_task_status->status) && $receptionist_task_status->status=='approved')
                                                                     <span>Approved</span>
                                                                     @endif
-                                                                    
+
                                                                 </li>
 
-                                                                
+
 
                                                                 <li class="book_bx_">
-                                                                   
-                                                                    
-                                                                        <a href="#" class="book_appointment_btn" 
+
+
+                                                                        <a href="#" class="book_appointment_btn"
                                                                             onclick="setTaskId({{ $receptionist_task_status->nurse_task_id }})"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#book_appointment">
@@ -151,7 +151,7 @@ foreach($D as $v)
                                                             </ul>
                                                         </div>
 
-                                                        <div class="customdotdropdown dropbtnRight">
+                                                        {{-- <div class="customdotdropdown dropbtnRight">
                                                                         <div class="buttondrop_dot">
                                                                             <i
                                                                                 class="fa-solid fa-ellipsis-vertical"></i>
@@ -166,7 +166,7 @@ foreach($D as $v)
                                                                             </a>
 
                                                                         </div>
-                                                                    </div>
+                                                                    </div> --}}
 
                                                     </div>
 
@@ -178,10 +178,10 @@ foreach($D as $v)
 
                                     </tr>
                                     @empty
-                                   
+
                                     @endforelse
 
-                                  
+
 
                                 </tbody>
                             </table>
@@ -318,7 +318,7 @@ foreach($D as $v)
                 </div>
 
             </div> -->
-            
+
         </div>
     </div>
 </div>
@@ -419,12 +419,12 @@ foreach($D as $v)
                 <div class="inner_data">
                     <div class="row top_head_vitals">
 
-                        
+
 
                         <div class="col-lg-12">
                             <div class="row">
-                              
-                                
+
+
 
                                 <div class="col-lg-6">
                                     <div class="inner_element">
@@ -438,9 +438,9 @@ foreach($D as $v)
                                               @forelse ( $nurses as  $nurse)
                                               <option value="{{ $nurse->id }}">{{ $nurse->name }}</option>
                                               @empty
-                                                  
+
                                               @endforelse
-                                               
+
                                             </select>
                                             <span class="text-danger" style="font-size: 14px" id="nurseError"></span>
                                             <input type="hidden" name="task_id" value="" id="task"/>
@@ -490,7 +490,7 @@ foreach($D as $v)
     </div>
 </div>
  @push('custom-js')
-    
+
  <script>
     $('.select2_appointment').select2({
         dropdownParent: $('#book_appointment'),
@@ -538,7 +538,7 @@ foreach($D as $v)
 <!-- assigend nurse form   data -->
 <script>
 	$(document).ready(function() {
-     
+
 		$('#taskAssigendForm').submit(function(e) {
 			e.preventDefault();
 
@@ -565,13 +565,13 @@ foreach($D as $v)
 								'Task Assigend Successfully!',
 								'success'
 							).then(function() {
-                                        window.location.reload(); 
+                                        window.location.reload();
                                     });
-							
-						} 
+
+						}
 					},
 					error: function(xhr, status, error) {
-						
+
 						if (xhr.status == 422) {
 							$('#book_appointment').modal('show');
 							var response = JSON.parse(xhr.responseText);
@@ -614,7 +614,7 @@ foreach($D as $v)
 				$('#dateError').text('date  is required');
 				$('input[name="date"]').addClass('error');
 			}
-			
+
 			// Validate time
 			let time = $('input[name="time"]').val();
 			if (time === '') {

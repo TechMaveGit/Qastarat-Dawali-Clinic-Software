@@ -55,7 +55,7 @@ foreach($D as $v)
                                                         <div class="taskOtherDetails">
                                                             <ul class="book_li">
                                                                 <li>
-                                                                    <div class="tb_listTitle_label labe_test">Tests :
+                                                                    <div class="tb_listTitle_label labe_test">
                                                                     </div>
                                                                     @php
                                                                     $pathology_price_list_ids  = json_decode($nurse_task->pathology_price_list_id);

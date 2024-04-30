@@ -7,7 +7,7 @@
     <div class="container">
 
         @php
-            $footer = App\Models\Footer::first();
+            $footer = DB::table('footers')->first();
         @endphp
 
         <!-- FOOTER CONTENT -->
@@ -17,121 +17,193 @@
             <!-- FOOTER LOGO -->
 
             <!-- FOOTER LOGO -->
-            <div class="col-xl-3">
+            <div class="col-xl-4">
                 <div class="footer-info mb-0">
-                    <img class="footer-logo" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
+                    @isset($footer->websitelogo)
+                    <img class="footer-logo" src="{{ asset('public/assets/video/'.$footer->websitelogo) }}"
+                    alt="footer-logo">
+                        @else
+                        <img class="footer-logo" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
                         alt="footer-logo">
-                    <img class="footer-logo-dark" src="{{ asset('public/assets/images/new-images/qastrat-logo2.png') }}"
-                        alt="footer-logo">
+                    @endisset
+                   
+                    
                 </div>
-                <p class="intro_para">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore inventore
-                    sapiente corporis voluptates at rerum.</p>
+                <div class="contact_dt_ak">
+					<h6>Headquarter Location:</h6>
+					<p>{{ $footer->HeadquarterLocation ?? '' }}</p>
+					<h6>Mailing address:</h6>
+					<p>{{ $footer->Mailingaddress ?? '' }}</p>
+					<h6>International Call Center:</h6>
+					<p><a href="tel:+{{ $footer->CallCenter ?? '' }}">+{{ $footer->CallCenter ?? '' }}</a></p>
+				</div>
             </div>
 
-            <!-- FOOTER LINKS -->
-            <div class="col-sm-4 col-lg-3 col-xl-2">
-                <div class="footer-links fl-1">
+        <!-- FOOTER LINKS -->
+			<div class="col-sm-4 col-lg-4 col-xl-2">
+				<div class="footer-links fl-1">
 
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Quick Links</h6>
+					<!-- Title -->
+					<h6 class="s-17 w-700">Quick login</h6>
+					<ul class="foo-links clearfix">
+						<li>
+							<p><a href="{{ url('/') }}">Patient Login</a></p>
+						</li>
+						<li>
+							<p><a href="#">Staff Login</a></p>
+						</li>
+					
+					</ul>
+					<h6 class="s-17 w-700 mt-3">Services</h6>
+					<!-- Links -->
+					<ul class="foo-links clearfix">
+						<li>
+							<p><a href="{{ url('/#Our_Services') }}">Women heal better</a></p>
+						</li>
+						<li>
+							<p><a href="#">Men heal better</a></p>
+						</li>
+						<li>
+							<p><a href="#">Women & Men heal better</a></p>
+						</li>
+						<li>
+							<p><a href="#">Regenerative therapies</a></p>
+						</li>
+					</ul>
+					<h6 class="s-17 w-700 mt-3">Legal</h6>
+					<ul class="foo-links clearfix">
+						<li>
+							<p><a href="{{ route('front.terms.page') }}">Terms of use</a></p>
+						</li>
+						<li>
+							<p><a href="{{ route('front.privacy.terms') }}">Privacy Policy</a></p>
+						</li>
+						<li>
+							<p><a href="{{ route('front.cookie.page') }}">Cookie Policy</a></p>
+						</li>
+					
+					</ul>
+				</div>
+			</div> <!-- END FOOTER LINKS -->
 
-                    <!-- Links -->
-                    <ul class="foo-links clearfix">
-                        <li>
-                            <p><a href="#">Home</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Patients</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Services</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Contact Us</a></p>
-                        </li>
-                    </ul>
 
-                </div>
-            </div> <!-- END FOOTER LINKS -->
+            
 
 
-            <!-- FOOTER LINKS -->
-            <div class="col-sm-4 col-lg-3 col-xl-2">
-                <div class="footer-links fl-3">
 
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Legal</h6>
+            
+          	<!-- FOOTER LINKS -->
+			<div class="col-sm-4 col-lg-4 col-xl-3">
+				<div class="footer-links fl-3">
 
-                    <!-- Links -->
-                    <ul class="foo-links clearfix">
-                        <li>
-                            <p><a href="#">Terms of Use</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Privacy Policy</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Cookie Policy</a></p>
-                        </li>
+					<!-- Title -->
+					<h6 class="s-17 w-700">Quick Connect</h6>
 
-                    </ul>
+					<!-- Links -->
+					<div class="coonect_box">
+						<div class="left_flag">
+                            @isset($footer->logo1)
+                            <img src="{{ asset('public/assets/video/'.$footer->logo1) }}" alt="">
+                                @else
+                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Oman.svg.png') }}" alt="">
+                            @endisset
+                           
+						</div>
+						<div class="contact_num">
+							<p><a href="https://wa.me/{{ $footer->logo1whatsapp ?? '' }}"><i class="fa-brands fa-whatsapp"></i> +{{ $footer->logo1whatsapp ?? '' }}</a></p>
+							<p><a href="tel:+{{ $footer->logo1phone ?? '' }}"><i class="fa-solid fa-phone"></i> +{{ $footer->logo1phone ?? '' }}</a></p>
 
-                </div>
-            </div> <!-- END FOOTER LINKS -->
+						</div>
+					</div>
+					<div class="coonect_box">
+						<div class="left_flag">
+                            @isset($footer->logo2)
+                            <img src="{{ asset('public/assets/video/'.$footer->logo2) }}" alt="">
+                                @else
+                                <img src="{{ asset('public/assets/images/new-images/Flag_of_the_United_Arab_Emirates.svg.png') }}" alt="">
+                            @endisset
+                          
+						</div>
+						<div class="contact_num">
+							<p><a href="https://wa.me/{{ $footer->logo2whatsapp ?? '' }}"><i class="fa-brands fa-whatsapp"></i> +{{ $footer->logo2whatsapp ?? '' }}</a></p>
+							<p><a href="tel:+{{ $footer->logo2phone ?? '' }}"><i class="fa-solid fa-phone"></i> +{{ $footer->logo2phone ?? '' }}</a></p>
 
-            <!-- FOOTER LINKS -->
-            <div class="col-sm-4 col-lg-3 col-xl-2">
-                <div class="footer-links fl-3">
+						</div>
+					</div>
+					<div class="coonect_box">
+						<div class="left_flag">
+                            @isset($footer->logo3)
+                            <img src="{{ asset('public/assets/video/'.$footer->logo3) }}" alt="">
+                                @else
+                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Saudi_Arabia.svg.png') }}" alt="">
+                            @endisset
+                           
+						</div>
+						<div class="contact_num">
+							<p><a href="https://wa.me/{{ $footer->logo3whatsapp ?? '' }}"><i class="fa-brands fa-whatsapp"></i> +{{ $footer->logo3whatsapp ?? ''  }}</a></p>
+							<p><a href="tel:+{{ $footer->logo3phone ?? '' }}"><i class="fa-solid fa-phone"></i> +{{  $footer->logo3phone ?? '' }}</a></p>
 
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Quick Connect</h6>
+						</div>
+					</div>
+					<div class="coonect_box">
+						<div class="left_flag">
+                            @isset($footer->logo4)
+                            <img src="{{ asset('public/assets/video/'.$footer->logo4) }}" alt="">
+                                @else
+                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Bahrain-manama.png') }}" alt="">
+                            @endisset
+                           
+						</div>
+						<div class="contact_num">
+							<p><a href="https://wa.me/{{ $footer->logo4whatsapp ?? '' }}"><i class="fa-brands fa-whatsapp"></i> +{{ $footer->logo4whatsapp ?? '' }}</a></p>
+							<p><a href="tel:+{{ $footer->logo4phone ?? '' }}"><i class="fa-solid fa-phone"></i> +{{ $footer->logo4phone ?? '' }}</a></p>
 
-                    <!-- Links -->
-                    <ul class="foo-links clearfix address_ul">
-                        <li><i class="fa-solid fa-location-dot"></i>
-                            <p><a href="#">Main Branch Muscat - OMAN</a></p>
-                        </li>
-                        <li><i class="fa-solid fa-envelope"></i>
-                            <p><a href="mailto:admin@qastaratclinics.com">admin@qastaratclinics.com</a></p>
-                        </li>
-                        <li><i class="fa-solid fa-phone"></i>
-                            <p><a href="tel:+971581114000">+971581114000</a></p>
-                        </li>
+						</div>
+					</div>
+					<!-- <ul class="foo-links clearfix address_ul">
+						<li><i class="fa-solid fa-location-dot"></i>
+							<p><a href="#">Main Branch Muscat - OMAN</a></p>
+						</li>
+						<li><i class="fa-solid fa-envelope"></i>
+							<p><a href="mailto:admin@qastaratclinics.com">admin@qastaratclinics.com</a></p>
+						</li>
+						<li><i class="fa-solid fa-phone"></i>
+							<p><a href="tel:+971581114000">+971581114000</a></p>
+						</li>
 
-                    </ul>
+					</ul> -->
 
-                </div>
-            </div> <!-- END FOOTER LINKS -->
+				</div>
+			</div> <!-- END FOOTER LINKS -->
 
 
 
             <!-- FOOTER NEWSLETTER FORM -->
-            <div class="col-sm-10 col-md-8 col-lg-4 col-xl-3">
-                <div class="footer-form">
+			<div class="col-sm-10 col-md-8 col-lg-4 col-xl-3">
+				<div class="footer-form">
 
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Follow the Best</h6>
+					<!-- Title -->
+					<h6 class="s-17 w-700">{{ $footer->text1 ?? '' }}</h6>
 
-                    <!-- Newsletter Form Input -->
-                    <form class="newsletter-form">
+					<!-- Newsletter Form Input -->
+					<form class="newsletter-form">
 
-                        <div class="input-group r-06">
-                            <input type="email" class="form-control" placeholder="Email Address" required
-                                id="s-email">
-                            <span class="input-group-btn ico-15">
-                                <button type="submit" class="btn color--theme">
-                                    <span class="flaticon-right-arrow-1 submit_btn"></span>
-                                </button>
-                            </span>
-                        </div>
+						<div class="input-group r-06">
+							<input type="email" class="form-control" placeholder="Email Address" required id="s-email">
+							<span class="input-group-btn ico-15">
+								<button type="submit" class="btn color--theme">
+									<span class="flaticon-right-arrow-1 submit_btn"></span>
+								</button>
+							</span>
+						</div>
 
-                        <!-- Newsletter Form Notification -->
-                        <label for="s-email" class="form-notification"></label>
+						<!-- Newsletter Form Notification -->
+						<label for="s-email" class="form-notification"></label>
 
-                    </form>
+					</form>
 
-                </div>
-            </div> <!-- END FOOTER NEWSLETTER FORM -->
+				</div>
+			</div> <!-- END FOOTER NEWSLETTER FORM -->
 
 
         </div> <!-- END FOOTER CONTENT -->
@@ -154,13 +226,15 @@
 
                 <!-- FOOTER SOCIALS -->
                 <div class="col-lg-4">
-                    <ul class="bottom-footer-socials ico-20 text-end">
-                        <li><a href="#"><span class="fa-brands fa-facebook-f"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-x-twitter"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-instagram"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-linkedin-in"></span></a></li>
-                    </ul>
-                </div>
+					<ul class="bottom-footer-socials ico-20 text-end">
+					<li><a href="#"><span class="fa-brands fa-instagram"></span></a></li>
+						<li><a href="#"><span class="fa-brands fa-tiktok"></span></a></li>
+						<li><a href="#"><span class="fa-brands fa-snapchat"></span></a></li>
+						<li><a href="#"><span class="fa-brands fa-x-twitter"></span></a></li>
+						<li><a href="#"><span class="fa-brands fa-youtube"></span></a></li>
+						
+					</ul>
+				</div>
                 <!-- <i class="fa-brands fa-x-twitter"></i>
        <i class="fa-brands fa-facebook-f"></i>
        <i class="fa-brands fa-instagram"></i>
@@ -208,7 +282,7 @@
 
                                 <div class="title_head">
 
-                                    <h4>Basic Info</h4>
+                                    <h4>Basic Info footer</h4>
 
                                 </div>
 
@@ -414,7 +488,7 @@
 
                                 <div class="title_head">
 
-                                    <h4>Phone and Email</h4>
+                                    <h4>Phone and Email</h4>   
 
                                 </div>
 
@@ -585,7 +659,7 @@
 
                                 <div class="title_head">
 
-                                    <h4>Basic Info</h4>
+                                    <h4>Basic Info ddd</h4>
 
                                 </div>
 
@@ -7388,8 +7462,6 @@
     $('.select2_modal').select2({
 
         dropdownParent: $('.add_patient__')
-
-
 
     });
 </script>

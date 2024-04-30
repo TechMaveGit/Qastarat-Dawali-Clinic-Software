@@ -65,29 +65,30 @@ class AuthController extends Controller
     }
     public function postForgetPassword(Request $request)
     {
+       
         $user = User::getEmailSingle($request->email);
         if (!empty($user)) {
-            Artisan::call('optimize:clear');
-            Artisan::call('config:clear');
+          
             $user->remember_token = Str::random(30);
             $user->save();
-            $otp = rand(100000,999999);
-            $time = time();
+           
 
-            Otp::updateOrCreate(
-                ['user_id' => $user->id],
-                [
-                'user_id' => $user->id,
-                'otp' => $otp,
-                'created_at' => $time
-                ]
-            );
+            Mail::to($user->email)->send(new ForgetPasswordMail($user));
 
-            Mail::to($user->email)->send(new ForgetPasswordMail($user,$otp));
-            return response()->json($user);
+           // Get the route URL
+            $routeUrl = route('front.home.page');
+
+            return response()->json([
+                'user' => $user,
+                'routeUrl' => $routeUrl,
+            ]);
         } else {
             $user = '';
-            return response()->json($user);
+            $routeUrl = route('patient.forget.password');
+            return response()->json([
+                'user' => $user,
+                'routeUrl' => $routeUrl,
+            ]);
         }
     }
     public function resetForgetPassword($remember_token)
@@ -152,21 +153,21 @@ class AuthController extends Controller
         }
 
     }
-    function updatePassword()
-    {
-        return view('front/reset-password');
-    }
+    // function updatePassword()
+    // {
+    //     return view('front/reset-password');
+    // }
 
     function updateNewPassword($remember_token,Request $req)
     {
         $req->validate([
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required|string|min:8',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6',
         ]);
         $user = User::getTokenSingle($remember_token);
         if ($user) {
           $user->update(['password' => Hash::make($req->password)]);
-            return redirect()->route('user.login');
+            return redirect()->route('front.home.page');
         } else {
             return false;
         }

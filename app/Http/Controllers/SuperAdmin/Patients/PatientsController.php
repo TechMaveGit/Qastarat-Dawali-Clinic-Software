@@ -19,19 +19,31 @@ class PatientsController extends Controller
 
     public function index()
     {
-        $data['users'] = User::orderBy('id', 'desc')->select('id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
+        $data['users'] = User::orderBy('id', 'desc')->select('id','status','doctor_id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
         return view('superAdmin.patient.index', $data);
     }
 
     public function create(Request $request)
     {
-        $data['doctors'] = DB::table('doctors')->get();
+        $data['doctors'] = DB::table('doctors')->where('status','active')->where('user_type','doctor')->get();
+        $data['branchs'] = DB::table('branchs')->where('status','1')->get();
         return view('superAdmin.patient.create', $data);
+    }
+
+
+    public function view(Request $request ,$id)
+    {
+        $data['doctor']=User::whereId($id)->first();
+        $data['book_appointments']=DB::table('book_appointments')->where('patient_id', $id)->get();
+        return view('superAdmin.patient.view',$data);
     }
 
 
     public function addCreate(Request $request)
     {
+
+      //  return $request->all();
+
         $validatedData = $request->validate([
             'email' => [
                 'required',
@@ -55,7 +67,7 @@ class PatientsController extends Controller
             'landline' => 'nullable|numeric|digits_between:10,15',
             'mobile_no' => 'required|numeric|unique:users,mobile_no|regex:/^[0-9]{10,15}$/',
             'password' => 'required|min:6',
-            
+
             'name' => 'required',
             'gendar'=>'required',
             'title' => 'required',
@@ -105,7 +117,7 @@ class PatientsController extends Controller
                 $patient['patient_id']  = "MA" . rand('00000', '99999' . '0');
                 $patient['doctor_id'] = $request->input('doctorName');
                 $patient['password'] = Hash::make($request->input('password'));
-        
+
 
         $patient['patient_profile_img'] = '';
         if ($request->hasFile('patient_profile_img')) {
@@ -114,7 +126,7 @@ class PatientsController extends Controller
             $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $file_name);
             $patient['patient_profile_img'] = $file_name;
-        }    
+        }
 
         $patient['id_proof'] = '';
         if ($request->hasFile('id_proof')) {
@@ -125,8 +137,32 @@ class PatientsController extends Controller
             $patient['id_proof'] = $file_name;
         }
 
+        $user = User::create($patient);
+        $lastId = $user->id;
 
-        User::create($patient);
+
+        $branchName=$request->input('selectBranch');
+        $branchName = json_decode(json_encode($branchName));
+        if ($branchName) {
+            $branchName = count($branchName);
+        }
+        if ($branchName > 0) 
+        {
+            for ($i = 0; $i < $branchName; $i++) 
+              {
+                    DB::table('user_branchs')->insertGetId([
+                        'patient_id' =>$lastId,
+                        'add_branch'     => $request->input('selectBranch')[$i],
+                        'branch_type' =>'patient'
+                    ]);
+              }
+        }
+
+
+        
+
+
+
 
         return to_route('patients.index')->with('message', 'Patient added successfully.');
     }
@@ -137,30 +173,32 @@ class PatientsController extends Controller
         $id = $request->common;
         $patient=User::findOrFail($id);
         // dd($patient);
-        
+
             $files = $request->file('patient_profile_img');
             $destinationPath = 'public/assets/patient_profile/';
-        
+
             // Get the existing file path from the database
             $existingFilePath = $patient->patient_profile_img;
             $destinationPath=$destinationPath.$existingFilePath;
-            
+
             if (isset($existingFilePath) && file_exists(public_path($destinationPath))) {
-              
+
                 unlink(public_path($existingFilePath));
             }
-        
+
             $patient->delete();
 
         return to_route('patients.index')->with('message', 'Patient deleted.');
     }
+
+
     public function edit(Request $request, $id)
     {
-        // $id = Crypt::decrypt($id);
-       
+
+        $user_branchs = DB::table('user_branchs')->where('patient_id',$id)->get();
+        $data['user_branchs']  = $user_branchs->pluck('add_branch')->toArray();
+
         $data['patientId'] = User::whereId($id)->first();
-
-
         if (request()->isMethod("post")) {
             $request->validate([
                 'email' => [
@@ -184,29 +222,28 @@ class PatientsController extends Controller
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
                 $destinationPath = 'public/assets/patient_profile';
-            
+
                 // Get the existing file path from the database
                 $existingFilePath = $patient_info->patient_profile_img;
-            
+
                 // If an existing file exists, delete it
                 if ($existingFilePath && file_exists(public_path($existingFilePath))) {
                     unlink(public_path($existingFilePath));
                 }
-           
+
                 $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $file_name);
                  $patient['patient_profile_img'] = $file_name;
             }
             if($request->has('password') && isset($request->password)){
-                
+
                 $patient['password'] = Hash::make($request->input('password'));
 
             }
-            
 
 
 
-            
+
             $currentDate = $request->input('birth_date');
 
               // Regular expressions to match the two date formats
@@ -227,7 +264,7 @@ class PatientsController extends Controller
             // dd( $carbonDate);
             $patient['title'] = $request->title;
             $patient['name'] = $request->name;
-            $patient['birth_date'] = $carbonDate->format('d M, Y') ?? '';
+            // $patient['birth_date'] = $carbonDate->birth_date('d M, Y') ?? '';
             $patient['gendar'] = $request->gendar;
             $patient['post_code'] = $request->post_code;
             $patient['street'] = $request->street;
@@ -235,11 +272,37 @@ class PatientsController extends Controller
             $patient['country'] = $request->country;
             $patient['landline'] = $request->landline;
             $patient['document_type'] = $request->document_type;
+            $patient['doctor_id'] =    $request->doctorName;
+            $patient['status'] =    $request->status;
 
             $patient_info->update($patient);
+
+
+            DB::table('user_branchs')->where('patient_id',$id)->where('branch_type','patient')->delete();
+            $branchName=$request->input('selectBranch');
+             $branchName = json_decode(json_encode($branchName));
+             if ($branchName) {
+                 $branchName = count($branchName);
+             }
+             if ($branchName > 0) 
+             {
+                 for ($i = 0; $i < $branchName; $i++) 
+                   {
+                         DB::table('user_branchs')->insertGetId([
+                             'patient_id'        => $id,
+                             'add_branch'        => $request->input('selectBranch')[$i],
+                             'branch_type'       => 'patient'
+                         ]);
+                   }
+             }
+
+
+
+
             return to_route('patients.index')->with('message', 'Patient Updated Successfully.');
         }
-        $data['doctors']=Doctor::get();
+
+        $data['doctors']=Doctor::where('user_type','doctor')->get();
         return view('superAdmin.patient.edit', $data);
     }
 }

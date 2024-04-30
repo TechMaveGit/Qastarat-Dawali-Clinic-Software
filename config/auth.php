@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Authentication Defaults
+    | Authentication Defaults    
     |--------------------------------------------------------------------------
     |
     | This option controls the default authentication "guard" and password
@@ -81,6 +81,7 @@ return [
         'doctors' => [
             'driver' => 'eloquent',
             'model' => App\Models\superAdmin\Doctor::class,
+            'retrieve_password' => true,
         ]
     ],
 

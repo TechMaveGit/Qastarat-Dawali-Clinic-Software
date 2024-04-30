@@ -254,10 +254,10 @@
 
 
 
-                                <a href="#" class="action_btn_tooltip">
-                                    <iconify-icon icon="carbon:report" width="22"></iconify-icon>
-                                    <span class="toolTip">Generate Report</span>
-                                </a>
+              <a href="#" class="action_btn_tooltip" data-bs-toggle="modal" data-bs-target="#genrate_report">
+                <iconify-icon icon="carbon:report" width="22"></iconify-icon>
+                <span class="toolTip">Generate Report</span>
+            </a>
 
                                 <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
                                     data-bs-target="#make_appointment">
@@ -1126,7 +1126,7 @@
 
                                                 <div class="top_title_mm_box">
 
-                                                    <h6>List of prescribed medicationt</h6>
+                                                    <h6>List of prescribed Medicines</h6>
 
                                                 </div>
 
@@ -1833,7 +1833,7 @@
                                                             data-bs-target="#order_supportive_surface">
                                                             <iconify-icon icon="icon-park-outline:order"
                                                                 width="24"></iconify-icon>
-                                                            <span class="toolTip">Order Special Invistigation</span>
+                                                            <span class="toolTip">Order Special Investigation</span>
                                                         </a>
 
                                                         <div class="enterd_by">
@@ -2897,15 +2897,18 @@
 
                                 if (result != '') {
 
-                                    swal.fire(
+                                    Swal.fire(
+    'Success',
+    'Order Lab Test Added successfully!',
+    'success'
+).then((result) => {
+    if (result.isConfirmed || result.isDismissed) {
+        location.reload(); // Refresh the page
+    }
+});
 
-                                        'Success',
 
-                                        'Order Lab Test Added successfully!',
 
-                                        'success'
-
-                                    )
                                     fetchAndDisplayPatientOrderLabTest(patient_id);
                                 } else {
 

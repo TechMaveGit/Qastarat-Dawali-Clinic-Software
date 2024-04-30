@@ -310,10 +310,10 @@
 
 
 
-                                <a href="#" class="action_btn_tooltip">
-                                    <iconify-icon icon="carbon:report" width="22"></iconify-icon>
-                                    <span class="toolTip">Generate Report</span>
-                                </a>
+              <a href="#" class="action_btn_tooltip" data-bs-toggle="modal" data-bs-target="#genrate_report">
+                <iconify-icon icon="carbon:report" width="22"></iconify-icon>
+                <span class="toolTip">Generate Report</span>
+            </a>
 
                                 <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
                                     data-bs-target="#make_appointment">
@@ -924,173 +924,63 @@
 
                                             <div class="accordion-body">
 
+                                               
                                                 <ul class="referrals_list">
+                                                    @php
+                                                    $referaldoctors = DB::table('doctors')->select('id','doctor_id','title','name','email')->where('referal_status', '1')->get();
+                                                  @endphp
 
-                                                    <li>
+                                                  @forelse ($referaldoctors as $referaldoctors)
+                                                  
+                                                  <li>
+                                                      <div class="booking_card_select">
 
-                                                        <div class="booking_card_select">
+                                                          <label for="cbx1">
 
+                                                              <div class="doctor_dt">
 
+                                                                  <div class="image_dr">
 
-                                                            <label for="cbx1">
+                                                                    @if (isset($referaldoctors->patient_profile_img))
 
-                                                                <div class="doctor_dt">
+                                                                    <img src="{{ asset('/public/assets/profileImage/' . $referaldoctors->patient_profile_img) }}" alt="">
 
-                                                                    <div class="image_dr">
+                                                                    @else
+                                                                    <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
-                                                                        <img src="images/new-images/avtar.jpg"
-                                                                            alt="">
+                                                                    @endif
 
-                                                                    </div>
+                                                                  </div>
 
-                                                                    <div class="dr_detail">
+                                                                  <div class="dr_detail">
 
-                                                                        <h6 class="dr_name">Abbigail Titmus
-                                                                            <span>(MBBS)</span>
-                                                                        </h6>
+                                                                      <h6 class="dr_name">{{ $referaldoctors->name }}
+                                                                          <span>{{ $referaldoctors->title }}</span>
+                                                                      </h6>
 
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                        </p>
+                                                                      <p class="dr_email"><a
+                                                                              href="mailto:{{ $referaldoctors->email }}">{{ $referaldoctors->email }}</a>
+                                                                      </p>
 
-                                                                    </div>
+                                                                  </div>
 
-                                                                </div>
+                                                              </div>
 
-                                                            </label>
+                                                          </label>
 
-                                                        </div>
+                                                      </div>
+                                                  </li>
 
-
-
-
-
-                                                    </li>
-
-                                                    <li>
-
-                                                        <div class="booking_card_select">
-
-
-
-                                                            <label for="cbx2">
-
-                                                                <div class="doctor_dt">
-
-                                                                    <div class="image_dr">
-
-                                                                        <img src="images/new-images/avtar.jpg"
-                                                                            alt="">
-
-                                                                    </div>
-
-                                                                    <div class="dr_detail">
-
-                                                                        <h6 class="dr_name">Abbigail Titmus
-                                                                            <span>(MBBS)</span>
-                                                                        </h6>
-
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                        </p>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </label>
-
-                                                        </div>
-
-
-
-
-
-                                                    </li>
-
-                                                    <li>
-
-                                                        <div class="booking_card_select">
-
-
-
-                                                            <label for="cbx3">
-
-                                                                <div class="doctor_dt">
-
-                                                                    <div class="image_dr">
-
-                                                                        <img src="images/new-images/avtar.jpg"
-                                                                            alt="">
-
-                                                                    </div>
-
-                                                                    <div class="dr_detail">
-
-                                                                        <h6 class="dr_name">Abbigail Titmus
-                                                                            <span>(MBBS)</span>
-                                                                        </h6>
-
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                        </p>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </label>
-
-                                                        </div>
-
-
-
-
-
-                                                    </li>
-
-                                                    <li>
-
-                                                        <div class="booking_card_select">
-
-
-
-                                                            <label for="cbx4">
-
-                                                                <div class="doctor_dt">
-
-                                                                    <div class="image_dr">
-
-                                                                        <img src="images/new-images/avtar.jpg"
-                                                                            alt="">
-
-                                                                    </div>
-
-                                                                    <div class="dr_detail">
-
-                                                                        <h6 class="dr_name">Abbigail Titmus
-                                                                            <span>(MBBS)</span>
-                                                                        </h6>
-
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                        </p>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </label>
-
-                                                        </div>
-
-
-
-
-
-                                                    </li>
+                                                  @empty
+                                                  <li>
+                                                      <h4>No Data Found</h4>
+                                                  </li>
+                                                      
+                                                  @endforelse
+                                                  
 
                                                 </ul>
+
 
                                             </div>
 
@@ -1171,7 +1061,7 @@
 
                                                 <div class="top_title_mm_box">
 
-                                                    <h6>List of prescribed medicationt</h6>
+                                                    <h6>List of prescribed Medicines</h6>
 
                                                 </div>
 
@@ -1254,14 +1144,14 @@
 
 
 
-
+  
                 </div>
 
 
 
                 <div class="col-lg-8">
                     <div class="right_side_mm_box">
-                        <div class="card mb-3 border_yellow">
+                        <div class="card mb-3 border_yellow" style="border: 2px solid #ffe51a;">
                             <div class="card-body p-0">
                                 <div class="accordion acordignleft__small" id="accordionExample2">
                                     <div class="accordion-item mm_title">
@@ -1838,7 +1728,7 @@
                                                             data-bs-target="#order_supportive_surface">
                                                             <iconify-icon icon="icon-park-outline:order"
                                                                 width="24"></iconify-icon>
-                                                            <span class="toolTip">Order Special Invistigation</span>
+                                                            <span class="toolTip">Order Special Investigation</span>
                                                         </a>
 
                                                         <div class="enterd_by">
@@ -2890,15 +2780,16 @@
 
                                 if (result != '') {
 
-                                    swal.fire(
+                                    Swal.fire(
+    'Success',
+    'Order Lab Test Added successfully!',
+    'success'
+).then((result) => {
+    if (result.isConfirmed || result.isDismissed) {
+        location.reload(); // Refresh the page
+    }
+});
 
-                                        'Success',
-
-                                        'Order Lab Test Added successfully!',
-
-                                        'success'
-
-                                    )
                                     fetchAndDisplayPatientOrderLabTest(patient_id);
                                 } else {
 

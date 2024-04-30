@@ -1170,7 +1170,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                     <th>Mild LUTS </th>
                                                     <th>(1-10 pts)</th>
                                                 </tr>
-                                                <tr id="moderateLUTS" class="hidden">>
+                                                <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
                                                     <th>Moderate LUTS </th>
                                                     <th>(11-20 pts)</th>

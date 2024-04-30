@@ -6,6 +6,7 @@ use App\Models\superAdmin\Doctor;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Roles;
+use Redirect;
 use DB;
 
 class RolePermissionController extends Controller
@@ -49,8 +50,9 @@ class RolePermissionController extends Controller
                 ]);
             }
 
-
              return redirect()->route('permissions.index')->with('message', 'Role created successfully!');
+
+
         }
         $data['permission']=DB::table('permissions')->get();
         return view('superAdmin.role.create',$data);
@@ -78,25 +80,24 @@ class RolePermissionController extends Controller
             $customer_id    =$code.$myuid;
             $role_id=$request->input('role_id');
 
-                DB::table('role_has_permissions')->whereIn('role_id',[$role_id])->delete();
-                if($request->input('permission'))
+            DB::table('role_has_permissions')->whereIn('role_id',[$role_id])->delete();
+            if($request->input('permission'))
+            {
+                foreach($request->input('permission') as $value)
                 {
-                 foreach($request->input('permission') as $value)
-                    {
-                        $permission = DB::table('role_has_permissions')->insert([
-                        'role_id'       => $role_id,
-                        'permission_id' => $value,
-                        ]);
-                    }
+                    $permission = DB::table('role_has_permissions')->insert([
+                    'role_id'       => $role_id,
+                    'permission_id' => $value,
+                    ]);
                 }
-              //  return $request->input('status');
+            }
 
-                  $coupon = [
-                           "name" => $request->input('name'),
-                            "status" => $request->input('status')
-                          ];
-                Roles::whereId($id)->update($coupon);
-                return redirect()->back()->with('message', 'Permission edited successfully!');
+            $coupon = [
+                    "name" => $request->input('name'),
+                    "status" => $request->input('status')
+                    ];
+            Roles::whereId($id)->update($coupon);
+            return Redirect::route('permissions.index')->with('message', 'Permission updated successfully!');
 
         }
         return view('superAdmin.role.edit',$data);

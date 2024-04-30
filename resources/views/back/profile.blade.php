@@ -2,7 +2,7 @@
 
 @push('title')
 
-profile  | QASTARAT & DAWALI CLINICS 
+profile  | QASTARAT & DAWALI CLINICS
 
 @endpush
 
@@ -13,253 +13,165 @@ profile  | QASTARAT & DAWALI CLINICS
 	{{-- add here --}}
 
 @endpush
-<div class="sub_bnr_img" style="background-image: url({{ asset('assets/public/images/hero-15.jpg') }});">
-    <div class="sub_bnr ">
-        <h1 class="dashboard_title">Profile  <span class="blue_theme">Details</span> </h1>
-        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('profile') }}">Profile</a></li>
-            <li class="breadcrumb-item active" aria-current="page"> Details</li>
-         </ol>
-      </nav>
-      <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-toggle="modal" data-bs-target="#add_patient">+ Add New Patient </a>
-    </div>
-</div>
-<!-- <div class="sub_bnr_img" style="background-image: url(images/hero-15.jpg);">
-<div class="sub_bnr_cnt">
-        <h1>Patient <span class="blue_theme"> Details</span> </h1>
-        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index-2.php">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Patient Details</li>
-            </ol>
-        </nav>
-        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-toggle="modal" data-bs-target="#add_patient">+ Add New Patient </a>
-    </div>
+<div class="partner_view">
+    <form action="{{ route('update_profile') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+    <div class="row">
 
-</div> -->
+        <div class="col-lg-12 mt-4">
+            <div class="profile_box admin_profile">
+                    <div class="back_img">
+                    <div class="avtar_box">
+                   <div class="avatar-upload">
+                       <div class="avatar-edit">
+                           <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="patient_profile_img">
+                           <label for="imageUpload"></label>
+                       </div>
+                       <div class="avatar-preview">
+                                @php
+                                   $doctor_profile='';
+                                    if($doctor->role_id=='1'){
+                                        $doctor_profile=asset('public/assets/profileImage/').'/'.$doctor->patient_profile_img;
+                                    }elseif($doctor->role_id=='2'){
+                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                    }
+                                    elseif($doctor->role_id=='5'){
+                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                    }
+                                    elseif($doctor->role_id=='6'){
+                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                    }
 
+                                    elseif($doctor->role_id=='11'){
+                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                    }
+                                    
+                                    elseif($doctor->role_id=='10'){
+                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                    }
 
-<div class="patient-detail">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="left_side">
-                    <div class="profile_action">
-                        <div class="left_side_pr_icon">
-                        <a href="{{ route('user.patient') }}" class="action_btn_tooltip">
-                            <iconify-icon icon="ph:folder-duotone"></iconify-icon>
-                            <span class="toolTip">View Medical Record</span>
-                        </a>
-                        <a href="#" class="action_btn_tooltip" data-bs-toggle="modal" data-bs-target="#edit_patient">
-                            <iconify-icon icon="material-symbols:edit"></iconify-icon>
-                            <span class="toolTip">Edit Patient Info.</span>
-                        </a>
-                        <a href="#" class="action_btn_tooltip" data-bs-toggle="modal" data-bs-target="#create_appointment">
-                            <iconify-icon icon="formkit:date"></iconify-icon>
-                            <span class="toolTip">Make an Appointment</span>
-                        </a>
-                        <!-- <a href="#" class="action_btn_tooltip">
-                            <iconify-icon icon="ph:envelope-open-light" data-bs-toggle="modal" data-bs-target="#send_message"></iconify-icon>
-                            <span class="toolTip">Send a Message</span>
-                        </a> -->
-                        <a href="{{ route('user.patient') }}" class="action_btn_tooltip">
-                            <iconify-icon icon="iconamoon:search-light"></iconify-icon>
-                            <span class="toolTip">Find Another Patient</span>
-                        </a>
+                                @endphp
+                        @isset($doctor->patient_profile_img)
+
+                        <div id="imagePreview" style="background-image: url('{{ $doctor_profile }}');">
+                            
                         </div>
-                        <div class="right_side_pr_icon">
-                            <a href="#" class="action_btn_tooltip">
-                                <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
-                                <!-- <span class="toolTip">Find Another Patient</span> -->
-                            </a>
+                        @else
+                        <div id="imagePreview" style="background-image: url('{{ asset("public/assets/images/team-13.jpg") }}');">
+                        </div>
+                        @endisset
+
+
+                       </div>
+                       <!-- <h6 class="name_dt_fg">kathreen Cooper</h6> -->
+                   </div>
+                   <!-- <div class="partners_dt_name">
+                       <h6>Frank Kirk <span>example@gmail.com</span></h6>
+                   </div> -->
+
+               </div>
+                      </div>
+                            <div class="inner_box_ghie">
+
+                            <div class="row align-items-center">
+
+
+                   <div class="col-lg-6">
+                     <div class="row">
+                       <div class="col-lg-12">
+                           <div class="form_input">
+                               <label for="formrow-firstname-input" class="form-label">Name </label>
+                               <input type="text" class="form-control" id="formrow-firstname-input" placeholder="Hector Lambert" name="name" value="{{ $doctor->name ?? '' }}">
+                               @error('name')
+                                   <span class="text-danger" style="font-size: 13px;">{{ $message }}</span>
+                               @enderror
+                           </div>
+                       </div>
+                       <div class="col-lg-12">
+                        <div class="form_input">
+                            <label for="formrow-firstname-input" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="formrow-firstname-input" placeholder="HectorLambert" name="title" value="{{ $doctor->title ?? '' }}">
+                            @error('title')
+                            <span class="text-danger" style="font-size: 13px;">{{ $message }}</span>
+                        @enderror
                         </div>
                     </div>
 
-                    <div class="profile_img">
-                        <img src="images/team-1.jpg" alt="">
 
-                        <div class="patient_dt_profile">
-                            <h5 class="patient_name__">MOHAMMED ALI  AL BADI </h5>
-                            <p class="patient_age__">87 Years , <span class="patient_id__">MA760607</span></p>
+                     </div>
+                   </div>
+                   <div class="col-lg-6">
+                     <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form_input">
+                                <label for="formrow-firstname-input" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="formrow-firstname-input" placeholder="example@gmail.com" name="email" value="{{ $doctor->email ?? '' }}" readonly>
+                                @error('email')
+                                <span class="text-danger" style="font-size: 13px;">{{ $message }}</span>
+                                @enderror
+
+
+
+                            </div>
                         </div>
-                    </div>
+                       <div class="col-lg-12">
+                           <div class="form_input">
+                               <label for="formrow-firstname-input" class="form-label">Password</label>
+                               <input type="password" class="form-control" id="formrow-firstname-input" placeholder="" name="password">
+                           </div>
+                       </div>
 
-                    <div class="patient_dt_line">
-                        <ul>
-                            <li>
-                                <div class="title___">
-                                  <h6>Date of Birth</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>01.01.1111</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Gender</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>Male</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Email Address</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>medicallazer@gmail.com</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Mobile Phone</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>92110703</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Landline</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Street Address</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>City/Town</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>County/State</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Post Code</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Country</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Next of Kin</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Insurer</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>Policy No</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title___">
-                                  <h6>GP</h6>
-                                </div>
-                                <div class="data_pt">
-                                 <h6>----</h6>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                     </div>
+                   </div>
+                   <div class="col-lg-12">
+                       <div class="action_btns_ui text-end">
 
-            <div class="col-lg-7">
-                <div class="appointments___list">
-                    <h3 class="sub_title__">Appointments</h3>
-                    <ul>
-                        <li>
-                            <div class="appoin_title">
-                               <h6>Piriformis Muscle Injection</h6> 
-                            </div>
-                            <div class="appoin_date">
-                                <p>Sun, 22 October 2023 <span class="appoin_time">10:00</span></p>
-                            </div>
-                        </li>
+                           <button type="submit" class="update_btn">
+                               <iconify-icon icon="solar:smartphone-update-outline" class="update_icon"></iconify-icon> Update
+                           </button>
+                       </div>
+                   </div>
 
-                        <li>
-                            <div class="appoin_title">
-                               <h6>Follow up appointment</h6> 
-                            </div>
-                            <div class="appoin_date">
-                                <p>Sat, 21 October 2023 <span class="appoin_time">13:43</span></p>
-                            </div>
-                        </li>
+               </div>
+               </div>
 
-                        <li>
-                            <div class="appoin_title">
-                               <h6>Medical Lazer Kit</h6> 
-                            </div>
-                            <div class="appoin_date">
-                                <p>Mon, 27 March 2023 <span class="appoin_time">10:30</span></p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="appoin_title">
-                               <h6>Medical Lazer Kit</h6> 
-                            </div>
-                            <div class="appoin_date">
-                                <p>Mon, 13 March 2023 <span class="appoin_time">10:30</span></p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="appoin_title">
-                               <h6>Medical Lazer Kit</h6> 
-                            </div>
-                            <div class="appoin_date">
-                                <p>Mon, 10 March 2023 <span class="appoin_time">10:30</span></p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+
+
+
             </div>
         </div>
+
+
     </div>
+</form>
 </div>
+@push('custom-js')
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function () {
+        readURL(this);
+    });
 
 
-
-
-
+</script>
+@if (session('status'))
+<script>
+    swal.fire(
+        'Success',
+        '{{ session('status') }}',
+        'success'
+    );
+</script>
+@endif
+@endpush
 @endsection

@@ -2,7 +2,7 @@
 
 @push('title')
 
-Dashboard  | QASTARAT & DAWALI CLINICS 
+Dashboard  | QASTARAT & DAWALI CLINICS
 
 @endpush
 
@@ -14,6 +14,16 @@ Dashboard  | QASTARAT & DAWALI CLINICS
 
 @endpush
 
+
+<style>
+    .flipper .front img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+}
+
+</style>
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css">
 <div class="sub_bnr_img" style="background-image: url(images/hero-15.jpg);">
     <div class="sub_bnr">
@@ -24,7 +34,41 @@ Dashboard  | QASTARAT & DAWALI CLINICS
     <div class="flip-container">
   <div class="flipper">
     <div class="front">
-      <img src="{{ asset('public/assets/images/new-images/clinic-team1.png') }}" />
+                                         @php
+											$doctor=auth('doctor')->user();
+											  $doctor_profile='';
+												if($doctor->role_id=='1'){   
+													$doctor_profile=asset('public/assets/profileImage/').'/'.$doctor->patient_profile_img;
+												}elseif($doctor->role_id=='2'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
+												elseif($doctor->role_id=='5'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
+												elseif($doctor->role_id=='6'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
+
+												elseif($doctor->role_id=='11'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
+												
+												elseif($doctor->role_id=='10'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
+										   
+										@endphp
+                                           
+
+
+      @isset($doctor->patient_profile_img)
+     
+      <img src="{{ $doctor_profile ?? asset('public/assets/images/team-13.jpg') }}"
+      alt="db_img">
+      @else
+      <img src="{{ asset('public/assets/images/team-13.jpg') }}"
+      alt="temp_img">
+      @endisset
     </div>
     <div class="back">
       <img src="{{ asset('public/assets/images/new-images/qastara-logo1.png') }}" />
@@ -32,6 +76,8 @@ Dashboard  | QASTARAT & DAWALI CLINICS
   </div>
 </div>
 </div>
+
+
 
 <div class="db_main">
     <div class="container">
@@ -49,13 +95,13 @@ Dashboard  | QASTARAT & DAWALI CLINICS
                         <div class="flex-fill">
                             <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Consultation</p>
                             <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="fw-semibold mb-0 lh-1 total_count__">100</h5>
+                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{$user}}</h5>
                             </div>
                         </div>
                     </div>
                 </div>
                 </a>
-             
+
             </div>
             <!-- Widget 1 End -->
 
@@ -66,20 +112,20 @@ Dashboard  | QASTARAT & DAWALI CLINICS
                     <div class="d-flex align-items-center">
                         <div class="me-3">
                             <span class="avatar avatar-md p-2 bg-two">
-                     
+
                                <iconify-icon icon="material-symbols:lab-research-outline-rounded" width="24"></iconify-icon>
                             </span>
                         </div>
                         <div class="flex-fill">
                             <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Lab Orders</p>
                             <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="fw-semibold mb-0 lh-1 total_count__">50</h5>
+                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{$labtasks}}</h5>
                             </div>
                         </div>
                     </div>
                 </div>
                 </a>
-              
+
             </div>
             <!-- Widget 1 End -->
                <!-- Widget 1 Start -->
@@ -96,13 +142,13 @@ Dashboard  | QASTARAT & DAWALI CLINICS
                         <div class="flex-fill">
                             <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Imaging Orders</p>
                             <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="fw-semibold mb-0 lh-1 total_count__">200</h5>
+                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{ $imagingCount }}</h5>
                             </div>
                         </div>
                     </div>
                 </div>
                 </a>
-               
+
             </div>
             <!-- Widget 1 End -->
                        <!-- Widget 1 Start -->
@@ -119,13 +165,13 @@ Dashboard  | QASTARAT & DAWALI CLINICS
                         <div class="flex-fill">
                             <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Procedures</p>
                             <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="fw-semibold mb-0 lh-1 total_count__">100</h5>
+                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{  $patient_order_procedures }}</h5>
                             </div>
                         </div>
                     </div>
                 </div>
                         </a>
-           
+
             </div>
             <!-- Widget 1 End -->
                       <!-- Widget 1 Start -->
@@ -147,13 +193,13 @@ Dashboard  | QASTARAT & DAWALI CLINICS
                     </div>
                 </div>
                         </a>
-            
+
             </div> -->
             <!-- Widget 1 End -->
 
         </div>
-@if (auth()->guard('doctor')->user()->user_type=='doctor')
-    
+      @if (auth()->guard('doctor')->user()->user_type=='doctor')
+
 
         <div class="row">
             <div class="col-lg-7">
@@ -161,27 +207,27 @@ Dashboard  | QASTARAT & DAWALI CLINICS
                 <div class="top_title_gp card-header">
                    <h6>Current month invoice analytics</h6>
                  </div>
-              
+
                   <div class="shadow-card">
-                
+
                         <div class="row align-items-center">
                             <div class="col-lg-7">
                             <div id="chart" width="100%"></div>
                             </div>
                             <div class="col-lg-5">
-                                <h6 class="graph_title paid_gp">1020 OMR <span>Invoiced during this month (PAID)</span></h6>
-                                <h6 class="graph_title pos_gp">794 OMR <span>POS Machine / Online Transfer</span></h6>
-                                <h6 class="graph_title cash_gp">226 OMR <span>Cash Payment</span></h6>
+                                <h6 class="graph_title paid_gp">{{ $count }} OMR <span>Invoiced during this month (PAID)</span></h6>
+                                <h6 class="graph_title pos_gp">12 OMR <span>POS Machine / Online Transfer</span></h6>
+                                <h6 class="graph_title cash_gp">{{ $payAmount }} OMR <span>Cash Payment</span></h6>
 
 
                             </div>
                         </div>
-                  </div> 
-          
-                        
-                
+                  </div>
 
-                   
+
+
+
+
                 </div>
             </div>
             <div class="col-lg-5 mt-5">
@@ -190,16 +236,17 @@ Dashboard  | QASTARAT & DAWALI CLINICS
                    <h6>Cumulaative Value <span class="color_green">7, 022 OMR</span></h6>
                  </div>
                  <div class="shadow-card">
-                  
+
                   <div id="cumulative"></div>
                  </div>
                 </div>
-          
+
             </div>
         </div>
         @endif
     </div>
 </div>
+
 
 
 

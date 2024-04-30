@@ -30,8 +30,6 @@
 
 					<div class="row">
 
-
-
 						<div class="col-xl-3 col-md-6 col-6">
 
 							<div class="box">
@@ -93,7 +91,7 @@
 
 										<div class="top_card_dt">
 										<p class="text-fade mt-15 mb-5">Total Staff</p>
-										<h2 class="mt-0">{{ $nurses + $telecallers +  $accountants }}</h2>
+										<h2 class="mt-0">{{  $nurseCount }}</h2>
 										</div>
 									</div>
 
@@ -191,17 +189,13 @@
            <thead>
 
                <tr>
-
+                   <th hidden></th>
                    <th>Doctor Id</th>
-
                    <th>Doctor Name</th>
                    <th>Specialist</th>
                    <th>Mobile No.</th>
-
                    <th>Email Address</th>
-
                    <th>Postal Code</th>
-
                    <th>Action</th>
 
 
@@ -227,9 +221,9 @@
 
                     <div class="patient_profile">
 
-                        @if ($alldoctor->patient_profile_img)
+                        @if (isset($alldoctor->patient_profile_img))
 
-                        <img src="{{ asset('/public/assets/doctor_profile/' . $alldoctor->patient_profile_img) }}" alt="">
+                        <img src="{{ asset('/public/assets/profileImage/' . $alldoctor->patient_profile_img) }}" alt="">
 
                         @else
                         <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">

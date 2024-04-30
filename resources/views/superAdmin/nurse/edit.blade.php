@@ -1,6 +1,6 @@
 @extends('superAdmin.superAdminLayout.main')
 @push('title')
-    <title>Edit Nurse | Super Admin</title>
+    <title>Edit Staff | Super Admin</title>
 @endpush
 @section('content')
 
@@ -12,8 +12,8 @@
       <h4 class="page-title">Edit Staff</h4>
       <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="{{ route('nurses.index') }}">Nurse</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Edit Nurse</li>
+                  <li class="breadcrumb-item"><a href="{{ route('nurses.index') }}">Staff</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Edit Staff</li>
               </ol>
           </nav>
       </div>
@@ -86,7 +86,7 @@
                               <select class="form-control select2" name="gendar" style="width: 100%;">
                                   <option value="male" {{ $nurse->gendar  == 'male' ? 'selected' : '' }}>Male</option>
                                   <option value="female" {{ $nurse->gendar == 'female' ? 'selected' : '' }}>Female</option>
-                                  <option value="other" {{ $nurse->gendar == 'other' ? 'selected' : '' }}>Other</option>
+                                  <option value="   " {{ $nurse->gendar == 'other' ? 'selected' : '' }}>Other</option>
                               </select>
                               @error('gendar')
                               <span class="error text-danger">{{ $message }}</span>
@@ -94,25 +94,63 @@
                           </div>
                       <!-- /.form-group -->
                       </div>
+
                       @php
                       $roleData=DB::table('roles')->get();
                       @endphp
-                      
+
                        <div class="col-md-3">
                           <div class="form-group">
                               <label class="form-label">Role</label>
-                              <select class="form-control select2" name="gendar" style="width: 100%;">
+                              <select class="form-control select2" name="role_id" style="width: 100%;">
                                   @foreach($roleData as $addRoleData)
-                                  <option value="{{ $addRoleData->id }}" {{ $addRoleData->name  == $nurse->user_type ? 'selected' : '' }}>{{ $addRoleData->name}}</option>
+                                  <option value="{{ $addRoleData->id }}" {{ $addRoleData->id  == $nurse->role_id ? 'selected' : '' }}>{{ $addRoleData->name}}</option>
                                   @endforeach
                               </select>
-                              @error('gendar')
-                              <span class="error text-danger">{{ $message }}</span>
-                          @enderror
+
                           </div>
-                      <!-- /.form-group -->
                       </div>
-                      
+
+
+                      @php
+                            $branchs = DB::table('branchs')->where('status', '1')->get();
+                            // Get array of selected branch IDs
+                      @endphp
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Add Branch
+                                </label>
+                                <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple required>
+                                    <option value="">Select Any One</option>
+                                    @forelse ($branchs as $branch)
+                                        <option value="{{ $branch->id }}" {{ in_array($branch->id, $user_branchs) ? 'selected' : '' }}>
+                                            {{ $branch->branch_name }}
+                                        </option>
+                                    @empty
+                                        <!-- Handle case where no branches are available -->
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+
+
+                      <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Select Status</label>
+                                <select class="form-control select2" name="status" style="width: 100%;">
+                                    <option value="">Select any one</option>
+
+                                     <option value="active" {{ $nurse->status  == "active" ? 'selected' : '' }}>Active</option>
+                                     <option value="inactive" {{ $nurse->status  == "inactive" ? 'selected' : '' }}>Inactive</option>
+
+
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
                       <div class="col-lg-12 mt-3">
                         <div class="title_head">
                             <h4>Phone & Email</h4>
@@ -131,7 +169,7 @@
                       <div class="form-group">
                           <label class="form-label">Password <span class="clr"></span></label>
                           <div class="wrap-input">
-                              <input type="password" name="password" id="password" class="form-control" placeholder="">
+                              <input type="password" name="password" id="password" class="form-control password" placeholder="">
                               <span class="btn-show-pass ico-20 " >
                                   <span class="  eye-pass flaticon-visibility "></span>
                               </span>
@@ -191,22 +229,40 @@
                       @enderror
                       </div>
                       </div>
-                      <div class="col-md-3">
+
+                    {{-- <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Country</label>
-                            <select class="form-control" name="country" id="countries" style="width: 100%;">
-                                @if (isset($nurse->country) && !empty($nurse->country))
-                                <option value="{{ $nurse->country }}" {{ $nurse->country ? 'selected' : '' }}>{{ $nurse->country }}</option>
-                                @endif
-                                <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
-                                <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
+                            <select class="form-control select2"  name="country" style="width: 100%;">
+                                <option value="">Select Any One</option>
+                                <option value="India" {{ $patientId->country == 'India' ? 'selected' : '' }}>India</option>
+                                <option value="USA" {{ $patientId->country == 'USA' ? 'selected' : '' }}>USA</option>
                             </select>
                             @error('country')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
+                        </div>
+                    <!-- /.form-group -->
+                    </div> --}}
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Country</label>
+                            <select class="form-control select2"  name="country" style="width: 100%;">
+                                <option value="">Select Any One</option>
+                                <option value="India" {{ $nurse->country == 'India' ? 'selected' : '' }}>India</option>
+                                <option value="USA" {{ $nurse->country == 'USA' ? 'selected' : '' }}>USA</option>
+                            </select>
+                            @error('country')
+                        <span class="error text-danger">{{ $message }}</span>
+                    @enderror
                         </div>
                     <!-- /.form-group -->
                     </div>
+
+
+
 
                       <div class="col-lg-12 mt-3">
                         <div class="title_head">
@@ -259,7 +315,7 @@
                     </div>
                     </div>
                     @php
-                    
+
                         $doctors = \App\Models\superAdmin\Doctor::where('user_type','doctor')->get();
                         $doctor_nurses=DB::table('nurse_doctor')->select('id','doctor_id','nurse_id')->where('nurse_id',@$id)->get();
                      @endphp
@@ -274,7 +330,7 @@
                                         foreach ($doctor_nurses as $dn) {
                                             if ($dn->doctor_id == $doctor->id) {
                                                 $selected = 'selected';
-                                                
+
                                             }
                                         }
                                     @endphp
@@ -283,35 +339,27 @@
                                 @endforelse
 
                             </select>
-                        </div>
+                        </div>   
                             @error('WorkUnder')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
                     </div>
+
+                    {{-- <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="form-label">Profile Image</label>
+                              <input type="file" class="dropify" value="https://techmavesoftwaredemo.com/webclinic/public/assets/nurse_profile/1585689.png" name="patient_profile_img" accept="image/*"/>
+                        </div>
+                    </div> --}}
+
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label class="form-label">Profile Image</label>
-                              <input type="file" class="dropify" name="patient_profile_img" accept="image/*"/>
+                            <input type="file" class="dropify" data-default-file="{{ asset('/public/assets/nurse_profile/' . $nurse->patient_profile_img) }}" name="patient_profile_img" accept="image/*"/>
                         </div>
                     </div>
-                      {{-- <div class="col-lg-12 mt-3">
-                          <div class="title_head">
-                              <h4>Document</h4>
-                          </div>
-                      </div>
-                    <div class="col-lg-6">
-                    <div class="form-group">
-                      <label class="form-label">License Upload</label>
-                      <input name="file1" type="file" class="dropify" data-height="100" />
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                    <div class="form-group">
-                      <label class="form-label">Academic Document Upload</label>
-                      <input name="file1" type="file" class="dropify" data-height="100" />
-                      </div>
-                    </div> --}}
-
+                    
+                     
 
 
 
@@ -337,4 +385,42 @@
 
     </div>
 </div>
+
+
+<script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="country"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
+
+<script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="title"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
+
+<script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="status"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
+
 @endsection

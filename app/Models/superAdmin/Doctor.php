@@ -28,6 +28,7 @@ class Doctor extends Model implements Authenticatable
         'Degree',
         'name',
         'email',
+        'lincense_no',
         'password',
         'doctor_id',
         'user_type',
@@ -58,5 +59,22 @@ class Doctor extends Model implements Authenticatable
     ];
     public function thyroidDiagnoses() {
         return $this->hasMany(ThyroidDiagnosis::class, 'doctor_id');
+    }
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    static public function getEmailSingle($email)
+    {
+        return Doctor::where('email', '=', $email)->first();
+    }
+    static public function getTokenSingle($remember_token)
+    {
+        return Doctor::where('remember_token', '=', $remember_token)->first();
     }
 }

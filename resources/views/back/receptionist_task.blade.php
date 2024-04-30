@@ -32,54 +32,48 @@ foreach($D as $v)
             <div class="col-lg-12">
                 <div class="card listtableCard">
                     <div class="card-body p-0">
-                        <h4 class="cr_title_kj">All Tests</h4>
+                        <h4 class="cr_title_kj">All Tests  </h4>
                         <div class="inner_tb_flo">
                             <table class="table task_table listTable_custom  dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
+                                        <th hidden></th>
                                         <th></th>
                                     </tr>
                                 </thead>
 
+
                                 <tbody>
-                                    @forelse ( $nurse_tasks as $nurse_task)
+                                    @forelse ($nurse_tasks as $nurse_task)
+
                                     <tr>
+                                        <td hidden></td>
                                         <td>
                                             <div class="lists_tasks_Report">
-
                                                 <div class="" data-bs-interval="3000">
                                                     <div class="task_card cardtaskslist_item">
                                                         <!-- <div class="date_test_jh">27 Jan, 2024</div> -->
                                                         <div class="taskOtherDetails">
                                                             <ul class="book_li">
                                                                 <li>
-                                                                    <div class="tb_listTitle_label labe_test">Test :
+                                                                    
+                                                                    <div class="tb_listTitle_label labe_test">
+
                                                                     </div>
                                                                     @php
-                                                                    $pathology_price_list_ids  = json_decode($nurse_task->pathology_price_list_id);
-                                                                   
-                                                                  $pathology_price_list=  DB::table('pathology_price_list')->whereIn('id',$pathology_price_list_ids);
-                                                                  
-                                                                    if($nurse_task->test_type == 'pathology'){
-                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '0');
-                      
-                                                                    }
-                                                                    else {
-                                                                      
-                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '1');
-                                                                    }
-                                                                  
+                                                                  $pathology_price_list=  DB::table('pathology_price_list')->where('id',$nurse_task->task);
+
                                                                     $pathology_price_list =$pathology_price_list->pluck('test_name');
-                                                                   
+
                                                                   @endphp
                                                                     <div class="test_list">
                                                                         @forelse ($pathology_price_list as $value)
                                                                         <span>{{ $value }} </span>
-                                                                       
+
                                                                         @empty
-                                                                            
+
                                                                         @endforelse
-                                                                       
+
                                                                     </div>
                                                                 </li>
 
@@ -88,13 +82,22 @@ foreach($D as $v)
                                                         <div class="taskOtherDetails">
                                                             @php
                                                             $patient=DB::table('users')->where('id',$nurse_task->patient_id)->first();
+                                                            $statusType=DB::table('status')->where('id',$nurse_task->assigned)->first();
                                                            @endphp
                                                             <ul>
-                                                                
+
                                                                 <li>
                                                                     <div class="tb_listTitle_label"> Patient Name</div>
                                                                     <span>{{ $patient->name }}</span>
                                                                 </li>
+
+
+                                                                <li>
+                                                                    <div class="tb_listTitle_label">Invoice Number</div>
+                                                                    <span>{{ $nurse_task->invoiceNumber??'' }}</span>
+                                                                </li>
+
+
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Patient Id</div>
                                                                     <span>{{ $patient->patient_id }}</span>
@@ -104,71 +107,91 @@ foreach($D as $v)
                                                                     <div class="tb_listTitle_label">Mobile No.</div>
                                                                     <span>{{ $patient->mobile_no }}</span>
                                                                 </li>
-                                                                
+
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Order Date</div>
-                                                                    <span>{{ \Carbon\Carbon::parse($patient->created_at)->format('d M, Y') }}</span>
+                                                                    <span>{{ \Carbon\Carbon::parse($nurse_task->created_at)->format('d M, Y') }}</span>
                                                                 </li>
+
                                                                     @php
-                                                                         $receptionist_task_status= DB::table('receptionist_tasks')->where('nurse_task_id',$nurse_task->id)->first();
-                                                                         
+
+                                                                        //  $receptionist_task_status= DB::table('receptionist_tasks')->where('nurse_task_id',$nurse_task->id)->first();
+
                                                                     @endphp
                                                                     <li>
                                                                         <div class="tb_listTitle_label">Appoinment Date</div>
-                                                                        @if (isset($receptionist_task_status->appoinment_date))
-                                                                        <span>{{ \Carbon\Carbon::parse($receptionist_task_status->appoinment_date)->format('d M, Y') }}</span>
+                                                                        @if (isset($nurse_task->appoinment_date))
+                                                                        <span>{{ \Carbon\Carbon::parse($nurse_task->appoinment_date)->format('d M, Y') }}</span>
                                                                         @else
                                                                         <span>&nbsp;</span>
                                                                         @endif
-                                                                        
                                                                     </li>
+
+                                                                    <li>
+                                                                        <div class="tb_listTitle_label">Assigned Nurse</div>
+
+                                                                        @php
+                                                                          $nurseName=DB::table('doctors')->where('id',$nurse_task->assignTo)->first();
+                                                                        @endphp
+
+                                                                        <span>{{ $nurseName->name??'' }}</span>
+
+                                                                    </li>
+
+
+
 
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Status</div>
-                                                                    @if (isset($receptionist_task_status->status) && $receptionist_task_status->status=='test_ordered')
-                                                                    <span>Test Ordered </span>
-                                                                    @elseif (isset($receptionist_task_status->status) && $receptionist_task_status->status=='billing_completed')
-                                                                    <span>Billing completed </span>
-                                                                    @elseif (isset($receptionist_task_status->status) &&  $receptionist_task_status->status=='assigned_to_nurse')
-                                                                    <span>Assigned to Nurse  </span>
-                                                                    @elseif (isset($receptionist_task_status->status) && $receptionist_task_status->status=='approved')
-                                                                    <span>Approved</span>
+                                                                    @if ($nurse_task->assigned=='9')
+                                                                    <span>{{  $statusType->type }}</span>
+                                                                    @elseif ($nurse_task->assigned=='1')
+                                                                    <span>{{ $statusType->type }}</span>
+                                                                    @elseif ($nurse_task->assigned=='2')
+                                                                    <span>{{ $statusType->type }}</span>
+                                                                    @elseif ($nurse_task->assigned=='3')
+                                                                    <span>{{ $statusType->type }}</span>
+                                                                    @elseif ($nurse_task->assigned=='4')
+                                                                    <span>{{ $statusType->type }}</span>
+                                                                    @elseif ($nurse_task->assigned=='5')
+                                                                    <span>{{ $statusType->type }}</span>
+                                                                    @elseif ($nurse_task->assigned=='6')
+                                                                    <span>{{ $statusType->type }}</span>
+                                                                    @elseif ($nurse_task->assigned=='7')
+                                                                    <span>{{ $statusType->type }}</span>
+                                                                    @elseif ($nurse_task->assigned=='8')
+                                                                    <span>{{ $statusType->type }}</span>
+                                                                    @elseif ($nurse_task->assigned=='9')
+                                                                    <span>{{ $statusType->type }}</span>
                                                                     @endif
-                                                                    
+
                                                                 </li>
 
-                                                                
+
+
+
 
                                                                 <li class="book_bx_">
-                                                                   
-                                                                    
-                                                                        <a href="#" class="book_appointment_btn" 
-                                                                            onclick="setTaskId({{ $receptionist_task_status->nurse_task_id }})"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#book_appointment">
-                                                                            Assign to Nurse
-                                                                            </a>
+
+
+                                                                @if (!empty($nurse_task->assignTo))
+                                                                        <a class="book_appointment_btn"
+                                                                            >
+                                                                            Assigned to Nurse
+                                                                        </a>
+                                                                @else
+                                                                    <a href="#" class="book_appointment_btn"
+                                                                        onclick="setTaskId({{ $nurse_task->id ??'' }})"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#book_appointment">
+                                                                        Assign to Nurse
+                                                                    </a>
+
+                                                                @endif
+
                                                                 </li>
                                                             </ul>
                                                         </div>
-
-                                                        <div class="customdotdropdown dropbtnRight">
-                                                                        <div class="buttondrop_dot">
-                                                                            <i
-                                                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                                                        </div>
-                                                                        <div class="dropdown-content">
-
-                                                                            <a href="#" class="bottom_btn extract_btn"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#view_report"><i
-                                                                                    class="fa-regular fa-eye"></i> View
-                                                                                Report
-                                                                            </a>
-
-                                                                        </div>
-                                                                    </div>
-
                                                     </div>
 
                                                 </div>
@@ -179,10 +202,10 @@ foreach($D as $v)
 
                                     </tr>
                                     @empty
-                                   
+
                                     @endforelse
 
-                                  
+
 
                                 </tbody>
                             </table>
@@ -319,7 +342,7 @@ foreach($D as $v)
                 </div>
 
             </div> -->
-            
+
         </div>
     </div>
 </div>
@@ -414,19 +437,15 @@ foreach($D as $v)
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                         class="fa-solid fa-xmark"></i></button>
             </div>
+
+
             <form id="taskAssigendForm" method="POST">
                 @csrf
             <div class="modal-body padding-0">
                 <div class="inner_data">
-                    <div class="row top_head_vitals">
-
-                        
-
+                    <div class="row top_head_vitals">   
                         <div class="col-lg-12">
                             <div class="row">
-                              
-                                
-
                                 <div class="col-lg-6">
                                     <div class="inner_element">
                                         <div class="form-group">
@@ -439,9 +458,9 @@ foreach($D as $v)
                                               @forelse ( $nurses as  $nurse)
                                               <option value="{{ $nurse->id }}">{{ $nurse->name }}</option>
                                               @empty
-                                                  
+
                                               @endforelse
-                                               
+
                                             </select>
                                             <span class="text-danger" style="font-size: 14px" id="nurseError"></span>
                                             <input type="hidden" name="task_id" value="" id="task"/>
@@ -453,12 +472,13 @@ foreach($D as $v)
                                         <div class="form-group">
                                             <label for="validationCustom01" class="form-label">Date</label>
                                             <input type="text" class="form-control datepickerInput"
-                                                placeholder="17 Nov,2023" name="date">
+                                                placeholder="17 Nov,2023" name="date" value="{{ date('Y-m-d H:i:s') }}">
                                                 <span class="text-danger" style="font-size: 14px" id="dateError"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+
+                                {{-- <div class="col-lg-6">
                                     <div class="inner_element">
                                         <div class="form-group">
                                             <label for="validationCustom01" class="form-label">Time</label>
@@ -467,7 +487,7 @@ foreach($D as $v)
                                                 <span class="text-danger" style="font-size: 14px" id="timeError"></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
                         </div>
@@ -491,7 +511,7 @@ foreach($D as $v)
     </div>
 </div>
  @push('custom-js')
-    
+
  <script>
     $('.select2_appointment').select2({
         dropdownParent: $('#book_appointment'),
@@ -539,7 +559,7 @@ foreach($D as $v)
 <!-- assigend nurse form   data -->
 <script>
 	$(document).ready(function() {
-     
+
 		$('#taskAssigendForm').submit(function(e) {
 			e.preventDefault();
 
@@ -566,13 +586,12 @@ foreach($D as $v)
 								'Task Assigend Successfully!',
 								'success'
 							).then(function() {
-                                        window.location.reload(); 
+                                        window.location.reload();
                                     });
-							
-						} 
+						}
 					},
 					error: function(xhr, status, error) {
-						
+
 						if (xhr.status == 422) {
 							$('#book_appointment').modal('show');
 							var response = JSON.parse(xhr.responseText);
@@ -615,7 +634,7 @@ foreach($D as $v)
 				$('#dateError').text('date  is required');
 				$('input[name="date"]').addClass('error');
 			}
-			
+
 			// Validate time
 			let time = $('input[name="time"]').val();
 			if (time === '') {

@@ -13,12 +13,12 @@
             <div class="content-header edit_title_head mb-0">
                 <div class="d-flex">
                     <h4 class="page-title lab_name">All Radiology</h4>
-                    <nav aria-label="breadcrumb">
+                    {{-- <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Radiology Department</a></li>
                             <li class="breadcrumb-item active" aria-current="page">All Radiology</li>
                         </ol>
-                    </nav>
+                    </nav> --}}
                 </div>
                 <!-- <a href="manage-lab.php" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-gears"></i> Manage Lab</a> -->
             </div>
@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="box">
-                           
+
                             <div class="box-header with-border">
                                 <div class="top_area">
                                     <h3 class="box-title">All Radiology</h3>
@@ -49,6 +49,8 @@
                                                         <th>Mobile No. </th>
                                                         <th>Landline</th>
                                                         <th>Street</th>
+                                                        <th>Branch</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -61,10 +63,19 @@
                                                             <td>{{ $allRadiologys->mobile_no }}</td>
                                                             <td>{{ $allRadiologys->landline }}</td>
                                                             <td>{{ $allRadiologys->street }}</td>
+
+                                                            @php
+                                                            $user_branchs = DB::table('user_branchs')->where('patient_id', $allRadiologys->id)->where('branch_type', 'radiology')->first();
+                                                            $getBranchName = $user_branchs ? DB::table('branchs')->where('id', $user_branchs->add_branch)->first() : null;
+                                                            @endphp
+                                                            <td>{{ $getBranchName->branch_name??'' }}</td>
+
+
+                                                            <td>{{ ucfirst($allRadiologys->status) }}</td>
                                                             <td>
                                                                 <ul class="action_icons">
                                                                     <li>
-                                                                        <a onclick="editForm('{{ $allRadiologys->id }}','{{ $allRadiologys->lab_name }}','{{ $allRadiologys->email }}','{{ $allRadiologys->mobile_no }}','{{ $allRadiologys->landline }}','{{ $allRadiologys->post_code }}','{{ $allRadiologys->street }}','{{ $allRadiologys->town }}')"
+                                                                        <a onclick="editForm('{{ $allRadiologys->id }}','{{ $allRadiologys->lab_name }}','{{ $allRadiologys->email }}','{{ $allRadiologys->mobile_no }}','{{ $allRadiologys->landline }}','{{ $allRadiologys->post_code }}','{{ $allRadiologys->street }}','{{ $allRadiologys->town }}','{{ $allRadiologys->status }}')"
                                                                             class="waves-effect waves-light btn btn-rounded btn-warning-light"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                                                     </li>
                                                                 </ul>
@@ -85,6 +96,8 @@
             </section>
         </div>
     </div>
+
+
     <!-- Modal -->
     <div class="modal fade select2_dp" id="edit_lab" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -97,12 +110,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Lab Name</label>
                                     <input type="hidden" name="id" id="id" class="form-control" placeholder="">
                                     <input type="text" id="lab_name" class="form-control" placeholder="" name="lab_name"
-                                    
+
                                         required>
                                         @error('lab_name')
                                         <span class="error text-danger">{{ $message }}</span>
@@ -123,9 +137,9 @@
                                 <div class="form-group">
                                     <label class="form-label">Password </label>
                                     <div class="wrap-input">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                        <input type="password" name="password" id="password" class="form-control password" placeholder="" autocomplete="new-password">
                                         <span class="btn-show-pass ico-20">
-                                            <span class="  eye-pass flaticon-visibility "></span>
+                                            <span class="eye-pass flaticon-visibility "></span>
                                         </span>
                                     </div>
                                     @error('password')
@@ -133,6 +147,42 @@
                                     @enderror
                                 </div>
                             </div>
+
+
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-control" name="status" id="status" style="width: 100%;">
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+
+                                </div>
+                            <!-- /.form-group -->
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Add Branch</label>    
+    
+                                    <select class="form-control form-select" name="selectBranch[]"  style="width: 100%;">
+    
+                                         <option value="">Select Any One</option>
+                                        @forelse ($branchs as $allbranchs)
+                                           <option value="{{$allbranchs->id}}">{{$allbranchs->branch_name}}</option>
+                                        @empty
+    
+                                        @endforelse
+                                    </select>
+                                </div>
+                            <!-- /.form-group -->
+                            </div>
+    
+
+
+
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Mobile Phone</label>
@@ -196,6 +246,11 @@
                                     @enderror
                                 </div>
                             </div>
+
+
+
+
+
                         </div>
                     </div>
                     <div class="modal-footer text-end">
@@ -206,6 +261,9 @@
             </form>
         </div>
     </div>
+
+
+
 
 
 
@@ -245,7 +303,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Password <span class="clr">*</span></label>
                                     <div class="wrap-input">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                        <input type="password" name="password" id="passwordId" class="form-control password" placeholder="">
                                         <span class="btn-show-pass ico-20 " >
                                             <span class="  eye-pass flaticon-visibility "></span>
                                         </span>
@@ -255,8 +313,43 @@
                                     @enderror
                                 </div>
                             </div>
-                           
-                            
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-control" name="status" id="status" style="width: 100%;">
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+
+                                </div>
+                            <!-- /.form-group -->
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Add Branch</label>    
+    
+                                    <select class="form-control form-select" name="selectBranch[]"  style="width: 100%;">
+    
+                                         <option value="">Select Any One</option>
+                                        @forelse ($branchs as $allbranchs)
+                                           <option value="{{$allbranchs->id}}">{{$allbranchs->branch_name}}</option>
+                                        @empty
+    
+                                        @endforelse
+                                    </select>
+                                </div>
+                            <!-- /.form-group -->
+                            </div>
+    
+
+
+
+
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Mobile Phone<span class="clr">*</span></label>
@@ -315,7 +408,7 @@
                                 @enderror
                                 </div>
                             </div>
-                         
+
                         </div>
                     </div>
                     <div class="modal-footer text-end">
@@ -333,7 +426,7 @@
             $("#add_lab").modal('show');
         }
 
-        function editForm(id, lab_name, email, mobile_phone, landline, post_code, street, town) {
+        function editForm(id, lab_name, email, mobile_phone, landline, post_code, street, town,status) {
             $('#id').val(id);
             $('#lab_name').val(lab_name);
             $('#email').val(email);
@@ -342,6 +435,8 @@
             $('#post_code').val(post_code);
             $('#street').val(street);
             $('#town').val(town);
+            $('#status').val(status);
+
             $("#edit_lab").modal('show');
         }
     </script>
@@ -350,7 +445,7 @@
     $(document).ready(function(){
         let id=  $('#id').val();
         @if ($errors->any())
-      
+
       if(id.length > 0){
         // alert('edit_lab');
         $("#edit_lab").modal('show');
@@ -358,16 +453,16 @@
         // alert('add_lab');
         $("#add_lab").modal('show');
       }
-        
+
         @endif
       });
       </script>
-    
-    
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-           
-    
+
+
             // Add event listener for when the modal is hidden
             $('#add_lab').on('hidden.bs.modal', function (e) {
                 // Clear all input fields
@@ -380,13 +475,13 @@
                 $('#password').val('');
                 $('#town1').val('');
                 $(".error").remove();
-    
-    
+
+
             });
-    
-            
-    
-            
+
+
+
+
         });
     </script>
     @endpush

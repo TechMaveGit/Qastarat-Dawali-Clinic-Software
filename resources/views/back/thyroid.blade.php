@@ -2235,7 +2235,7 @@
                                                     <th>Mild LUTS </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
-                                                <tr id="moderateLUTS" class="hidden">>
+                                                <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
                                                     <th>Moderate LUTS </th>
                                                     <th>(8-19 pts) </th>
@@ -3484,9 +3484,7 @@
                                         <!-- <h6 class="mb-3 lut_title">Calculate TI-RARDS - RIGHT LOBE score</h6> -->
                                     </div>
                                     <div class="col-lg-12">
-                                        <!-- <div class="nodule_img">
-                                      <img src="images/new-images/nodules.png" alt="">
-                                  </div> -->
+                                       
                                         <div id="image-container">
                                             <img src="images/new-images/nodules.png" alt="Your Image" id="image">
                                         </div>
@@ -4646,6 +4644,10 @@
     });
    
 </script>
+
+<!-- Annotate image js  -->
+
+
 
 
 

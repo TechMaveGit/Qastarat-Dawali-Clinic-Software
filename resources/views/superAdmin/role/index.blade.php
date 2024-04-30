@@ -10,12 +10,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">Manage Role</h4>
-        <nav aria-label="breadcrumb">
+        {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">User Permission</li>
                 </ol>
-            </nav>
+            </nav> --}}
         </div>
 
 		</div>
@@ -40,6 +40,9 @@
 
                                     <th class="bg-transparent border-bottom-0">Role Name</th>
 
+                                    <th class="bg-transparent border-bottom-0">Status</th>
+
+
                                     <th class="bg-transparent border-bottom-0" style="width: 5%;">Action</th>
                                 </tr>
                             </thead>
@@ -50,6 +53,16 @@
 
                                 <tr class="border-bottom">
                                      <td>{{ $allroles->name }}</td>
+
+                                     <td>
+                                          <ul class="action_icons">
+                                         @if($allroles->status=="1")
+                                         Active
+                                         @else
+                                         Inactive
+                                         @endif
+                                         </ul>
+                                     </td>
 
                                         <td>
                                                 <ul class="action_icons">

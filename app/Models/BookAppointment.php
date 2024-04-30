@@ -14,8 +14,10 @@ class BookAppointment extends Model implements Authenticatable
     protected $fillable = [
         'patient_id',
         'doctor_id',
+        'clinician_id',
         'priority',
         'appointment_type',
+        'status',
         'location',
         'start_date',
         'start_time',

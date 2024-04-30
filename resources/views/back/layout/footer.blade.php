@@ -1,15 +1,138 @@
 <!-- FOOTER-3
 
    ============================================= -->
+   <div class="modal fade edit_patient__" id="genrate_report" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title" id="exampleModalLabel">Generate Report </h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+						class="fa-solid fa-xmark"></i></button>
+			</div>
+
+
+@if(isset($id))
+
+            <form action="{{ route('user.patient_medical_detail',['id'=>@$id]) }}" method="get" > @csrf  
+
+                <input type="hidden" name="print_form" value="print_form"/>
+                
+			<div class="modal-body padding-0">
+				<div class="inner_data">
+				<div class="row top_head_vitals">
+			<div class="col-lg-12">
+				<div class="row">
+					<div class="col-lg-6">
+					<div class="report_check_box">
+            <div class="form-group">
+               <input type="checkbox" name="sympotms" value="sympotms" id="a1">
+               <label for="a1">Sympotms</label>
+            </div>
+            <div class="form-group">
+               <input type="checkbox"  name="pastMedicalHistory" value="pastMedicalHistory" id="a2">
+               <label for="a2">Past Medical History</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="pastSurgicalHistory" value="pastSurgicalHistory" id="a3">
+               <label for="a3">Past Surgical History</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="oldCurrentMeds" value="oldCurrentMeds" id="a4">
+               <label for="a4">Old / Current meds</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="allergies" value="allergies" id="a5">
+               <label for="a5">Allergies</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="clinicalExam" value="clinicalExam" id="a6">
+               <label for="a6">Clinical Exam</label>
+            </div>
+
+			<div class="form-group">
+               <input type="checkbox" name="imagingExam" value="imagingExam" id="a7">
+               <label for="a7">Imaging Exam</label>
+            </div>
+
+			<div class="form-group">
+               <input type="checkbox" name="lab" value="lab" id="a8">
+               <label for="a8">Lab</label>
+            </div>
+		
+         </div>
+					</div>
+					<div class="col-lg-6">
+					<div class="report_check_box">
+					<div class="form-group">
+               <input type="checkbox" name="specialInvestigatior" value="specialInvestigatior" id="a9">
+               <label for="a9">Special Investigatior</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="mdtReview" value="mdtReview" id="a10">
+               <label for="a10">MDT Review</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="diagnosisi" value="diagnosis" id="a11">
+               <label for="a11">Diagnosis</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="Eligiblity" value="eligiblityStatus" id="a12">
+               <label for="a12">Eligiblity Status</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="list" value="list" id="a13">
+               <label for="a13">List of procedures</label>
+            </div>
+            <div class="form-group">
+               <input type="checkbox" name="supportiveTreatement" value="supportiveTreatement" id="a14">
+               <label for="a14">Supportive Treatment</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="ListOfPrescribed" value="ListOfPrescribed" id="a15">
+               <label for="a15">List of prescribed medication</label>
+            </div>
+			<div class="form-group">
+               <input type="checkbox" name="planRecommandation" value="planRecommandation" id="a16">
+               <label for="a16">Plans/Recommandation</label>
+            </div>
+         </div>
+					</div>
+				</div>
+			</div>
+		
+        </div>
+				</div>
+
+				<div class="text-end bottom_modal">
+					<button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+					Submit</button>
+                    
+                	<a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+					Close</a>
+				</div>
+                
+			</div>
+			<!-- <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div> -->
+
+        </form>    
+          
+        @endif
+		</div>
+	</div>
+
+</div>
 
    <footer id="footer-3" class="pt-100 footer ft-3-ntr">
 
     <div class="container">
 
         @php
-            $footer = App\Models\Footer::first();
+        $footer = DB::table('footers')->first();
         @endphp
-
         <!-- FOOTER CONTENT -->
 
         <div class="row">
@@ -17,121 +140,193 @@
             <!-- FOOTER LOGO -->
 
             <!-- FOOTER LOGO -->
-            <div class="col-xl-3">
+            <div class="col-xl-4">
                 <div class="footer-info mb-0">
-                    <img class="footer-logo" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
+                    @isset($footer->websitelogo)
+                    <img class="footer-logo" src="{{ asset('public/assets/video/'.$footer->websitelogo) }}"
+                    alt="footer-logo">
+                        @else
+                        <img class="footer-logo" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
                         alt="footer-logo">
-                    <img class="footer-logo-dark" src="{{ asset('public/assets/images/new-images/qastrat-logo2.png') }}"
-                        alt="footer-logo">
+                    @endisset
+
                 </div>
-                <p class="intro_para">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore inventore
-                    sapiente corporis voluptates at rerum.</p>
+                <div class="contact_dt_ak">
+					<h6>Headquarter Location:</h6>
+					<p>{{ $footer->HeadquarterLocation ?? '' }}</p>
+					<h6>Mailing address:</h6>
+					<p>{{ $footer->Mailingaddress ?? '' }}</p>
+					<h6>International Call Center:</h6>
+					<p><a href="tel:+{{ $footer->CallCenter ?? '' }}">+{{ $footer->CallCenter ?? '' }}</a></p>
+				</div>
             </div>
 
-            <!-- FOOTER LINKS -->
-            <div class="col-sm-4 col-lg-3 col-xl-2">
-                <div class="footer-links fl-1">
+        <!-- FOOTER LINKS -->
+			<div class="col-sm-4 col-lg-4 col-xl-2">
+				<div class="footer-links fl-1">
 
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Quick Links</h6>
+					<!-- Title -->
+					<h6 class="s-17 w-700">Quick login</h6>
+					<ul class="foo-links clearfix">
+						<li>
+							<p><a href="{{ url('/') }}">Patient Login</a></p>
+						</li>
+						<li>
+							<p><a href="#">Staff Login</a></p>
+						</li>
 
-                    <!-- Links -->
-                    <ul class="foo-links clearfix">
-                        <li>
-                            <p><a href="#">Home</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Patients</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Services</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Contact Us</a></p>
-                        </li>
-                    </ul>
+					</ul>
+					<h6 class="s-17 w-700 mt-3">Services</h6>
+					<!-- Links -->
+					<ul class="foo-links clearfix">
+						<li>
+							<p><a href="#">Women heal better</a></p>
+						</li>
+						<li>
+							<p><a href="#">Men heal better</a></p>
+						</li>
+						<li>
+							<p><a href="#">Women & Men heal better</a></p>
+						</li>
+						<li>
+							<p><a href="#">Regenerative therapies</a></p>
+						</li>
+					</ul>
+					<h6 class="s-17 w-700 mt-3">Legal</h6>
+					<ul class="foo-links clearfix">
+						<li>
+							<p><a href="{{ route('front.terms.page') }}">Terms of use</a></p>
+						</li>
+						<li>
+							<p><a href="{{ route('front.privacy.terms') }}">Privacy Policy</a></p>
+						</li>
+						<li>
+							<p><a href="{{ route('front.cookie.page') }}">Cookie Policy</a></p>
+						</li>
 
-                </div>
-            </div> <!-- END FOOTER LINKS -->
+					</ul>
+				</div>
+			</div> <!-- END FOOTER LINKS -->
 
 
-            <!-- FOOTER LINKS -->
-            <div class="col-sm-4 col-lg-3 col-xl-2">
-                <div class="footer-links fl-3">
 
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Legal</h6>
 
-                    <!-- Links -->
-                    <ul class="foo-links clearfix">
-                        <li>
-                            <p><a href="#">Terms of Use</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Privacy Policy</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Cookie Policy</a></p>
-                        </li>
 
-                    </ul>
 
-                </div>
-            </div> <!-- END FOOTER LINKS -->
 
-            <!-- FOOTER LINKS -->
-            <div class="col-sm-4 col-lg-3 col-xl-2">
-                <div class="footer-links fl-3">
+         	<!-- FOOTER LINKS -->
+			<div class="col-sm-4 col-lg-4 col-xl-3">
+				<div class="footer-links fl-3">
 
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Quick Connect</h6>
+					<!-- Title -->
+					<h6 class="s-17 w-700">Quick Connect</h6>
 
-                    <!-- Links -->
-                    <ul class="foo-links clearfix address_ul">
-                        <li><i class="fa-solid fa-location-dot"></i>
-                            <p><a href="#">Main Branch Muscat - OMAN</a></p>
-                        </li>
-                        <li><i class="fa-solid fa-envelope"></i>
-                            <p><a href="mailto:admin@qastaratclinics.com">admin@qastaratclinics.com</a></p>
-                        </li>
-                        <li><i class="fa-solid fa-phone"></i>
-                            <p><a href="tel:+971581114000">+971581114000</a></p>
-                        </li>
+					<!-- Links -->
+					<div class="coonect_box">
+						<div class="left_flag">
+                            @isset($footer->logo1)
+                            <img src="{{ asset('public/assets/video/'.$footer->logo1) }}" alt="">
+                                @else
+                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Oman.svg.png') }}" alt="">
+                            @endisset
 
-                    </ul>
+						</div>
+						<div class="contact_num">
+							<p><a href="https://wa.me/{{ $footer->logo1whatsapp ?? '' }}"><i class="fa-brands fa-whatsapp"></i> +{{ $footer->logo1whatsapp ?? '' }}</a></p>
+							<p><a href="tel:+{{ $footer->logo1phone ?? '' }}"><i class="fa-solid fa-phone"></i> +{{ $footer->logo1phone ?? '' }}</a></p>
 
-                </div>
-            </div> <!-- END FOOTER LINKS -->
+						</div>
+					</div>
+					<div class="coonect_box">
+						<div class="left_flag">
+                            @isset($footer->logo2)
+                            <img src="{{ asset('public/assets/video/'.$footer->logo2) }}" alt="">
+                                @else
+                                <img src="{{ asset('public/assets/images/new-images/Flag_of_the_United_Arab_Emirates.svg.png') }}" alt="">
+                            @endisset
+
+						</div>
+						<div class="contact_num">
+							<p><a href="https://wa.me/{{ $footer->logo2whatsapp ?? '' }}"><i class="fa-brands fa-whatsapp"></i> +{{ $footer->logo2whatsapp ?? '' }}</a></p>
+							<p><a href="tel:+{{ $footer->logo2phone ?? '' }}"><i class="fa-solid fa-phone"></i> +{{ $footer->logo2phone ?? '' }}</a></p>
+
+						</div>
+					</div>
+					<div class="coonect_box">
+						<div class="left_flag">
+                            @isset($footer->logo3)
+                            <img src="{{ asset('public/assets/video/'.$footer->logo3) }}" alt="">
+                                @else
+                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Saudi_Arabia.svg.png') }}" alt="">
+                            @endisset
+
+						</div>
+						<div class="contact_num">
+							<p><a href="https://wa.me/{{ $footer->logo3whatsapp ?? '' }}"><i class="fa-brands fa-whatsapp"></i> +{{ $footer->logo3whatsapp ?? ''  }}</a></p>
+							<p><a href="tel:+{{ $footer->logo3phone ?? '' }}"><i class="fa-solid fa-phone"></i> +{{  $footer->logo3phone ?? '' }}</a></p>
+
+						</div>
+					</div>
+					<div class="coonect_box">
+						<div class="left_flag">
+                            @isset($footer->logo4)
+                            <img src="{{ asset('public/assets/video/'.$footer->logo4) }}" alt="">
+                                @else
+                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Bahrain-manama.png') }}" alt="">
+                            @endisset
+
+						</div>
+						<div class="contact_num">
+							<p><a href="https://wa.me/{{ $footer->logo4whatsapp ?? '' }}"><i class="fa-brands fa-whatsapp"></i> +{{ $footer->logo4whatsapp ?? '' }}</a></p>
+							<p><a href="tel:+{{ $footer->logo4phone ?? '' }}"><i class="fa-solid fa-phone"></i> +{{ $footer->logo4phone ?? '' }}</a></p>
+
+						</div>
+					</div>
+					<!-- <ul class="foo-links clearfix address_ul">
+						<li><i class="fa-solid fa-location-dot"></i>
+							<p><a href="#">Main Branch Muscat - OMAN</a></p>
+						</li>
+						<li><i class="fa-solid fa-envelope"></i>
+							<p><a href="mailto:admin@qastaratclinics.com">admin@qastaratclinics.com</a></p>
+						</li>
+						<li><i class="fa-solid fa-phone"></i>
+							<p><a href="tel:+971581114000">+971581114000</a></p>
+						</li>
+
+					</ul> -->
+
+				</div>
+			</div> <!-- END FOOTER LINKS -->
+
 
 
 
             <!-- FOOTER NEWSLETTER FORM -->
-            <div class="col-sm-10 col-md-8 col-lg-4 col-xl-3">
-                <div class="footer-form">
+			<div class="col-sm-10 col-md-8 col-lg-4 col-xl-3">
+				<div class="footer-form">
 
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Follow the Best</h6>
+					<!-- Title -->
+					<h6 class="s-17 w-700">{{ $footer->text1 ?? '' }}</h6>
 
-                    <!-- Newsletter Form Input -->
-                    <form class="newsletter-form">
+					<!-- Newsletter Form Input -->
+					<form class="newsletter-form">
 
-                        <div class="input-group r-06">
-                            <input type="email" class="form-control" placeholder="Email Address" required
-                                id="s-email">
-                            <span class="input-group-btn ico-15">
-                                <button type="submit" class="btn color--theme">
-                                    <span class="flaticon-right-arrow-1 submit_btn"></span>
-                                </button>
-                            </span>
-                        </div>
+						<div class="input-group r-06">
+							<input type="email" class="form-control" placeholder="Email Address" required id="s-email">
+							<span class="input-group-btn ico-15">
+								<button type="submit" class="btn color--theme">
+									<span class="flaticon-right-arrow-1 submit_btn"></span>
+								</button>
+							</span>
+						</div>
 
-                        <!-- Newsletter Form Notification -->
-                        <label for="s-email" class="form-notification"></label>
+						<!-- Newsletter Form Notification -->
+						<label for="s-email" class="form-notification"></label>
 
-                    </form>
+					</form>
 
-                </div>
-            </div> <!-- END FOOTER NEWSLETTER FORM -->
+				</div>
+			</div> <!-- END FOOTER NEWSLETTER FORM -->
 
 
         </div> <!-- END FOOTER CONTENT -->
@@ -154,13 +349,15 @@
 
                 <!-- FOOTER SOCIALS -->
                 <div class="col-lg-4">
-                    <ul class="bottom-footer-socials ico-20 text-end">
-                        <li><a href="#"><span class="fa-brands fa-facebook-f"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-x-twitter"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-instagram"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-linkedin-in"></span></a></li>
-                    </ul>
-                </div>
+					<ul class="bottom-footer-socials ico-20 text-end">
+					<li><a href="#"><span class="fa-brands fa-instagram"></span></a></li>
+						<li><a href="#"><span class="fa-brands fa-tiktok"></span></a></li>
+						<li><a href="#"><span class="fa-brands fa-snapchat"></span></a></li>
+						<li><a href="#"><span class="fa-brands fa-x-twitter"></span></a></li>
+						<li><a href="#"><span class="fa-brands fa-youtube"></span></a></li>
+
+					</ul>
+				</div>
                 <!-- <i class="fa-brands fa-x-twitter"></i>
        <i class="fa-brands fa-facebook-f"></i>
        <i class="fa-brands fa-instagram"></i>
@@ -191,7 +388,7 @@
 
                 <div class="modal-header">
 
-                    <h1 class="modal-title" id="exampleModalLabel">Add A New Patient </h1>
+                    <h1 class="modal-title" id="exampleModalLabel">Add A New Patient </h1>   
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                             class="fa-solid fa-xmark"></i></button>
@@ -201,8 +398,6 @@
                 <div class="modal-body body-patient">
 
                     <div class="inner_data pt-0">
-
-
 
                         <div class="basic_details_patient">
 
@@ -221,8 +416,8 @@
                                                 placeholder=" " name="profile_image" id="profile_image">
                                             <span id="profile_imageError" style="color: red;font-size:smaller"></span>
                                             <!-- @error('profile_image')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror -->
+                                                    <span class="alert alert-danger">{{ $message }}</span>
+                                                @enderror -->
                                         </div>
 
 
@@ -236,7 +431,7 @@
 
                                         <label class="form-label">Title</label>
 
-                                        <select class="form-control select2_modal" name="sirname">
+                                        <select class="form-control select2_modal_" name="sirname">
 
                                             <option value="mr">Mr</option>
 
@@ -263,8 +458,8 @@
                                         </select>
                                         <span id="titleError" style="color: red;"></span>
                                         <!-- @error('sirname')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror -->
+                                                <span class="alert alert-danger">{{ $message }}</span>
+                                            @enderror -->
 
                                     </div>
 
@@ -280,32 +475,92 @@
                                             name="name">
                                         <span id="nameError" style="color: red;font-size:smaller"></span>
                                         <!-- @error('name')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror -->
+                                                <span class="alert alert-danger">{{ $message }}</span>
+                                            @enderror -->
                                     </div>
 
                                 </div>
+
+
 
                                 <div class="col-lg-6">
 
-                                    <div class="mb-4">
+                                    <div class="mb-3 form-group">
 
-                                        <label class="form-label">Date of Birth</label>
+                                        @php
+                                          $doctorName = DB::table('doctors')->where(['role_id'=>'1','status'=>'active'])->get();
+                                        @endphp
 
-                                        <div class="input-group" id="datepicker1">
+                                        <label for="validationCustom01" class="form-label">Select Doctor</label>
 
-                                            <input type="text" class="form-control" placeholder="dd M, yyyy"
-                                                data-date-format="dd M, yyyy" data-date-container='#datepicker1'
-                                                data-provide="datepicker" name="birth_date">
-                                            <span id="datepickerError" style="color: red;font-size:smaller"></span>
-                                            <!-- @error('birth_date')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror -->
-                                        </div>
+                                        <select class="form-control select2_modal_" name="doctor_id" required>
+
+                                            <option value="">Selct Any One</option>
+
+                                            @foreach ($doctorName as $doctorName)
+
+                                            <option value="{{  $doctorName->id }}">{{  $doctorName->name }}</option>
+
+                                            @endforeach
+
+                                        </select>
 
                                     </div>
 
                                 </div>
+
+                                
+
+                                @php
+                                $doctorData = Auth::guard('doctor')->user();
+                                $useBranch = DB::table('user_branchs')->where('patient_id', $doctorData->id)->get();
+                                $branchs = [];
+                            
+                                foreach ($useBranch as $alluseBranch) {
+                                    $branch = DB::table('branchs')->where('id', $alluseBranch->add_branch)->first();
+                                    if ($branch) {
+                                        $branchs[] = $branch;
+                                    }
+                                }
+                            @endphp
+                            
+                            @if (!empty($branchs))
+                                <div class="col-lg-6">
+                                    <div class="mb-3 form-group">
+                                        <label for="validationCustom01" class="form-label">Select Branch</label>
+                                        <select class="form-control select2_modal_" name="doctor_id" required>
+                                            <option value="">Select Any One</option>
+                                            @forelse ($branchs as $allbranchs)
+                                                <option value="{{ $allbranchs->id }}">{{ $allbranchs->branch_name }}</option>
+                                            @empty
+                                                <option value="" disabled>No branches available</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                            @endif
+                            
+
+
+
+
+
+
+
+                                <div class="col-lg-6">
+                                    <div class="mb-4">
+                                        <label class="form-label">Date of Birth</label>
+                                        <div class="input-group" id="datepicker1">
+                                            <input type="text" class="datepicker form-control" placeholder="dd M, yyyy"
+                                                   data-date-format="dd M, yyyy" data-date-container='#datepicker1'
+                                                   data-provide="datepicker" name="birth_date" id="birth_date"
+                                                   data-date-end-date="0d">
+                                            <span id="datepickerError" style="color: red; font-size: smaller"></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-lg-6">
 
@@ -313,7 +568,7 @@
 
                                         <label class="form-label">Gender</label>
 
-                                        <select class="form-control select2_modal" name="gender">
+                                        <select class="form-control select2_modal_" name="gender">
 
                                             <option value="">Select</option>
 
@@ -325,8 +580,8 @@
 
                                         <span id="genderError" style="color: red;font-size:smaller"></span>
                                         <!-- @error('gender')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror -->
+                                                <span class="alert alert-danger">{{ $message }}</span>
+                                            @enderror -->
                                     </div>
 
                                 </div>
@@ -396,7 +651,7 @@
 
                                         <label class="form-label">Country</label>
 
-                                        <select class="form-control select2_modal" name="country">
+                                        <select class="form-control select2_modal_" name="country">
 
                                             <option value="Afghanistan">Afghanistan</option>
 
@@ -464,8 +719,8 @@
                                             name="email">
                                         <span id="emailError" style="color: red;font-size:smaller"></span>
                                         <!-- @error('email')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror -->
+                                                <span class="alert alert-danger">{{ $message }}</span>
+                                            @enderror -->
                                     </div>
 
                                 </div>
@@ -476,12 +731,12 @@
 
                                         <label for="validationCustom01" class="form-label">Mobile Phone</label>
 
-                                        <input type="text" class="form-control" id="" placeholder=""
-                                            name="mobile_no">
+                                        <input type="text" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" id="" placeholder=""        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                        minlength="0" maxlength="15" name="mobile_no" pattern="[0-9]{10,15}">
                                         <span id="mobile_noError" style="color: red;font-size:smaller"></span>
                                         <!-- @error('mobile_no')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror -->
+                                            <span class="alert alert-danger">{{ $message }}</span>
+                                        @enderror -->
                                     </div>
 
                                 </div>
@@ -526,7 +781,7 @@
 
                                     <label for="validationCustom01" class="form-label">Select Document</label>
 
-                                    <select class="form-control select2_modal" name="document_type">
+                                    <select class="form-control select2_modal_" name="document_type" id="document_type">
 
                                         <option value="Passport">Passport</option>
 
@@ -537,14 +792,20 @@
                                     </select>
                                     <span id="document_typeError" style="color: red;font-size:smaller"></span>
                                 </div>
+                                <div id="fileInputContainer" class="col-lg-6">
+                                    <!-- File input field will be added here -->
+                                </div>
+
                                 <div class="col-lg-6">
 
                                     <div class="mb-3 form-group">
 
                                         <label for="validationCustom01" class="form-label">Landline</label>
 
-                                        <input type="text" class="form-control" id="" placeholder=""
-                                            name="landline">
+
+                                            <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                            minlength="0" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" id="landline" placeholder="" minlength="0" maxlength="15" name="landline" pattern="[0-9]{10,15}">
+
                                         <span id="landlineError" style="color: red;font-size:smaller"></span>
                                     </div>
 
@@ -661,10 +922,10 @@
 
                                             <div class="mb-3 form-group">
 
-                                                <label class="form-label">Title</label>
+                                                <label class="form-label">Title <span>*</span></label>
 
                                                 <select class="form-control select2_edit_info" name="patient_sirname"
-                                                    id="patient_sirname">
+                                                    id="patient_sirname" required>
 
                                                     <option value="mr">Mr</option>
 
@@ -736,10 +997,10 @@
 
                                             <div class="mb-3 form-group">
 
-                                                <label class="form-label">Gender</label>
+                                                <label class="form-label">Gender <span>*</span></label>
 
                                                 <select class="form-control select2_edit_info" name="patient_gendar"
-                                                    id="patient_gendar">
+                                                    id="patient_gendar" required>
 
                                                     <option value="">Select</option>
 
@@ -825,12 +1086,12 @@
 
                                 <div class="col-lg-6">
 
-                                    <div class="mb-3 form-group">
+                                    <div class="mb-3 form-group">    
 
-                                        <label class="form-label">Country</label>
+                                        <label class="form-label">Country <span>*</span></label>
 
                                         <select class="form-control select2_edit_info" name="patient_country"
-                                            id="patient_country">
+                                            id="patient_country" required >   
 
                                             <option value="Afghanistan">Afghanistan</option>
 
@@ -893,8 +1154,8 @@
 
                                         <label for="validationCustom01" class="form-label">Email Address</label>
 
-                                        <input type="text" class="form-control" id="patient_email" placeholder=""
-                                            name="patient_email">
+                                        <input type="email" class="form-control" id="patient_email" placeholder=""
+                                            name="patient_email" readonly>
                                         <span id="patient_emailError" style="color: red;font-size:smaller"></span>
 
                                     </div>
@@ -954,7 +1215,7 @@
 
                                 </div>
 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
 
                                     <div class="mb-3 form-group">
 
@@ -970,7 +1231,7 @@
                                     </div>
 
                                 </div>
-
+ --}}
 
                                 <div class="col-lg-6">
 
@@ -1349,7 +1610,7 @@
 
             <div class="modal-header">
 
-                <h1 class="modal-title" id="exampleModalLabel">Add or Edit Insurer</h1>
+                <h1 class="modal-title" id="exampleModalLabel">Add or Edit Insurer </h1>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                         class="fa-solid fa-xmark"></i></button>
@@ -1663,14 +1924,9 @@
                     <div class="row">
 
 
-
-
-
                         <div class="col-lg-12">
 
                             <div class="add_categoryweb">
-
-
 
                                 <div class="row">
 
@@ -1692,9 +1948,14 @@
 
                                             </div>
                                         </form>
+
+                                        
                                         <div class="categories-list" id="categories-list-1">
 
-                                            <!-- Categories will be displayed here -->
+
+
+
+
 
                                         </div>
 
@@ -1901,11 +2162,7 @@
                                         <input type="search" class="form-control" id="" placeholder=""
                                             name="drug_name">
 
-                                        <button class="btn search_btn">
 
-                                            <iconify-icon icon="prime:search-plus" width="24"></iconify-icon>
-
-                                        </button>
                                         <span id="drug_nameError" style="color: red;font-size:small"></span>
                                     </div>
 
@@ -2006,7 +2263,7 @@
 
                                 <div class="inner_element">
 
-                                    <div class="form-group">
+                                    <div class="form-group" id="datepicker1">
 
                                         <label for="validationCustom01" class="form-label">Stopped Date</label>
 
@@ -2219,7 +2476,7 @@
 
                                             <!-- <div class="categories-list" id="categories-list-3">
 
-                                               
+
 
                                             </div> -->
 
@@ -2624,15 +2881,10 @@
 
                                         <label for="validationCustom01" class="form-label">Date</label>
 
-                                        <div class="input-group" id="datepicker21">
-
-
-
-                                            <input type="text" class="form-control" placeholder="dd M, yyyy"
-                                                data-date-format="dd M, yyyy" data-date-container='#datepicker21'
-                                                data-provide="datepicker" name="future_date">
-
+                                        <div class="input-group">
+                                            <input type="date" class="form-control" placeholder="dd M, yyyy" name="future_date" id="future_date_1" autocomplete="off">
                                         </div>
+
                                         <span id="future_dateError" style="color: red;font-size:small"></span>
                                         <!-- <input type="text" class="form-control datepickerInput" placeholder="dd M, yyyy"> -->
 
@@ -2643,6 +2895,27 @@
                                 </div>
 
                             </div>
+
+
+                        <script>
+                            // Get the input element by its ID
+                            var inputDate = document.getElementById('future_date_1');
+
+                            // Get today's date in the format yyyy-mm-dd
+                            var today = new Date();
+                            var dd = String(today.getDate()).padStart(2, '0');
+                            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+                            var yyyy = today.getFullYear();
+
+                            today = yyyy + '-' + mm + '-' + dd;
+
+                            // Set the minimum date of the input to today
+                            inputDate.setAttribute('min', today);
+                        </script>
+
+
+
+
 
                             <div class="col-lg-12">
 
@@ -2944,7 +3217,7 @@
 
                                             </label>
 
-                                        </div>
+                                        </div>    
 
                                     </li>
 
@@ -3101,293 +3374,224 @@
                   Patient Refer
 
             ---------------------------->
+            <div class="modal fade edit_patient__" id="refer_patient" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
 
-<div class="modal fade edit_patient__" id="refer_patient" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+            <div class="modal-dialog ">
 
-    <div class="modal-dialog ">
+                <div class="modal-content">
 
-        <div class="modal-content">
+                    <div class="modal-header">
 
-            <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLabel">Refer to Another Clinician</h1>
 
-                <h1 class="modal-title" id="exampleModalLabel">Refer to Another Clinician</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                                class="fa-solid fa-xmark"></i></button>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                        class="fa-solid fa-xmark"></i></button>
+                    </div>
 
-            </div>
-            <form id="refer_form">
-                @csrf
-                <input type="hidden" name="patient_id" value="{{ @$id }}" />
-                <div class="modal-body padding-0">
+                    <form action="{{ route('referalPatient') }}" method="post" id="refer_form"> @csrf
+                        <input type="hidden" name="patient_id" value="{{ @$id }}" />
+                        <div class="modal-body padding-0">
 
-                    <div class="inner_data">
+                            <div class="inner_data">
 
-                        <div class="">
+                                <div class="">
 
 
-                            <div class="row top_head_vitals">
+                                    <div class="row top_head_vitals">
 
-                                <div class="col-lg-12">
+                                        <div class="col-lg-12">
 
-                                    <div class="inner_element search_dr">
+                                            <div class="inner_element search_dr">
 
-                                        <div class="form-group">
+                                                <div class="form-group">
+                                                    <input type="search" class="form-control" id="searchInput" oninput="searchDoctors()" placeholder="Find a user by name or specialty..">
 
-                                            <input type="search" class="form-control" id=""
-                                                placeholder="Find a user by name or specialty..">
+                                                </div>
 
-                                            <button class="btn search_btn_dr"><i
-                                                    class="fa-solid fa-magnifying-glass"></i></button>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-lg-12">            
+
+                                            <div class="doctor_list">             
+
+                                                <h6 class="list_title_dr">List of Available Clinicians</h6>    
+
+                                                <ul>   
+
+
+                                                 @php   
+
+                                                    $doctorList = DB::table('doctors')->where('role_id', '1');
+
+                                                    if (auth()->guard('doctor')->user()->role_id == '1') {
+                                                       $doctorList =  $doctorList->where('id', '!=', auth()->guard('doctor')->user()->id);
+                                                    }
+                                                    
+                                                    $doctorList =  $doctorList->get();   
+
+                                                 @endphp
+                                                  @forelse ($doctorList as $alldoctorList)
+
+
+                                                  <li>
+                                                    <div class="booking_card_select">
+
+                                                        {{-- <input type="checkbox" class="check_dr" value="{{ $alldoctorList->id }}" name="doctorId[]" id="cbx1{{ $alldoctorList->id }}"> --}}
+                                                        <input name="patientId" type="hidden" value="{{ $alldoctorList->id }}"/>
+                                                              <input type="checkbox" class="check_dr" name="doctorId[]" value="{{ $alldoctorList->id }}" id="cbx1{{ $alldoctorList->id }}">
+                                                               <label for="cbx1{{ $alldoctorList->id }}">
+                                                               <div class="doctor_dt">
+
+                                                                        <div class="image_dr">
+
+
+                                                                            @if (isset($alldoctorList->patient_profile_img))
+
+                                                                            <img src="{{ asset('/public/assets/profileImage/' . $alldoctorList->patient_profile_img) }}" alt="">
+
+                                                                            @else
+                                                                            <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+
+                                                                            @endif
+
+
+                                                                        </div>
+                                                                        <div class="dr_detail">
+                                                                            <h6 class="dr_name">{{ $alldoctorList->name }}
+                                                                                <span>{{ $alldoctorList->title }} </span>
+                                                                            </h6>
+                                                                        <p class="dr_email"><a href="mailto:{{ $alldoctorList->email }}">{{ $alldoctorList->email }}</a></p>
+                                                                        </div>
+                                                                    </div>
+                                                               </label>
+                                                            </div>
+
+                                                    </li>
+
+                                                  {{-- <li>
+                                                    <div class="booking_card_select">
+                                                              <input type="checkbox" class="check_dr" value="{{ $alldoctorList->id }}" name="doctorId[]" id="cbx1{{ $alldoctorList->id }}">
+                                                              <input name="patientId" type="hidden" value="{{ $alldoctorList->id }}"/>
+
+                                                              <label for="cbx1{{ $alldoctorList->id }}">
+                                                                     <div class="doctor_dt" style="display: inline-flex;">
+                                                                        <div class="image_dr">
+                                                                            <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
+                                                                            alt="">
+                                                                        </div>
+                                                                        <div class="dr_detail">
+                                                                            <h6 class="dr_name">{{ $alldoctorList->name }}
+                                                                                <span>{{ $alldoctorList->title }} </span>
+                                                                            </h6>
+                                                                          <p class="dr_email"><a href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a></p>
+                                                                        </div>
+                                                                    </div>
+                                                               </label>
+                                                            </div>
+                                                    </li> --}}
+
+                                                    @empty
+
+                                                    @endforelse
+
+
+
+
+                                                </ul>
+
+
+
+
+
+                                            </div>
+
+
+
+                                        </div>
+
+                                        <div class="col-lg-12 px-4 mb-3" id="refer_note">
+
+                                            <div class="mt-3 form-group">
+
+                                                <textarea class="form-control"
+                                                    placeholder="Type a short referral message here. This will be entered as a note on EMR and will be emailed to addressees (salutation added automatically).
+
+
+
+                    This action also gives the addressee access to this medical record. "
+                                                    style="height:150px"></textarea>
+
+                                            </div>
 
                                         </div>
 
                                     </div>
 
-                                </div>
 
-                                <div class="col-lg-12">
-
-                                    <div class="doctor_list">
-
-                                        <h6 class="list_title_dr">List of Available Clinicians</h6>
-
-                                        <ul>
-
-                                            <li>
-
-                                                <div class="booking_card_select">
-
-                                                    <input type="checkbox" class="check_dr" name="cbx4"
-                                                        id="cbx1">
-
-                                                    <label for="cbx1">
-
-                                                        <div class="doctor_dt">
-
-                                                            <div class="image_dr">
-
-                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
-                                                                    alt="">
-
-                                                            </div>
-
-                                                            <div class="dr_detail">
-
-                                                                <h6 class="dr_name">Abbigail Titmus
-                                                                    <span>(MBBS)</span>
-                                                                </h6>
-
-                                                                <p class="dr_email"><a
-                                                                        href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                </p>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </label>
-
-                                                </div>
-
-
-
-
-
-                                            </li>
-
-                                            <li>
-
-                                                <div class="booking_card_select">
-
-                                                    <input type="checkbox" class="check_dr" name="cbx4"
-                                                        id="cbx2">
-
-                                                    <label for="cbx2">
-
-                                                        <div class="doctor_dt">
-
-                                                            <div class="image_dr">
-
-                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
-                                                                    alt="">
-
-                                                            </div>
-
-                                                            <div class="dr_detail">
-
-                                                                <h6 class="dr_name">Abbigail Titmus
-                                                                    <span>(MBBS)</span>
-                                                                </h6>
-
-                                                                <p class="dr_email"><a
-                                                                        href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                </p>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </label>
-
-                                                </div>
-
-
-
-
-
-                                            </li>
-
-                                            <li>
-
-                                                <div class="booking_card_select">
-
-                                                    <input type="checkbox" class="check_dr" name="cbx4"
-                                                        id="cbx3">
-
-                                                    <label for="cbx3">
-
-                                                        <div class="doctor_dt">
-
-                                                            <div class="image_dr">
-
-                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
-                                                                    alt="">
-
-                                                            </div>
-
-                                                            <div class="dr_detail">
-
-                                                                <h6 class="dr_name">Abbigail Titmus
-                                                                    <span>(MBBS)</span>
-                                                                </h6>
-
-                                                                <p class="dr_email"><a
-                                                                        href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                </p>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </label>
-
-                                                </div>
-
-
-
-
-
-                                            </li>
-
-                                            <li>
-
-                                                <div class="booking_card_select">
-
-                                                    <input type="checkbox" class="check_dr" name="cbx4"
-                                                        id="cbx4">
-
-                                                    <label for="cbx4">
-
-                                                        <div class="doctor_dt">
-
-                                                            <div class="image_dr">
-
-                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
-                                                                    alt="">
-
-                                                            </div>
-
-                                                            <div class="dr_detail">
-
-                                                                <h6 class="dr_name">Abbigail Titmus
-                                                                    <span>(MBBS)</span>
-                                                                </h6>
-
-                                                                <p class="dr_email"><a
-                                                                        href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                </p>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </label>
-
-                                                </div>
-
-
-
-
-
-                                            </li>
-
-                                        </ul>
-
-
-
-
-
-                                    </div>
-
-
-
-                                </div>
-
-                                <div class="col-lg-12 px-4 mb-3" id="refer_note">
-
-                                    <div class="mt-3 form-group">
-
-                                        <textarea class="form-control"
-                                            placeholder="Type a short referral message here. This will be entered as a note on EMR and will be emailed to addressees (salutation added automatically). 
-
-            
-
-            This action also gives the addressee access to this medical record. "
-                                            style="height:150px"></textarea>
-
-                                    </div>
 
                                 </div>
 
                             </div>
 
+                            <div class="action text-end bottom_modal">
 
+                                <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient"
+                                    data-bs-dismiss="modal">
+
+                                    Save</button>
+
+                                <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                                    data-bs-dismiss="modal">
+
+                                    Close</button>
+
+                            </div>
 
                         </div>
+                        <form>
+                            <!-- <div class="modal-footer">
 
-                    </div>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                    <div class="action text-end bottom_modal">
+                                    <button type="button" class="btn btn-primary">Save changes</button>
 
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient"
-                            data-bs-dismiss="modal">
-
-                            Save</a>
-
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
-                            data-bs-dismiss="modal">
-
-                            Close</a>
-
-                    </div>
+                                </div> -->
 
                 </div>
-                <form>
-                    <!-- <div class="modal-footer">
 
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                            <button type="button" class="btn btn-primary">Save changes</button>
-
-                        </div> -->
+            </div>
 
         </div>
 
-    </div>
 
-</div>
+
+
+        <script>
+            function searchDoctors() {
+                // Get the search input value
+                var searchValue = document.getElementById("searchInput").value.toLowerCase();
+
+                // Get all the doctor names
+                var doctorNames = document.querySelectorAll(".dr_name");
+
+                // Loop through each doctor name and check if it matches the search value
+                doctorNames.forEach(function(name) {
+                    var doctorName = name.textContent.toLowerCase();
+                    var parentDiv = name.parentElement.parentElement;
+                    if (doctorName.includes(searchValue)) {
+                        // If the name matches, display the corresponding doctor detail
+                        parentDiv.style.display = "block";
+                    } else {
+                        // If the name doesn't match, hide the corresponding doctor detail
+                        parentDiv.style.display = "none";
+                    }
+                });
+            }
+            </script>
 
 
 
@@ -3587,11 +3791,11 @@
 
                                                     </div>
 
-                                                    <div class="add_btn_plus" id="entry_add_btn">
+                                                    {{-- <div class="add_btn_plus" id="entry_add_btn">
 
                                                         <a href="#">+</a>
 
-                                                    </div>
+                                                    </div> --}}
 
                                                 </div>
 
@@ -3599,7 +3803,7 @@
 
                                             </div>
 
-                                            <div class="col-lg-4" id="context_add">
+                                            {{-- <div class="col-lg-4" id="context_add">
 
                                                 <div class="d-flex">
 
@@ -3627,9 +3831,9 @@
 
 
 
-                                            </div>
+                                            </div> --}}
 
-                                            <div class="col-lg-4">
+                                            {{-- <div class="col-lg-4">
 
                                                 <div class="d-flex">
 
@@ -3662,7 +3866,7 @@
 
 
 
-                                            </div>
+                                            </div> --}}
 
                                             <div class="col-lg-12 mt-4">
 
@@ -3672,7 +3876,7 @@
 
                                                         <div class="voice_recognition">
 
-                                                            {{-- 
+                                                            {{--
                                                     <button  class="startRecognition" id="startRecognition">Start Voice Recognition</button> --}}
 
 
@@ -3718,12 +3922,19 @@
                                                 <div class="mt-2 form-group">
 
                                                     <textarea class="form-control" id="voiceInput" placeholder="Type your entry here" style="height:100px"
-                                                        id="prog_voice_recognition" name="prog_voice_recognition"></textarea>
+                                                         name="prog_voice_recognition"></textarea>
                                                     <span id="prog_voice_recognitionError"
                                                         style="color: red; font-size:small"></span>
 
                                                 </div>
+                                                <div class="mt-2 form-group">
 
+                                                    <textarea class="form-control" id="summerynote" placeholder="Type your summery here" style="height:100px"
+                                                         name="summerynote"></textarea>
+                                                    <span id="summerynoteError"
+                                                        style="color: red; font-size:small"></span>
+
+                                                </div>
                                                 <h6 class="recall">Recall <span>Follow-up on this episode. Patient
                                                         will be notified a week before and clinic staff will be notified
                                                         on due date. </span></h6>
@@ -4142,7 +4353,7 @@
 
                order imagenairy Exam
 
-      
+
                ---------------------------->
 
 
@@ -4420,7 +4631,7 @@
                                     $VaricoseAblation_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
                                         ->where(['patient_id' => $patient->id, 'form_type' => 'VaricoseAblation'])
                                         ->first();
-    
+
                                     if ($VaricoseAblation_Eligibility_Forms !== null) {
                                         $VaricoseAblation_Eligibility_Forms = $VaricoseAblation_Eligibility_Forms->toArray();
                                     } else {
@@ -5666,7 +5877,11 @@
             <form id="appointment_form">
 
                 @csrf
-                <input type="hidden" name="patient_id" value="{{ @$id }}" />
+                @php
+                $patient_id=isset($id) ? $id :@$id ;
+                $patient_id=isset($patient_id) ? decrypt($patient_id) : $patient_id;
+                @endphp
+                <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
                 <div class="modal-body padding-0">
 
                     <div class="inner_data">
@@ -5720,104 +5935,8 @@
 
                                             <div class="form-group">
 
-                                                <select class="form-control select2_appointment"
-                                                    name="appointment_type">
-
-                                                    <option value="">Appointment Type</option>
-
-                                                    <option
-                                                        value="CONSULTATION/Interventional Radiology   استشارة أشعة تداخلية">
-                                                        CONSULTATION/Interventional Radiology استشارة أشعة تداخلية
-                                                    </option>
-
-                                                    <option
-                                                        value="CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation علاج ألم المفاصل بالتردد الحراري بتوجية الأشعة">
-                                                        CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation
-                                                        علاج ألم المفاصل بالتردد الحراري بتوجية الأشعة</option>
-
-                                                    <option value="Follow up appointment">Follow up appointment
-                                                    </option>
-
-                                                    <option value="Hemorrhoids Embolization">Hemorrhoids Embolization
-                                                    </option>
-
-                                                    <option
-                                                        value="Image guided MSK inflammation / pain injection - PRP حقن إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما QASTARAT & DAWALI CLINICS">
-                                                        Image guided MSK inflammation / pain injection - PRP حقن
-                                                        إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما QASTARAT & DAWALI
-                                                        CLINICS</option>
-
-                                                    <option
-                                                        value="Image guided MSK / pain injection - HA حقن إالتهاب/ألم المفاصل بتوجية الأشعة-حقن زيتية">
-                                                        Image guided MSK / pain injection - HA حقن إالتهاب/ألم المفاصل
-                                                        بتوجية الأشعة-حقن زيتية</option>
-
-                                                    <option
-                                                        value="Image (Ultrasound) guided Occipital Headache nerve block">
-                                                        Image (Ultrasound) guided Occipital Headache nerve block
-                                                    </option>
-
-                                                    <option value="INTRAVENOUS VITAMIN THERAPY">INTRAVENOUS VITAMIN
-                                                        THERAPY</option>
-
-                                                    <option
-                                                        value="IV DRIP ASCORBIC ACID  (Essential dose) فيتامين سي الجرعه الأساسية">
-                                                        IV DRIP ASCORBIC ACID (Essential dose) فيتامين سي الجرعه
-                                                        الأساسية</option>
-
-                                                    <option
-                                                        value="IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل السميات (الجرعة الأساسية)">
-                                                        IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل السميات (الجرعة
-                                                        الأساسية)</option>
-
-                                                    <option
-                                                        value="IV DRIP ENERGY BOOSTER  (ESSENTIAL DOSE)  معزز الطاقة الجرعة الأساسية">
-                                                        IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE) معزز الطاقة الجرعة
-                                                        الأساسية</option>
-
-                                                    <option
-                                                        value="IV DRIP FAT BURNER   (ESSENTIAL DOSE)  مسرعات حرق الدهون (الجرعة الأساسية)">
-                                                        IV DRIP FAT BURNER (ESSENTIAL DOSE) مسرعات حرق الدهون (الجرعة
-                                                        الأساسية)</option>
-
-                                                    <option
-                                                        value="IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C">
-                                                        IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C
-                                                    </option>
-
-                                                    <option
-                                                        value="IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS COMBINATION ">
-                                                        IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS
-                                                        COMBINATION </option>
-
-                                                    <option value="IV Vitamin - Multivatamins w/ Iron">IV Vitamin -
-                                                        Multivatamins w/ Iron</option>
-
-                                                    <option value="PIRIFORMIS MUSCLE INJECTION">PIRIFORMIS MUSCLE
-                                                        INJECTION</option>
-
-                                                    <option value="PRESSURE STOCKING">PRESSURE STOCKING</option>
-
-                                                    <option value="SPERM DNA FRAGMENTATION">SPERM DNA FRAGMENTATION
-                                                    </option>
-
-                                                    <option value="Spider / Reticular Veins Sclerotherapy">Spider /
-                                                        Reticular Veins Sclerotherapy</option>
-
-                                                    <option value="Ultrasound doppler of VENOUS MAPPING">Ultrasound
-                                                        doppler of VENOUS MAPPING</option>
-
-                                                    <option value="Ultrasound/General">Ultrasound/General</option>
-
-                                                    <option value="Ultrasound NERVE MAPPING">Ultrasound NERVE MAPPING
-                                                    </option>
-
-                                                    <option value="Varicocele Embolization - قسطرة دوالي الخصية-">
-                                                        Varicocele Embolization - قسطرة دوالي الخصية-</option>
-
-
-
-                                                </select>
+                                                <input class="form-control" placeholder="Appointment Type" type="text"
+                                                name="appointment_type" id="appointment_type">
                                                 <span id="appointment_typeError"
                                                     style="color: red;font-size:small"></span>
 
@@ -5835,17 +5954,11 @@
 
                                             <div class="form-group">
 
-                                                <select class="form-control select2_appointment" name="location">
-
+                                                <select class="form-control " name="location" id="location">
                                                     <option value="">Location</option>
-
                                                     <option value="CLINIC">CLINIC</option>
-
                                                     <option value="DUBAI">DUBAI</option>
-
-                                                    <option value="QASTARAT & DAWALI CLINICS">QASTARAT & DAWALI
-                                                        CLINICS</option>
-
+                                                    <option value="QASTARAT & DAWALI CLINICS">QASTARAT & DAWALI CLINICS</option>
                                                 </select>
                                                 <span id="locationError" style="color: red;font-size:small"></span>
                                             </div>
@@ -5853,7 +5966,7 @@
                                         </div>
 
                                     </div>
-
+                                    <input type="hidden" id="event_id" name="event_id" value="">
                                     <div class="col-lg-6">
 
                                         <div class="inner_element">
@@ -5862,8 +5975,7 @@
 
 
 
-                                                <input type="text" class="form-control datepickerInput"
-                                                    placeholder="17 Nov,2023" name="start_date">
+                                                <input type="text" class="form-control datepickerInputDate start_date" placeholder="YYYY-MM-DD" name="start_date">
                                                 <span id="start_dateError"
                                                     style="color: red;font-size:small"></span>
                                             </div>
@@ -5880,8 +5992,8 @@
 
 
 
-                                                <input type="text" class="form-control timepicker-custom"
-                                                    placeholder="12:00" name="start_time">
+                                                <input type="text" class="form-control timepicker-custom" placeholder="12:00" name="start_time">
+
                                                 <span id="start_timeError"
                                                     style="color: red;font-size:small"></span>
                                             </div>
@@ -5898,8 +6010,7 @@
 
 
 
-                                                <input type="text" class="form-control datepickerInput"
-                                                    placeholder="17 Nov,2023" name="end_date">
+                                                <input type="text" class="form-control datepickerInputDate end_date" placeholder="YYYY-MM-DD" name="end_date">
                                                 <span id="end_dateError" style="color: red;font-size:small"></span>
                                             </div>
 
@@ -5915,8 +6026,7 @@
 
 
 
-                                                <input type="text" class="form-control timepicker-custom"
-                                                    placeholder="12:00" name="end_time">
+                                                <input type="text" class="form-control timepicker-custom" placeholder="12:00" name="end_time">
                                                 <span id="end_timeError" style="color: red;font-size:small"></span>
                                             </div>
 
@@ -5932,8 +6042,7 @@
 
 
 
-                                                <input type="text" class="form-control" placeholder="Cost"
-                                                    name="app_cost">
+                                                <input type="text" class="form-control" placeholder="Cost" name="cost" id="cost">
                                                 <span id="app_costError" style="color: red;font-size:small"></span>
                                             </div>
 
@@ -5949,8 +6058,7 @@
 
 
 
-                                                <input type="text" class="form-control" placeholder="Code"
-                                                    name="app_code">
+                                                <input type="text" class="form-control" placeholder="Code" name="code" id="code">
                                                 <span id="app_codeError" style="color: red;font-size:small"></span>
                                             </div>
 
@@ -5964,15 +6072,11 @@
 
                                             <div class="form-group">
 
-                                                <select class="form-control select2_appointment" name="clinician">
-
-                                                    <option value="">Select Clinician</option>
-
-                                                    <option value="SAIF ALZAAB">SAIF ALZAABI</option>
-                                                    <option value="SAIF AAB">SAIF ALZAABI</option>
-                                                    <option value="SAIF ALZ">SAIF ALZAABI</option>
-                                                    <option value="SAIF AL">SAIF ALZAABI</option>
-                                                    <option value="SAIF AB">SAIF ALZAABI</option>
+                                                <select class="form-control " name="priority" id="Priority">
+                                                    <option  value=""> --Priority-- </option>
+                                                    <option value="bg-danger">High</option>
+                                                    <option value="bg-success">Medium</option>
+                                                    <option value="bg-primary">Low</option>
 
                                                 </select>
                                                 <span id="clinicianError" style="color: red;font-size:small"></span>
@@ -5983,21 +6087,12 @@
                                     </div>
 
                                     <div class="col-lg-12">
-
                                         <div class="form-check">
-
-                                            <input class="form-check-input" type="checkbox" id="flexCheckChecked"
-                                                name="is_confirmation" value="confirmationed">
-
+                                            <input class="form-check-input" type="checkbox" value="checked" id="flexCheckChecked"  name="confirmation">
                                             <label class="form-check-label" for="flexCheckChecked">
-
-                                                Send appointment confirmation immediately
-
+                                            Send appointment confirmation immediately
                                             </label>
-                                            <span id="is_confirmationError"
-                                                style="color: red;font-size:small"></span>
                                         </div>
-
                                     </div>
 
                                 </div>
@@ -6066,6 +6161,9 @@
                         class="fa-solid fa-xmark"></i></button>
 
             </div>
+
+
+
             <form id="video_call_form">
                 @csrf
                 <input type="hidden" name="patient_id" value="{{ @$id }}" />
@@ -6118,13 +6216,6 @@
                                 </div>
 
                             </div>
-
-
-
-
-
-
-
                         </div>
 
                     </div>
@@ -6158,6 +6249,37 @@
 
 </div>
 
+{{-- 
+<script>
+    $(document).ready(function() {
+        // Intercept form submission
+        $('#video_call_form').submit(function(event) {   alert(:)
+            event.preventDefault(); // Prevent default form submission
+    
+            // Get form data   
+            var formData = $(this).serialize();
+    
+            // Send AJAX request to save-video-call route
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('user.save.video.call') }}',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    // Handle successful response
+                    console.log(response.message);
+                    // Optionally, display a success message or redirect to another page
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    console.error(error);
+                    // Optionally, display an error message to the user
+                }
+            });
+        });
+    });
+    </script>
+ --}}
 
 
 <!----------------------------
@@ -6220,7 +6342,7 @@
 
                                             <h6 class="selected_testtitle"><span>Selected Tests <i
                                                         class="fa-solid fa-cart-shopping"></i></span> <span><a
-                                                        href="all-lab-tests.php">View all Tests</a></span></h6>
+                                                        href="#">View all Tests</a></span></h6>
 
                                             <table class="table lab_order_list">
 
@@ -7227,7 +7349,7 @@
 
                             <td>172</td>
 
-                        
+
 
                             <td><a href="#" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a></td>
 
@@ -7241,7 +7363,7 @@
 
                             <td>70</td>
 
-                            
+
 
                             <td><a href="#" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a></td>
 
@@ -7737,7 +7859,81 @@
 
 <!-- invoice canvas modal end -->
 
+<!----------------------------
+              supportive Treatment
+            ---------------------------->
+            <div class="modal fade edit_patient__" id="supportive_treatment" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLabel">supportive Treatment</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                                class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <form id="supportivetreatment" method="POST">
+                        @csrf
+                        <input type="hidden" value="{{ @$id }}" name="patient_id" />
 
+                        <div class="modal-body padding-0">
+                            <div class="inner_data">
+                                <div class="row">
+                                    <!-- <div class="col-lg-12">
+                                            <div class="title_head">
+                                            <h4>Schedule Appointment</h4>
+                                            </div>
+                                            </div> -->
+
+                                    <div class="col-lg-12">
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3 form-group">
+                                                    <label for="validationCustom01" class="form-label">Title</label>
+                                                    <input type="text" class="form-control" id="supportiveTitle"
+                                                        name="supportiveTitle" placeholder="">
+                                                    <span id="supportiveTitleError" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-3 form-group">
+                                                    <label for="validationCustom01" class="form-label">Sub Title</label>
+                                                    <input type="text" class="form-control" id="supportiveSubTitle"
+                                                        name="supportiveSubTitle" placeholder="">
+                                                    <span id="supportiveSubTitleError" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="mb-3 form-group">
+                                                    <label for="validationCustom01" class="form-label">Write supportive Treatment</label>
+                                                    <textarea class="form-control" placeholder="" style="height:100px" id="supportiveTreatment" name="Treatment"></textarea>
+                                                    <span id="supportiveTreatmentError" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="action text-end bottom_modal">
+                                <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+
+                                    Save</button>
+                                <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                                    data-bs-dismiss="modal">
+                                    Close</a>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                   </div> -->
+                </div>
+            </div>
+        </div>
 
 <!----------------------------
      Symptoms
@@ -8078,7 +8274,7 @@
 
 <!-- apexcharts -->
 
-<script src="{{ url('public/assets') }}/libs/apexcharts/apexcharts.min.js"></script>
+{{-- <script src="{{ url('public/assets') }}/libs/apexcharts/apexcharts.min.js"></script> --}}
 
 
 
@@ -8140,11 +8336,24 @@
 
 <!-- linecharts init -->
 
-<script src="{{ url('public/assets') }}/js/pages/apexcharts-line.init.js"></script>
+{{-- <script src="{{ url('public/assets') }}/js/pages/apexcharts-line.init.js"></script> --}}
 
-<!-- App js -->
+<!-- App js tinymce.min-->
 
 <script src="{{ url('public/assets') }}/js/app.js"></script>
+
+<!-- tinymce editor -->
+<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+
+{{--
+<script src="{{ url('public/assets') }}/js/tinymce.min.js"></script>
+ <script src="{{ url('public/assets') }}/js/model.min.js"></script>
+ <script src="{{ url('public/assets') }}/js/theme.min.js"></script>
+ <script src="{{ url('public/assets') }}/js/icons.min.js"></script>
+
+<script src="{{ url('public/assets') }}/js/skin.min.css"></script>
+<script src="{{ url('public/assets') }}/js/content.min.css"></script>
+<script src="{{ url('public/assets') }}/js/css/content.min.css"></script> --}}
 
 <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 
@@ -8181,12 +8390,31 @@
         dropdownParent: $('#symptoms_add')
     });
 </script>
-<script>
-    $('.select2_modal').select2({
-        dropdownParent: $('.add_patient__')
 
-    });
+
+<script>
+        $('.select2_modal_').select2({
+            dropdownParent: $('.add_patient__') 
+        });
+
+
+
+
+
+        $('.select2_appointment').select2({
+            dropdownParent: $('.edit_patient__') 
+        });
+
+
+
+
+
+        $('.select2_modal').select2({
+            dropdownParent: $('.event-modal')
+        });
 </script>
+
+
 <script>
     $('.select2_edit_info').select2({
         dropdownParent: $('#edit_patient')
@@ -8279,6 +8507,7 @@
             $('#Nephrology_textarea').show();
             $('#PevicRehab_textarea').hide();
         });
+
         $('#PevicRehab_checkbox').click(function() {
             $('#Nephrology_textarea').hide();
             $('#PevicRehab_textarea').show();
@@ -8287,16 +8516,19 @@
 </script>
 
 <!-- jQuery and jQuery UI JS -->
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>  
+
 <script>
     $(document).ready(function() {
         // Initialize jQuery UI datepicker
         $('.datepickerInput').datepicker({
-            dateFormat: 'dd M, yy'
+            dateFormat: 'yy-mm-dd',   
+            minDate: 0,
         });
 
     });
 </script>
+
 <script>
     $(document).ready(function() {
         $('#add_address_new_form').hide();
@@ -8420,10 +8652,8 @@
     // });
 </script>
 
-
 <!-- Annotate image js  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/8.1.1/konva.min.js"></script>
-
 <script>
     const stage = new Konva.Stage({
         container: 'image-container',
@@ -8528,7 +8758,6 @@
         link.click();
     });
 </script>
-
 <script>
     // Function to toggle textarea based on checkbox state
     function toggleTextarea(checkboxId, textareaId) {
@@ -8711,10 +8940,873 @@
 </script>
 <!-- add_surgical_btn end here -->
 
+<script>
+    // Initialize CKEditor 4
+    // voiceInput fields
+    CKEDITOR.replace('voiceInput')
+        .catch(function(error) {
+            console.error(error);
+        });
+         // summery fields
+    CKEDITOR.replace('summerynote')
+        .catch(function(error) {
+            console.error(error);
+        });
+</script>
+<script>
+    $(document).ready(function() {
+
+     // $('.datepickerInputDate').datepicker({
+     //     dateFormat: 'YYYY-MM-DD'
+     // });
+
+
+     $('.datepickerInputDate').attr('autocomplete', 'off');
+
+
+     $('.start_date, .end_date').change(function() {
+         var startDate = $('.start_date').datepicker('getDate');
+         var endDate = $('.end_date').datepicker('getDate');
+
+         if (startDate != null && endDate != null && startDate > endDate) {
+             alert('Start date must be before end date!');
+             $('.start_date').val('');
+             $('.end_date').val('');
+         }
+     });
+
+     $('#event-modal').on('hidden.bs.modal', function (e) {
+         location.reload();
+       });
+     //   date format
+     $(function(){
+         $(".end_date").datepicker({ dateFormat: 'yy-mm-dd' });
+         $(".start_date").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
+             var minValue = $(this).val();
+             minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
+             minValue.setDate(minValue.getDate()+1);
+             $(".end_date").datepicker( "option", "minDate", minValue );
+         })
+     });
+
+     $( "#dp1711718991197" ).datepicker({ startDate: new Date()});
+
+ });
+
+ </script>
+  <script>
+    $(document).ready(function() {
+        $('#book_app').prop('disabled', true);
+        $('#appoin_btn_form').click(function(event) {
+            event.preventDefault();
+            $('#book_app').prop('disabled', false);
+        });
+
+
+        let patient_id = $('input[name="patient_id"]').val();
+        $('#appointment_form').submit(function(e) {
+            e.preventDefault();
+
+            let isValid = validateFormAppointment();
+
+            if (true) {
+
+                $.ajax({
+                    url: '{{ route("user.calendar.event") }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        $('#appointment_form')[0].reset();
+                        // Call the function every second
+                        setInterval(function() {
+                            $('[id*="Error"]').text('');
+                        }, 1000);
+
+                        if (result != '') {
+
+                            swal.fire(
+
+                                'Success',
+
+                                'Appointment Booked successfully!',
+
+                                'success'
+
+                            )
+                            location.reload();
+                        } else {
+
+                            swal.fire("Error!", "Enter valid Appointment Details!",
+                                "error");
+
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+
+        function validateFormAppointment() {
+            let isValid = true;
+            // Validate date
+            let date = $('input[name="appointment_date"]').val();
+            if (date === '') {
+                isValid = false;
+
+                $('#appointment_dateError').text('Date  is required');
+                $('input[name="appointment_date"]').addClass('error');
+            }
+            // Validate appointment_type
+            let appointment_type = $('select[name="appointment_type"]').val();
+            if (appointment_type === '') {
+                isValid = false;
+
+                $('#appointment_typeError').text('Appointment Type  is required');
+                $('select[name="appointment_type"]').addClass('error');
+            }
+            // Validate location
+            let location = $('select[name="location"]').val();
+            if (location === '') {
+                isValid = false;
+
+                $('#locationError').text('location   is required');
+                $('select[name="location"]').addClass('error');
+            }
+            // Validate start_date
+            let start_date = $('input[name="start_date"]').val();
+            if (start_date === '') {
+                isValid = false;
+
+                $('#start_dateError').text('Start Date  is required');
+                $('input[name="start_date"]').addClass('error');
+            }
+            // Validate start_time
+            let start_time = $('input[name="start_time"]').val();
+            if (start_time === '') {
+                isValid = false;
+
+                $('#start_timeError').text('Start Date  is required');
+                $('input[name="start_time"]').addClass('error');
+            }
+            // Validate end_date
+            let end_date = $('input[name="end_date"]').val();
+            if (end_date === '') {
+                isValid = false;
+
+                $('#end_dateError').text('End Date  is required');
+                $('input[name="end_date"]').addClass('error');
+            }
+            // Validate end_time
+            let end_time = $('input[name="end_time"]').val();
+            if (end_time === '') {
+                isValid = false;
+
+                $('#end_timeError').text('End Time is required');
+                $('input[name="end_time"]').addClass('error');
+            }
+            // Validate app_cost
+            let app_cost = $('input[name="app_cost"]').val();
+            if (app_cost === '') {
+                isValid = false;
+
+                $('#app_costError').text('Cost  is required');
+                $('input[name="app_cost"]').addClass('error');
+            }
+            // Validate app_code
+            // let app_code = $('input[name="app_code"]').val();
+            // if (app_code === '') {
+            //     isValid = false;
+
+            //     $('#app_codeError').text('Code  is required');
+            //     $('input[name="app_code"]').addClass('error');
+            // }
+            // Validate clinician
+            let clinician = $('select[name="clinician"]').val();
+            if (clinician === '') {
+                isValid = false;
+
+                $('#clinicianError').text('Clinician   is required');
+                $('select[name="clinician"]').addClass('error');
+            }
+
+
+            return isValid;
+        }
+
+    });
+</script>
 @stack('custom-js')
 
 
+ <!-- common module script start here -->
+ <!-- Add a New Note module start -->
+        <!-- Add a new progress notes form data into database-->
+        <script>
+            $(document).ready(function() {
+                let patient_id = $('input[name="patient_id"]').val();
+                $('#progress_note_form').submit(function(e) {
+
+                    e.preventDefault();
+
+                    let isValid = validateFormProgressNote();
+
+                    if (isValid) {
+                        CKEDITOR.instances['voiceInput'].updateElement();
+                        $.ajax({
+                            url: '{{ route("user.patient_progress_list_save") }}',
+                            type: 'POST',
+                            data: $(this).serialize(),
+                            success: function(result) {
+                                $('#progress_note_form')[0].reset();
+                                // Call the function every second
+                                setInterval(function() {
+                                    $('[id*="Error"]').text('');
+                                }, 1000);
+
+                                if (result != '') {
+
+                                    swal.fire(
+
+                                        'Success',
+
+                                        ' Progress Note Added successfully!',
+
+                                        'success'
+
+                                    )
+                                    fetchAndDisplayPatientProgressNote(patient_id);
+                                    location.reload();
+                                } else {
+
+                                    swal.fire("Error!", "Enter valid Progress Note Details!",
+                                        "error");
+
+                                }
+                            },
+                            error: function(error) {
+                                console.error(error);
+                            }
+                        });
+                    }
+                });
+
+
+                function validateFormProgressNote() {
+                    let isValid = true;
+                    // Validate note_contents
+                    // let note_contents = $('select[name="note_contents"]').val();
+                    // if (note_contents === '') {
+                    //     isValid = false;
+
+                    //     $('#note_contentsError').text('Note Content  is required');
+                    //     $('select[name="note_contents"]').addClass('error');
+                    // }
+                    // Validate new_text
+                    // let new_text = $('input[name="new_text"]').val();
+                    // if (new_text === '') {
+                    //   isValid = false;
+
+                    //   ('#new_textError').text('New context  is required');
+                    //   $('input[name="new_text"]').addClass('error');
+                    // }
+                    // Validate prog_voice_recognition
+                    // let prog_voice_recognition = $('textarea[name="prog_voice_recognition"]').val();
+                    // if (prog_voice_recognition === '') {
+                    //     isValid = false;
+
+                    //     $('#prog_voice_recognitionError').text('voice_recognition  is required');
+                    //     $('textarea[name="prog_voice_recognition"]').addClass('error');
+                    // }
+                    // Validate prog_day
+                    // let prog_day = $('input[name="prog_day"]').val();
+                    // if (prog_day === '') {
+                    //   isValid = false;
+
+                    //   $('#prog_dayError').text('Day  is required');
+                    //   $('input[name="prog_day"]').addClass('error');
+                    // }
+                    // Validate date
+                    //  let date = $('input[name="date"]').val();
+                    // if (date === '') {
+                    //   isValid = false;
+
+                    //   $('#dateError').text('Date  is required');
+                    //   $('input[name="date"]').addClass('error');
+                    // }
+                    // Validate prog_email
+                    //  let prog_email = $('input[name="prog_email"]').val();
+                    // if (prog_email === '') {
+                    //   isValid = false;
+
+                    //   $('#prog_emailError').text('email  is required');
+                    //   $('input[name="prog_email"]').addClass('error');
+                    // }
+
+                    return isValid;
+                }
+
+            });
+        </script>
+        <!-- Function to fetch And Display Patient Progress Note data -->
+        <script>
+            function fetchAndDisplayPatientProgressNote(patient_id) {
+
+                // let patient_id = $('input[name="patient_id"]').val();
+                $.ajax({
+                    url: '{{ route("user.patient_progress_list") }}',
+                    type: 'GET',
+                    data: {
+                        patient_id: patient_id
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+
+                        if (data && data.hasOwnProperty('note_contents')) {
+                            let cannedNotes = data.note_contents;
+                            cannedNotes.forEach(function(note) {
+                                let newOption = $('<option>', {
+                                    value: note.id,
+                                    text: note.note_name
+                                });
+
+
+                                let optionExists = $('#note_contents option[value="' + note.id + '"]')
+                                    .length > 0;
+
+                                if (!optionExists) {
+
+                                    $('#note_contents').append(newOption);
+                                } else {
+
+                                    $('#note_contents option[value="' + note.id + '"]').text(note
+                                        .note_name);
+                                }
+                            });
+
+
+                        }
+                        if (data && data.hasOwnProperty('canned_texts')) {
+                            let canned_texts = data.note_contents.canned_texts ? data.note_contents.canned_texts :
+                                '';
+                            let id = data.canned_texts.id ? data.canned_texts.id : '';
+                            let canned_textsobj = data.canned_texts;
+                            canned_textsobj.forEach(function(note) {
+                                let newOption = $('<option>', {
+                                    value: note.id,
+                                    text: note.canned_name
+                                });
+
+
+                                let optionExists = $('#canned_texts option[value="' + note.id + '"]')
+                                    .length > 0;
+
+                                if (!optionExists) {
+
+                                    $('#canned_texts').append(newOption);
+                                } else {
+
+                                    $('#canned_texts option[value="' + note.id + '"]').text(note
+                                        .canned_name);
+                                }
+                            });
+                        }
+
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }
+
+            // Call the function on clcik class proress_notes
+            $(document).ready(function() {
+                let patient_id1 = $('input[name="patient_id"]').val();
+                $(".proress_notes").on('click', function() {
+
+                    fetchAndDisplayPatientProgressNote(patient_id1);
+                });
+
+            });
+        </script>
+
+
+
+        <!-- Function to fetch And Display Predefine Note List -->
+        <script>
+            function fetchAndDisplayPredefineNoteList(patient_id, canned_texts, note_contents) {
+
+                // let patient_id = $('input[name="patient_id"]').val();
+                $.ajax({
+                    url: '{{ route('user.patient_progress_predefine_notes_list') }}',
+                    type: 'GET',
+                    data: {
+                        patient_id: patient_id,
+                        canned_texts_id: canned_texts,
+                        note_contents_id: note_contents
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                       // Get the existing CKEditor instance
+
+                        var editorContent = '';
+                        if (data && data.describe && data.describe.describe && data.describe.describe.length > 0) {
+
+                            editorContent = data.describe.describe;
+                            CKEDITOR.instances['voiceInput'].setData(editorContent);
+                        }
+
+                        else {
+                            CKEDITOR.instances['voiceInput'].setData(editorContent);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }
+
+            // Call the function on clcik class invoice_item
+            $(document).ready(function() {
+                let patient_id1 = $('input[name="patient_id"]').val();
+
+                $("#automated_clinic_note").on('click', function() {
+                    let isValid = validatePatientPredefineNote();
+                    if (isValid) {
+                        let canned_texts = $('#canned_texts').val();
+                        let note_contents = $('#note_contents').val();
+                        fetchAndDisplayPredefineNoteList(patient_id1, canned_texts, note_contents);
+                    }
+                });
+
+                function validatePatientPredefineNote() {
+                    let isValid = true;
+                    // Validate canned_texts
+                    let canned_texts = $('select[name="canned_texts"]').val();
+                    if (canned_texts === '') {
+                        isValid = false;
+
+                        $('#canned_textsError').text('Field  is required');
+                        $('select[name="canned_texts"]').addClass('error');
+                    }
+                    // Validate note_contents
+                    let note_contents = $('select[name="note_contents"]').val();
+                    if (note_contents === '') {
+                        isValid = false;
+
+                        $('#note_contentsError').text('Field  is required');
+                        $('select[name="note_contents"]').addClass('error');
+                    }
+
+                    return isValid;
+                }
+
+            });
+        </script>
+
+ <!-- Add a New Note module  end-->
+
+   <!-- Add Order Procedure form data into database start -->
+   <script>
+    $(document).ready(function() {
+        let patient_id = $('input[name="patient_id"]').val();
+        $('#order_procedure_form').submit(function(e) {
+
+            e.preventDefault();
+
+            let isValid = validateFormProcedure();
+
+            if (isValid) {
+
+                $.ajax({
+                    url: '{{ route('user.add_patient_procedure') }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        $('#order_procedure_form')[0].reset();
+                        // $('#add_patient').modal('hide');
+
+                        if (result != '') {
+
+                            swal.fire(
+
+                                'Success',
+
+                                'Order Procedure Added successfully!',
+
+                                'success'
+
+                            )
+                            // Call the function every second
+                            setInterval(function() {
+                                $('[id*="Error"]').text('');
+                            }, 1000);
+                            location.reload();
+                        } else {
+
+                            swal.fire("Error!", "Enter Order Procedure Details!", "error");
+
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+
+        function validateFormProcedure() {
+            let isValid = true;
+
+            // Validate entry
+            let entry = $('textarea[name="entry"]').val();
+            if (entry === '') {
+                isValid = false;
+
+                $('#entryError').text('Entry   is required');
+                $('textarea[name="entry"]').addClass('error');
+            }
+            // Validate summary
+            let summary = $('textarea[name="summary"]').val();
+            if (summary === '') {
+                isValid = false;
+
+                $('#summaryError').text('Summary   is required');
+                $('textarea[name="summary"]').addClass('error');
+            }
+            // Validate procedure
+            let procedure = $('select[name="procedure"]').val();
+            if (procedure === '') {
+                isValid = false;
+
+                $('#procedureError').text('Procedure   is required');
+                $('select[name="procedure"]').addClass('error');
+            }
+
+            return isValid;
+        }
+
+    });
+</script>
+<!-- Add Order Procedure form data into database end -->
+<!-- add_supportive treatment start  -->
+<script>
+    $(document).ready(function() {
+        let patient_id = $('input[name="patient_id"]').val();
+        $('#supportivetreatment').submit(function(e) {
+            e.preventDefault();
+
+            let isValid = validateFormsupportivetreatment();
+
+            if (isValid) {
+
+                $.ajax({
+                    url: '{{ route("user.add_patient_supportive_treatment") }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        $('#supportivetreatment')[0].reset();
+                        // Call the function every second
+                        setInterval(function() {
+                            $('[id*="Error"]').text('');
+                        }, 1000);
+
+                        if (result != '') {
+
+                            swal.fire(
+
+                                'Success',
+
+                                'Supportive Treatment Added successfully!',
+
+                                'success'
+
+                            ).then(function() {
+                                location.reload();
+                            });
+
+                        } else {
+
+                            swal.fire("Error!",
+                                "Enter valid Supportive Treatment Details!",
+                                "error");
+
+                        }
+                    },
+                    error: function(error) {
+                        swal.fire("Error!",
+                            "Enter valid Supportive Treatment Details!",
+                            "error");
+                    }
+                });
+            }
+        });
+
+
+        function validateFormsupportivetreatment() {
+            let isValid = true;
+            // data-bs-dismiss="modal"
+            // Validate Title
+            let supportiveTitle = $('select[name="supportiveTitle"]').val();
+            if (supportiveTitle === '') {
+
+                isValid = false;
+
+                $('#supportiveTitleError').text('Please select a Title');
+                $('select[name="supportiveTitle"]').addClass('error');
+            }
+
+            // Validate supportiveSubTitle
+            let supportiveSubTitle = $('input[name="supportiveSubTitle"]').val();
+            if (supportiveSubTitle === '') {
+                isValid = false;
+
+                $('#supportiveSubTitleError').text('SubTitle is required');
+                $('input[name="supportiveSubTitle"]').addClass('error');
+            }
+
+
+
+            // Validate Treatment
+            let Treatment = $('textarea[name="Treatment"]').val();
+            if (Treatment === '') {
+                isValid = false;
+
+                $('#supportiveTreatmentError').text('Treatment  is required');
+                $('textarea[name="Treatment"]').addClass('error');
+            }
+
+
+            return isValid;
+        }
+        //disabled future date
+
+        $('#future_date').datepicker({
+            format: 'dd M, yyyy',
+            autoclose: true,
+             minDate: new Date()
+        });
+
+
+
+
+    });
+
+</script>
+<!-- add_supportive treatment end  -->
+<!-- Add prescription_day_form data into database start-->
+<script>
+    $(document).ready(function() {
+        let patient_id = $('input[name="patient_id"]').val();
+        $('#prescription_day_form').submit(function(e) {
+
+            e.preventDefault();
+
+            let isValid = validateFormPrescription();
+
+            if (isValid) {
+
+                $.ajax({
+                    url: '{{ route('user.add_patient_prescription') }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        $('#prescription_day_form')[0].reset();
+                        // $('#add_patient').modal('hide');
+
+                        if (result != '') {
+
+                            swal.fire(
+
+                                'Success',
+
+                                'Prescription day Added successfully!',
+
+                                'success'
+
+                            )
+                            // Call the function every second
+                            setInterval(function() {
+                                $('[id*="Error"]').text('');
+                            }, 1000);
+                            location.reload();
+                        } else {
+
+                            swal.fire("Error!", "Enter valid Prescription day Details!",
+                                "error");
+
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+
+        function validateFormPrescription() {
+            let isValid = true;
+            // Validate prescription
+            let prescription = $('textarea[name="prescription"]').val();
+            if (prescription === '') {
+                isValid = false;
+
+                $('#prescriptionError').text('prescription   is required');
+                $('textarea[name="prescription"]').addClass('error');
+            }
+
+            return isValid;
+        }
+
+    });
+</script>
+<!-- Add prescription_day_form data into database end-->
+
+ <!-- Add  Future Plans form data into database end-->
+ <script>
+    $(document).ready(function() {
+        let patient_id = $('input[name="patient_id"]').val();
+        $('#future_plan_form').submit(function(e) {
+
+            e.preventDefault();
+
+            let isValid = validateFormFuturePlan();
+
+            if (isValid) {
+
+                $.ajax({
+                    url: '{{ route('user.future_plan_add') }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        $('#future_plan_form')[0].reset();
+                        // $('#add_patient').modal('hide');
+
+                        if (result != '') {
+
+                            swal.fire(
+
+                                'Success',
+
+                                'Future Plans Added successfully!',
+
+                                'success'
+
+                            )
+                            // Call the function every second
+                            setInterval(function() {
+                                $('[id*="Error"]').text('');
+                            }, 1000);
+                            location.reload();
+                        } else {
+
+                            swal.fire("Error!", "Enter valid Future Plans Details!",
+                                "error");
+
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+
+        function validateFormFuturePlan() {
+            let isValid = true;
+            // Validate future_date
+            let future_date = $('input[name="future_date"]').val();
+            if (future_date === '') {
+                isValid = false;
+
+                $('#future_dateError').text(' Date  is required');
+                $('input[name="future_date"]').addClass('error');
+            }
+            // Validate text
+            let text = $('textarea[name="future_write"]').val();
+            if (text === '') {
+                isValid = false;
+                $('#future_writeError').text('Write is required');
+                $('textarea[name="future_write"]').addClass('error');
+            }
+
+            return isValid;
+        }
+
+    });
+</script>
+ <!-- Add  Future Plans form data into database end is_stopped-->
+
+ <script>
+    $(document).ready(function() {
+        $('#document_type').change(function() {
+            var selectedOption = $(this).val();
+            var fileInputHtml = '<label for="customFile" class="form-label">' + selectedOption + ' File</label>' +
+                                '<input type="file" class="form-control" id="customFile" name="customFile" required>';
+
+            $('#fileInputContainer').html(fileInputHtml);
+        });
+        $("#insure_add_edit .add_patient").click(function(){
+            setTimeout(function() {
+                    location.reload();
+                }, 3000);
+        });
+
+
+    });
+</script>
+
+<!-- Script to initialize datepicker and validate stopped date -->
+<script>
+    $(document).ready(function () {
+        // Initialize datepicker for "Today Date" input
+        $('input[name="today_date"]').datepicker({
+            dateFormat: 'dd M, yy',
+            changeMonth: true,
+            changeYear: true,
+            onSelect: function(selectedDate) {
+                // Set the minimum date for "Stopped Date" input
+                var minDate = new Date(selectedDate);
+                minDate.setDate(minDate.getDate() + 1); // Minimum date should be one day after "Today Date"
+
+                $('input[name="stopped_date"]').datepicker('option', 'minDate', minDate);
+
+                // Clear and validate "Stopped Date" input
+                $('input[name="stopped_date"]').val('');
+                $('#stopped_dateError').text('');
+            }
+        });
+
+        // Initialize datepicker for "Stopped Date" input
+        $('input[name="stopped_date"]').datepicker({
+            dateFormat: 'dd M, yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: 'c:+100' // Allow selection up to 100 years in the future
+        });
+
+        // Validate stopped date
+        $('input[name="stopped_date"]').change(function () {
+            var stoppedDate = $(this).datepicker('getDate');
+            var todayDate = new Date();
+
+            if (stoppedDate <= todayDate) {
+                $('#stopped_dateError').text('Stopped date must be a future date from today.');
+                $(this).val(''); // Clear the input field
+            } else {
+                $('#stopped_dateError').text('');
+            }
+        });
+    });
+</script>
 </body>
+
 
 
 

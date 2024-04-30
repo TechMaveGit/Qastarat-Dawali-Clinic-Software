@@ -3,6 +3,13 @@
     <title>Doctor Details | Super Admin</title>
 @endpush
 @section('content')
+
+<style>
+    .imageSize{
+        width: 100px;
+    }
+</style>
+
 <div class="content-wrapper">
 	  <div class="container-full">
 	<!-- Content Header (Page header) -->
@@ -22,11 +29,11 @@
         <div class="row">
 				<div class="col-xl-8 col-12">
 					<div class="box">
-						<div class="box-body text-end min-h-150" style="background-image:url('{{ asset('public/superAdmin/images/gallery/landscape14.jpg')}}'); background-repeat: no-repeat; background-position: center;background-size: cover;">
+						<div class="box-body text-end min-h-150">
 							<a href="{{ route('doctors.edit',['id'=>$doctor->id]) }}" class="btn-md btn btn-success"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
 						</div>
 						<div class="box-body wed-up position-relative">
-							<div class="d-md-flex align-items-end">
+							<div class="d-md-flex align-items-end" style="margin-top: -49px;">
 								<!-- <img src="images/avatar/avatar-1.png" class="bg-success-light rounded10 me-20" alt="" /> -->
                                 <div class="profile_main">
                                     <div class="circle">
@@ -34,7 +41,7 @@
                                         {{-- https://techmavesoftwaredev.com/webclinic/public/superAdmin/images/avatar/avatar-1.png --}}
 
                                         @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
-                                        <img src="{{ asset('/public/assets/doctor_profile/' . $doctor->patient_profile_img) }}" alt="">
+                                        <img src="{{ asset('/public/assets/profileImage/' . $doctor->patient_profile_img) }}" alt="">
                                         @else
                                         <img class="profile-pic" src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
@@ -129,6 +136,7 @@
                                                 <h6>{{ $doctor->languages_spoken }}</h6>
                                             </div>
                                         </li>
+                                        
                                         <li>
                                             <div class="detail_title">
                                                 <h6>License Number</h6>
@@ -137,17 +145,99 @@
                                                 <h6>{{ $doctor->lincense_no }}</h6>
                                             </div>
                                         </li>
+                                        
+                                        
+                                         {{-- <li>
+                                            <div class="detail_title">
+                                                <h6>Profile Image</h6>
+                                            </div>
+                                            
+                                            <div class="detail_ans imageSize">
+                                                @if($doctor->profileImage)
+                                                 <a href="{{ asset('public/assets/profileImage') }}/{{ $doctor->profileImage }}" target="_blank">
+                                                            <img src="{{ asset('public/assets/profileImage') }}/{{ $doctor->patient_profile_img }}" alt="Profile Image"/>
+                                                </a>
+                                                @endif
+                                            </div>
+                                            
+                                        </li> --}}
+                                        
+                                            
+                                        
+                                         <li>
+                                                <div class="detail_title">
+                                                    <h6>License Upload</h6>
+                                                </div>
+                                                <div class="detail_ans imageSize">
+                                                    @if($doctor->LicenseUpload)
+                                                        @php
+                                                            $extension = pathinfo($doctor->LicenseUpload, PATHINFO_EXTENSION);
+                                                        @endphp
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        @if($extension == 'pdf')
+                                                            <a href="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}" target="_blank">View License Document</a>
+                                                        @elseif($extension=='xlsx')        
+                                                            <a href="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}" target="_blank">View License Document</a>
+                                                        @else
+                                                            <a href="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}" target="_blank">
+                                                                <img src="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}" alt="License Image"/>
+                                                            </a>
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                            </li>
 
+                                        
+                                         <li>
+                                            <div class="detail_title">
+                                                <h6>Academic Document Upload</h6>
+                                            </div>
+                                            <div class="detail_ans imageSize">
+                                                @if($doctor->AcademicDocumentUpload)
+                                                
+                                                  <a href="{{ asset('public/assets/AcademicDocumentUpload') }}/{{ $doctor->AcademicDocumentUpload }}" target="_blank">
+                                                            <img src="{{ asset('public/assets/AcademicDocumentUpload') }}/{{ $doctor->AcademicDocumentUpload }}" alt="Academic Document"/>
+                                                </a>
+                                                
+                                                
+                                                @endif
+                                            </div>
+                                        </li>
+                                        
+                                        
+                                        
+                                         <li>
+                                            <div class="detail_title">
+                                                <h6>Address</h6>
+                                            </div>
+                                            <div class="detail_ans">
+
+
+                                                @if ($doctor->street)      
+                                                 {{$doctor->street}} , 
+                                                 @endif
+
+                                                 @if ($doctor->town)
+                                                   {{ $doctor->town }}, 
+                                                @endif  
+                                                 
+                    
+                                                @if ($doctor->post_code)
+                                                    {{ $doctor->post_code }},
+                                                @endif
+
+                                                @if ($doctor->country)
+                                                {{$doctor->country}} ,
+                                                @endif
+
+                                            </div>
+                                        </li>
+                                        
                                     </ul>
-                                    <div class="col-lg-12">
-                             <div class="detail_title">
-                                <h6>Address</h6>
-                            </div>
-                            <div class="detail_ans">
-                                <h6>{{ $doctor->street	 }}</h6>
-                            </div>
-
-                            </div>
+                                  
                                 </div>
 
                             </div>
@@ -166,171 +256,43 @@
 
 						<div class="box-body">
 							<div class="inner-user-div4">
+
+                               @forelse ($tasks as $alltasks)
+							   @php
+								$userDetail=DB::table('users')->where('id',$alltasks->patient_id)->first();
+							   @endphp
+
 								<div>
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
+											@if($userDetail->patient_profile_img)
+											<img src="{{ asset('public/assets/patient_profile/'.$userDetail->patient_profile_img)}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											@else
 											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											@endif
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Shawn Hampton</p>
-											<span class="text-dark fs-14">Emergency appointment</span>
+											<p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name }}</p>
+											@php
+
+											   $pathology_price_list=  DB::table('pathology_price_list')->where('id',$alltasks->task);
+
+											@endphp
+											<span class="text-dark fs-14">{{$pathology_price_list->test_name??''}}</span>
 										</div>
 										<div>
 											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 10:00 </p>
 										</div>
 									</div>
-
 								</div>
-								<div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Polly Paul</p>
-											<span class="text-dark fs-14">USG + Consultation</span>
-										</div>
-                                        <div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 10:30 </p>
-										</div>
-									</div>
+								@empty
 
-								</div>
-								<div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Johen Doe</p>
-											<span class="text-dark fs-14">Laboratory screening</span>
-										</div>
-                                        <div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 11:00 </p>
-										</div>
-									</div>
+								<h4 class="box-title" style="bold">Not Have Any Today Appointments</h4>
 
-								</div>
-								<div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Harmani Doe</p>
-											<span class="text-dark fs-14">Keeping pregnant</span>
-										</div>
-										<div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 11:30 </p>
-										</div>
-									</div>
+								@endforelse
 
-								</div>
-								<div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Mark Wood</p>
-											<span class="text-dark fs-14">Primary doctor consultation</span>
-										</div>
-                                        <div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 12:00 </p>
-										</div>
-									</div>
 
-								</div>
-								<div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Shawn Marsh</p>
-											<span class="text-dark fs-14">Emergency appointment</span>
-										</div>
-										<div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 13:00 </p>
-										</div>
-									</div>
 
-								</div>
-                                <div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Polly Paul</p>
-											<span class="text-dark fs-14">USG + Consultation</span>
-										</div>
-                                        <div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 10:30 </p>
-										</div>
-									</div>
-
-								</div>
-								<div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Johen Doe</p>
-											<span class="text-dark fs-14">Laboratory screening</span>
-										</div>
-                                        <div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 11:00 </p>
-										</div>
-									</div>
-
-								</div>
-								<div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Harmani Doe</p>
-											<span class="text-dark fs-14">Keeping pregnant</span>
-										</div>
-										<div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 11:30 </p>
-										</div>
-									</div>
-
-								</div>
-								<div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Mark Wood</p>
-											<span class="text-dark fs-14">Primary doctor consultation</span>
-										</div>
-                                        <div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 12:00 </p>
-										</div>
-									</div>
-
-								</div>
-								<div>
-									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-										</div>
-										<div class="d-flex flex-column flex-grow-1 fw-500">
-											<p class="hover-primary text-fade mb-1 fs-14">Shawn Marsh</p>
-											<span class="text-dark fs-14">Emergency appointment</span>
-										</div>
-										<div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 13:00 </p>
-										</div>
-									</div>
-
-								</div>
 							</div>
 						</div>
 					</div>

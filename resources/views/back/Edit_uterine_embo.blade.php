@@ -8,7 +8,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
             display: none;
         }
     </style>
-@endpush
+@endpush 
 @section('content-section')
     <div class="sub_bnr" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
         <div class="sub_bnr_cnt">
@@ -1581,7 +1581,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                     <th>Mild LUTS </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
-                                                <tr id="moderateLUTS" class="hidden">>
+                                                <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
                                                     <th>Moderate LUTS </th>
                                                     <th>(8-19 pts) </th>

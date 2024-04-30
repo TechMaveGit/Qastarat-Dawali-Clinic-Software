@@ -3,17 +3,24 @@
 <title>All Nurses | Super Admin</title>
 @endpush
 @section('content')
+
+<style>
+.bg_color_ghi {
+    padding: 10px;
+    border-radius: 50px;
+}
+    </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <div class="container-full">
   <!-- Content Header (Page header) -->
   <div class="content-header ">
       <div class="d-flex">
-      <h4 class="page-title lab_name">All radiology Tests & Price</h4>
+      <h4 class="page-title lab_name">All Appointments & Services  </h4>
       <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">radiology Price</li>
+                  <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Appointments & services</li>
               </ol>
           </nav>
       </div>
@@ -29,8 +36,8 @@
                   <div class="row">
                   <div class="col-lg-12 mt-2">
                           <div class="title_head edit_title_head mb-3">
-                              <h4>radiology Tests & Price</h4>
-                              <a href="{{ route('price.addradiologyPrice') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add New Tests</a>
+                              <h4>Appointments & services</h4>
+                              <a href="{{ route('price.addradiologyPrice') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add More</a>
                               <!-- <div class="add_price_btn edit_btn_info">
                               <a href="#"><i data-feather="plus-circle"></i> Add New Tests</a>
                           </div> -->
@@ -49,7 +56,10 @@
                                                   <th>Included Tests</th>
                                                   <th>Turnaround</th>
                                                   <th>Note</th>
+                                                  <th>Type</th>
                                                   <th>Price</th>
+                                                  <th>Created Date</th>
+                                                  <th>Colour</th>
                                                   <th>Action</th>
                                               </tr>
                                           </thead>
@@ -67,18 +77,31 @@
                                                     <td>{{ $allpathology_price_list->included_tests }}</td>
                                                     <td>{{ $allpathology_price_list->turnaround }}</td>
                                                     <td>{{ $allpathology_price_list->note }}</td>
-                                                    <td>{{ $allpathology_price_list->price }}</td>
+                                                    <td>
+                                                        @if ($allpathology_price_list->price_type=='0')
+                                                        Pathology
+                                                        @elseif($allpathology_price_list->price_type=='1')
+                                                        Radiology
+                                                        @elseif($allpathology_price_list->price_type=='2')
+                                                        Other
+                                                        @else
+                                                        ---
+                                                        @endif
+                                                    </td>
+                                                    <td>AED {{ $allpathology_price_list->price }}</td>
+                                                    {{-- <td>{{ $allpathology_price_list->created_at->format('Y-m-d') }}</td> --}}
+                                                    <td>{{ \Carbon\Carbon::parse($allpathology_price_list->created_at)->format('Y-m-d') }}</td>
+                                                    <td> <div class="bg_color_ghi" style="background-color: {{ $allpathology_price_list->colour_type }}"></div>
+                                                    </td>
                                                     <td>
                                                     <ul class="action_icons">
-
-                                                    <li>
-                                                        <a onclick="editForm('{{ $allpathology_price_list->id }}','{{ $allpathology_price_list->test_name }}', '{{ $allpathology_price_list->test_code }}', '{{ $allpathology_price_list->included_tests }}', '{{ $allpathology_price_list->turnaround }}', '{{ $allpathology_price_list->note }}', '{{ $allpathology_price_list->price }}')" class="waves-effect waves-light btn btn-rounded btn-warning-light">
-                                                            <i data-feather="edit"></i>
-                                                        </a>
-                                                    </li>
-
-                                                        </ul>
-                                                    </td>
+                                                        <li>
+                                                            <a onclick="editForm('{{ $allpathology_price_list->id }}','{{ $allpathology_price_list->test_name }}', '{{ $allpathology_price_list->test_code }}', '{{ $allpathology_price_list->included_tests }}', '{{ $allpathology_price_list->turnaround }}', '{{ $allpathology_price_list->note }}', '{{ $allpathology_price_list->price }}', '{{ $allpathology_price_list->price_type }}')" class="waves-effect waves-light btn btn-rounded btn-warning-light">
+                                                                <i data-feather="edit"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                  </td>
                                                 </tr>
                                                 @empty
 
@@ -125,17 +148,16 @@ Launch demo modal
                 <div class="modal-body">
                 <div class="row">
                 <div class="col-md-6">
-
                                 <div class="form-group">
-                                    <label class="form-label">Test Name</label>
-                                    <input type="text" class="form-control" name="test_name" id="lab_name" placeholder="">
+                                    <label class="form-label">Test Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" name="test_name" id="lab_name" placeholder="" required>
                                     <input type="hidden" name="id" id="id"/>
                                 </div>
                                 </div>
                                 <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Test Code</label>
-                                    <input type="text" name="test_code" class="form-control" id="test_code" placeholder="">
+                                    <label class="form-label">Test Code <span class="required">*</span></label>
+                                    <input type="text" name="test_code" class="form-control" id="test_code" placeholder="" required>
                                 </div>
                                 </div>
 
@@ -147,8 +169,8 @@ Launch demo modal
                                 </div>
                                 <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Price</label>
-                                    <input type="text" class="form-control" name="price" id="price" placeholder="">
+                                    <label class="form-label">Price <span class="required">*</span></label>
+                                    <input type="text" class="form-control" name="price" id="price" placeholder="" required>
                                 </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -158,18 +180,51 @@ Launch demo modal
                                         </div>
                                 </div>
                                 <div class="col-lg-6">
-                                <div class="form-group">
-                                            <label class="form-label">Note</label>
-                                            <textarea rows="2" id="note" name="note" class="form-control" placeholder=""></textarea>
-                                        </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Note</label>
+                                                <textarea rows="2" id="note" name="note" maxlength="100" class="form-control" placeholder=""></textarea>
+                                            </div>
                                 </div>
-                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Type <span class="required">*</span></label>
+                                        <select class="form-control" id="mulipleType" name="price_type" style="width: 100%;" required>
+                                            <option value="11">Select Any One</option>
+                                            <option value="0">Pathology</option>
+                                            <option value="1">Radiology</option>
+                                            <option value="2">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <div class="inner_element">
+                                        <div class="form-group">
+                                            <label class="form-label">Colour Code</label>
+                                            {{-- <img style="min-width:16px;min-height:16px;box-sizing:unset;box-shadow:none;background:unset;padding:0 6px 0 0;cursor:pointer;" src="chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" title="Select with ColorPick Eyedropper - See advanced option: &quot;Add ColorPick Eyedropper near input[type=color] fields on websites&quot;" class="colorpick-eyedropper-input-trigger"> --}}
+                                            <input type="color" name="colour_type" id="colourId" class="colorpicker form-control" colorpick-eyedropper-active="true">
+                                        </div>
+                                    </div>
+                                  </div>
+            
+                                   <br>
+                                  </br>
+
+
+
+                        </div>
 
                 </div>
+
                 <div class="modal-footer text-end">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+
                 </div>
+
             </div>
       </form>
 
@@ -178,7 +233,25 @@ Launch demo modal
 </div>
 
 <script>
-    function editForm(id,test_name,test_code,included_tests,turnaround,note,price)
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the input element
+        var priceInput = document.getElementById('price');
+
+        // Add event listener for keypress event
+        priceInput.addEventListener('keypress', function(event) {
+            // Get the pressed key code
+            var keyCode = event.which || event.keyCode;
+
+            // Allow only numeric input (0-9) and certain control keys (e.g., backspace, delete)
+            if (keyCode < 48 || keyCode > 57) { // keyCode for 0-9 is 48-57
+                event.preventDefault(); // Prevent the default action (typing the character)
+            }
+        });
+    });
+    </script>
+
+<script>
+    function editForm(id,test_name,test_code,included_tests,turnaround,note,price,price_type)
     {
         $('#id').val(id);
         $('#lab_name').val(test_name);
@@ -187,7 +260,24 @@ Launch demo modal
         $('#turnaround').val(turnaround);
         $('#note').val(note);
         $('#price').val(price);
+        $('#mulipleType').val(price_type);
         $("#edit_test_info").modal('show');
     }
  </script>
+
+
+<script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="type[]"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value="11"]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
+
+
+
 @endsection

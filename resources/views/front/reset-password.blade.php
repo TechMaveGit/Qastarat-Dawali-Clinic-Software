@@ -224,15 +224,16 @@
 
 
 
-							<!-- LOGO -->
 
-							<div class="login-page-logo">
+					<!-- LOGO -->
 
-								<img class="img-fluid light-theme-img" src="{{ url('public/assets') }}/images/new-images/qastrat-logo2.png" alt="logo-image">		
+					<div class="login-page-logo">
 
-								<img class="img-fluid dark-theme-img" src="{{ url('public/assets') }}/images/new-images/qastrat-logo2.png" alt="logo-image">			
+						<img class="img-fluid light-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo-image">		
 
-							</div> 	
+						<img class="img-fluid dark-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo-image">			
+
+					</div> 	
 
 
 
@@ -242,7 +243,7 @@
 
 							<div class="reset-page-wrapper text-center">
 
-								<form action="{{ route('user.reset',['token'=>@$remember_token]) }}" name="resetpasswordform" class="row reset-password-form r-10" method="POST">
+								<form action="{{ route('patient.forget.password.reset.update',['token'=>@$remember_token]) }}" name="resetpasswordform" class="row reset-password-form r-10" method="POST">
 
 									@csrf
 
@@ -328,7 +329,7 @@
 
 										<div class="form-data text-center">
 
-											 <span><a href="{{ route('user.login') }}">Never mind, I remembered!</a></span>
+											 <span><a href="{{ route('front.home.page') }}">Never mind, I remembered!</a></span>
 
 										</div>
 

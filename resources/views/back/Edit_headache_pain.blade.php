@@ -8,7 +8,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
             display: none;
         }
     </style>
-@endpush
+@endpush  
 @section('content-section')
     <div class="sub_bnr" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
         <div class="sub_bnr_cnt">
@@ -1865,6 +1865,8 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <!-- <h6 class="mb-3 lut_title">Calculate TI-RARDS - RIGHT LOBE score</h6> -->
                                     </div>
+
+
                                     <div class="col-lg-12">
                                         <!-- <div class="nodule_img">
                                                                                   <img src="images/new-images/nodules.png" alt="">
@@ -1881,6 +1883,8 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                                 id="download-image" type="button">Download</button>
                                         </div>
                                     </div>
+
+                                    
                                     @php
                                     if (isset($Labs) && !empty($Labs)) {
                                         $Lab = json_decode($Labs->data_value, true);

@@ -2,7 +2,7 @@
 
 @push('title')
 
-Home | QASTARAT & DAWALI CLINICS 
+Home | QASTARAT & DAWALI CLINICS
 
 @endpush
 
@@ -74,7 +74,7 @@ Home | QASTARAT & DAWALI CLINICS
 
                             <iconify-icon icon="material-symbols:edit"></iconify-icon>
 
-                            <span class="toolTip">Edit Patient Info.</span>
+                            <span class="toolTip">Edit Patient Info .</span>
 
                         </a>
 
@@ -104,7 +104,7 @@ Home | QASTARAT & DAWALI CLINICS
 
                         </div>
 
-                        <div class="right_side_pr_icon">
+                        {{-- <div class="right_side_pr_icon">
 
                             <a href="#" class="action_btn_tooltip" onclick="removePatient({{ @$id }})">
 
@@ -114,7 +114,7 @@ Home | QASTARAT & DAWALI CLINICS
 
                             </a>
 
-                        </div>
+                        </div> --}}
 
                     </div>
 
@@ -122,11 +122,13 @@ Home | QASTARAT & DAWALI CLINICS
 
                     <div class="profile_img">
 
+                        @isset($patient->patient_profile_img)
                         <img src="{{ asset('public/assets/patient_profile/' . $patient->patient_profile_img) }}" alt="">
+                        @else
+                        <img src="{{ asset('public/assets/images/team-13.jpg') }}" alt="temp_img">
+                        @endisset
 
-
-
-
+                    
                         <div class="patient_dt_profile">
 
                             <h5 class="patient_name__">{{ @$patient->sirname.' '. @$patient->name }} </h5>
@@ -137,7 +139,7 @@ Home | QASTARAT & DAWALI CLINICS
                             }else{
                               $patientBirthDate=null;
                             }
-                                
+
                             @endphp
                             <p class="patient_age__">{{ @$patientBirthDate }} Years , <span class="patient_id__">{{ @$patient->patient_id }}</span></p>
 
@@ -327,7 +329,7 @@ Home | QASTARAT & DAWALI CLINICS
 
                             </li>
 
-                            <li>
+                            {{-- <li>
 
                                 <div class="title___">
 
@@ -341,7 +343,7 @@ Home | QASTARAT & DAWALI CLINICS
 
                                 </div>
 
-                            </li>
+                            </li> --}}
 
                             <li>
 
@@ -393,14 +395,14 @@ Home | QASTARAT & DAWALI CLINICS
 
                     <ul>
                         @foreach ($Patient_appointments as $Patient_appointment)
-                            
-                     
+
+
 
                         <li>
 
                             <div class="appoin_title">
 
-                               <h6>{{ $Patient_appointment->appointment_type }}</h6> 
+                               <h6>{{ $Patient_appointment->appointment_type }}</h6>
 
                             </div>
 
@@ -450,9 +452,9 @@ Home | QASTARAT & DAWALI CLINICS
 
 @push('custom-js')
 <script>
- 
+
     $(document).ready(function(){
-    //  
+    //
       $('#edit_patient').on('hidden.bs.modal', function (e) {
         location.reload();
       });
@@ -463,17 +465,17 @@ Home | QASTARAT & DAWALI CLINICS
                 $(document).ready(function() {
                   let patient_id = $('input[name="patient_id"]').val();
                     $('#edit_patient_info_form').submit(function(e) {
-                      
+
                         e.preventDefault();
-                       
-                        let isValid = validateFormPatientInfoEdit(); 
+
+                        let isValid = validateFormPatientInfoEdit();
                         let formData = new FormData(this);
                         let categoriesListContent = $('#categories-list-2').html();
 
                         // Append categoriesListContent
                         formData.append('patient_tags_list', categoriesListContent);
                         if (isValid) {
-                          
+
                             $.ajax({
                                 url: '{{ route("user.patient-info-update") }}',
                                 type: 'POST',
@@ -481,32 +483,32 @@ Home | QASTARAT & DAWALI CLINICS
                                 processData: false,
                                 contentType: false,
                                 success: function(result) {
-                                    
-              
+
+
                                     if(result!=''){
-              
+
                                         swal.fire(
-              
+
                                             'Success',
-              
+
                                             'Patient Info  Updated successfully!',
-              
+
                                             'success'
-              
+
                                         )
-                                       
+
                                         fetchAndDisplayPatientInfoData(patient_id);
                                         location.reload();
                                         }else{
-              
+
                                         swal.fire("Error!", "Enter valid Patient Info  Details!", "error");
-              
+
                                         }
                                 },
                                 error: function(xhr, status, error) {
-                                
+
                                 if (xhr.status == 422) {
-                                   
+
                                     var errors = JSON.parse(xhr.responseText);
                                     console.log('validation-error',errors);
                                     var errorMessage = 'Validation error(s):<br>';
@@ -527,53 +529,53 @@ Home | QASTARAT & DAWALI CLINICS
                             });
                         }
                     });
-                
-                    
+
+
              function validateFormPatientInfoEdit() {
                         let isValid = true;
-       
+
             // Validate patient_sirname
             let patient_sirname = $('select[name="patient_sirname"]').val();
             if (patient_sirname === '') {
-               
+
                 isValid = false;
-               
+
                 $('#patient_sirnameError').text('Please select a title');
                 $('select[name="patient_sirname"]').addClass('error');
             }
-        
-            // Validate patient_name 
+
+            // Validate patient_name
             let patient_name = $('input[name="patient_name"]').val();
             if (patient_name === '') {
                 isValid = false;
-               
+
                 $('#patient_nameError').text('Name is required');
                 $('input[name="patient_name"]').addClass('error');
             }
-        
+
             // // Validate patient_birth
             let patient_birth = $('input[name="patient_birth"]').val();
             if (patient_birth === '') {
                 isValid = false;
-               
+
                 $('#patient_birthError').text('Date of Birth is required');
                 $('input[name="patient_birth"]').addClass('error');
             }
-        
+
             // // Validate patient_gendar
             let patient_gendar = $('select[name="patient_gendar"]').val();
             if (patient_gendar === '' || patient_gendar === 'Select') {
                 isValid = false;
-              
+
                 $('#patient_gendarError').text('Please select a gender');
                 $('select[name="patient_gendar"]').addClass('error');
             }
-                
+
              // Validate patient_post_code
             let patient_post_code = $('input[name="patient_post_code"]').val();
             if (patient_post_code === '') {
                 isValid = false;
-               
+
                 $('#patient_post_codeError').text('Post Code is required');
                 $('input[name="patient_post_code"]').addClass('error');
             }
@@ -581,86 +583,86 @@ Home | QASTARAT & DAWALI CLINICS
              let patient_email = $('input[name="patient_email"]').val();
             if (patient_email === '') {
                 isValid = false;
-               
+
                 $('#patient_emailError').text('Email  is required');
                 $('input[name="patient_email"]').addClass('error');
             }
-             // Validate patient_street  
+             // Validate patient_street
              let patient_street = $('input[name="patient_street"]').val();
             if (patient_street === '') {
                 isValid = false;
-               
+
                 $('#patient_streetError').text('Street is required');
                 $('input[name="patient_street"]').addClass('error');
             }
-              // Validate patient_town  
+              // Validate patient_town
               let patient_town = $('input[name="patient_town"]').val();
             if (patient_town === '') {
                 isValid = false;
-               
+
                 $('#patient_townError').text('Town is required');
                 $('input[name="patient_town"]').addClass('error');
             }
-              // Validate patient_country  
+              // Validate patient_country
               let patient_country =$('select[name="patient_country"]').val();
             if (patient_country === '') {
                 isValid = false;
-               
+
                 $('#patient_countryError').text('country is required');
                 $('input[name="patient_country"]').addClass('error');
             }
-             // Validate patient_mobile_no 
+             // Validate patient_mobile_no
              let patient_mobile_no =$('input[name="patient_mobile_no"]').val();
             if (patient_mobile_no === '') {
                 isValid = false;
-               
+
                 $('#patient_mobile_noError').text('Mobile number is required');
                 $('input[name="patient_mobile_no"]').addClass('error');
             }
-            // Validate patient_landline 
+            // Validate patient_landline
             let patient_landline =$('input[name="patient_landline"]').val();
             if (patient_landline === '') {
                 isValid = false;
-               
+
                 $('#patient_landlineError').text('landline number is required');
                 $('input[name="patient_landline"]').addClass('error');
             }
-             // Validate patient_additional_info 
+             // Validate patient_additional_info
              let patient_additional_info =$('textarea[name="patient_additional_info"]').val();
             if (patient_additional_info === '') {
                 isValid = false;
-               
+
                 $('#patient_additional_infoError').text('Additional Info is required');
                 $('textarea[name="patient_additional_info"]').addClass('error');
             }
-              // Validate patient_document_type   
+              // Validate patient_document_type
               let patient_document_type =$('input[name="patient_document_type"]').val();
             if (patient_document_type === '') {
                 isValid = false;
-               
+
                 $('#patient_document_typeError').text('document type  is required');
                 $('input[name="patient_document_type"]').addClass('error');
             }
-                  // Validate patient_edit_id     
+                  // Validate patient_edit_id
               let patient_edit_id =$('input[name="patient_edit_id"]').val();
             if (patient_edit_id === '') {
                 isValid = false;
-               
+
                 $('#patient_edit_idError').text('Patient ID  is required');
                 $('input[name="patient_edit_id"]').addClass('error');
             }
-                
+
             return isValid;
                     }
-                    
+
                 });
-                 
-              
+
+
               </script>
               <!-- Function to fetch and populate patient data -->
           <script>
             function fetchAndDisplayPatientInfoData(patient_id) {
-             
+
               // let patient_id = $('input[name="patient_id"]').val();
                 $.ajax({
                     url: '{{ route("user.patient-info-edit") }}',
@@ -690,29 +692,29 @@ Home | QASTARAT & DAWALI CLINICS
                         let tags = data.patient_info.tags ? data.patient_info.tags : '';
                         let additional_info = data.patient_info.additional_info ? data.patient_info.additional_info : '';
                         let policy_no = data.patient_info.policy_no ? data.patient_info.policy_no : '';
-                       
+
                         $('#patient_sirname option').each(function() {
                             if ($(this).val() === selectedSirname) {
-                                $(this).prop('selected', true); 
+                                $(this).prop('selected', true);
                             }
-                        }); 
+                        });
                         $('#patient_sirname').val(selectedSirname).trigger('change.select2');
                         $("#patient_name").val(name);
                         $("#patient_birth").val(birth_date);
                         $('#patient_gendar option').each(function() {
                             if ($(this).val() === selectedGendar) {
-                                $(this).prop('selected', true); 
+                                $(this).prop('selected', true);
                             }
-                        }); 
+                        });
                         $('#patient_gendar').val(selectedGendar).trigger('change.select2');
                         $("#patient_post_code").val(post_code);
                         $("#patient_street").val(street);
                         $("#patient_town").val(town);
                         $('#patient_country option').each(function() {
                             if ($(this).val() === selectedCountry) {
-                                $(this).prop('selected', true); 
+                                $(this).prop('selected', true);
                             }
-                        }); 
+                        });
                         $('#patient_country').val(selectedCountry).trigger('change.select2');
                         $("#patient_email").val(email);
                         $("#patient_mobile_no").val(mobile_no);
@@ -721,17 +723,17 @@ Home | QASTARAT & DAWALI CLINICS
                         $("#patient_policy_no").val(policy_no);
                         $("#patient_gp").val(gp);
                         $("#patient_additional_info").val(additional_info);
-                       
+
                         $('#patient_document_type option').each(function() {
                             if ($(this).val() === selectedDocument_type) {
-                                $(this).prop('selected', true); 
+                                $(this).prop('selected', true);
                             }
-                        }); 
+                        });
                         $('#patient_document_type').val(selectedDocument_type).trigger('change.select2');
                         $("#patient_edit_id").val(patient_id);
                         $("#categories-list-2").html(tags);
                         // set patient info
-                       
+
                         let dob = new Date(birth_date);
                         let now = new Date();
                         let ageDiff = now - dob;
@@ -742,7 +744,7 @@ Home | QASTARAT & DAWALI CLINICS
                         $(".patient_age__").html(calculatedAge + ' Years ' + '<span class="patient_id__">'+ patient_id +'</span>');
                         $("#data_pt_dob").text(birth_date);
                         $("#data_pt_gendar").text(selectedGendar);
-                      
+
                         $("#data_pt_mobile").text(mobile_no);
                         $("#data_pt_landline").text(landline);
                         $("#data_pt_street").text(street);
@@ -753,13 +755,13 @@ Home | QASTARAT & DAWALI CLINICS
                         $("#data_pt_kin").text(kin);
                         $("#data_pt_policy_no").text(policy_no);
                         $("#data_pt_gp").text(gp);
-                       
-                        
+
+
 
                         }
                         if (data && data.hasOwnProperty('patient_insurer'))
                          {
-                            
+
                             let patient_insurer = data.patient_insurer;
                             patient_insurer.forEach(function (note) {
                             let newOption = $('<option>', {
@@ -781,14 +783,14 @@ Home | QASTARAT & DAWALI CLINICS
                         });
 
 
-                           
-                        }
-                           
 
-                      
+                        }
+
+
+
                     },
                     error: function(xhr, status, error) {
-                    console.error(xhr.responseText); 
+                    console.error(xhr.responseText);
                     if (xhr.status == 409) {
                         swal.fire('Error!', 'The email is already in use. Please use a different email.', 'error');
                     } else if (xhr.status == 404) {
@@ -801,19 +803,19 @@ Home | QASTARAT & DAWALI CLINICS
                 }
                 });
             }
-          
+
             // Call the function on clcik class add_insurer
             $(document).ready(function() {
               let patient_id1 = $('input[name="patient_id"]').val();
               $(".patient_edit").on('click',function(){
-                
-                fetchAndDisplayPatientInfoData(patient_id1);  
+
+                fetchAndDisplayPatientInfoData(patient_id1);
               });
-             
+
             });
           </script>
 <script>
-  
+
     function removePatient(patient_id) {
       var label = "Patient Details";
       swal.fire({
@@ -847,7 +849,7 @@ Home | QASTARAT & DAWALI CLINICS
                       });
                   },
                   error: function(data) {
-  
+
                   }
               });
           } else {
@@ -855,7 +857,7 @@ Home | QASTARAT & DAWALI CLINICS
           }
       });
   }
-  
+
    </script>
 @endpush
 

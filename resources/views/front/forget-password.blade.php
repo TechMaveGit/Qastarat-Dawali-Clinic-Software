@@ -20,9 +20,9 @@
 
 							
 
-		<!-- FAVICON AND TOUCH ICONS -->
+		<!-- FAVICON AND TOUCH ICONS src -->
 
-		<link rel="icon" href="{{ url('public/assets') }}/images/new-images/favicon-qastarat.png" type="image/x-icon">
+		<link rel="icon" href="{{ url('public/assets') }}/images/new-images/logofwhite.png" type="image/x-icon">
 
 
 
@@ -106,9 +106,33 @@
 
 		<link href="{{ url('public/assets') }}/css/responsive.css" rel="stylesheet">
 
+		<!-- sweetalert2 asset CSS and JS -->
+
 		<script src="{{ url('public/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
 
 		<link rel="stylesheet" href="{{ url('public/assets') }}/libs/sweetalert2/sweetalert2.min.css">
+		<style>
+
+			.loader {
+			border: 4px solid rgba(0, 0, 0, 0.1);
+			border-left: 4px solid #333;
+			border-radius: 50%;
+			width: 30px;
+			height: 30px;
+			animation: spin 1s linear infinite;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -15px;
+			margin-top: -15px;
+			z-index: 9999;
+			}
+
+			@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+			}
+		</style>
 
 	</head>
 
@@ -228,9 +252,9 @@
 
 							<div class="login-page-logo">
 
-								<img class="img-fluid light-theme-img" src="{{ url('public/assets') }}/images/new-images/qastrat-logo2.png" alt="logo-image">		
+								<img class="img-fluid light-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo-image">		
 
-								<img class="img-fluid dark-theme-img" src="{{ url('public/assets') }}/images/new-images/qastrat-logo2.png" alt="logo-image">			
+								<img class="img-fluid dark-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo-image">			
 
 							</div> 	
 
@@ -242,7 +266,7 @@
 
 							<div class="reset-page-wrapper text-center">
 
-								<form  name="resetpasswordform" class="row reset-password-form r-10" method="POST">
+								<form id="resetpasswordformpage"  name="resetpasswordform" class="row reset-password-form r-10" method="POST">
 
 									@csrf
 
@@ -290,8 +314,8 @@
 
 									<div class="col-md-12">
 
-										<button type="submit" class="btn btn--theme hover--theme submit">Reset My Password</button>
-
+										<button type="submit" class="btn btn--theme hover--theme submit">Reset My Password </button>
+										<div class="loader" style="display: none;"></div>
 									</div> 
 
 								</form>	
@@ -302,7 +326,7 @@
 
 										<div class="form-data text-center">
 
-											 <span><a href="{{ route('user.login') }}">Never mind, I remembered!</a></span>
+											 <span><a href="{{ route('front.home.page') }}">Never mind, I remembered!</a></span>
 
 										</div>
 
@@ -394,7 +418,65 @@
 
 		<script src="{{ url('public/assets') }}/js/custom.js"></script>
 
+		<script>
 
+			$(document).ready(function(){
+				// alert('ok');
+					$('#resetpasswordformpage').submit(function (e) {
+
+		            
+					  e.preventDefault();
+					
+					$('.submit').prop('disabled', true);
+					
+					
+					$('.loader').show();
+					$('.submit').hide();
+				
+		
+					  if($('#email').val()==''){
+		
+						swal.fire("Error!", "Email field is required!", "error");
+		
+					   }
+					   else {
+							$.ajax({
+								type: "POST",
+								url: "{{ route('patient.forget.password.post') }}",
+								data: {'email': $('#email').val(), "_token": "{{ csrf_token() }}"},
+								success: function(result) {
+									
+									
+									let routeUrl = result.routeUrl;
+									let user = result.user;
+
+									if (user !== '') {
+										swal.fire(
+											'Success',
+											'Reset link sent to the email',
+											'success'
+										).then(function() {
+											window.location.href = routeUrl;
+										});
+									} else {
+										swal.fire("Error!", "Enter valid email!", "error").then(function() {
+											location.reload();
+										});;
+									}
+								},
+								error: function(xhr, status, error) {
+									var errorMessage = xhr.status + ': ' + xhr.statusText;
+									swal.fire("Error!", errorMessage, "error");
+								}
+							});
+							}
+		
+		
+					});
+		
+				
+				});
+				</script>
 
 		<script>
 
@@ -486,65 +568,7 @@
 
 
 
-		<script type="text/javascript">
-
-			$('form').submit(function (e) {
-
-			  e.preventDefault();
-
 		
-
-			  if($('#email').val()==''){
-
-				swal("Error!", "Email field is required!", "error");
-
-			  }else{
-
-					$.ajax({
-
-						type:"POST",
-
-						url:"{{route('user.forget.password.post')}}",
-
-						data:{'email':$('#email').val(),"_token": "{{ csrf_token() }}"},
-
-						success:function(result){
-
-							if(result!=''){
-
-								swal.fire(
-
-									'Success',
-
-									'OTP  successfully send to the email',
-
-									'success'
-
-								) 
-
-								setTimeout(function() {
-
-									window.location.replace("{{ route('user.verify-otp', ['email' => '__VALUE__']) }}".replace('__VALUE__', $('#email').val()));
-
-								}, 2000); 
-
-							}else{
-
-								swal.fire("Error!", "Enter valid email!", "error");
-
-							}
-
-						}
-
-					});
-
-			  }
-
-			});
-
-		
-
-		</script>
 
 
 

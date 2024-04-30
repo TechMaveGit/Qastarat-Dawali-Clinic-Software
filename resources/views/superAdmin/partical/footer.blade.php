@@ -139,7 +139,7 @@ $(".upload-button").on('click', function() {
 <script>
   $(document).ready(function() {
       $('.btn-show-pass').click(function() {
-          var passwordInput = $('#password');
+          var passwordInput = $('.password');
           var icon = $(this).find('.eye-pass');
 
           if (passwordInput.attr('type') === 'password') {
@@ -168,16 +168,16 @@ $(".upload-button").on('click', function() {
  // Add autocomplete="off" to prevent browser autocomplete
  $('.datepicker').attr('autocomplete', 'off');
       $('.datepicker').keyup(function () {
-        
+
           if (this.value.match(/[^0-9]/g)) {
               this.value = this.value.replace(/[^0-9^-]/g, '');
           }
       });
   });
 </script>
-   
+
 <script type="text/javascript">
-  
+
   $(document).ready(function(){
       $('#image').change(function(e){
           var reader = new FileReader();

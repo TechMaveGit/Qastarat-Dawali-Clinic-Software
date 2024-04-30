@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Carbon;
+use Auth;
+use DB;
+
 class AccountantController extends Controller
 {
 
@@ -17,6 +20,40 @@ class AccountantController extends Controller
         $data['accountant'] = Doctor::where('user_type','accountant')->select('patient_profile_img','doctor_id','name','email','id','post_code','mobile_no')->orderBy('id','desc')->get();
         return view('superAdmin.accountant.index',$data);
     }
+
+    public function profile(Request $request)
+    {
+
+        $userDetail = Auth::guard('admin')->user();
+
+        if ($request->isMethod("post")) {
+            // Retrieve input data from the request
+            $name = $request->input('name');
+            $email = $request->input('email');
+            $password = $request->input('password');
+
+            if (empty($password)) {
+                $password = $userDetail->password;
+            } else {
+                $password = Hash::make($password);
+            }
+
+            $data = [
+                'name' => $name,
+                'email' => $email,
+                'password' => $password
+            ];
+            DB::table('admins')->where('id', $userDetail->id)->update($data);
+
+            // Redirect back to profile page
+            return redirect()->route('super-admin.profile')->with('message', 'Profile updated successfully.');
+        }
+
+        // Render the profile view with user details
+        return view('superAdmin.profile', compact('userDetail'));
+    }
+
+
 
     public function create(Request $request)
     {
@@ -78,7 +115,7 @@ class AccountantController extends Controller
                 // Regular expressions to match the two date formats
                 $regexDMY = '/^\d{2}-\d{2}-\d{4}$/';
                 $regexDFY = '/^\d{2} [a-zA-Z]{3}, \d{4}$/';
-   
+
                 if (preg_match($regexDMY, $currentDate)) {
                     // '22-02-2024' format matches
                     $carbonDate = Carbon::createFromFormat('d-m-Y', $currentDate);
@@ -90,7 +127,7 @@ class AccountantController extends Controller
                     // '14-Jun-2004' format matches
                     $carbonDate = Carbon::createFromFormat('d-M-Y', $currentDate);
                 }
-               
+
                $doctor['birth_date']=$carbonDate->format('d M, Y');
                 if ($request->hasFile('patient_profile_img')) {
                     $files = $request->file('patient_profile_img');
@@ -133,27 +170,27 @@ class AccountantController extends Controller
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
                 $destinationPath = 'public/assets/accountant_profile';
-            
+
                 // Get the existing file path from the database
                 $existingFilePath = $nurse_info->patient_profile_img;
-            
+
                 // If an existing file exists, delete it
                 if ($existingFilePath && file_exists(public_path($existingFilePath))) {
                     unlink(public_path($existingFilePath));
                 }
-           
+
                 $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $file_name);
                  $nurse['patient_profile_img'] = $file_name;
             }
             if($request->has('password') && isset($request->password)){
-                
+
                 $nurse['password'] = Hash::make($request->input('password'));
 
             }
-            
 
-            
+
+
             $currentDate = $request->input('birth_date');
              // Regular expressions to match the two date formats
              $regexDMY = '/^\d{2}-\d{2}-\d{4}$/';
@@ -196,19 +233,19 @@ class AccountantController extends Controller
         $id = $request->common;
         $Doctor=Doctor::findOrFail($id);
         // dd($patient);
-        
+
             $files = $request->file('patient_profile_img');
             $destinationPath = 'public/assets/accountant_profile/';
-        
+
             // Get the existing file path from the database
             $existingFilePath = $Doctor->patient_profile_img;
             $destinationPath=$destinationPath.$existingFilePath;
-            
+
             if (isset($existingFilePath) && file_exists(public_path($destinationPath))) {
-              
+
                 unlink(public_path($existingFilePath));
             }
-        
+
             $Doctor->delete();
 
         return to_route('accountants.index')->with('message', 'Doctor deleted.');

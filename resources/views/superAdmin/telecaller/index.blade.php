@@ -38,14 +38,14 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">All Telecaller</h4>
-        <nav aria-label="breadcrumb">
+        {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('telecallers.index') }}">Staff</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Telecaller</li>
                 </ol>
-            </nav>
+            </nav> --}}
         </div>
-          
+
 		</div>
         <section class="content">
         <div class="row">
@@ -57,7 +57,7 @@
     <h3 class="box-title">All Telecaller</h3>
     <a href="{{ route('telecallers.create') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add Telecaller</a>
     </div>
-   
+
    </div>
    <!-- /.box-header -->
    <div class="box-body pt-0">
@@ -72,7 +72,7 @@
                    <th>Email Address</th>
                    <th>Postal Code</th>
                    <th>Action</th>
-                   
+
                </tr>
            </thead>
            <tbody>
@@ -108,27 +108,27 @@
                      </div>
                  </div>
                 </td>
-           
+
             </tr>
             @empty
-                
-            @endforelse
-               
 
-             
-        
+            @endforelse
+
+
+
+
            </tbody>
-   
+
        </table>
        </div>
    </div>
    <!-- /.box-body -->
  </div>
- <!-- /.box -->      
+ <!-- /.box -->
 </div>
         </div>
         </section>
-        
+
       </div>
  </div>
  <script>

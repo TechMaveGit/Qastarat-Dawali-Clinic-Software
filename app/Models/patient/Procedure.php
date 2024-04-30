@@ -4,6 +4,7 @@ namespace App\Models\patient;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\superAdmin\Doctor;
 
 class Procedure extends Model
 {
@@ -13,7 +14,12 @@ class Procedure extends Model
         'patient_id',
         'procedure_name',
         'entry',
-        'summary'
+        'summary',
+        'doctor_id'
         
     ];
+
+    public function doctor(){
+        return  $this->belongsTo(Doctor::class,'doctor_id','id')->select('name','id');
+      }
 }

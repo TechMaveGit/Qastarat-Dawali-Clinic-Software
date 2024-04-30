@@ -38,12 +38,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">All Accountant</h4>
-        <nav aria-label="breadcrumb">
+        {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('accountants.index') }}">Staff</a></li>
                     <li class="breadcrumb-item active" aria-current="page">All Accountant</li>
                 </ol>
-            </nav>
+            </nav> --}}
         </div>
 
 		</div>

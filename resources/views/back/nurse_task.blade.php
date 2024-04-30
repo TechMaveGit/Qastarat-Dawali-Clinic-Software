@@ -26,193 +26,10 @@ foreach($D as $v)
 
 ?>
 
-<div class="task_main">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card listtableCard">
-                    <div class="card-body p-0">
-                        <h4 class="cr_title_kj">All Tests</h4>
-                        <div class="inner_tb_flo">
-                            <table class="table task_table listTable_custom  dt-responsive nowrap w-100">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                    </tr>
-                                </thead>
 
-                                <tbody>
-                                    @forelse ($nurse_tasks as $nurse_task)
-                                    <tr>
-                                        <td>
-                                            <div class="lists_tasks_Report">
 
-                                                <div class="" data-bs-interval="3000">
-                                                    <div class="task_card cardtaskslist_item">
-                                                        <!-- <div class="date_test_jh">27 Jan, 2024</div> -->
-                                                        <div class="taskOtherDetails">
-                                                            <ul class="book_li">
-                                                                <li>
-                                                                    <div class="tb_listTitle_label labe_test">Test</div>
-                                                                    @php
-                                                                    $pathology_price_list_ids  = json_decode($nurse_task->pathology_price_list_id);
-                                                                   
-                                                                  $pathology_price_list=  DB::table('pathology_price_list')->whereIn('id',$pathology_price_list_ids);
-                                                                  
-                                                                    if($nurse_task->test_type == 'pathology'){
-                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '0');
-                      
-                                                                    }
-                                                                    else {
-                                                                      
-                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '1');
-                                                                    }
-                                                                  
-                                                                    $pathology_price_list =$pathology_price_list->pluck('test_name');
-                                                                   
-                                                                  @endphp
-                                                                    <div class="test_list">
-                                                                        @forelse ($pathology_price_list as $value)
-                                                                        <span>{{ $value }} </span>
-                                                                       
-                                                                        @empty
-                                                                            
-                                                                        @endforelse
-                                                                    </div>
-                                                                </li>
 
-                                                            </ul>
-                                                        </div>
-                                                        <div class="taskOtherDetails">
-                                                            @php
-                                                            $patient=DB::table('users')->where('id',$nurse_task->patient_id)->first();
-                                                           @endphp
-                                                            <ul>
-                                                                
-                                                                <li>
-                                                                    <div class="tb_listTitle_label"> Patient Name</div>
-                                                                    <span>{{ $patient->name }}</span>
-                                                                </li>
-                                                                <li>
-                                                                    <div class="tb_listTitle_label">Patient Id</div>
-                                                                    <span>{{ $patient->patient_id }}</span>
-                                                                </li>
-                                                                <li>
-                                                                    <div class="tb_listTitle_label">Mobile No.</div>
-                                                                    <span>{{ $patient->mobile_no }}</span>
-                                                                </li>
-                                                                @php
-                                                                $nurse_task_status= DB::table('nurse_has_tasks')->where('nurse_task_id',$nurse_task->id)->first();
-                                                                
-                                                               @endphp
-                                                               <li>
-                                                                <div class="tb_listTitle_label">Appoinment Date
-                                                                </div>
-                                                                @if (isset($nurse_task_status->appoinment_date))
-                                                                <span>{{ \Carbon\Carbon::parse($nurse_task_status->appoinment_date)->format('d M, Y') }}</span>
-                                                                @else
-                                                                <span>&nbsp;</span>
-                                                                @endif
-                                                            </li>
-
-                                                                <li>
-                                                                    <div class="tb_listTitle_label">Status</div>
-                                                                    @if (isset($nurse_task_status->status) && $nurse_task_status->status=='pending')
-                                                                    <span>Pending</span>
-                                                                    @elseif (isset($nurse_task_status->status) && $nurse_task_status->status=='assigned_to_lab')
-                                                                    <span>Assigned to lab </span>
-                                                            
-                                                                    @elseif (isset($nurse_task_status->status) && $nurse_task_status->status=='approved')
-                                                                    <span>Approved</span>
-                                                                    @endif
-                                                                </li>
-
-                                                                
-                                                                <li class="status">
-                                                                    <div class="tb_listTitle_label">Assign to lab</div>
-                                                                    <div class="form-group">
-                                                                        @php
-                                                                          $nurse_tasks = DB::table('nurse_tasks')->where('id',$nurse_task->id)->first();
-                                                                            
-                                                                  
-                                                                            if($nurse_task->test_type == 'pathology'){
-                                                                                $labs=  DB::table('doctors')->select('user_type','id','lab_name')->where('user_type','pathology')->get();
-                                
-                                                                            }
-                                                                            else {
-                                                                                
-                                                                                $labs=   DB::table('doctors')->select('user_type','id','lab_name')->where('user_type','radiology')->get();
-                                                                            }
-                                                                            
-                                                                           
-                                                                 
-                                                                        @endphp
-                                                                       <select class="form-control select2_without_search SelectLab">
-                                                                        @forelse ($labs as $lab)
-                                                                            <option value="{{ $lab->id }}" data-task-id="{{ $nurse_task->id }}">{{ $lab->lab_name }}</option>
-                                                                        @empty
-                                                                            
-                                                                            <option value="" disabled>No labs available</option>
-                                                                        @endforelse
-                                                                    </select>
-                                                                    
-                                                                    
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="customdotdropdown dropbtnRight">
-                                                                        <div class="buttondrop_dot">
-                                                                            <i
-                                                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                                                        </div>
-                                                                        <div class="dropdown-content">
-
-                                                                            <a href="#" class="bottom_btn extract_btn"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#view_report"><i
-                                                                                    class="fa-regular fa-eye"></i> View
-                                                                                Report
-                                                                            </a>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                   
-
-                                   
-
-                                   
-                                    @empty
-                                   
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-                <!--end card-->
-            </div>
-
-            
-        </div>
-    </div>
-</div>
-
-<!----------------------------
-    Make an Appointment
----------------------------->
+<!----------- Start Report ----------------->
 <div class="modal fade edit_patient__" id="view_report" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -233,61 +50,271 @@ foreach($D as $v)
                                         <tr>
                                             <th>Test Name</th>
 
-                                            <th>Action</th>
+                                            <th>Download</th>
+
+                                            <th>View</th>
 
                                         </tr>
                                     </thead>
+
                                     <tbody>
-                                        <tr>
-                                            <td>17 Hydroxyprogesterone</td>
 
+                                        <tr>
+                                            <td hidden></td>
+                                            <td><span class="testName" id="testName"> </span></td>
                                             <td>
-                                                <a href="images/new-images/dummy.pdf" download
+                                                <a href="{{ env('Document_Url') }}" download
                                                     class="download_rp_btn"><i class="fa-solid fa-file-arrow-down"></i>
                                                     Download Report</a>
                                             </td>
 
-                                        </tr>
-                                        <tr>
-                                            <td>5 HIAA</td>
                                             <td>
-                                                <a href="images/new-images/dummy.pdf" download
-                                                    class="download_rp_btn"><i class="fa-solid fa-file-arrow-down"></i>
-                                                    Download Report</a>
+                                                <a href="{{ env('Document_Url') }}" target="_blank" class="download_rp_btn">
+                                                    <i class="fa-solid fa-file-arrow-down"></i> View Report
+                                                </a>
                                             </td>
 
                                         </tr>
-                                        <tr>
-                                            <td>6-TGN</td>
-                                            <td>
-                                                <a href="images/new-images/dummy.pdf" download
-                                                    class="download_rp_btn"><i class="fa-solid fa-file-arrow-down"></i>
-                                                    Download Report</a>
-                                            </td>
 
-                                        </tr>
+
 
                                     </tbody>
+
+
+
                                 </table>
+                                <br>
+
+                                <div class="row" id="hideDivid">
+                                    <div class="col-md-6" style="display: flex">
+                                        <form action="{{ route('approveDocument') }}" method="post" > @csrf
+                                            <input type="hidden" class="taskCls" id="taskId" name="taskId"/>
+                                            <button type="submit" class="book_appointment_btn">Approve</button>
+                                        </form>
+
+                                        <form action="{{ route('approveDocument') }}" method="post" > @csrf
+                                            <input type="hidden" class="taskCls" id="taskId" name="taskId"/>
+                                         <button type="submit" class="book_appointment_btn">Reject</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <!-- <div class="action text-end bottom_modal">
-					<a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
-					Book</a>
-                	<a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
-					Close</a>
-				</div> -->
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+                    Book</a>
+                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                    Close</a>
+                </div> -->
             </div>
             <!-- <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div> -->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
         </div>
     </div>
 </div>
+
+
+    <!-- End report section -->
+
+<div class="task_main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card listtableCard">
+                    <div class="card-body p-0">
+                        <h4 class="cr_title_kj">All Tests</h4>
+                        <div class="inner_tb_flo">
+                            <table class="table task_table listTable_custom  dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th hidden></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+
+
+                                <tbody>
+                                    @forelse ($nurse_tasks as $nurse_task)
+                                    <tr>
+                                        <td hidden></td>
+                                        <td>
+                                            <div class="lists_tasks_Report">
+                                                <div class="" data-bs-interval="3000">
+                                                    <div class="task_card cardtaskslist_item">
+                                                        <!-- <div class="date_test_jh">27 Jan, 2024</div> -->
+                                                        <div class="taskOtherDetails">
+                                                            <ul class="book_li">
+                                                                <li>
+                                                                    <div class="tb_listTitle_label labe_test"></div>
+                                                                    @php
+
+                                                                    $pathology_price_list=  DB::table('pathology_price_list')->where('id',$nurse_task->task);
+
+                                                                    // if($nurse_task->test_type == 'pathology'){
+                                                                    //   $pathology_price_list =  $pathology_price_list->where('price_type', '0');
+
+                                                                        $userDetail=DB::table('doctors')->where('user_type','pathology')->where('status','active')->get();
+
+                                                                    // }
+                                                                    // else {
+                                                                    //   $pathology_price_list=  $pathology_price_list->where('price_type', '1');
+
+                                                                    //    $userDetail=DB::table('doctors')->where('user_type','radiology')->get();
+                                                                    // }
+
+                                                                    $pathology_price_list =$pathology_price_list->first();
+
+                                                                  @endphp
+                                                                    <div class="test_list">
+                                                                        <span>{{ $pathology_price_list->test_name??'' }} </span>
+
+                                                                    </div>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                        <div class="taskOtherDetails">
+                                                            @php
+                                                            $patient=DB::table('users')->where('id',$nurse_task->patient_id)->first();
+                                                           @endphp
+                                                            <ul>
+
+                                                                <li>
+                                                                    <div class="tb_listTitle_label"> Patient Name</div>
+                                                                    <span>{{ $patient->name }}</span>
+                                                                </li>
+
+                                                                <li>
+                                                                    <div class="tb_listTitle_label">Invoice Number</div>
+                                                                    <span>{{ $nurse_task->invoiceNumber??'' }}</span>
+                                                                </li>
+
+                                                                <li>
+                                                                    <div class="tb_listTitle_label">Patient Id</div>
+                                                                    <span>{{ $patient->patient_id }}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="tb_listTitle_label">Mobile No.</div>
+                                                                    <span>{{ $patient->mobile_no }}</span>
+                                                                </li>
+                                                                @php
+                                                                $nurse_task_status= DB::table('tasks')->where('id',$nurse_task->id)->first();
+
+                                                               @endphp
+                                                               <li>
+                                                                <div class="tb_listTitle_label">Appoinment Date
+                                                                </div>
+                                                                @if (isset($nurse_task_status->appoinment_date))
+                                                                <span>{{ \Carbon\Carbon::parse($nurse_task_status->appoinment_date)->format('d M, Y') }}</span>
+                                                                @else
+                                                                <span>&nbsp;</span>
+                                                                @endif
+                                                            </li>
+
+                                                                <li>
+                                                                    <div class="tb_listTitle_label">Status</div>
+
+
+                                                                    @if(empty($nurse_task->assignToLab))
+                                                                    <span>Not Assign</span>
+                                                                    @else
+                                                                        @if ($nurse_task->assigned	=='7')
+                                                                        <span>Report Uploaded</span>
+                                                                        @else
+                                                                        <span>Assigned to Lab</span>
+                                                                        @endif
+                                                                    @endif
+
+                                                                </li>
+
+                                                                <li>
+                                                                    <div class="tb_listTitle_label">Document Status</div>
+                                                                    @if($nurse_task->approveDocumentSts=='1')
+                                                                    <span>Approved</span>
+                                                                    @endif
+                                                                    @if($nurse_task->approveDocumentSts=='0')
+                                                                    <span>Rejected</span>
+                                                                    @endif
+
+                                                                </li>
+
+
+
+                                                                @if(!empty($nurse_task->assignToLab))
+                                                                    <li class="book_bx_">
+                                                                        <a href="{{ url('/') }}/login/fullcalender?patientId={{ $nurse_task->patient_id }}" class="book_appointment_btn">
+                                                                            Schedule appointment
+                                                                        </a>
+                                                                    </li>
+                                                                    @else
+
+                                                                    <li class="status">
+                                                                        <div class="tb_listTitle_label">Assign to lab</div>
+                                                                        <div class="form-group">
+                                                                        <select class="form-control select2_without_search SelectLab" name="labType">
+                                                                                <option>Select Any one Lab</option>
+                                                                                @forelse ($userDetail as $alluserDetail)
+                                                                                <option data-assign-id='{{ $alluserDetail->id}}'  data-task-id='{{ $nurse_task->id}}' data-lab-id="1">{{ $alluserDetail->name }} ({{ $alluserDetail->email }})</option>
+                                                                                @empty
+
+                                                                                @endforelse
+                                                                                {{-- <option value="1" data-task-id='{{ $nurse_task->id}}' data-lab-id="1"  {{ $nurse_task->assignToLab == '1' ? 'selected' : '' }}>Pathology</option> --}}
+
+                                                                        </select>
+                                                                        </div>
+                                                                    </li>
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                        <div class="customdotdropdown dropbtnRight">
+                                                                        <div class="buttondrop_dot">
+                                                                            <i
+                                                                                class="fa-solid fa-ellipsis-vertical"></i>
+                                                                        </div>
+                                                                        <div class="dropdown-content">
+
+                                                                        <a onclick="viewDocuemnt(`{{$nurse_task->id ??''}}`,`{{$pathology_price_list->test_name??''}}`,`{{$nurse_task->labDocument??''}}`,`{{ $nurse_task->approveDocumentSts??'' }}`)" class="bottom_btn extract_btn"> <i class="fa-regular fa-eye"></i> View  Report </a>
+
+                                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                    @empty
+
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!--end card-->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!----------------------------
+    Make an Appointment
+---------------------------->
+
 <!----------------------------
     Make an Appointment
 ---------------------------->
@@ -442,7 +469,7 @@ foreach($D as $v)
     </div>
 </div>
  @push('custom-js')
-    
+
  <script>
     $('.select2_appointment').select2({
         dropdownParent: $('#book_appointment'),
@@ -492,15 +519,16 @@ foreach($D as $v)
 	$(document).ready(function() {
     $('.SelectLab').change(function(e) {
         e.preventDefault();
-        var lab_id = $(this).val();
-        
+
+        var lab_id = $(this).find(':selected').data('lab-id');
         var task_id = $(this).find(':selected').data('task-id');
-        
+        var assignPerson = $(this).find(':selected').data('assign-id');
+
         $.ajax({
             url: "{{ route('taskAssignedToLab') }}",
             type: 'GET',
-            data: { 'lab_id': lab_id,'task_id':task_id },
-            dataType: 'json', 
+            data: { 'lab_id': lab_id,'task_id': task_id,'assignPerson':assignPerson },
+            dataType: 'json',
             success: function(result) {
                 if (result.error == 200) {
                     swal.fire(
@@ -508,10 +536,10 @@ foreach($D as $v)
                         'Lab Assigned Successfully!',
                         'success'
                     ).then(function() {
-                        window.location.reload(); 
+                        window.location.reload();
                     });
                 } else {
-                    swal.fire('Error!', result.message, 'error'); 
+                    swal.fire('Error!', result.message, 'error');
                 }
             },
             error: function(xhr, status, error) {
@@ -542,6 +570,33 @@ function refreshPage() {
 $('#book_appointment').on('hidden.bs.modal', function () {
     refreshPage();
 });
+</script>
+
+
+<script>
+    function viewDocuemnt(taskId,documentId,labDocument,approveDocumentSts)
+    {
+        var documentUrl = "{{ env('Document_Url') }}";
+        $('#testName').text(documentId);
+        $('.taskCls').val(taskId);
+        $("#hideDivid").show();
+        $('.download_rp_btn').show();
+
+        if (approveDocumentSts=='1') {
+            $("#hideDivid").hide();
+        }
+
+        if (!labDocument)
+        {
+          //  console.log("null");
+            $("#hideDivid").hide();
+            $('.download_rp_btn').hide();
+        }
+
+        var downloadLink = documentUrl + labDocument;
+         $('.download_rp_btn').attr('href', downloadLink);
+         $('#view_report').modal('show');
+    }
 </script>
 @endpush
 

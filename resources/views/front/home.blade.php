@@ -13,15 +13,28 @@
             <div class="row d-flex align-items-center">
 
                 <!-- HERO TEXT -->
+                @php
+                    $home=DB::table('homes')->first();
+                    $sentence = $home->subTitle;
+                    $words = str_word_count($sentence, 1);  
+
+                    if (count($words) >= 2) {
+                       
+                        $lastTwoWords = implode(' ', array_slice($words, -2));
+                        
+                        $remainingWords = implode(' ', array_slice($words, 0, -2));
+                    } else {
+                        $lastTwoWords="";
+                    }
+                @endphp
                 <div class="col-md-12">
                     <div class="hero-15-txt wow fadeInRight">
 
                         <div class="ContentLoginbanner">
-{{-- <img src="{{ asset('public/assets/images/new-images/hi.png') }}"
-                                    alt=""> --}}
+
                             <h6>  <br>
-                                Welcome to Qastarat clinics platform</h6>
-                            <h2 class="bnr_title">Amazing therapies of Future <span>..delivered today!</span></h2>
+                                {{ $home->title ?? '' }}</h6>
+                            <h2 class="bnr_title">{{ isset($lastTwoWords) ? $remainingWords : $sentence  }} <span>..{{ $lastTwoWords ?? '' }}</span></h2>
 
                             <div class="lognBothButtonsContainer">
                                 <button class="c-button" data-bs-toggle="modal" data-bs-target="#modelpatientLogin">
@@ -61,115 +74,129 @@
               </div> -->
     </section> <!-- END HERO-15 -->
 
-    <!-- STATISTIC-1
-          ============================================= -->
-    <div id="statistic-1" class="statistic-section division">
-        <div class="container">
+  <!-- STATISTIC-1
+			============================================= -->
+<div id="statistic-1" class="statistic-section division">
+	<div class="container">
 
-            <!-- STATISTIC-1 WRAPPER -->
-            <div class="statistic-1-wrapper">
-                <div class="row justify-content-md-center row-cols-1 row-cols-md-3">
+		<!-- STATISTIC-1 WRAPPER -->
+		<div class="statistic-1-wrapper">
+			<div class="row justify-content-md-center row-cols-1 row-cols-md-3">
 
-                    <!-- STATISTIC BLOCK #1 -->
-                    <div class="col-lg-3">
-                        <div id="sb-1-1" class="wow fadeInUp">
-                            <div class="statistic-block">
+				<!-- STATISTIC BLOCK #1 -->
+				<div class="col-lg-auto">
+					<div id="sb-1-1" class="wow fadeInUp">
+						<div class="statistic-block">
 
-                                <!-- Digit -->
-                                <div class="statistic-block-digit text-center">
-                                    <h2 class="s-46 statistic-number"><span class="count-element">189</span></h2>
-                                </div>
+							<!-- Digit -->
+							<div class="statistic-block-digit text-center">
+								<h2 class="s-46 statistic-number"><span class="count-element">{{ $home->reasonalClinics ?? '' }}</span></h2>
+							</div>
 
-                                <!-- Text -->
-                                <div class="statistic-block-txt color--grey">
-                                    <p class="p-md">Doctors</p>
-                                </div>
+							<!-- Text -->
+							<div class="statistic-block-txt color--grey">
+								<p class="p-md">Reasonal Clinics</p>
+							</div>
 
-                            </div>
-                        </div>
-                    </div> <!-- END STATISTIC BLOCK #1 -->
+						</div>
+					</div>
+				</div> <!-- END STATISTIC BLOCK #1 -->
 
-                    <!-- STATISTIC BLOCK #2 -->
-                    <div class="col-lg-3">
-                        <div id="sb-1-2" class="wow fadeInUp">
-                            <div class="statistic-block">
+				<!-- STATISTIC BLOCK #2 -->
+				<div class="col-lg-auto">
+					<div id="sb-1-2" class="wow fadeInUp">
+						<div class="statistic-block">
 
-                                <!-- Digit -->
-                                <div class="statistic-block-digit text-center">
-                                    <h2 class="s-46 statistic-number"><span class="count-element">3200</span>+</h2>
-                                </div>
+							<!-- Digit -->
+							<div class="statistic-block-digit text-center">
+								<h2 class="s-46 statistic-number"><span class="count-element">{{ $home->gccCountries ?? '' }}</span></h2>
+							</div>
 
-                                <!-- Text -->
-                                <div class="statistic-block-txt color--grey">
-                                    <p class="p-md">Happy Patient</p>
-                                </div>
+							<!-- Text -->
+							<div class="statistic-block-txt color--grey">
+								<p class="p-md">GCC Countries</p>
+							</div>
 
-                            </div>
-                        </div>
-                    </div> <!-- END STATISTIC BLOCK #2 -->
+						</div>
+					</div>
+				</div> <!-- END STATISTIC BLOCK #2 -->
+					<!-- STATISTIC BLOCK #2 -->
+					<div class="col-lg-auto">
+					<div id="sb-1-2" class="wow fadeInUp">
+						<div class="statistic-block">
 
-                    <!-- STATISTIC BLOCK #2 -->
-                    <div class="col-lg-3">
-                        <div id="sb-1-2" class="wow fadeInUp">
-                            <div class="statistic-block">
+							<!-- Digit -->
+							<div class="statistic-block-digit text-center">
+								<h2 class="s-46 statistic-number"><span class="count-element">{{ $home->satellietesCenters ?? '' }}</span></h2>
+							</div>
 
-                                <!-- Digit -->
-                                <div class="statistic-block-digit text-center">
-                                    <h2 class="s-46 statistic-number"><span class="count-element">30</span>+</h2>
-                                </div>
+							<!-- Text -->
+							<div class="statistic-block-txt color--grey">
+								<p class="p-md">Satellietes Centers</p>
+							</div>
 
-                                <!-- Text -->
-                                <div class="statistic-block-txt color--grey">
-                                    <p class="p-md">Years of experience</p>
-                                </div>
+						</div>
+					</div>
+				</div> <!-- END STATISTIC BLOCK #2 -->
+				<!-- STATISTIC BLOCK #2 -->
+				<div class="col-lg-auto">
+					<div id="sb-1-2" class="wow fadeInUp">
+						<div class="statistic-block">
 
-                            </div>
-                        </div>
-                    </div> <!-- END STATISTIC BLOCK #2 -->
-                    <!-- STATISTIC BLOCK #3 -->
-                    <div class="col-lg-3">
-                        <div id="sb-1-3" class="wow fadeInUp">
-                            <div class="statistic-block">
+							<!-- Digit -->
+							<div class="statistic-block-digit text-center">
+								<h2 class="s-46 statistic-number"><span class="count-element">{{ $home->populationServed ?? '' }}</span>M</h2>
+							</div>
 
-                                <!-- Digit -->
-                                <div class="statistic-block-digit text-center">
-                                    <!-- <h2 class="s-46 statistic-number">
-                   <span class="count-element">93</span>
-                  </h2> -->
-                                    <h2 class="s-46 statistic-number"><span class="count-element">100</span>%</h2>
-                                </div>
+							<!-- Text -->
+							<div class="statistic-block-txt color--grey">
+								<p class="p-md">Population served</p>
+							</div>
 
-                                <!-- Text -->
-                                <div class="statistic-block-txt color--grey">
-                                    <p class="p-md">Satisfaction</p>
-                                </div>
+						</div>
+					</div>
+				</div> <!-- END STATISTIC BLOCK #2 -->
+				<!-- STATISTIC BLOCK #3 -->
+				<div class="col-lg-auto">
+					<div id="sb-1-3" class="wow fadeInUp">
+						<div class="statistic-block">
 
-                            </div>
-                        </div>
-                    </div> <!-- END STATISTIC BLOCK #3 -->
+							<!-- Digit -->
+							<div class="statistic-block-digit text-center">
+								<!-- <h2 class="s-46 statistic-number">
+												<span class="count-element">93</span>
+											</h2> -->
+								<h2 class="s-46 statistic-number"><span class="count-element">{{ $home->yearsExperience ?? '' }}</span>+</h2>
+							</div>
 
-                </div> <!-- End row -->
-            </div> <!-- END STATISTIC-1 WRAPPER -->
+							<!-- Text -->
+							<div class="statistic-block-txt color--grey">
+								<p class="p-md">Years of experience</p>
+							</div>
 
-        </div> <!-- End container -->
-    </div> <!-- END STATISTIC-1 -->
+						</div>
+					</div>
+				</div> <!-- END STATISTIC BLOCK #3 -->
+
+			</div> <!-- End row -->
+		</div> <!-- END STATISTIC-1 WRAPPER -->
+
+	</div> <!-- End container -->
+</div> <!-- END STATISTIC-1 -->
 
     <!-- DIVIDER LINE -->
     <hr class="divider">
-
+        @php
+            $aboutUs=DB::table('aboutUs')->first();
+        @endphp
     <section id="about_us-1" class="about_us">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="abt_cnt">
                         <h6 class="sub_title_sec">About Us</h6>
-                        <h1 class="sec_title">Qastarat Clinics</h1>
-                        <p class="cnt_para">A leading network of integrated Interventional Radiology (IR) clinics, highly
-                            specialized in image-guided minimally to completely non-invasive therapies. Over 8,500
-                            consultations, and an average of 11,000 diagnostic and interventional procedures are conducted
-                            annually. All treatments offered to our patients are evidence based, patient centered, and
-                            service oriented being delivered according to best practice guidelines and standards using
-                            cutting edge technologies.</p>
+                        <h1 class="sec_title">{{ $aboutUs->title ?? '' }}</h1>
+                        <p class="cnt_para">{{ $aboutUs->subTitle ?? '' }}.</p>
 
                         <!-- <ul class="important_point">
                 <li>Solid Solutions</li>
@@ -187,15 +214,40 @@
                     <div class="abt_img_bx img-block video-preview wow fadeInUp">
 
                         <!-- Play Icon -->
-                        <a class="video-popup2" href="https://www.youtube.com/embed/iuLKi84W4F0?si=fDkcliYZEo87X6dR">
+                        @isset($aboutUs->video_url)
+                        <a class="video-popup2" href="{{ $aboutUs->video_url ?? '#' }}">
                             <div class="video-btn video-btn-xl bg--theme">
                                 <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
                             </div>
                         </a>
+                        @elseif ($aboutUs->videoFile)
+                         <?php
+                                
+                                $videoUrl = asset('public/assets/video/' . $aboutUs->videoFile);
+                            ?>
+                        <a class="video-popup" href="{{ $videoUrl ?? '#'  }}">
+                            <div class="video-btn video-btn-xl bg--theme">
+                                <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
+                            </div>
+                        </a>
+                        @else
+                        <a class="video-popup2" href="{{ $videoUrl }}">
+                            <div class="video-btn video-btn-xl bg--theme">
+                                <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
+                            </div>
+                        </a>
+                        @endisset
+                       
 
                         <!-- Preview Image -->
-                        <img class="img-fluid" src="{{ asset('public/assets/images/new-images/17a8091499.png') }}"
+                        @isset($aboutUs->imageUpload)
+                        <img class="img-fluid" src="{{ asset('public/assets/video/'.$aboutUs->imageUpload) }}"
+                        alt="video-preview">
+                            @else
+                            <img class="img-fluid" src="{{ asset('public/assets/video/new-images/17a8091499.png') }}"
                             alt="video-preview">
+                        @endisset
+                       
 
                     </div>
                 </div>
@@ -211,19 +263,40 @@
                     <!-- <div class="abt_img_bx">
              <img src="" alt="">
             </div> -->
+                    @php
+                    $treatment=DB::table('treatments')->first();
+                    @endphp
                     <div class=" img-block video-preview leftvideoContainer wow fadeInUp">
 
                         <!-- Play Icon -->
-                        <a class="video-popup2" href="https://www.youtube.com/embed/iuLKi84W4F0?si=fDkcliYZEo87X6dR">
+                        @if($treatment->video_url)
+                            <a class="video-popup" href="{{ $treatment->video_url ?? '#' }}">
+                                <div class="video-btn video-btn-xl bg--theme">
+                                    <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
+                                </div>
+                            </a>
+                        @elseif ($treatment->videoFile)
+                        <?php
+                        $videoUrl = asset('public/assets/video/' . $treatment->videoFile);
+                             ?>
+                        <a class="video-popup" href="{{ $videoUrl ?? '#' }}">
                             <div class="video-btn video-btn-xl bg--theme">
                                 <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
                             </div>
                         </a>
+                      @endif
+                       
 
                         <div class="videothumbnailImage">
                             <!-- Preview Image -->
+                            @isset($treatment->imageUpload)
                             <img class="img-fluid img_fg"
+                                src="{{ asset('public/assets/video/'.$treatment->imageUpload) }}" alt="video-preview">
+                                @else
+                                <img class="img-fluid img_fg"
                                 src="{{ asset('public/assets/images/new-images/about_us.png') }}" alt="video-preview">
+                            @endisset
+                            
                         </div>
 
                     </div>
@@ -231,11 +304,9 @@
                 <div class="col-lg-6">
                     <div class="abt_cnt">
                         <h6 class="sub_title_sec">Our Treatments</h6>
-                        <h1 class="sec_title">Our Unique Treatments @Qastarat_Clinics</h1>
-                        <p class="cnt_para">Unique treatments of tomorrow delivered to you today by top rated well
-                            recognized professionals, thriving to help you heal better. </p>
-                        <p class="cnt_para">We have developed standardized protocols to assess your eligibility to each and
-                            every treatment option, in order to deliver best customized care fit to you. </p>
+                        <h1 class="sec_title">{{ $treatment->title ?? '' }}</h1>
+                        <p class="cnt_para">{{ $treatment->subTitle ?? '' }}. </p>
+                       
 
                         <!--
                <a href="#" class="btn r-04 btn--theme hover--tra-black">Know More <i class="fa-solid fa-arrow-right-long"></i></a> -->
@@ -252,22 +323,22 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-home" type="button" role="tab"
-                                    aria-controls="pills-home" aria-selected="true">Women heal better</button>
+                                    aria-controls="pills-home" aria-selected="true">{{ $treatment->Womenhealbetter ?? '' }}</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-profile" type="button" role="tab"
-                                    aria-controls="pills-profile" aria-selected="false">Men Heal better </button>
+                                    aria-controls="pills-profile" aria-selected="false">{{ $treatment->Menhealbetter ?? '' }} </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-contact" type="button" role="tab"
-                                    aria-controls="pills-contact" aria-selected="false">Men & women heal better</button>
+                                    aria-controls="pills-contact" aria-selected="false">{{ $treatment->Menwomenhealbetter ?? '' }}</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-disabled" type="button" role="tab"
-                                    aria-controls="pills-disabled" aria-selected="false">Regenerative Therapies </button>
+                                    aria-controls="pills-disabled" aria-selected="false"> {{ $treatment->regenerativetherapies ?? '' }} </button>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
@@ -287,60 +358,58 @@
                                 <div class="main-div bgpnikCircles_main">
                                     <div class="center">
                                         <div class="textcircle">
-                                            Women heal better
+                                            {{ $treatment->Womenhealbetter ?? '' }}
                                         </div>
 
                                     </div>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-custom-class="pink-custom-tooltip"
-                                        data-bs-title="Pelvic Congestion Embolization">
+                                        data-bs-title="{{ $treatment->Womenhealbettercontent1 ?? '' }}">
                                         <div class="textcircle">
-                                            Pelvic Congestion Embolization
+                                            {{ $treatment->Womenhealbettercontent1 ?? '' }}
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="right" data-bs-custom-class="pink-custom-tooltip"
-                                        data-bs-title="Brest tumors Ablation">
+                                        data-bs-title="{{ $treatment->Womenhealbettercontent2 ?? '' }}">
                                         <div class="textcircle">
-                                            Brest tumors Ablation
+                                            {{ $treatment->Womenhealbettercontent2 ?? '' }}
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="right" data-bs-custom-class="pink-custom-tooltip"
-                                        data-bs-title="Uterine Fibroid Ablation">
+                                        data-bs-title="{{ $treatment->Womenhealbettercontent3 ?? '' }}">
                                         <div class="textcircle">
-                                            Uterine Fibroid Ablation
+                                            {{ $treatment->Womenhealbettercontent3 ?? '' }}
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-custom-class="pink-custom-tooltip"
-                                        data-bs-title="Uterine Fibroids Embolization
-			">
+                                        data-bs-title="{{ $treatment->Womenhealbettercontent4 ?? '' }}">
                                         <div class="textcircle">
-                                            Uterine Fibroids Embolization
+                                            {{ $treatment->Womenhealbettercontent4 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="left" data-bs-custom-class="pink-custom-tooltip"
-                                        data-bs-title="Adenomyosis Embolization
-			">
+                                        data-bs-title="{{ $treatment->Womenhealbettercontent5 ?? '' }}">
                                         <div class="textcircle">
-                                            Adenomyosis Embolization
+                                            {{ $treatment->Womenhealbettercontent5 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="left" data-bs-custom-class="pink-custom-tooltip"
-                                        data-bs-title="Fallopian Tube Recanalizationn">
+                                        data-bs-title="{{ $treatment->Womenhealbettercontent6 ?? '' }}">
                                         <div class="textcircle">
-                                            Fallopian Tube Recanalization
+                                            {{ $treatment->Womenhealbettercontent6 ?? '' }}
                                         </div>
                                     </button>
 
@@ -352,58 +421,58 @@
                                 <div class="main-div bgblueCircles_main">
                                     <div class="center">
                                         <div class="textcircle">
-                                            Men heal better
+                                            {{ $treatment->Menhealbetter ?? '' }}
                                         </div>
                                     </div>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-custom-class="blue-custom-tooltip"
-                                        data-bs-title="0">
+                                        data-bs-title="{{ $treatment->Menhealbettercontent1 ?? '' }}">
                                         <div class="textcircle">
-                                            0
+                                            {{ $treatment->Menhealbettercontent1 ?? '' }}
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="right" data-bs-custom-class="blue-custom-tooltip"
-                                        data-bs-title="Erectile Dysfunction">
+                                        data-bs-title="{{ $treatment->Menhealbettercontent2 ?? '' }}">
                                         <div class="textcircle">
-                                            Erectile Dysfunction
+                                            {{ $treatment->Menhealbettercontent2 ?? '' }}
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="right" data-bs-custom-class="blue-custom-tooltip"
-                                        data-bs-title="Coming soon">
+                                        data-bs-title="{{ $treatment->Menhealbettercontent3 ?? '' }}">
                                         <div class="textcircle">
-                                            Coming soon
+                                            {{ $treatment->Menhealbettercontent3 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-custom-class="blue-custom-tooltip"
-                                        data-bs-title="Prostate Embolization">
+                                        data-bs-title="{{ $treatment->Menhealbettercontent4 ?? '' }}">
                                         <div class="textcircle">
-                                            Prostate Embolization
+                                            {{ $treatment->Menhealbettercontent4 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="left" data-bs-custom-class="blue-custom-tooltip"
-                                        data-bs-title="0">
+                                        data-bs-title="{{ $treatment->Menhealbettercontent5 ?? '' }}">
                                         <div class="textcircle">
-                                            0
+                                            {{ $treatment->Menhealbettercontent5 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="left" data-bs-custom-class="blue-custom-tooltip"
-                                        data-bs-title="Varicocele Embolization">
+                                        data-bs-title="{{ $treatment->Menhealbettercontent6 ?? '' }}">
                                         <div class="textcircle">
-                                            Varicocele Embolization
+                                            {{ $treatment->Menhealbettercontent6 ?? '' }}
                                         </div>
                                     </button>
 
@@ -415,59 +484,59 @@
                                 <div class="main-div bgblackCircles_main">
                                     <div class="center">
                                         <div class="textcircle">
-                                            Men & women heal better
+                                            {{ $treatment->Menwomenhealbetter ?? '' }}
 
                                         </div>
                                     </div>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-custom-class="black-custom-tooltip"
-                                        data-bs-title="Varicose Vein Ablation">
+                                        data-bs-title="{{ $treatment->Menwomenhealbettercontent1 ?? '' }}">
                                         <div class="textcircle">
-                                            Varicose Vein Ablation
+                                            {{ $treatment->Menwomenhealbettercontent1 ?? '' }}
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="right" data-bs-custom-class="black-custom-tooltip"
-                                        data-bs-title="Thyroid ablation">
+                                        data-bs-title=" {{ $treatment->Menwomenhealbettercontent2 ?? '' }}">
                                         <div class="textcircle">
-                                            Thyroid ablation
+                                             {{ $treatment->Menwomenhealbettercontent2 ?? '' }}
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="right" data-bs-custom-class="black-custom-tooltip"
-                                        data-bs-title="Coming soon">
+                                        data-bs-title=" {{ $treatment->Menwomenhealbettercontent3 ?? '' }}">
                                         <div class="textcircle">
-                                            Coming soon
+                                             {{ $treatment->Menwomenhealbettercontent3 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-custom-class="black-custom-tooltip"
-                                        data-bs-title="Hemorrhoids Embolization">
+                                        data-bs-title="{{ $treatment->Menwomenhealbettercontent4 ?? '' }}">
                                         <div class="textcircle">
-                                            Hemorrhoids Embolization
+                                            {{ $treatment->Menwomenhealbettercontent4 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="left" data-bs-custom-class="black-custom-tooltip"
-                                        data-bs-title="Interventional pain therapies">
+                                        data-bs-title="{{ $treatment->Menwomenhealbettercontent5 ?? '' }}">
                                         <div class="textcircle">
-                                            Interventional pain therapies
+                                            {{ $treatment->Menwomenhealbettercontent5 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="left" data-bs-custom-class="black-custom-tooltip"
-                                        data-bs-title="Thrombolysis of DVT">
+                                        data-bs-title="{{ $treatment->Menwomenhealbettercontent6 ?? '' }}">
                                         <div class="textcircle">
-                                            Thrombolysis of DVT
+                                            {{ $treatment->Menwomenhealbettercontent6 ?? '' }}
                                         </div>
                                     </button>
 
@@ -479,59 +548,59 @@
                                 <div class="main-div bgyellowCircles_main">
                                     <div class="center">
                                         <div class="textcircle">
-                                            Regenerative Therapies
+                                            {{ $treatment->regenerativetherapies ?? '' }}
 
                                         </div>
                                     </div>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-custom-class="yellow-custom-tooltip"
-                                        data-bs-title="Intra-venous supplements">
+                                        data-bs-title=" {{ $treatment->regenerativetherapiescontent1 ?? '' }}">
                                         <div class="textcircle">
-                                            Intra-venous supplements
+                                             {{ $treatment->regenerativetherapiescontent1 ?? '' }}
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="right" data-bs-custom-class="yellow-custom-tooltip"
-                                        data-bs-title="PRP Therapies">
+                                        data-bs-title="{{ $treatment->regenerativetherapiescontent2 ?? '' }}">
                                         <div class="textcircle">
-                                            PRP Therapies
+                                            {{ $treatment->regenerativetherapiescontent2 ?? '' }}
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="right" data-bs-custom-class="yellow-custom-tooltip"
-                                        data-bs-title="Coming soon">
+                                        data-bs-title=" {{ $treatment->regenerativetherapiescontent3 ?? '' }}">
                                         <div class="textcircle">
-                                            Coming soon
+                                             {{ $treatment->regenerativetherapiescontent3 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-custom-class="yellow-custom-tooltip"
-                                        data-bs-title="Autologous stem cells therapies">
+                                        data-bs-title="{{ $treatment->regenerativetherapiescontent4 ?? '' }}">
                                         <div class="textcircle">
-                                            Autologous stem cells therapies
+                                            {{ $treatment->regenerativetherapiescontent4 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="left" data-bs-custom-class="yellow-custom-tooltip"
-                                        data-bs-title="ozone therapies">
+                                        data-bs-title="{{ $treatment->regenerativetherapiescontent5 ?? '' }}">
                                         <div class="textcircle">
-                                            ozone therapies
+                                            {{ $treatment->regenerativetherapiescontent5 ?? '' }}
 
                                         </div>
                                     </button>
 
                                     <button type="button" class="circle" data-bs-toggle="tooltip"
                                         data-bs-placement="left" data-bs-custom-class="yellow-custom-tooltip"
-                                        data-bs-title="Intra-venous Vitamins">
+                                        data-bs-title="{{ $treatment->regenerativetherapiescontent6 ?? '' }}">
                                         <div class="textcircle">
-                                            Intra-venous Vitamins
+                                            {{ $treatment->regenerativetherapiescontent6 ?? '' }}
                                         </div>
                                     </button>
 
@@ -549,10 +618,13 @@
     <section class="services" id="service_section">
         <div class="container">
             <div class="row">
+                @php
+                $service=DB::table('services')->first();
+                @endphp
                 <div class="col-lg-12">
                     <div class="center_section">
-                        <h6 class="center_sub_title">Our Services</h6>
-                        <h1 class="center_title">Providing Medical Care For The Sickest In Our Community</h1>
+                        <h6 class="center_sub_title">{{ $service->title ?? '' }}</h6>
+                        <h1 class="center_title">{{ $service->subTitle ?? '' }}</h1>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -562,70 +634,76 @@
                             <div class="col-lg-4 prt-box-col-wrapper">
                                 <div class="featured-imagebox featured-imagebox-service style1">
                                     <div class="featured-thumbnail">
+                                        @isset($service->image1)
                                         <img width="620" height="332" class="img-fluid"
+                                            src="{{ asset('public/assets/video/'.$service->image1) }}"
+                                            alt="img">
+                                            @else
+                                            <img width="620" height="332" class="img-fluid"
                                             src="{{ asset('public/assets/images/new-images/qs-service1.png') }}"
                                             alt="img">
+                                        @endisset
+                                        
                                     </div>
                                     <div class="featured-content">
                                         <div class="featured-title">
-                                            <h3><a href="#">Fast Track Your Online Consultation</a></h3>
+                                            <h3><a href="#">{{ $service->image1title }}</a></h3>
                                         </div>
                                         <div class="featured-desc">
-                                            <p>Online Consultation is designed to Fast Track your Access
-                                                to our services if you don’t want to wait</p>
+                                            <p>{{ $service->image1subtitle }}</p>
                                         </div>
-                                        <div class="prt-iconbox-button">
-                                            <a class="prt-btn btn-inline prt-icon-btn-right prt-btn-size-md prt-btn-color-whitecolor"
-                                                href="#">View more <iconify-icon
-                                                    icon="uis:arrow-up-right"></iconify-icon></a>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 prt-box-col-wrapper">
                                 <div class="featured-imagebox featured-imagebox-service style1">
                                     <div class="featured-thumbnail">
+                                        @isset($service->image2)
                                         <img width="620" height="332" class="img-fluid"
+                                        src="{{ asset('public/assets/video/'.$service->image2) }}"
+                                        alt="img">
+                                            @else
+                                            <img width="620" height="332" class="img-fluid"
                                             src="{{ asset('public/assets/images/new-images/medical-report.png') }}"
                                             alt="img">
+                                        @endisset
+                                       
                                     </div>
                                     <div class="featured-content">
                                         <div class="featured-title">
-                                            <h3><a href="#">Get copy of Your Medical Report Online</a>
+                                            <h3><a href="#">{{ $service->image2title ?? '' }}</a>
                                             </h3>
                                         </div>
                                         <div class="featured-desc">
-                                            <p>For pre-registered patients, You can now print your
-                                                update report on-line via your portal log-in</p>
+                                            <p>{{ $service->image2subtitle ?? '' }}</p>
                                         </div>
-                                        <div class="prt-iconbox-button">
-                                            <a class="prt-btn btn-inline prt-icon-btn-right prt-btn-size-md prt-btn-color-whitecolor"
-                                                href="j#">View more <iconify-icon
-                                                    icon="uis:arrow-up-right"></iconify-icon></a>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 prt-box-col-wrapper">
                                 <div class="featured-imagebox featured-imagebox-service style1">
                                     <div class="featured-thumbnail">
+                                        @isset($service->image3)
                                         <img width="620" height="332" class="img-fluid"
+                                        src="{{ asset('public/assets/video/'.$service->image3) }}"
+                                        alt="img">
+                                            @else
+                                            <img width="620" height="332" class="img-fluid"
                                             src="{{ asset('public/assets/images/new-images/bvgfhn.png') }}"
                                             alt="img">
+                                        @endisset
+                                       
                                     </div>
                                     <div class="featured-content">
                                         <div class="featured-title">
-                                            <h3><a href="#">Book in-clinic Consultation</a></h3>
+                                            <h3><a href="#">{{ $service->image3title ?? ''  }}</a></h3>
                                         </div>
                                         <div class="featured-desc">
-                                            <p>In clinic Consultation booked here are eligible for
-                                                special discount</p>
+                                            <p>{{ $service->image3subtitle ?? ''  }}</p>
                                         </div>
-                                        <div class="prt-iconbox-button">
-                                            <a class="prt-btn btn-inline prt-icon-btn-right prt-btn-size-md prt-btn-color-whitecolor"
-                                                href="#">View more <iconify-icon
-                                                    icon="uis:arrow-up-right"></iconify-icon></a>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -643,24 +721,28 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="why_us_cnt">
-                        <h6 class="sub_title_sec">what we do</h6>
-                        <h1 class="sec_title"> changing the way of your testing and research </h1>
-                        <p class="cnt_para">Qastarat & Dawali Clinics is a healthcare platform that provides virtual
+                        @php
+                        $software=DB::table('softwares')->first();
+                        @endphp
+                        <h6 class="sub_title_sec">{{ $software->title ?? '' }}</h6>
+                        <h1 class="sec_title"> {{ $software->subTitle ?? '' }}.</h1>
+                        {{-- <p class="cnt_para">Qastarat & Dawali Clinics is a healthcare platform that provides virtual
                             medical
                             consultations and manages health records. Testing ensures seamless user experience and data
-                            security.</p>
-                        <ul class="why_us_point">
-                            <li><span class="why_us_count">1</span> <span>always Accurate to our research and testing in
-                                    laboratory.</span> </li>
-                            <li><span class="why_us_count">2</span> <span>Evaluating consistency and reliability of
-                                    laboratory results.</span> </li>
-                            <li><span class="why_us_count">3</span> <span>Precision to testing and focus on medical
-                                    checkup.</span> </li>
-                            <li><span class="why_us_count">4</span> <span>Lorem ipsum dolor, sit amet consectetur
-                                    adipisicing elit. Exercitationem, mollitia.</span></li>
-                            <li><span class="why_us_count">5</span> <span>Lorem ipsum dolor, sit amet consectetur
-                                    adipisicing elit.</span></li>
-                        </ul>
+                            security.</p> --}}
+                            <ul class="why_us_point">
+                                <li><span class="why_us_count">1</span> <span>{{ $software->list1 ?? '' }}</span> </li>
+                                <li><span class="why_us_count">2</span> <span>{{ $software->list2 ?? '' }}</span> </li>
+                                <li><span class="why_us_count">3</span> <span>{{ $software->list3 ?? '' }}</span> </li>
+                                <li><span class="why_us_count">4</span> <span>{{ $software->list4 ?? '' }}</span></li>
+                                <li><span class="why_us_count">5</span> <span>{{ $software->list5 ?? '' }}</span></li>
+                                <li><span class="why_us_count">6</span> <span>{{ $software->list6 ?? '' }}</span></li>
+                                <li><span class="why_us_count">7</span> <span>{{ $software->list7 ?? '' }}</span></li>
+                                <li><span class="why_us_count">8</span> <span>{{ $software->list8 ?? '' }}</span></li>
+                                <li><span class="why_us_count">9</span> <span>{{ $software->list9 ?? '' }}</span></li>
+        
+        
+                            </ul>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -669,18 +751,26 @@
             </div>
         </div>
         <div class="why_us_img">
-            <img src="{{ asset('public/assets/images/new-images/lab-4-min.jpg') }}" alt="">
+            @isset($software->imageUpload)
+            <img src="{{ asset('public/assets/video/'.$software->imageUpload) }}" alt="">
+                @else
+                <img src="{{ asset('public/assets/images/new-images/lab-4-min.jpg') }}" alt="">
+            @endisset
+            
         </div>
     </section>
 
     <section class="prt-row map-section clearfix" id="Our_Branches">
         <div class="container">
             <!-- row -->
+                        @php
+                        $branches=DB::table('branches')->first();
+                        @endphp
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center_section">
-                        <h6 class="center_sub_title">Our Branches</h6>
-                        <h1 class="center_title">We are presence here...</h1>
+                        <h6 class="center_sub_title">{{ $branches->title ?? '' }}</h6>
+                        <h1 class="center_title">{{ $branches->subTitle ?? '' }}</h1>
                     </div>
                 </div>
 
@@ -688,8 +778,14 @@
             <div class="row align-items-center pt-20">
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <div class="fid-map-items position-relative mt-60 res-1199-mt-30 res-767-mt-0">
-                        <img class="img-fluid" src="{{ asset('public/assets/images/new-images/maphvr.png') }}"
+                        @isset($branches->imageUpload)
+                        <img class="img-fluid" src="{{ asset('public/assets/video/'.$branches->imageUpload) }}"
+                        alt="image" width="590" height="296">
+                            @else
+                            <img class="img-fluid" src="{{ asset('public/assets/images/new-images/maphvr.png') }}"
                             alt="image" width="590" height="296">
+                        @endisset
+                       
 
                         <div class="locationstooltip_itemBox">
                             <div class="customTooltipContainer active locationitem1">
@@ -716,7 +812,7 @@
                             <div class="customTooltipContainer locationitem4">
                                 <div class="Tooltip_dot"></div>
                                 <div class="TooltipContent">
-                                    Bahrain
+                                    Manama
                                 </div>
                             </div>
                         </div>
@@ -731,12 +827,12 @@
                                 <iconify-icon icon="pepicons-pop:phone-circle"></iconify-icon>
                             </div>
                             <div class="featured-content">
-                                <h3> Main Branch Muscat - OMAN </h3>
+                                <h3> {{ $branches->title1 ?? '' }} </h3>
                                 <ul class="contact_list_icon">
                                     <li>
                                         <div class="dt_contact">
-                                            <a href="tel:+96892000230">+96892000230</a> <a href="tel:+96892000230"> <span
-                                                    class="tollfree">TollFree:</span> +96892000230</a>
+                                            <a href="tel:+{{ $branches->title1phonenumber ?? '' }}">+{{ $branches->title1phonenumber ?? '' }}</a> <a href="tel:+{{ $branches->title1tollfreenumber ?? '' }}"> <span
+                                                    class="tollfree">TollFree:</span> +{{ $branches->title1tollfreenumber ?? '' }}</a>
                                         </div>
 
                                     </li>
@@ -750,12 +846,12 @@
                                 <iconify-icon icon="pepicons-pop:phone-circle"></iconify-icon>
                             </div>
                             <div class="featured-content">
-                                <h3> Worldwide Patients , Please contact us directly at </h3>
+                                <h3>{{ $branches->title2 ?? '' }}</h3>
                                 <ul class="contact_list_icon">
                                     <li>
 
                                         <div class="dt_contact">
-                                            <a href="tel:+971581114000">+971581114000</a>
+                                            <a href="tel:+{{ $branches->title2phonenumber ?? '' }}">+{{ $branches->title2phonenumber ?? '' }}</a>
                                         </div>
 
                                     </li>
@@ -769,12 +865,12 @@
                                 <iconify-icon icon="lucide:mails"></iconify-icon>
                             </div>
                             <div class="featured-content">
-                                <h3> our nurse coordinator can be contacted at: </h3>
+                                <h3> {{ $branches->title3 ?? '' }} </h3>
                                 <ul class="contact_list_icon">
                                     <li>
 
                                         <div class="dt_contact">
-                                            <a href="emailto:nurse@qastaratclinics.com">nurse@qastaratclinics.com</a>
+                                            <a href="emailto:{{ $branches->title3email ?? '' }}">{{ $branches->title3email ?? '' }}</a>
                                         </div>
 
                                     </li>
@@ -788,12 +884,12 @@
                                 <iconify-icon icon="lucide:mails"></iconify-icon>
                             </div>
                             <div class="featured-content">
-                                <h3> our clinic admin coordinator can be contacted at: </h3>
+                                <h3> {{ $branches->title4 ?? '' }} </h3>
                                 <ul class="contact_list_icon">
                                     <li>
 
                                         <div class="dt_contact">
-                                            <a href="emailto:admin@qastaratclinics.com">admin@qastaratclinics.com</a>
+                                            <a href="emailto:{{ $branches->title4email ?? '' }}">{{ $branches->title4email ?? '' }}</a>
                                         </div>
 
                                     </li>
@@ -835,149 +931,79 @@
                 </div>
             </div>
             <div id="owl-carousel" class="doctor_slider owl-carousel owl-theme">
+                @php
+                    $TeamMembers=DB::table('TeamMembers')->get();
+                @endphp
+                @forelse ($TeamMembers as $Member)
                 <div class="item">
                     <div class="single-doctors-card">
                         <div class="doctors-image">
-                            <a href="#"><img src="{{ asset('public/assets/images/new-images/clinic-team1.png') }}"
-                                    alt="image"></a>
-
-                            <!-- <ul class="social">
-                <li>
-                 <a href="https://www.facebook.com/" target="_blank">
-                  <i class="fa-brands fa-facebook-f"></i>
-                 </a>
-                </li>
-                <li>
-                 <a href="https://twitter.com/?lang=en" target="_blank">
-                  <i class="fa-brands fa-x-twitter"></i>
-                 </a>
-                </li>
-                <li>
-                 <a href="https://www.instagram.com/" target="_blank">
-                  <i class="fa-brands fa-instagram"></i>
-                 </a>
-                </li>
-                <li>
-                 <a href="https://www.linkedin.com/signup" target="_blank">
-                  <i class="fa-brands fa-linkedin-in"></i>
-                 </a>
-                </li>
-               </ul> -->
+                            <a href="#">
+                                @isset($Member->image_url)
+                                <img src="{{ asset('public/assets/video/'.$Member->image_url) }}" alt="image">
+                                    @else
+                                    <img src="{{ asset('public/assets/images/new-images/dr-safi.png') }}" alt="image">
+                                @endisset
+                                
+                            </a>
+    
+                            <ul class="social">
+                                        <li>
+                                            <a href="{{ $Member->social_fb ?? '#' }}" target="_blank">
+                                                <i class="fa-brands fa-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ $Member->social_twitter ?? '#' }}" target="_blank">
+                                                <i class="fa-brands fa-x-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ $Member->social_instagram ?? '#' }}" target="_blank">
+                                                <i class="fa-brands fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ $Member->social_linkedin ?? '#' }}" target="_blank">
+                                                <i class="fa-brands fa-linkedin-in"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
                         </div>
                         <div class="doctors-content">
                             <h3>
-                                <a href="#">Dr S. Alzaabi, MD, FRCPC, DABR</a>
+                                <a href="#">{{ $Member->name ?? '' }}</a>
                             </h3>
                             <div class="doctor_dt_ghi">
-                                <h6>CEO & head of interventionists board, <span>Qastarat Clinics</span></h6>
-                                <h6>Consultant <span>Interventional Radiologist</span></h6>
+                                <h6>{{ $Member->title ?? '' }}</h6>
+                                <!-- <h6>Consultant <span>Interventional Radiologist</span></h6>
                                 <h6>American Board of Radiology certified Fellow, Royal College of Physicians  & Surgeons
-                                </h6>
+                                </h6> -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="single-doctors-card">
-                        <div class="doctors-image">
-                            <a href="#"><img src="{{ asset('public/assets/images/new-images/clinic-team3.png') }}"
-                                    alt="image"></a>
-
-                            <!-- <ul class="social">
-                <li>
-                 <a href="https://www.facebook.com/" target="_blank">
-                  <i class="fa-brands fa-facebook-f"></i>
-                 </a>
-                </li>
-                <li>
-                 <a href="https://twitter.com/?lang=en" target="_blank">
-                  <i class="fa-brands fa-x-twitter"></i>
-                 </a>
-                </li>
-                <li>
-                 <a href="https://www.instagram.com/" target="_blank">
-                  <i class="fa-brands fa-instagram"></i>
-                 </a>
-                </li>
-                <li>
-                 <a href="https://www.linkedin.com/signup" target="_blank">
-                  <i class="fa-brands fa-linkedin-in"></i>
-                 </a>
-                </li>
-               </ul> -->
-                        </div>
-                        <div class="doctors-content">
-                            <h3>
-                                <a href="#">Dr B. Cekic, MD</a>
-                            </h3>
-                            <div class="doctor_dt_ghi">
-                                <h6>Chief Proctor <span>Thyroid Ablation Program at Qastarat Clinics</span></h6>
-                                <h6>Consultant <span>Interventional Radiologist </span> </h6>
-                                <h6>Visiting IR <span>consultant/Proctor /Trainer world-wide</span></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="single-doctors-card">
-                        <div class="doctors-image">
-                            <a href="#"><img src="{{ asset('public/assets/images/new-images/clinic-team2.png') }}"
-                                    alt="image"></a>
-
-                            <!-- <ul class="social">
-                <li>
-                 <a href="https://www.facebook.com/" target="_blank">
-                  <i class="fa-brands fa-facebook-f"></i>
-                 </a>
-                </li>
-                <li>
-                 <a href="https://twitter.com/?lang=en" target="_blank">
-                  <i class="fa-brands fa-x-twitter"></i>
-                 </a>
-                </li>
-                <li>
-                 <a href="https://www.instagram.com/" target="_blank">
-                  <i class="fa-brands fa-instagram"></i>
-                 </a>
-                </li>
-                <li>
-                 <a href="https://www.linkedin.com/signup" target="_blank">
-                  <i class="fa-brands fa-linkedin-in"></i>
-                 </a>
-                </li>
-               </ul> -->
-                        </div>
-                        <div class="doctors-content">
-                            <h3>
-                                <a href="#">Dr T. Bilhim, MD, EBIR
-                                </a>
-                            </h3>
-                            <div class="doctor_dt_ghi">
-                                <h6>Chief Proctor <span>Prostate Embolization Artery Embolization inics</span></h6>
-                                <h6>Consultant <span>Interventional Radiologist</span></h6>
-                                <h6>Visiting IR <span>consultant / Proctor / Trainer world-wide</span> </h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                @empty
+                    
+                @endforelse
+               
+                
             </div>
         </div>
     </section>
     <section class="contact_us_home_section">
         <div class="container">
             <div class="row">
+                @php
+                     $contactUs=DB::table('contactUs')->first();
+                @endphp
                 <div class="col-lg-6">
                     <div class="contact_us_home">
-                        <h6 class="sub_title_sec">Contact Us</h6>
-                        <h1 class="sec_title">All our consultations are by pre-booked and confirmed appointments! </h1>
-                        <p class="cnt_para">Walk-in appointments may be accepted upon availability and on VERY exceptional
-                            bases only.</p>
-                        <h6>Our working hours Every day: 8AM–8PM (Closed Friday in All Branches)</h6>
-                        <p class="contact_imp_para"><strong>In case of Emergency outside working hours ,</strong> you must
-                            proceed to nearest Accident & Emergency Department if your condition cannot wait till our next
-                            working hours </p>
+                        <h6 class="sub_title_sec">{{ $contactUs->title ?? '' }}</h6>
+                        <h1 class="sec_title">{{ $contactUs->subTitle ?? '' }} </h1>
+                        <p class="cnt_para">{{ $contactUs->content1 ?? '' }}.</p>
+                        <h6>{{ $contactUs->content2 ?? '' }}</h6>
+                        <p class="contact_imp_para"><{{ $contactUs->content3 ?? '' }} </p>
                         <!-- <h6 class="contact_sub_title">Main Branch Muscat - OMAN</h6>
             <ul class="contact_list_icon">
              <li>
@@ -1036,7 +1062,12 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="contact_ushome_img">
-                        <img src="{{ asset('public/assets/images/new-images/contact-us-qs.png') }}" alt="">
+                        @isset($contactUs->imageUpload)
+                        <img src="{{ asset('public/assets/video/'.$contactUs->imageUpload) }}" alt="">
+                            @else
+                            <img src="{{ asset('public/assets/images/new-images/contact-us-qs.png') }}" alt="">
+                        @endisset
+                       
                     </div>
                 </div>
             </div>
@@ -1044,14 +1075,18 @@
     </section>
     <!-- FAQs-2
           ============================================= -->
+          @php
+          $faq=DB::table('faq_images')->first();
+          $allfaq=DB::table('faq')->get();
+         @endphp
     <section id="faqs-2" class="faqs-section faq_section"
-        style="background-image: url({{ asset('public/assets/images/new-images/appointment_bg.jpeg') }});">
+        style="background-image: url({{ asset('public/assets/video/'.$faq->imageUpload) }});">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center_section">
-                        <h6 class="center_sub_title">FAQ</h6>
-                        <h1 class="center_title">Frequently Asked Questions </h1>
+                        <h6 class="center_sub_title">{{ $faq->title ?? '' }}</h6>
+                        <h1 class="center_title">{{ $faq->subTitle ?? '' }} </h1>
                     </div>
                 </div>
             </div>
@@ -1063,13 +1098,16 @@
                     <div class="accordion-wrapper">
                         <ul class="accordion">
 
+
+
+                           @forelse ($allfaq as $allfaq)
+                               
                             <!-- QUESTIONS CATEGORY #1 -->
-                            <li class="accordion-item is-active">
+                            <li class="accordion-item @if ($loop->first) is-active @endif">
 
                                 <!-- CATEGORY HEADER -->
                                 <div class="accordion-thumb">
-                                    <h4 class="s-28 w-700">Why Interventional Radiology treatments are more expensive
-                                        compared to Surgery? </h4>
+                                    <h4 class="s-28 w-700">{{ $allfaq->list1 ?? '' }}</h4>
                                 </div>
 
                                 <!-- CATEGORY ANSWERS -->
@@ -1082,12 +1120,7 @@
                                         <div class="faqs-2-answer color--grey">
 
                                             <!-- Text -->
-                                            <p>This is attributed to high cost of image guiding technologies, increasing
-                                                cost of high tech and complex consumables and pharmaceuticals used to
-                                                perform interventional Radiology procedures, as well as to the uniquely high
-                                                cost IR professional care ««« LEARN MORE about our high level care
-
-                                            </p>
+                                            <p>{{ $allfaq->list1subtitle ?? '' }}</p>
 
                                         </div>
 
@@ -1097,112 +1130,15 @@
 
                             </li> <!-- END QUESTIONS CATEGORY #1 -->
 
-                            <!-- QUESTIONS CATEGORY #2 -->
-                            <li class="accordion-item">
 
-                                <!-- CATEGORY HEADER -->
-                                <div class="accordion-thumb">
-                                    <h4 class="s-28 w-700">I’ve insurance coverage, can I benefit from my plan to get
-                                        treated at Qastarat & Dawali Clinics?
-                                    </h4>
-                                </div>
 
-                                <!-- CATEGORY ANSWERS -->
-                                <div class="accordion-panel">
-                                    <!-- QUESTION #1 -->
-                                    <div class="accordion-panel-item mb-35">
-                                        <!-- Answer -->
-                                        <div class="faqs-2-answer color--grey">
+                            
 
-                                            <p>No .. Our treatment services are primarily based on direct pay. However, some
-                                                insurer do offer reimbursement to their client, especially those with higher
-                                                insurance categories. Our nurse coordinator can help those patients with
-                                                coordinate processing all reports and documents needed to support their
-                                                claims should they need such help. Kindly note, a minimum of 5 working days
-                                                are required to provide needed documents ««« contact our nursing coordinator
-                                            </p>
+                            @empty
+                               
+                            @endforelse
 
-                                        </div>
-                                    </div> <!-- END QUESTION #1 -->
 
-                                </div> <!-- END CATEGORY ANSWERS -->
-
-                            </li> <!-- END QUESTIONS CATEGORY #2 -->
-
-                            <!-- QUESTIONS CATEGORY #3 -->
-                            <li class="accordion-item">
-
-                                <!-- CATEGORY HEADER -->
-                                <div class="accordion-thumb">
-                                    <h4 class="s-28 w-700">Do you offer best price Guarantee protection? and if so how I
-                                        can
-                                        benefit from is this unique service? </h4>
-                                </div>
-
-                                <!-- CATEGORY ANSWERS -->
-                                <div class="accordion-panel">
-
-                                    <!-- QUESTION #1 -->
-                                    <div class="accordion-panel-item mb-35">
-
-                                        <!-- Answer -->
-                                        <div class="faqs-2-answer color--grey">
-
-                                            <!-- Text -->
-                                            <p>YES, for sure! .. if you are offered cheaper price for the exact same IR
-                                                treatment at exact same consultant experience level at other place, then you
-                                                might be eligible for our best price match guarantee with additional 5%
-                                                discount. If you feel you are eligible to this service, then please feel
-                                                free to contact us here any time««« contact CALL CENTER
-
-                                            </p>
-
-                                        </div>
-
-                                    </div> <!-- END QUESTION #1 -->
-
-                                </div> <!-- END CATEGORY ANSWERS -->
-
-                            </li> <!-- END QUESTIONS CATEGORY #3 -->
-
-                            <!-- QUESTIONS CATEGORY #4 -->
-                            <li class="accordion-item">
-
-                                <!-- CATEGORY HEADER -->
-                                <div class="accordion-thumb">
-                                    <h4 class="s-28 w-700">Does Qastarat & Dawali Clinics offer any special offers or
-                                        discounts to their patients?
-                                    </h4>
-                                </div>
-
-                                <!-- CATEGORY ANSWERS -->
-                                <div class="accordion-panel">
-
-                                    <!-- QUESTION #1 -->
-                                    <div class="accordion-panel-item mb-35">
-
-                                        <!-- Answer -->
-                                        <div class="faqs-2-answer color--grey">
-
-                                            <!-- Text -->
-                                            <p>Yes, for sure!.. In order to help our patients access needed treatments,
-                                                variable special discounts are being offered to specific community
-                                                individuals / groups, as well as to patients with limited socio-economics.
-                                                Unfortunately, we are restricted by the exceptionally high cost of delicate
-                                                items, tools, consumable, equipment's, technologies, as well as the highly
-                                                specialized IR professional care needed to deliver such unique treatments to
-                                                our patients at top most safety and efficacy. If you feel eligible to any
-                                                discount benefit, then do not hesitate to ««« contact CALL CENTER
-
-                                            </p>
-
-                                        </div>
-
-                                    </div> <!-- END QUESTION #1 -->
-
-                                </div> <!-- END CATEGORY ANSWERS -->
-
-                            </li> <!-- END QUESTIONS CATEGORY #4 -->
 
                         </ul>
                     </div> <!-- END QUESTIONS ACCORDION -->
@@ -1259,7 +1195,7 @@
                                 <span>Not Registered? Request an access</span>
                             </button> --}}
 
-                            <a href="##" class="note">Forgot password?
+                            <a href="{{ route('patient.forget.password') }}" class="note">Forgot password?
                             </a>
                         </form>
 
@@ -1309,12 +1245,9 @@
                                 <span>Log In</span>
 							</button>
 
-                            {{-- <button title="Sign In" class="sign-in_ggl">
+                         
 
-                                <span>Not Registered? Request an access</span>
-                            </button> --}}
-
-                            <a href="##" class="note">Forgot password?
+                            <a href="{{ route('doctor.forget.password') }}" class="note">Forgot password?
                             </a>
                         </form>
 
@@ -1334,6 +1267,19 @@
                     youtube: {
                         index: 'youtube.com',
                         src: 'https://www.youtube.com/embed/iuLKi84W4F0?si=fDkcliYZEo87X6dR'
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        $('.video-popup').magnificPopup({
+            type: 'iframe',
+            iframe: {
+                patterns: {
+                    youtube: {
+                        index: 'youtube.com',
+                        src: '{{ $videoUrl ?? "#" }}'
                     }
                 }
             }

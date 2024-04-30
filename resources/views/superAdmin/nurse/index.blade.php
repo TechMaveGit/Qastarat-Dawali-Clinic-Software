@@ -56,7 +56,7 @@
    <div class="box-header with-border">
     <div class="top_area">
     <h3 class="box-title">All Staffs</h3>
-    <a href="{{ route('nurses.create') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add Nurse</a>
+    <a href="{{ route('nurses.create') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add Staff</a>
     </div>
 
    </div>
@@ -73,6 +73,7 @@
                    <th>Email Address</th>
                    <th>Staff Type</th>
                    <th>Postal Code</th>
+                    <th>Status</th>
                    <th>Action</th>
 
                </tr>
@@ -104,13 +105,22 @@
                    <td>{{ $allnurse->email}}</td>
                    <td>{{ $allnurse->user_type}}</td>
                    <td>{{ $allnurse->post_code}}</td>
+
+                   @if($allnurse->status)
+                   <td>{{ ucfirst($allnurse->status) }}</td>
+                   @else
+                   <td>Inactive</td>
+                   @endif
+
+
                    <td>
                    <div class="btn-group">
                         <a class="hover-primary dropdown-toggle no-caret" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
                         <div class="dropdown-menu">
                         <!-- <a class="dropdown-item" href="#">View Details</a> -->
                         <a class="dropdown-item" href="{{ route('nurses.edit',['id'=>$allnurse->id]) }}">Edit</a>
-                        <a  onclick="remove_nurse({{ $allnurse->id }})" class="dropdown-item">Delete</a>
+                        <a class="dropdown-item" href="{{ route('nurses.view',['id'=>$allnurse->id]) }}">View Detail</a>
+                        <!--<a  onclick="remove_nurse({{ $allnurse->id }})" class="dropdown-item">Delete</a>-->
 
                     </div>
                     </div>

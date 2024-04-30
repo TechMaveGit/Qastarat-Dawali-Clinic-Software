@@ -13,13 +13,21 @@ use DB;
 class NurseController extends Controller
 {
 
+    public function view(Request $request,$id)
+    {
+        $data['doctor']=Doctor::whereId($id)->first();
+        $currentDate = now();
+        $data['tasks']=DB::table('tasks')->where('doctor_id',$id)->whereDate('created_at', $currentDate)->get();
+        return view('superAdmin.nurse.view',$data);
+    }
+
     public function index()
     {
-        $data['nurse'] =   Doctor::select('id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'post_code', 'mobile_no', 'user_type')
+        $data['nurse'] =   Doctor::select('id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'mobile_no', 'user_type')
                                     ->whereNotIn('user_type', ['doctor', 'radiology','pathology'])
                                     ->orderBy('id', 'desc')
                                     ->get();
-                            
+
 
         $data['role'] = DB::table('roles')->where('id','!=',1)->get();
         return view('superAdmin.nurse.index',$data);
@@ -27,10 +35,10 @@ class NurseController extends Controller
 
     public function create(Request $request)
     {
+        
+        $data['branchs'] = DB::table('branchs')->where('status','1')->get();
         if(request()->isMethod("post"))
         {
-
-           
             $request->validate([
                 'email' => [
                     'required',
@@ -79,21 +87,22 @@ class NurseController extends Controller
                 'gendar.required' => 'Gender  is required.',
                 'title.required' => 'Title  is required.',
             ]);
-            
-            
+
+
             $nurses = $request->except(['_token','submit','WorkUnder']);
+
             if ($request->hasFile('patient_profile_img'))
             {
-                
+
                 $files = $request->file('patient_profile_img');
-                
+
                 $destinationPath = 'public/assets/nurse_profile';
                 $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $file_name);
-             
+
                 $nurses['patient_profile_img'] = $file_name;
             }
-           
+
             if($nurses['role_id']==11){
                 $nurses['doctor_id'] = "CO".rand('00000','99999'.'0');
                 $nurses['user_type'] = 'Coordinator';
@@ -112,10 +121,8 @@ class NurseController extends Controller
                 $nurses['user_type'] = 'Nurse';
             }
 
-           
-
-
             $nurses['role_id'] = intval($nurses['role_id']);
+            $nurses['status'] = 'active';
             $nurses['password'] = Hash::make($request->input('password'));
             $currentDate = $request->input('birth_date');
              // Regular expressions to match the two date formats
@@ -133,7 +140,7 @@ class NurseController extends Controller
                  // '14-Jun-2004' format matches
                  $carbonDate = Carbon::createFromFormat('d-M-Y', $currentDate);
              }
-            
+
             $nurses['birth_date']=$carbonDate->format('d M, Y');
             $nurse = Doctor::create($nurses);
             $lastInsertedId = $nurse->id;
@@ -142,30 +149,59 @@ class NurseController extends Controller
              //    dd(intval($doctor[0]));
                     if (isset($doctor) && !empty($doctor)) {
                          $hgcount1 = count($doctor);
- 
+
                     for ($i = 0; $i < $hgcount1; $i++)
                      {
                          DB::table('nurse_doctor')->insert([
                                              'nurse_id' =>  $lastInsertedId,
                                              'doctor_id' => intval($doctor[$i])
-                                             
-                                             
+
+
                                          ]);
                      }
                  }
-            return to_route('nurses.index')->with('message', 'Nurse Updated Successfully.');
+
+                 $branchName=$request->input('selectBranch');
+                 $branchName = json_decode(json_encode($branchName));
+                 if ($branchName) {
+                     $branchName = count($branchName);
+                 }
+                 if ($branchName > 0) 
+                 {
+                     for ($i = 0; $i < $branchName; $i++) 
+                       {
+                             DB::table('user_branchs')->insertGetId([
+                                 'patient_id'        => $lastInsertedId,
+                                 'add_branch'        => $request->input('selectBranch')[$i],
+                                 'branch_type'       => 'staff'
+                             ]);
+                       }
+                 }
+
+
+
+            return to_route('nurses.index')->with('message', 'Staff Updated Successfully.');
         }
         $data['roles'] = DB::table('roles')
                             ->where('id', '!=', 1)
+                            ->where('status','1')
                             ->get();
-                            
+
         return view('superAdmin.nurse.create',$data);
     }
+
+
+
 
     public function edit(Request $request,$id)
     {
 
-        $data['nurse']=Doctor::whereId($id)->first();
+
+           $data['nurse']=Doctor::whereId($id)->first();
+
+           $user_branchs = DB::table('user_branchs')->where('patient_id',$id)->get();
+           $data['user_branchs']  = $user_branchs->pluck('add_branch')->toArray();
+
         $data['id']= $id;
         if(request()->isMethod("post"))
         {
@@ -187,32 +223,36 @@ class NurseController extends Controller
                     Rule::unique('doctors')->ignore($id),
                 ],
             ]);
+
+            $role_name= DB::table('roles')->where('id',$request->input('role_id'))->first();
+
             $nurse = $request->except(['_token','submit','WorkUnder']);
+            $nurse['user_type']   = $role_name->name??'';
+
             $nurse_info=Doctor::findOrFail($id);
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
                 $destinationPath = 'public/assets/nurse_profile';
-            
+
                 // Get the existing file path from the database
                 $existingFilePath = $nurse_info->patient_profile_img;
-            
+
                 // If an existing file exists, delete it
                 if ($existingFilePath && file_exists(public_path($existingFilePath))) {
                     unlink(public_path($existingFilePath));
                 }
-           
+
                 $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $file_name);
                  $nurse['patient_profile_img'] = $file_name;
             }
             if($request->has('password') && isset($request->password)){
-                
                 $nurse['password'] = Hash::make($request->input('password'));
-
             }
-            
+            else{
+                $nurse['password'] = $data['nurse']->password;
+            }
 
-            
             $currentDate = $request->input('birth_date');
              // Regular expressions to match the two date formats
              $regexDMY = '/^\d{2}-\d{2}-\d{4}$/';
@@ -231,17 +271,16 @@ class NurseController extends Controller
              }
                 $nurse['birth_date'] = $carbonDate->format('d M, Y');
 
-
                 $result= DB::table('nurse_doctor')->where('nurse_id',$id)->delete();
                 $doctor = $request->input('WorkUnder');
                 if(isset($doctor) && !empty($doctor)){
 
                     // doctor insert
-                
+
                 //    dd(intval($doctor[0]));
                        if (isset($doctor) && !empty($doctor)) {
                             $hgcount1 = count($doctor);
-    
+
                        for ($i = 0; $i < $hgcount1; $i++)
                         {
                             DB::table('nurse_doctor')->insert([
@@ -254,8 +293,31 @@ class NurseController extends Controller
                 }
 
                 $nurse_info->update($nurse);
-            return to_route('nurses.index')->with('message', 'Nurse Updated Successfully.');
+
+
+
+                DB::table('user_branchs')->where('patient_id',$id)->where('branch_type','staff')->delete();
+
+                $branchName=$request->input('selectBranch');
+                 $branchName = json_decode(json_encode($branchName));
+                 if ($branchName) {
+                     $branchName = count($branchName);
+                 }
+                 if ($branchName > 0) 
+                 {
+                     for ($i = 0; $i < $branchName; $i++) 
+                       {
+                             DB::table('user_branchs')->insertGetId([
+                                 'patient_id'        => $id,
+                                 'add_branch'        => $request->input('selectBranch')[$i],
+                                 'branch_type'       => 'staff'
+                             ]);
+                       }
+                 }
+
+                return to_route('nurses.index')->with('message', 'Staff Updated Successfully.');
         }
+
         return view('superAdmin.nurse.edit',$data);
     }
 
@@ -268,7 +330,7 @@ class NurseController extends Controller
             $validated['birth_date']=$carbonDate->format('d M, Y');
         Doctor::create($validated);
 
-        return to_route('nurses.index')->with('message', 'Nurse Created successfully.');
+        return to_route('nurses.index')->with('message', 'Staff Created successfully.');
     }
 
 
@@ -286,7 +348,7 @@ class NurseController extends Controller
         $validated['birth_date']=$carbonDate->format('d M, Y');
         $user->update($validated);
 
-        return to_route('nurses.index')->with('message', 'Nurse Updated successfully.');
+        return to_route('nurses.index')->with('message', 'Staff Updated successfully.');
     }
 
     public function nurse_delete(Request $request)
@@ -295,19 +357,19 @@ class NurseController extends Controller
         $id = $request->common;
         $Doctor=Doctor::findOrFail($id);
         // dd($patient);
-        
+
             $files = $request->file('patient_profile_img');
             $destinationPath = 'public/assets/doctor_profile/';
-        
+
             // Get the existing file path from the database
             $existingFilePath = $Doctor->patient_profile_img;
             $destinationPath=$destinationPath.$existingFilePath;
-            
+
             if (isset($existingFilePath) && file_exists(public_path($destinationPath))) {
-              
+
                 unlink(public_path($existingFilePath));
             }
-        
+
             $Doctor->delete();
 
         return to_route('nurses.index')->with('message', 'Doctor deleted.');

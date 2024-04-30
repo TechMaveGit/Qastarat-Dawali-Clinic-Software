@@ -873,8 +873,8 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[9][0]" id="sym_a9" value="Recurrent miscarriage">
-                                                    <label class="form-check-label" for="sym_a9">
+                                                        name="symptoms[9][0]" id="sym_a11" value="Recurrent miscarriage">
+                                                    <label class="form-check-label" for="sym_a11">
                                                         Recurrent miscarriage
                                                     </label>
                                                 </div>
@@ -1574,7 +1574,7 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                                     <th>Mild LUTS </th>
                                                     <th>(0-15 pts)</th>
                                                 </tr>
-                                                <tr id="moderateLUTS" class="hidden">>
+                                                <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
                                                     <th>Moderate LUTS </th>
                                                     <th>(16-35 pts) </th>
@@ -3393,16 +3393,16 @@ var isChecked_sym_a9 = $("#sym_a9").is(":checked");
 
 
 //  Recurrent miscarriage start
-var isChecked_sym_a9 = $("#sym_a9").is(":checked");
+var isChecked_sym_a11 = $("#sym_a11").is(":checked");
            
-           var _sym_a9_durationValue = $("select[name='symptoms[9][1]']").val();
+           var _sym_a11_durationValue = $("select[name='symptoms[9][1]']").val();
            
-           var _sym_a9_durationType = $("select[name='symptoms[9][2]']").val();
-           var _sym_a9_description = $("textarea[name='symptoms[9][3]']").val();
+           var _sym_a11_durationType = $("select[name='symptoms[9][2]']").val();
+           var _sym_a11_description = $("textarea[name='symptoms[9][3]']").val();
 
-           if (_sym_a9_durationValue !== "" || _sym_a9_durationType !== "" || _sym_a9_description !== "") {
+           if (_sym_a11_durationValue !== "" || _sym_a11_durationType !== "" || _sym_a11_description !== "") {
               
-               if(isChecked_sym_a9 ===false){
+               if(isChecked_sym_a11 ===false){
                    
                    Swal.fire({
                            icon: 'error',
@@ -3411,7 +3411,7 @@ var isChecked_sym_a9 = $("#sym_a9").is(":checked");
                            confirmButtonText: 'OK'
                        }).then(function () {
                            setTimeout(function() {
-                               var elementToScroll = document.getElementById('sym_a9');
+                               var elementToScroll = document.getElementById('sym_a11');
                                if (elementToScroll) {
                                    // Scroll to the element's position
                                    elementToScroll.scrollIntoView({ behavior: "smooth", block: "center" });

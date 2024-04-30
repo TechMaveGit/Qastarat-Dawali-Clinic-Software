@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-	<link class="dark-theme-img" rel="icon" href="{{ asset('public/assets/images/new-images/logofwhite.png') }}" type="image/x-icon">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+	<link class="dark-theme-img" rel="icon" href="{{ asset('public/assets/images/new-images/imgpsh_fullsize_anim (1).png') }}" type="image/x-icon">
 
     @stack('title')
 
@@ -22,7 +23,7 @@
 	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/skin_color.css')}}">
 	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/custom.css')}}">
-	
+
 	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/sumoselect.min.css')}}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -30,12 +31,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<link href="{{ url('public/assets') }}/css/flaticon.css" rel="stylesheet">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+   <link href="{{ asset('public/assets/css/toastr.min.css')}}" rel="stylesheet">
+ <!-- CHARTJS JS -->
+ <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 	<style>
+	.website_icon iconify-icon {
+	font-size: 17px;
+}
+.website_icon li a{
+	display:flex;
+	align-items:center;
+	gap:10px;
+}
 		/* Position the wrap-input relative to serve as a container */
 	.wrap-input {
 		position: relative;
 	}
-	
+
 	/* Absolute position for the icon */
 	.btn-show-pass {
 		position: absolute;
@@ -45,15 +61,24 @@
 		cursor: pointer;
 		z-index: 1; /* Ensure the icon is above the input */
 	}
-	
+
 	/* Adjust input padding to make space for the icon */
 	.form-control {
 		padding-right: 40px; /* Adjust as needed based on the icon size */
 	}
-	
+    .modal-dialog {
+    max-width: 800px;
+    margin: 1.75rem auto;
+}
+
 			</style>
     @stack('custom-css')
 	<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+	<!-- sweetalert2 asset CSS and JS -->
+
+	<script src="{{ url('public/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
+
+	<link rel="stylesheet" href="{{ url('public/assets') }}/libs/sweetalert2/sweetalert2.min.css">
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-success fixed">
@@ -62,18 +87,19 @@
 
  <script>
 
-    @if(Session::has('message'))
+@if(Session::has('message'))
+    swal.fire({
+        title: 'Success',
+        text: '{{ session("message") }}',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1000 // 1000 milliseconds = 1 second
 
-    toastr.options =
+    });
+@endif
 
-    {
 
-        "closeButton" : true,
 
-        "progressBar" : true
-
-    }
-        toastr.success("{{ session('message') }}");    @endif
     @if(Session::has('error'))
 
     toastr.options =
@@ -226,10 +252,10 @@
 			</ul>
 		  </li> --}}
 
+
           <!-- Control Sidebar Toggle Button -->
 
-
-	      <!-- User Account-->
+	       <!-- User Account-->
           <li class="dropdown user user-menu">
             <a href="#" class="waves-effect waves-light dropdown-toggle w-auto l-h-12 bg-transparent py-0 no-shadow" data-bs-toggle="dropdown" title="User">
 				<div class="d-flex pt-5">
@@ -242,7 +268,7 @@
             </a>
             <ul class="dropdown-menu animated flipInX">
               <li class="user-body">
-				 <a class="dropdown-item" href="#"><i class="ti-user text-muted me-2"></i> Profile</a>
+				 <a class="dropdown-item" href="{{ route('super-admin.profile') }}"><i class="ti-user text-muted me-2"></i> Profile</a>
 				 <!-- <a class="dropdown-item" href="#"><i class="ti-wallet text-muted me-2"></i> My Wallet</a>
 				 <a class="dropdown-item" href="#"><i class="ti-settings text-muted me-2"></i> Settings</a> -->
 				 <div class="dropdown-divider"></div>
@@ -277,6 +303,7 @@
 					<li><a href="index4.html"><i class="fa-solid fa-minus"></i>Dashboard 4</a></li>
 				  </ul> -->
 				</li>
+
 				<li class="{{  request()->routeIs('permissions.index') ? 'active': '' }}" >
 				  <a href="{{ route('permissions.index') }}">
 					<i data-feather="unlock"></i>
@@ -292,18 +319,24 @@
 
 				  </a>
 				</li>
+
+
 				<li class="{{  request()->routeIs('doctors.index') ? 'active': '' }}">
 				  <a href="{{ route('doctors.index') }}">
 					<i data-feather="activity"></i>
 					<span>Doctors</span>
-
 				  </a>
-
-
 				</li>
 
+                <li class="{{  request()->routeIs('nurses.index') ? 'active': '' }}">
+                    <a {{ Route::is('nurses.index') ? 'active' : '' }} href="{{ route('nurses.index') }}">
+                      <i data-feather="activity"></i>
+                      <span>Staff</span>
+                    </a>
+                  </li>
 
-				<li class="treeview  {{ Route::is('nurses.index','nurses.edit','nurses.create', 'accountants.index','accountants.edit', 'accountants.create','telecallers.index') ? 'active menu-open' : '' }} ">
+
+				{{-- <li class="treeview  {{ Route::is('nurses.index','nurses.edit','nurses.create', 'accountants.index','accountants.edit', 'accountants.create','telecallers.index') ? 'active menu-open' : '' }} ">
 				  <a href="#">
 					<i data-feather="user"></i>
 					<span>Staff</span>
@@ -316,8 +349,7 @@
 					<li class="{{ Route::is('accountants.index') ? 'active' : '' }}"><a href="{{ route('accountants.index') }}"><i class="fa-solid fa-minus"></i>Accountant</a></li>
 					<li class="{{ Route::is('telecallers.index') ? 'active' : '' }}"><a href="{{ route('telecallers.index') }}"><i class="fa-solid fa-minus"></i>Telecaller</a></li>
 				  </ul>
-				</li>
-
+				</li> --}}
 
                   <li class="{{ Route::is('pathology.index') ? 'active' : '' }}">
 					<a href="{{ route('pathology.index') }}">
@@ -333,10 +365,16 @@
                         <i data-feather="image"></i>
 					  <span>Radiology Department</span>
 					</a>
-
 				  </li>
 
-				  <li class="treeview">
+                    <li class="{{ Route::is('price.radiologyPriceList') ? 'active' : '' }}">
+                        <a href="{{ route('price.radiologyPriceList')}}"><i data-feather="image"></i><span>Appointments and Services</span></a>
+                    </li>
+
+
+
+
+				  {{-- <li class="treeview">
 					<a href="javascript:void(0)">
 					  <i data-feather="image"></i>
 					  <span>Price Management</span>
@@ -345,14 +383,16 @@
 					</span>
 					</a>
 
-					<ul class="treeview-menu" {{ Route::is('price.pathologyPriceList','price.radiologyPriceList','price.radiologyPriceList') ? 'active menu-open' : '' }}>
+					 <ul class="treeview-menu" {{ Route::is('price.pathologyPriceList','price.radiologyPriceList','price.radiologyPriceList') ? 'active menu-open' : '' }}>
 							<li {{ Route::is('price.pathologyPriceList') ? 'active' : '' }}><a href="{{ route('price.pathologyPriceList') }}"><i class="fa-solid fa-minus"></i> Pathology Price</a></li>
 							<li {{ Route::is('price.radiologyPriceList') ? 'active' : '' }}><a href="{{ route('price.radiologyPriceList') }}"><i class="fa-solid fa-minus"></i> Radiology Price</a></li>
 							<li><a href="{{ route('expense.index') }}"><i class="fa-solid fa-minus"></i> Other Price</a></li>
-					</li>
-					<!-- <li><a href="radiology-department-create.php" class="create_new"><i data-feather="plus-circle"></i> Create New Radio..</a></li> -->
-				  </ul>
-				  </li>
+
+
+				    </ul>
+				  </li> --}}
+
+
 
 
 				<li>
@@ -362,20 +402,37 @@
 
 				  </a>
 				</li>
-				<li class="treeview">
-				  <a href="#">
-					<i data-feather="globe"></i>
-					<span>Web Management</span>
-					<span class="pull-right-container">
-					  <i class="fa fa-angle-right pull-right"></i>
-					</span>
+
+
+				<li>
+                    <a href="{{ route('snippets') }}">
+					<i data-feather="map-pin"></i>
+					<span>Snippet</span>
+
 				  </a>
-				  <ul class="treeview-menu">
-					<li><a href="error_404.html"><i class="fa-solid fa-minus"></i>Error 404</a></li>
-					<li><a href="error_500.html"><i class="fa-solid fa-minus"></i>Error 500</a></li>
-					<li><a href="error_maintenance.html"><i class="fa-solid fa-minus"></i>Maintenance</a></li>
-				  </ul>
 				</li>
+				<li class="treeview  {{ Route::is('footers.footer','faqs.faq','contactUs.contactUs', 'ourTeams.ourTeam','ourBranches.ourBranch', 'ourUniqueSoftwares.ourUniqueSoftware','ourServices.ourService','ourTreatments.ourTreatment','aboutUs.aboutUs','homes.index') ? 'active menu-open' : '' }} ">
+					<a href="#">
+					  <i data-feather="globe"></i>
+					  <span>Website</span>
+					  <span class="pull-right-container">
+						
+						<i class="fa fa-angle-right pull-right"></i>
+					  </span>
+					</a>
+					<ul class="treeview-menu website_icon">
+					  <li class="{{ Route::is('homes.index') ? 'active' : '' }}"><a href="{{ route('homes.index') }}"><iconify-icon icon="carbon:home"></iconify-icon> Home</a></li>
+					  <li class="{{ Route::is('aboutUs.aboutUs') ? 'active' : '' }}"><a href="{{ route('aboutUs.aboutUs') }}"><iconify-icon icon="mdi:about-circle-outline"></iconify-icon> About Us</a></li>
+					  <li class="{{ Route::is('ourTreatments.ourTreatment') ? 'active' : '' }}"><a href="{{ route('ourTreatments.ourTreatment') }}"><iconify-icon icon="healthicons:hospitalized-outline"></iconify-icon>Our Treatments</a></li>
+					  <li class="{{ Route::is('ourServices.ourService') ? 'active' : '' }}"><a href="{{ route('ourServices.ourService') }}"><iconify-icon icon="grommet-icons:services"></iconify-icon> Our Services</a></li>
+					  <li class="{{ Route::is('ourUniqueSoftwares.ourUniqueSoftware') ? 'active' : '' }}"><a href="{{ route('ourUniqueSoftwares.ourUniqueSoftware') }}"><iconify-icon icon="carbon:software-resource-cluster"></iconify-icon> Our Unique Softwares</a></li>
+					  <li class="{{ Route::is('ourBranches.ourBranch') ? 'active' : '' }}"><a href="{{ route('ourBranches.ourBranch') }}"><iconify-icon icon="fluent:branch-24-regular"></iconify-icon> Our Branches</a></li>
+					  <li class="{{ Route::is('ourTeams.ourTeam') ? 'active' : '' }}"><a href="{{ route('ourTeams.ourTeam') }}"><iconify-icon icon="fluent:people-team-16-regular"></iconify-icon> Our Teams</a></li>
+					  <li class="{{ Route::is('contactUs.contactUs') ? 'active' : '' }}"><a href="{{ route('contactUs.contactUs') }}"><iconify-icon icon="pixelarticons:contact-plus"></iconify-icon> Contact Us</a></li>
+					  <li class="{{ Route::is('faqs.faq') ? 'active' : '' }}"><a href="{{ route('faqs.faq') }}"><iconify-icon icon="wpf:faq"></iconify-icon> FAQ</a></li>
+					  <li class="{{ Route::is('footers.footer') ? 'active' : '' }}"><a href="{{ route('footers.footer') }}"><iconify-icon icon="fluent-mdl2:footer"></iconify-icon> Footer</a></li>
+					</ul>
+				  </li>
 			  </ul>
 
 

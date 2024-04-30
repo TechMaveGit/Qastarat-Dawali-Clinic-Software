@@ -4445,7 +4445,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                                         ).then(function() {
                                                 
                                                
-                                            var redirectUrl = "{{ route('user.viewMSKPainEligibilityForms', ['id' => ':id']) }}";
+                                            var redirectUrl = "{{ route('user.viewShoulderPainEligibilityForms', ['id' => ':id']) }}";
                                             redirectUrl = redirectUrl.replace(':id', patientId);
                                             window.location.href = redirectUrl;
                                             });

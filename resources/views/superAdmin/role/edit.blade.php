@@ -4,8 +4,8 @@
 	  <div class="container-full">
 	<!-- Content Header (Page header) -->
     <div class="content-header">
-        <div class="d-flex">   
-        <h4 class="page-title">Edit Role & Permission</h4>     
+        <div class="d-flex">
+        <h4 class="page-title">Edit Role & Permission</h4>
         <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">User Permission</a></li>
@@ -34,7 +34,7 @@
                                         <label class="form-label" for="exampleInputEmail1">Role Name</label>
                                         <input type="text" class="form-control" name="name" value="{{ $roleDetail->name}}" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" placeholder="">
-                                    </div>    
+                                    </div>
                                 </div>
 
 
@@ -53,9 +53,6 @@
                                     </div>
                                 </div>
 
-
-
-
                             </div>
 
                         </div>
@@ -71,7 +68,7 @@
          <div class="col-lg-12">
             <div class="box">
                <div class="box-header box_h">
-                    <div class="top_section_title">  
+                    <div class="top_section_title">
                         <h5>Patient</h5>
                     </div>
                 </div>
@@ -82,10 +79,10 @@
 
                     <th>Patient Action </th>
                     <th>Add  Patient </th>
-                    <th>Add  Medical Record </th>
+                    {{-- <th>Add  Medical Record </th> --}}
                     <th>View Medical Record</th>
                     <th>View Patient</th>
-                    <th>Show Patient </th>
+                    {{-- <th>Show Patient </th> --}}
                     <th>Edit Patient </th>
                     </tr>
                     </thead>
@@ -120,7 +117,7 @@
           <div class="col-lg-12">
             <div class="box">
                <div class="box-header box_h">
-                    <div class="top_section_title">  
+                    <div class="top_section_title">
                         <h5>Invoices </h5>
                     </div>
                 </div>
@@ -130,10 +127,8 @@
 
                     <tr>
                         <th>Patient Action </th>
-                        <th>Invoices</th>
-                        <th>Add  Invoice </th>
-                        <th>Edit  Invoice </th>
-                        <th>View Invoice</th>
+                        <th>Print Invoice </th>
+                        <th>Share Invoice</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -166,7 +161,7 @@
           <div class="col-lg-12">
             <div class="box">
                <div class="box-header box_h">
-                    <div class="top_section_title">  
+                    <div class="top_section_title">
                         <h5>Task </h5>
                     </div>
                 </div>
@@ -178,7 +173,7 @@
                         <th>Patient Action </th>
                         <th>View Task</th>
                         <th>Assign Task </th>
-                      
+
                     </tr>
                     </thead>
                     <tbody>
@@ -208,6 +203,51 @@
           </div>
 
 
+          <div class="col-lg-12">
+            <div class="box">
+               <div class="box-header box_h">
+                    <div class="top_section_title">
+                        <h5>Calendar</h5>
+                    </div>
+                </div>
+                <div class="box-body box_body_h">
+                <table class="table table-bordered table-hover mb-0" id="RoleTbl">
+                    <thead>
+
+                    <tr>
+                        <th>Calendar Action </th>
+                        <th>View Calendar</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+
+                        <td class="text-">Action</td>
+                                @foreach($permission as $key=>$value)
+                                @if ($value->verify_status=='4')
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}">
+                                        <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
+                                        </label>
+                                    </div>
+                                </td>
+                                @endif
+                                @endforeach
+                        </td>
+
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+
+
+             
+
 
          </div>
 
@@ -225,4 +265,20 @@
 
       </div>
  </div>
+
+
+ <script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="status"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
+
+
+
  @endsection

@@ -1504,7 +1504,7 @@
                                                     <th>Mild LUTS </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
-                                                <tr id="moderateLUTS" class="hidden">>
+                                                <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
                                                     <th>Moderate LUTS </th>
                                                     <th>(8-19 pts) </th>
@@ -3514,7 +3514,7 @@ var isChecked_sym_a9 = $("#sym_a9").is(":checked");
 
 
 //  Recurrent Urinary infections start
-var isChecked_sym_a9 = $("#sym_a10").is(":checked");
+var isChecked_sym_a10 = $("#sym_a10").is(":checked");
            
            var _sym_a10_durationValue = $("select[name='symptoms[9][1]']").val();
            

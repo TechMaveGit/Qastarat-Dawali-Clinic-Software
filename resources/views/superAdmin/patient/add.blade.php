@@ -13,8 +13,12 @@
                 </ol>
             </nav>
         </div>
-          
+
 		</div>
+
+
+
+
         <section class="content">
         <div class="row">
         <div class="col-12">
@@ -81,7 +85,7 @@
                                     @forelse ($doctors as $alldoctors)
                                        <option value="{{$alldoctors->id}}">{{$alldoctors->name}}</option>
                                     @empty
-                                        
+
                                     @endforelse
                                 </select>
                             </div>
@@ -166,7 +170,7 @@
                               <input name="file1" type="file" class="dropify" data-height="100" />
                               </div>
                             </div>
-                            
+
 
 
                         <div class="col-md-3">
@@ -189,11 +193,11 @@
                     </div>
                   </div>
                 </div>
-                <!-- /.box -->      
+                <!-- /.box -->
             </div>
           </div>
         </section>
-        
+
       </div>
  </div>
 @endsection

@@ -78,7 +78,8 @@
                                     <!-- /.input group -->
                                 </div>
                         </div>
-                            <div class="col-md-3">
+
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Gender</label>
                                 <select class="form-control select2" name="gendar" style="width: 100%;">
@@ -95,16 +96,56 @@
                         </div>
 
 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-control select2" name="status" style="width: 100%;">
+                                    <option value="">Select Any One</option>
+                                    <option value="1" {{ $patientId->status == '1' ? 'selected="selected"' : '' }}>Active</option>
+                                    <option value="0" {{ $patientId->status == '0' ? 'selected="selected"' : '' }}>Inactive</option>
+                                </select>
+                                @error('status')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
+                            </div>
+                        <!-- /.form-group -->
+                        </div>
 
-                        <div class="col-md-3">    
-                            <div class="form-group">  
+
+                        @php
+                        $branchs = DB::table('branchs')->where('status', '1')->get();
+                        // Get array of selected branch IDs
+                  @endphp
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Add Branch
+                            </label>
+                            <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple required>
+                                <option value="">Select Any One</option>
+                                @forelse ($branchs as $branch)
+                                    <option value="{{ $branch->id }}" {{ in_array($branch->id, $user_branchs) ? 'selected' : '' }}>
+                                        {{ $branch->branch_name }}
+                                    </option>
+                                @empty
+                                    <!-- Handle case where no branches are available -->
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label class="form-label">Add Doctor</label>
                                 <select class="form-control select2" name="doctorName" style="width: 100%;" required>
                                      <option value="">Select Any One</option>
                                     @forelse ($doctors as $alldoctors)
                                        <option value="{{$alldoctors->id}}" {{ $alldoctors->id == $patientId->doctor_id ? 'selected' : '' }} >{{$alldoctors->name}}</option>
                                     @empty
-                                        
+
                                     @endforelse
                                 </select>
                             </div>
@@ -155,7 +196,7 @@
                             <div class="form-group">
                                 <label class="form-label">Password <span class="clr"></span></label>
                                 <div class="wrap-input">
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                    <input type="password" name="password" id="password" class="form-control password" placeholder="" autocomplete="new-password">
                                     <span class="btn-show-pass ico-20 " >
                                         <span class="  eye-pass flaticon-visibility "></span>
                                     </span>
@@ -168,7 +209,7 @@
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Mobile Phone</label>
-                            <input type="text" value="{{ $patientId->mobile_no }}" name="mobile_no" class="form-control" placeholder="" minlength="10" maxlength="15">
+                            <input type="tel" value="{{ $patientId->mobile_no }}" name="mobile_no" class="form-control" placeholder="" minlength="10" maxlength="15">
                             @error('mobile_no')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -177,7 +218,7 @@
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Landline</label>
-                            <input type="text" value="{{ $patientId->landline }}" name="landline" class="form-control" placeholder="">
+                            <input type="tel" value="{{ $patientId->landline }}" name="landline" class="form-control" placeholder="">
                             @error('landline')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -217,11 +258,14 @@
                         @enderror
                         </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Country</label>
-                                <select class="form-control" id="countries" name="country" style="width: 100%;">
-
+                                <select class="form-control select2"  name="country" style="width: 100%;">
+                                    <option value="">Select Any One</option>
+                                    <option value="India" {{ $patientId->country == 'India' ? 'selected' : '' }}>India</option>
+                                    <option value="USA" {{ $patientId->country == 'USA' ? 'selected' : '' }}>USA</option>
                                 </select>
                                 @error('country')
                             <span class="error text-danger">{{ $message }}</span>
@@ -231,10 +275,10 @@
                         </div>
 
 
-                       
-                       
 
-                       
+
+
+
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Document Type</h4>
@@ -263,7 +307,7 @@
                               </div>
                             </div>
 
-                            
+
                         {{-- <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Patient Id</label>
@@ -292,4 +336,30 @@
 
       </div>
  </div>
+
+
+ <script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="country"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
+
+
+<script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="status"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
 @endsection

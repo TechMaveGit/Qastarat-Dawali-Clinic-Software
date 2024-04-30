@@ -10,8 +10,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\Controller;
+use App\Models\superAdmin\Doctor;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use App\Mail\ForgetPasswordMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 class DoctorAuthController extends Controller
 {
     public function login(Request $request)
@@ -51,27 +57,185 @@ class DoctorAuthController extends Controller
         }
 
     }
+    
 
     public function staffLogin(Request $request)
     {
         
         $credentials = $request->only('email', 'password');
-        if (Auth::guard('doctor')->once($credentials)) {
-            Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password]);
-                
+        if (Auth::guard('doctor')->once($credentials)) 
+        {  
+            Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password]);        
             return response()->json(['error' => 200]);
         }
         else {
-            
             return response()->json(['error' => 'Invalid email or password'], 422);
         }
 
     }
 
     public function profile()
-    {
-        return view('back/profile');
+    {     
+        $doctor =Doctor::select('id','email','role_id','password','user_type','patient_profile_img','name','title')->find(auth('doctor')->user()->id);
+        return view('back/profile',compact('doctor'));
     }
+
+    public function updateProfile(Request $request)
+    
+    {
+        $doctor_id=auth('doctor')->user()->id;
+       
+        $request->validate([
+            'email' => [
+                'required',
+                Rule::unique('doctors','email')->ignore($doctor_id)
+            ],
+            'title' => 'required',
+            'name' => 'required',
+        ]);
+        $doctor=Doctor::find($doctor_id);
+        $temp_data=[];
+        $data= $request->only('id','email','password','user_type','patient_profile_img','name','title');
+
+        if(isset($data['password'])){
+        $temp_data['password']= Hash::make($data['password']);
+        }
+        if(isset($data['patient_profile_img'])){
+
+      //     return $doctor;
+
+        // doctor
+        if($doctor->role_id=='1'){
+            // if(isset($doctor->patient_profile_img)){
+            //     unlink('public/assets/doctor_profile'.'/'.$doctor->patient_profile_img);
+            // }
+            $image = $data['patient_profile_img'];
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/profileImage'), $new_name);
+            $temp_data['patient_profile_img'] = $new_name;
+
+        }
+        // Nurse
+        if($doctor->role_id=='2'){
+            // if(isset($doctor->patient_profile_img)){
+            //     unlink('public/assets/nurse_profile'.'/'.$doctor->patient_profile_img);
+            // }
+            $image = $data['patient_profile_img'];
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/nurse_profile'), $new_name);
+            $temp_data['patient_profile_img'] = $new_name;
+
+        }
+         // Accountant
+         if($doctor->role_id=='5'){
+            // if(isset($doctor->patient_profile_img)){
+            //     unlink('public/assets/accountant_profile'.'/'.$doctor->patient_profile_img);
+            // }
+            $image = $data['patient_profile_img'];
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/nurse_profile'), $new_name);
+            $temp_data['patient_profile_img'] = $new_name;
+
+        }
+         // Telecaller
+         if($doctor->role_id=='6'){
+            // if(isset($doctor->patient_profile_img)){
+            //     unlink('public/assets/telecaller_profile'.'/'.$doctor->patient_profile_img);
+            // }
+            $image = $data['patient_profile_img'];
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/nurse_profile'), $new_name);
+            $temp_data['patient_profile_img'] = $new_name;
+        }
+   
+         // Telecaller
+         if($doctor->role_id=='11'){
+            // if(isset($doctor->patient_profile_img)){
+            //     unlink('public/assets/accountant_profile'.'/'.$doctor->patient_profile_img);
+            // }
+            $image = $data['patient_profile_img'];
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/nurse_profile'), $new_name);
+            $temp_data['patient_profile_img'] = $new_name;
+        }
+
+        
+
+     }
+     $temp_data['email']=$data['email'];
+     $temp_data['name']=$data['name'];
+     $temp_data['title']=$data['title'];
+    
+    $result= $doctor->update($temp_data);
+    if($result){
+        return redirect()->back()->with('status','User Profile Updated Successfully!');
+    }else{
+        return redirect()->back()->with('status','Failed to update user Profile!');
+    }
+    
+
+    }
+
+
+    public function forgetPassword()
+    {
+        return view('back/forget-password');
+    }
+    public function postForgetPassword(Request $request)
+    {
+       
+        $user = Doctor::getEmailSingle($request->email);
+        if (!empty($user)) {
+          
+            $user->remember_token = Str::random(30);
+            $user->save();
+           
+
+            Mail::to($user->email)->send(new ForgetPasswordMail($user));
+
+           // Get the route URL
+            $routeUrl = route('front.home.page');
+
+            return response()->json([
+                'user' => $user,
+                'routeUrl' => $routeUrl,
+            ]);
+        } else {
+            $user = '';
+            $routeUrl = route('doctor.forget.password');
+            return response()->json([
+                'user' => $user,
+                'routeUrl' => $routeUrl,
+            ]);
+        }
+    }
+    public function resetForgetPassword($remember_token)
+    {
+        $user = Doctor::getTokenSingle($remember_token);
+        if (!empty($user)) {
+            return view('back/reset-password',compact('remember_token'));
+        } else {
+            abort(404);
+        }
+    }
+
+
+    function updateNewPassword($remember_token,Request $req)
+    {
+        $req->validate([
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6',
+        ]);
+        $user = Doctor::getTokenSingle($remember_token);
+        if ($user) {
+          $user->update(['password' => Hash::make($req->password)]);
+            return redirect()->route('front.home.page');
+        } else {
+            return false;
+        }
+    }
+
+
     public function orderMedicalReport()
     {
         return view('back/orderMedicalReport');
@@ -82,6 +246,7 @@ class DoctorAuthController extends Controller
     }
     public function myLabResult()
     {
+        
         return view('back/myLabResult');
     }
     public function service()
@@ -163,25 +328,8 @@ class DoctorAuthController extends Controller
         }
     }
 
-    function updatePassword()
-    {
-        return view('front/reset-password');
-    }
-
-    function updateNewPassword(Request $req)
-    {
-        $req->validate([
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required|string|min:8',
-        ]);
-        $result = Admin::where('id', session('forgot')->id)->update(['password' => Hash::make($req->password)]);
-        if ($result > 0) {
-            $req->session()->pull('forgot');
-            return redirect()->route('common.login');
-        } else {
-            return false;
-        }
-    }
+    
+   
 
     public function logout(Request $request)
     {

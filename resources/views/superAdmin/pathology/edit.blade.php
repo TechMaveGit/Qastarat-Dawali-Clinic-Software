@@ -81,6 +81,19 @@
                           </div>
                       <!-- /.form-group -->
                       </div>
+                      
+                      
+                       <div class="col-md-3">
+                          <div class="form-group">
+                              <label class="form-label">Status</label>
+                              <select class="form-control" name="status" id="countries" style="width: 100%;">
+                                   <option value="active">Active</option>
+                                   <option value="inactive">Inactive</option>
+                              </select>
+                          </div>
+                      <!-- /.form-group -->
+                      </div>
+                      
 
                       <div class="col-lg-12 mt-3">
                           <div class="title_head">

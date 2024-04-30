@@ -9,7 +9,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
         }
     </style>
 @endpush
-@section('content-section')
+@section('content-section')   
     <div class="sub_bnr" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
         <div class="sub_bnr_cnt">
             <h1 class=""> <span class="blue_theme"> Eligibility</span> Form</h1>

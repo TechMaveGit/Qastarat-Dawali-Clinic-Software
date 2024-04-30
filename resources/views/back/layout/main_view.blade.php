@@ -1,3 +1,3 @@
 @include('back.layout.header')
-@yield('content-section')
+@yield('content-section')  
 @include('back.layout.footer')

@@ -35,6 +35,7 @@ class User extends Model implements Authenticatable
         'post_code',
         'mobile_no',
         'gendar',
+        'doctor_id',
         'town',
         'document_type',
         'remember_token',
@@ -45,10 +46,10 @@ class User extends Model implements Authenticatable
         'tags',
         'is_verified',
         'patient_profile_img',
+        'customFile',
         'role',
         'email_verified_at',
         'title'
-
     ];
 
     // public function getIdAttribute($value)

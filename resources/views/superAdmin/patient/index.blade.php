@@ -57,7 +57,7 @@
 
         <h4 class="page-title">All Patients</h4>
 
-        <nav aria-label="breadcrumb">
+        {{-- <nav aria-label="breadcrumb">
 
                 <ol class="breadcrumb">
 
@@ -67,7 +67,7 @@
 
                 </ol>
 
-            </nav>
+            </nav> --}}
 
         </div>
 
@@ -123,6 +123,10 @@
 
                    <th>Postal Code</th>
 
+                   <th>Assigned Doctor</th>
+
+                   <th>Status</th>
+
                    <th>Action</th>
 
 
@@ -176,6 +180,13 @@
 
                    <td>{{ $allUsers->post_code }}</td>
 
+                   @php
+                      $doctorName= DB::table('doctors')->where('id',$allUsers->doctor_id)->first();
+                   @endphp
+                   <td>{{ $doctorName->name??'' }}</td>
+
+                   <td>{{ $allUsers->status == '1' ? 'Active' : 'Inactive' }}</td>
+
                    <td>
 
                      <div class="btn-group">
@@ -193,8 +204,9 @@
                         @endphp
 
                         <a class="dropdown-item" href="{{ route('patients.edit', ['id' => $allUsers->id]) }}">Edit</a>
+                        <a class="dropdown-item" href="{{ route('patients.view',['id'=>$allUsers->id]) }}">View Details</a>
 
-                        <a  onclick="remove_patient({{ $allUsers->id }})" class="dropdown-item">Delete</a>
+                        <!--<a  onclick="remove_patient({{ $allUsers->id }})" class="dropdown-item">Delete</a>-->
 
                         </div>
 

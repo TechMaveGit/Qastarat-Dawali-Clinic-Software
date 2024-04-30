@@ -208,13 +208,26 @@
 	
 			<!-- HEADER
 				============================================= -->
+				@php
+				$footer = DB::table('footers')->select('websitelogo')->first();
+				@endphp
+
 			<header id="header" class="tra-menu navbar-dark light-hero-header white-scroll">
 				<div class="header-wrapper">
 	
 	
 					<!-- MOBILE HEADER -->
 					<div class="wsmobileheader clearfix">
-						<span class="smllogo"><img src="{{ asset('public/assets/images/new-images/qastara-logo-new.png') }}" alt="mobile-logo"></span>
+						<span class="smllogo">
+							@isset($footer->websitelogo)
+							<img  src="{{ asset('public/assets/video/'.$footer->websitelogo) }}"
+							alt="footer-logo">
+							@else
+							<img  src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
+							alt="footer-logo">
+                    	@endisset
+						
+						</span>
 						<a id="wsnavtoggle" class="wsanimated-arrow"><span></span></a>
 					</div>
 	
@@ -227,8 +240,14 @@
 							<!-- HEADER BLACK LOGO -->
 							<div class="desktoplogo">
 								<a href="{{ route('front.home.page') }}" class="logo-black">
-									<img class="light-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo light">
-									<img class="dark-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo dark">
+									@isset($footer->websitelogo)
+										<img class="light-theme-img"  src="{{ asset('public/assets/video/'.$footer->websitelogo) }}"
+										alt="footer-logo">
+										@else
+										<img class="dark-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
+										alt="footer-logo">
+                  					  @endisset
+									
 								</a>
 							</div>
 	

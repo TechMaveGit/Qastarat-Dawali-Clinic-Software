@@ -1,6 +1,6 @@
 @extends('superAdmin.partical.main')
 @push('title')
-<title>All Nurses | Super Admin</title>
+    <title>Pathology Price List  | Super Admin</title>
 @endpush
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -65,7 +65,7 @@
                                                     <td>{{ $allpathology_price_list->included_tests }}</td>
                                                     <td>{{ $allpathology_price_list->turnaround }}</td>
                                                     <td>{{ $allpathology_price_list->note }}</td>
-                                                    <td>{{ $allpathology_price_list->price }}</td>
+                                                    <td>AED {{ $allpathology_price_list->price }}</td>
                                                     <td>
                                                     <ul class="action_icons">
 
@@ -123,7 +123,6 @@ Launch demo modal
                 <div class="modal-body">
                 <div class="row">
                 <div class="col-md-6">
-
                                 <div class="form-group">
                                     <label class="form-label">Test Name</label>
                                     <input type="text" class="form-control" name="test_name" id="lab_name" placeholder="">

@@ -64,9 +64,9 @@
                                     <span class="toolTip">Order Procedure</span>
                                 </a>
                                 <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
-                                    data-bs-target="#order_supportive_surface">
+                                    data-bs-target="#supportive_treatment">
                                     <iconify-icon icon="icon-park-outline:order" width="24"></iconify-icon>
-                                    <span class="toolTip">Order Supportive Service</span>
+                                    <span class="toolTip">Supportive Treatment</span>
                                 </a>
                                 <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
                                     data-bs-target="#prescription_day">
@@ -222,10 +222,10 @@
 
 
 
-                                <a href="#" class="action_btn_tooltip">
-                                    <iconify-icon icon="carbon:report" width="22"></iconify-icon>
-                                    <span class="toolTip">Generate Report</span>
-                                </a>
+              <a href="#" class="action_btn_tooltip" data-bs-toggle="modal" data-bs-target="#genrate_report">
+                <iconify-icon icon="carbon:report" width="22"></iconify-icon>
+                <span class="toolTip">Generate Report</span>
+            </a>
 
                                 <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
                                     data-bs-target="#make_appointment">
@@ -847,171 +847,61 @@
 
                                             <div class="accordion-body">
 
+
+                                                
                                                 <ul class="referrals_list">
+                                                    @php
+                                                    $referaldoctors = DB::table('doctors')->select('id','doctor_id','title','name','email')->where('referal_status', '1')->get();
+                                                  @endphp
 
-                                                    <li>
+                                                  @forelse ($referaldoctors as $referaldoctors)
+                                                  
+                                                  <li>
+                                                      <div class="booking_card_select">
 
-                                                        <div class="booking_card_select">
+                                                          <label for="cbx1">
 
+                                                              <div class="doctor_dt">
 
+                                                                  <div class="image_dr">
 
-                                                            <label for="cbx1">
+                                                                    @if (isset($referaldoctors->patient_profile_img))
 
-                                                                <div class="doctor_dt">
+                                                                    <img src="{{ asset('/public/assets/profileImage/' . $referaldoctors->patient_profile_img) }}" alt="">
 
-                                                                    <div class="image_dr">
+                                                                    @else
+                                                                    <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
-                                                                        <img src="images/new-images/avtar.jpg"
-                                                                            alt="">
+                                                                    @endif
 
-                                                                    </div>
+                                                                  </div>
 
-                                                                    <div class="dr_detail">
+                                                                  <div class="dr_detail">
 
-                                                                        <h6 class="dr_name">Abbigail Titmus
-                                                                            <span>(MBBS)</span>
-                                                                        </h6>
+                                                                      <h6 class="dr_name">{{ $referaldoctors->name }}
+                                                                          <span>{{ $referaldoctors->title }}</span>
+                                                                      </h6>
 
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                        </p>
+                                                                      <p class="dr_email"><a
+                                                                              href="mailto:{{ $referaldoctors->email }}">{{ $referaldoctors->email }}</a>
+                                                                      </p>
 
-                                                                    </div>
+                                                                  </div>
 
-                                                                </div>
+                                                              </div>
 
-                                                            </label>
+                                                          </label>
 
-                                                        </div>
+                                                      </div>
+                                                  </li>
 
-
-
-
-
-                                                    </li>
-
-                                                    <li>
-
-                                                        <div class="booking_card_select">
-
-
-
-                                                            <label for="cbx2">
-
-                                                                <div class="doctor_dt">
-
-                                                                    <div class="image_dr">
-
-                                                                        <img src="images/new-images/avtar.jpg"
-                                                                            alt="">
-
-                                                                    </div>
-
-                                                                    <div class="dr_detail">
-
-                                                                        <h6 class="dr_name">Abbigail Titmus
-                                                                            <span>(MBBS)</span>
-                                                                        </h6>
-
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                        </p>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </label>
-
-                                                        </div>
-
-
-
-
-
-                                                    </li>
-
-                                                    <li>
-
-                                                        <div class="booking_card_select">
-
-
-
-                                                            <label for="cbx3">
-
-                                                                <div class="doctor_dt">
-
-                                                                    <div class="image_dr">
-
-                                                                        <img src="images/new-images/avtar.jpg"
-                                                                            alt="">
-
-                                                                    </div>
-
-                                                                    <div class="dr_detail">
-
-                                                                        <h6 class="dr_name">Abbigail Titmus
-                                                                            <span>(MBBS)</span>
-                                                                        </h6>
-
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                        </p>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </label>
-
-                                                        </div>
-
-
-
-
-
-                                                    </li>
-
-                                                    <li>
-
-                                                        <div class="booking_card_select">
-
-
-
-                                                            <label for="cbx4">
-
-                                                                <div class="doctor_dt">
-
-                                                                    <div class="image_dr">
-
-                                                                        <img src="images/new-images/avtar.jpg"
-                                                                            alt="">
-
-                                                                    </div>
-
-                                                                    <div class="dr_detail">
-
-                                                                        <h6 class="dr_name">Abbigail Titmus
-                                                                            <span>(MBBS)</span>
-                                                                        </h6>
-
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:abbigail@lymphvision.com">abbigail@lymphvision.com</a>
-                                                                        </p>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </label>
-
-                                                        </div>
-
-
-
-
-
-                                                    </li>
+                                                  @empty
+                                                  <li>
+                                                      <h4>No Data Found</h4>
+                                                  </li>
+                                                      
+                                                  @endforelse
+                                                  
 
                                                 </ul>
 
@@ -1035,9 +925,9 @@
                                         <div id="collapseleft8" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample8" style="">
                                             <div class="accordion-body">
-                                                <div class="appointments___list">
+                                                <div class="appointments___list past_medical_history_ak">
 
-                                                    <ul class="symptoms">
+                                                    <ul>
                                                         @php
                                                             $patient_id = decrypt(@$id);
                                                             $visit_notes = App\Models\patient\Patient_progress_note::select('created_at', 'voice_recognition')
@@ -1050,14 +940,21 @@
                                                         @else
                                                             @foreach ($visit_notes as $visit)
                                                                 <li>
+                                                                    <div class="appoin_title">
 
+                                                                        <h6></h6>
+
+                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
+                                                                        </p>
+
+                                                                    </div>
                                                                     <div class="appoin_date">
 
                                                                         <div class="read-more-content">
 
                                                                             <p>
 
-                                                                                {{ $visit->voice_recognition }}
+                                                                                {!! $visit->voice_recognition !!}
                                                                             </p>
 
                                                                         </div>
@@ -1069,10 +966,7 @@
                                                                         @endif
 
                                                                     </div>
-                                                                    <div class="appoin_date">
-                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                        </p>
-                                                                    </div>
+                                                                   
                                                                 </li>
                                                             @endforeach
                                                         @endif
@@ -1094,7 +988,7 @@
 
                                                 <div class="top_title_mm_box">
 
-                                                    <h6>List of prescribed medicationt</h6>
+                                                    <h6>List of prescribed Medicines</h6>
 
                                                 </div>
 
@@ -1186,7 +1080,9 @@
                     <div class="right_side_mm_box">
                         <div class="card mb-3 form1_bg">
                             <div class="card-body p-0">
+
                                 <div class="accordion acordignleft__small" id="accordionExample2">
+
                                     <div class="accordion-item mm_title">
                                         <h2 class="accordion-header key_diagnosis_accordion">
                                             <button class="accordion-button " type="button" data-bs-toggle="collapse"
@@ -1231,6 +1127,7 @@
                                                 </div>
                                             </button>
                                         </h2>
+
                                         <div id="collapseleft24" class="accordion-collapse collapse show"
                                             data-bs-parent="#accordionExample24">
                                             <div class="accordion-body ">
@@ -1244,59 +1141,43 @@
 
                                                             </div>
 
-
                                                             <div class="appoin_date">
-                                                                <div class="read-more-content" style="max-height: 160px;">
+                                                                <div>
+                                                                  <div class="diagnosis_show">
+                                                                 
+                                                                  <p class="diagnosis_text">
+                                                                    @forelse($diagnosis_generals as $diagnosis_general)
+                                                                    @php
 
-                                                                    @forelse ($diagnosis_generals as $diagnosis_general)
-                                                                        <div class="diagnosis_show ">
-                                                                            <p class="diagnosis_date">
-                                                                                <span class="enter_span_hivj">Entered By |
-                                                                                    &nbsp;{{ optional(optional($diagnosis_general)->doctor)->name ?? '' }}</span>
+                                                                    $diagnosis_general_data_value = json_decode( $diagnosis_general->data_value,true);
 
-
-                                                                                <span
-                                                                                    class="enter_span_hivj">{{ isset($diagnosis_general) && isset($diagnosis_general->created_at) ? $diagnosis_general->created_at->format('D, d M Y, H:i A') : '' }}</span>
-                                                                            </p>
-                                                                            <p class="diagnosis_text">
-                                                                                @if (isset($diagnosis_general))
-                                                                                    @php
-
-                                                                                        $diagnosis_general_data_value = json_decode($diagnosis_general->data_value, true);
-
-                                                                                    @endphp
-                                                                                    @forelse ($diagnosis_general_data_value as $key => $values)
-                                                                                        @foreach ($values as $value)
-                                                                                            {{ $value }}
-
-                                                                                            <span
-                                                                                                class="separation">|</span>
-                                                                                        @endforeach
-                                                                                    @empty
-                                                                                    @endforelse
-                                                                                @endif
-                                                                            </p>
-
-
-                                                                        </div>
-
-                                                                        @if ($loop->last)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
+                                                                    @endphp
+                                                                     @forelse ($diagnosis_general_data_value as $key => $values)
+                                                                     @foreach ($values as $value)
+                                                                         {{ $value }}
+                                                                       
+                                                                     @endforeach
                                                                     @empty
-                                                                        <small style="font-size:10px;">No Data
-                                                                            Found</small>
                                                                     @endforelse
-
-                                                                </div>
-
-
-
-
-                                                            </div>
+                                                                    @if(!$loop->last)
+                                                                    <span class="separation">|</span>
+                                                                    @endif
+                                                                      @empty
+                                                                      <small style="font-size:10px;">No Data Found</small>
+                                                                    @endforelse
+                                                                    </p>
+                                                                    @if(isset($diagnosis_general) && isset($diagnosis_general->created_at))
+                                                                    <p class="diagnosis_date">
+                                                                        <span class="enter_span_hivj"> Entered By | {{ optional(optional($diagnosis_general)->doctor)->name ?? '' }}</span> 
+                                                                        <span class="enter_span_hivj">{{ isset($diagnosis_general) && isset($diagnosis_general->created_at) ? $diagnosis_general->created_at->format('D, d M Y, H:i A') : '' }}</span>
+                                                                    </p>
+                                                                    @endif
+                                                                  </div>
+                                                           
+                                                              </div>
+                                                          
+                                                              </div>
+                                                           
 
 
                                                         </li>
@@ -1305,63 +1186,47 @@
                                                             <div class="appoin_title">
                                                                 <h6><span class="point_dia"><i
                                                                             class="fa-regular fa-circle-dot"></i></span>
-                                                                            ICD 10</h6>
+                                                                    ICD 10</h6>
 
                                                             </div>
 
 
                                                             <div class="appoin_date">
-                                                                <div class="read-more-content" style="max-height: 160px;">
+                                                                <div>
+                                                                  <div class="diagnosis_show">
+                                                                 
+                                                                  <p class="diagnosis_text">
+                                                                    @forelse ($diagnosis_cids as $diagnosis_cid)
+                                                                    @php
 
-                                                                    @forelse ( $diagnosis_cids as $diagnosis_cid)
-                                                                        <div class="diagnosis_show ">
-                                                                            <p class="diagnosis_date">
-                                                                                <span class="enter_span_hivj">Entered By |
-                                                                                    &nbsp;{{ optional(optional($diagnosis_cid)->doctor)->name ?? '' }}</span>
+                                                                    $diagnosis_cid_data_value = json_decode($diagnosis_cid->data_value,true);
 
-
-                                                                                <span
-                                                                                    class="enter_span_hivj">{{ isset($diagnosis_cid) && isset($diagnosis_cid->created_at) ? $diagnosis_cid->created_at->format('D, d M Y, H:i A') : '' }}</span>
-                                                                            </p>
-                                                                            <p class="diagnosis_text">
-                                                                                @if (isset($diagnosis_cid))
-                                                                                    @php
-
-                                                                                        $diagnosis_cid_data_value = json_decode($diagnosis_cid->data_value, true);
-
-                                                                                    @endphp
-                                                                                    @forelse ($diagnosis_cid_data_value as $key => $values)
-                                                                                        @foreach ($values as $value)
-                                                                                            {{ $value }}
-
-                                                                                            <span
-                                                                                                class="separation">|</span>
-                                                                                        @endforeach
-                                                                                    @empty
-                                                                                    @endforelse
-                                                                                @endif
-                                                                            </p>
-
-
-                                                                        </div>
-
-                                                                        @if ($loop->last)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
+                                                                    @endphp
+                                                                     @forelse ($diagnosis_cid_data_value as $key => $values)
+                                                                     @foreach ($values as $value)
+                                                                         {{ $value }}
+                                                                        
+                                                                     @endforeach
                                                                     @empty
-                                                                        <small style="font-size:10px;">No Data
-                                                                            Found</small>
                                                                     @endforelse
-
-                                                                </div>
-
-
-
-
-                                                            </div>
+                                                                    @if(!$loop->last)
+                                                                    <span class="separation">|</span>
+                                                                    @endif
+                                                                      @empty
+                                                                      <small style="font-size:10px;">No Data Found</small>
+                                                                    @endforelse
+                                                                    </p>
+                                                                    @if(isset($diagnosis_cid) && isset($diagnosis_cid->created_at))
+                                                                    <p class="diagnosis_date">
+                                                                        <span class="enter_span_hivj"> Entered By | {{ optional(optional($diagnosis_cid)->doctor)->name ?? '' }}</span> 
+                                                                        <span class="enter_span_hivj">{{ isset($diagnosis_cid) && isset($diagnosis_cid->created_at) ? $diagnosis_cid->created_at->format('D, d M Y, H:i A') : '' }}</span>
+                                                                    </p>
+                                                                    @endif
+                                                                  </div>
+                                                           
+                                                              </div>
+                                                          
+                                                              </div>
 
 
                                                         </li>
@@ -1373,7 +1238,7 @@
 
                                             </div>
                                         </div>
-                                    </div>
+                                    
                                     <div class="accordion-item mm_title">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button"
@@ -1419,73 +1284,42 @@
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
+                                                        @forelse ($symptoms_db as $symptoms)
+                                                        @php
 
-                                                            @forelse ($symptoms_db as $symptoms)
-                                                                <li>
-                                                                    <div class="appoin_date">
-                                                                        <div class="read-more-content sypm_tom_cnt"
-                                                                            style="">
-                                                                            <div class="diagnosis_show">
-                                                                                <p class="diagnosis_date"><span
-                                                                                        class="enter_span_hivj">
-                                                                                        {{ 'Entered By |' . optional(optional($symptoms)->doctor)->name ?? '' }}
-                                                                                    </span> <span
-                                                                                        class="enter_span_hivj">{{ isset($symptoms) && isset($symptoms->created_at) ? $symptoms->created_at->format('D, d M Y, H:i A') : '' }}</span>
-                                                                                </p>
-                                                                                @if (isset($symptoms))
-                                                                                    @php
+                                                            $symptoms_data_value = json_decode($symptoms->data_value,true);
+                                                                                    
+                                                         @endphp
+                                                          
+                                                        <li>
+                                                            @forelse ($symptoms_data_value as $key =>$value)
+                                                            <div class="appoin_date">
+                                                              <div>
+                                                                <div class="diagnosis_show">
+                                                              
+                                                                 <div class="symp_title">
+                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span>  {{ $value['SymptomType'] ?? '' }}<span class="sym_duration">&nbsp;-{{ $value['SymptomDurationValue'] ?? '' }} &nbsp;{{ $value['SymptomDurationType'] ?? '' }}</span></h6>
+                                                                  <p class="diagnosis_text"> {{ $value['SymptomDurationNote'] ?? '' }}!</p>                 
+                                                                </div>
+                                                               
+                                                                
+                                                                @if($loop->last)
+                                                                <p class="diagnosis_date"><span class="enter_span_hivj"> Entered By |  {{  optional(optional($symptoms)->doctor)->name ?? '' }}</span> <span class="enter_span_hivj">{{ isset($symptoms) && isset($symptoms->created_at) ? $symptoms->created_at->format('D, d M Y, H:i A') : '' }}</span></p>
+                                                                @endif
+                                                                
 
-                                                                                        $symptoms_data_value = json_decode($symptoms->data_value, true);
-                                                                                        //    echo "<pre>";
-                                                                                        //     print_r($symptoms_data_value);
-                                                                                        //     die;
-
-
-                                                                                    @endphp
-                                                                                    @forelse ($symptoms_data_value as $key =>$value)
-
-
-
-                                                                                        <div class="symp_title">
-                                                                                            <h6><span class="point_dia"><i  class="fa-regular fa-circle-dot"></i></span>
-
-                                                                                                             {{ $value['SymptomType'] ?? '' }}
-                                                                                                <span
-                                                                                                    class="sym_duration">-
-                                                                                                   {{ $value['SymptomDurationValue'] ?? '' }}   &nbsp;{{ $value['SymptomDurationType'] ?? '' }} </span>
-                                                                                            </h6>
-                                                                                            <p class="diagnosis_text">
-                                                                                                {{ $value['SymptomDurationNote'] ?? '' }}</p>
-                                                                                        </div>
-
-
-                                                                                    @empty
-
-                                                                                    @endforelse
-                                                                                @endif
-
-
-
-                                                                            </div>
-
-                                                                        </div>
-
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-
-                                                                    </div>
-                                                                </li>
+                                                                </div>
+                                                             
+                                                            </div>
+                                                       
+                                                            </div>
                                                             @empty
-                                                                <small style="font-size:10px;">No Data Found</small>
                                                             @endforelse
-
-
-
-
-
-
+                                                          </li>
+                                                         
+                                                          @empty
+                                                          <small style="font-size:10px;">No Data Found</small>
+                                                      @endforelse
                                                     </ul>
                                                 </div>
                                             </div>
@@ -1539,130 +1373,98 @@
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
-                                                        @if (isset($symptoms_scores_db) || isset($ClinicalIndicator_db))
+
                                                         <li>
-
+                                                            
                                                             <div class="appoin_date">
-                                                                <div class="read-more-content sypm_tom_cnt"
-                                                                    style="">
-                                                                    @forelse ($symptoms_scores_db as $record)
+                                                              <div>
+                                                              <div class="diagnosis_show">
+                                                              
+                                                                <div class="ss_result_box">
+                                                                <div class="symp_title mb-1">
+                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Thyroid Compressive symptoms score (TCSS)</h6>
+                                                                  </div>
+                                                                  @forelse($symptoms_scores_db as $record)
+                                                                  @php
+                                                                  $sum = 0;
 
+                                                                  $jsonData = json_decode($record->data_value,true);
 
-                                                                    <div class="diagnosis_show">
-                                                                        <p class="diagnosis_date top_de"><span
-                                                                                class="enter_span_hivj"> {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
-                                                                                 </span> <span
-                                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                                </span></p>
+                                                                  if (is_array($jsonData) && !empty($jsonData) ) {
+                                                                      foreach (
+                                                                          $jsonData
+                                                                          as $key => $value
+                                                                      ) {
+                                                                          $sum += (int) $value[0];
+                                                                      }
+                                                                  }
 
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    Thyroid Compressive symptoms score
-                                                                                    (TCSS)</h6>
-                                                                            </div>
-                                                                            @php
-                                                                                $sum = 0;
-
-
-                                                                                $jsonData = json_decode($record->data_value, true);
-
-                                                                            if (is_array($jsonData) && !empty($jsonData)) {
-                                                                                foreach ($jsonData as $key => $value) {
-
-                                                                                    $sum += (int) $value[0];
-
-                                                                                }
-                                                                            }
-
-                                                                            @endphp
-                                                                            @if (isset($sum) && ($sum >= 0 && $sum <= 7))
-                                                                            <p class="ss_result">Mild LUTS (0-7 pts)</p>
-                                                                            @elseif (isset($sum) && ($sum >= 8 && $sum <= 19))
-                                                                            <p class="ss_result">Moderate LUTS (8-19 pts)</p>
-                                                                            @elseif (isset($sum) && ($sum >= 20 && $sum <= 1009))
-                                                                            <p class="ss_result">Severe LUTS (20-35 pts)</p>
-                                                                            @endif
-
-                                                                        </div>
-                                                                        @empty
-                                                                        <small style="font-size:10px;">No Data Found</small>
-                                                                        @endforelse
-
-                                                                        @if (isset($ClinicalIndicator_db))
-
-                                                                        @forelse ($ClinicalIndicator_db as $record)
-                                                                            @php
-                                                                                $jsonData = json_decode($record->data_value, true);
-                                                                            @endphp
-
-
-                                                                       @if (isset($jsonData) && is_array($jsonData) && array_key_exists("Palpitations",$jsonData) )
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    hyper-Toxic symptoms: Palpitations |
-                                                                                    Sweating | Anxiety | tremor | weight
-                                                                                    loss | hair loss</h6>
-                                                                            </div>
-                                                                            <p class="ss_result">{{ $jsonData['Palpitations'][0] ?? '' }}</p>
-                                                                        </div>
-                                                                        @endif
-                                                                        @if (isset($jsonData) && is_array($jsonData) && array_key_exists("Carbimazole",$jsonData) )
-
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    Anti-thyroid meds (e.g. Carbimazole)
-                                                                                </h6>
-                                                                            </div>
-                                                                            <p class="ss_result">{{ $jsonData['Carbimazole'][0] ?? '' }}</p>
-                                                                        </div>
-                                                                        @endif
-                                                                        @if (isset($jsonData) && is_array($jsonData) && array_key_exists("lethargy",$jsonData) )
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    Hypo-thyroid symptoms: lethargy |
-                                                                                    Fatigue | cold intolerance | weight gain
-                                                                                    | altered mood</h6>
-                                                                            </div>
-                                                                            <p class="ss_result">{{ $jsonData['lethargy'][0] ?? '' }}</p>
-                                                                        </div>
-                                                                        @endif
-                                                                        @if (isset($jsonData) && is_array($jsonData) && array_key_exists("Thyroxine",$jsonData) )
-
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    Thyroid hormone replacement (e.g.
-                                                                                    Thyroxine)</h6>
-                                                                            </div>
-                                                                            <p class="ss_result">{{ $jsonData['Thyroxine'][0] ?? '' }}</p>
-                                                                        </div>
-                                                                        @endif
-                                                                        @empty
-
-                                                                        @endforelse
-                                                                        @endif
-                                                                    </div>
-
-
-
+                                                              @endphp
+                                                                 @if (isset($sum) && ($sum >= 0 && $sum <= 7))
+                                                                 <p class="ss_result">Mild LUTS (0-7 pts)</p>
+                                                             @elseif(isset($sum) && ($sum >= 8 && $sum <= 19))
+                                                                 <p class="ss_result">Moderate LUTS (8-19 pts)</p>
+                                                             @elseif(isset($sum) && ($sum >= 20 && $sum <= 1009))
+                                                                 <p class="ss_result">Severe LUTS (20-35 pts)</p>
+                                                             @endif
+                                                             @empty
+                                                            
+                                                             @endforelse
                                                                 </div>
-                                                                <button
-                                                                    class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                              
+                                                                @forelse ($ClinicalIndicator_db as $record)
+                                                                @php
+                                                                    $jsonData = json_decode($record->data_value, true);
+                                                                @endphp
+                                                                @if(isset($jsonData) && is_array($jsonData) && array_key_exists("Palpitations",$jsonData) )
+                                                                <div class="ss_result_box">
+                                                                <div class="symp_title mb-1">
+                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> hyper-Toxic symptoms: Palpitations | Sweating | Anxiety | tremor | weight loss | hair loss</h6>
+                                                                  </div>
+                                                                <p class="ss_result">{{ $jsonData['Palpitations'][0] ?? '' }}</p>
+                                                                </div>
+                                                                @endif
+                                                                @if(isset($jsonData) && is_array($jsonData) && array_key_exists("Carbimazole",$jsonData))
+                                                                <div class="ss_result_box">
+                                                                <div class="symp_title mb-1">
+                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Anti-thyroid meds (e.g. Carbimazole)</h6>
+                                                                  </div>
+                                                                <p class="ss_result">{{ $jsonData['Carbimazole'][0] ?? '' }}</p>
+                                                                </div> 
+                                                                @endif
+                                                                @if(isset($jsonData) && is_array($jsonData) && array_key_exists("lethargy",$jsonData) )
+                                                                <div class="ss_result_box">
+                                                                <div class="symp_title mb-1">
+                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Hypo-thyroid symptoms: lethargy | Fatigue | cold intolerance | weight gain | altered mood</h6>
+                                                                  </div>
+                                                                <p class="ss_result">{{ $jsonData['lethargy'][0] ?? '' }}</p>
+                                                                </div> 
+                                                                @endif
+                                                                @if (isset($jsonData) && is_array($jsonData) && array_key_exists("Thyroxine",$jsonData) )
+                                                                <div class="ss_result_box">
+                                                                <div class="symp_title mb-1">
+                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Thyroid hormone replacement (e.g. Thyroxine)</h6>
+                                                                  </div>
+                                                                <p class="ss_result">{{ $jsonData['Thyroxine'][0] ?? '' }}</p>
+                                                                </div> 
+                                                                @endif 
+                                                                @empty
+                                                                @endforelse
+                                                             
+                                                                <p class="diagnosis_date top_de"><span class="enter_span_hivj"> Entered By | {{ isset($record) ? $record->doctor->name : '' }}</span> <span class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}</span></p> 
+                                                               
+                                                                                
+                                                                </div>
+                            
+                                                                
+                                                             
                                                             </div>
-                                                        </li>
+                                                       
+                                                            </div>
+                                                           
+                                                          </li>
 
 
-                                                        @endif
 
                                                     </ul>
                                                 </div>
@@ -1735,10 +1537,8 @@
                                                                                 </span></p>
                                                                                 @php
                                                                                 $ClinicalExam = json_decode($record->data_value, true);
-                                                                                // echo "<pre>";
-                                                                                //     echo $ClinicalExam['RegionalExam'][0];
-                                                                                //     die;
-                                                                            @endphp
+
+                                                                               @endphp
 
 
                                                                           @if (isset($ClinicalExam['RegionalExam']) && $ClinicalExam['RegionalExam'][0]=='Abnormal')
@@ -1864,111 +1664,96 @@
                                                         <li>
 
                                                             <div class="appoin_date">
-
+    
                                                                 <div class="diagnosis_show">
-
-
-                                                                    <p class="diagnosis_date top_de">
-                                                                        <span class="enter_span_hivj">
-                                                                            {{ 'Entered By |' . optional(optional($Patient_order_imaginary_exams[0] ?? null)->doctor)->name ?? '' }}
-                                                                        </span>
-                                                                        <span class="enter_span_hivj">
-                                                                            {{
-                                                                                isset($Patient_order_imaginary_exams[0]) && isset($Patient_order_imaginary_exams[0]->created_at)
-                                                                                ? $Patient_order_imaginary_exams[0]->created_at->format('D, d M Y, H:i A')
-                                                                                : ''
-                                                                            }}
-                                                                        </span>
-                                                                    </p>
-
-
-
+                                                                    {{-- <p class="diagnosis_date top_de"><span
+                                                                            class="enter_span_hivj">{{ 'Entered By | ' . (isset($Patient_order_imaginary_exams[0]) ? optional(optional($Patient_order_imaginary_exams[0])->doctor)->name : '') }}
+                                                                        </span> <span
+                                                                            class="enter_span_hivj">{{ isset($Patient_order_imaginary_exams[0]) && isset($Patient_order_imaginary_exams[0]->created_at) ? $Patient_order_imaginary_exams[0]->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                        </span></p> --}}
+    
                                                                     <div
                                                                         class="datatable-container allinvoice_table custom_table_area table_test_fgi">
+                                                                       
+                                                                        
                                                                         <table id="allinvoice_table" class="display">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Test Name</th>
-                                                                                    <th>Duration</th>
+                                                                                    <th>Appoinment Date</th>
                                                                                     <th>Status</th>
                                                                                     <th>Action</th>
-
                                                                                 </tr>
                                                                             </thead>
+    
+                                                                            
                                                                             <tbody>
-                                                                                @forelse ($Patient_order_imaginary_exams as $Patient_order_imaginary_exam)
-                                                                                <tr>
-                                                                                    <td>{{ $Patient_order_imaginary_exam->test->test_name }}</td>
-                                                                                    <td>{{ $Patient_order_imaginary_exam->test->duration }}</td>
-                                                                                    @if ($Patient_order_imaginary_exam->status=='pending')
-                                                                                    <td><button
-                                                                                        class="pending-badge">Pending</button>
+                                                                                @forelse ($Patient_order_labs as $Patient_order_lab)
+                                                                                @if($Patient_order_lab->test_type=='radiology')
+                                                                                  <tr>
+                                                                                      @php
+                                                                                       $pathology_price_list=  DB::table('pathology_price_list')->where('id',$Patient_order_lab->task);
+                                                                                        
+                                                                                          $pathology_price_list =$pathology_price_list->first();
+                                                                              
+                                                                                      @endphp
+                                                                                      
+                                                                                      <td>{{ $pathology_price_list->test_name??'' }}</td>
+                  
+                                                                                      <td>{{ $Patient_order_lab->appoinment_date }}</td>
+                  
+                                                                                      @if ($Patient_order_lab->approveDocumentSts == '1')
+                                                                                          <td><button class="pending-badge">Approve By Nurse</button>
+                                                                                          </td>
+                                                                                      @elseif($Patient_order_lab->approveDocumentSts == '0')
+                                                                                          <td><button
+                                                                                                  class="confirmed-badge">Reject By nurse</button>
+                                                                                          </td>
+                                                                                      @else
+                                                                                      <td><button
+                                                                                          class="confirmed-badge">No Action</button>
                                                                                      </td>
-                                                                                        @else
-                                                                                        <td><button class="confirmed-badge">Complete</button></td>
-                                                                                    @endif
-
-
-                                                                                    <td>
-                                                                                        <a href="{{ $Patient_order_imaginary_exam->report_url }}" download="" class="download_rp_btn">
-                                                                                            <i class="fa-solid fa-file-arrow-down"></i> Download Report
-                                                                                        </a>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            @empty
-                                                                            <td colspan="4" class="text-center">No record found</td>
-                                                                            @endforelse
-
-                                                                                {{-- <tr>
-                                                                                    <td>CT- Scan</td>
-                                                                                    <td>2 week</td>
-                                                                                    <td><button
-                                                                                            class="confirmed-badge">Complete</button>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <a href="images/new-images/dummy.pdf"
-                                                                                            download=""
-                                                                                            class="download_rp_btn"><i
-                                                                                                class="fa-solid fa-file-arrow-down"></i>
-                                                                                            Download Report</a>
-                                                                                    </td>
-
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Ultrasound</td>
-                                                                                    <td>1 day</td>
-                                                                                    <td><button
-                                                                                            class="pending-badge">Pending</button>
-                                                                                    </td>
-                                                                                    <td>
-
-                                                                                    </td>
-
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>MRI</td>
-                                                                                    <td>1 day</td>
-                                                                                    <td><button
-                                                                                            class="pending-badge">Pending</button>
-                                                                                    </td>
-                                                                                    <td>
-
-                                                                                    </td>
-
-
-                                                                                </tr> --}}
+                
+                                                                                      @endif
+                  
+                  
+                                                                                      @if($Patient_order_lab->labDocument)
+                                                                                      <td>
+                                                                                          <a href="http://localhost/webclinic/public/assets/{{ $Patient_order_lab->labDocument }}"
+                                                                                              download="http://localhost/webclinic/public/assets/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
+                                                                                              <i class="fa-solid fa-file-arrow-down"></i>
+                                                                                              Download Report
+                                                                                          </a>
+                                                                                      </td>
+                                                                                      @else
+                                                                                      <td>
+                                                                                          <a href=""   class="download_rp_btn" style="color: #f30728;">
+                                                                                              <i class="fa-solid fa-file-arrow-down" style="color: #db0808; border: 1px solid #e90a0a;"></i>
+                                                                                              Report Not Uploded
+                                                                                          </a>
+                                                                                      </td>
+                                                                                      @endif
+                                                                                     
+                                                                                  </tr>
+                                                                                  @else
+    
+                                                                                  @endif
+    
+    
+                                                                              @empty
+                                                                                  <td colspan="4" class="text-center">No record found
+                                                                                  </td>
+                                                                              @endforelse
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
-
+    
                                                                 </div>
-
-
-
-
-
+    
+    
+    
+    
+    
                                                             </div>
                                                         </li>
                                                         @forelse ($rightLobeScores as $record)
@@ -2141,102 +1926,140 @@
                                                         <li>
 
                                                             <div class="appoin_date">
-
+                    
                                                                 <div class="diagnosis_show">
-                                                                    <p class="diagnosis_date top_de"><span
+                                                                    {{-- <p class="diagnosis_date top_de"><span
                                                                             class="enter_span_hivj">{{ isset($Patient_order_labs[0]) ? 'Entered By | ' . optional(optional($Patient_order_labs[0])->doctor)->name ?? '' : '' }}
-
-                                                                            </span> <span
+                    
+                                                                        </span> <span
                                                                             class="enter_span_hivj">{{ isset($Patient_order_labs[0]) && isset($Patient_order_labs[0]->created_at) ? $Patient_order_labs[0]->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                            </span></p>
-
+                                                                        </span></p>
+                     --}}
                                                                     <div
                                                                         class="datatable-container allinvoice_table custom_table_area table_test_fgi">
+                                                                       
+                                                             
                                                                         <table id="allinvoice_table" class="display">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Test Name</th>
-                                                                                    <th>Duration</th>
+                                                                                    <th>Appoinment Date</th>
                                                                                     <th>Status</th>
                                                                                     <th>Action</th>
-
+                    
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
                                                                                 @forelse ($Patient_order_labs as $Patient_order_lab)
-                                                                                <tr>
-                                                                                    <td>{{ $Patient_order_lab->lab->test_name }}</td>
-                                                                                    <td>{{ $Patient_order_lab->lab->duration }}</td>
-                                                                                    @if ($Patient_order_lab->status=='pending')
-                                                                                    <td><button
-                                                                                        class="pending-badge">Pending</button>
-                                                                                     </td>
-
-
+                                                                                  @if($Patient_order_lab->test_type=='pathology')
+                                                                                    <tr>
+                                                                                        @php
+                                                                                         $pathology_price_list=  DB::table('pathology_price_list')->where('id',$Patient_order_lab->task);
+                                                                                            if($Patient_order_lab->test_type == 'pathology'){
+                                                                                            $pathology_price_list=  $pathology_price_list->where('price_type', '0');
+                                                                                            }
+                                                                                            else {
+                                                                                            $pathology_price_list=  $pathology_price_list->where('price_type', '1');
+                                                                                            }
+                                                                                            $pathology_price_list =$pathology_price_list->first();
+                                                                                
+                                                                                        @endphp
+                                                                                        
+                                                                                        <td>{{ $pathology_price_list->test_name }}</td>
+                    
+                                                                                        <td>{{ $Patient_order_lab->appoinment_date }}</td>
+                    
+                                                                                        @if ($Patient_order_lab->approveDocumentSts == '1')
+                                                                                            <td><button class="pending-badge">Approve By Nurse</button>
+                                                                                            </td>
+                                                                                        @elseif($Patient_order_lab->approveDocumentSts == '0')
+                                                                                            <td><button
+                                                                                                    class="confirmed-badge">Reject By nurse</button>
+                                                                                            </td>
                                                                                         @else
-                                                                                        <td><button class="confirmed-badge">Complete</button></td>
+                                                                                        <td><button
+                                                                                            class="confirmed-badge">No Action</button>
+                                                                                       </td>
+                    
+                                                                                        @endif
+                    
+                    
+                                                                                        @if($Patient_order_lab->labDocument)
+                                                                                        <td>
+                                                                                            <a href="http://localhost/webclinic/public/assets/{{ $Patient_order_lab->labDocument }}"
+                                                                                                download="http://localhost/webclinic/public/assets/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
+                                                                                                <i class="fa-solid fa-file-arrow-down"></i>
+                                                                                                Download Report
+                                                                                            </a>
+                                                                                        </td>
+                                                                                        @else
+                                                                                        <td>
+                                                                                            <a href=""   class="download_rp_btn" style="color: #f30728;">
+                                                                                                <i class="fa-solid fa-file-arrow-down" style="color: #db0808; border: 1px solid #e90a0a;"></i>
+                                                                                                Report Not Uploded
+                                                                                            </a>
+                                                                                        </td>
+                                                                                        @endif
+                                                                                       
+                                                                                    </tr>
                                                                                     @endif
-
-
-                                                                                    <td>
-                                                                                        <a href="{{ $Patient_order_lab->report_url }}" download="" class="download_rp_btn">
-                                                                                            <i class="fa-solid fa-file-arrow-down"></i> Download Report
-                                                                                        </a>
+                                                                                @empty
+                                                                                    <td colspan="4" class="text-center">No record found
                                                                                     </td>
-                                                                                </tr>
-                                                                            @empty
-                                                                            <td colspan="4" class="text-center">No record found</td>
-                                                                            @endforelse
+                                                                                @endforelse
                                                                                 {{-- <tr>
-                                                                                    <td>17 Hydroxyprogesterone</td>
-                                                                                    <td>2 week</td>
-                                                                                    <td><button
-                                                                                            class="confirmed-badge">Complete</button>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <a href="images/new-images/dummy.pdf"
-                                                                                            download=""
-                                                                                            class="download_rp_btn"><i
-                                                                                                class="fa-solid fa-file-arrow-down"></i>
-                                                                                            Download Report</a>
-                                                                                    </td>
-
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>5 HIAA</td>
-                                                                                    <td>1 day</td>
-                                                                                    <td><button
-                                                                                            class="pending-badge">Pending</button>
-                                                                                    </td>
-                                                                                    <td>
-
-                                                                                    </td>
-
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>6-TGN</td>
-                                                                                    <td>1 day</td>
-                                                                                    <td><button
-                                                                                            class="pending-badge">Pending</button>
-                                                                                    </td>
-                                                                                    <td>
-
-                                                                                    </td>
-
-
-                                                                                </tr> --}}
+                                                                                                        <td>17 Hydroxyprogesterone</td>
+                                                                                                        <td>2 week</td>
+                                                                                                        <td><button
+                                                                                                                class="confirmed-badge">Complete</button>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <a href="images/new-images/dummy.pdf"
+                                                                                                                download=""
+                                                                                                                class="download_rp_btn"><i
+                                                                                                                    class="fa-solid fa-file-arrow-down"></i>
+                                                                                                                Download Report</a>
+                                                                                                        </td>
+                    
+                    
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>5 HIAA</td>
+                                                                                                        <td>1 day</td>
+                                                                                                        <td><button
+                                                                                                                class="pending-badge">Pending</button>
+                                                                                                        </td>
+                                                                                                        <td>
+                    
+                                                                                                        </td>
+                    
+                    
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>6-TGN</td>
+                                                                                                        <td>1 day</td>
+                                                                                                        <td><button
+                                                                                                                class="pending-badge">Pending</button>
+                                                                                                        </td>
+                                                                                                        <td>
+                    
+                                                                                                        </td>
+                    
+                    
+                                                                                                    </tr> --}}
                                                                             </tbody>
                                                                         </table>
+                    
+                                                                        
+                    
                                                                     </div>
-
+                    
                                                                 </div>
-
-
-
-
-
+                    
+                    
+                    
+                    
+                    
                                                             </div>
                                                         </li>
                                                         @forelse ($Labs as $record)
@@ -2356,9 +2179,8 @@
                                                             data-bs-target="#order_supportive_surface">
                                                             <iconify-icon icon="icon-park-outline:order"
                                                                 width="24"></iconify-icon>
-                                                            <span class="toolTip">Order Special Invistigation</span>
+                                                            <span class="toolTip">Order Special Investigation</span>
                                                         </a>
-
                                                         <div class="enterd_by">
                                                             <span>Special Investigation </span>
                                                             <div class="right_side_hjkl">
@@ -2627,6 +2449,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+                            
                                     <div class="accordion-item mm_title">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button"
@@ -2771,6 +2595,8 @@
                                     </div>
 
                                 </div>
+
+                                </div>
                             </div>
                         </div>
 
@@ -2818,66 +2644,47 @@
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
-                                                        <li>
-
-                                                            <div class="appoin_date">
-                                                                <div class="read-more-content " style="">
-                                                                    <div class="diagnosis_show">
-                                                                        <p class="diagnosis_date "><span
-                                                                                class="enter_span_hivj"> Entered By | SAIF
-                                                                                ALZAABI </span> <span
-                                                                                class="enter_span_hivj">Sun, 22 Oct 2023,
-                                                                                12:00</span></p>
-
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    USTTAUL2180</h6>
-
+                                                        @if (isset($procedures ))
+                                                            @forelse ($procedures  as $record)
+                                                                <li>
+                    
+                                                                    <div class="appoin_date">
+                                                                        <div class="read-more-content " style="">
+                                                                            <div class="diagnosis_show">
+                                                                                <p class="diagnosis_date "><span class="enter_span_hivj">
+                                                                                        {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                                    </span> <span
+                                                                                        class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                                    </span></p>
+                                                                              
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                {{ $record->procedure_name ?? '' }}</h6>
+                                                                                           
+                                                                                        </div>
+                                                                                        <p class="ss_result">
+                                                                                            <strong>Entry</strong> &nbsp;&colon;
+                                                                                            {{ $record->entry ?? '' }}
+                                                                                        </p>
+                                                                                    </div>
+                                                                              
+                                                                              
+                    
                                                                             </div>
-
+                    
+                    
+                    
                                                                         </div>
-
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    USTTABL2470</h6>
-
-                                                                            </div>
-
-                                                                        </div>
-
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    LABPREIRBASIC32</h6>
-                                                                            </div>
-
-                                                                        </div>
-
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    LABPREIRSAFETY17</h6>
-
-                                                                            </div>
-
-                                                                        </div>
+                                                                        <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                            onclick="toggleReadMore(this)">Read More</button>
                                                                     </div>
-
-
-
-                                                                </div>
-                                                                <button
-                                                                    class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
-                                                            </div>
-                                                        </li>
-
+                                                                </li>
+                                                            @empty
+                                                                <small style="font-size:10px;">No Data Found</small>
+                                                            @endforelse
+                                                        @endif
                                                     </ul>
                                                 </div>
                                             </div>
@@ -2923,58 +2730,51 @@
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
-                                                        <li>
-
-                                                            <div class="appoin_date">
-                                                                <div class="read-more-content " style="">
-                                                                    <div class="diagnosis_show">
-                                                                        <p class="diagnosis_date "><span
-                                                                                class="enter_span_hivj"> Entered By | SAIF
-                                                                                ALZAABI </span> <span
-                                                                                class="enter_span_hivj">Sun, 22 Oct 2023,
-                                                                                12:00</span></p>
-
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    IVVITATHYROID175</h6>
-
+                                                        @if (isset($supportiveTreatments ))
+                                                            @forelse ($supportiveTreatments  as $record)
+                                                                <li>
+                    
+                                                                    <div class="appoin_date">
+                                                                        <div class="read-more-content " style="">
+                                                                            <div class="diagnosis_show">
+                                                                                <p class="diagnosis_date "><span class="enter_span_hivj">
+                                                                                        {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                                    </span> <span
+                                                                                        class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                                    </span></p>
+                                                                              
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                {{ $record->title ?? '' }}</h6>
+                                                                                           
+                                                                                        </div>
+                                                                                        <p class="ss_result">
+                                                                                            -
+                                                                                            {{ $record->sub_title ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                           &nbsp;&nbsp;
+                                                                                            {{ $record->treatment ?? '' }}
+                                                                                        </p>
+                                                                                    </div>
+                                                                              
+                                                                              
+                    
                                                                             </div>
-
+                    
+                    
+                    
                                                                         </div>
-
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    LABPREIVBASIC52</h6>
-
-                                                                            </div>
-
-                                                                        </div>
-
-                                                                        <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    LABPREIVADVANCED230</h6>
-                                                                            </div>
-
-                                                                        </div>
-
-
+                                                                        <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                            onclick="toggleReadMore(this)">Read More</button>
                                                                     </div>
-
-
-
-                                                                </div>
-                                                                <button
-                                                                    class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
-                                                            </div>
-                                                        </li>
-
+                                                                </li>
+                                                            @empty
+                                                                <small style="font-size:10px;">No Data Found</small>
+                                                            @endforelse
+                                                        @endif
                                                     </ul>
                                                 </div>
                                             </div>
@@ -2989,11 +2789,9 @@
                                                 <div class="top_title_mm_box">
                                                     <h6 class="action_flex_ghi">
                                                         <div class="enterd_by">
-                                                            <span>Plans/Recommandation | <span class="enter_span_hivj">
-                                                                    Entered By | SAIF ALZAABI</span> </span>
+                                                            <span>Plans/Recommandation  </span>
                                                             <div class="right_side_hjkl">
-                                                                <span class="date_time_fgu">Sat 21st Oct, 2023, 1:39
-                                                                    pm</span>
+
                                                                 <div class="customdotdropdown">
                                                                     <div class="buttondrop_dot">
                                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -3022,48 +2820,48 @@
                                                 <div class="appointments___list">
 
                                                     <ul>
-                                                        <li>
-                                                            <div class="appoin_title">
-                                                                <h6>Piriformis Muscle Injection</h6>
-                                                            </div>
-                                                            <div class="appoin_date">
-                                                                <p>Sun, 22 October 2023 </p>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="appoin_title">
-                                                                <h6>Follow up appointment</h6>
-                                                            </div>
-                                                            <div class="appoin_date">
-                                                                <p>Sat, 21 October 2023 </p>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="appoin_title">
-                                                                <h6>Medical Lazer Kit</h6>
-                                                            </div>
-                                                            <div class="appoin_date">
-                                                                <p>Mon, 27 March 2023 </p>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="appoin_title">
-                                                                <h6>Medical Lazer Kit</h6>
-                                                            </div>
-                                                            <div class="appoin_date">
-                                                                <p>Mon, 13 March 2023 </p>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="appoin_title">
-                                                                <h6>Medical Lazer Kit</h6>
-                                                            </div>
-                                                            <div class="appoin_date">
-                                                                <p>Mon, 10 March 2023 </p>
-                                                            </div>
-                                                        </li>
+                                                        @if (isset($patient_future_plans ))
+                                                            @forelse ($patient_future_plans  as $record)
+                                                                <li>
+                    
+                                                                    <div class="appoin_date">
+                                                                        <div class="read-more-content " style="">
+                                                                            <div class="diagnosis_show">
+                                                                                <p class="diagnosis_date "><span class="enter_span_hivj">
+                                                                                        {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                                    </span> <span
+                                                                                        class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                                    </span></p>
+                                                                              
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                {{ $record->date ?? '' }}</h6>
+                                                                                           
+                                                                                        </div>
+                                                                                       
+                                                                                        <p class="ss_result">
+                                                                                           &nbsp;&nbsp;
+                                                                                           {{ $record->plan_text ?? '' }}
+                                                                                        </p>
+                                                                                    </div>
+                                                                              
+                                                                              
+                    
+                                                                            </div>
+                    
+                    
+                    
+                                                                        </div>
+                                                                        <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                            onclick="toggleReadMore(this)">Read More</button>
+                                                                    </div>
+                                                                </li>
+                                                            @empty
+                                                                <small style="font-size:10px;">No Data Found</small>
+                                                            @endforelse
+                                                        @endif
                                                     </ul>
                                                 </div>
                                             </div>
@@ -3087,11 +2885,9 @@
                                                 <div class="top_title_mm_box">
                                                     <h6 class="action_flex_ghi">
                                                         <div class="enterd_by">
-                                                            <span>Progress Notes | <span class="enter_span_hivj"> Entered
-                                                                    By | SAIF ALZAABI</span> </span>
+                                                            <span>Progress Notes  </span>
                                                             <div class="right_side_hjkl">
-                                                                <span class="date_time_fgu">Sat 21st Oct, 2023, 1:39
-                                                                    pm</span>
+                                                                
                                                                 <div class="customdotdropdown">
                                                                     <div class="buttondrop_dot">
                                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -3117,8 +2913,53 @@
                                         <div id="collapseleft14" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample14">
                                             <div class="accordion-body">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                </p>
+                                                <div class="appointments___list">
+
+                                                    <ul>
+                                                        @if (isset($Patient_progress_notes ))
+                                                            @forelse ($Patient_progress_notes  as $record)
+                                                                <li>
+                    
+                                                                    <div class="appoin_date">
+                                                                        <div class="read-more-content " style="">
+                                                                            <div class="diagnosis_show">
+                                                                                <p class="diagnosis_date "><span class="enter_span_hivj">
+                                                                                        {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                                    </span> <span
+                                                                                        class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                                    </span></p>
+                                                                              
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                {{ $record->progressNote->canned_name ?? '' }}</h6>
+                                                                                           
+                                                                                        </div>
+                                                                                       
+                                                                                        <p class="ss_result">
+                                                                                          <strong>Summery</strong> &nbsp;&colon;
+                                                                                           {{ $record->summery ?? '' }}
+                                                                                        </p>
+                                                                                    </div>
+                                                                              
+                                                                              
+                    
+                                                                            </div>
+                    
+                    
+                    
+                                                                        </div>
+                                                                        <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                            onclick="toggleReadMore(this)">Read More</button>
+                                                                    </div>
+                                                                </li>
+                                                            @empty
+                                                                <small style="font-size:10px;">No Data Found</small>
+                                                            @endforelse
+                                                        @endif
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -3163,6 +3004,7 @@
                     @csrf
                     <input type="hidden" value="{{ @$id }}" name="patient_id"/>
                     <input type="hidden" value="thyroid_form" name="formType"/>
+                  
                 <div class="modal-body padding-0">
                     <div class="inner_data">
                         <div class="row">
@@ -3482,72 +3324,104 @@
                     <h1 class="modal-title" id="exampleModalLabel">Order Imaging Exam</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                             class="fa-solid fa-xmark"></i></button>
-                </div>
-                <form id="order_imaginary_exam_form">
-                    @csrf
-                    <input type="hidden" value="{{ @$id }}" name="patient_id"/>
-                        <input type="hidden" value="thyroid_form" name="formType"/>
-                <div class="modal-body padding-0">
-                    <div class="inner_data">
-                        <div class="row">
-                            <!-- <div class="col-lg-12">
-          <div class="title_head">
-           <h4>Schedule Appointment</h4>
-          </div>
-         </div> -->
-                            <!-- <div class="col-lg-12">
-            <div class="inner_element w-100">
-             <div class="form-group">
-             <label for="validationCustom01" class="form-label">Select Tests</label>
-              <select class="form-control select2_imaginary_test" name="states[]" multiple="multiple">
-               <option value="">X ray</option>
-               <option value="">Ultrasound</option>
-               <option value="">endoscopy</option>
-               <option value="">CT Scan</option>
-               <option value="">MRI</option>
-              </select>
-             </div>
-            </div>
-           </div> -->
+               
+                        </div>
 
-                            <div class="col-lg-12 mb-2">
-                                <label for="validationCustom01" class="form-label">Select Imaging Tests</label>
-                                <select id="sumo-select4" multiple name="test_name[]">
-                                    @php
-                                    $test_names = App\Models\patient\Order_imaginary_exam_test::orderBy('id', 'desc')->get();
-                                @endphp
-                                @foreach ($test_names as $test_name)
-                                    <option value="{{ $test_name->id }}">{{ $test_name->test_name }}
-                                    </option>
-                                @endforeach
-
-
-                                </select>
-                                <span id="testNameError" style="color: red;font-size:small"></span>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3 form-group">
-                                    <label for="validationCustom01" class="form-label">Write Summary</label>
-                                    <textarea class="form-control" placeholder="" style="height:150px" name="test_summery"></textarea>
+                        
+                        <form id="order_imaginary_exam_form">
+                            @csrf
+                            <input type="hidden" value="{{ @$id }}" name="patient_id" />
+                            <input type="hidden" value="thyroid_form" name="formType" />
+                            <input type="hidden" id="doctorValue" name="doctorId"
+                                value="{{ auth()->guard('doctor')->user()->id }}" />
+                            <div class="modal-body padding-0">
+                                <div class="inner_data">
+                                    <div class="row">
+        
+        
+                                        <div class="col-lg-12 mb-2">
+                                            <label for="validationCustom01" class="form-label">Select Imaging Tests</label>
+                                            <select id="sumo-select4" multiple name="lab_test_names[]">
+                                                @php
+                                                    $patient_order_labs = DB::table('pathology_price_list')
+                                                        ->where('price_type', '1')
+                                                        ->orderBy('id', 'desc')
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($patient_order_labs as $patient_order_lab)
+                                                    <option value="{{ $patient_order_lab->id }}">
+                                                        {{ $patient_order_lab->test_name }}</option>
+                                                @endforeach
+        
+        
+                                            </select>
+                                            <span id="testNameError" style="color: red;font-size:small"></span>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="mb-3 form-group">
+                                                <label for="validationCustom01" class="form-label">Write Summary</label>
+                                                <textarea class="form-control" placeholder="" style="height:150px" name="test_summery"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="action text-end bottom_modal">
+                                    <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+                                        Save</button>
+                                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                                        data-bs-dismiss="modal">
+                                        Close</a>
                                 </div>
                             </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                    <div class="action text-end bottom_modal">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient"
-                            >
-                            Save</button>
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
-                            data-bs-dismiss="modal">
-                            Close</a>
-                    </div>
-                </div>
-                </form>
+                        </form>
+               
+               
+                        {{-- <form id="order_imaginary_exam_form">
+                            @csrf
+                            <input type="hidden" value="{{ @$id }}" name="patient_id" />
+                            <input type="hidden" value="thyroid_form" name="formType" />
+                            <input type="hidden" id="doctorValue" name="doctorId"
+                                value="{{ auth()->guard('doctor')->user()->id }}" />
+                            <div class="modal-body padding-0">
+                                <div class="inner_data">
+                                    <div class="row">
+        
+        
+                                        <div class="col-lg-12 mb-2">
+                                            <label for="validationCustom01" class="form-label">Select Imaging Tests</label>
+                                            <select id="sumo-select4" multiple name="lab_test_names[]">
+                                                @php
+                                                    $patient_order_labs = DB::table('pathology_price_list')
+                                                        ->where('price_type', '1')
+                                                        ->orderBy('id', 'desc')
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($patient_order_labs as $patient_order_lab)
+                                                    <option value="{{ $patient_order_lab->id }}">
+                                                        {{ $patient_order_lab->test_name }}</option>
+                                                @endforeach
+        
+        
+                                            </select>
+                                            <span id="testNameError" style="color: red;font-size:small"></span>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="mb-3 form-group">
+                                                <label for="validationCustom01" class="form-label">Write Summary</label>
+                                                <textarea class="form-control" placeholder="" style="height:150px" name="test_summery"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="action text-end bottom_modal">
+                                    <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+                                        Save</button>
+                                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                                        data-bs-dismiss="modal">
+                                        Close</a>
+                                </div>
+                            </div>
+                        </form> --}}
                 <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
@@ -3575,56 +3449,33 @@
                 <div class="modal-body padding-0">
                     <div class="inner_data">
                         <div class="row top_head_vitals">
+
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <label for="validationCustom01" class="form-label">Select Lab Tests</label>
                                         <select id="sumo-select" multiple name="lab_test_names[]">
                                             @php
-                                            $patient_order_labs = App\Models\patient\Order_lab_test::orderBy('id', 'desc')->get();
-                                        @endphp
-                                        @foreach ($patient_order_labs as $patient_order_lab)
-                                            <option value="{{ $patient_order_lab->id }}">
-                                                {{ $patient_order_lab->test_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <span id="LabTestNamesError" style="color: red;"></span>
+                                                $patient_order_labs = DB::table('pathology_price_list')
+                                                    ->distinct('test_name')
+                                                    ->where('price_type', '0')
+                                                    ->orderBy('id', 'desc')
+                                                    ->get();
+                                            @endphp
+                                            @foreach ($patient_order_labs as $patient_order_lab)
+                                                <option value="{{ $patient_order_lab->id }}">
+                                                    {{ $patient_order_lab->test_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <span id="LabTestNamesError" style="color: red;"></span>
                                     </div>
 
+                                    <input type="hidden" id="doctorValue" name="doctorId"
+                                        value="{{ auth()->guard('doctor')->user()->id }}" />
                                     <div class="col-lg-12">
-
-                                        <div class="add_data_diagnosis mt-3">
-                                            <h6 class="selected_testtitle"><span>Selected Tests <i
-                                                        class="fa-solid fa-cart-shopping"></i></span> <span><a
-                                                        href="all-lab-tests.php">View all Tests</a></span></h6>
-                                            <table class="table lab_order_list">
-                                                <tbody id="lab_order_list_body"></tbody>
-                                                {{-- <tr>
-                                                    <td>17 Hydroxyprogesterone</td>
-                                                    <td>Turnaround Time : 1 Week</td>
-                                                    <td><a href="#" class="trash_btn"><i
-                                                                class="fa-solid fa-xmark"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>24 Hour Urinary Calcium</td>
-                                                    <td>Turnaround Time : 3 days</td>
-                                                    <td><a href="#" class="trash_btn"><i
-                                                                class="fa-solid fa-xmark"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>5 HIAA</td>
-                                                    <td>Turnaround Time : 4 Days</td>
-                                                    <td><a href="#" class="trash_btn"><i
-                                                                class="fa-solid fa-xmark"></i></a></td>
-                                                </tr> --}}
-                                            </table>
-                                        </div>
                                     </div>
-
-
                                 </div>
                             </div>
-
 
 
                         </div>
@@ -3656,7 +3507,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title" id="exampleModalLabel"> Order Special Invistigation</h1>
+                    <h1 class="modal-title" id="exampleModalLabel"> Order Special Investigation</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                             class="fa-solid fa-xmark"></i></button>
                 </div>
@@ -3695,7 +3546,7 @@
                                     <div class="col-lg-12">
                                         <div class="mb-3 form-group">
                                             <label for="validationCustom01" class="form-label">Write Special
-                                                Invistigation</label>
+                                                Investigation</label>
                                             <textarea class="form-control" placeholder="" style="height:100px" id="Invistigation" name="Invistigation"></textarea>
                                             <span id="InvistigationError" class="text-danger"></span>
                                         </div>
@@ -4884,15 +4735,18 @@
 
                                 if (result != '') {
 
+
                                     swal.fire(
-
-                                        'Success',
-
-                                        'Order Lab Test Added successfully!',
-
-                                        'success'
-
-                                    )
+        'Success',
+        'Order Lab Test Added successfully!',
+        'success'
+    ).then((result) => {
+        // Check if user clicked the "OK" button
+        if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+        }
+    });
                                     fetchAndDisplayPatientOrderLabTest(patient_id);
                                 } else {
 
@@ -5315,151 +5169,7 @@
 
             });
         </script>
-        <!-- Add Make an Appointment form data into database-->
-        <script>
-            $(document).ready(function() {
-                $('#book_app').prop('disabled', true);
-                $('#appoin_btn_form').click(function(event) {
-                    event.preventDefault();
-                    $('#book_app').prop('disabled', false);
-                });
-
-
-                let patient_id = $('input[name="patient_id"]').val();
-                $('#appointment_form').submit(function(e) {
-                    e.preventDefault();
-
-                    let isValid = validateFormAppointment();
-
-                    if (isValid) {
-
-                        $.ajax({
-                            url: '{{ route('user.appointment_add') }}',
-                            type: 'POST',
-                            data: $(this).serialize(),
-                            success: function(result) {
-                                $('#appointment_form')[0].reset();
-                                // Call the function every second
-                                setInterval(function() {
-                                    $('[id*="Error"]').text('');
-                                }, 1000);
-
-                                if (result != '') {
-
-                                    swal.fire(
-
-                                        'Success',
-
-                                        'Appointment Booked successfully!',
-
-                                        'success'
-
-                                    )
-                                    location.reload();
-                                } else {
-
-                                    swal.fire("Error!", "Enter valid Appointment Details!",
-                                        "error");
-
-                                }
-                            },
-                            error: function(error) {
-                                console.error(error);
-                            }
-                        });
-                    }
-                });
-
-
-                function validateFormAppointment() {
-                    let isValid = true;
-                    // Validate date
-                    let date = $('input[name="appointment_date"]').val();
-                    if (date === '') {
-                        isValid = false;
-
-                        $('#appointment_dateError').text('Date  is required');
-                        $('input[name="appointment_date"]').addClass('error');
-                    }
-                    // Validate appointment_type
-                    let appointment_type = $('select[name="appointment_type"]').val();
-                    if (appointment_type === '') {
-                        isValid = false;
-
-                        $('#appointment_typeError').text('Appointment Type  is required');
-                        $('select[name="appointment_type"]').addClass('error');
-                    }
-                    // Validate location
-                    let location = $('select[name="location"]').val();
-                    if (location === '') {
-                        isValid = false;
-
-                        $('#locationError').text('location   is required');
-                        $('select[name="location"]').addClass('error');
-                    }
-                    // Validate start_date
-                    let start_date = $('input[name="start_date"]').val();
-                    if (start_date === '') {
-                        isValid = false;
-
-                        $('#start_dateError').text('Start Date  is required');
-                        $('input[name="start_date"]').addClass('error');
-                    }
-                    // Validate start_time
-                    let start_time = $('input[name="start_time"]').val();
-                    if (start_time === '') {
-                        isValid = false;
-
-                        $('#start_timeError').text('Start Date  is required');
-                        $('input[name="start_time"]').addClass('error');
-                    }
-                    // Validate end_date
-                    let end_date = $('input[name="end_date"]').val();
-                    if (end_date === '') {
-                        isValid = false;
-
-                        $('#end_dateError').text('End Date  is required');
-                        $('input[name="end_date"]').addClass('error');
-                    }
-                    // Validate end_time
-                    let end_time = $('input[name="end_time"]').val();
-                    if (end_time === '') {
-                        isValid = false;
-
-                        $('#end_timeError').text('End Time is required');
-                        $('input[name="end_time"]').addClass('error');
-                    }
-                    // Validate app_cost
-                    let app_cost = $('input[name="app_cost"]').val();
-                    if (app_cost === '') {
-                        isValid = false;
-
-                        $('#app_costError').text('Cost  is required');
-                        $('input[name="app_cost"]').addClass('error');
-                    }
-                    // Validate app_code
-                    // let app_code = $('input[name="app_code"]').val();
-                    // if (app_code === '') {
-                    //     isValid = false;
-
-                    //     $('#app_codeError').text('Code  is required');
-                    //     $('input[name="app_code"]').addClass('error');
-                    // }
-                    // Validate clinician
-                    let clinician = $('select[name="clinician"]').val();
-                    if (clinician === '') {
-                        isValid = false;
-
-                        $('#clinicianError').text('Clinician   is required');
-                        $('select[name="clinician"]').addClass('error');
-                    }
-
-
-                    return isValid;
-                }
-
-            });
-        </script>
+     
         <!-- Add Start a Video call form data into database-->
         <script>
             $(document).ready(function() {
@@ -5975,80 +5685,7 @@
 
             });
         </script>
-        <!-- Add  Future Plans form data into database-->
-        <script>
-            $(document).ready(function() {
-                let patient_id = $('input[name="patient_id"]').val();
-                $('#future_plan_form').submit(function(e) {
-
-                    e.preventDefault();
-
-                    let isValid = validateFormFuturePlan();
-
-                    if (isValid) {
-
-                        $.ajax({
-                            url: '{{ route('user.future_plan_add') }}',
-                            type: 'POST',
-                            data: $(this).serialize(),
-                            success: function(result) {
-                                $('#future_plan_form')[0].reset();
-                                // $('#add_patient').modal('hide');
-
-                                if (result != '') {
-
-                                    swal.fire(
-
-                                        'Success',
-
-                                        'Future Plans Added successfully!',
-
-                                        'success'
-
-                                    )
-                                    // Call the function every second
-                                    setInterval(function() {
-                                        $('[id*="Error"]').text('');
-                                    }, 1000);
-                                    location.reload();
-                                } else {
-
-                                    swal.fire("Error!", "Enter valid Future Plans Details!",
-                                        "error");
-
-                                }
-                            },
-                            error: function(error) {
-                                console.error(error);
-                            }
-                        });
-                    }
-                });
-
-
-                function validateFormFuturePlan() {
-                    let isValid = true;
-                    // Validate future_date
-                    let future_date = $('input[name="future_date"]').val();
-                    if (future_date === '') {
-                        isValid = false;
-
-                        $('#future_dateError').text(' Date  is required');
-                        $('input[name="future_date"]').addClass('error');
-                    }
-                    // Validate text
-                    let text = $('textarea[name="future_write"]').val();
-                    if (text === '') {
-                        isValid = false;
-                        $('#future_writeError').text('Write is required');
-                        $('textarea[name="future_write"]').addClass('error');
-                    }
-
-                    return isValid;
-                }
-
-            });
-        </script>
+      
         <!-- Add  Special Notes form data into database-->
         <script>
             $(document).ready(function() {
@@ -6382,73 +6019,7 @@
 
             });
         </script>
-        <!-- Add prescription_day_form data into database-->
-        <script>
-            $(document).ready(function() {
-                let patient_id = $('input[name="patient_id"]').val();
-                $('#prescription_day_form').submit(function(e) {
-
-                    e.preventDefault();
-
-                    let isValid = validateFormPrescription();
-
-                    if (isValid) {
-
-                        $.ajax({
-                            url: '{{ route('user.add_patient_prescription') }}',
-                            type: 'POST',
-                            data: $(this).serialize(),
-                            success: function(result) {
-                                $('#prescription_day_form')[0].reset();
-                                // $('#add_patient').modal('hide');
-
-                                if (result != '') {
-
-                                    swal.fire(
-
-                                        'Success',
-
-                                        'Prescription day Added successfully!',
-
-                                        'success'
-
-                                    )
-                                    // Call the function every second
-                                    setInterval(function() {
-                                        $('[id*="Error"]').text('');
-                                    }, 1000);
-                                    location.reload();
-                                } else {
-
-                                    swal.fire("Error!", "Enter valid Prescription day Details!",
-                                        "error");
-
-                                }
-                            },
-                            error: function(error) {
-                                console.error(error);
-                            }
-                        });
-                    }
-                });
-
-
-                function validateFormPrescription() {
-                    let isValid = true;
-                    // Validate prescription
-                    let prescription = $('textarea[name="prescription"]').val();
-                    if (prescription === '') {
-                        isValid = false;
-
-                        $('#prescriptionError').text('prescription   is required');
-                        $('textarea[name="prescription"]').addClass('error');
-                    }
-
-                    return isValid;
-                }
-
-            });
-        </script>
+      
 
         <!-- Add  Order Special Invistigation form data into database-->
         <script>
@@ -6518,349 +6089,9 @@
 
             });
         </script>
-        <!-- Add Order Procedure form data into database-->
-        <script>
-            $(document).ready(function() {
-                let patient_id = $('input[name="patient_id"]').val();
-                $('#order_procedure_form').submit(function(e) {
+     
 
-                    e.preventDefault();
 
-                    let isValid = validateFormProcedure();
-
-                    if (isValid) {
-
-                        $.ajax({
-                            url: '{{ route('user.add_patient_procedure') }}',
-                            type: 'POST',
-                            data: $(this).serialize(),
-                            success: function(result) {
-                                $('#order_procedure_form')[0].reset();
-                                // $('#add_patient').modal('hide');
-
-                                if (result != '') {
-
-                                    swal.fire(
-
-                                        'Success',
-
-                                        'Order Procedure Added successfully!',
-
-                                        'success'
-
-                                    )
-                                    // Call the function every second
-                                    setInterval(function() {
-                                        $('[id*="Error"]').text('');
-                                    }, 1000);
-                                    location.reload();
-                                } else {
-
-                                    swal.fire("Error!", "Enter Order Procedure Details!", "error");
-
-                                }
-                            },
-                            error: function(error) {
-                                console.error(error);
-                            }
-                        });
-                    }
-                });
-
-
-                function validateFormProcedure() {
-                    let isValid = true;
-
-                    // Validate entry
-                    let entry = $('textarea[name="entry"]').val();
-                    if (entry === '') {
-                        isValid = false;
-
-                        $('#entryError').text('Entry   is required');
-                        $('textarea[name="entry"]').addClass('error');
-                    }
-                    // Validate summary
-                    let summary = $('textarea[name="summary"]').val();
-                    if (summary === '') {
-                        isValid = false;
-
-                        $('#summaryError').text('Summary   is required');
-                        $('textarea[name="summary"]').addClass('error');
-                    }
-                    // Validate procedure
-                    let procedure = $('select[name="procedure"]').val();
-                    if (procedure === '') {
-                        isValid = false;
-
-                        $('#procedureError').text('Procedure   is required');
-                        $('select[name="procedure"]').addClass('error');
-                    }
-
-                    return isValid;
-                }
-
-            });
-        </script>
-
-
-        <!-- Add a new progress notes form data into database-->
-        <script>
-            $(document).ready(function() {
-                let patient_id = $('input[name="patient_id"]').val();
-                $('#progress_note_form').submit(function(e) {
-
-                    e.preventDefault();
-
-                    let isValid = validateFormProgressNote();
-
-                    if (isValid) {
-
-                        $.ajax({
-                            url: '{{ route('user.patient_progress_list_save') }}',
-                            type: 'POST',
-                            data: $(this).serialize(),
-                            success: function(result) {
-                                $('#progress_note_form')[0].reset();
-                                // Call the function every second
-                                setInterval(function() {
-                                    $('[id*="Error"]').text('');
-                                }, 1000);
-
-                                if (result != '') {
-
-                                    swal.fire(
-
-                                        'Success',
-
-                                        ' Progress Note Added successfully!',
-
-                                        'success'
-
-                                    )
-                                    fetchAndDisplayPatientProgressNote(patient_id);
-                                    location.reload();
-                                } else {
-
-                                    swal.fire("Error!", "Enter valid Progress Note Details!",
-                                        "error");
-
-                                }
-                            },
-                            error: function(error) {
-                                console.error(error);
-                            }
-                        });
-                    }
-                });
-
-
-                function validateFormProgressNote() {
-                    let isValid = true;
-                    // Validate note_contents
-                    let note_contents = $('select[name="note_contents"]').val();
-                    if (note_contents === '') {
-                        isValid = false;
-
-                        $('#note_contentsError').text('Note Content  is required');
-                        $('select[name="note_contents"]').addClass('error');
-                    }
-                    // Validate new_text
-                    // let new_text = $('input[name="new_text"]').val();
-                    // if (new_text === '') {
-                    //   isValid = false;
-
-                    //   ('#new_textError').text('New context  is required');
-                    //   $('input[name="new_text"]').addClass('error');
-                    // }
-                    // Validate prog_voice_recognition
-                    let prog_voice_recognition = $('textarea[name="prog_voice_recognition"]').val();
-                    if (prog_voice_recognition === '') {
-                        isValid = false;
-
-                        $('#prog_voice_recognitionError').text('voice_recognition  is required');
-                        $('textarea[name="prog_voice_recognition"]').addClass('error');
-                    }
-                    // Validate prog_day
-                    // let prog_day = $('input[name="prog_day"]').val();
-                    // if (prog_day === '') {
-                    //   isValid = false;
-
-                    //   $('#prog_dayError').text('Day  is required');
-                    //   $('input[name="prog_day"]').addClass('error');
-                    // }
-                    // Validate date
-                    //  let date = $('input[name="date"]').val();
-                    // if (date === '') {
-                    //   isValid = false;
-
-                    //   $('#dateError').text('Date  is required');
-                    //   $('input[name="date"]').addClass('error');
-                    // }
-                    // Validate prog_email
-                    //  let prog_email = $('input[name="prog_email"]').val();
-                    // if (prog_email === '') {
-                    //   isValid = false;
-
-                    //   $('#prog_emailError').text('email  is required');
-                    //   $('input[name="prog_email"]').addClass('error');
-                    // }
-
-                    return isValid;
-                }
-
-            });
-        </script>
-        <!-- Function to fetch and populate patient data -->
-        <script>
-            function fetchAndDisplayPatientProgressNote(patient_id) {
-
-                // let patient_id = $('input[name="patient_id"]').val();
-                $.ajax({
-                    url: '{{ route('user.patient_progress_list') }}',
-                    type: 'GET',
-                    data: {
-                        patient_id: patient_id
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-
-                        if (data && data.hasOwnProperty('note_contents')) {
-                            let cannedNotes = data.note_contents;
-                            cannedNotes.forEach(function(note) {
-                                let newOption = $('<option>', {
-                                    value: note.id,
-                                    text: note.note_name
-                                });
-
-
-                                let optionExists = $('#note_contents option[value="' + note.id + '"]')
-                                    .length > 0;
-
-                                if (!optionExists) {
-
-                                    $('#note_contents').append(newOption);
-                                } else {
-
-                                    $('#note_contents option[value="' + note.id + '"]').text(note
-                                        .note_name);
-                                }
-                            });
-
-
-                        }
-                        if (data && data.hasOwnProperty('canned_texts')) {
-                            let canned_texts = data.note_contents.canned_texts ? data.note_contents.canned_texts :
-                                '';
-                            let id = data.canned_texts.id ? data.canned_texts.id : '';
-                            let canned_textsobj = data.canned_texts;
-                            canned_textsobj.forEach(function(note) {
-                                let newOption = $('<option>', {
-                                    value: note.id,
-                                    text: note.canned_name
-                                });
-
-
-                                let optionExists = $('#canned_texts option[value="' + note.id + '"]')
-                                    .length > 0;
-
-                                if (!optionExists) {
-
-                                    $('#canned_texts').append(newOption);
-                                } else {
-
-                                    $('#canned_texts option[value="' + note.id + '"]').text(note
-                                        .canned_name);
-                                }
-                            });
-                        }
-
-
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching data:', error);
-                    }
-                });
-            }
-
-            // Call the function on clcik class proress_notes
-            $(document).ready(function() {
-                let patient_id1 = $('input[name="patient_id"]').val();
-                $(".proress_notes").on('click', function() {
-
-                    fetchAndDisplayPatientProgressNote(patient_id1);
-                });
-
-            });
-        </script>
-
-        {{-- patient predefine content notes listing here --}}
-
-        <!-- Function to fetch and populate patient data -->
-        <script>
-            function fetchAndDisplayPredefineNoteList(patient_id, canned_texts, note_contents) {
-
-                // let patient_id = $('input[name="patient_id"]').val();
-                $.ajax({
-                    url: '{{ route('user.patient_progress_predefine_notes_list') }}',
-                    type: 'GET',
-                    data: {
-                        patient_id: patient_id,
-                        canned_texts_id: canned_texts,
-                        note_contents_id: note_contents
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        let patientData = $('#voiceInput');
-
-                        if (data && data.describe && data.describe.describe.length > 0) {
-                            patientData.val(data.describe.describe);
-                        } else {
-                            patientData.val('');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching data:', error);
-                    }
-                });
-            }
-
-            // Call the function on clcik class invoice_item
-            $(document).ready(function() {
-                let patient_id1 = $('input[name="patient_id"]').val();
-
-                $("#automated_clinic_note").on('click', function() {
-                    let isValid = validatePatientPredefineNote();
-                    if (isValid) {
-                        let canned_texts = $('#canned_texts').val();
-                        let note_contents = $('#note_contents').val();
-                        fetchAndDisplayPredefineNoteList(patient_id1, canned_texts, note_contents);
-                    }
-                });
-
-                function validatePatientPredefineNote() {
-                    let isValid = true;
-                    // Validate canned_texts
-                    let canned_texts = $('select[name="canned_texts"]').val();
-                    if (canned_texts === '') {
-                        isValid = false;
-
-                        $('#canned_textsError').text('Field  is required');
-                        $('select[name="canned_texts"]').addClass('error');
-                    }
-                    // Validate note_contents
-                    let note_contents = $('select[name="note_contents"]').val();
-                    if (note_contents === '') {
-                        isValid = false;
-
-                        $('#note_contentsError').text('Field  is required');
-                        $('select[name="note_contents"]').addClass('error');
-                    }
-
-                    return isValid;
-                }
-
-            });
-        </script>
 
 
         <!-- AddRemoveDiagnosis form data into database-->

@@ -35,6 +35,11 @@
 </div>
 <!--end modal -->
 
+
+
+
+
+
 <!-- Content Wrapper. Contains page content -->
 
 <div class="content-wrapper">
@@ -49,7 +54,7 @@
 
         <h4 class="page-title">All Doctors</h4>
 
-        <nav aria-label="breadcrumb">
+          {{-- <nav aria-label="breadcrumb">
 
                 <ol class="breadcrumb">
 
@@ -59,7 +64,7 @@
 
                 </ol>
 
-            </nav>
+            </nav> --}}
 
         </div>
 
@@ -97,6 +102,8 @@
 
        <div class="table-main-box">
 
+
+
          <table id="custom_table" class="custom_table table  table-striped table-hover" style="width:100%">
 
            <thead>
@@ -114,6 +121,8 @@
                    <th>Email Address</th>
 
                    <th>Postal Code</th>
+
+                   <th>Status</th>
 
                    <th>Action</th>
 
@@ -141,7 +150,7 @@
 
                         @if (isset($alldoctor->patient_profile_img))
 
-                        <img src="{{ asset('/public/assets/doctor_profile/' . $alldoctor->patient_profile_img) }}" alt="">
+                        <img src="{{ asset('/public/assets/profileImage/' . $alldoctor->patient_profile_img) }}" alt="">
 
                         @else
                         <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
@@ -167,23 +176,20 @@
 
                    <td>{{ $alldoctor->post_code }}</td>
 
-                   <td>
-
-                   <div class="btn-group">
-
-                        <a class="hover-primary dropdown-toggle no-caret" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
-
-                        <div class="dropdown-menu">
-
-                            <a class="dropdown-item" href="{{ route('doctors.view',['id'=>$alldoctor->id]) }}">View Details</a>
-
-                            <a class="dropdown-item" href="{{ route('doctors.edit',['id'=>$alldoctor->id]) }}">Edit Details</a>
-
-                            <a  onclick="remove_doctor({{ $alldoctor->id }})" class="dropdown-item">Delete</a>
-
-                        </div>
-                    </div>
+                   <td>{{ ucfirst($alldoctor->status) }}
                    </td>
+
+                   <td>
+                       <div class="btn-group" style="position: relative; z-index: 9999;">
+                            <a class="hover-primary dropdown-toggle no-caret" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('doctors.view',['id'=>$alldoctor->id]) }}">View Details</a>
+                                <a class="dropdown-item" href="{{ route('doctors.edit',['id'=>$alldoctor->id]) }}">Edit Details</a>
+                                <!--<a onclick="remove_doctor({{ $alldoctor->id }})" class="dropdown-item">Delete</a>-->
+                            </div>
+                        </div>
+                  </td>
+
                </tr>
 
                @endforeach

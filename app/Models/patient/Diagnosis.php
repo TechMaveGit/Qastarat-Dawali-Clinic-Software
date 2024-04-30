@@ -10,13 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 class Diagnosis extends Model
 {
     use HasFactory;
+    public $timestamps = true; 
     protected $table = "patient_diagnosis";
     protected $fillable = [
         'patient_id',
         'title_name',
         'data_value',
-        'created_at',
-        'updated_at',
         'doctor_id'  
     ];
 

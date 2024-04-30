@@ -29,7 +29,7 @@
         <div class="row">
         <div class="col-12">
 
-            <form action="{{ route('nurses.create') }}" method="POST" enctype="multipart/form-data"> 
+            <form action="{{ route('nurses.create') }}" method="POST" enctype="multipart/form-data">
                 @csrf
             <div class="box">
                 <div class="box-body">
@@ -57,7 +57,7 @@
                            </select>
                            @error('title')
                            <span class="error text-danger">{{ $message }}</span>
-                       @enderror
+                          @enderror
 					  </div>
 					  <!-- /.form-group -->
 					</div>
@@ -101,13 +101,15 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
-                        
+
+
                           <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Select Role</label>
-                                <select class="form-control select2" name="role_id" style="width: 100%;">
+                                <select class="form-control select2" name="role_id" style="width: 100%;" required>
                                     <option value="">Select any one</option>
                                     @forelse ($roles as $allrole)
+
                                     <option value="{{ $allrole->id }}" {{ old('role_id') == $allrole->id ? 'selected' : '' }}>{{ $allrole->name }}</option>
 
                                     @empty
@@ -117,7 +119,27 @@
                                 </select>
                             </div>
                         </div>
-                      
+                        
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Add Branch</label>
+                                <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple required>
+
+                                {{-- <select class="form-control select2" name="doctorName" style="width: 100%;" required> --}}
+                                     <option value="">Select Any One</option>
+                                    @forelse ($branchs as $allbranchs)
+                                       <option value="{{$allbranchs->id}}" {{ old('doctorName') == $allbranchs->id ? 'selected' : '' }} >{{$allbranchs->branch_name}}</option>
+                                    @empty
+
+                                    @endforelse
+                                </select>
+                            </div>
+                        <!-- /.form-group -->
+                        </div>
+
+
+
 
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
@@ -141,7 +163,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Password <span class="clr">*</span></label>
                                     <div class="wrap-input">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                        <input type="password" name="password" id="password" class="form-control password" placeholder="">
                                         <span class="btn-show-pass ico-20 ">
                                             <span class="  eye-pass flaticon-visibility "></span>
                                         </span>
@@ -155,7 +177,7 @@
                             <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Mobile Phone<span class="clr"> * </span></label>
-                                <input type="text" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="" minlength="10" maxlength="15">
+                                <input type="tel" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="" minlength="10" maxlength="15">
 
                                 @error('mobile_no')
                                     <span class="error text-danger">{{ $message }}</span>
@@ -165,7 +187,7 @@
                             <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Landline</label>
-                                <input type="text"  name="landline" value="{{ old('landline') }}" class="form-control" placeholder="">
+                                <input type="tel"  name="landline" value="{{ old('landline') }}" class="form-control" placeholder="">
                                 @error('landline')
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
@@ -206,7 +228,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="form-label">Country</label>
-                                        <select class="form-control" name="country" id="countries" style="width: 100%;">
+                                        <select class="form-control select2" name="country" style="width: 100%;">
                                             <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
                                             <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
                                         </select>
@@ -275,9 +297,9 @@
                                 <select class="form-control select2 form-select" name="WorkUnder[]" style="width: 100%;" multiple>
                                     <option value="">Select Any One </option>
                                     @forelse ($doctors as $doctor)
-                                     
+
                                         <option value="{{ $doctor->id }}">{{ $doctor->name }} ( {{ $doctor->email }} )</option>
-                                  
+
                                     @empty
                                     @endforelse
 
@@ -287,14 +309,14 @@
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                 @enderror
                         </div>
-                      
+
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label class="form-label">Profile Image</label>
                                   <input type="file" class="dropify" name="patient_profile_img" accept="image/*"/>
                             </div>
                         </div>
-                        
+
                         {{-- <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Document</h4>
@@ -337,6 +359,21 @@
 
       </div>
  </div>
+
+
+
+
+ <script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="country"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
 
 
  @endsection

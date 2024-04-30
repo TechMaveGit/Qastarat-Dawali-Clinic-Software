@@ -1458,7 +1458,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                     <th>Mild LUTS </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
-                                                <tr id="moderateLUTS" class="hidden">>
+                                                <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
                                                     <th>Moderate LUTS </th>
                                                     <th>(8-19 pts) </th>

@@ -16,11 +16,13 @@ class RadiologyController extends Controller
     public function index(Request $req)
     {
         $data['radiologys'] = DB::table('doctors')->where('user_type','radiology')->orderBy('id','desc')->get();
+        $data['branchs'] = DB::table('branchs')->where('status','1')->get();
         return view('superAdmin.radiologys.index',$data);
     }
 
     public function add(Request $req)
     {
+
         $req->validate([
             'email' => [
                 'required',
@@ -40,7 +42,7 @@ class RadiologyController extends Controller
                     }
                 },
             ],
-            'post_code' => 'nullable|between:4,8',
+            'post_code' => 'nullable|between:4,8|unique:doctors,post_code',
             'landline' => 'nullable|numeric|digits_between:10,15',
             'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:10,15|regex:/^[0-9]{10,15}$/',
             'password' => 'required|min:6',
@@ -64,12 +66,35 @@ class RadiologyController extends Controller
             'lab_name.required' => 'Lab Name is required.',
 
         ]);
-        $doctor = $req->only(['mobile_no','email','post_code','lab_name','landline','street','town','country','password']);
+        $doctor = $req->only(['mobile_no','email','post_code','lab_name','landline','status','street','town','country','password']);
         $doctor['user_type']='radiology';
         $doctor['doctor_id'] = "RA" . rand('00000', '99999' . '0');
         $doctor['password']=Hash::make($doctor['password']);
-        DB::table('doctors')->insert($doctor);
-        return redirect()->back()->with('message', 'Radiologys added successfully!');
+        $lastInsertedId= DB::table('doctors')->insertGetId($doctor);
+
+
+
+        $branchName=$req->input('selectBranch');
+        $branchName = json_decode(json_encode($branchName));
+        if ($branchName) {
+            $branchName = count($branchName);
+        }
+        if ($branchName > 0) 
+        {
+            for ($i = 0; $i < $branchName; $i++) 
+              {
+                    DB::table('user_branchs')->insertGetId([
+                        'patient_id'        => $lastInsertedId,
+                        'add_branch'        => $req->input('selectBranch')[$i],
+                        'branch_type'       => 'radiology'
+                    ]);
+              }
+        }
+
+
+
+
+        return redirect()->back()->with('message', 'Lab Added Successfully');
     }
 
     public function edit(Request $request)
@@ -91,20 +116,46 @@ class RadiologyController extends Controller
                     'numeric',
                     Rule::unique('doctors')->ignore($id),
                 ],
-    
+
             ]);
-            $radiologys = $request->except(['_token','submit']);
-            if ($request->has('password') && isset($request->password)) {
-    
+
+            $radiologys = $request->except(['selectBranch','_token','submit']);
+           
+            if (!empty($request->password)) {  
                 $radiologys['password'] = Hash::make($request->input('password'));
             }
-           
+            if(empty($request->password))
+            {
+                $radiologys['password'] = DB::table('doctors')->where('id',$id)->first()->password??'';
+            }
+
             DB::table('doctors')->whereId($id)->update($radiologys);
-            return to_route('radiology.index')->with('message', 'Radiologys Updated Successfully.');
 
+
+            DB::table('user_branchs')->where('patient_id',$id)->where('branch_type','pathology')->delete();
+            $branchName=$request->input('selectBranch');
+            $branchName = json_decode(json_encode($branchName));
+            if ($branchName) {
+                $branchName = count($branchName);
+            }
+            if ($branchName > 0) 
+            {
+                for ($i = 0; $i < $branchName; $i++) 
+                  {
+                        DB::table('user_branchs')->insertGetId([
+                            'patient_id'        => $id,
+                            'add_branch'        => $request->input('selectBranch')[$i],
+                            'branch_type'       => 'radiology'
+                        ]);
+                  }
+            }
+    
+
+            
+
+
+
+
+            return to_route('radiology.index')->with('message', 'Lab Updated Successfully');
     }
-
-
-
-
 }

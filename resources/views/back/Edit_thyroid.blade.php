@@ -139,7 +139,7 @@
                                                 Thyrotoxicosis
                                             </label>
                                         </div>
-                                    </div>
+                                    </div>  
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
@@ -2235,7 +2235,7 @@
                                                     <th>Mild LUTS </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
-                                                <tr id="moderateLUTS" class="hidden">>
+                                                <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
                                                     <th>Moderate LUTS </th>
                                                     <th>(8-19 pts) </th>

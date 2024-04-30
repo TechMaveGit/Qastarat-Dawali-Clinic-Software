@@ -2,1549 +2,1160 @@
 
 @push('title')
 
-Invoice | QASTARAT & DAWALI CLINICS 
+Invoice | QASTARAT & DAWALI CLINICS
 
 @endpush
 
 @section('content-section')
 
-@push('custom-css')
 
-	{{-- add here --}}
+<?php
+$D = json_decode(json_encode(Auth::guard('doctor')->user()->get_role()),true);
+$arr = [];
+foreach($D as $v)
+{
+  $arr[] = $v['permission_id'];
+}
+?>
 
-@endpush
+<!-- delete Modal -->
+
+<div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            {{-- <div class="modal-header">
+
+                <button type="button" class="close customClose" data-bs-dismiss="modal"  aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> --}}
+
+            <div class="modal-header">
+               {{-- <h1 class="modal-title" id="exampleModalLabel">Add or Remove Diagnosis</h1> --}}
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+           </div>
+
+
+            <form action="{{ route('delete.invoice') }}" method="post" /> @csrf
+            <div class="modal-body">
 
 
 
-<div class="sub_bnr patient_recordsbanner" style="background-image: url({{ url('public/assets') }}/images/hero-15.jpg);">
+                <div class="text-center">
 
-   <div class="sub_bnr_cnt">
 
-      <h1>Invoices <span class="blue_theme"> </span> </h1>
 
-      <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <div class=" fs-15 mx-4 mx-sm-5 mb-3">
 
-         <ol class="breadcrumb">
+                        <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
 
-            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    </div>
 
-            <li class="breadcrumb-item active" aria-current="page">Invoices</li>
 
-         </ol>
 
-      </nav>
+                    <input type="hidden" name="common" id="hidden_id" value="" />
 
-      <!-- <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-toggle="modal" data-bs-target="#add_patient">+ Add New Patient </a>
 
-         -->
 
-   </div>
+                </div>
+
+                <div class="action text-end bottom_modal">
+                  <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient btn-danger" data-bs-dismiss="modal">
+                     Yes, Delete It!</button>
+                  <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
+                      Close</a>
+              </div>
+
+
+                {{-- <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+
+                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+
+                    <button type="sumit" class="btn-danger " id="delete-record">Yes, Delete It!</button>
+
+                </div> --}}
+
+            </div>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </div>
 
-<div class="table_head_filtersarea">
+<!--end modal -->
 
-   <div class="container">
 
-      <div class="filterinv_data">
 
-         <div class="inv_titlecr">
+<style>
 
-            <h1>Invoices</h1>
 
-         </div>
+.selectedpatientlist ul li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f6f9fb;
+    padding: 12px 20px;
+    border-radius: 5px;
+}
+.selectedpatientlist h2{
+    font-size: 16px;
+    display: flex;
+    font-weight: normal;
+    align-items: center;
+}
 
-         <div class="ftinv_center">
+.alertslted_text{
+    color: #f44;
+    font-size: 14px;
+    margin-left: 10px;
+}
 
-            <div class="form-group">
+.selectedpatientlist ul{
+    margin-top: 20px;
+}
 
-               <input type="checkbox" id="tests">
+.selectedpatientlist ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f6f9fb;
+    padding: 12px 20px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+</style>
 
-               <label for="tests">Don't Auto-Invoice Appointments & Tests</label>
+
+<div class="modal fade select2_dp centercanvas" id="close_lab" tabindex="-1" aria-labelledby="exampleModalLabel12" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        
+      <div class="offcanvas-body small p-0">
+
+        <div class="invoicenotedet_box">
+
+            <div class="invoice_notebox_header">
+
+                <div class="invuser_nametopay">
+
+                    <h1><span class="patientNameCls"></span> | Invoice Number <span class="invoiceNumber"></span></h1>
+
+                </div>
+
 
             </div>
 
-            <div class="form-group">
 
-               <input type="checkbox" id="future">
 
-               <label for="future">Show future invoice items</label>
+            <div class="invuserinvoice_middle">
 
-            </div>
+                <table class="rwd-table">
 
-         </div>
+                    <thead>
 
-         <div class="filterbtn_tabletr" >
+                        <tr>
 
-            <!-- Nav tabs -->
+                            <th>Total Paid Amount</th>
 
-            <ul class="nav nav-pills nav-justified" role="tablist">
+                          
+                            <th>Date Paid</th>
 
-               <li class="nav-item waves-effect waves-light">
+                            <th>Payment Method</th>
 
-                  <a class="nav-link ft_buttonshoover active" data-bs-toggle="tab" href="#home-1" role="tab">
+                        </tr>
 
-                  <span class="d-block "><iconify-icon icon="iconamoon:invoice-light"></iconify-icon></span>
+                    </thead>
 
-                  <span class=" d-sm-block">All Invoices</span> 
 
-                  </a>
 
-               </li>
 
-               <li class="nav-item waves-effect waves-light">
+                    <tbody>
 
-                  <a class="nav-link ft_buttonshoover" data-bs-toggle="tab" href="#profile-1" role="tab">
 
-                  <span class="d-block "><iconify-icon icon="mdi:invoice-arrow-right-outline"></iconify-icon></span>
 
-                  <span class=" d-sm-block">To Invoice</span> 
+                        <tr>
 
-                  </a>
+                          
+                            <td class="hiddenamountPaid" data-th="Supplier Code"> 
 
-               </li>
+                             
 
-               <li class="nav-item waves-effect waves-light">
 
-                  <a class="nav-link ft_buttonshoover" data-bs-toggle="tab" href="#messages-1" role="tab">
 
-                  <span class="d-block "><iconify-icon icon="streamline:graph-bar-increase"></iconify-icon></span>
-
-                  <span class=" d-sm-block">Stats</span>   
-
-                  </a>
-
-               </li>
-
-               <li class="nav-item waves-effect waves-light">
-
-                  <a class="nav-link ft_buttonshoover" data-bs-toggle="tab" href="#settings-1" role="tab">
-
-                  <span class="d-block"><iconify-icon icon="tabler:send-off"></iconify-icon></span>
-
-                  <span class=" d-sm-block">Last Unsent Invoices</span>    
-
-                  </a>
-
-               </li>
-
-            </ul>
-
-         </div>
-
-      </div>
-
-   </div>
-
-</div>
-
-<div class="tabcontenttable_area">
-
-   <div class="container">
-
-      <!-- Tab panes -->
-
-      <div class="tab-content  text-muted">
-
-         <div class="tab-pane active" id="home-1" role="tabpanel">
-
-            <div class="row">
-
-               <div class="customblck_card bggredient">
-
-                  <div class="blcard_header">
-
-                     <h3 class="blcard_header_title">All Invoices</h3>
-
-                     <div class="filters_innertable">
-
-                        <h1>Add Filters</h1>
-
-                        <div class="filters_table_">
-
-                           <div class="filterbtn_tabletr">
-
-                              <button type="button" class="ft_buttonshoover">Inv Number</button>
-
-                              <button type="button" class="ft_buttonshoover">Unsent</button>
-
-                              <button type="button" class="ft_buttonshoover">Part-paid</button>
-
-                              <button type="button" class="ft_buttonshoover">Over-due</button>
-
-                           </div>
-
-                        </div>
-
-                     </div>
-
-                  </div>
-
-                  <div class="blcard_body">
-
-                     <div class="datatable-container allinvoice_table custom_table_area">
-
-                        <table id="allinvoice_table" class="display">
-
-                           <thead>
-
-                              <tr>
-
-                                 <th class="sortable ">
-
-                                    <div class="arrow_box">
-
-                                       <span>S.No.</span>
-
-                                    </div>
-
-                                 </th>
-
-                                 <th class="sortable ">
-
-                                    <div class="arrow_box">
-
-                                       <span>Invoice No.</span>
-
-                                    </div>
-
-                                 </th>
-
-                                 <th class="sortable">
-
-                                    <div class="arrow_box">
-
-                                       <span>Patient</span>
-
-                                    </div>
-
-                                 </th>
-
-                                 <th class="sortable">
-
-                                    <div class="arrow_box">
-
-                                       <span>Amount </span>
-
-                                    </div>
-
-                                 </th>
-
-                                 <th class="sortable">
-
-                                    <div class="arrow_box">
-
-                                       <span>Status</span>
-
-                                    </div>
-
-                                 </th>
-
-                                 <th class="sortable">
-
-                                    <div class="arrow_box">
-
-                                       <span>Balance</span>
-
-                                    </div>
-
-                                 </th>
-
-                                 <th class="sortable">
-
-                                    <div class="arrow_box">
-
-                                       <span>Sent</span>
-
-                                    </div>
-
-                                 </th>
-
-                                 <th class="sortable">
-
-                                    <div class="arrow_box">
-
-                                       <span>Action</span>
-
-                                    </div>
-
-                                 </th>
-
-                              </tr>
-
-                           </thead>
-
-                           <tbody>
-
-                              <tr>
-
-                                 <td>1</td>
-
-                                 <td>RUHF5TJ</td>
-
-                                 <td>
-
-                                    <div class="flex-grow-1">Vihan Hudda</div>
-
-                                 </td>
-
-                                 <td>AED 100</td>
-
-                                 <td>
-
-                                    <div class="statusuccess_itgt">
-
-                                       <div class="activecircle">
-
-                                          <div class="mini_circlegreen"></div>
-
-                                       </div>
-
-                                       Paid
-
-                                    </div>
-
-                                 </td>
-
-                                 <td> AED 100.00</td>
-
-                                 <td >
-
-                                    <div class="form-check">
-
-                                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                                       <label class="form-check-label" for="flexCheckDefault">
-
-                                       </label>
-
-                                    </div>
-
-                                 </td>
-
-                                 <!-- <td>
-
-                                    <div class="customactions_dt">
-
-                                        <ul>
-
-                                          <li>
-
-                                              <div class="comonactionbtn copybtn">
-
-                                              <iconify-icon icon="tabler:note"></iconify-icon>
-
-                                              </div>
-
-                                          </li>
-
-                                          <li>
-
-                                          <div class="comonactionbtn dollarbtn">
-
-                                          <iconify-icon icon="pepicons-pop:dollar"></iconify-icon>
-
-                                              </div>
-
-                                         
-
-                                          </li>
-
-                                          <li>
-
-                                          <div class="comonactionbtn printbtnacti">
-
-                                          <iconify-icon icon="ion:print-outline"></iconify-icon>
-
-                                              </div>
-
-                                         
-
-                                          </li>
-
-                                        </ul>
-
-                                    </div>
-
-                                    </td> -->
-
-                                 <td>
-
-                                    <div class="customactions_dt">
-
-                                       <ul>
-
-                                          <li data-bs-toggle="offcanvas" data-bs-target="#user-invoice" aria-controls="offcanvasBottom">
-
-                                             <div class="comonactionbtn copybtn">
-
-                                                <img src="images/new-images/note.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                          <li data-bs-toggle="offcanvas" data-bs-target="#user-invoice" aria-controls="offcanvasBottom">
-
-                                             <div class="comonactionbtn dollarbtn">
-
-                                                <img src="images/new-images/speech-bubble.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                          <li>
-
-                                             <a href="print-invoice.php" target="_blank">
-
-                                                <div class="comonactionbtn printbtnacti">
-
-                                                   <img src="images/new-images/printer.gif" alt="">
-
-                                                </div>
-
-                                             </a>
-
-                                          </li>
-
-                                          <li>
-
-                                             <div class="comonactionbtn printbtnacti">
-
-                                                <img src="images/new-images/trash-bin.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                       </ul>
-
-                                    </div>
-
-                                 </td>
-
-                              </tr>
-
-                              <tr>
-
-                                 <td>2</td>
-
-                                 <td>AHDF5TJ</td>
-
-                                 <td>
-
-                                    <div class="flex-grow-1">Jansh Brown </div>
-
-                                 </td>
-
-                                 <td>AED 3000</td>
-
-                                 <td>
-
-                                    <div class="statusuccess_itgt">
-
-                                       <div class="activecircle">
-
-                                          <div class="mini_circlegreen"></div>
-
-                                       </div>
-
-                                       Paid
-
-                                    </div>
-
-                                 </td>
-
-                                 <td> AED 00.00</td>
-
-                                 <td >
-
-                                    <div class="form-check">
-
-                                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                                       <label class="form-check-label" for="flexCheckDefault">
-
-                                       </label>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td>
-
-                                    <div class="customactions_dt">
-
-                                       <ul>
-
-                                          <li data-bs-toggle="offcanvas" data-bs-target="#user-invoice" aria-controls="offcanvasBottom">
-
-                                             <div class="comonactionbtn copybtn">
-
-                                                <img src="images/new-images/note.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                          <li data-bs-toggle="offcanvas" data-bs-target="#user-invoice" aria-controls="offcanvasBottom">
-
-                                             <div class="comonactionbtn dollarbtn">
-
-                                                <img src="images/new-images/speech-bubble.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                          <li>
-
-                                             <a href="print-invoice.php" target="_blank">
-
-                                                <div class="comonactionbtn printbtnacti">
-
-                                                   <img src="images/new-images/printer.gif" alt="">
-
-                                                </div>
-
-                                             </a>
-
-                                          </li>
-
-                                          <li>
-
-                                             <div class="comonactionbtn printbtnacti">
-
-                                                <img src="images/new-images/trash-bin.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                       </ul>
-
-                                    </div>
-
-                                 </td>
-
-                              </tr>
-
-                              <tr>
-
-                                 <td>3</td>
-
-                                 <td>KNBH5TJ</td>
-
-                                 <td>
-
-                                    <div class="flex-grow-1">Prezy Mark </div>
-
-                                 </td>
-
-                                 <td>AED 0</td>
-
-                                 <td>
-
-                                    <div class="statusuccess_itgt">
-
-                                       <div class="activecircle">
-
-                                          <div class="mini_circlegreen"></div>
-
-                                       </div>
-
-                                       Paid
-
-                                    </div>
-
-                                 </td>
-
-                                 <td>AED 15,000.00</td>
-
-                                 <td >
-
-                                    <div class="form-check">
-
-                                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                                       <label class="form-check-label" for="flexCheckDefault">
-
-                                       </label>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td>
-
-                                    <div class="customactions_dt">
-
-                                       <ul>
-
-                                          <li data-bs-toggle="offcanvas" data-bs-target="#user-invoice" aria-controls="offcanvasBottom">
-
-                                             <div class="comonactionbtn copybtn">
-
-                                                <img src="images/new-images/note.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                          <li data-bs-toggle="offcanvas" data-bs-target="#user-invoice" aria-controls="offcanvasBottom">
-
-                                             <div class="comonactionbtn dollarbtn">
-
-                                                <img src="images/new-images/speech-bubble.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                          <li>
-
-                                             <a href="print-invoice.php" target="_blank">
-
-                                                <div class="comonactionbtn printbtnacti">
-
-                                                   <img src="images/new-images/printer.gif" alt="">
-
-                                                </div>
-
-                                             </a>
-
-                                          </li>
-
-                                          <li>
-
-                                             <div class="comonactionbtn printbtnacti">
-
-                                                <img src="images/new-images/trash-bin.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                       </ul>
-
-                                    </div>
-
-                                 </td>
-
-                              </tr>
-
-                              <tr>
-
-                                 <td>4</td>
-
-                                 <td>KJHN5TJ</td>
-
-                                 <td>
-
-                                    <div class="flex-grow-1">Vihan Hudda</div>
-
-                                 </td>
-
-                                 <td>AED 132</td>
-
-                                 <td>
-
-                                    <div class="statusinactive_itgt">
-
-                                       <div class="activecircle">
-
-                                          <div class="mini_circlegreen"></div>
-
-                                       </div>
-
-                                       Unpaid
-
-                                    </div>
-
-                                 </td>
-
-                                 <td>AED 0.00</td>
-
-                                 <td >
-
-                                    <div class="form-check">
-
-                                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                                       <label class="form-check-label" for="flexCheckDefault">
-
-                                       </label>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td>
-
-                                    <div class="customactions_dt">
-
-                                       <ul>
-
-                                          <li data-bs-toggle="offcanvas" data-bs-target="#user-invoice" aria-controls="offcanvasBottom">
-
-                                             <div class="comonactionbtn copybtn">
-
-                                                <img src="images/new-images/note.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                          <li data-bs-toggle="offcanvas" data-bs-target="#user-invoice" aria-controls="offcanvasBottom">
-
-                                             <div class="comonactionbtn dollarbtn">
-
-                                                <img src="images/new-images/speech-bubble.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                          <li>
-
-                                             <a href="print-invoice.php" target="_blank">
-
-                                                <div class="comonactionbtn printbtnacti">
-
-                                                   <img src="images/new-images/printer.gif" alt="">
-
-                                                </div>
-
-                                             </a>
-
-                                          </li>
-
-                                          <li>
-
-                                             <div class="comonactionbtn printbtnacti">
-
-                                                <img src="images/new-images/trash-bin.gif" alt="">
-
-                                             </div>
-
-                                          </li>
-
-                                       </ul>
-
-                                    </div>
-
-                                 </td>
-
-                              </tr>
-
-                           </tbody>
-
-                        </table>
-
-                     </div>
-
-                     <!-- table end -->
-
-                  </div>
-
-               </div>
-
-            </div>
-
-         </div>
-
-         <div class="tab-pane" id="profile-1" role="tabpanel">
-
-            <div class="row">
-
-               <div class="customblck_card bggredient">
-
-                  <div class="blcard_header">
-
-                     <h3 class="blcard_header_title">To Invoice</h3>
-
-                     <div class="commonselect_slt patient_select_drop">
-
-                        <h2>Select a patient to start.. </h2>
-
-                        <select name="" id="" class="comon_selectrtj">
-
-                           <option value="">MEDICAL LAZER DEVICE</option>
-
-                           <option value="">MEDICAL DEVICE </option>
-
-                           <option value="">MEDICAL LAZER  DEVICE </option>
-
-                        </select>
-
-                     </div>
-
-                  </div>
-
-                  <div class="blcard_body">
-
-                     <div class="toinv_table searchhere_tabletext custom_table_area">
-
-                        <table class="table mobileresponsive_table  dt-responsive">
-
-                           <thead>
-
-                              <tr>
-
-                                 <th scope="col">Item</th>
-
-                                 <th scope="col">Date</th>
-
-                                 <th scope="col">Cost</th>
-
-                                 <th scope="col">Action</th>
-
-                              </tr>
-
-                           </thead>
-
-                           <tbody>
-
-                             <!-- NOTE: We have used data-title in td for mobile responsive table do not relove this data-title from td -->
-
-
-
-                              <tr>
-
-                                 <td data-title="Item">
-
-                                    <div class="item_details_tb">
-
-                                       <h2>Treatment </h2>
-
-                                       <span>MEDICAL LAZER  DEVICE | DOB: 1/01/11</span>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Date">Oct 21, 2023 </td>
-
-                                 <td data-title="Cost">
-
-                                    <div class="discount_inputvt">
-
-                                       <input type="text" class="form-control comoninpt_border" value="100.00"> 
-
-                                       <input type="text" class="form-control comoninpt_border numericInput" placeholder=" % Discount" oninput="validateInput(this)" onkeypress="return isNumberKey(event)">
-
-                                       <button id="applyButton" onclick="applyFunction(this)">Apply</button>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Action">
-
-                                    <div class="dltwh_check">
-
-                                       <div class="deletebtn_prtientgh">
-
-                                          <iconify-icon icon="fluent:delete-24-regular"></iconify-icon>
-
-                                       </div>
-
-                                       <div class="round_custom">
-
-                                          <input type="checkbox"  id="checkbox3" />
-
-                                          <label for="checkbox3"></label>
-
-                                       </div>
-
-                                    </div>
-
-                                 </td>
-
-                              </tr>
-
-                              <tr>
-
-                                 <td data-title="Item">
-
-                                    <div class="item_details_tb">
-
-                                       <h2>Demo </h2>
-
-                                       <span>MEDICAL LAZER  DEVICE | DOB: 1/01/11</span>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Date">Oct 21, 2023 </td>
-
-                                 <td data-title="Cost">
-
-                                    <div class="discount_inputvt">
-
-                                       <input type="text" class="form-control comoninpt_border" value="100.00"> 
-
-                                       <input type="text" class="form-control comoninpt_border numericInput" placeholder=" % Discount" oninput="validateInput(this)" onkeypress="return isNumberKey(event)">
-
-                                       <button id="applyButton" onclick="applyFunction(this)">Apply</button>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Action">
-
-                                    <div class="dltwh_check">
-
-                                       <div class="deletebtn_prtientgh">
-
-                                          <iconify-icon icon="fluent:delete-24-regular"></iconify-icon>
-
-                                       </div>
-
-                                       <div class="round_custom">
-
-                                          <input type="checkbox"  id="checkbox2" />
-
-                                          <label for="checkbox2"></label>
-
-                                       </div>
-
-                                    </div>
-
-                                 </td>
-
-                              </tr>
-
-                              <tr>
-
-                                 <td data-title="item">
-
-                                    <div class="item_details_tb">
-
-                                       <h2>Demo2 </h2>
-
-                                       <span>MEDICAL LAZER  DEVICE | DOB: 1/01/11</span>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Date">Oct 21, 2023 </td>
-
-                                 <td data-title="Cost">
-
-                                    <div class="discount_inputvt">
-
-                                       <input type="text" class="form-control comoninpt_border" value="100.00"> 
-
-                                       <input type="text" class="form-control comoninpt_border numericInput" placeholder=" % Discount" oninput="validateInput(this)" onkeypress="return isNumberKey(event)">
-
-                                       <button id="applyButton" onclick="applyFunction(this)">Apply</button>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Action">
-
-                                    <div class="dltwh_check">
-
-                                       <div class="deletebtn_prtientgh">
-
-                                          <iconify-icon icon="fluent:delete-24-regular"></iconify-icon>
-
-                                       </div>
-
-                                       <div class="round_custom">
-
-                                          <input type="checkbox"  id="checkbox1" />
-
-                                          <label for="checkbox1"></label>
-
-                                       </div>
-
-                                    </div>
-
-                                 </td>
-
-                              </tr>
-
-                           </tbody>
-
-                        </table>
-
-                     </div>
-
-                     <!-- table end -->
-
-
-
-                     <div class="selected_patient_list">
-
-                        <h2>Selected Items - <div class="alertslted_text">Ensure these belong to the same patient before generating invoice!</div></h2>
-
-                          <ul>
-
-                           <li>
-
-                           <div class="item_details_tb">
-
-                                       <h2>Treatment </h2>
-
-                                       <span>MEDICAL LAZER  DEVICE | DOB: 1/01/11</span>
-
-                                    </div>
-
-
-
-                                    <div class="slted_date">Oct 21, 2023 </div>
-
-
-
-                                    <div class="selted_inpt">
-
-                                    <div class="discount_inputvt">
-
-                                       <input type="text" class="form-control comoninpt_border" value="100.00"> 
-
-                                    </div>
-
-                                    </div>
-
-                           </li>
-
-                          </ul>
-
-
-
-                          <div class="createinvoice_selectitem">
-
-                          <div class="selted_inpt">
-
-                                    <div class="discount_inputvt">
-
-                                       <input type="text" class="form-control comoninpt_border" value="% Discount on Total"> 
-
-                                    </div>
-
-                                    </div>
-
-
-
-                                    <div class="cret_buttonart">
-
-                                       <button type="button">Create Invoice With Selected Items</button>
-
-                                    </div>
-
-                          </div>
-
-                     </div>
-
-                  </div>
-
-               </div>
-
-            </div>
-
-         </div>
-
-         <div class="tab-pane" id="messages-1" role="tabpanel">
-
-            <div class="row">
-
-            <div class="blcard_header">
-
-                     <div class="stats_charts_title">
-
-                     <h2>Invoice Stats</h2>
-
-                  </div>
-
-                  </div>
-
-                  
-
-               <div class="col-lg-12">
-
-                 
-
-
-
-                  <div class="charts_multiarea">
-
-                     <div class="row">
-
-                        <div class="col-lg-6">
-
-                             <div class="total_invoices_graph">
+                            </td>
+                          
 
                             
 
-                             <div id="chart"></div>
+                            <td data-th="Invoice Date ">
 
+                                <div class="invdate_input input_width">
+                                   <input type="text" class="form-control " name="datePaid" id="datePaid" readonly>
+                                </div>
 
+                            </td>
 
-                             </div>
+                            <td data-th="paymentMethod">
+                              <div class="invdate_input input_width">
+                                 <input type="text" class="form-control" id="paymentMethod" readonly>
+                              </div>
 
-                        </div>
+                            </td>
 
-                        <div class="col-lg-6">
 
-                             <div class="total_invoices_graph">
 
-                             <div id="chart2"></div>
+                        </tr>
 
-                             </div>
 
-                        </div>
 
-                     </div>
+                    </tbody>
 
-                  </div>
+                  </form>
 
-               </div>
-
-            </div>
-
-         </div>
-
-         <div class="tab-pane" id="settings-1" role="tabpanel">
-
-
-
-         <div class="row">
-
-               <div class="customblck_card">
-
-               <div class="blcard_header">
-
-                     <h3 class="blcard_header_title">Unsent Invoices</h3>
-
-                  </div>
-
-                  <div class="blcard_body">
-
-                     <div class="searchhere_tabletext unsent_table custom_table_area">
-
-                        <table class="table datatable mobileresponsive_table  unsentinvoice_table">
-
-                           <thead>
-
-                              <tr>
-
-                                 <th scope="col">Patient</th>
-
-                                 <th scope="col">Insurer</th>
-
-                                 <th scope="col">Invoice Date</th>
-
-                                 <th scope="col">Invoice No. </th>
-
-                                 <th scope="col">Invoice Total</th>
-
-                                 <th scope="col">Invoice Item & Cost</th>
-
-                              </tr>
-
-                           </thead>
-
-                           <tbody>
-
-                              <!-- NOTE: We have used data-title in td for mobile responsive table do not relove this data-title from td -->
-
-                              <tr>
-
-                                 <td data-title="Patient">
-
-                                    <div class="user_patien_name_dr">
-
-                                         <p>FATIMA MOHAMED ALMAIL DOB 10/10/1961</p>
-
-                                         <p> UNITED ARAB EMIRATES</p>
-
-                                         <p>0567373310</p>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Insurer">Self Pay</td>
-
-                                 <td data-title="Invoice Date">
-
-                                 Nov 26, 2022
-
-                                 </td>
-
-                                 <td data-title="Invoice No.">AHDF5TJ</td>
-
-                                 <td data-title="Invoice Total">
-
-                                 €456.00
-
-                                 </td>
-
-                                 <td data-title="Invoice Item & Cost"> <div class="itm_cst_box">26/11/22 CONSULTATION/Interventional Radiology QASTARAT & DAWALI CLINICS | £500.00</div></td>
-
-                              </tr>
-
-
-
-                              <tr>
-
-                              <td data-title="Patient">
-
-                                    <div class="user_patien_name_dr">
-
-                                         <p>FATIMA MOHAMED ALMAIL DOB 10/10/1961</p>
-
-                                         <p> UNITED ARAB EMIRATES</p>
-
-                                         <p>0567373310</p>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Insurer">Self Pay</td>
-
-                                 <td data-title="Invoice Date">
-
-                                 Nov 26, 2022
-
-                                 </td>
-
-                                 <td data-title="Invoice No.">AHDF5TJ</td>
-
-                                 <td data-title="Invoice Total">
-
-                                 €206.00
-
-                                 </td>
-
-                                 <td data-title="Invoice Item & Cost"> <div class="itm_cst_box">26/11/22 CONSULTATION/Interventional Radiology QASTARAT & DAWALI CLINICS | £500.00</div></td>
-
-                              </tr>
-
-
-
-
-
-                              <tr>
-
-                              <td data-title="Patient">
-
-                                    <div class="user_patien_name_dr">
-
-                                         <p>FATIMA MOHAMED ALMAIL DOB 10/10/1961</p>
-
-                                         <p> UNITED ARAB EMIRATES</p>
-
-                                         <p>0567373310</p>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Insurer">Self Pay</td>
-
-                                 <td data-title="Invoice Date">
-
-                                 Nov 26, 2022
-
-                                 </td>
-
-                                 <td data-title="Invoice No.">AHDF5TJ</td>
-
-                                 <td data-title="Invoice Total">
-
-                                 €170.00
-
-                                 </td>
-
-                                 <td data-title="Invoice Item & Cost"> <div class="itm_cst_box">26/11/22 CONSULTATION/Interventional Radiology QASTARAT & DAWALI CLINICS | £500.00</div></td>
-
-                              </tr>
-
-
-
-                              <tr>
-
-                              <td data-title="Patient">
-
-                                    <div class="user_patien_name_dr">
-
-                                         <p>FATIMA MOHAMED ALMAIL DOB 10/10/1961</p>
-
-                                         <p> UNITED ARAB EMIRATES</p>
-
-                                         <p>0567373310</p>
-
-                                    </div>
-
-                                 </td>
-
-                                 <td data-title="Insurer">Self Pay</td>
-
-                                 <td data-title="Invoice Date">
-
-                                 Nov 26, 2022
-
-                                 </td>
-
-                                 <td data-title="Invoice No.">AHDF5TJ</td>
-
-                                 <td data-title="Invoice Total">
-
-                                 €300.00
-
-                                 </td>
-
-                                 <td data-title="Invoice Item & Cost"> <div class="itm_cst_box">26/11/22 CONSULTATION/Interventional Radiology QASTARAT & DAWALI CLINICS | £500.00</div></td>
-
-                              </tr>
-
-                           </tbody>
-
-                        </table>
-
-                     </div>
-
-                     <!-- table end -->
-
-
-
-                     
-
-                  </div>
-
-               </div>
+                </table>
 
             </div>
 
 
 
+            <div class="newbalance_area">
 
+                <div class="type_noteforinv_user">
 
-         </div>
+                    <div class="custom_textareadet">
+
+                        <label for="exampleFormControlTextarea1" class="form-label">Add Note</label>
+
+                        <textarea class="form-control" id="paymentNote" rows="3"
+                            placeholder="Type any notes related to this invoice here..."></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="offcanvas-footer">
+
+        <div class="frmbtn_areasubmit">
+
+           
+        </div>
+
+    </div>
+
 
       </div>
-
    </div>
-
 </div>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade select2_dp centercanvas" id="add_lab" tabindex="-1" aria-labelledby="exampleModalLabel12" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+         
+    <form action="{{ route('submit.invoice') }}" method="post"/> @csrf
+     <div class="offcanvas-body small p-0">
+
+         <div class="invoicenotedet_box">
+
+             <div class="invoice_notebox_header">
+
+                 <div class="invuser_nametopay">
+
+                     <h1><span class="patientNameCls"></span> | Invoice Number <span class="invoiceNumber"></span></h1>
+
+                 </div>
+
+
+
+                 {{-- <div class="fullypaid_invbox">
+
+                     <button type="button" class="ft_buttonshoover">Mark Fully Paid</button>
+
+                 </div> --}}
+
+             </div>
+
+
+
+             <div class="invuserinvoice_middle">
+
+                 <table class="rwd-table">
+
+                     <thead>
+
+                         <tr>
+
+                             <th>Total Amount</th>
+
+                             <th>Date Paid</th>
+
+                             <th>Payment Method</th>
+
+                         </tr>
+
+                     </thead>
+
+
+
+
+                     <tbody>
+
+
+
+                         <tr>
+
+                             <td class="amountPaid" data-th="Supplier Code">
+
+
+
+                             </td>
+
+                             
+
+                             <td data-th="Invoice Date ">
+
+                                 <div class="invdate_input input_width">
+                                    <input type="text" name="datePaid"  class="form-control datepickerInput comoninpt_border" placeholder="{{ \Carbon\Carbon::now()->format('Y-m-d'); }}" readonly>
+                                    <iconify-icon icon="solar:calendar-linear"></iconify-icon>
+                                 </div>
+
+                                 <input type="hidden" name="invoiceId" id="invoiceIdCls">
+
+                             </td>
+
+                             <td data-th="Due Date">
+
+                                     <select name="paymentMethod">
+
+                                         <option value="BACS">BACS</option>
+
+                                         <option value="Cheque">Cheque</option>
+
+                                         <option value="Cash">Cash</option>
+
+                                         <option value="Card">Card</option>
+
+                                         <option value="Credit">Credit</option>
+
+                                     </select>
+
+                                 {{-- </div> --}}
+
+                             </td>
+
+
+
+                         </tr>
+
+
+
+                     </tbody>
+
+                   </form>
+
+                 </table>
+
+             </div>
+
+
+
+             <div class="newbalance_area">
+
+                 <div class="type_noteforinv_user">
+
+                     <div class="custom_textareadet">
+
+                         <label for="exampleFormControlTextarea1" class="form-label">Add Note</label>
+
+                         <textarea class="form-control" name="paymentNote" id="exampleFormControlTextarea1" rows="3"
+                             placeholder="Type any notes related to this invoice here..."></textarea>
+
+                     </div>
+
+                 </div>
+
+             </div>
+
+         </div>
+
+     </div>
+
+     <div class="offcanvas-footer">
+
+         <div class="frmbtn_areasubmit">
+
+             <!-- <button type="submit" class="btn btn-primary  edit__green">Edit</button> -->
+
+
+                 <button type="submit"
+                     class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black add_patient">Save</button>
+
+                     <button type="button" id="closeFormBtn" class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black secondary_btn">Close</button>
+
+         </div>
+
+     </div>
+
+    </form>
+
+
+
+       </div>
+    </div>
+ </div>
+
+
+
+ <script>
+   document.addEventListener('DOMContentLoaded', function() {
+       // Find the close button element
+       var closeButton = document.getElementById('closeFormBtn');
+
+       // Find the modal element
+       var modalElement = document.getElementById('add_lab');
+
+       // Add a click event listener to the close button
+       closeButton.addEventListener('click', function() {
+           // Use Bootstrap modal method to hide the modal
+           $(modalElement).modal('hide');
+       });
+   });
+</script>
+
+
+
+
+<div class="table_head_filtersarea invoicing_main_ttop">
+    <div class="container">
+       <div class="filterinv_data">
+          <div class="inv_titlecr">
+             <h1>Invoices</h1>
+          </div>
+          <!-- <div class="ftinv_center">
+             <div class="form-group">
+                <input type="checkbox" id="tests">
+                <label for="tests">Don't Auto-Invoice Appointments & Tests</label>
+             </div>
+             <div class="form-group">
+                <input type="checkbox" id="future">
+                <label for="future">Show future invoice items</label>
+             </div>
+          </div> -->
+          <div class="filterbtn_tabletr" >
+             <!-- Nav tabs -->
+             <ul class="nav nav-pills nav-justified" role="tablist"> 
+
+                <li class="nav-item waves-effect waves-light">
+                   <a class="nav-link ft_buttonshoover active" data-bs-toggle="tab" href="#profile-1" role="tab">
+                   <span class="d-block "><iconify-icon icon="mdi:invoice-arrow-right-outline"></iconify-icon></span>
+                   <span class=" d-sm-block">To Invoice</span>
+                   </a>
+                </li>
+                <li class="nav-item waves-effect waves-light">
+                   <a class="nav-link ft_buttonshoover" data-bs-toggle="tab" href="#home-1" role="tab">
+                   <span class="d-block "><iconify-icon icon="iconamoon:invoice-light"></iconify-icon></span>
+                   <span class=" d-sm-block">All Invoices</span>
+                   </a>
+                </li>
+                <li class="nav-item waves-effect waves-light">
+                   <a class="nav-link ft_buttonshoover" data-bs-toggle="tab" href="#messages-1" role="tab">
+                   <span class="d-block "><iconify-icon icon="streamline:graph-bar-increase"></iconify-icon></span>
+                   <span class=" d-sm-block">Stats</span>
+                   </a>
+                </li>
+                <!-- <li class="nav-item waves-effect waves-light">
+                   <a class="nav-link ft_buttonshoover" data-bs-toggle="tab" href="#settings-1" role="tab">
+                   <span class="d-block"><iconify-icon icon="tabler:send-off"></iconify-icon></span>
+                   <span class=" d-sm-block">Last Unsent Invoices</span>
+                   </a>
+                </li> -->
+             </ul>
+          </div>
+       </div>
+    </div>
+ </div>
+ <div class="tabcontenttable_area incoive_fgi">
+    <div class="container">
+       <!-- Tab panes -->
+
+
+       <div class="tab-content  text-muted">
+          <div class="tab-pane" id="home-1" role="tabpanel">
+             <div class="row">
+
+               
+
+      
+                <div class="customblck_card bggredient">
+                   <div class="blcard_header">
+
+                     
+                      <h3 class="blcard_header_title ">All Invoices</h3> 
+                     
+                      <form action="{{ route('user.invoice') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="checkFilter" value="1"/>
+                    
+                        <div class="col-12 mb-3">
+                            <select class="form-control" name="PaymentType" id="Priority">
+                                <option value="">-- Select Type --</option>
+                                <option value="1" {{ $PaymentType == '1' ? 'selected' : '' }}>Paid</option>
+                                <option value="0" {{ $PaymentType == '0' ? 'selected' : '' }}>Unpaid</option>
+                            </select>
+                        </div>
+                    
+                        <div class="col-12 mb-3">
+                            <button type="submit" class="btn btn_calender_cus btn-success" id="btn-save-event">Submit</button>
+                        </div>
+                    </form>
+                    
+
+
+               </form>
+      
+
+
+                     
+                   </div>
+                   <div class="blcard_body">
+
+                      <div class="datatable-container allinvoice_table custom_table_area invoicing_table">
+                         <table id="allinvoice_table" class="display">
+                            <thead>
+                               <tr>
+                                  <th class="sortable ">
+                                     <div class="arrow_box">
+                                        <span>S.No.</span>
+                                     </div>
+                                  </th>
+                                  <th class="sortable">
+                                    <div class="arrow_box">
+                                       <span>Order Date</span>
+                                    </div>
+                                 </th>
+                                  <th class="sortable ">
+                                     <div class="arrow_box">
+                                        <span>Invoice No.</span>
+                                     </div>
+                                  </th>
+
+                                  <th class="sortable ">
+                                    <div class="arrow_box">
+                                       <span>Item</span>
+                                    </div>
+                                 </th>
+
+                                  <th class="sortable">
+                                     <div class="arrow_box">
+                                        <span>Patient</span>
+                                     </div>
+                                  </th>
+                                  <th class="sortable">
+                                     <div class="arrow_box">
+                                        <span>Amount </span>
+                                     </div>
+                                  </th>
+                                  <th class="sortable">
+                                     <div class="arrow_box">
+                                        <span>% Discount </span>
+                                     </div>
+                                  </th>
+                                  <th class="sortable">
+                                     <div class="arrow_box">
+                                        <span>% VAT </span>
+                                     </div>
+                                  </th>
+
+                                  <th class="sortable">
+                                    <div class="arrow_box">
+                                       <span>Final Amount </span>
+                                    </div>
+                                 </th>
+
+                                  <th class="sortable">
+                                     <div class="arrow_box">
+                                        <span>Status</span>
+                                     </div>
+                                  </th>
+                                 
+                                  <th class="sortable">
+                                     <div class="arrow_box">
+                                        <span>Sent</span>
+                                     </div>
+                                  </th>
+                                  <th class="sortable">
+                                     <div class="arrow_box">
+                                        <span>Action</span>
+                                     </div>
+                                  </th>
+                               </tr>
+                            </thead>
+                            <tbody>
+
+
+
+                            @forelse ($allInvoice as $key=>$alltaskInvoice)
+
+                            
+                            @if ($alltaskInvoice->paidStatus=='1')
+                              <tr class="pain_inv odd">
+                            @endif  
+
+                           @if ($alltaskInvoice->paidStatus=='0')
+                              <tr class="unpaid_inv even">
+                           @endif
+                                <td>{{ $key+1 }}</td>
+
+                                <td>{{ \Carbon\Carbon::parse($alltaskInvoice->created_at)->format('Y-m-d H:i:s') }}</td>
+
+
+                                <td>{{$alltaskInvoice->invoiceNumber}}</td>
+
+                                @php
+                                     $pathology_price_list =  DB::table('pathology_price_list')->where('id',$alltaskInvoice->task);
+                                     $pathology_price_list = $pathology_price_list->first();
+                                     $patient=DB::table('users')->where('id',$alltaskInvoice->patient_id)->first();
+
+                                @endphp
+
+
+                              <td data-title="Item">
+                                 <div class="item_details_tb">
+                                    <h2>{{ $pathology_price_list->test_name ?? '' }}</h2>
+                                    <span>{{ $patient->name }} | Email: 
+                                       <a href="mailto:{{ $patient->email }}">{{ $patient->email }}</a>
+                                    </span>
+                                 </div>
+                              </td>
+
+
+                                <td>
+                                   @php
+
+                                     $patientName=DB::table('users')->whereId($alltaskInvoice->patient_id)->first();
+                                     $amount=DB::table('pathology_price_list')->whereId($alltaskInvoice->task)->first();
+
+                                   @endphp
+                                   <div class="flex-grow-1">{{ $patientName->name }}</div>
+                                </td>
+
+                                @if($amount->price)
+                                <td>AED {{ $amount->price}}.00</td>
+                                @else
+                                <td></td>
+                                @endif
+
+
+
+                                <td>
+                                    @isset($alltaskInvoice->discount)
+                                        {{ $alltaskInvoice->discount }}%
+                                    @else
+                                        No discount available
+                                    @endisset
+                                </td>
+
+                                <td>
+                                    @isset($alltaskInvoice->vatDiscount)   
+                                        {{ $alltaskInvoice->vatDiscount }} %
+                                    @else
+                                        No discount available
+                                    @endisset
+                                </td>
+
+                                @if($alltaskInvoice->finalAmount)
+                                <td>AED {{ $alltaskInvoice->finalAmount}}.00</td>
+                                @else
+                                <td></td>
+                                @endif
+
+                                @if ($alltaskInvoice->paidStatus=='1')
+                                <td>
+                                   <div class="statusuccess_itgt">
+                                      <div class="activecircle">
+                                         <div class="mini_circlegreen"></div>
+                                      </div>
+                                      Paid   
+                                  </div>
+                                </td>
+                                @endif
+
+
+                                @if ($alltaskInvoice->paidStatus=='0')
+                                <td>
+                                   <div class="statusinactive_itgt">
+                                      <div class="activecircle">
+                                         <div class="mini_circlegreen"></div>
+                                      </div>
+                                      Unpaid
+                                   </div>
+
+                                </td>
+                                @endif
+
+
+
+
+
+                               
+                                <td>
+
+                                   <div class="form-check">
+
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault{{ $key+1 }}" {{ $alltaskInvoice->paidStatus == '1' ? 'checked' : '' }}>
+
+                                      <label class="form-check-label" for="flexCheckDefault{{ $key+1 }}">
+
+                                      </label>
+
+                                   </div>
+
+                                </td>
+                              
+
+                              
+                                <td>
+
+                                   <div class="customactions_dt">
+
+                                      <ul>
+
+                                       @if(in_array("9", $arr))
+
+                                             @if ($alltaskInvoice->paidStatus=='0')
+                                                <li id="invoice-item" onclick="openInvoice(`{{ $alltaskInvoice->id  }}`,`{{ $patientName->name }}`,`{{ $alltaskInvoice->invoiceNumber }}`,`{{ $amount->price - $alltaskInvoice->discountAmount }}`,`{{ $alltaskInvoice->payAmount?? 0  }}`,`{{ $alltaskInvoice->finalAmount }}`)" aria-controls="offcanvasBottom">
+
+                                                   <div class="comonactionbtn copybtn">
+
+                                                      <img src="{{ url('public/assets') }}/images/new-images/note.gif" alt="">
+
+                                                   </div>
+
+                                                </li>
+                                             @else
+                                             <li id="invoice-item" onclick="closeInvoice(`{{ $alltaskInvoice->id  }}`,`{{ $patientName->name }}`,`{{ $alltaskInvoice->invoiceNumber }}`,`{{ $amount->price - $alltaskInvoice->discountAmount }}`,`{{ $alltaskInvoice->payAmount?? 0  }}`,`{{ $alltaskInvoice->finalAmount }}`,`{{ $alltaskInvoice->paymentNote }}`,`{{ $alltaskInvoice->datePaid }}`,`{{ $alltaskInvoice->paymentMethod }}`)" aria-controls="offcanvasBottom">
+
+                                                <div class="comonactionbtn copybtn">
+
+                                                   <img src="{{ url('public/assets') }}/images/new-images/note.gif" alt="">
+
+                                                </div>
+
+                                             </li>
+                                             @endif
+
+                                         @endif
+
+
+
+                                         @if(in_array("7", $arr))
+                                          <li>
+
+                                             <a href="{{ route('user.print.invoice',['id'=>$alltaskInvoice->id]) }}" target="_blank">
+
+                                                <div class="comonactionbtn printbtnacti">
+
+                                                   <img src="{{ url('public/assets') }}/images/new-images/printer.gif" alt="">
+
+                                                </div>
+
+                                             </a>
+
+                                          </li>
+                                         @endif
+
+
+
+                                      </ul>
+
+                                   </div>
+
+                                </td>
+
+
+
+
+
+
+
+
+                             </tr>
+
+                               @empty
+
+                               @endforelse
+
+                            </tbody>
+                         </table>
+                      </div>
+                      <!-- table end -->
+                   </div>
+                </div>
+             </div>
+          </div>
+
+
+
+
+
+          <div class="tab-pane active" id="profile-1" role="tabpanel">
+             <div class="row">
+                <div class="customblck_card bggredient">
+                    {{-- <div class="blcard_header">
+                      <h3 class="blcard_header_title">To Invoice</h3>
+                      <div class="commonselect_slt patient_select_drop">
+                         <h2>Select a patient to start.. </h2>
+                         <select name="" id="" class="comon_selectrtj">
+                            <option value="">MEDICAL LAZER DEVICE</option>
+                            <option value="">MEDICAL DEVICE </option>
+                            <option value="">MEDICAL LAZER  DEVICE </option>
+                         </select>
+                      </div>
+                   </div> --}}
+                   <div class="blcard_body">
+                     <div class="datatable-container allinvoice_table custom_table_area invoicing_table">
+                        <table id="allinvoice_table" class="display">
+                           <thead>
+                               <tr>
+                                  <th scope="col">Item</th>
+                                  <th scope="col">Invoice</th>
+                                  <th scope="col">Date</th>
+                                  <th scope="col">Cost</th>
+                                  <th scope="col">Action</th>
+                               </tr>
+                            </thead>
+                            <tbody>
+                              <!-- NOTE: We have used data-title in td for mobile responsive table do not relove this data-title from td -->
+                              @forelse ($toInvocie as $key=>$alltaskInvoice)
+                                @php
+                                    $pathology_price_list =  DB::table('pathology_price_list')->where('id',$alltaskInvoice->task);
+                                    $pathology_price_list = $pathology_price_list->first();
+                                    $patient=DB::table('users')->where('id',$alltaskInvoice->patient_id)->first();
+
+                                @endphp
+                               <tr>
+                                  <td data-title="Item"/>
+                                     <div class="item_details_tb">
+                                        <h2>{{ $pathology_price_list->test_name??'' }} </h2>
+                                        <span>{{ $patient->name }} | Email: 
+                                          <a href="mailto:{{ $patient->email }}">{{ $patient->email }}</a>
+                                       </span>
+                                     </div>
+                                  </td>
+  
+                                  <td>{{ $alltaskInvoice->invoiceNumber }}</td>
+
+                                   <td data-title="Date">{{ \Carbon\Carbon::parse($alltaskInvoice->created_at)->format('M d, Y') }}
+
+                                   </td>
+                                   @php
+                                        $amount=DB::table('pathology_price_list')->whereId($alltaskInvoice->task)->first();
+                                   @endphp
+                                  <td data-title="Cost">
+                                     <div class="discount_inputvt">
+                                        <input type="text" class="form-control comoninpt_border" id="amount{{ $key+2 }}" name="amount" value="{{ $amount->price }}" readonly>
+                                        <input type="text" class="form-control comoninpt_border numericInput" onclick="discountPrice(`checkbox3{{ $key+1 }}`)" id="discount{{ $key+2 }}" name="discount" placeholder=" % Discount">
+                                        <input type="text" class="form-control comoninpt_border" onclick="vatPrice(`checkbox3{{ $key+1 }}`)" id="vat{{ $key+2 }}" placeholder=" % VAT">
+                                     </div>
+                                  </td>
+
+
+                                  <td data-title="Action">
+                                     <div class="dltwh_check">
+                                        <div class="deletebtn_prtientgh" onclick="removeInvoice(`{{ $alltaskInvoice->id }}`)">
+                                            {{-- <a class="btn text-danger btn-sm" onclick="deleteRow(356)" data-bs-toggle="tooltip" data-bs-original-title="Delete"><span class="fe fe-trash-2 fs-14"></span></a> --}}
+                                           <iconify-icon icon="fluent:delete-24-regular"></iconify-icon>
+                                        </div>   
+                                        <div class="round_custom">
+                                           <input type="checkbox" onclick="checkData(`{{ $alltaskInvoice->id }}`,`amount{{ $key+2 }}`,`discount{{ $key+2 }}`,`vat{{ $key+2 }}`,this,`{{ $pathology_price_list->test_name??'' }}`,`{{ $patient->name }}`,`{{ $patient->email }}`,`{{ \Carbon\Carbon::parse($alltaskInvoice->created_at)->format('M d, Y') }}`)" id="checkbox3{{ $key+1 }}" />
+                                           <label for="checkbox3{{ $key+1 }}"></label>
+                                        </div>
+                                     </div>
+                                  </td>
+
+                                 
+
+
+                               </tr>
+
+                               @empty
+
+                               @endforelse
+
+                              
+
+                            </tbody>
+                         </table>
+                      </div>
+
+
+
+                      <form action={{ route('user.invoice_item_add') }} method="post"/> @csrf
+                       <div class="selectedpatientlist">
+                         <h2>Selected Items - <div class="alertslted_text">Ensure these belong to the same patient before generating invoice!</div></h2>
+
+                           <ul id="appendItemCls">
+
+
+                           </ul>
+
+                           <div class="createinvoice_selectitem">
+                           <div class="selted_inpt">
+
+                                     </div>
+
+                                     <div class="cret_buttonart">
+                                        <button type="button" id="buttonSubmit" style="background: #d3e2f1; color: black;">Create Invoice With Selected Items</button>
+                                        <button type="submit" id="submitButton">Create Invoice With Selected Items</button>
+                                    </div>
+                           </div>
+                      </div>
+                    </form>
+
+                   </div>
+                </div>
+             </div>
+          </div>    
+
+
+
+
+          <div class="tab-pane" id="messages-1" role="tabpanel">
+            <div class="row">
+            <div class="blcard_header">
+                     <div class="stats_charts_title">
+                     <h2>Invoice Stats</h2>
+                  </div>
+                  </div>
+                  
+               <div class="col-lg-12">
+                 
+
+                  <div class="charts_multiarea">
+                  <div class="row invoice_stats">
+            <!-- Widget 1 Start -->
+            <div class="col-xxl-3 col-md-6 mb5">
+                <a href="#">
+                <div class="card shadow-card p5 border-top-one">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <span class="avatar avatar-md p-2 bg-one">
+                            <iconify-icon icon="guidance:in-patient" width="24"></iconify-icon>
+                            </span>
+                        </div>
+                        <div class="flex-fill">
+                            <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Total Patient</p>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{ $totalPatient }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </a>
+             
+            </div>
+            <!-- Widget 1 End -->
+
+            <!-- Widget 1 Start -->
+            <div class="col-xxl-3 col-md-6 mb5">
+                <a href="#">
+                <div class="card shadow-card p5 border-top-two">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <span class="avatar avatar-md p-2 bg-two">
+                     
+                            <iconify-icon icon="basil:invoice-outline" width="24"></iconify-icon>
+                            </span>
+                        </div>
+                        <div class="flex-fill">
+                            <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Total invoice raised</p>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{ $totalRased }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </a>
+              
+            </div>
+            <!-- Widget 1 End -->
+               <!-- Widget 1 Start -->
+               <div class="col-xxl-3 col-md-6 mb5">
+                <a href="#">
+                <div class="card shadow-card p5 border-top-three">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <span class="avatar avatar-md p-2 bg-three">
+
+                            <iconify-icon icon="mdi:invoice-text-check-outline" width="24"></iconify-icon>
+                            </span>
+                        </div>
+                        <div class="flex-fill">
+                            <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Total paid invoice </p>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{ $paidfinalAmount }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </a>
+               
+            </div>
+            <!-- Widget 1 End -->
+                       <!-- Widget 1 Start -->
+                       <div class="col-xxl-3 col-md-6 mb5">
+                        <a href="#">
+                        <div class="card shadow-card p5 border-top-four">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <span class="avatar avatar-md p-2 bg-four">
+                            <!-- <iconify-icon icon="uil:invoice"></iconify-icon> -->
+                            <iconify-icon icon="mdi:invoice-text-clock-outline" width="24"></iconify-icon>
+                            </span>
+                        </div>
+                        <div class="flex-fill">
+                            <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Total unpaid invoice</p>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{ $unpaidfinalAmount }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        </a>
+           
+            </div>
+          
+
+        </div>
+                     <div class="row">
+                       
+                        <div class="col-lg-6">
+                             <div class="total_invoices_graph card">
+                                <div class="card-header">
+                                 <div class="graphtitle" id="totalInvoices"></div>
+                                </div>
+                                <div class="card-body pb-0">
+                                <div id="chart"></div>
+                                
+                                </div>
+                                
+                             </div>
+                        </div>
+                        <div class="col-lg-6">
+                             <div class="total_invoices_graph card">
+                                <div class="card-header">
+                                    <div class="graphtitle">All Invoices</div>
+                                </div>
+                                <div class="card-body pb-0">
+                                <div id="chart2"></div>
+                                </div>
+                          
+                             </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+        
+       </div>
+    </div>
+ </div>
 
 
 @push('custom-js')
 
-			
-
 <!-- invoice datatable -->
-
 <script>
-
    $('#allinvoice_table').DataTable({ 
-
       scrollX: true,
-
       "pagingType": "simple_numbers",
-
       "language": {
-
          "paginate": {
-
             "previous": '<iconify-icon icon="radix-icons:double-arrow-left"></iconify-icon>',
-
             "next": '<iconify-icon icon="radix-icons:double-arrow-right"></iconify-icon>'
-
          }
-
       }
-
    });
-
 </script>
-
 <!-- end -->
-
 <!-- unsent invoice data table -->
-
 <script>
-
    $('.unsentinvoice_table').DataTable({ 
-
     
-
       "pagingType": "simple_numbers",
-
       "language": {
-
          "paginate": {
-
             "previous": '<iconify-icon icon="radix-icons:double-arrow-left"></iconify-icon>',
-
             "next": '<iconify-icon icon="radix-icons:double-arrow-right"></iconify-icon>'
-
          }
-
       }
-
    });
-
 </script>
-
 <!-- end -->
-
-
-
-
 
 
 
 <!-- data table searchbar style js -->
-
 <script>
-
    $(document).ready(function() {
-
    
-
    // Iterate through each DataTable
-
    $('.datatable-container , .toinv_table , .unsent_table').each(function() {
-
      const $searchLabel = $(this).find('.dataTables_filter label');
-
      const $searchInput = $(this).find('.dataTables_filter input');
-
    
-
      // Add the search icon (Font Awesome in this example)
-
      $searchLabel.prepend('<i class="fas fa-search"></i>');
-
    
-
       // Update the search filter for each DataTable
-
    $('.allinvoice_table').each(function() {
-
      const $searchInput = $(this).find('.dataTables_filter input');
-
    
-
      // Add a placeholder text to the input field
-
      $searchInput.attr('placeholder', 'Search Patient...');
-
    
-
    
-
    });
-
    
-
       // Update the search filter for each DataTable
-
       $('.searchhere_tabletext').each(function() {
-
      const $searchInput = $(this).find('.dataTables_filter input');
-
    
-
      // Add a placeholder text to the input field
-
      $searchInput.attr('placeholder', 'Search here...');
-
    
-
    
-
    });
-
      
-
    });
-
    });
-
 </script>
-
 <!-- data table searchbar style js end -->
-
-
-
-
-
-<!-- to invoice table discount input validation -->
-
-<script>
-
-   function validateInput(input) {
-
-     var applyButton = input.nextElementSibling;
-
-     var inputValue = input.value.trim();
-
-   
-
-     // Check if the input value is a valid number
-
-     if (/^\d+$/.test(inputValue)) {
-
-       applyButton.style.display = 'inline-block';
-
-     } else {
-
-       applyButton.style.display = 'none';
-
-     }
-
-   }
-
-   
-
-   function isNumberKey(evt) {
-
-     var charCode = (evt.which) ? evt.which : event.keyCode;
-
-     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-
-       return false;
-
-     }
-
-     return true;
-
-   }
-
-   
-
-   function applyFunction(button) {
-
-     var input = button.previousElementSibling;
-
-     var value = input.value;
-
-   
-
-     alert('Applying with the value: ' + value);
-
-     // You can add your logic here to handle the applied action
-
-   }
-
-</script>
-
-<!-- to invoice table discount input validation end-->
 
 
 
@@ -1552,301 +1163,298 @@ Invoice | QASTARAT & DAWALI CLINICS
 
 <!-- createinvoice hide show js -->
 
-
-
 <script>
-
    $(".round_custom label").click(function(){
-
        $(".selected_patient_list").toggle();
-
    })
-
 </script>
 
-
-
-
-
-
-
-<!-- stats charts js -->
 
 <script>
+   const invoices = <?php echo json_encode($checkInvoice); ?>;
 
-    // Wait for the document to be ready
+  // Sample data (you can replace it with your actual data)
+  const data = {
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    invoices: invoices.slice(0, 12) // Assuming $invoices is an array with at least 12 elements
+  };
 
-    $(document).ready(function () {
+  // Calculate total invoices
+  const totalInvoices = data.invoices.reduce((acc, curr) => acc + curr, 0);
 
-        // Prepare data for the chart
+  // Display total invoices count
+  document.getElementById('totalInvoices').innerText = 'Overall Month Invoices: ' + totalInvoices;
 
-        var invoiceData = [
+  // Create a chart
+  const options = {
+    chart: {
+      type: 'bar',
+      height: 390
+    },
+    series: [{
+      name: 'Total Invoices',
+      data: data.invoices,
+      color: '#484b5c'
+    }],
+    xaxis: {
+      categories: data.months,
+      labels: {
+        rotate: -45,
+        offsetY: -5,
+        style: {
+          fontSize: '12px',
+          fontFamily: 'Arial, sans-serif'
+        }
+      }
+    },
+    yaxis: {
+      title: {
+        text: 'Total Invoices'
+      }
+    },
+    title: {
+      text: 'Invoices Generated by Month',
+      align: 'center'
+    },
+    plotOptions: {
+      bar: {
+        dataLabels: {
+          position: 'top' // Display data labels on top of bars
+        }
+      }
+    }
+  };
 
-            { month: 'Jan', count: 15 },
-
-            { month: 'Feb', count: 10 },
-
-            { month: 'Mar', count: 8 },
-
-            { month: 'Apr', count: 12 },
-
-            { month: 'May', count: 20 },
-
-            { month: 'Jun', count: 18 },
-
-            { month: 'Jul', count: 25 },
-
-            { month: 'Aug', count: 22 },
-
-            { month: 'Sep', count: 16 },
-
-            { month: 'Oct', count: 14 },
-
-            { month: 'Nov', count: 18 },
-
-            { month: 'Dec', count: 30 },
-
-        ];
-
-
-
-        // Create an array of months and an array of corresponding invoice counts
-
-        var months = invoiceData.map(item => item.month);
-
-        var counts = invoiceData.map(item => item.count);
-
-
-
-        // Calculate the total number of invoices for this month
-
-        var totalInvoicesThisMonth = counts.reduce((sum, count) => sum + count, 0);
-
-
-
-        // Initialize the chart
-
-        var options = {
-
-            chart: {
-
-                type: 'bar',
-
-            },
-
-            series: [{
-
-                name: 'Invoices',
-
-                data: counts,
-
-            }],
-
-            xaxis: {
-
-                categories: months,
-
-            },
-
-            annotations: {
-
-                position: 'front',
-
-                xaxis: [{
-
-                    x: months.length - 1, // Show the annotation at the last data point (December)
-
-                    label: {
-
-                        text: `Total Invoices: ${totalInvoicesThisMonth}`,
-
-                        style: {
-
-                            color: '#000',
-
-                            background: '#fff',
-
-                            fontSize: '14px',
-
-                            align: 'center', // Center the title
-
-                        }
-
-                    }
-
-                }]
-
-            }
-
-        };
-
-
-
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-
-        chart.render();
-
-    });
-
+  // Render the chart
+  const chart = new ApexCharts(document.querySelector("#chart"), options);
+  chart.render();
 </script>
-
-
 
 <!-- invoice chart end -->
 
 
-
-
-
 <!-- // Chart 2: Invoice Status (Bar Chart) -->
-
 <script>
-
-  
-
-    $(document).ready(function () {
-
-        var statusData = [
-
-            { status: 'Paid', count: 60 },
-
-            { status: 'Unpaid', count: 27 },
-
-        ];
-
-
-
-        var statuses = statusData.map(item => item.status);
-
-        var statusCounts = statusData.map(item => item.count);
-
-
-
-        var totalPaid = statusData.find(item => item.status === 'Paid').count;
-
-        var totalUnpaid = statusData.find(item => item.status === 'Unpaid').count;
-
-
-
-        var options2 = {
-
-            chart: {
-
-                type: 'bar',
-
-            },
-
-            series: [{
-
-                name: 'Invoice Status',
-
-                data: statusCounts,
-
-                fill: {
-
-                    colors: ['#4CAF50', '#FFC107'], 
-
-                },
-
-                borderColor: {
-
-                    colors: ['#4CAF50', '#FFC107'], 
-
-                },
-
-            }],
-
-            xaxis: {
-
-                categories: statuses,
-
-            },
-
-            dataLabels: {
-
-                enabled: true,
-
-                formatter: function (val) {
-
-                    return val + '%';
-
-                }
-
-            },
-
-            annotations: {
-
-                position: 'front',
-
-                xaxis: [
-
-                    {
-
-                        x: 0,
-
-                        label: {
-
-                            text: `Total Paid: ${totalPaid}`,
-
-                            style: {
-
-                                color: '#000',
-
-                                background: '#fff',
-
-                                fontSize: '14px',
-
-                                align: 'center',
-
-                                offsetY: -10, // Offset to center vertically
-
-                            }
-
-                        }
-
-                    },
-
-                    {
-
-                        x: 1,
-
-                        label: {
-
-                            text: `Total Unpaid: ${totalUnpaid}`,
-
-                            style: {
-
-                                color: '#000',
-
-                                background: '#fff',
-
-                                fontSize: '14px',
-
-                                align: 'center',
-
-                                offsetY: -10, // Offset to center vertically
-
-                            }
-
-                        }
-
-                    }
-
-                ]
+  // Sample data (you can replace it with your actual data)
+  const statusData = {
+    paid: {{ $paidStatus }},
+    unpaid: {{ $unpaidStatus }}
+  };
+
+  // Create a chart for invoice status
+  const options2 = {
+    chart: {
+      type: 'bar',
+      height: 400
+    },
+    series: [{
+      name: 'Invoice Status',
+      data: Object.values(statusData),
+      color: '#484b5c'
+    }],
+    xaxis: {
+      categories: Object.keys(statusData),
+      labels: {
+        style: {
+          fontSize: '14px',
+          fontWeight: 600
+        }
+      }
+    },
+    yaxis: {
+      title: {
+        text: 'Number of Invoices'
+      }
+    },
+    colors: ['#36A2EB', '#FF6384'], // Blue for paid, Red for unpaid
+    title: {
+      text: 'Invoices Status',
+      align: 'center'
+    }
+  };
+
+  // Render the second chart
+  const chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+  chart2.render();
+</script>
+<script>
+  // Sample data (you can replace it with your actual data)
+  const patientsData = {
+    totalPatients: 500,
+    totalPaidPatients: 300,
+    totalAmount: 1500 // Assuming the total amount is $150,000
+  };
+
+  // Create a chart for patients information
+  const options3 = {
+    chart: {
+      type: 'bar',
+      height: 400
+    },
+    series: [{
+      name: 'Patients Information',
+      data: [patientsData.totalPatients, patientsData.totalPaidPatients, patientsData.totalAmount],
+      color: '#484b5c'
+    }],
+    xaxis: {
+      categories: ['Total Patients', 'Total Paid Patients', 'Total Amount'],
+      labels: {
+        style: {
+          fontSize: '14px',
+          fontWeight: 600
+        }
+      }
+    },
+    yaxis: {
+      title: {
+        text: 'Count / Amount'
+      }
+    },
+    colors: ['#007bff', '#28a745', '#ffc107'], // Blue for total patients, Green for total paid patients, Yellow for total amount
+    title: {
+      text: 'Patients Information',
+      align: 'center'
+    }
+  };
+
+  // Render the third chart
+  const chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+  chart3.render();
+</script>
+
+
+
+      <script>
+         function vatPrice(checkValue)
+         {    
+            const checkbox = document.getElementById(checkValue);
+            checkbox.checked = false;
+         }
+         function discountPrice(checkValue)
+         {    
+            const checkbox = document.getElementById(checkValue);
+            checkbox.checked = false;
+         }
+
+      function removeInvoice(id)
+            {
+               $('#hidden_id').val(id);
+               $("#deleteRecordModal").modal('show');
+            }
+         </script>
+
+
+    <script>
+        var submitButton = document.getElementById('submitButton');
+        submitButton.style.display = 'none';
+        function checkData(taskId,amount,discountkey,vatKey,checkbox,testname,name, email, createdAt)
+        {
+            var submitButton = document.getElementById('submitButton');
+            submitButton.style.display = 'block';
+
+            var buttonSubmit = document.getElementById('buttonSubmit');
+            buttonSubmit.style.display = 'none';
+
+
+            if (checkbox.checked)
+            {
+                var amountValue = $('#' + amount).val()||0;
+                var discountValue = $('#' + discountkey).val()||0;
+                var vatValue = $('#' + vatKey).val()||0;
+
+                 var totalPrice=0;
+                 var totalPrice_discountValue=0;
+                 var totalPrice_vatValue=0;
+               //  var finalvat=0;
+
+                if (discountValue!== 0) {
+                       totalPrice_discountValue = (amountValue * discountValue) / 100;
+                     }    
+                     
+                     if (vatValue!== 0) {
+                        totalPrice_vatValue = (amountValue * vatValue) / 100;
+                     }
+                     
+                     totalPrice = amountValue - totalPrice_discountValue||0;
+                     totalPrice= parseInt(totalPrice) + parseInt(totalPrice_vatValue||0);
+
+
+                
+                var finalAmount = totalPrice.toFixed(2);
+
+                $(".selected_patient_list").toggle();
+
+
+              
+                const appendId = testname.replace(/\s/g, '_');        
+                var append = `          
+                    <li id="${testname.replace(/\s/g, '_')}">
+                        <div class="item_details_tb">
+                            <h2>${testname}</h2>
+                            <span>${name} | Email: ${email}</span>
+
+                            <input type="hidden" name="taskId[]" value="${taskId}" />
+                            <input type="hidden" name="discount[]" value="${discountValue}" />
+                            <input type="hidden" name="vatDiscount[]" value="${vatValue}" />
+
+                        </div>
+                        <div class="slted_date">${createdAt}</div>
+                        <div class="selted_inpt">
+                            <div class="discount_inputvt">
+                                <input type="text" class="form-control comoninpt_border" name="finalAmount[]" value="${finalAmount}" readonly>
+                            </div>
+                        </div>
+                    </li>
+                `;
+
+               const existingListItem = $('#' + appendId);
+               if (existingListItem.length > 0) {  
+                  // If the element already exists, replace it with the new one
+                  existingListItem.replaceWith(append);
+               } else {
+                  $('#appendItemCls').append(append);
+               }
 
             }
 
-        };
+            else
+            {
+                $(`#${testname.replace(/\s/g, '_')}`).remove();
+            }
+        }
+    </script>
 
 
 
-        var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
 
-        chart2.render();
+<script>
+    function openInvoice(invoiceId,name,invoiceNumber,price,payAmount,finalAmount) 
+    {
+       $('#invoiceIdCls').val(invoiceId);
+       $('.patientNameCls').text(name);
+       $('.invoiceNumber').text(invoiceNumber);
+       var combinedText = 'ADE ' + finalAmount; 
+       $('.amountPaid').text(combinedText);
+       $('.amountPaid_2').text(payAmount);
+       $('#add_lab').modal('show');
+    }
+ </script>
 
-    });
-
+<script>
+   function closeInvoice(invoiceId,name,invoiceNumber,price,payAmount,finalAmount,paymentNote,datePaid,paymentMethod) 
+   {
+      $('.patientNameCls').text(name);
+      $('.invoiceNumber').text(invoiceNumber);
+      var combinedText = 'ADE ' + finalAmount;    
+      $('.hiddenamountPaid').text(combinedText);
+      $('.amountPaid_2').text(payAmount);
+      $('#datePaid').val(datePaid);
+      $('#paymentNote').val(paymentNote);
+      $('#paymentMethod').val(paymentMethod);
+      $('#close_lab').modal('show');
+   }
 </script>
+
 
 @endpush
 

@@ -19,11 +19,12 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
             <div class="col-lg-12">
                 <div class="card listtableCard">
                     <div class="card-body p-0">
-                        <h4 class="cr_title_kj">All Tests</h4>
+                        <h4 class="cr_title_kj">All Tests </h4>
                         <div class="inner_tb_flo">
                             <table class="table task_table listTable_custom  dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
+                                        <th hidden></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -31,6 +32,7 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
                                 <tbody>
                                    @forelse($nurse_tasks as $nurse_task)
                                    <tr>
+                                    <td hidden></td>
                                     <td>
                                         <div class="lists_tasks_Report">
 
@@ -39,32 +41,33 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
                                                     <!-- <div class="date_test_jh">27 Jan, 2024</div> -->
                                                     <div class="taskOtherDetails">
                                                         <ul class="book_li">
+
                                                             <li>
-                                                                <div class="tb_listTitle_label labe_test">Test
-                                                                </div>
+                                                                <div class="tb_listTitle_label labe_test"></div>
                                                                 @php
-                                                                $pathology_price_list_ids  = json_decode($nurse_task->pathology_price_list_id);
-                                                               
-                                                              $pathology_price_list=  DB::table('pathology_price_list')->whereIn('id',$pathology_price_list_ids);
-                                                              
+
+                                                              $pathology_price_list=  DB::table('pathology_price_list')->where('id',$nurse_task->task);
+
+
+
                                                                 if($nurse_task->test_type == 'pathology'){
                                                                   $pathology_price_list=  $pathology_price_list->where('price_type', '0');
-                  
+
                                                                 }
                                                                 else {
-                                                                  
+
                                                                   $pathology_price_list=  $pathology_price_list->where('price_type', '1');
                                                                 }
-                                                              
+
                                                                 $pathology_price_list =$pathology_price_list->pluck('test_name');
-                                                               
+
                                                               @endphp
                                                                 <div class="test_list">
                                                                     @forelse ($pathology_price_list as $value)
                                                                     <span>{{ $value }} </span>
-                                                                   
+
                                                                     @empty
-                                                                        
+
                                                                     @endforelse
                                                                 </div>
                                                             </li>
@@ -76,54 +79,77 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
                                                         $patient=DB::table('users')->where('id',$nurse_task->patient_id)->first();
                                                        @endphp
                                                         <ul>
-                                                          
+
                                                             <li>
                                                                 <div class="tb_listTitle_label"> Patient Name</div>
                                                                 <span>{{ $patient->name }}</span>
                                                             </li>
+
+                                                            <li>
+                                                                <div class="tb_listTitle_label">Invoice Number</div>
+                                                                <span>{{ $nurse_task->invoiceNumber??'' }}</span>
+                                                            </li>
+
+
                                                             <li>
                                                                 <div class="tb_listTitle_label">Patient Id</div>
                                                                 <span>{{ $patient->patient_id }}</span>
                                                             </li>
                                                             @php
                                                             $lab_task_status= DB::table('lab_has_tasks')->where('nurse_task_id',$nurse_task->id)->first();
-                                                            
+
                                                              @endphp
                                                               <li>
                                                                 <div class="tb_listTitle_label">Reports uploaded
                                                                     Date
                                                                 </div>
-                                                                @if (isset($lab_task_status->appoinment_date))
-                                                                <span>{{ \Carbon\Carbon::parse($lab_task_status->appoinment_date)->format('d M, Y') }}</span>
+                                                                @if (isset($nurse_task->assignDate))
+                                                                <span>{{ \Carbon\Carbon::parse($nurse_task->assignDate)->format('d M, Y') }}</span>
                                                                 @else
                                                                 <span>&nbsp;</span>
                                                                 @endif
                                                             </li>
                                                             <li>
                                                                 <div class="tb_listTitle_label">Status</div>
-                                                                @if (isset($lab_task_status->status) && $lab_task_status->status=='pending')
+
+                                                                @if ($nurse_task->assigned=='7')
+                                                                <span>Report Uploaded</span>
+                                                                @else
                                                                 <span>Pending</span>
-                                                                @elseif (isset($lab_task_status->status) && $lab_task_status->status=='lab_report_uploaded')
-                                                                <span>Lab Report Uploaded </span>
-                                                        
-                                                                @elseif (isset($lab_task_status->status) && $lab_task_status->status=='approved')
-                                                                <span>Approved</span>
                                                                 @endif
+
                                                             </li>
 
-                                                           
+
+                                                         @if ($nurse_task->assigned !== '7')  
                                                             <li class="">
-                                                                
                                                                 <button type="button" class="btn btn-primary btnFileUpload"
                                                                     data-bs-toggle="modal"
-                                                                    onclick="setTaskId({{ $lab_task_status->nurse_task_id }})"
+                                                                    onclick="setTaskId({{ $nurse_task->id ?? '' }})"
                                                                     data-bs-target="#uploadModal">
-                                                                    <iconify-icon icon="ant-design:cloud-upload-outlined"></iconify-icon>  Upload Document
+                                                                    <iconify-icon icon="ant-design:cloud-upload-outlined"></iconify-icon> Upload Document
                                                                 </button>
                                                             </li>
+                                                            @else
+                                                            <li class="">
+                                                                <button type="button" class="btn btn-primary btnFileUpload"
+                                                                    data-bs-toggle="modal"
+                                                                    onclick="setTaskId({{ $nurse_task->id ?? '' }})"
+                                                                    data-bs-target="#uploadModal">
+                                                                    <iconify-icon icon="ant-design:cloud-upload-outlined"></iconify-icon>ReUpload Documents
+                                                                </button>
+                                                            </li>
+                                                            <li class="">
+                                                                <a target="block" href="{{ env('Document_Url') . $nurse_task->labDocument }}" type="button" class="btn btn-primary btnFileUpload">
+                                                                    <iconify-icon icon="ant-design:cloud-upload-outlined"></iconify-icon> View Report
+                                                                </a>
+                                                            </li>
+                                                            @endif
+
+
                                                         </ul>
                                                     </div>
-                                                    <div class="customdotdropdown dropbtnRight">
+                                                    {{-- <div class="customdotdropdown dropbtnRight">
                                                         <div class="buttondrop_dot">
                                                             <i class="fa-solid fa-ellipsis-vertical"></i>
                                                         </div>
@@ -137,7 +163,7 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
                                                             </a>
 
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
 
                                                 </div>
 
@@ -149,9 +175,9 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
 
                                 </tr>
                                    @empty
-                                     
+
                                    @endforelse
-                                      
+
                                 </tbody>
                             </table>
                         </div>
@@ -418,7 +444,7 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
             </div>
             <input type="hidden" name="task_id" value="" id="task"/>
             <div class="modal-footer">
-                
+
                 <button type="submit" class="btn btn-primary" id="saveFilesBtn">Submit</button>
             </div>
         </div>
@@ -520,9 +546,9 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
 <!-- assigend nurse form   data -->
 <script>
 	$(document).ready(function() {
-     
+
 		$('#labUploadedDocumentForm').submit(function(e) {
-           
+
 			e.preventDefault();
 
 			let isValid = validateDocumentForm();
@@ -548,13 +574,13 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
 								'Document  Uploaded Successfully!',
 								'success'
 							).then(function() {
-                                        window.location.reload(); 
+                                        window.location.reload();
                                     });
-							
-						} 
+
+						}
 					},
 					error: function(xhr, status, error) {
-						
+
 						if (xhr.status == 422) {
 							$('#uploadModal').modal('show');
 							var response = JSON.parse(xhr.responseText);
@@ -579,8 +605,8 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
 
 		function validateDocumentForm() {
 			let isValid = true;
-			
-			
+
+
 			// Validate document
 			let document = $('input[name="document"]').val();
 			if (document === '') {
@@ -599,7 +625,6 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
 
 <script>
 function setTaskId(task_id){
-
 $('#task').val(task_id);
 }
 function refreshPage() {

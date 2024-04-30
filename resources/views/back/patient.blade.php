@@ -7,6 +7,16 @@
         {{-- add here --}}
     @endpush
 
+    <style>
+        .view_medical_record 
+        {
+            margin-right: 4px;
+        }
+        .custom_table_area table td {
+            white-space: nowrap !important;
+        }
+</style>
+
 
  <?php
  $D = json_decode(json_encode(Auth::guard('doctor')->user()->get_role()),true);
@@ -19,7 +29,7 @@
 
  @if(in_array("1", $arr) || in_array("2", $arr) || in_array("3", $arr) ||in_array("5", $arr))
 
-    <div class="sub_bnr" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
+    <div class="sub_bnr" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }}); background: #C4E2FF !important;">
         <div class="sub_bnr_cnt">
             <h1>Find The <span class="blue_theme">Patient</span> </h1>
             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
@@ -39,9 +49,9 @@
         </div>
         <div id="search-container" class="search_bar">
             <input type="text" class="form-control" id="searchInput"
-                placeholder="Search by patient  name, street, post code , mobile or ID number"
+                placeholder="Search patient by name, street, post code , mobile or ID number"
                 onkeyup="fetchAndDisplayPatients(this.value)">
-            <!-- <div class="search_icon">
+            <!-- <div class="search_icon">    
              <a href="#">
 
                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -420,7 +430,7 @@
                         let formData = new FormData(this);
 
                         $.ajax({
-                            url: '{{ route('user.patient.store') }}',
+                            url: '{{ route("user.patient.store") }}',
                             type: 'POST',
                             data: formData,
                             processData: false,
@@ -444,9 +454,9 @@
                                 }
                             },
                             error: function(xhr, status, error) {
-                                
+
                                 if (xhr.status == 422) {
-                                   
+
                                     var errors = JSON.parse(xhr.responseText);
                                     console.log('validation-error',errors);
                                     var errorMessage = 'Validation error(s):<br>';
@@ -615,8 +625,8 @@
 
                         if (data && Object.keys(data).length > 0) {
                             Object.values(data).forEach(function(patient, index) {
-                           
-                               
+
+
                                 let row = '<tr>' +
                                                     '<td hidden></td>' +
                                                     '<td class="sorting_1">' +  patient.patient_id  + '</td>' +
@@ -635,19 +645,18 @@
                                                     '<td>' + patient.post_code + '</td>' +
                                                     '<td>';
 
-                                              
-                                                row += '<a href="' + patient.id  +
+                                                row += '<a href="https://techmavesoftwaredemo.com/webclinic/login/invoice/?id=' +  patient.id  +
                                                         '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
                                                         '<i class="fa-regular fa-file-lines"></i> View Invoice</a>&nbsp;';
-                                              
 
-                                                @if(in_array("2", $arr))    
+
+                                                @if(in_array("2", $arr))
                                                     row += '<a href="patient-medical-detail/' +  patient.id  +
                                                         '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
                                                         '<i class="fa-regular fa-rectangle-list"></i> View Medical Record</a>';
                                                 @endif
-                                                
-                                                @if(in_array("5", $arr))    
+
+                                                @if(in_array("5", $arr))
                                                 row += '<a href="patient-detail/' +  patient.id  +
                                                         '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
                                                         '<i class="fa-regular fa-rectangle-list"></i>Edit Patient </a>';
@@ -655,7 +664,7 @@
 
                                                         row += '</td></tr>';
 
-                                                
+
 
                                 allinvoice_table.row.add($(row)[0]);
 

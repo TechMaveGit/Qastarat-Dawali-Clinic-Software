@@ -4,8 +4,6 @@
 
 <head>
 
-
-
 		<meta charset="utf-8">
 
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,8 +13,6 @@
 	  		<!-- SITE TITLE -->
 
 		<title>@stack('title')</title>
-
-
 
 		<!-- FAVICON AND TOUCH ICONS -->
 
@@ -42,9 +38,7 @@
 
 		<link href="{{ url('public/assets') }}/css/bootstrap.min.css" rel="stylesheet">
 
-
-
-
+		<link rel="stylesheet" href="{{ url('public/assets') }}/invoiceassets/css/style.css">
 
 		<!-- Dropify css -->
 
@@ -165,6 +159,28 @@
 <body>
 
 
+	@if(session('updateDiagnosis'))
+    <script>
+        swal.fire({
+                    title: 'Success',
+                    html: '<strong>Diagnosis updated successfully</strong>',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1000 // 1000 milliseconds = 1 second
+                });
+
+    </script>
+@endif
+
+	<style>
+		/* .customdotdropdown .copy_btn{
+			display: none!important;
+		}
+			.invoicing_main_ttop {
+			margin-top: 74px;
+			padding: 15px;
+			} */	
+		</style>
 
  <?php
  $D = json_decode(json_encode(Auth::guard('doctor')->user()->get_role()),true);
@@ -182,14 +198,6 @@
 
 		<div id="page" class="page font--jakarta">
 
-
-
-
-
-
-
-
-
 			<!-- HEADER
 
 			============================================= -->
@@ -199,14 +207,23 @@
 				<div class="header-wrapper">
 
 
-
-
-
+					@php
+					$footer = DB::table('footers')->select('websitelogo')->first();
+					@endphp
+	
 					<!-- MOBILE HEADER -->
 
 				    <div class="wsmobileheader clearfix">
 
-				    	<span class="smllogo"><img src="{{ asset('public/assets/images/new-images/qastara-logo-new.png') }}" alt="mobile-logo"></span>
+				    	<span class="smllogo">
+							@isset($footer->websitelogo)
+							<img  src="{{ asset('public/assets/video/'.$footer->websitelogo) }}"
+							alt="footer-logo">
+							@else
+							<img  src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
+							alt="footer-logo">
+                    	@endisset
+						</span>
 
 				    	<a id="wsnavtoggle" class="wsanimated-arrow"><span></span></a>
 
@@ -222,14 +239,16 @@
 
 	    				<div class="wsmainwp clearfix">
 
-
-
-
 							<!-- HEADER BLACK LOGO -->
 							<div class="desktoplogo">
 								<a href="{{ route('admin.dashboard') }}" class="logo-black">
-									<img class="light-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo light">
-									<img class="dark-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}" alt="logo dark">
+									@isset($footer->websitelogo)
+										<img class="light-theme-img"  src="{{ asset('public/assets/video/'.$footer->websitelogo) }}"
+										alt="footer-logo">
+										@else
+										<img class="dark-theme-img" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
+										alt="footer-logo">
+                  					  @endisset
 								</a>
 							</div>
 
@@ -250,10 +269,6 @@
                             <nav class="wsmenu clearfix">
 
 	        					<ul class="wsmenu-list nav-theme">
-
-
-
-
 
 	        						<!-- DROPDOWN SUB MENU -->
 
@@ -278,40 +293,54 @@
 
 
 
-                                    <!-- SIMPLE NAVIGATION LINK -->
+                                    <!-- SIMPLE NAVIGATION LINK -->             
+
 
                                     {{-- <li class="nl-simple" aria-haspopup="true"><a href="#" class="h-link">Messages</a></li> --}}
 
 
 
                                     <!-- SIMPLE NAVIGATION LINK in_array("84", $arr) || in_array("85", $arr) || in_array("86", $arr) || in_array("87", $arr) || in_array("88", $arr) || in_array("89", $arr)-->
+									@if(in_array("11", $arr) || in_array("12", $arr))
+										@if( true)
+										<li class="nl-simple {{  request()->routeIs('nurseTask') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('nurseTask') }}" class="h-link">Tasks </a></li>
+										@endif
+									@else
+								
+									  <li class="nl-simple {{  request()->routeIs('nurseTask') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('nurseTask') }}" class="h-link">Tasks </a></li>
+									 
+									@endif
 
-                                    @if( true)
-                                    <li class="nl-simple {{  request()->routeIs('nurseTask') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('nurseTask') }}" class="h-link">Tasks</a></li>
-                                    @endif
+
+                                     @if(in_array("1", $arr) || in_array("2", $arr) || in_array("3", $arr) ||in_array("4", $arr))
+										@if (Auth::guard('doctor')->user()->user_type !== 'pathology' && Auth::guard('doctor')->user()->user_type !== 'radiology')
+										   <li class="nl-simple {{  request()->routeIs('user.patient') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.patient') }}" class="h-link">Patient</a></li>
+										@endif
+                                     @endif
 
 
-                                    @if(in_array("1", $arr) || in_array("2", $arr) || in_array("3", $arr) ||in_array("4", $arr))
-                                    <li class="nl-simple {{  request()->routeIs('user.patient') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.patient') }}" class="h-link">Patient</a></li>
-                                    @endif
+
+                                     @if(in_array("7", $arr) ||  in_array("9", $arr) )
+										@if (Auth::guard('doctor')->user()->user_type !== 'pathology' && Auth::guard('doctor')->user()->user_type !== 'radiology')
+										<li class="nl-simple {{  request()->routeIs('user.invoice') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.invoice') }}" class="h-link">Invoices</a></li>                
+										@endif
+									 @endif
+
+
+                                    <!-- SIMPLE NAVIGATION LINK -->    
+
+									@if(in_array("13", $arr))
+										@if (Auth::guard('doctor')->user()->user_type !== 'pathology' &&  Auth::guard('doctor')->user()->user_type !== 'radiology')
+											<li class="nl-simple {{  request()->routeIs('user.calendar') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.calendar') }}" class="h-link">Calendar </a></li>
+										@endif
+									@endif
 
 
                                     <!-- SIMPLE NAVIGATION LINK -->
-
-                                     <li class="nl-simple {{  request()->routeIs('user.invoice') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.invoice') }}" class="h-link">Invoices</a></li>
-
-
-
-                                    <!-- SIMPLE NAVIGATION LINK -->
-
-                                    <li class="nl-simple {{  request()->routeIs('user.calendar') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('user.calendar') }}" class="h-link">Calendar</a></li>
-
-
-
-                                    <!-- SIMPLE NAVIGATION LINK -->
-
+									@if (Auth::guard('doctor')->user()->user_type !== 'pathology' &&  Auth::guard('doctor')->user()->user_type !== 'radiology')
 							    	<li class="nl-simple {{  request()->routeIs('service') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('service') }}" class="h-link">Services</a></li>
 
+									@endif
 
 
                                     <!-- SIMPLE NAVIGATION LINK -->
@@ -343,11 +372,39 @@
                                  <div class="profile">
 
 
+                                        <div class="img-box">   
+											@php
+											$doctor=auth('doctor')->user();
+											  $doctor_profile='';
+												if($doctor->role_id=='1'){
+													$doctor_profile=asset('public/assets/profileImage/').'/'.$doctor->patient_profile_img;
+												}elseif($doctor->role_id=='2'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
+												elseif($doctor->role_id=='5'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
+												elseif($doctor->role_id=='6'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
 
-                                        <div class="img-box">
-
-                                            <img src="https://i.postimg.cc/BvNYhMHS/user-img.jpg" alt="some user image">
-
+												elseif($doctor->role_id=='11'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
+												
+												elseif($doctor->role_id=='10'){
+													$doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+												}
+										   
+										@endphp
+                                           
+											@isset($doctor->patient_profile_img)
+											<img src="{{ $doctor_profile }}"
+											alt="db_img">
+											@else
+											<img src="{{ asset('public/assets/images/team-13.jpg') }}"
+											alt="temp_img">
+											@endisset
                                         </div>
 
                                         <div class="user">
@@ -365,11 +422,8 @@
 											@auth('doctor')
 											@if(Auth::guard('doctor')->check())
 												<li><a href="{{ route('profile') }}"><i class="fa-solid fa-user"></i>&nbsp;Profile</a></li>
-
 												<li><a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a></li>
-												<li><a href="{{ route('orderMedicalReport') }}"><i class="fa-solid fa-file-medical"></i>&nbsp;Order medical report</a></li>
-												<li><a href="{{ route('myRadiologyReport') }}"><i class="fa-solid fa-x-ray"></i>&nbsp;My Radiology report</a></li>
-												<li><a href="{{ route('myLabResult') }}"><i class="fa-solid fa-flask-vial"></i>&nbsp;My lab result</a></li>
+												{{-- <li><a href="{{ route('myLabResult') }}"><i class="fa-solid fa-file-medical"></i>&nbsp;My lab result</a></li> --}}
 												<li><a href="{{ route('doctor.logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign Out</a></li>
 												@endif
 										    @endauth

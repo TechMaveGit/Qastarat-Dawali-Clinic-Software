@@ -50,3 +50,6 @@ Stack trace:
   thrown in /home/owb276stxstw/public_html/webclinic/index.php on line 34
 [21-Dec-2023 05:34:35 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/owb276stxstw/public_html/webclinic/storage/framework/views/f02b4ab1a9db08fba557f0a9e20ff1cf.php on line 455
 [21-Dec-2023 05:35:30 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/owb276stxstw/public_html/webclinic/storage/framework/views/f02b4ab1a9db08fba557f0a9e20ff1cf.php on line 455
+[04-Apr-2024 12:57:20 UTC] PHP Fatal error:  Cannot use Hash as Hash because the name is already in use in /home/wjkgg6bqayz0/public_html/webclinic/app/Http/Controllers/SuperAdmin/Staff/AccountantController.php on line 14
+[04-Apr-2024 12:57:22 UTC] PHP Fatal error:  Cannot use Hash as Hash because the name is already in use in /home/wjkgg6bqayz0/public_html/webclinic/app/Http/Controllers/SuperAdmin/Staff/AccountantController.php on line 14
+[04-Apr-2024 12:57:29 UTC] PHP Fatal error:  Cannot use Hash as Hash because the name is already in use in /home/wjkgg6bqayz0/public_html/webclinic/app/Http/Controllers/SuperAdmin/Staff/AccountantController.php on line 14

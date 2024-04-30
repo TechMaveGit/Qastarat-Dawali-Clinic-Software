@@ -13,15 +13,15 @@ class ForgetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $user;
-    public $otp;
+   
     /**
      * Create a new message instance.
      */
-    public function __construct($user,$otp)
+    public function __construct($user)
     {
         //
         $this->user=$user;
-        $this->otp=$otp;
+        
     }
 
     /**
@@ -42,8 +42,8 @@ class ForgetPasswordMail extends Mailable
         return new Content(
             markdown: 'emails.forget',
             with: [
-                'user' => $this->user,
-                'otp'=>$this->otp,
+                'user' => $this->user
+               
             ],
         );
     }

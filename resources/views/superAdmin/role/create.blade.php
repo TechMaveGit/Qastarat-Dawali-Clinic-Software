@@ -45,15 +45,15 @@
                                             <div class="alert alert-danger">
                                                 {{ $errors->first('role_type') }}
                                             </div>
-                                        @endif      
+                                        @endif
                                 </div>
 
-                              
+
 
                             </div>
 
                         </div>
-                      
+
                     </div>
                 </div>
 
@@ -61,7 +61,7 @@
                 <div class="col-lg-12">
                     <div class="box">
                        <div class="box-header box_h">
-                            <div class="top_section_title">  
+                            <div class="top_section_title">
                                 <h5>Patient</h5>
                             </div>
                         </div>
@@ -69,10 +69,10 @@
                         <table class="table table-bordered table-hover mb-0" id="RoleTbl">
                             <thead>
                             <tr>
-        
+
                             <th>Patient Action </th>
                             <th>Add  Patient </th>
-                            <th>Add  Medical Record </th>   
+                            {{-- <th>Add  Medical Record </th> --}}
                             <th>View Medical Record</th>
                             <th>View Patient</th>
                             <th>Show Patient </th>
@@ -80,9 +80,9 @@
                             </tr>
                             </thead>
                             <tbody>
-        
+
                             <tr>
-        
+
                                 <td class="text-">Action</td>
                                         @foreach($permission as $key=>$value)
                                         @if ($value->verify_status=='1')
@@ -90,27 +90,27 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}">
                                                 <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
-        
+
                                                     </label>
                                             </div>
                                         </td>
                                         @endif
                                         @endforeach
                                 </td>
-        
+
                             </tr>
                             </tbody>
                             </table>
                         </div>
                     </div>
                   </div>
-        
 
-                  
+
+
           <div class="col-lg-12">
             <div class="box">
                <div class="box-header box_h">
-                    <div class="top_section_title">  
+                    <div class="top_section_title">
                         <h5>Invoices </h5>
                     </div>
                 </div>
@@ -120,10 +120,8 @@
 
                     <tr>
                         <th>Patient Action </th>
-                        <th>Invoices</th>
-                        <th>Add  Invoice </th>
-                        <th>Edit  Invoice </th>
-                        <th>View Invoice</th>
+                        <th>Print Invoice </th>
+                        <th>Share Invoice</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -132,7 +130,7 @@
 
                         <td class="text-">Action</td>
                                 @foreach($permission as $key=>$value)
-                                @if ($value->verify_status=='2')   
+                                @if ($value->verify_status=='2')
                                 <td>
                                     <div class="form-check">
                                         <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}">
@@ -156,25 +154,25 @@
                 <div class="col-lg-12">
                     <div class="box">
                        <div class="box-header box_h">
-                            <div class="top_section_title">  
+                            <div class="top_section_title">
                                 <h5>Task </h5>
                             </div>
                         </div>
                         <div class="box-body box_body_h">
                         <table class="table table-bordered table-hover mb-0" id="RoleTbl">
                             <thead>
-        
+
                             <tr>
                                 <th>Patient Action </th>
                                 <th>View Task</th>
-                                <th>Assign Task </th>   
-                              
+                                <th>Assign Task </th>
+
                             </tr>
                             </thead>
                             <tbody>
-        
+
                             <tr>
-        
+
                                 <td class="text-">Action</td>
                                         @foreach($permission as $key=>$value)
                                         @if ($value->verify_status=='3')
@@ -188,15 +186,65 @@
                                         @endif
                                         @endforeach
                                 </td>
-        
+
                             </tr>
                             </tbody>
                             </table>
                         </div>
                     </div>
                   </div>
-        
+
+
+
+                  <div class="col-lg-12">
+                    <div class="box">
+                       <div class="box-header box_h">
+                            <div class="top_section_title">
+                                <h5>Calendar</h5>
+                            </div>
+                        </div>
+                        <div class="box-body box_body_h">
+                        <table class="table table-bordered table-hover mb-0" id="RoleTbl">
+                            <thead>
+
+                            <tr>
+                                <th>Calendar Action </th>
+                                <th>View Calendar</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+
+                                <td class="text-">Action</td>
+                                        @foreach($permission as $key=>$value)
+                                        @if ($value->verify_status=='4')
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}">
+                                                <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
+                                                </label>
+                                            </div>
+                                        </td>
+                                        @endif
+                                        @endforeach
+                                </td>
+
+                            </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+
+
                   
+
+
+
+
+
             </div>
 
             <div class="box-footer">
@@ -210,7 +258,7 @@
             </div>
         </section>
 
-        
+
 
       </div>
  </div>

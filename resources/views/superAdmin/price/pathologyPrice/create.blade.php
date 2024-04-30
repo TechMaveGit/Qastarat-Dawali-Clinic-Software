@@ -1,9 +1,10 @@
 @extends('superAdmin.superAdminLayout.main')
 @push('title')
-    <title>Add pathology price  | Super Admin</title>
+    <title>Add Pathology Price  | Super Admin</title>
 @endpush
 @section('content')
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 <div class="content-wrapper">
@@ -42,14 +43,14 @@
 
                      <div class="col-md-3">
                       <div class="form-group">
-                          <label class="form-label">Test Name</label>
-                          <input type="text" name="test_name[]" id="test_name" class="form-control" placeholder="" >
+                          <label class="form-label">Test Name <span class="reqiired">*</span></label>
+                          <input type="text" name="test_name[]" id="test_name" class="form-control" placeholder="" required>
                       </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                          <label class="form-label">Test Code</label>
-                          <input type="text" name="test_code[]" name="test_code" id="test_code" class="form-control" placeholder="">
+                          <label class="form-label">Test Code <span class="reqiired">*</span></label>
+                          <input type="text" name="test_code[]" name="test_code" id="test_code" class="form-control" placeholder="" required>
                       </div>
                       </div>
 
@@ -61,8 +62,8 @@
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                          <label class="form-label">Price</label>
-                          <input type="number" min="0" name="price[]" id="price" class="form-control" placeholder="" >
+                          <label class="form-label">Price <span class="reqiired">*</span></label>
+                          <input type="number" min="0" name="price[]" id="price" class="form-control" placeholder=""  required>
                       </div>
                       </div>
                       <div class="col-lg-6">
@@ -74,9 +75,12 @@
                       <div class="col-lg-6">
                       <div class="form-group">
                                 <label class="form-label">Note</label>
-                                <textarea rows="2" name="note[]"  id="note" class="form-control" placeholder=""></textarea>
+                                <textarea rows="2" name="note[]"  id="note" maxlength="50" class="form-control" max="50" placeholder=""></textarea>
+
                               </div>
                       </div>
+                      
+                   
                       <div class="col-lg-12">
                           <div class="add_price_btn">
                               <a onclick="addNewRate()"><i data-feather="plus-circle"></i> Add Test</a>

@@ -15,7 +15,8 @@ class PathologyPriceList extends Model
         'turnaround',
         'note',
         'price',
-        'price_type'
+        'price_type',
+        'colour_type'
         ];
 
 }

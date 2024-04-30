@@ -13,11 +13,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if(request()->isMethod("post"))
-        {
+        {      
          $request->validate([
             'email' => 'required:rfc',
             'password' => 'required'
-            ]);
+            ]);      
 
             if(Auth::guard('admin')->attempt($request->only('email','password'))){
                 return redirect()->route('super-admin.dashboard');
@@ -40,6 +40,13 @@ class LoginController extends Controller
        $data['radiology']=Doctor::where('user_type','radiology')->count();
        $data['pathology']=Doctor::where('user_type','pathology')->count();
        $data['adddoctor']=Doctor::where('user_type','doctor')->orderBy('id','desc')->get();
+
+
+       $data['nurseCount'] =   Doctor::select('id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'mobile_no', 'user_type')
+                                        ->whereNotIn('user_type', ['doctor', 'radiology','pathology'])
+
+                                        ->count();
+
 
         return view('superAdmin.index',$data);
     }

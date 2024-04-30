@@ -9,7 +9,7 @@
     color: red;
 }
     </style>
-   
+
 
 <div class="content-wrapper">
 	  <div class="container-full">
@@ -80,7 +80,7 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" name="birth_date" value="{{ old('birth_date') }}" class="form-control pull-right datepicker" >
-                                    
+
                                     </div>
                                     @error('birth_date')
                                         <span class="error text-danger">{{ $message }}</span>
@@ -104,15 +104,34 @@
                         <!-- /.form-group -->
                         </div>
 
-                        <div class="col-md-3">    
-                            <div class="form-group">  
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Add Branch</label>
+
+                                <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple required>
+
+                                {{-- <select class="form-control select2" name="doctorName" style="width: 100%;" required> --}}
+                                     <option value="">Select Any One</option>
+                                    @forelse ($branchs as $allbranchs)
+                                       <option value="{{$allbranchs->id}}" {{ old('doctorName') == $allbranchs->id ? 'selected' : '' }} >{{$allbranchs->branch_name}}</option>
+                                    @empty
+
+                                    @endforelse
+                                </select>
+                            </div>
+                        <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label class="form-label">Add Doctor</label>
                                 <select class="form-control select2" name="doctorName" style="width: 100%;" required>
                                      <option value="">Select Any One</option>
                                     @forelse ($doctors as $alldoctors)
                                        <option value="{{$alldoctors->id}}" {{ old('doctorName') == $alldoctors->id ? 'selected' : '' }} >{{$alldoctors->name}}</option>
                                     @empty
-                                        
+
                                     @endforelse
                                 </select>
                             </div>
@@ -159,7 +178,7 @@
                             <div class="form-group">
                                 <label class="form-label">Password <span class="clr">*</span></label>
                                 <div class="wrap-input">
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                    <input type="password" name="password" id="password" class="form-control password" placeholder="">
                                     <span class="btn-show-pass ico-20 " >
                                         <span class="  eye-pass flaticon-visibility "></span>
                                     </span>
@@ -169,13 +188,13 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
 
 
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Mobile Phone <span class="clr"> * </span></label>
-                            <input type="text" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="" minlength="10" maxlength="15">
+                            <input type="tel" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="" minlength="10" maxlength="15">
 
                             @error('mobile_no')
                             <p class="error text-danger">{{ $message }}</p>
@@ -185,7 +204,7 @@
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Landline</label>
-                            <input type="text"  name="landline" value="{{ old('landline') }}" class="form-control" placeholder="" >
+                            <input type="tel"  name="landline" value="{{ old('landline') }}" class="form-control" placeholder="" >
                             @error('landline')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -224,10 +243,12 @@
                         @enderror
                         </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Country</label>
-                                <select class="form-control" name="country" id="countries" style="width: 100%;">
+                                <label class="form-label">Country </label>
+                                <select class="form-control select2" name="country" style="width: 100%;">
+                                    <option value="">Select Any One</option>
                                     <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
                                     <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
                                 </select>
@@ -235,8 +256,8 @@
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
                             </div>
-                        <!-- /.form-group -->
                         </div>
+
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Document Type</h4>
@@ -248,7 +269,7 @@
                                 <select class="form-control select2" name="document_type" style="width: 100%;">
                                     <option value="">Select Any One</option>
                                     <option value="Passport" {{ old('document_type') == 'Passport' ? 'selected' : '' }}>Passport </option>
-                                    <option value="Address Proof" {{ old('document_type') == 'Address Proof' ? 'selected' : '' }}>Address proof</option>
+                                    <option value="Address proof" {{ old('document_type') == 'Address proof' ? 'selected' : '' }}>Address proof</option>
                                 </select>
                                 @error('document_type')
                                 <span class="error text-danger">{{ $message }}</span>
@@ -263,7 +284,7 @@
                               <input name="id_proof" type="file" class="dropify" data-height="100" />
                               </div>
                             </div>
-                            
+
 
                         {{-- <div class="col-md-3">
                         <div class="form-group">

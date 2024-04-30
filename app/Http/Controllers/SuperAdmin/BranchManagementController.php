@@ -20,6 +20,7 @@ class BranchManagementController extends Controller
 
     public function add(Request $req)
     {
+
         $doctor = $req->except(['_token','submit']);
         DB::table('branchs')->insert($doctor);
         return redirect()->back()->with('message', 'branch added successfully!');
@@ -27,11 +28,21 @@ class BranchManagementController extends Controller
 
     public function edit(Request $request)
     {
+
+          // return $request->all();
+
+
             $id=$request->input('id');
             $branch = $request->except(['_token','submit']);
             DB::table('branchs')->whereId($id)->update($branch);
             return to_route('branch.management.index')->with('message', 'branch Updated Successfully.');
 
+    }
+
+    public function addsnippets()
+    {
+        $data['snippets'] = DB::table('snippets')->orderBy('id','desc')->get();
+        return view('superAdmin.snippets.lab-create',$data);
     }
 
 

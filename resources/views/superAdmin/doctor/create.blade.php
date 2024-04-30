@@ -49,7 +49,7 @@
                     <div class="col-md-3">
 					  <div class="form-group">
 						<label class="form-label">Title<span class="clr"> * </span></label>
-						<select class="form-control select2" name="title" style="width: 100%;">
+						<select class="form-control select2" name="title" style="width: 100%;" required>
                                     <option value="">Select Any One</option>
 						            <option value="Mr" {{ old('title') == 'Mr' ? 'selected' : '' }}>Mr</option>
 									<option value="Mrs" {{ old('title') == 'Mrs' ? 'selected' : '' }} >Mrs</option>
@@ -68,10 +68,11 @@
 					  </div>
 					  <!-- /.form-group -->
 					</div>
+
                        <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label"> Name<span class="clr"> * </span></label>
-                            <input type="text" name="name"  value="{{ old('name') }}" class="form-control" placeholder="">
+                            <input type="text" name="name"  value="{{ old('name') }}" class="form-control" placeholder="" required>
                             @error('name')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -87,12 +88,12 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" name="birth_date"  value="{{ old('birth_date') }}" class="form-control pull-right datepicker">
-                                    
+
                                     </div>
                                     @error('birth_date')
                                         <span class="error text-danger">{{ $message }}</span>
                                     @enderror
-                                    
+
                                 </div>
                         </div>
 
@@ -114,60 +115,111 @@
                         </div>
 
                         @php
-                          $nurse = \App\Models\superAdmin\Doctor::where('user_type','Coordinator')->get();
+                          $nurse = \App\Models\superAdmin\Doctor::where('role_id','11')->where('status','active')->get();
+                          $branchs = DB::table('branchs')->where('status','1')->get();
+                          $selectedCoordinators = old('selectBranch', []);
+
                          @endphp
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Select Branch<span class="clr"> * </span></label>
+                                <select class="form-control select2 form-select selectBranch" name="selectBranch[]" style="width: 100%;" multiple required>
+                                    <option value="">Select Any One </option>
+                                    @forelse ($branchs as $allbranchs)
+                                        <option value="{{ $allbranchs->id }}" @if(in_array($allbranchs->id, $selectedCoordinators)) selected @endif>{{ $allbranchs->branch_name }}</option>
+                                    @empty
+                                    @endforelse
+
+                                </select>
+                            </div>
+                                @error('coordinator')
+                                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                @enderror
+                        </div>
+
 
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Select coordinator<span class="clr"> * </span></label>
-                                <select class="form-control select2 form-select" name="coordinator[]" style="width: 100%;" multiple>
-                                    <option value="">Select Any One </option>
-                                    @forelse ($nurse as $allnurse)
-                                     
-                                        <option value="{{ $allnurse->id }}">{{ $allnurse->name }} ( {{ $allnurse->email }} )</option>
+                                <select class="form-control select2 form-select" id="appendCoordinator" name="coordinator[]" style="width: 100%;" multiple required>
                                   
-                                    @empty
-                                    @endforelse
 
+
+
+                                    
                                 </select>
                             </div>
                                 @error('coordinator')
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                 @enderror
                         </div>
+
+
+
 
                         @php
-                        $addNurse = \App\Models\superAdmin\Doctor::where('user_type','Nurse')->get();
-                         @endphp
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label">Select Nurse<span class="clr"> * </span></label>
-                                <select class="form-control select2 form-select" name="nurse[]" style="width: 100%;" multiple>
-                                    <option value="">Select Any One </option>
-                                    @forelse ($addNurse as $allnurse)
-                                     
-                                        <option value="{{ $allnurse->id }}">{{ $allnurse->name }} ( {{ $allnurse->email }} )</option>
-                                  
-                                    @empty
-                                    @endforelse
+                        $addNurse = \App\Models\superAdmin\Doctor::where('user_type', 'Nurse')->where('status','active')->get();
+                        $selectedNurses = old('nurse', []);
+                    @endphp
 
-                                </select>
-                            </div>
-                                @error('coordinator')
-                                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                                @enderror
+                    <div class="col-md-3">   
+                        <div class="form-group">
+                            <label class="form-label">Select Nurse<span class="clr"> * </span></label>
+                            <select class="form-control select2 form-select" id="appendNurse" name="nurse[]" style="width: 100%;" multiple required>
+                             
+                                {{-- <option value="">Select Any One</option> --}}
+                                {{-- @foreach ($addNurse as $allnurse)
+                                    <option value="{{ $allnurse->id }}" @if(in_array($allnurse->id, $selectedNurses)) selected @endif>{{ $allnurse->name }} ({{ $allnurse->email }})</option>
+                                @endforeach --}}
+                           
+                           
+                            </select>
                         </div>
+                        @error('nurse')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
 
 
+                    <div class="col-md-3">
+                        <div class="form-group">   
+                            <label class="form-label">Role</label>
+                            <select class="form-control select2" name="role_id" style="width: 100%;" required>
+                                <option value="">Select Any One</option>
+                                 @forelse ($role as $allrole)
+                                 <option value="{{ $allrole->id }}">{{ $allrole->name }}</option>
+                                 @empty
+                                     
+                                 @endforelse
+                                
+                               
+                            </select>
+                            @error('gendar')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
+                        </div>
+                    <!-- /.form-group -->
+                    </div>
 
 
+                    {{-- <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Select Role <span class="clr"> * </span></label>
+                            <select class="form-control select2" name="role_id" style="width: 100%;" required>
+                                <option value="">Select any one</option>
+                                @forelse ($role as $allrole)
+                                <option value="{{ $allrole->id }}" {{ old('role_id') == $allrole->id ? 'selected' : '' }}>{{ $allrole->name }}</option>
+
+                                @empty
+
+                                @endforelse
+
+                            </select>
+                        </div>
+                    </div> --}}
 
 
-
-
-
-
-                       
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Phone & Email</h4>
@@ -190,9 +242,9 @@
                                 <div class="form-group">
                                     <label class="form-label">Password <span class="clr">*</span></label>
                                     <div class="wrap-input">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="">
+                                        <input type="password" name="password" id="password" class="form-control password" placeholder="" required>
                                         <span class="btn-show-pass ico-20 " >
-                                            <span class="  eye-pass flaticon-visibility "></span>
+                                            <span class="eye-pass flaticon-visibility"></span>
                                         </span>
                                     </div>
                                     @error('password')
@@ -203,8 +255,8 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Mobile Phone<span class="clr"> * </span></label>
-                                    <input type="text" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="" minlength="10" maxlength="15">
+                                    <label class="form-label">Mobile Phone </label>
+                                    <input type="tel" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="" minlength="10" maxlength="15" required>
 
                                     @error('mobile_no')
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -215,7 +267,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Landline</label>
-                                    <input type="text"  name="landline" value="{{ old('landline') }}" class="form-control" placeholder="">
+                                    <input type="tel"  name="landline" value="{{ old('landline') }}" class="form-control" placeholder="">
                                     @error('landline')
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
@@ -250,7 +302,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="form-label">Country</label>
-                                        <select class="form-control" name="country" id="countries" style="width: 100%;">
+                                        <select class="form-control select2" name="country" style="width: 100%;" required>
+                                            <option value="">Select Any One</option>
                                             <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
                                             <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
                                         </select>
@@ -259,7 +312,7 @@
                                 </div>
 
 
-                            
+
 
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
@@ -302,34 +355,28 @@
                             <input type="text" name="lincense_no" value="{{ old('lincense_no') }}" class="form-control" placeholder="">
                         </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label">Select Role</label>
-                                <select class="form-control select2" name="role_id" style="width: 100%;">
-                                    <option value="">Select any one</option>
-                                    @forelse ($role as $allrole)
-                                    <option value="{{ $allrole->id }}" {{ old('role_id') == $allrole->id ? 'selected' : '' }}>{{ $allrole->name }}</option>
 
-                                    @empty
 
-                                    @endforelse
 
-                                </select>
-                            </div>
-                        </div>
-
-                      
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Document</h4>
 							</div>
-						</div> 
+						</div>
+
+						 <div class="col-lg-6">
+                             <div class="form-group">
+                                <label class="form-label">Profile Image</label>
+                                <input  type="file" class="dropify" data-height="100" name="profileImage"/>
+                             </div>
+                         </div>
+
                       <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-label">License Upload</label>
                         <input  type="file" class="dropify" data-height="100" name="LicenseUpload"/>
                         </div>
-                      </div> 
+                      </div>
                        <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-label">Academic Document Upload</label>
@@ -367,4 +414,103 @@
 
       </div>
  </div>
+
+
+
+
+ 
+ <script>
+    $(document).ready(function() {
+        // Event listener for changes in the select dropdown
+        $('.selectBranch').change(function() {
+            var selectedNurseId = $(this).val(); // Get the selected nurse ID
+    
+            // Make an AJAX request to fetch data based on the selected nurse ID
+            $.ajax({
+                url: '{{ route('doctors.getStaff') }}', // Specify the URL for your AJAX request
+                type: 'post', // Use GET method (or 'POST' if needed)
+                data:  {
+                            nurse_id: selectedNurseId,
+                            _token: $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+                        },
+                success: function(response) {
+                  
+                    $('#appendCoordinator').empty();
+                    $('#appendNurse').empty();
+
+                    
+                    // Append new options based on the AJAX response
+                    if (response.data && response.data.length > 0)     
+                    {     
+                        $.each(response.data, function(index, branch)    
+                        {  
+                            let addressHtml = `<option value="${branch.id}">${branch.name}</option>`;
+                            $("#appendCoordinator").append(addressHtml);
+                           
+                        });
+                    }
+
+                    if (response.nurseData && response.nurseData.length > 0)     
+                    {     
+                        $.each(response.nurseData, function(index, branch)    
+                        {  
+                            let addressHtml = `<option value="${branch.id}">${branch.name}</option>`;
+                            $("#appendNurse").append(addressHtml);
+                           
+                        });
+                    }
+
+
+
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error(error); // Log the error for debugging
+                }
+            });
+        });
+    });
+</script>
+
+
+
+ <script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="gendar"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
+
+<script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="role_id"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
+
+<script>
+    // Disable the "Select Any One" option using JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.querySelector('select[name="country"]');
+        const selectAnyOneOption = selectElement.querySelector('option[value=""]');
+
+        if (selectAnyOneOption) {
+            selectAnyOneOption.disabled = true;
+        }
+    });
+</script>
+
+
+
+
 @endsection

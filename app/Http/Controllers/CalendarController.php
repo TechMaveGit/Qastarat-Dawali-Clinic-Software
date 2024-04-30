@@ -6,29 +6,45 @@ use Illuminate\Http\Request;
 use App\Models\superAdmin\Doctor;
 use App\Models\User;
 use App\Models\BookAppointment;
+use Auth;
+use DB;
 class CalendarController extends Controller
 {
     //
     public function index(Request $request)
     {
-
-        
-       
         $doctors=Doctor::select('id','name')->where('user_type','doctor')->orderBy('id','desc')->get();
         $patients=User::select('id','name')->orderBy('id','desc')->get();
-     
-        return view('back/calendar',compact('doctors','patients'));
+
+        $book_appointments= DB::table('book_appointments')
+                                        ->select('appointment_type') // Select only the 'title' column
+                                        ->distinct()      // Apply distinct on the 'title' column
+                                        ->get();
+
+        $users=DB::table('users')->orderBy('id','desc')->get();
+        $locations=DB::table('locations')->orderBy('id','desc')->get();
+        $pathology_price_list = DB::table('pathology_price_list')->get();
+        return view('back/calendar',compact('doctors','patients','book_appointments','users','locations','pathology_price_list'));
     }
 
-   
+    
+
+    
+
     public function createOrUpdateEvent(Request $request)
     {
-        $eventId = $request->input('event_id'); 
+
+        // return $request->all();
+
+        $eventId = $request->input('event_id');
         $eventData = [
-            'patient_id' => $request->input('patient_id'),
+            'patient_id' => $request->input('patintValue'),
+            'doctor_id' => $request->input('doctor_id'),
+            'clinician_id' => $request->input('doctor_id'),
             'priority' => $request->input('priority'),
             'appointment_type' => $request->input('appointment_type'),
             'location' => $request->input('location'),
+           // 'status' =>  '1',
             'start_date' => $request->input('start_date'),
             'start_time' => $request->input('start_time'),
             'end_date' => $request->input('end_date'),
@@ -39,18 +55,22 @@ class CalendarController extends Controller
             'confirmation' => isset($request->confirmation) ? 'yes' : 'no',
         ];
 
-       
-        if ($eventId) {
+
+        if ($eventId)
+
+        {
             $event = BookAppointment::find($eventId);
             if (!$event) {
                 return response()->json(['error' => 'Event not found'], 404);
             }
             $event->update($eventData);
             $message = 'Event updated successfully';
-        } else {
-           
+        }
+
+        else {
+
             $event = BookAppointment::create($eventData);
-            $message = 'Event created successfully';
+            $message = 'Appointment added successfully';
         }
 
         return response()->json(['message' => $message, 'event' => $event], 200);
@@ -69,28 +89,60 @@ class CalendarController extends Controller
         return response()->json(['message' => 'Event deleted successfully'], 200);
     }
 
-    public function getEvents(Request $request)
+
+ public function getEvents(Request $request)
     {
-       
-       
+
+            $checkdoctor=Auth::guard('doctor')->user();
 
             $events = BookAppointment::select(
-              'id',
-              'patient_id',
-              'doctor_id',
-              'priority as title',
-              'appointment_type',
-              'location',
-              'start_date as start',
-              'start_time',
-              'end_date as end',
-              'end_time',
-              'cost',
-              'code',
-              'clinician_id',
-              'confirmation'
-          )->get();
-          
+                                                'id',
+                                                'patient_id',
+                                                'doctor_id',
+                                                'priority',
+                                                'appointment_type as title',
+                                                'location',
+                                                'start_date as start',
+                                                'end_date as end',
+                                                'start_time',
+                                                'end_time',
+                                                'cost',
+                                                'code',
+                                                'clinician_id',
+                                                'confirmation'
+                                              );
+
+
+
+            if ($checkdoctor->role_id=='1') {
+               $events=$events->where('doctor_id',$checkdoctor->id);
+            }
+
+            $patientValue=$request->input('patientValue');
+
+            if($patientValue)
+            {
+                $events=$events->where('patient_id',$patientValue);
+            }
+
+            if ($request->input('user_id')) {
+                $events=$events->where('patient_id',$request->input('user_id'));
+            }
+
+            if ($request->input('appointment_type')) {
+                $events=$events->where('appointment_type',$request->input('appointment_type'));
+            }
+
+            if ($request->input('location')) {  
+                $events=$events->where('location',$request->input('location'));
+            }
+
+
+
+            $events  =  $events->get();
+
+          //  dd($events);
+
         return response()->json($events);
     }
 }
