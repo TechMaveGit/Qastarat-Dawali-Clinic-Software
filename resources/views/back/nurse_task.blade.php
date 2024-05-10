@@ -154,14 +154,14 @@ foreach($D as $v)
                                                             <ul class="book_li">
                                                                 <li>
                                                                     <div class="tb_listTitle_label labe_test"></div>
-                                                                    @php
 
+                                                                    @php
                                                                     $pathology_price_list=  DB::table('pathology_price_list')->where('id',$nurse_task->task);
 
                                                                     // if($nurse_task->test_type == 'pathology'){
                                                                     //   $pathology_price_list =  $pathology_price_list->where('price_type', '0');
 
-                                                                        $userDetail=DB::table('doctors')->where('user_type','pathology')->where('status','active')->get();
+                                                                        $userDetail=DB::table('doctors')->where('user_type',$nurse_task->test_type)->where('status','active')->get();
 
                                                                     // }
                                                                     // else {
@@ -259,7 +259,7 @@ foreach($D as $v)
                                                                     <li class="status">
                                                                         <div class="tb_listTitle_label">Assign to lab</div>
                                                                         <div class="form-group">
-                                                                        <select class="form-control select2_without_search SelectLab" name="labType">
+                                                                        <select class="form-control select2_without_search SelectLab select2_with_search" name="labType">
                                                                                 <option>Select Any one Lab</option>
                                                                                 @forelse ($userDetail as $alluserDetail)
                                                                                 <option data-assign-id='{{ $alluserDetail->id}}'  data-task-id='{{ $nurse_task->id}}' data-lab-id="1">{{ $alluserDetail->name }} ({{ $alluserDetail->email }})</option>
@@ -471,6 +471,10 @@ foreach($D as $v)
  @push('custom-js')
 
  <script>
+
+$('.select2_with_search').select2({}); 
+
+
     $('.select2_appointment').select2({
         dropdownParent: $('#book_appointment'),
         minimumResultsForSearch: -1

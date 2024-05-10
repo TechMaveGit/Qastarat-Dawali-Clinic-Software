@@ -314,44 +314,9 @@
                     @enderror
                     </div>
                     </div>
-                    @php
+                   
 
-                        $doctors = \App\Models\superAdmin\Doctor::where('user_type','doctor')->get();
-                        $doctor_nurses=DB::table('nurse_doctor')->select('id','doctor_id','nurse_id')->where('nurse_id',@$id)->get();
-                     @endphp
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label"> Work Under</label>
-                            <select class="form-control select2 form-select" name="WorkUnder[]" style="width: 100%;" multiple>
-                                <option value="">Select Any One </option>
-                                @forelse ($doctors as $doctor)
-                                    @php
-                                        $selected = '';
-                                        foreach ($doctor_nurses as $dn) {
-                                            if ($dn->doctor_id == $doctor->id) {
-                                                $selected = 'selected';
-
-                                            }
-                                        }
-                                    @endphp
-                                    <option value="{{ $doctor->id }}" {{ $selected }}>{{ $doctor->name }} ({{ $doctor->email }})</option>
-                                @empty
-                                @endforelse
-
-                            </select>
-                        </div>   
-                            @error('WorkUnder')
-                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                            @enderror
-                    </div>
-
-                    {{-- <div class="col-lg-12">
-                        <div class="form-group">
-                            <label class="form-label">Profile Image</label>
-                              <input type="file" class="dropify" value="https://techmavesoftwaredemo.com/webclinic/public/assets/nurse_profile/1585689.png" name="patient_profile_img" accept="image/*"/>
-                        </div>
-                    </div> --}}
-
+                   
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label class="form-label">Profile Image</label>

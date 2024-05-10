@@ -34,7 +34,7 @@ class NurseLoginWeb extends Controller
 
 
         elseif($user->user_type =="pathology" || $user->user_type =="radiology"){
-            $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->where('assignToLabPerson',$user->id)->whereNotNull('assignToLab')->where('assignToLab','1')->get();
+             $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->where('assignToLabPerson',$user->id)->whereNotNull('assignToLab')->where('assignToLab','1')->get();
             return view('back/lab_task', compact('nurse_tasks'));
         }
 

@@ -144,7 +144,7 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
                       </tr> -->
                       <tr class="tm_border_top tm_border_bottom">
                         <td class="tm_width_3 tm_border_top_0 tm_bold tm_f16 tm_primary_color">Grand Total	</td>
-                        <td class="tm_width_3 tm_border_top_0 tm_bold tm_f16 tm_primary_color tm_text_right">AED {{ $pathology_price_list->price }}</td>
+                        <td class="tm_width_3 tm_border_top_0 tm_bold tm_f16 tm_primary_color tm_text_right">AED {{ $printData->finalAmount }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -191,7 +191,7 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
                     <tbody>
                       <tr>
                         <td class="tm_width_3">AED  {{ $pathology_price_list->price }} </td>
-                        <td class="tm_width_4">AED {{ $pathology_price_list->price }}</td>
+                        <td class="tm_width_4">AED {{ $printData->finalAmount }}</td>
                         <td class="tm_width_2">{{ $formattedDate }}</td>
                         <td class="tm_width_1">Credit</td>
                       </tr>

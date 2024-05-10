@@ -14,12 +14,13 @@ class DoctorController extends Controller
 {
     public function index()
     {
-        $data['doctor']=Doctor::where('user_type','doctor')->select('patient_profile_img','status','doctor_id','name','specialty','email','id','post_code','mobile_no')->orderBy('id','desc')->get();
+        $data['doctor']=Doctor::where('role_id','1')->select('patient_profile_img','status','doctor_id','name','specialty','email','id','post_code','mobile_no')->orderBy('id','desc')->get();
         return view('superAdmin.doctor.index',$data);
     }
 
     public function create(Request $request)
     {
+
         if(request()->isMethod("post"))
         {
             // dd($request->all());
@@ -181,6 +182,8 @@ class DoctorController extends Controller
         return view('superAdmin.doctor.create',$data);
     }
 
+
+    
     public function getStaff(Request $request)
     {
 
@@ -192,18 +195,19 @@ class DoctorController extends Controller
                                     ->pluck('patient_id')
                                     ->toArray();
 
+
          $branchData = DB::table('doctors')->select('id','name')
                                     ->whereIn('id', $branchIds)
                                     ->get();
 
 
-        $nurseId = DB::table('user_branchs')
+         $nurseId = DB::table('user_branchs')
                                     ->where('branch_type','2')
                                      ->whereIn('add_branch', $btanchId)
                                      ->pluck('patient_id')
                                      ->toArray();
  
-          $nurseData = DB::table('doctors')->select('id','name')
+        $nurseData = DB::table('doctors')->select('id','name')
                                      ->whereIn('id', $nurseId)
                                      ->get();
 
@@ -230,9 +234,6 @@ class DoctorController extends Controller
             $doctorData = $request->except(['_token','submit','coordinator']);
             // $doctorData['role_id'] = intval($doctorData['role_id']);
             $doctor_info = Doctor::where('id', $id)->first();
-
-
-
 
               if ($request->hasFile('profileImage')) {
                 $files = $request->file('profileImage');
@@ -285,11 +286,15 @@ class DoctorController extends Controller
                 $files->move($destinationPath, $file_name);
                 $doctorData['AcademicDocumentUpload']= $file_name;
             }
+
+         
             if($request->has('password') && isset($request->password)){
-
                 $doctorData['password'] = Hash::make($request->input('password'));
-
             }
+            else{
+                $doctorData['password'] = $data['doctor']->password;
+            }
+
 
 
              $currentDate = $request->input('birth_date');
@@ -369,7 +374,9 @@ class DoctorController extends Controller
     {
         $data['doctor']=Doctor::whereId($id)->first();
         $currentDate = now();
-        $data['tasks']=DB::table('tasks')->where('doctor_id',$id)->whereDate('created_at', $currentDate)->get();
+
+         $data['book_appointments']=DB::table('book_appointments')->where('doctor_id',$id)->whereDate('created_at', $currentDate)->get();
+
         return view('superAdmin.doctor.view',$data);
     }
 

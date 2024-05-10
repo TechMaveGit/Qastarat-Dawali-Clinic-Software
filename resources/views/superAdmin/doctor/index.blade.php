@@ -52,7 +52,6 @@
 
         <div class="d-flex">
 
-        <h4 class="page-title">All Doctors</h4>
 
           {{-- <nav aria-label="breadcrumb">
 
@@ -153,6 +152,7 @@
                         <img src="{{ asset('/public/assets/profileImage/' . $alldoctor->patient_profile_img) }}" alt="">
 
                         @else
+                        
                         <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
                         @endif
@@ -180,14 +180,18 @@
                    </td>
 
                    <td>
-                       <div class="btn-group" style="position: relative; z-index: 9999;">
-                            <a class="hover-primary dropdown-toggle no-caret" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('doctors.view',['id'=>$alldoctor->id]) }}">View Details</a>
-                                <a class="dropdown-item" href="{{ route('doctors.edit',['id'=>$alldoctor->id]) }}">Edit Details</a>
-                                <!--<a onclick="remove_doctor({{ $alldoctor->id }})" class="dropdown-item">Delete</a>-->
-                            </div>
-                        </div>
+
+                    <ul class="action_icons">
+                        <li >
+                            <a href="{{ route('doctors.view',['id'=>$alldoctor->id]) }}" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
+                        </li>
+                        <li>
+                                <a href="{{ route('doctors.edit',['id'=>$alldoctor->id]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
+                            </li>
+                            <li>
+                                <a  onclick="remove_doctor({{ $alldoctor->id }})" class="waves-effect waves-light btn btn-rounded btn-danger-light"><i  data-feather="trash-2"></i></a>
+                            </li>
+                        </ul>
                   </td>
 
                </tr>

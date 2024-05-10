@@ -14,4 +14,14 @@ class AppointmentController extends Controller
         return response()->json($locations);
        
     }
+
+
+    public function addAvailability(Request $request)
+    {
+          $allAvailability= $request->only('doctor_id','location','day_of_the_week','date','repeats','start_time','end_time','appointment_types');
+          DB::table('appontment_availability')->where('id', $request->location_update)->insert($allAvailability);
+          return to_route('user.calendar')->with('message', 'Availability added successfully.');
+
+    } 
+    
 }

@@ -17,14 +17,14 @@ class NurseController extends Controller
     {
         $data['doctor']=Doctor::whereId($id)->first();
         $currentDate = now();
-        $data['tasks']=DB::table('tasks')->where('doctor_id',$id)->whereDate('created_at', $currentDate)->get();
+        $data['tasks']=DB::table('tasks')->where('assignTo',$id)->get();
         return view('superAdmin.nurse.view',$data);
     }
 
     public function index()
     {
-        $data['nurse'] =   Doctor::select('id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'mobile_no', 'user_type')
-                                    ->whereNotIn('user_type', ['doctor', 'radiology','pathology'])
+        $data['nurse'] =   Doctor::select('id','role_id','patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'mobile_no', 'user_type')
+                                    ->whereNotIn('role_id', ['1'])
                                     ->orderBy('id', 'desc')
                                     ->get();
 
@@ -32,6 +32,8 @@ class NurseController extends Controller
         $data['role'] = DB::table('roles')->where('id','!=',1)->get();
         return view('superAdmin.nurse.index',$data);
     }
+
+
 
     public function create(Request $request)
     {
@@ -155,11 +157,15 @@ class NurseController extends Controller
                          DB::table('nurse_doctor')->insert([
                                              'nurse_id' =>  $lastInsertedId,
                                              'doctor_id' => intval($doctor[$i])
-
-
                                          ]);
                      }
                  }
+
+
+                 $cord=$request->input('');
+                 $cord=$request->input('');
+
+
 
                  $branchName=$request->input('selectBranch');
                  $branchName = json_decode(json_encode($branchName));
@@ -173,7 +179,7 @@ class NurseController extends Controller
                              DB::table('user_branchs')->insertGetId([
                                  'patient_id'        => $lastInsertedId,
                                  'add_branch'        => $request->input('selectBranch')[$i],
-                                 'branch_type'       => 'staff'
+                                 'branch_type'       => $request->input('role_id')
                              ]);
                        }
                  }
@@ -246,6 +252,7 @@ class NurseController extends Controller
                 $files->move($destinationPath, $file_name);
                  $nurse['patient_profile_img'] = $file_name;
             }
+            
             if($request->has('password') && isset($request->password)){
                 $nurse['password'] = Hash::make($request->input('password'));
             }

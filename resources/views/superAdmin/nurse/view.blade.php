@@ -140,15 +140,7 @@
                                             </div>
                                         </li>
 
-                                        <li>
-                                            <div class="detail_title">
-                                                <h6>License Number</h6>
-                                            </div>
-                                            <div class="detail_ans">
-                                                <h6>{{ $doctor->lincense_no }}</h6>
-                                            </div>
-                                        </li>
-
+                                      
 
                                          <li>
                                             <div class="detail_title">
@@ -165,50 +157,9 @@
                                         </li>
 
 
-                                        <li>
-                                            <div class="detail_title">
-                                                <h6>License Upload</h6>
-                                            </div>
-                                            <div class="detail_ans">
-                                                @if($doctor->LicenseUpload)
-                                                    @php
-                                                        $extension = pathinfo($doctor->LicenseUpload, PATHINFO_EXTENSION);
-                                                    @endphp
+                                      
 
-
-
-
-                                                    @if($extension == 'pdf')
-                                                        <a href="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}" target="_blank">View Document</a>
-                                                    @elseif($extension=='xlsx')
-                                                        <a href="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}" target="_blank">View Document</a>
-                                                    @else
-                                                        <a href="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}" target="_blank">
-                                                            <img src="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}" alt="License Image"/>
-                                                        </a>
-                                                    @endif
-                                                @endif
-                                            </div>
-                                        </li>
-
-
-                                     <li>
-                                        <div class="detail_title">
-                                            <h6>Academic Document Upload</h6>
-                                        </div>
-                                        <div class="detail_ans">
-                                            @if($doctor->AcademicDocumentUpload)
-
-                                              <a href="{{ asset('public/assets/AcademicDocumentUpload') }}/{{ $doctor->AcademicDocumentUpload }}" target="_blank">
-                                                        <img src="{{ asset('public/assets/AcademicDocumentUpload') }}/{{ $doctor->AcademicDocumentUpload }}" alt="Profile Image"/>
-                                            </a>
-
-
-                                            @endif
-                                        </div>
-                                    </li>
-
-
+                                    
 
                                          <li>
                                             <div class="detail_title">
@@ -260,30 +211,25 @@
 
 								<div>
 									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											@if($userDetail->patient_profile_img)
-											<img src="{{ asset('public/assets/nurse_profile'.$userDetail->patient_profile_img)}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-											@else
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-											@endif
-										</div>
+										
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name }}</p>
 											@php
 
-											   $pathology_price_list=  DB::table('pathology_price_list')->where('id',$alltasks->task);
+											   $pathology_price_list=  DB::table('pathology_price_list')->where('id',$alltasks->task)->first();
 
 											@endphp
-											<span class="text-dark fs-14">{{$pathology_price_list->test_name??''}}</span>
+											<span class="text-dark fs-14">{{$pathology_price_list->test_name??''}} /{{ $alltasks->test_type }} </span>
 										</div>
+                                      
 										<div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 10:00 </p>
+											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i>{{ $alltasks->assignDate }}</p>
 										</div>
 									</div>
 								</div>
 								@empty
 
-								<h4 class="box-title" style="bold">Not Have Any Task</h4>
+								<h4 class="box-title" style="bold">Not have any  task</h4>
 
 								@endforelse
 

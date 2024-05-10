@@ -614,17 +614,17 @@
 
 
                                 <div class="patient_dt_profile">
-
-                                    <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} </h5>
+  
+                                    <h5 class="patient_name__">{{ $patient->sirname??'' . ' ' . $patient->name??'' }} </h5>
                                     @php
-                                        if (!empty(@$patient->birth_date)) {
-                                            $birthDate = \Carbon\Carbon::createFromFormat('d M, Y', @$patient->birth_date);
-                                            $patientBirthDate = $birthDate->diffInYears(\Carbon\Carbon::now());
-                                        } else {
-                                            $patientBirthDate = null;
-                                        }
-
-                                    @endphp
+                                    if (!empty($patient->birth_date)) {
+                                        $birthDate = \Carbon\Carbon::createFromFormat('d M, Y', $patient->birth_date);
+                                        $patientBirthDate = $birthDate->diffInYears(\Carbon\Carbon::now());
+                                    } else {
+                                        $patientBirthDate = null;    
+                                    }
+                                   @endphp
+                                
                                     <p class="patient_age__">{{ @$patientBirthDate }} Years , <span
                                             class="patient_id__">{{ @$patient->patient_id }}</span></p>
 

@@ -5,12 +5,32 @@
 @section('content-section')
     @push('custom-css')
         <style>
+
+td.fc-event-container {
+    position: relative;
+}
+
+span.event-icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.fc-day-grid-event .fc-content {
+    white-space: pre-wrap;
+    overflow: visible;
+    padding: 5px;
+    width: 70%;
+}
+
+
+
             #calendar .btn {
                 padding: 5px 10px;
                 font-size: 14px;
                 background: #214874;
             }
-
+    
             .fc td,   
             .fc th {
                 border-style: solid;
@@ -27,8 +47,30 @@
             .add_patient_appoin {
                 margin-top: 25px
             }
+            .fc-timeGrid-view .fc-day-grid .fc-row .fc-content-skeleton {
+    padding-bottom: 2em !important;
+}
         </style>
-    @endpush
+    @endpush   
+
+
+
+
+    <script>
+        // Check if flash message exists  
+        @if(Session::has('message'))    
+            // Display SweetAlert
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: "{{ Session::get('message') }}", // Use 'message' instead of 'flash_message'
+                showConfirmButton: false,
+                timer: 2000 // Close alert after 2 seconds
+            });
+        @endif
+    </script>
+    
+
 
     <?php
     $D = json_decode(json_encode(Auth::guard('doctor')->user()->get_role()), true);
@@ -64,10 +106,10 @@
                             <a  class="setLocationId" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#setLocation">Set up Locations</a>
                             <a class="ServicesProduct" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ServicesProduct">Products and
                                 Services</a>
-                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Availablity">Availability</a>
+                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Availablity"> Availability </a>
                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#SearchPatient"><iconify-icon
                                     icon="iconamoon:search"></iconify-icon> Search </a>
-                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#event-modal"><iconify-icon
+                            <a href="javascript:void(0)" data-bs-toggle="modal" onclick="createApr()"><iconify-icon
                                     icon="gala:add"></iconify-icon> Create Appointment </a>
 
 
@@ -94,7 +136,10 @@
                             <div id="external-events">
 
                             </div>
-                            <div class="opencalendar_box">
+
+                           
+                            
+                            {{-- <div class="opencalendar_box">
                                 <!-- Container for the calendar -->
                                 <div id="calendarContainer">
 
@@ -102,7 +147,7 @@
                                 </div>
 
 
-                            </div>
+                            </div> --}}
 
 
 
@@ -110,7 +155,8 @@
                                 <a href="{{ url('/login/fullcalender') }}">
                                     <div class="fltr_eventhead">
                                         <h2>Clinicians</h2>
-                                        <span>Clear Filters</span>
+                                        <span style="font-weight: bold;
+                                        font-size: 13px; color: black;">Clear Filters</span>   
 
                                     </div>
                                 </a>   
@@ -320,22 +366,18 @@
                 <div class="modal-body p-4">
                     <form class="needs-validation" name="event-form" id="form-event" novalidate method="POST">
                         @csrf
-                        <div class="row">
-
-                            
+                        <div class="row">                            
                             <div class="col-lg-12" id="appoinment_book_bx">
                                 <div class="row appointment_book">
                                     <h6 class="book_appin_title">Book Appointment</h6>
-                                    <div class="col-12 mb-3">
-
-                                        <select class="form-control select2_modal" name="priority" id="Priority">
-                                            <option selected> --Select Priority-- </option>
-                                            <option value="bg-danger">High</option>
-                                            <option value="bg-success">Medium</option>
-                                            <option value="bg-primary">Low</option>
-                                        </select>
-
-                                    </div>
+                                        <div class="col-12 mb-3">
+                                            <select class="form-control select2_modal" name="priority" id="Priority">
+                                                <option selected> --Select Priority-- </option>
+                                                <option value="bg-danger">High</option>
+                                                <option value="bg-success">Medium</option>
+                                                <option value="bg-primary">Low</option>
+                                            </select>
+                                        </div>
                                     <div class="col-lg-12"> 
                                         <div class="row">   
                                             <div class="col-lg-9">
@@ -373,7 +415,7 @@
                                         <div class="inner_element">   
                                             <div class="form-group">
                                                 <select class="form-control select2_modal"
-                                                            name="appointment_type" id="patient_id">
+                                                            name="appointment_type" id="patient_id" required>
                                                             <option value=""> --Select Appoinment Type-- </option>
                                                             @foreach ($pathology_price_list as $allpathology_price_list)
                                                             @if (!empty($allpathology_price_list))
@@ -381,20 +423,6 @@
                                                             @endif   
                                                         @endforeach   
                                                 </select>
-
-                                            {{-- <select class="form-control select2_modal" name="appointment_type"
-                                                id="location">
-                                                    <option selected> --Select Appoinment Type -- </option>
-                                                             @foreach ($pathology_price_list as $allpathology_price_list)
-                                                                @if (!empty($allpathology_price_list))
-                                                                    <option value="{{ $allpathology_price_list->test_name }}">{{ $allpathology_price_list->test_name }}</option>
-                                                                @endif   
-                                                            @endforeach   
-                                                    </option>
-
-                                             </select> --}}
-
-                                            
 
                                             </div>
                                         </div>
@@ -436,7 +464,7 @@
                                         <div class="inner_element">
                                             <div class="form-group">
 
-                                                <input type="text" class="form-control timepicker-custom"
+                                                <input type="time" class="form-control"
                                                     placeholder="12:00" name="start_time">
                                             </div>
                                         </div>
@@ -454,7 +482,7 @@
                                         <div class="inner_element">
                                             <div class="form-group">
 
-                                                <input type="text" class="form-control timepicker-custom"
+                                                <input type="time" class="form-control"
                                                     placeholder="12:00" name="end_time">
                                             </div>
                                         </div>
@@ -678,7 +706,7 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-lg-4">
+                                                    <div class="col-lg-4">     
                                                         <div class="mb-3 form-group">
                                                             <label for="validationCustom01"
                                                                 class="form-label">Landline</label>
@@ -713,12 +741,15 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-6">
+
+                        <button type="button" class="btn btn_calender_cus btn-danger"
+                        id="btn-delete-event">Delete  </button>   
                        
                     </div>
                     <div class="col-6 text-end d-flex justify-content-end">
-                        <button type="button" class="btn btn_calender_cus btn-light me-1"   
+                        <button type="button" id="closebtn" class="btn btn_calender_cus btn-light me-1"   
                             data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn_calender_cus btn-success" id="btn-save-event">Save</button>
+                        <button type="submit" id="savebtn" class="btn btn_calender_cus btn-success" id="btn-save-event">Save</button>
                     </div>
                 </div>
                 </form>
@@ -726,6 +757,11 @@
         </div>
 
     </div>
+
+
+
+
+
 
 
     <script>
@@ -896,7 +932,7 @@
                                 </div>
                              
                                 <div class="new_location" id="locationNew_box">
-                                    <form id="setUpLocationForm" method="POST" enctype="multipart/form-data">
+                                    <form id="setUpLocationForm_" method="POST" enctype="multipart/form-data">
                                        
                                         @csrf
                                         <input type="hidden" name="location_update" id="location_update" value="">
@@ -1225,13 +1261,12 @@
     <!----------------------------
                 Product & Services
                 ---------------------------->
-    <div class="modal fade edit_patient__" id="Availablity" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade edit_patient__" id="Availablity" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="location_title">
-                        <h1 class="modal-title" id="exampleModalLabel">Appontment Availability </h1>
+                        <h1 class="modal-title" id="exampleModalLabel">Appointment Availability </h1>
 
                     </div>
 
@@ -1262,94 +1297,146 @@
                                         </li>
 
                                     </ul>
+
                                     <div class="tab-content" id="pills-tabContent">
-                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                            aria-labelledby="pills-home-tab" tabindex="0">
-                                            <div class="row">
-                                                <div class="col-lg-4">
+
+
+                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                                            <form action="{{ route('user.calendar') }}" method="post"/> @csrf
+                                             <div class="row">
+                                                <div class="col-lg-3">
                                                     <div class="inner_element appoin_type">
                                                         <div class="mb-3 form-group">
                                                             <label for="validationCustom01" class="form-label">Appointment
                                                                 Type</label>
-                                                            <select class="form-control select2_appoin_ttype">
-                                                                <option value="">CONSULTATION/Interventional
-                                                                    Radiology</option>
-                                                                <option value="">Follow up appointment</option>
-                                                                <option value="">Hemorrhoids Embolization</option>
-                                                                <option value="">MEDICAL LAZER KIT</option>
+                                                            <select class="form-control select2_appoin_ttype" name="appointmentType">
+                                                                <option value="">Select Any one</option>
+
+                                                                @foreach ($pathology_price_list as $allpathology_price_list)
+                                                                @if (!empty($allpathology_price_list))
+                                                                    <option value="{{ $allpathology_price_list->test_name }}">{{ $allpathology_price_list->test_name }}</option>
+                                                                @endif   
+                                                            @endforeach   
 
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+
+
+                                                <div class="col-lg-3">
                                                     <div class="inner_element appoin_type">
                                                         <div class="mb-3 form-group">
                                                             <label for="validationCustom01"
                                                                 class="form-label">Location</label>
-                                                            <select class="form-control select2_appoin_ttype">
-                                                                <option value="">CONSULTATION/Interventional
-                                                                    Radiology</option>
-                                                                <option value="">Follow up appointment</option>
-                                                                <option value="">Hemorrhoids Embolization</option>
-                                                                <option value="">MEDICAL LAZER KIT</option>
+                                                            <select class="form-control select2_appoin_ttype" name="location">
+
+                                                                <option value="">Select Any one</option>
+
+                                                                @forelse ($locations as $alllocations)
+                                                    
+                                                                <option value="{{ $alllocations->name }}">{{ $alllocations->name }}</option>
+                                                                    
+                                                                @empty
+                                                                    
+                                                                @endforelse
 
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+
+
+                                                <div class="col-lg-3">
                                                     <div class="inner_element appoin_type">
                                                         <div class="mb-3 form-group">
                                                             <label for="validationCustom01" class="form-label">Select
                                                                 Clinician</label>
-                                                            <select class="form-control select2_appoin_ttype">
-                                                                <option value="">CONSULTATION/Interventional
-                                                                    Radiology</option>
-                                                                <option value="">Follow up appointment</option>
-                                                                <option value="">Hemorrhoids Embolization</option>
-                                                                <option value="">MEDICAL LAZER KIT</option>
+                                                            <select class="form-control select2_appoin_ttype" name="selectClinician">
+                                                                <option value="">Select Any one</option>
+
+                                                                @forelse ($doctors as $alldoctors)
+                                                                <option value="{{ $alldoctors->id }}">
+                                                                    {{ $alldoctors->name }}</option>
+                                                            @empty
+                                                            @endforelse
+
 
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <p class="possiablity_found">1 possibility found. </p>
-                                                    <div class="possiblity">
-                                                        <span class="dayfound">
-                                                            <h6>Tueday</h6>
-                                                            <p>Apr 5, 2024</p>
-                                                        </span>
-                                                        <span>
-                                                            08:15 - 08:15
-                                                        </span>
-                                                        <span>One Off</span>
-                                                        <span>DUBAI</span>
-                                                        <span>CONSULTATION/Interventional Radiology </span>
-                                                        <span data-bs-toggle="modal"
-                                                            data-bs-target="#event-modal"><iconify-icon
-                                                                icon="gg:arrow-right-o"></iconify-icon></span>
 
+                                                <div class="col-lg-3">
+                                                    <div class="inner_element appoin_type">
+                                                        <div class="mb-3 form-group">
+                                                            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" style="margin-top: 28px;">Find Availability</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            </form> 
+
+
+                                                <div class="col-lg-12">
+                                                   
+                                                    <p class="possiablity_found">
+                                                        @if ($countData)
+                                                        {{ $countData }}
+                                                        @else
+                                                            0
+                                                        @endif
+                                                        
+                                                        possibility found. </p>
+
+
+                                                    @forelse ($appontment_availability as $allappontment_availability)
+                                                    @php
+                                                      $doctorName = DB::table('users')->where('id',$allappontment_availability->doctor_id)->first();
+                                                    @endphp
+                                                        
+                                                    <div class="possiblity">    
+                                                        @if ($allappontment_availability->created_at)
+                                                        <span class="dayfound">
+                                                            <h6>{{ \Carbon\Carbon::parse($allappontment_availability->created_at)->format('l') }}</h6>
+                                                            <p>{{ \Carbon\Carbon::parse($allappontment_availability->created_at)->format('M j, Y') }}</p>
+                                                        </span>
+                                                        @endif
+                                                    
+
+                                                        <span>{{ $doctorName->doctorName??'' }}</span>
+                                                        <span>
+                                                            {{ $allappontment_availability->start_time }} - {{ $allappontment_availability->end_time }}
+                                                        </span>
+                                                        <span>{{ $allappontment_availability->appointment_types	 }}</span>
+                                                        <span>{{ $allappontment_availability->location }}</span>
+                                                       
+                                                    </div>
+
+                                                    @empty
+                                                        
+                                                    @endforelse
+                                                    
+                                                </div>
+                                            </div>
+                                    
+
                                         <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                             aria-labelledby="pills-profile-tab" tabindex="0">
-                                            <form id="appointmentAddForm" method="POST">
+                                            <form action="{{ route('add.Availability') }}" method="POST">
                                                 @csrf
                                             <div class="row">
                                                 <div class="col-lg-10">
                                                     <div class="inner_element">
                                                         <div class="mb-3 form-group">
-                                                            <label for="validationCustom01" class="form-label">Select a
-                                                                Clinician</label>
-                                                            <select class="form-control select2_appoin_ttype" id="setdoctor_id" name="setdoctor_id">
-                                                                <option value="CLINIC">CLINIC</option>
-                                                                <option value="DUBAI">DUBAI</option>
-                                                                <option value="QASTARAT & DAWALI CLINICS">QASTARAT & DAWALI CLINICS</option>
-                                                                <option value="QASTARAT & DAWALI CLINICS">QASTARAT & DAWALI CLINICS</option>
+                                                            <label for="validationCustom01" class="form-label">Select a   
+                                                                Clinician <span class="">*</span></label>  
+                                                            <select class="form-control select2_appoin_ttype" id="setdoctor_id" name="doctor_id" required>
+                                                                @forelse ($doctors as $alldoctors)
+                                                                <option value="{{ $alldoctors->id }}">
+                                                                    {{ $alldoctors->name }}</option>
+                                                            @empty
+                                                            @endforelse
 
                                                             </select>
                                                             <span id="setdoctor_idError" class="text-danger" style="font-size: 14px;"></span>                                                            
@@ -1369,13 +1456,19 @@
                                                                 <div class="inner_element">
                                                                     <div class="mb-3 form-group">
                                                                         <label for="validationCustom01"
-                                                                            class="form-label">Location</label>
-                                                                        <select class="form-control select2_appoin_ttype" name="setlocation_data_id" id="setlocation_data_id">
-                                                                            <option value="CLINIC">CLINIC</option>
-                                                                            <option value="DUBAI">DUBAI</option>
-                                                                            <option value="QASTARAT & DAWALI CLINICS">QASTARAT & DAWALI CLINICS</option>
-                                                                            <option value="QASTARAT & DAWALI CLINICS">QASTARAT & DAWALI CLINICS</option>
+                                                                            class="form-label">Location <span class="">*</span></label>
+                                                                        <select class="form-control select2_appoin_ttype" name="location" id="setlocation_data_id" required>
+                                                                            <option value="">Select Any One</option>
+                                                                            
+                                                                            @forelse ($locations as $alllocations)
+                                                    
+                                                                            <option value="{{ $alllocations->name }}">{{ $alllocations->name }}</option>
+                                                                                
+                                                                            @empty
+                                                                                
+                                                                            @endforelse
 
+                                                                            
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -1385,7 +1478,7 @@
                                                                     <div class="mb-3 form-group">
                                                                         <label for="validationCustom01"
                                                                             class="form-label">Day of the week</label>
-                                                                        <select class="form-control select2_appoin_ttype">
+                                                                        <select class="form-control select2_appoin_ttype" name="day_of_the_week">
                                                                             <option value="Monday">Monday</option>
                                                                             <option value="Tuesday">Tuesday</option>
                                                                             <option value="Wednesday">Wednesday</option>
@@ -1404,11 +1497,8 @@
                                                                             class="form-label">Date</label>
                                                                         <div class="input-group" id="datepicker22">
 
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder="dd M, yyyy"
-                                                                                data-date-format="dd M, yyyy"
-                                                                                data-date-container='#datepicker22'
-                                                                                data-provide="datepicker">
+                                                                            <input type="date" class="form-control"
+                                                                                placeholder="DD,MM,YYYY" name="date">
                                                                         </div>
                                                                         <!-- <input type="text" class="form-control datepickerInput" placeholder="dd M, yyyy"> -->
                                                                     </div>
@@ -1420,7 +1510,7 @@
                                                                     <div class="mb-3 form-group">
                                                                         <label for="validationCustom01"
                                                                             class="form-label">Repeats</label>
-                                                                        <select class="form-control select2_appoin_ttype">
+                                                                        <select class="form-control select2_appoin_ttype" name="repeats">
                                                                             <option value="">Every Week</option>
                                                                             <option value="">Every 2 Weeks</option>
                                                                             <option value="">Every 3 Weeks</option>
@@ -1437,10 +1527,10 @@
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
                                                                         <label for="validationCustom01"
-                                                                            class="form-label">Start Time</label>
+                                                                            class="form-label">Start Time <span class="">*</span></label>
                                                                         <input type="text"
                                                                             class="form-control timepicker-custom"
-                                                                            placeholder="12:00">
+                                                                            placeholder="12:00" name="start_time" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1448,10 +1538,10 @@
                                                                 <div class="inner_element">
                                                                     <div class="form-group">
                                                                         <label for="validationCustom01"
-                                                                            class="form-label">End Time</label>
+                                                                            class="form-label">End Time <span class="">*</span></label>
                                                                         <input type="text"
                                                                             class="form-control timepicker-custom"
-                                                                            placeholder="12:00">
+                                                                            placeholder="12:00" name="end_time" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1459,51 +1549,38 @@
                                                                 <div class="inner_element">
                                                                     <div class="mb-3 form-group">
                                                                         <label for="validationCustom01"
-                                                                            class="form-label">Appointment Types</label>
-                                                                        <select class="form-control select2_appoin_ttype">
-                                                                            <option value="">Every Week</option>
-                                                                            <option value="">Every 2 Weeks</option>
-                                                                            <option value="">Every 3 Weeks</option>
-                                                                            <option value="">Every 4 Weeks</option>
-                                                                            <option value="">None</option>
+                                                                            class="form-label">Appointment Types <span class="">*</span></label>
+                                                                        <select class="form-control select2_appoin_ttype" name="appointment_types" required>
 
 
+                                                                            @foreach($book_appointments as $allPatientappointments)
+                                                                            <option value="{{ $allPatientappointments->appointment_type }}">{{ $allPatientappointments->appointment_type }}</option>
 
+                                                                           
+                                                                        @endforeach
+                                                                        
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12 text-end">
-                                                                <a href="#"
+                                                                <button type="submit"
                                                                     class="btn r-04 btn--theme hover--tra-black add_patient"
-                                                                    data-bs-dismiss="modal">
-                                                                    Save</a>
+                                                                   >
+                                                                    Save</button>
                                                                 <a href="#" id="availablity_bx_closeBTN"
                                                                     class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn">
                                                                     Close</a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="possiblity">
-                                                        <span class="dayfound">
-                                                            <h6>Tueday</h6>
-                                                            <p>Apr 5, 2024</p>
-                                                        </span>
-                                                        <span>
-                                                            08:15 - 08:15
-                                                        </span>
-                                                        <span>One Off</span>
-                                                        <span>DUBAI</span>
-                                                        <span>CONSULTATION/Interventional Radiology </span>
-                                                        <span><iconify-icon
-                                                                icon="material-symbols:delete-outline"></iconify-icon></span>
-
-                                                    </div> --}}
+                                                    
                                                 </div>
                                             </div>
                                             </form>
                                         </div>
 
+                                    </div>
                                     </div>
                                 </div>
 
@@ -1540,12 +1617,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="location_title">
+
                         <h1 class="modal-title" id="exampleModalLabel">Search Patient </h1>
 
                     </div>
 
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                            class="fa-solid fa-xmark"></i></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="modal-body padding-0">
                     <div class="inner_data">
@@ -1557,25 +1634,43 @@
                             </div> -->
                             <div class="col-lg-12">
                                 <div class="inner_element">
-                                    <div class="form-group">
+                                    <form action="{{ route('user.calendar') }}" method="post">
+                                        @csrf
+                                        <div class="form-group">
 
-                                        <input type="search" class="form-control" id=""
-                                            placeholder="Type a patient name">
-                                        <span class="search_icon_cl"><iconify-icon
-                                                icon="mingcute:search-line"></iconify-icon></span>
-                                    </div>
+                                            <input type="search" class="form-control" name="searchPatient" value="{{ $searchPatient }}" placeholder="Type a patient name">
+                                            
+                                            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" style="margin-top: 28px;">Search Patient</button>
+                                       
+                                        </div>
+                                    </form>
+                                    
                                 </div>
                             </div>
+
+
                             <div class="col-lg-12">
                                 <div class="search_result_cl">
                                     <h6>Results</h6>
-                                    <div class="service_box_appoin">
-                                        <span>Fri 24 Nov 2023</span>
-                                        <span>10:00</span>
-                                        <span>Follow up Appointment </span>
-                                        <span>DUBAI</span>
-                                        <span><iconify-icon icon="charm:circle-cross"></iconify-icon></span>
-                                    </div>
+                                    @if ($matchingAppointments)
+                                    @forelse ($matchingAppointments as $allmatchingAppointments)
+                                       
+                                        <div class="service_box_appoin">
+                                            
+                                          
+                                            <span>{{ \Carbon\Carbon::parse($allmatchingAppointments->start_date)->format('l M j, Y') }}</span>
+                                            <span>{{ $allmatchingAppointments->start_time }}</span>
+                                            <span>{{ $allmatchingAppointments->appointment_type }} </span>
+                                            <span>{{ $allmatchingAppointments->location }}</span>
+                                            {{-- <span><iconify-icon icon="charm:circle-cross"></iconify-icon></span> --}}
+                                        </div>
+
+                                        @empty
+                                            
+                                        @endforelse
+                                        @endif
+
+
                                 </div>
 
                             </div>
@@ -1644,19 +1739,12 @@
                     queryParams.delete('locationType');
                 }
 
-
-
-
                 // Update the URL with the modified query parameters
                 const newUrl = `${baseUrl}?${queryParams.toString()}`;
                 history.pushState({}, '', newUrl);
             });
         });
     </script>
-
-
-
-
 
 
     @push('custom-js')
@@ -1700,10 +1788,6 @@
         </script>
 
 
-title
-
-
-
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -1725,7 +1809,10 @@ title
                 var form = $('#form-event');
                 var deleteButton = $('#btn-delete-event');
 
-                function initCalendar(events) {
+
+
+                function initCalendar(events) { 
+                //    console.log(events);
                     "use strict";
                     var m = new FullCalendar.Calendar(document.getElementById("calendar"), {
                         plugins: ["bootstrap", "interaction", "dayGrid", "timeGrid"],
@@ -1740,7 +1827,59 @@ title
                             right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
                         },
                         events: events,
+
+                        eventRender: function(info) 
+                            {
+                                var eventEl = info.el;
+                                var priority = info.event.extendedProps.priority;
+                                var colour_type = info.event.extendedProps.colour_type;
+                                console.log(colour_type);
+
+                                // Create a span element for the icon
+                                var iconSpan = document.createElement('span');
+                                iconSpan.classList.add('event-icon'); // Add custom class for styling
+
+                                // Set icon and customize color based on priority value
+                                var iconClass, iconColor;
+                                if (priority === "bg-danger") {
+                                    iconClass = "fas fa-exclamation-circle";
+                                    iconColor = "#dc3545"; // Red color for danger
+                                } else if (priority === "bg-success") {
+                                    iconClass = "fas fa-check-circle";
+                                    iconColor = "#28a745"; // Green color for success
+                                } else if (priority === "bg-primary") {
+                                    iconClass = "fas fa-info-circle";
+                                    iconColor = "#007bff"; // Blue color for primary
+                                } else {
+                                    iconClass = "fas fa-question-circle";
+                                    iconColor = "#ffc107"; // Default color for other priorities
+                                }
+
+                                // Set icon HTML with specified class and color
+                                iconSpan.innerHTML = `<i class="${iconClass}" style="color: ${iconColor};"></i>`;
+
+                                // Append the icon span to the event element
+                                eventEl.appendChild(iconSpan);
+
+                                if (colour_type) 
+                                {
+                                    eventEl.style.backgroundColor = colour_type; // Light red background for danger
+                                }
+                                else 
+                                {
+                                    eventEl.style.backgroundColor = "#fff3cd"; // Light yellow background for other priorities
+                                }
+                            },
+
+
+                      
+
+
+
+
                         eventClick: function(info) {
+
+
                             modal.find('.modal-title').text('Edit Appointment');
                             form[0].reset();
                             form.find('#btn-save-event').text('Update');
@@ -1749,9 +1888,13 @@ title
                             form.find('input[name="event_id"]').val(info.event.id);
                             form.find('select[name="patintValue"]').val(info.event.extendedProps.patient_id)
                                 .trigger('change');
+
                             form.find('select[name="priority"]').val(info.event.extendedProps.priority)
                                 .trigger('change');
-                            form.find('input[name="appointment_type"]').val(info.event.title);
+
+    
+                            form.find('select[name="appointment_type"]').val(info.event.title).trigger('change');
+
                             form.find('select[name="location"]').val(info.event.extendedProps.location)
                                 .trigger('change');
 
@@ -1797,6 +1940,7 @@ title
 
                             modal.modal('show');
                         },
+
                         dateClick: function(info) {
 
                             modal.find('.modal-title').text('Create Appointment');
@@ -1814,7 +1958,7 @@ title
 
                     m.render();
 
-                    form.on('submit', function(e) {
+                    form.on('submit', function(e) {   
                         
                         e.preventDefault();
                         var formData = $(this).serialize();
@@ -1826,14 +1970,17 @@ title
                             success: function(response) {
 
                                 if (response.message) {
-                                    swal.fire(
-                                        'Success',
-                                        response.message,
-                                        'success'
-                                    ).then(function() {
-                                        window.location.reload();
-                                    });
-                                }
+                                                        Swal.fire({
+                                                            title: 'Success',
+                                                            text: response.message,
+                                                            icon: 'success',
+                                                            showConfirmButton: false, // Hide the default "OK" button
+                                                            timer: 2000 // Display the message for 2 seconds
+                                                        }).then(function() {
+                                                            window.location.reload();
+                                                        });
+                                                    }
+
                             },
                             error: function(xhr, status, error) {
                                 console.error(error);
@@ -1872,7 +2019,7 @@ title
                                 }
                             });
                         }
-                    });
+                    });   
                 }
 
                 var patientValue = $('#patientId').val();
@@ -2230,10 +2377,42 @@ title
                 $('#addNew_patientBtn').click(function() {
                     $('#patientDetail_box').show();
                     $('#appoinment_book_bx').hide();
+
+                    var closeButton = document.getElementById('closebtn');
+                    // Find the save button by ID
+                    var saveButton = document.getElementById('savebtn');
+
+                    // Hide the close button
+                    if (closeButton) {
+                        closeButton.style.display = 'none';
+                    }
+
+                    // Hide the save button
+                    if (saveButton) {
+                        saveButton.style.display = 'none';
+                    }
+
                 });
-                $('#backToAppointment').click(function() {
+                $('#backToAppointment').click(function() {   
                     $('#patientDetail_box').hide();
                     $('#appoinment_book_bx').show();
+
+
+                    var closeButton = document.getElementById('closebtn');
+                        // Find the save button by ID
+                        var saveButton = document.getElementById('savebtn');
+
+                        // Show the close button if it exists
+                        if (closeButton) {
+                            closeButton.style.display = 'block'; // Set display to 'block' to show the button
+                        }
+
+                        // Show the save button if it exists
+                        if (saveButton) {
+                            saveButton.style.display = 'block'; // Set display to 'block' to show the button
+                        }
+
+
                 });
             //  Set up or edit your appointments and services
             
@@ -2393,7 +2572,8 @@ title
     $(document).ready(function() {
         let isUpdateMode = false;
         let updateLocationId = null;
-        $('#setUpLocationForm').submit(function(e) {
+
+        $('#setUpLocationForm_').submit(function(e) { 
            
             e.preventDefault();
 
@@ -2411,7 +2591,7 @@ title
                     contentType: false,
 
                     success: function(result) {
-                        $('#setUpLocationForm')[0].reset();
+                        $('#setUpLocationForm_')[0].reset();
                         
 
                         if (result.message) {   
@@ -2445,7 +2625,7 @@ title
                             console.log('validation-error',errors);
                             var errorMessage = 'Validation error(s):<br>';
 
-                            $.each(errors.error, function(key, value) {
+                            $.each(errors.error, function(key, value) {    
                                 errorMessage += value + '<br>';
                             });
 
@@ -2458,10 +2638,6 @@ title
                             swal.fire('Error!', 'hhhh An error occurred. Please try again later.', 'error');
                         }
                     }
-
-
-
-
                 });
             }
         });
@@ -2541,7 +2717,7 @@ title
 
 
                
-    function setUpdateMode(locationId, locationName, geographicLocation, appointment, postalAddress) {
+    function setUpdateMode(locationId, locationName, geographicLocation, appointment, postalAddress) {   
        
         
         $('#location_update').val(locationId);
@@ -2575,7 +2751,7 @@ title
 <script>
     $(document).ready(function() {
       
-        $('#setUpLocationForm').submit(function(e) {
+        $('#setUpLocationForm').submit(function(e) {  
            
             e.preventDefault();
 
@@ -2662,9 +2838,6 @@ title
             return isValid;
         }
 
-
-
-
                 $('#pills-profile-tab').click(function(e) {
 
                     populateDoctors();
@@ -2700,13 +2873,53 @@ title
                                     .name + '</option>');
                             });
                         },
-                        error: function(xhr, status, error) {
+                        error: function(xhr, status, error) {    
                             console.error('Error fetching users:', error);
                         }
                     });
                 }
     });
 </script>
-    @endpush
 
+
+@if ($countData)      
+<script>   
+
+ $(document).ready(function() {
+       $('#Availablity').modal('show');
+   });
+</script>
+@endif
+
+
+@if ($matchingAppointments)      
+<script>   
+
+ $(document).ready(function() {
+       $('#SearchPatient').modal('show');
+   });
+</script>
+@endif
+
+
+<script>
+function createApr() {
+
+        var deleteEvent = document.getElementById('btn-delete-event');
+        // Hide the close button
+        if (deleteEvent) {
+            deleteEvent.style.display = 'none';
+        }
+    $('#event-modal').modal('show');
+};
+</script>
+
+
+
+
+
+
+    @endpush    
+
+  
 @endsection

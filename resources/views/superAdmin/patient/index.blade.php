@@ -55,20 +55,8 @@
 
         <div class="d-flex">
 
-        <h4 class="page-title">All Patients</h4>
 
-        {{-- <nav aria-label="breadcrumb">
-
-                <ol class="breadcrumb">
-
-                    <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
-
-                    <li class="breadcrumb-item active" aria-current="page">Patients</li>
-
-                </ol>
-
-            </nav> --}}
-
+       
         </div>
 
 
@@ -189,28 +177,18 @@
 
                    <td>
 
-                     <div class="btn-group">
 
-                        <a class="hover-primary dropdown-toggle no-caret" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
+                   <ul class="action_icons">
+                        <li >
+                            <a href="{{ route('patients.view', ['id' => $allUsers->id]) }}" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
+                        </li>
+                        <li>
+                                <a href="{{ route('patients.edit',['id'=>$allUsers->id]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
+                            </li>
+                           
+                        </ul>
 
-                        <div class="dropdown-menu">
 
-                        <!-- <a class="dropdown-item" href="#">View Details</a> -->
-
-                        @php
-
-                            $patient_name="MOHAMMED ALI AL BADI";
-
-                        @endphp
-
-                        <a class="dropdown-item" href="{{ route('patients.edit', ['id' => $allUsers->id]) }}">Edit</a>
-                        <a class="dropdown-item" href="{{ route('patients.view',['id'=>$allUsers->id]) }}">View Details</a>
-
-                        <!--<a  onclick="remove_patient({{ $allUsers->id }})" class="dropdown-item">Delete</a>-->
-
-                        </div>
-
-                    </div>
 
                    </td>
 

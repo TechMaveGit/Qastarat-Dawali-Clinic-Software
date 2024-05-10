@@ -8,7 +8,14 @@ Invoice | QASTARAT & DAWALI CLINICS
 
 @section('content-section')
 
-
+{{-- <style>
+   table.dataTable th {
+    width: % !important;
+}
+table.dataTable th:first-child{
+   width: 70px !important;
+}
+</style> --}}
 <?php
 $D = json_decode(json_encode(Auth::guard('doctor')->user()->get_role()),true);
 $arr = [];
@@ -128,6 +135,20 @@ foreach($D as $v)
     padding: 12px 20px;
     border-radius: 5px;
     margin-bottom: 8px;
+}
+form.paidMain {
+    position: absolute;
+    top: 1px;
+    right: 193px;
+}
+.paid_select{
+   
+    padding: 6px 15px;
+
+}
+.paid_btn{
+    padding: 9px 15px;
+
 }
 </style>
 
@@ -249,6 +270,7 @@ foreach($D as $v)
 
         <div class="frmbtn_areasubmit">
 
+<button type="button" id="closeFormBtn" class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black secondary_btn">Close</button>
            
         </div>
 
@@ -437,11 +459,13 @@ foreach($D as $v)
 
        // Find the modal element
        var modalElement = document.getElementById('add_lab');
+       var modalElement2 = document.getElementById('close_lab');
 
        // Add a click event listener to the close button
        closeButton.addEventListener('click', function() {
            // Use Bootstrap modal method to hide the modal
            $(modalElement).modal('hide');
+           $(modalElement2).modal('hide');
        });
    });
 </script>
@@ -516,21 +540,25 @@ foreach($D as $v)
                      
                       <h3 class="blcard_header_title ">All Invoices</h3> 
                      
-                      <form action="{{ route('user.invoice') }}" method="post">
+                      <form class="paidMain" action="{{ route('user.invoice') }}" method="post">
                         @csrf
                         <input type="hidden" name="checkFilter" value="1"/>
                     
-                        <div class="col-12 mb-3">
-                            <select class="form-control" name="PaymentType" id="Priority">
-                                <option value="">-- Select Type --</option>
-                                <option value="1" {{ $PaymentType == '1' ? 'selected' : '' }}>Paid</option>
-                                <option value="0" {{ $PaymentType == '0' ? 'selected' : '' }}>Unpaid</option>
-                            </select>
+                        <div class="row">
+                           <div class="col-6 pe-0">
+                              <select class="form-control paid_select" name="PaymentType" id="Priority">
+                                 <option value="" selected>Select Type</option>
+                                 <option value="1" {{ $PaymentType == '1' ? 'selected' : '' }}>Paid</option>
+                                 <option value="0" {{ $PaymentType == '0' ? 'selected' : '' }}>Unpaid</option>
+                             </select>
+                             
+                          </div>
+                      
+                          <div class="col-6 ps-1">
+                              <button type="submit" class="btn btn_calender_cus btn-success paid_btn" id="btn-save-event">Submit</button>
+                          </div>
                         </div>
-                    
-                        <div class="col-12 mb-3">
-                            <button type="submit" class="btn btn_calender_cus btn-success" id="btn-save-event">Submit</button>
-                        </div>
+                       
                     </form>
                     
 
@@ -547,67 +575,67 @@ foreach($D as $v)
                          <table id="allinvoice_table" class="display">
                             <thead>
                                <tr>
-                                  <th class="sortable ">
+                                  <th class="sortable " style="width: 31.9661px;">
                                      <div class="arrow_box">
                                         <span>S.No.</span>
                                      </div>
                                   </th>
-                                  <th class="sortable">
+                                  <th class="sortable" style="width: 87.5521px;">
                                     <div class="arrow_box">
                                        <span>Order Date</span>
                                     </div>
                                  </th>
-                                  <th class="sortable ">
+                                  <th class="sortable " style="width: 71.9141px;"> 
                                      <div class="arrow_box">
                                         <span>Invoice No.</span>
                                      </div>
                                   </th>
 
-                                  <th class="sortable ">
+                                  <th class="sortable " style="width: 187.995px;">
                                     <div class="arrow_box">
                                        <span>Item</span>
                                     </div>
                                  </th>
 
-                                  <th class="sortable">
+                                  <th class="sortable" style="width: 58.8672px;">
                                      <div class="arrow_box">
                                         <span>Patient</span>
                                      </div>
                                   </th>
-                                  <th class="sortable">
+                                  <th class="sortable" style="width: 58.8672px;">
                                      <div class="arrow_box">
                                         <span>Amount </span>
                                      </div>
                                   </th>
-                                  <th class="sortable">
+                                  <th class="sortable" style="width: 58.8672px;">
                                      <div class="arrow_box">
                                         <span>% Discount </span>
                                      </div>
                                   </th>
-                                  <th class="sortable">
+                                  <th class="sortable" style="width: 58.8672px;">
                                      <div class="arrow_box">
                                         <span>% VAT </span>
                                      </div>
                                   </th>
 
-                                  <th class="sortable">
+                                  <th class="sortable" style="width: 86.9661px;">
                                     <div class="arrow_box">
                                        <span>Final Amount </span>
                                     </div>
                                  </th>
 
-                                  <th class="sortable">
+                                  <th class="sortable" style="width: 41.9661px;">
                                      <div class="arrow_box">
                                         <span>Status</span>
                                      </div>
                                   </th>
                                  
-                                  <th class="sortable">
+                                  <th class="sortable" style="width: 29.9219px;">
                                      <div class="arrow_box">
                                         <span>Sent</span>
                                      </div>
                                   </th>
-                                  <th class="sortable">
+                                  <th class="sortable" style="width: 44.987px;">
                                      <div class="arrow_box">
                                         <span>Action</span>
                                      </div>
@@ -1225,17 +1253,11 @@ foreach($D as $v)
     }
   };
 
-  // Render the chart
   const chart = new ApexCharts(document.querySelector("#chart"), options);
   chart.render();
-</script>
-
-<!-- invoice chart end -->
 
 
-<!-- // Chart 2: Invoice Status (Bar Chart) -->
-<script>
-  // Sample data (you can replace it with your actual data)
+
   const statusData = {
     paid: {{ $paidStatus }},
     unpaid: {{ $unpaidStatus }}
@@ -1276,8 +1298,8 @@ foreach($D as $v)
   // Render the second chart
   const chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
   chart2.render();
-</script>
-<script>
+
+
   // Sample data (you can replace it with your actual data)
   const patientsData = {
     totalPatients: 500,
@@ -1320,11 +1342,9 @@ foreach($D as $v)
   // Render the third chart
   const chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
   chart3.render();
-</script>
 
 
 
-      <script>
          function vatPrice(checkValue)
          {    
             const checkbox = document.getElementById(checkValue);
@@ -1341,14 +1361,13 @@ foreach($D as $v)
                $('#hidden_id').val(id);
                $("#deleteRecordModal").modal('show');
             }
-         </script>
+   
 
-
-    <script>
         var submitButton = document.getElementById('submitButton');
         submitButton.style.display = 'none';
         function checkData(taskId,amount,discountkey,vatKey,checkbox,testname,name, email, createdAt)
-        {
+        {   
+
             var submitButton = document.getElementById('submitButton');
             submitButton.style.display = 'block';
 
@@ -1386,9 +1405,9 @@ foreach($D as $v)
 
 
               
-                const appendId = testname.replace(/\s/g, '_');        
+                const appendId = taskId.replace(/\s/g, '_');        
                 var append = `          
-                    <li id="${testname.replace(/\s/g, '_')}">
+                    <li id="${taskId.replace(/\s/g, '_')}">
                         <div class="item_details_tb">
                             <h2>${testname}</h2>
                             <span>${name} | Email: ${email}</span>
@@ -1419,15 +1438,11 @@ foreach($D as $v)
 
             else
             {
-                $(`#${testname.replace(/\s/g, '_')}`).remove();
+                $(`#${taskId.replace(/\s/g, '_')}`).remove();
             }
         }
-    </script>
+ 
 
-
-
-
-<script>
     function openInvoice(invoiceId,name,invoiceNumber,price,payAmount,finalAmount) 
     {
        $('#invoiceIdCls').val(invoiceId);
@@ -1438,9 +1453,8 @@ foreach($D as $v)
        $('.amountPaid_2').text(payAmount);
        $('#add_lab').modal('show');
     }
- </script>
 
-<script>
+
    function closeInvoice(invoiceId,name,invoiceNumber,price,payAmount,finalAmount,paymentNote,datePaid,paymentMethod) 
    {
       $('.patientNameCls').text(name);

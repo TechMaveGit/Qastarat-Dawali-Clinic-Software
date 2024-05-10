@@ -31,6 +31,16 @@
     </script>
 @endif
 
+<style>
+    .trash_btn {
+    color: #ff0000;
+    outline: none;
+    border: none;
+    margin-right: 5px;
+    background: transparent;
+}
+</style>
+
 
 
 <!-- Modal -->
@@ -367,8 +377,10 @@
                                         <div id="collapseleft3" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample2">
 
-                                            <div class="accordion-body">
 
+                                            @if (count($patient_past_history) > 0)
+
+                                            <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak">
 
                                                     @if (in_array('7', $arr))
@@ -417,6 +429,7 @@
                                                 </div>
 
                                             </div>
+                                            @endif
 
                                         </div>
 
@@ -466,10 +479,9 @@
 
                                         <div id="collapseleft4" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample4">
+                                            @if (count($patient_past_surgical) > 0)
 
                                             <div class="accordion-body">
-
-
 
                                                 <div class="appointments___list past_medical_history_ak">
                                                     @if (in_array('10', $arr))
@@ -519,6 +531,7 @@
                                                 </div>
 
                                             </div>
+                                            @endif
 
                                         </div>
 
@@ -560,6 +573,7 @@
 
                                         <div id="collapseleft6" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample6">
+                                            @if (count($patient_current_med) > 0)
 
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak">
@@ -601,6 +615,7 @@
                                                 </div>
 
                                             </div>
+                                            @endif
 
                                         </div>
 
@@ -626,7 +641,7 @@
 
                                         <div id="collapseleft10" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample10">
-
+                                            @if (count($procedures) > 0)
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak">
                                                     <ul>
@@ -672,6 +687,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                            @endif
 
                                         </div>
 
@@ -700,17 +716,21 @@
 
                                         <div id="collapseleft11" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample11">
-
                                             <div class="accordion-body">
 
                                                 <ul class="referrals_list">
-                                                 
-                                                 
                                                  @php
-                                                      $referaldoctors = DB::table('doctors')->select('id','doctor_id','title','name','email')->where('referal_status', '1')->get();
+                                                      $patientId = decrypt($id);
+                                                      $referaldoctors = DB::table('referal_patients')->where('patient_id',$patientId)->get();
+                                                   
                                                     @endphp
 
-                                                    @forelse ($referaldoctors as $referaldoctors)
+                                                    @forelse ($referaldoctors as $allreferaldoctors)
+
+                                                    @php
+                                                     $doctorDetail = DB::table('doctors')->where('id',$allreferaldoctors->doctor_id)->first();
+                                                    
+                                                    @endphp
                                                     
                                                     <li>
                                                         <div class="booking_card_select">
@@ -721,9 +741,9 @@
 
                                                                     <div class="image_dr">
 
-                                                                        @if (isset($referaldoctors->patient_profile_img))
+                                                                        @if (isset($doctorDetail->patient_profile_img))
 
-                                                                        <img src="{{ asset('/public/assets/profileImage/' . $referaldoctors->patient_profile_img) }}" alt="">
+                                                                        <img src="{{ asset('/public/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
 
                                                                         @else
                                                                         <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
@@ -734,12 +754,12 @@
 
                                                                     <div class="dr_detail">
 
-                                                                        <h6 class="dr_name">{{ $referaldoctors->name }}
-                                                                            <span>{{ $referaldoctors->title }}</span>
+                                                                        <h6 class="dr_name">{{ $doctorDetail->name??'' }}
+                                                                            <span>{{ $doctorDetail->title??'' }}</span>
                                                                         </h6>
 
                                                                         <p class="dr_email"><a
-                                                                                href="mailto:{{ $referaldoctors->email }}">{{ $referaldoctors->email }}</a>
+                                                                                href="mailto:{{ $doctorDetail->email??'' }}">{{ $doctorDetail->email??'' }}</a>
                                                                         </p>
 
                                                                     </div>
@@ -763,6 +783,7 @@
                                                 </ul>
 
                                             </div>
+                                           
 
                                         </div>
 
@@ -779,8 +800,10 @@
                                                 </div>
                                             </button>
                                         </h2>
+
                                         <div id="collapseleft8" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample8" style="">
+                                            @if (count($procedures) > 0)
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak">
 
@@ -837,6 +860,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -861,7 +885,7 @@
 
                                         <div id="collapseleft91" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample8">
-
+                                            @if (count($prescriptions) > 0)
                                             <div class="accordion-body">
 
                                                 <div class="appointments___list past_medical_history_ak">
@@ -908,6 +932,7 @@
                                                 </div>
 
                                             </div>
+                                            @endif
 
                                         </div>
 
@@ -956,7 +981,7 @@
                                                             <iconify-icon
                                                                 icon="material-symbols-light:diagnosis-outline-rounded"
                                                                 width="20"></iconify-icon>
-                                                            <span class="toolTip">Diagnosis</span>
+                                                            <span class="toolTip">Diagnosis </span>
                                                         </a>
                                                         <div class="enterd_by">
                                                             <span>Diagnosis </span>
@@ -990,11 +1015,15 @@
                                         </h2>
 
                                         
-                                        <div id="collapseleft24" class="accordion-collapse collapse show"
+                                        <div id="collapseleft24" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample24">
+
+                                            @if (count($diagnosis_generals) > 0 || count($diagnosis_cids) > 0 )
                                             <div class="accordion-body ">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
+                                                        
+                                                        @if (count($diagnosis_generals) > 0)
                                                         <li>
                                                             <div class="appoin_title">
                                                                 <h6><span class="point_dia"><i
@@ -1028,11 +1057,11 @@
                                                               </div>
                                                           
                                                               </div>
-                                                           
-
-
                                                         </li>
+                                                        @endif
+                                                       
 
+                                                        @if (count($diagnosis_cids) > 0)
                                                         <li>
                                                             <div class="appoin_title">
                                                                 <h6><span class="point_dia"><i
@@ -1068,13 +1097,15 @@
                                                               </div>
 
                                                         </li>
-
+                                                        @endif
+                                                       
 
                                                     </ul>
                                                 </div>
 
 
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="accordion-item mm_title">
@@ -1121,17 +1152,39 @@
                                           
                                         <div id="collapseleft16" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample16">
+                                            @if (count($generalDiagnosis) > 0)
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
+
                                                     <ul>  
                                                         <li>
                                                             @forelse ($generalDiagnosis as $key =>$value)
                                                             <div class="appoin_date">
                                                               <div>
                                                                 <div class="diagnosis_show">
+                                                                    @php
+                                                                        $givenDate = $value['created_at'];
+                                                                        $startDate =  \Carbon\Carbon::parse($givenDate);
+                                                                        $endDate = \Carbon\Carbon::now();
+                                                                        $monthsDifference = $endDate->diffInMonths($startDate);
+                                                                        $minutesDifference = $endDate->diffInMinutes($startDate) % 60;
+                                                                    @endphp
+
                                                               
                                                                  <div class="symp_title">
-                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span>  {{ $value['SymptomType'] ?? '' }}<span class="sym_duration">&nbsp;-{{ $value['SymptomDurationValue'] ?? '' }} &nbsp;{{ $value['SymptomDurationType'] ?? '' }}</span></h6>
+                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span>  {{ $value['SymptomType'] ?? '' }}<span class="sym_duration">
+                                                                    
+                                                                    @if ($monthsDifference > 0)
+                                                                    {{ $monthsDifference }} Months
+                                                                    @endif
+                                                                
+                                                                    @if ($monthsDifference > 0 && $minutesDifference > 0)
+                                                                        {{ $minutesDifference }} minutes
+                                                                    @elseif ($minutesDifference > 0)
+                                                                        {{ $minutesDifference }} minutes
+                                                                    @endif
+                                                                
+                                                                </span></h6>
                                                                   <p class="diagnosis_text"> {{ $value['SymptomDurationNote'] ?? '' }}!</p>                 
                                                                 </div>
                                                                
@@ -1167,8 +1220,10 @@
                                                     </li>
                                                    
                                                     </ul>
+                                                   
                                                 </div>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -1216,8 +1271,10 @@
                                         </h2>
                                         <div id="collapseleft2" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample2">
+                                            @if (count($ClinicalIndicator_db) > 0)
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
+                                                    
                                                     <ul>
                                                         
                                                         <li>
@@ -1318,8 +1375,10 @@
 
                                                     
                                                         </ul>
+                                                       
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
 
 
@@ -1366,14 +1425,25 @@
                                             </button>
                                         </h2>
 
+
                                         <div id="collapseleft5" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample5">
+                                            @if (count($regionalpatientGeneralDiagnosis) > 0 || count($systemicpatientGeneralDiagnosis) >0 )
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
 
+                                                    @php
+                                                        //  echo "<pre>";
+                                                        //  print_r($regionalpatientGeneralDiagnosis);
+                                                      
 
-                                                <ul>
-                                                        @forelse ($regionalpatientGeneralDiagnosis as $record)
+                                                    @endphp
+
+                                                    
+                                                  @if (count($regionalpatientGeneralDiagnosis) > 0)
+                                                    <ul>
+                                                        @forelse ($regionalpatientGeneralDiagnosis as $record)                                                            
+                                                    
                                                         <li>
                                                             <div class="appoin_date">
                                                               <div>
@@ -1385,18 +1455,18 @@
                                                                         <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Regional Exam
                                                                         </h6>
                                                                         </div>
-                                                                        <p class="ss_result"><strong>{{ $record->RegionalExam }} - {{ $record->RegionalExamNote }}</strong> </p>
+                                                                       
+                                                                        <p class="ss_result"><strong>{{ $record->RegionalExam }}  {{ $record->RegionalExamNote }}</strong> </p>
+
                                                                     </div>   
                                                                 @endif
 
                                                                 </div>
-                            
-                                                                
-                                                             
-                                                            </div>
+                                                             </div>
                                                        
                                                             </div>
                                                           </li>
+                                                         
                                                           @empty
                                                             <li>
                                                                 <div class="appoin_date">
@@ -1415,12 +1485,14 @@
                                                             </li>
 
                                                           @endforelse
-                                                       
-
+                                                    
                                                     </ul>
+                                                    @endif
+
+                                                    
 
                                                       
-
+                                                    @if (count($systemicpatientGeneralDiagnosis) > 0)
 
                                                     <ul>
                                                         @forelse ($systemicpatientGeneralDiagnosis as $record)
@@ -1462,12 +1534,17 @@
                                                             </li>
 
                                                           @endforelse
-                                                       
-
                                                     </ul>
-                                                </div>
+                                                    @endif
 
+
+
+
+
+
+                                                </div>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="accordion-item mm_title">
@@ -1543,94 +1620,106 @@
 
 
                                                                             <tbody>
-                            @forelse ($Patient_order_labs as $Patient_order_lab)
-                                @if ($Patient_order_lab->test_type == 'radiology')
-                                    
-                                    <tr>
-                                        @php
-                                            $pathology_price_list = DB::table('pathology_price_list')->where('id',$Patient_order_lab->task);
-                                            if ($Patient_order_lab->test_type =='pathology') {
-                                                $pathology_price_list = $pathology_price_list->where('price_type','0',);
-                                            }
-                                             else {
-                                                $pathology_price_list = $pathology_price_list->where('price_type','1');
-                                            }
-                                            
-                                            $pathology_price_list = $pathology_price_list->first();
+                                                                                @forelse ($Patient_order_labs as $Patient_order_lab)
+                                                                                    @if ($Patient_order_lab->test_type == 'radiology')
+                                                                                        
+                                                                                        <tr>
+                                                                                            @php
+                                                                                                $pathology_price_list = DB::table('pathology_price_list')->where('id',$Patient_order_lab->task);
+                                                                                                if ($Patient_order_lab->test_type =='pathology') {
+                                                                                                    $pathology_price_list = $pathology_price_list->where('price_type','0',);
+                                                                                                }
+                                                                                                else {
+                                                                                                    $pathology_price_list = $pathology_price_list->where('price_type','1');
+                                                                                                }
+                                                                                                
+                                                                                                $pathology_price_list = $pathology_price_list->first();
 
-                                        @endphp
+                                                                                            @endphp
 
-                                        <td>{{ $pathology_price_list->test_name ?? '' }}
-                                        </td>
+                                                                                            <td>{{ $pathology_price_list->test_name ?? '' }}
+                                                                                            </td>
 
-                                        <td>{{ $Patient_order_lab->appoinment_date }}
-                                        </td>
+                                                                                            <td>{{ $Patient_order_lab->appoinment_date }}
+                                                                                            </td>
 
-                                        @if ($Patient_order_lab->approveDocumentSts == '1')
-                                            <td><button
-                                                    class="pending-badge">Approve
-                                                    By Nurse</button>
-                                            </td>
-                                        @elseif($Patient_order_lab->approveDocumentSts == '0')
-                                            <td><button
-                                                    class="confirmed-badge">Reject
-                                                    By nurse</button>
-                                            </td>
-                                        @else
-                                            <td><button
-                                                    class="confirmed-badge">No
-                                                    Action</button>
-                                            </td>  
-                                        @endif
+                                                                                            @if ($Patient_order_lab->approveDocumentSts == '1')
+                                                                                                <td><button
+                                                                                                        class="pending-badge">Approve
+                                                                                                        By Nurse</button>
+                                                                                                </td>
+                                                                                            @elseif($Patient_order_lab->approveDocumentSts == '0')
+                                                                                                <td><button
+                                                                                                        class="confirmed-badge">Reject
+                                                                                                        By nurse</button>
+                                                                                                </td>
+                                                                                            @else
+                                                                                                <td><button
+                                                                                                        class="confirmed-badge">No
+                                                                                                        Action</button>
+                                                                                                </td>  
+                                                                                            @endif
 
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($Patient_order_lab->created_at)->format('D, d M Y') }}
-                                      </td>
-
-
-
-                                        @if ($Patient_order_lab->labDocument)
-                                            <td>
-                                                <a href="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
-                                                    download="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
-                                                    class="download_rp_btn">
-                                                    <i
-                                                        class="fa-solid fa-file-arrow-down"></i>
-                                                    Download Report
-                                                </a>
-                                            </td>
-                                        @else
-                                            <td>
-                                                <a href=""
-                                                    class="download_rp_btn"
-                                                    style="color: #f30728;">
-                                                    <i class="fa-solid fa-file-arrow-down"
-                                                        style="color: #db0808; border: 1px solid #e90a0a;"></i>
-                                                    Report Not Uploded
-                                                </a>
-                                            </td>
-                                        @endif
-
-                                    </tr>
-                                @else
-                                @endif
+                                                                                            <td>
+                                                                                                {{ \Carbon\Carbon::parse($Patient_order_lab->created_at)->format('D, d M Y') }}
+                                                                                        </td>
 
 
-                                    @empty
-                                <td colspan="4"
-                                    class="text-center">No record found
-                                </td>
-                            @endforelse
-                        </tbody>
+
+                                                                                            @if ($Patient_order_lab->labDocument)
+                                                                                                <td>
+                                                                                                    <a href="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
+                                                                                                        download="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
+                                                                                                        class="download_rp_btn">
+                                                                                                        <i
+                                                                                                            class="fa-solid fa-file-arrow-down"></i>
+                                                                                                        Download Report
+                                                                                                    </a>
+                                                                                                </td>
+                                                                                            @else
+                                                                                                <td>
+                                                                                                    <a href=""
+                                                                                                        class="download_rp_btn"
+                                                                                                        style="color: #f30728;">
+                                                                                                        <i class="fa-solid fa-file-arrow-down"
+                                                                                                            style="color: #db0808; border: 1px solid #e90a0a;"></i>
+                                                                                                        Report Not Uploded
+                                                                                                    </a>
+                                                                                                </td>
+                                                                                            @endif
+
+                                                                                        </tr>
+                                                                                    @else
+                                                                                    @endif
+
+
+                                                                                        @empty
+                                                                                    <td colspan="4"
+                                                                                        class="text-center">No record found
+                                                                                    </td>
+                                                                                @endforelse
+                                                                             </tbody>
                                                                         </table>
                                                                     </div>
 
-                                                                </div>
 
-
-
-
-
+                                                                    {{-- <div class="appoin_date">
+                                                                        <div>
+                                                                          <div class="diagnosis_show">
+                                                                           <div class="symp_title">
+                                                                            <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span>
+                                                                                <span class="sym_duration"></span></h6>
+                                                                                <a href="{{ asset('public/assets/thyroid-eligibility-form/' . $thyroidEligibilityFormsImage->AnnotateimageData) }}" target="_blank" class="input-group-text view-image-icon">
+                                                                                    <!-- Icon (change fa-eye to your desired icon class, e.g., fa-image for image icon) -->
+                                                                                    <i class="far fa-eye"></i> <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"> </i></span> View Image Annotation<span class="sym_duration"></span></h6> 
+                                                                                </a>                
+                                                                          </div>
+                                                                        </div>
+                                                                       
+                                                                      </div>
+                                                                 
+                                                                      </div> --}}
+                                                                     </div>
                                                             </div>
                                                         </li>
                                                         @forelse ($rightLobeScores as $record)
@@ -2120,6 +2209,7 @@
                             data-bs-parent="#accordionExample12">
                             <div class="accordion-body">
                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
+                                    @if (count($SpecialInvestigations_db) > 0)
                                     <ul>
                                         
                                                 <li>
@@ -2150,6 +2240,7 @@
                                         @endif
                                     </li>
                                     </ul>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -2196,6 +2287,7 @@
                             data-bs-parent="#accordionExample18">
                             <div class="accordion-body">
                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
+                                    @if (count($MDTs_db) > 0)
                                     <ul>
                                         @if ($MDTs_db)
                                             @forelse ($MDTs_db as $record)
@@ -2294,6 +2386,7 @@
                                             @endforelse
                                         @endif
                                     </ul>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -2467,9 +2560,9 @@
                             <div class="top_title_mm_box">
                                 <h6 class="action_flex_ghi">
                                     <div class="enterd_by">
+
                                         <span>Procedure </span>
                                         <div class="right_side_hjkl">
-
                                             <div class="customdotdropdown">
                                                 <div class="buttondrop_dot">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -2492,9 +2585,12 @@
                             </div>
                         </button>
                     </h2>
+
                     <div id="collapseleft20" class="accordion-collapse collapse" data-bs-parent="#accordionExample20">
+                        @if (count($procedures) > 0)
                         <div class="accordion-body">
                             <div class="appointments___list past_medical_history_ak diagnosis_data">
+                               
                                 <ul>
                                     @if (isset($procedures))
                                         @forelse ($procedures  as $record)
@@ -2540,6 +2636,7 @@
                                 </ul>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
 
@@ -2576,6 +2673,7 @@
                         </button>
                     </h2>
                     <div id="collapseleft21" class="accordion-collapse collapse" data-bs-parent="#accordionExample21">
+                        @if (count($supportiveTreatments) > 0)
                         <div class="accordion-body">
                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                 <ul>
@@ -2627,6 +2725,7 @@
                                 </ul>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
 
@@ -2662,6 +2761,7 @@
                         </button>
                     </h2>
                     <div id="collapseleft9" class="accordion-collapse collapse" data-bs-parent="#accordionExample9">
+                        @if (count($patient_future_plans) > 0)
                         <div class="accordion-body">
                             <div class="appointments___list">
 
@@ -2711,6 +2811,7 @@
                                 </ul>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
 
@@ -2721,7 +2822,6 @@
     <div class="card border_yellow without_icon">
         <div class="card-body p-0">
             <div class="accordion acordignleft__small" id="accordionExample2">
-
 
                 <div class="accordion-item mm_title">
                     <h2 class="accordion-header">
@@ -2755,6 +2855,7 @@
                         </button>
                     </h2>
                     <div id="collapseleft14" class="accordion-collapse collapse" data-bs-parent="#accordionExample14">
+                        @if (count($Patient_progress_notes) > 0)
                         <div class="accordion-body">
                             <div class="appointments___list">
 
@@ -2805,6 +2906,7 @@
                                 </ul>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
 
@@ -3010,6 +3112,7 @@
                                     <a href="javascript:void(0)" class="diseases_name" id="addNewSymptoms">+ Add
                                         </a>
                                 </div>
+
                                 <div class="add_data_Symptom">
                                     <table class="table table-striped table-bordered">
                                         <tr>
@@ -3656,19 +3759,19 @@
 
                             if (result != '') {
 
-                                swal.fire(
-
-                                    'Success',
-
-                                    'Successfully!',
-
-                                    'success'
-
-                                ).then(function() {
-                                    location.reload();
-                                });
-
-                            } else {
+                                Swal.fire({
+                                            title: 'Success',
+                                            text: 'Diagnosis  Added Successfully!',
+                                            icon: 'success',
+                                            timer: 2000, // Auto close alert after 2 seconds
+                                            showConfirmButton: false // Hide the "OK" button
+                                        }).then(function() {
+                                            // Reload the page after the alert is closed
+                                            location.reload();
+                                        });
+                            } 
+                            
+                            else {
 
                                 swal.fire("Error!", "Enter valid Diagnosis Details!",
                                     "error");
@@ -3705,7 +3808,7 @@
 
 
 
-                $('#addNewSymptoms').click(function() {
+                $('#addNewSymptoms').click(function() { 
 
                     let SymptomType = $("#SymptomType").val().trim();
                     let SymptomDurationNote = $("#SymptomDurationNote").val();
@@ -3717,10 +3820,11 @@
                         let microtime = Date.now();
                         let addressHtml = `<tr id="address${microtime}">
                                     <td hidden>
-                                        <input name="SymptomType[]" hidden value="${SymptomType}">
-                                        <input name="SymptomDurationValue[]" hidden value="${SymptomDurationValue}">
-                                        <input name="SymptomDurationType[]" hidden value="${SymptomDurationType}">
-                                        <input name="SymptomDurationNote[]" hidden value="${SymptomDurationNote}">
+                                        <input type="hidden" name="checkData" value="saveValue"/>
+                                        <input name="SymptomType_[]" hidden value="${SymptomType}">
+                                        <input name="SymptomDurationValue_[]" hidden value="${SymptomDurationValue}">
+                                        <input name="SymptomDurationType_[]" hidden value="${SymptomDurationType}">
+                                        <input name="SymptomDurationNote_[]" hidden value="${SymptomDurationNote}">
                                     </td>
                                     <td>
                                         ${SymptomType}
@@ -3773,7 +3877,7 @@
 
      // Function to fetch existing symptoms from the database
         function fetchExistingSymptoms() {
-            $.ajax({
+            $.ajax({   
                 url: '{{ route("fetchExistingSymptom") }}', 
                 method: 'GET',
                 success: function(data) {
@@ -3825,18 +3929,19 @@
 
                             if (result != '') {
 
-                                swal.fire(
 
-                                    'Success',
+                                Swal.fire({
+                                            title: 'Success',
+                                            text: 'Symptoms Added successfully!',
+                                            icon: 'success',
+                                            timer: 2000, // Auto close alert after 2 seconds
+                                            showConfirmButton: false // Hide the "OK" button
+                                        }).then(function() {
+                                            // Reload the page after the alert is closed
+                                            location.reload();
+                                        });
 
-                                    'Symptoms Added successfully!',
-
-                                    'success'
-
-                                ).then(function() {
-                                    location.reload();
-                                });
-
+                         
                             } else {
 
                                 swal.fire("Error!", "Enter valid Symptoms Details!",
@@ -3873,8 +3978,6 @@
                         data: $('#OrderSpecialInvistigation').serialize(),
                         success: function(response) {
                             if (response.exists) {
-                               
-                               
                                 updateSpecialInvestigation();
                             } else {
                                
@@ -3894,19 +3997,18 @@
                             method: 'POST',
                             data: $('#OrderSpecialInvistigation').serialize(),
                             success: function(data) {
-                                swal.fire(
 
-                                    'Success',
+                                Swal.fire({
+                                                title: '', // Empty title
+                                                text: data.message, // Success message
+                                                icon: 'success',
+                                                showConfirmButton: false, // Hide the default "OK" button
+                                                timer: 2000 // Display the message for 2 seconds
+                                            }).then(function() {
+                                                // Reload the current page after the alert is closed
+                                                window.location.reload();
+                                            });
 
-                                    data.message,
-
-                                    'success'
-
-                                    ).then(function() {
-                                    location.reload();
-                                    });
-                                console.log('Special investigation data updated successfully:', data);
-                               
                             },
                             error: function(xhr, status, error) {
                                 console.error('Error updating special investigation data:', error);
@@ -3921,18 +4023,18 @@
                             method: 'POST',
                             data: $('#OrderSpecialInvistigation').serialize(),
                             success: function(data) {
-                                swal.fire(
 
-                                'Success',
+                                   Swal.fire({
+                                        title: '', // Empty title
+                                        text:  data.message, // Success message
+                                        icon: 'success',
+                                        showConfirmButton: false, // Hide the default "OK" button
+                                        timer: 2000 // Display the message for 2 seconds
+                                    }).then(function() {
+                                        window.location.reload();
+                                    });
 
-                                data.message,
-
-                                'success'
-
-                                ).then(function() {
-                                location.reload();
-                                });
-                          console.log('Special investigation data inserted successfully:', data);
+                       
                                 
                             },
                             error: function(xhr, status, error) {

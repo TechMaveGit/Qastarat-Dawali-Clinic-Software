@@ -79,6 +79,8 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
+
+                                    
                                     <input type="text" name="birth_date" value="{{ old('birth_date') }}" class="form-control pull-right datepicker" >
 
                                     </div>

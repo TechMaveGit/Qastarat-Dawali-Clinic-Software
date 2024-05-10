@@ -103,7 +103,10 @@
                    </td>
                    <td>{{ $allnurse->mobile_no}}</td>
                    <td>{{ $allnurse->email}}</td>
-                   <td>{{ $allnurse->user_type}}</td>
+                   @php
+                    $roleName = DB::table('roles')->where('id',$allnurse->role_id)->first();
+                   @endphp
+                   <td>{{ $roleName->name ??''}}</td>
                    <td>{{ $allnurse->post_code}}</td>
 
                    @if($allnurse->status)
@@ -114,16 +117,27 @@
 
 
                    <td>
-                   <div class="btn-group">
+
+                   <ul class="action_icons">
+                        <li>
+                            <a href="{{ route('nurses.view',['id'=>$allnurse->id]) }}" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
+                        </li>
+                        <li>
+                                <a href="{{ route('nurses.edit',['id'=>$allnurse->id]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
+                            </li>
+                          
+                        </ul>   
+
+
+
+                   <!-- <div class="btn-group">
                         <a class="hover-primary dropdown-toggle no-caret" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
                         <div class="dropdown-menu">
-                        <!-- <a class="dropdown-item" href="#">View Details</a> -->
                         <a class="dropdown-item" href="{{ route('nurses.edit',['id'=>$allnurse->id]) }}">Edit</a>
                         <a class="dropdown-item" href="{{ route('nurses.view',['id'=>$allnurse->id]) }}">View Detail</a>
-                        <!--<a  onclick="remove_nurse({{ $allnurse->id }})" class="dropdown-item">Delete</a>-->
 
                     </div>
-                    </div>
+                    </div> -->
 
                    </td>
 

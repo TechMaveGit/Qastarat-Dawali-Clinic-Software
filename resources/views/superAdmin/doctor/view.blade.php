@@ -145,22 +145,53 @@
                                                 <h6>{{ $doctor->lincense_no }}</h6>
                                             </div>
                                         </li>
-                                        
-                                        
-                                         {{-- <li>
+
+                                        @php
+                                          $doctorNurse=DB::table('doctor_nurse')->where('type','1')->where('doctor_id',$doctor->id) ->pluck('nurse_id')->toArray();
+                                          $drnurse=DB::table('doctors')->whereIn('id',$doctorNurse)->get();
+
+                                          // 
+                                          $doctorCord=DB::table('doctor_nurse')->where('type','0')->where('doctor_id',$doctor->id) ->pluck('nurse_id')->toArray();
+                                          $drCord=DB::table('doctors')->whereIn('id',$doctorCord)->get();
+                                          
+                                        @endphp
+
+                                        <li>
                                             <div class="detail_title">
-                                                <h6>Profile Image</h6>
+                                                <h6>Nurse</h6>
                                             </div>
-                                            
-                                            <div class="detail_ans imageSize">
-                                                @if($doctor->profileImage)
-                                                 <a href="{{ asset('public/assets/profileImage') }}/{{ $doctor->profileImage }}" target="_blank">
-                                                            <img src="{{ asset('public/assets/profileImage') }}/{{ $doctor->patient_profile_img }}" alt="Profile Image"/>
-                                                </a>
+                                            <div class="detail_ans">
+                                                @if($drnurse)
+                                                @foreach($drnurse as $key=>$alldrnurse)
+                                                <h6>{{ $alldrnurse->name }}
+                                                 @if ($key !== count($drnurse) - 1)
+                                                    <span>,</span>
+                                                @endif
+                                               </h6>
+                                                @endforeach
+                                                @endif
+                                               
+                                            </div>
+                                        </li>
+                                       
+
+                                        <li>
+                                            <div class="detail_title">
+                                                <h6>Cordigniter</h6>
+                                            </div>
+                                            <div class="detail_ans">
+                                                @if($drCord)
+                                                @foreach($drCord as $key=>$allcord)
+                                                <h6>{{ $allcord->name }}  @if ($key !== count($drCord) - 1)
+                                                    <span>,</span>
+                                                @endif </h6>
+                                                @endforeach
                                                 @endif
                                             </div>
-                                            
-                                        </li> --}}
+                                        </li>
+                                        
+                                        
+                                        
                                         
                                             
                                         
@@ -257,34 +288,35 @@
 						<div class="box-body">
 							<div class="inner-user-div4">
 
-                               @forelse ($tasks as $alltasks)
+                               @forelse ($book_appointments as $allbook_appointments)
 							   @php
-								$userDetail=DB::table('users')->where('id',$alltasks->patient_id)->first();
+								$userDetail=DB::table('users')->where('id',$allbook_appointments->patient_id)->first();
 							   @endphp
 
 								<div>
 									<div class="d-flex align-items-center mb-10">
-										<div class="me-15">
-											@if($userDetail->patient_profile_img)
-											<img src="{{ asset('public/assets/patient_profile/'.$userDetail->patient_profile_img)}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-											@else
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
-											@endif
-										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
 											<p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name }}</p>
-											@php
-
-											   $pathology_price_list=  DB::table('pathology_price_list')->where('id',$alltasks->task);
-
-											@endphp
-											<span class="text-dark fs-14">{{$pathology_price_list->test_name??''}}</span>
+											<p class="hover-primary text-fade mb-1 fs-14">{{ $allbook_appointments->appointment_type }}</p>
+										
+											<span class="text-dark fs-14"></span>
 										</div>
 										<div>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> 10:00 </p>
+
+                                        @php
+                                            $startDate = \Carbon\Carbon::parse($allbook_appointments->start_date);
+                                            $startTime = \Carbon\Carbon::createFromFormat('H:i', $allbook_appointments->start_time);
+                                            $startDateTime = $startDate->copy()->setTime($startTime->hour, $startTime->minute);
+                                            $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                        @endphp
+
+                                          
+											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> {{ $formattedDateTime }}</p>
 										</div>
 									</div>
+                                    <hr>
 								</div>
+                                
 								@empty
 
 								<h4 class="box-title" style="bold">Not Have Any Today Appointments</h4>

@@ -42,6 +42,10 @@
 	.website_icon iconify-icon {
 	font-size: 17px;
 }
+.detail_ans {
+    width: 20%!important;
+}
+
 .website_icon li a{
 	display:flex;
 	align-items:center;
@@ -263,7 +267,7 @@
 						<p class="pt-5 fs-14 mb-0 fw-700 text-primary">{{ auth('admin')->user()->name }}</p>
 						<small class="fs-10 mb-0 text-uppercase text-mute">Admin</small>
 					</div>
-					<img src="{{ asset('public/superAdmin/images/avatar/avatar-1.png')}}" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />
+					<img src="{{ asset('public/superAdmin/images/avatar/images.png')}}" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />
 				</div>
             </a>
             <ul class="dropdown-menu animated flipInX">

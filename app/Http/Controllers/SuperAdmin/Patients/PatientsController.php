@@ -113,6 +113,10 @@ class PatientsController extends Controller
                     // '14-Jun-2004' format matches
                     $carbonDate = Carbon::createFromFormat('d-M-Y', $currentDate);
                 }
+
+
+                $carbonDate->format('d M, Y');
+
                 $patient['birth_date'] = $carbonDate->format('d M, Y');
                 $patient['patient_id']  = "MA" . rand('00000', '99999' . '0');
                 $patient['doctor_id'] = $request->input('doctorName');
@@ -196,6 +200,9 @@ class PatientsController extends Controller
     {
 
         $user_branchs = DB::table('user_branchs')->where('patient_id',$id)->get();
+
+        $data['userDetail']=User::whereId($id)->first();
+
         $data['user_branchs']  = $user_branchs->pluck('add_branch')->toArray();
 
         $data['patientId'] = User::whereId($id)->first();
@@ -235,10 +242,13 @@ class PatientsController extends Controller
                 $files->move($destinationPath, $file_name);
                  $patient['patient_profile_img'] = $file_name;
             }
+
+
             if($request->has('password') && isset($request->password)){
-
                 $patient['password'] = Hash::make($request->input('password'));
-
+            }
+            else{
+                $patient['password'] = $data['userDetail']->password;
             }
 
 
@@ -275,6 +285,7 @@ class PatientsController extends Controller
             $patient['doctor_id'] =    $request->doctorName;
             $patient['status'] =    $request->status;
 
+            
             $patient_info->update($patient);
 
 

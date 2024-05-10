@@ -350,11 +350,11 @@
                 <!-- FOOTER SOCIALS -->
                 <div class="col-lg-4">
 					<ul class="bottom-footer-socials ico-20 text-end">
-					<li><a href="#"><span class="fa-brands fa-instagram"></span></a></li>
-						<li><a href="#"><span class="fa-brands fa-tiktok"></span></a></li>
-						<li><a href="#"><span class="fa-brands fa-snapchat"></span></a></li>
-						<li><a href="#"><span class="fa-brands fa-x-twitter"></span></a></li>
-						<li><a href="#"><span class="fa-brands fa-youtube"></span></a></li>
+					<li><a href="https://www.instagram.com/qastarat_clinics?igshid=OGQ5ZDc2ODk2ZA= ="><span class="fa-brands fa-instagram"></span></a></li>
+						<li><a href="https://www.tiktok.com/@qastaratclinic?is_from_webapp=1&sender_deice=pc"><span class="fa-brands fa-tiktok"></span></a></li>
+						<li><a href="https://t.snapchat.com/3anKvKfI"><span class="fa-brands fa-snapchat"></span></a></li>
+						<li><a href="https://twitter.com/QastaratClinics"><span class="fa-brands fa-x-twitter"></span></a></li>
+						<li><a href="https://www.youtube.com/channel/UCZ7m9sTh7LemaK5xtHG-0gA"><span class="fa-brands fa-youtube"></span></a></li>
 
 					</ul>
 				</div>
@@ -742,18 +742,37 @@
                                 </div>
 
 
+
                                 <div class="col-lg-4">
+                                    <div class="mb-3 form-group position-relative">
+                                        <label for="validationCustom01" class="form-label">Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="passwordField" placeholder="Password" name="password">
+                                            <div class="input-group-append">
+                                                <span class="">
+                                                    <i class="toggle-password fa fa-eye-slash" onclick="togglePasswordVisibility()"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+
+                                {{-- <div class="col-lg-4">     
 
                                     <div class="mb-3 form-group">
 
                                         <label for="validationCustom01" class="form-label">Paswword</label>
 
-                                        <input type="password" class="form-control" id=""
+                                        <input type="password" class="form-control" id="staffpassword"
                                             placeholder="password" name="password">
-                                        <span id="passwordError" style="color: red;font-size:smaller"></span>
+                                            
+                                            <iconify-icon class="eyeiconpassword" icon="mdi:eye-outline"
+                                            onclick="togglePasswordVisibility2()"></iconify-icon>
                                     </div>
 
-                                </div>
+                                </div> --}}
 
                             </div>
 
@@ -882,8 +901,6 @@
                 <div class="modal-body body-patient">
 
                     <div class="inner_data pt-0 edit_patient__cusr">
-
-
 
                         <div class="basic_details">
 
@@ -1363,6 +1380,25 @@
 
                                 </div>
 
+
+
+
+                                <div class="col-lg-6">
+
+                                    <label for="validationCustom01" class="form-label">Select Document</label>
+
+                                   <input type="file" class="form-content" name="selectDocument" />
+
+                                </div>
+
+
+
+
+
+
+
+
+
                                 <div class="col-lg-6">
 
                                     <div class="mb-3 form-group">
@@ -1417,6 +1453,8 @@
 
 <!-- Modal -->
 
+
+
 <div class="modal fade edit_patient__" id="create_appointment" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -1426,7 +1464,7 @@
 
             <div class="modal-header">
 
-                <h1 class="modal-title" id="exampleModalLabel">Create Appointment</h1>
+                <h1 class="modal-title" id="exampleModalLabel">Create Appointment </h1>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                         class="fa-solid fa-xmark"></i></button>
@@ -8200,7 +8238,13 @@
 
                     -->
 
-
+                    <script>
+                        window.addEventListener('load', function() {
+                      var loader = document.querySelector('.main_loader');
+                      loader.style.display = 'none'; // Hide the loader when the page is fully loaded
+                    });
+                    </script>
+                    
 
 <script src="{{ url('public/assets') }}/js/changer.js"></script>
 
@@ -8379,6 +8423,9 @@
         minimumResultsForSearch: -1 // for no searchbar
 
     });
+
+    $('.select2_with_search').select2({});
+    
 </script>
 <script>
     $('.select_diagnosis').select2({
@@ -8654,110 +8701,10 @@
 
 <!-- Annotate image js  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/8.1.1/konva.min.js"></script>
-<script>
-    const stage = new Konva.Stage({
-        container: 'image-container',
-        width: 800,
-        height: 600,
-    });
 
-    const layer = new Konva.Layer();
-    stage.add(layer);
+<!-- Example for including Fabric.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
 
-    let isDrawing = false;
-    let annotationMode = false;
-    let lastLine;
-
-    const imageObj = new Image();
-    imageObj.src = '{{ asset('public/assets/images/new-images/nodules.png') }}';
-
-    imageObj.onload = function() {
-        const image = new Konva.Image({
-            image: imageObj,
-            width: 500,
-            height: 600,
-        });
-
-        layer.add(image);
-        stage.draw();
-    };
-
-    stage.on('mousedown touchstart', function(e) {
-        if (annotationMode) {
-            const text = prompt('Enter annotation text:');
-            if (text) {
-                const pos = stage.getPointerPosition();
-                const annotation = new Konva.Label({
-                    x: pos.x,
-                    y: pos.y,
-                });
-
-                annotation.add(
-                    new Konva.Tag({
-                        fill: 'transparent',
-                    })
-                );
-
-                annotation.add(
-                    new Konva.Text({
-                        text: text,
-                        fontSize: 18,
-                        fontStyle: 'bold',
-                        fontFamily: 'Arial',
-                        fill: '#000',
-                    })
-                );
-
-                layer.add(annotation);
-                stage.draw();
-            }
-        } else {
-            isDrawing = true;
-            const pos = stage.getPointerPosition();
-            lastLine = new Konva.Line({
-                stroke: '#2760a4',
-                strokeWidth: 3,
-                globalCompositeOperation: 'source-over',
-                points: [pos.x, pos.y],
-            });
-            layer.add(lastLine);
-        }
-    });
-
-    stage.on('mousemove touchmove', function() {
-        if (!isDrawing) {
-            return;
-        }
-
-        const pos = stage.getPointerPosition();
-        const newPoints = lastLine.points().concat([pos.x, pos.y]);
-        lastLine.points(newPoints);
-        layer.batchDraw();
-    });
-
-    stage.on('mouseup touchend', function() {
-        isDrawing = false;
-        lastLine = null;
-    });
-
-    document.getElementById('draw-mode').addEventListener('click', function() {
-        annotationMode = false;
-    });
-
-    document.getElementById('annotate-mode').addEventListener('click', function() {
-        annotationMode = true;
-    });
-
-    document.getElementById('download-image').addEventListener('click', function() {
-        const dataURL = stage.toDataURL({
-            mimeType: 'image/png'
-        });
-        const link = document.createElement('a');
-        link.href = dataURL;
-        link.download = 'drawn-image.png';
-        link.click();
-    });
-</script>
 <script>
     // Function to toggle textarea based on checkbox state
     function toggleTextarea(checkboxId, textareaId) {
@@ -9805,6 +9752,27 @@
         });
     });
 </script>
+
+
+
+<script>
+  function togglePasswordVisibility2() {
+    var passwordInput = document.getElementById("staffpassword");
+    var passwordToggle = document.getElementById("passwordToggle");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordToggle.innerHTML = '<iconify-icon class="eyeiconpassword" icon="mdi:eye-off-outline" onclick="togglePasswordVisibility2()"></iconify-icon>';
+    } else {
+        passwordInput.type = "password";
+        passwordToggle.innerHTML = '<iconify-icon class="eyeiconpassword" icon="mdi:eye-outline" onclick="togglePasswordVisibility2()"></iconify-icon>';
+    }
+}
+
+</script>
+
+
+
 </body>
 
 

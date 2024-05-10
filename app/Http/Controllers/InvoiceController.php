@@ -13,7 +13,6 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
 
-
         $user = Auth::guard('web')->user();
         if($user)
         {
@@ -53,9 +52,9 @@ class InvoiceController extends Controller
            $data['allInvoice']=$data['allInvoice']->where('toInvoiceStatus','1')->whereIn('patient_id',$checkPateint);
         }
 
-        $data['toInvocie']=$data['toInvocie']->get();
-        $data['allInvoice']=$data['allInvoice']->get();
-        $data['unpaidStatus'] = DB::table('tasks')->where('paidStatus','0')->count();
+         $data['toInvocie']=$data['toInvocie']->get();
+         $data['allInvoice']=$data['allInvoice']->get();
+         $data['unpaidStatus'] = DB::table('tasks')->where('paidStatus','0')->count();
          $data['totalPatient'] = DB::table('users')->count();
          $data['paidStatus'] = DB::table('tasks')->where('paidStatus','1')->count();
 

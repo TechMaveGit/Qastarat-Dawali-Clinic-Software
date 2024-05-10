@@ -2365,6 +2365,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
                                                 id="download-image" type="button">Download</button>
                                         </div>
+                                        <input type="hidden" name="canvasImage" id="canvasImage">
                                     </div>
                                     @php
                                     if (isset($Labs) && !empty($Labs)) {
@@ -3375,6 +3376,122 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
 
 
     @push('custom-js')
+
+
+    
+<script>
+    // Start Image    
+    const stage = new Konva.Stage({
+        container: 'image-container',
+        width: 800,
+        height: 600,
+    });
+    
+    const layer = new Konva.Layer();
+    stage.add(layer);
+    
+    let isDrawing = false;
+    let annotationMode = false;
+    let lastLine;
+    
+    const imageObj = new Image();
+    imageObj.src = '{{ asset('public/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
+    
+    imageObj.onload = function() {
+        const image = new Konva.Image({
+            image: imageObj,
+            width: 500,
+            height: 600,
+        });
+    
+        layer.add(image);
+        stage.draw();
+    };
+    
+    stage.on('mousedown touchstart', function(e) {
+        if (annotationMode) {
+            const text = prompt('Enter annotation text:');
+            if (text) {
+                const pos = stage.getPointerPosition();
+                const annotation = new Konva.Label({
+                    x: pos.x,
+                    y: pos.y,
+                });
+    
+                annotation.add(
+                    new Konva.Tag({
+                        fill: 'transparent',
+                    })
+                );
+    
+                annotation.add(
+                    new Konva.Text({
+                        text: text,
+                        fontSize: 18,
+                        fontStyle: 'bold',
+                        fontFamily: 'Arial',
+                        fill: '#000',
+                    })
+                );
+    
+                layer.add(annotation);
+                stage.draw();
+            }
+        } else {
+            isDrawing = true;
+            const pos = stage.getPointerPosition();
+            lastLine = new Konva.Line({
+                stroke: '#2760a4',
+                strokeWidth: 3,
+                globalCompositeOperation: 'source-over',
+                points: [pos.x, pos.y],
+            });
+            layer.add(lastLine);
+        }
+    });
+    
+    stage.on('mousemove touchmove', function() {
+        if (!isDrawing) {
+            return;
+        }
+    
+        const pos = stage.getPointerPosition();
+        const newPoints = lastLine.points().concat([pos.x, pos.y]);
+        lastLine.points(newPoints);
+        layer.batchDraw();
+    });
+    
+    stage.on('mouseup touchend', function() {
+        isDrawing = false;
+        lastLine = null;
+    });
+    
+    document.getElementById('draw-mode').addEventListener('click', function() {
+        annotationMode = false;
+    });
+    
+    document.getElementById('annotate-mode').addEventListener('click', function() {
+        annotationMode = true;
+    });
+    
+    
+    document.getElementById('download-image').addEventListener('click', function() {
+        const dataURL = stage.toDataURL({
+            mimeType: 'image/png'
+        });
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'uterine-embo.png';
+        link.click();
+    });
+    
+    // End Image 
+    </script>
+
+
+
+
+
         <script>
             $(document).ready(function() {
                 $("#abnormal_a74").hide();
@@ -4351,6 +4468,12 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
         
         $("#updateVaricoceleEmboEligibilityForms").submit(function(event) {
             
+            const dataURL = stage.toDataURL({
+                        mimeType: 'image/png'
+                    });
+
+                document.getElementById('canvasImage').value = dataURL;
+            
             event.preventDefault();
             let formData = new FormData(this);
             if (!validateForm()) {
@@ -4358,8 +4481,6 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
             } 
             else {
                 if(validateForm()){
-
-                
                 
                 $.ajax({
                                 url: '{{ route("user.updateVaricoceleEmboEligibilityForms") }}',
@@ -4370,26 +4491,24 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
                                 success: function(response) {
                                     
                                     var patientId = response.patient_id;
-                                    if(response!=''){
-              
-                                        swal.fire(
-              
-                                            'Success',
-              
-                                            'Varicocele Embo form updated successfully!',
-              
-                                            'success'
-              
-                                        ).then(function() {
-                                                
-                                               
-                                            var redirectUrl = "{{ route('user.viewVaricoceleEmboEligibilityForms', ['id' => ':id']) }}";
-                                            redirectUrl = redirectUrl.replace(':id', patientId);
-                                            window.location.href = redirectUrl;
+                                    if(response!='')
+                                    {
+
+                                        Swal.fire(
+                                                'Success',
+                                                'Varicocele Embo form updated successfully!',
+                                                'success'
+                                            ).then(function() {
+                                                var redirectUrl = "{{ route('user.viewVaricoceleEmboEligibilityForms', ['id' => ':id']) }}";
+                                                redirectUrl = redirectUrl.replace(':id', patientId);
+
+                                                // Redirect to the desired URL after a delay (e.g., 2000 milliseconds = 2 seconds)
+                                                setTimeout(function() {
+                                                    window.location.href = redirectUrl;
+                                                }, 1000); // Adjust the delay time (in milliseconds) as needed
                                             });
                                        
-                                       
-                                        }
+                                    }
                                 }
                              
                                 

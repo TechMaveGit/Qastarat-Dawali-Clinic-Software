@@ -15,6 +15,7 @@ class ThyroidDiagnosis extends Model
         'doctor_id' ,
         'title_name',
         'data_value',
+        'AnnotateimageData',
         'created_at',
         'updated_at',
       

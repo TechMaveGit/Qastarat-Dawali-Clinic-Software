@@ -288,7 +288,9 @@
                         @enderror
                         </div>
                         </div>
-                        @php
+
+
+                        <!-- @php
                         $doctors = \App\Models\superAdmin\Doctor::where('user_type','doctor')->get();
                          @endphp
                         <div class="col-md-3">
@@ -308,7 +310,7 @@
                                 @error('WorkUnder')
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                 @enderror
-                        </div>
+                        </div> -->
 
                         <div class="col-lg-12">
                             <div class="form-group">

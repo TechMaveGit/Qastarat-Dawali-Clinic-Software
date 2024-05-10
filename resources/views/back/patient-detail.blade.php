@@ -10,12 +10,8 @@ Home | QASTARAT & DAWALI CLINICS
 
 @push('custom-css')
 
-	{{-- add here --}}
 
 @endpush
-
-
-
 
 
 <div class="sub_bnr" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
@@ -377,6 +373,70 @@ Home | QASTARAT & DAWALI CLINICS
 
                             </li>
 
+                            <li>
+
+                                <div class="title___">
+
+                                  <h6>Referal Doctor</h6>
+
+                                </div>
+
+                               
+
+                            </li>
+
+                           
+
+                                     @php
+                                     $patientId = decrypt($id);
+                                     $referaldoctors = DB::table('referal_patients')->where('patient_id',$patientId)->get();
+                                  
+                                   @endphp
+
+                                   @forelse ($referaldoctors as $allreferaldoctors)
+
+                                   @php
+                                    $doctorDetail = DB::table('doctors')->where('id',$allreferaldoctors->doctor_id)->first();
+                                   
+                                   @endphp
+                                   
+                                        <li>
+
+                                            <div class="title___">
+
+                                                <h6 class="dr_name">{{ $doctorDetail->name??'' }}
+                                                    <span>{{ $doctorDetail->title??'' }}</span>
+                                                </h6>
+
+                                                <p class="dr_email"><a
+                                                    href="mailto:{{ $doctorDetail->email??'' }}">{{ $doctorDetail->email??'' }}</a>
+                                            </p>
+
+
+
+                                            </div>
+
+                                            <div class="data_pt">
+
+                                                @if ($allreferaldoctors->created_at)
+                                                    <?php
+                                                        $formattedDate = carbon\Carbon::parse($allreferaldoctors->created_at)->isoFormat('dddd, D MMMM YYYY HH:mm');
+                                                    ?>
+                                                     <h6 id="data_pt_post_code">{{ $formattedDate }}</h6>
+                                                @endif
+                                                
+
+                                            </div>
+
+                                        </li>
+                                   @empty
+                                   <li>
+                                       <h4>No Data Found</h4>
+                                   </li>
+                                       
+                                   @endforelse
+
+                                 
                         </ul>
 
                     </div>
@@ -399,16 +459,32 @@ Home | QASTARAT & DAWALI CLINICS
 
 
                         <li>
+                            @php
+                             $doctorName = DB::table('doctors')->where('id',$Patient_appointment->doctor_id)->first();
+                            @endphp
 
                             <div class="appoin_title">
 
                                <h6>{{ $Patient_appointment->appointment_type }}</h6>
+                               <p style="font-size: 15px;"> <span style="color: #082787; font-weight: bold;">{{ $doctorName->title??'' }} </span> {{ $doctorName->name }}</p>
 
                             </div>
 
+                            
+
                             <div class="appoin_date">
 
-                                <p>{{ $Patient_appointment->date }} <span class="appoin_time">{{ $Patient_appointment->start_time }}</span></p>
+                                @php
+                                $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
+                                $startTime = \Carbon\Carbon::createFromFormat('H:i', $Patient_appointment->start_time);
+                                $startDateTime = $startDate->copy()->setTime($startTime->hour, $startTime->minute);
+                                $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                $startDate = $startDateTime->format('l, j F Y');
+                                $startTime = $startDateTime->format('H:i');
+                            @endphp
+
+                            
+                                <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }}</span></p>
 
                             </div>
 
@@ -427,28 +503,6 @@ Home | QASTARAT & DAWALI CLINICS
     </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @push('custom-js')
 <script>

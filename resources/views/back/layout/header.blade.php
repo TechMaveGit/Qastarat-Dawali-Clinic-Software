@@ -158,6 +158,16 @@
 
 <body>
 
+	<div class="main_loader">
+		<div class="loader3">
+			<div class="loader_img">
+			<img src="https://techmavesoftwaredemo.com/Design/qastarat-clinics/images/new-images/qastara-logo.png" alt="Front side of logo">
+			</div>
+			
+		</div>
+		</div>
+
+		
 
 	@if(session('updateDiagnosis'))
     <script>

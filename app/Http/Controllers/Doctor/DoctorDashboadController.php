@@ -18,6 +18,7 @@ class DoctorDashboadController extends Controller
 
       $imagingCount= DB::table('tasks')->where('test_type','radiology')->count();
       $user= DB::table('users')->count();
+      
       $patient_order_procedures= DB::table('patient_order_procedures')->count();
 
       $currentMonth = date('m');
@@ -31,3 +32,5 @@ class DoctorDashboadController extends Controller
       return view('back/dashboard',compact('user','labtasks','imagingCount','patient_order_procedures','count','payAmount'));
     }
 }
+
+

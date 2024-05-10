@@ -15,7 +15,27 @@
         .custom_table_area table td {
             white-space: nowrap !important;
         }
-</style>
+        .password-container {
+            position: relative;
+        }
+
+        #passwordField {
+            padding-right: 30px; /* Space for the eye icon */
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .input-group-append {
+    position: absolute;
+    top: 22px;
+    right: 0;
+}
+   </style>
 
 
  <?php
@@ -234,6 +254,7 @@
                                                     <span>Post Code</span>
                                                 </div>
                                             </th>
+                                            
                                             <th class="sortable">
                                                 <div class="arrow_box">
                                                     <span>Action</span>
@@ -441,11 +462,27 @@
                                 $('#add_patient').modal('hide');
 
                                 if (!result.error) {
-                                    swal.fire(
-                                        'Success',
-                                        'Patient Details Added successfully!',
-                                        'success'
-                                    );
+
+                                    Swal.fire({
+                                                    title: '', // Empty title
+                                                    text: 'Patient Details Added successfully!', // Success message
+                                                    icon: 'success',
+                                                    showConfirmButton: false, // Hide the default "OK" button
+                                                    timer: 2000 // Display the message for 2 seconds
+                                                }).then(function() {
+                                                    // Reload the current page after the alert is closed
+                                                    window.location.reload();
+                                                });
+
+
+                                    // swal.fire(
+                                    //     'Success',
+                                    //     'Patient Details Added successfully!',
+                                    //     'success'
+                                    // );
+
+
+
                                     fetchAndDisplayPatients(searchInput);
                                 } else {
                                     swal.fire('Error!',
@@ -701,5 +738,29 @@
     </div>
 
     @endif
+
+
+    
+<script>
+    function togglePasswordVisibility() {
+        const passwordField = document.getElementById('passwordField');
+        const icon = document.querySelector('.toggle-password');
+
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            passwordField.type = 'password';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    }
+</script>
+
+
+
+
+    
 
 @endsection

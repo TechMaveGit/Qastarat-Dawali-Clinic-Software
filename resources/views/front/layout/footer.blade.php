@@ -6993,7 +6993,12 @@
 <!-- invoice canvas modal end -->
 
 
-
+<script>
+	window.addEventListener('load', function() {
+  var loader = document.querySelector('.main_loader');
+  loader.style.display = 'none'; // Hide the loader when the page is fully loaded
+});
+</script>
 
 
 

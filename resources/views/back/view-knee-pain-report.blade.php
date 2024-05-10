@@ -1815,6 +1815,34 @@
                                                                     </table>
                                                                 </div>
 
+
+                                                                @if ($viewForm->AnnotateimageData)
+                                                                 <div class="appoin_date">
+                                                                    <div>
+                                                                      <div class="diagnosis_show">
+                                                                       <div class="symp_title">
+                                                                        <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span>
+                                                                            <span class="sym_duration"></span></h6>
+                                                                         
+                                                                            
+                                                                            
+                                                                            <a href="{{ asset('public/assets/thyroid-eligibility-form/' . $viewForm->AnnotateimageData) }}" target="_blank" class="input-group-text view-image-icon">
+                                                                                <!-- Icon (change fa-eye to your desired icon class, e.g., fa-image for image icon) -->
+                                                                               <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"> </i></span>Annotation Image <span class="sym_duration"></span>  <i class="far fa-eye csmimage"></i> </h6> 
+                                                                            </a>   
+
+
+
+                                                                      </div>
+                                                                    </div>
+                                                                   
+                                                                  </div>
+                                                             
+                                                                  </div>
+                                                                  @endif
+
+
+
                                                             </div>
 
 
@@ -2000,7 +2028,7 @@
 
                                                     @empty
 
-                                                        <small style="font-size:10px;">No Data Found</small>
+                                                        {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                     @endforelse
 
 

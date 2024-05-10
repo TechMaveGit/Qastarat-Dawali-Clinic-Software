@@ -1399,18 +1399,18 @@
 						$('#modelpatientLogin').modal('hide');
 
 						if (result.error==200) {
-							swal.fire(
-								'',
-								'Login successfully!',
-								'success'
-							).then(function() {
-                                                
-                                               
-												var redirectUrl = "{{ route('patient.dashboard') }}";
-												
-												window.location.href = redirectUrl;
-												});
-							
+
+                            Swal.fire({
+                                        title: '', // Empty title
+                                        text: 'Login successfully!', // Success message
+                                        icon: 'success',
+                                        showConfirmButton: false, // Hide the default "OK" button
+                                        timer: 2000 // Display the message for 2 seconds
+                                    }).then(function() {
+                                        var redirectUrl = "{{ route('patient.dashboard') }}";
+                                        window.location.href = redirectUrl;
+                                    });
+                                    
 						} 
 					},
 					error: function(xhr, status, error) {
@@ -1490,20 +1490,40 @@
 						$('#StaffLoginForm')[0].reset();
 						$('#modelStaffLogin').modal('hide');
 
-						if (result.error==200) {
-							swal.fire(
-								'',
-								'Login successfully!',
-								'success'
-							).then(function() {
-                                                
-                                               
-												var redirectUrl = "{{ route('admin.dashboard') }}";
-												
-												window.location.href = redirectUrl;
-												});
+                        if (result.error == 200) 
+                           {
+                                    Swal.fire({
+                                        title: '', // Empty title
+                                        text: 'Login successfully!', // Success message
+                                        icon: 'success',
+                                        showConfirmButton: false, // Hide the default "OK" button
+                                        timer: 2000 // Display the message for 2 seconds
+                                    }).then(function() {
+                                        var redirectUrl = "{{ route('admin.dashboard') }}";
+                                        window.location.href = redirectUrl;
+                                    });
+                            }
+
+
+
+						// if (result.error==200) {    
+						// 	swal.fire(
+						// 		'',
+						// 		'Login successfully!',
+						// 		'success'
+						// 	).then(function() 
+                        //     {
+                        //             var redirectUrl = "{{ route('admin.dashboard') }}";
+                                    
+                        //             window.location.href = redirectUrl;
+                        //             });
 							
-						} 
+					    //  	} 
+
+
+
+
+
 					},
 					error: function(xhr, status, error) {
 						

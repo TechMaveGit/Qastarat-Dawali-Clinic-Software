@@ -67,7 +67,7 @@
                       <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Price <span class="required">*</span></label>
-                            <input type="text"  name="price[]" id="price" class="form-control" placeholder="">
+                            <input type="number"  name="price[]"   step="0.01" min="0" class="form-control" placeholder="">
                         </div>
                       </div>
 

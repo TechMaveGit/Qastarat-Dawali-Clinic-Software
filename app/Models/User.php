@@ -29,6 +29,7 @@ class User extends Model implements Authenticatable
         'sirname',
         'patient_id',
         'street',
+        'status',
         'country',
         'landline',
         'birth_date',

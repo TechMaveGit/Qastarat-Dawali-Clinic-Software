@@ -59,20 +59,89 @@ class DoctorAuthController extends Controller
     }
     
 
+    // public function staffLogin(Request $request)
+    // {
+        
+    //     $credentials = $request->only('email', 'password');
+    //     if (Auth::guard('doctor')->once($credentials)) 
+    //     {  
+    //         Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password]);        
+    //         return response()->json(['error' => 200]);
+    //     }
+    //     else {
+    //         return response()->json(['error' => 'Invalid email or password'], 422);
+    //     }
+    // }
+
     public function staffLogin(Request $request)
     {
-        
         $credentials = $request->only('email', 'password');
-        if (Auth::guard('doctor')->once($credentials)) 
-        {  
-            Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password]);        
-            return response()->json(['error' => 200]);
-        }
-        else {
-            return response()->json(['error' => 'Invalid email or password'], 422);
-        }
 
-    }
+        // Check if user exists with the given email and password
+        if (Auth::guard('doctor')->once($credentials)) 
+        {
+            // Attempt to authenticate the user with email and password
+             $user = Auth::guard('doctor')->getLastAttempted();
+
+             $roleId= DB::table('roles')->where('id',$user->role_id)->first();
+
+
+            if($user)
+                {
+                    if($roleId)
+                    {
+                            if ($user->status === 'active') 
+                            {
+                                if($roleId->status=='1' || $user->role_id=='0')
+                                {
+                                    if (Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                                        // Authentication successful
+                                        return response()->json(['error' => 200]); // You can return any success response here
+                                    } else {
+                                        // Authentication failed due to invalid email or password
+                                        return response()->json(['error' => 'Invalid email or password'], 422);
+                                    }
+                                } 
+                                else{
+                                    return response()->json(['error' => 'Your role is inactive. Please contact support for assistance.'], 422);
+                                }
+                            }
+                            else
+                            {
+                                if (Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                                    // Authentication successful
+                                    return response()->json(['error' => 200]); // You can return any success response here
+                                } else {
+                                    // Authentication failed due to invalid email or password
+                                    return response()->json(['error' => 'Invalid email or password'], 422);
+                                }
+                            }
+                    }
+                    else{
+                        if (Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                            // Authentication successful
+                            return response()->json(['error' => 200]); // You can return any success response here
+                        } else {
+                            // Authentication failed due to invalid email or password
+                            return response()->json(['error' => 'Invalid email or password'], 422);
+                        }
+                    }
+
+
+
+                }
+                else
+                {
+                    if (Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                        // Authentication successful
+                        return response()->json(['error' => 200]); // You can return any success response here
+                    } else {
+                        // Authentication failed due to invalid email or password
+                        return response()->json(['error' => 'Invalid email or password'], 422);
+                    }
+                }
+           } 
+      }
 
     public function profile()
     {     

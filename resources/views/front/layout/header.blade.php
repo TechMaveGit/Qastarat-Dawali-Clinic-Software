@@ -177,9 +177,18 @@
 
 	<!-- PRELOADER SPINNER
 		============================================= -->
-		<div id="loading" class="loading--theme">
+		{{-- <div id="loading" class="loading--theme">
 			<div id="loading-center"><span class="loader"></span></div>
-		</div>
+		</div> --}}
+
+		<div class="main_loader">
+			<div class="loader3">
+				<div class="loader_img">
+				<img src="https://techmavesoftwaredemo.com/Design/qastarat-clinics/images/new-images/qastara-logo.png" alt="Front side of logo">
+				</div>
+				
+			</div>
+			</div>
 	
 		<!-- STYLE SWITCHER
 			============================================= -->

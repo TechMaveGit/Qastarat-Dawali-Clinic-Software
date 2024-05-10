@@ -28,6 +28,7 @@ class Doctor extends Model implements Authenticatable
         'Degree',
         'name',
         'email',
+        'status',
         'lincense_no',
         'password',
         'doctor_id',

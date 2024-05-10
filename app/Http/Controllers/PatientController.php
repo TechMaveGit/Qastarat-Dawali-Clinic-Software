@@ -48,10 +48,8 @@ use Illuminate\Validation\Rule;
 
 class PatientController extends Controller
 {
-    //
-
     public function dashboard()
-    {       echo "ok"; die;
+    {    
         $id = auth('web')->user()->id;
         $patient = User::findOrFail($id);
         $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->orderBy('id', 'desc')->first();
@@ -84,14 +82,7 @@ class PatientController extends Controller
         return view('superAdmin/snippets/edit',$data);
     }
 
-    // public function printPatientMedicalDetail(Request $request ,$id)
-    // {
-
-    //     echo   $patient_id = Crypt::decrypt($id);
-    //     return $request->all();
-
-    // }
-
+  
 
     public function index()
     {
@@ -125,12 +116,12 @@ class PatientController extends Controller
         ]);
         $doctor=User::find($doctor_id);
         $temp_data=[];
-     $data= $request->only('id','email','password','patient_profile_img','name','title');
+        $data= $request->only('id','email','password','patient_profile_img','name','title');
 
-     if(isset($data['password'])){
-     $temp_data['password']= Hash::make($data['password']);
-     }
-     if(isset($data['patient_profile_img'])){
+        if(isset($data['password'])){
+        $temp_data['password']= Hash::make($data['password']);
+        }
+        if(isset($data['patient_profile_img'])){
 
             if(isset($doctor->patient_profile_img)){
                 unlink('public/assets/patient_profile'.'/'.$doctor->patient_profile_img);
@@ -139,9 +130,6 @@ class PatientController extends Controller
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('assets/patient_profile'), $new_name);
             $temp_data['patient_profile_img'] = $new_name;
-
-
-
      }
      $temp_data['email']=$data['email'];
      $temp_data['name']=$data['name'];
@@ -168,9 +156,13 @@ class PatientController extends Controller
         $id = Crypt::decrypt($id);
         $patient = User::findOrFail($id);
         $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->orderBy('id', 'desc')->first();
-        $Patient_appointments = Patient_appointment::where('patient_id', $id)->orderBy('id', 'desc')->get();
+
+        $Patient_appointments = DB::table('book_appointments')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+
         $id = Crypt::encrypt($id);
         return view('back/patient-detail', compact('id', 'patient', 'Patient_insurer', 'Patient_appointments'));
+
+
 
     }
 
@@ -197,8 +189,10 @@ class PatientController extends Controller
         $id = Crypt::decrypt($id);
         $patient = User::findOrFail($id);
 
-     //    $Patient_order_labs= Patient_order_lab::with('lab','doctor')->where(['patient_id'=>$id,'form_type'=>'general_form'])->get();
         $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form'])->get();    
+
+        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->latest('id')->first();
+
 
         $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
         $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -236,12 +230,12 @@ class PatientController extends Controller
 
         $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
     
-
+        
         $RegionalpatientGeneralDiagnosis = DB::table('patient_general_diagnosis')->whereNotNull('RegionalExam')->where(['title_name'=>'ClinicalExam', 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
 
         $SystemicpatientGeneralDiagnosis = DB::table('patient_general_diagnosis')->whereNotNull('SystemicExam')->where(['title_name'=>'ClinicalExam', 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
      //   dd($patientGeneralDiagnosis);
-
+     //  regionalpatientGeneralDiagnosis
 
         $rightLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
         $leftLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'leftLobeScore', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
@@ -300,7 +294,7 @@ class PatientController extends Controller
 
         if($request->input('print_form')=="print_form")
         {  
-         $request->all();
+            $request->all();
             $checkPrint = [
                 "generalDiagnosis_"              => $request->input('sympotms'),   
                 "pastMedicalHistory"         => $request->input('pastMedicalHistory'),
@@ -319,10 +313,11 @@ class PatientController extends Controller
                 "listOfPrescribed"         => $request->input('listOfPrescribed'),
                 "planRecommendation"       => $request->input('planRecommandation'),
             ];
-            
+
             return view('back/print-medical/print-medical-report',$data,$checkPrint);
         }
 
+        
 
         return view('back/view-general-report')->with($data);    
     }
@@ -401,6 +396,10 @@ class PatientController extends Controller
         $CTCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'CTCIR48', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $NmThyroidScan = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $HistopathRightThyroidFNA = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+       
+       
+        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'thyroid_form'])->latest('id')->first();
+        
         $data = [
             'patient' => $patient,
             'id' => Crypt::encrypt($id),
@@ -436,6 +435,7 @@ class PatientController extends Controller
             'Patient_order_labs'=>$Patient_order_labs,
             'supportiveTreatments'=>$SupportiveTreatment,
             'Patient_progress_notes'=>$Patient_progress_note,
+            'VaricoceleEmboForm'   =>$VaricoceleEmboForm
 
 
         ];
@@ -643,39 +643,39 @@ class PatientController extends Controller
     public function Add_Symptoms(Request $request)
     {
 
-        GeneralDiagnosis::where([ 'form_type'=>'general_form','title_name' => 'Symptom'])->delete(); 
-       $data=$request->all();
+        // GeneralDiagnosis::where([ 'form_type'=>'general_form','title_name' => 'Symptom'])->delete(); 
+        if($request->input('checkData'))
+        { 
+    
+                $data=$request->all();
 
-        $doctor_id = auth()->guard('doctor')->id();
+                $doctor_id = auth()->guard('doctor')->id();
 
-        $id = decrypt($request->patient_id);
+                $id = decrypt($request->patient_id);
 
-        $form_type = $request->formType;
-        $dataToInsert = [];
-       
+                $form_type = $request->formType;
+                $dataToInsert = [];
+            
+                foreach ($data['SymptomType_'] as $index => $type) {
+                    $dataToInsert[] = [
+                        'SymptomType' => $type ?? '',
+                        'patient_id' => $id,
+                        'doctor_id' => $doctor_id,
+                        'title_name' => 'Symptom',
+                        'form_type'=>$form_type,
+                        'SymptomDurationValue' => $data['SymptomDurationValue_'][$index] ?? '',
+                        'SymptomDurationType' => $data['SymptomDurationType_'][$index] ?? '',
+                        'SymptomDurationNote' => $data['SymptomDurationNote_'][$index] ?? ''
+                    ];
+                }
 
-        foreach ($data['SymptomType'] as $index => $type) {
-            $dataToInsert[] = [
-                'SymptomType' => $type ?? '',
-                'patient_id' => $id,
-                'doctor_id' => $doctor_id,
-                'title_name' => 'Symptom',
-                'form_type'=>$form_type,
-                'SymptomDurationValue' => $data['SymptomDurationValue'][$index] ?? '',
-                'SymptomDurationType' => $data['SymptomDurationType'][$index] ?? '',
-                'SymptomDurationNote' => $data['SymptomDurationNote'][$index] ?? ''
-            ];
-        }
-
-        $inserted=false;
-        if(isset( $dataToInsert) && count($dataToInsert) !== 0){
-            $inserted =   GeneralDiagnosis::insert($dataToInsert);
-        }
-
-
-        return response()->json($inserted);
-
-
+                $inserted=false;
+                if(isset( $dataToInsert) && count($dataToInsert) !== 0){
+                    $inserted =   GeneralDiagnosis::insert($dataToInsert);
+                }
+                return response()->json($inserted);
+            }
+            return response()->json($inserted);
     }
 
     public function fetchExistingSymptoms()
@@ -1741,6 +1741,9 @@ class PatientController extends Controller
         return $randomMA;
     }
 
+
+
+
     public function store(Request $request)
     {
        
@@ -1754,6 +1757,9 @@ class PatientController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 422);
         }
+
+
+
         $new_name = '';
         if ($request->file('profile_image') != '') {
             $image = $request->file('profile_image');
@@ -1767,6 +1773,8 @@ class PatientController extends Controller
             $image1->move(public_path('assets/patient_profile'), $customFile);
             $data['customFile'] = $customFile;
         }
+
+        
 
         $add_patient = [
             'sirname' => !empty($request->sirname) ? $request->sirname : null,
@@ -1935,11 +1943,11 @@ class PatientController extends Controller
     }
 
     public function ProstateArteryEmbolizationEligibilityForm(Request $request, $patient_id)
-    {
+    {   
         return view('back/prostate', compact('patient_id'));
     }
     public function ThyroidEligibilityForm(Request $request, $patient_id)
-    {
+    {     
         return view('back/thyroid', compact('patient_id'));
     }
     public function UterineEmboEmbolizationEligibilityForms(Request $request, $patient_id)
@@ -1957,6 +1965,9 @@ public function editVaricoceleEmboEligibilityForms(Request $request)
     $id = decrypt($request->patient_id);
     // $id = decrypt();
     $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+    $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->latest('id')->first();
+
 
     $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->get();
     $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->get();
@@ -1996,7 +2007,8 @@ public function editVaricoceleEmboEligibilityForms(Request $request)
         'clinical_indicators' => $ClinicalIndicator,
         'ClinicalExam' => $ClinicalExam,
         'Imaging'=>$Imaging,
-        'Prescription'=>$Prescription
+        'Prescription'=>$Prescription,
+        'VaricoceleEmboForm'=>$VaricoceleEmboForm
 
 
     ];
@@ -2023,6 +2035,10 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
 
     // $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
     $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'VaricoceleEmboForm'])->get();    
+
+
+    $viewImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'VaricoseAblation'])->latest('id')->first();
+
 
     $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
     $Procedure = Procedure::with('doctor')->select('id','doctor_id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -2085,6 +2101,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
+        'viewForm' =>$viewImage
 
     ];
 
@@ -2096,9 +2113,26 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
     {
 
         $doctor_id = auth()->guard('doctor')->id();
+        $id = decrypt($request->patient_id);
+        $dataToInsert = [];
 
-    $id = decrypt($request->patient_id);
-    $dataToInsert = [];
+          if ($request->input('canvasImage')) 
+        {  
+            $canvasImage = $request->input('canvasImage');
+
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+            $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+            file_put_contents($filePath, $imageData);
+
+        }
+        else
+        {
+            $newFileName='';
+        }
 
 
     if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
@@ -2123,6 +2157,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'diagnosis_general',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2149,6 +2184,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'diagnosis_cid',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2190,6 +2226,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'symptoms',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2217,6 +2254,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'symptoms_score',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2245,6 +2283,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'Referral',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2272,6 +2311,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'Supportive',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2299,6 +2339,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'SpecialInvestigation',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2326,6 +2367,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'ElegibilitySTATUS',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2354,6 +2396,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'Intervention',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2381,6 +2424,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'MDT',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2408,6 +2452,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'Lab',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2436,6 +2481,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'Imaging',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2465,6 +2511,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'ClinicalIndicator',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
@@ -2492,13 +2539,11 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
                 'title_name' => 'ClinicalExam',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'VaricoceleEmboForm'
             ];
         }
     }
-
-
-
 
     if(!empty($dataToInsert)){
         ThyroidDiagnosis::insert($dataToInsert);
@@ -2514,8 +2559,16 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
 // HeadachePain form edit method
 public function editHeadachePainEligibilityForms(Request $request)
 {
+
+
+
     $id = decrypt($request->patient_id);
     // $id = decrypt();
+
+
+    $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'HeadachePain'])->latest('id')->first();
+
+
     $ThyroidDiagnosis = ThyroidDiagnosis::query();
 
     $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->get();
@@ -2556,7 +2609,8 @@ public function editHeadachePainEligibilityForms(Request $request)
         'clinical_indicators' => $ClinicalIndicator,
         'ClinicalExam' => $ClinicalExam,
         'Imaging'=>$Imaging,
-        'Prescription'=>$Prescription
+        'Prescription'=>$Prescription,
+        'VaricoceleEmboForm'=>$VaricoceleEmboForm
 
 
     ];
@@ -2579,6 +2633,26 @@ public function updateHeadachePainEligibilityForms(Request $request)
 // HeadachePain form store method
 public function storeHeadachePainEligibilityForms(Request $request)
 {
+
+
+    if ($request->input('canvasImage')) 
+    {  
+        $canvasImage = $request->input('canvasImage');
+
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+        $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+        $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+        file_put_contents($filePath, $imageData);
+
+    }
+    else
+    {
+        $newFileName='';
+    }
+
 
     $doctor_id = auth()->guard('doctor')->id();
 
@@ -2608,6 +2682,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_general',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2634,6 +2709,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_cid',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2675,6 +2751,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'symptoms',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2702,6 +2779,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'symptoms_score',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2730,6 +2808,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'Referral',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2757,6 +2836,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'Supportive',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2784,6 +2864,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'Prescription',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2811,6 +2892,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'SpecialInvestigation',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2838,6 +2920,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'ElegibilitySTATUS',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2866,6 +2949,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'Intervention',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2893,6 +2977,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'MDT',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2920,6 +3005,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'Lab',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2948,6 +3034,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'Imaging',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -2977,6 +3064,7 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'ClinicalIndicator',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
@@ -3004,13 +3092,11 @@ public function storeHeadachePainEligibilityForms(Request $request)
                 'title_name' => 'ClinicalExam',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'HeadachePain'
             ];
         }
     }
-
-
-
 
     if(!empty($dataToInsert)){
         ThyroidDiagnosis::insert($dataToInsert);
@@ -3031,6 +3117,10 @@ public function viewHeadachePainEligibilityForms(Request $request, $id)
     // $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
 
     $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form'])->get();    
+
+
+    $ViewImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'HeadachePain'])->latest('id')->first();
+
 
 
 
@@ -3096,6 +3186,7 @@ public function viewHeadachePainEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
+        'viewForm' =>$ViewImage
 
     ];
 
@@ -3108,12 +3199,16 @@ public function viewHeadachePainEligibilityForms(Request $request, $id)
 // ShoulderPain form edit method
 public function editShoulderPainEligibilityForms(Request $request)
 {
+    
     $id = decrypt($request->patient_id);
     // $id = decrypt();
     $ThyroidDiagnosis = ThyroidDiagnosis::query();
 
     $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->get();
     $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->get();
+
+
+     $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'ShoulderPain'])->latest('id')->first();
 
 
     $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->get();
@@ -3150,9 +3245,8 @@ public function editShoulderPainEligibilityForms(Request $request)
         'clinical_indicators' => $ClinicalIndicator,
         'ClinicalExam' => $ClinicalExam,
         'Imaging'=>$Imaging,
+        'VaricoceleEmboForm'=>$VaricoceleEmboForm,
         'Prescription'=>$Prescription
-
-
     ];
     return view('back/Edit_shoulder_pain', $data);
 }
@@ -3172,6 +3266,25 @@ public function updateShoulderPainEligibilityForms(Request $request)
 // ShoulderPain form store method
 public function storeShoulderPainEligibilityForms(Request $request)
 {
+
+
+    if ($request->input('canvasImage')) 
+    {  
+        $canvasImage = $request->input('canvasImage');
+
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+        $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+        $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+        file_put_contents($filePath, $imageData);
+
+    }
+    else
+    {
+        $newFileName='';
+    }
 
     $doctor_id = auth()->guard('doctor')->id();
 
@@ -3201,6 +3314,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_general',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3227,6 +3341,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_cid',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3268,6 +3383,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'symptoms',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3295,6 +3411,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'symptoms_score',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3323,6 +3440,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'Referral',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3350,6 +3468,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'Supportive',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3377,6 +3496,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'Prescription',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3404,6 +3524,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'SpecialInvestigation',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3431,6 +3552,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'ElegibilitySTATUS',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3459,6 +3581,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'Intervention',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3486,6 +3609,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'MDT',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3513,6 +3637,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'Lab',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3541,6 +3666,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'Imaging',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3570,6 +3696,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'ClinicalIndicator',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3597,6 +3724,7 @@ public function storeShoulderPainEligibilityForms(Request $request)
                 'title_name' => 'ClinicalExam',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=> $newFileName,
                 'form_type' => 'ShoulderPain'
             ];
         }
@@ -3623,6 +3751,11 @@ public function viewShoulderPainEligibilityForms(Request $request, $id)
     $patient = User::findOrFail($id);
 
     $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'ShoulderPain'])->get();    
+
+
+    $Viewimage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'ShoulderPain'])->latest('id')->first();
+
+
 
     $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
           $Procedure = Procedure::with('doctor')->select('id','doctor_id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -3684,6 +3817,7 @@ public function viewShoulderPainEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
+        'viewForm'   =>$Viewimage
 
     ];
 
@@ -4878,6 +5012,25 @@ public function viewSpinePainEligibilityForms(Request $request, $id)
 public function storeKneePainEligibilityForms(Request $request)
 {
 
+    if ($request->input('canvasImage')) 
+        {  
+            $canvasImage = $request->input('canvasImage');
+
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+            $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+            file_put_contents($filePath, $imageData);
+
+        }
+        else
+        {
+            $newFileName='';
+        }
+
+
     $doctor_id = auth()->guard('doctor')->id();
 
     $id = decrypt($request->patient_id);
@@ -4906,6 +5059,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_general',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -4932,6 +5086,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_cid',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -4973,6 +5128,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'symptoms',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5000,6 +5156,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'symptoms_score',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5028,6 +5185,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'Referral',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5055,6 +5213,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'Supportive',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5082,6 +5241,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'Prescription',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5109,6 +5269,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'SpecialInvestigation',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5136,6 +5297,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'ElegibilitySTATUS',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5164,6 +5326,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'Intervention',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5191,6 +5354,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'MDT',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5218,6 +5382,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'Lab',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5246,6 +5411,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'Imaging',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5275,6 +5441,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'ClinicalIndicator',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5302,6 +5469,7 @@ public function storeKneePainEligibilityForms(Request $request)
                 'title_name' => 'ClinicalExam',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'KneePain'
             ];
         }
@@ -5329,6 +5497,9 @@ public function viewKneePainEligibilityForms(Request $request, $id)
 
     // $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
     $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'KneePain'])->get();    
+
+
+    $viewForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'KneePain'])->latest('id')->first();
 
 
     $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -5392,11 +5563,13 @@ public function viewKneePainEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
+        'viewForm'  =>$viewForm
 
     ];
 
     return view('back/view-knee-pain-report')->with($data);
 }
+
 // KneePain form edit method
 public function editKneePainEligibilityForms(Request $request)
 {
@@ -5407,12 +5580,13 @@ public function editKneePainEligibilityForms(Request $request)
     $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'KneePain'])->get();
     $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'KneePain'])->get();
 
+     $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'KneePain'])->latest('id')->first();
 
     $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'KneePain'])->get();
     $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->first();
     $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
 
-   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
+    $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
     $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
     $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
     $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'KneePain'])->first();
@@ -5442,9 +5616,8 @@ public function editKneePainEligibilityForms(Request $request)
         'clinical_indicators' => $ClinicalIndicator,
         'ClinicalExam' => $ClinicalExam,
         'Imaging'=>$Imaging,
-        'Prescription'=>$Prescription
-
-
+        'Prescription'=>$Prescription,
+        'VaricoceleEmboForm'=>$VaricoceleEmboForm
     ];
     return view('back/Edit_knee_pain', $data);
 }
@@ -5469,6 +5642,27 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
     $dataToInsert = [];
 
 
+    if ($request->input('canvasImage')) 
+    {  
+        $canvasImage = $request->input('canvasImage');
+
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+        $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+        $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+        file_put_contents($filePath, $imageData);
+
+    }
+    else
+    {
+        $newFileName='';
+    }
+
+
+
+
     if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
         $filteredDiagnosisGeneral = array_map(function ($subarray) {
             return array_filter($subarray, function ($value) {
@@ -5491,6 +5685,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_general',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5517,6 +5712,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_cid',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5558,6 +5754,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'symptoms',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5585,6 +5782,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'symptoms_score',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5613,6 +5811,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'Referral',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5640,6 +5839,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'Supportive',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5667,6 +5867,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'SpecialInvestigation',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5694,6 +5895,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'ElegibilitySTATUS',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5722,6 +5924,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'Intervention',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5749,6 +5952,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'MDT',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5776,6 +5980,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'Lab',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5804,6 +6009,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'Imaging',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5833,6 +6039,7 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'ClinicalIndicator',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
@@ -5860,17 +6067,14 @@ public function storeHaemorrhoidsEmboEligibilityForms(Request $request)
                 'title_name' => 'ClinicalExam',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' => $newFileName,
                 'form_type' => 'HaemorrhoidsEmbo'
             ];
         }
     }
 
-
-
-
     if(!empty($dataToInsert)){
         ThyroidDiagnosis::insert($dataToInsert);
-
     }
 
 
@@ -5886,6 +6090,10 @@ public function viewHaemorrhoidsEmboEligibilityForms(Request $request, $id)
 
     //  $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
      $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'HaemorrhoidsEmbo'])->get();    
+
+
+     $ViewImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->latest('id')->first();
+
 
 
      $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -5947,6 +6155,7 @@ public function viewHaemorrhoidsEmboEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
+        'ViewImage'      => $ViewImage
 
     ];
 
@@ -5956,9 +6165,14 @@ public function viewHaemorrhoidsEmboEligibilityForms(Request $request, $id)
 // HaemorrhoidsEmbo form edit method
 public function editHaemorrhoidsEmboEligibilityForms(Request $request)
 {
+    
     $id = decrypt($request->patient_id);
     // $id = decrypt();
     $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+
+    $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->latest('id')->first();
+
 
     $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->get();
     $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->get();
@@ -5992,6 +6206,7 @@ public function editHaemorrhoidsEmboEligibilityForms(Request $request)
         'Interventions' => $Interventions,
         'MDTs' => $MDTs,
         'Labs' => $Labs,
+        'VaricoceleEmboForm'=>$VaricoceleEmboForm,
         'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
         'clinical_indicators' => $ClinicalIndicator,
         'ClinicalExam' => $ClinicalExam,
@@ -6012,442 +6227,481 @@ public function updateHaemorrhoidsEmboEligibilityForms(Request $request)
 
     return response()->json(['patient_id' => $patientId]);
 }
-// VaricoseAblation form store method
-public function storeVaricoseAblationEligibilityForms(Request $request)
-{
-
-    $doctor_id = auth()->guard('doctor')->id();
-
-    $id = decrypt($request->patient_id);
-    $dataToInsert = [];
 
 
-    if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->diagnosis_general);
+    // VaricoseAblation form store method
 
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
+    public function storeVaricoseAblationEligibilityForms(Request $request)
+    {
+
+
+        $doctor_id = auth()->guard('doctor')->id();
+
+        $id = decrypt($request->patient_id);
+
+        $dataToInsert = [];
+
+        if ($request->input('canvasImage')) 
+        {  
+            $canvasImage = $request->input('canvasImage');
+
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+            $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+            file_put_contents($filePath, $imageData);
+
+        }
+        else
+        {
+            $newFileName='';
+        }
+
+
+
+        if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->diagnosis_general);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'diagnosis_general',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
+            }
+        }
+        if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->diagnosis_cid);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'diagnosis_cid',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
+            }
+        }
+        $data=$request->symptoms;
+        $newArray = [];
+
+        foreach ($data as $item) {
+            $newArray[] = [
+                'SymptomType' => $item[0] ?? '',
+                'SymptomDurationValue' => $item[1] ?? '',
+                'SymptomDurationType' => $item[2] ?? '',
+                'SymptomDurationNote' => $item[3] ?? ''
+            ];
+        }
+
+
+        if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $newArray);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'symptoms',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
+            }
+        }
+        if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->symptoms_score);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'symptoms_score',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
             }
         }
 
-        if ($nonEmptyArraysExist) {
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'diagnosis_general',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-    if (isset($request->diagnosis_cid) && is_array($request->diagnosis_cid) && !empty($request->diagnosis_cid)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->diagnosis_cid);
+        if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Referral);
 
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'Referral',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
+            }
+        }
+        if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Supportive);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'Supportive',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
+            }
+        }
+        if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->SpecialInvestigation);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'SpecialInvestigation',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
+            }
+        }
+        if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->ElegibilitySTATUS);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'ElegibilitySTATUS',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
             }
         }
 
-        if ($nonEmptyArraysExist) {
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'diagnosis_cid',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
+        if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Intervention);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'Intervention',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
+            }
         }
-    }
-    $data=$request->symptoms;
-    $newArray = [];
+        if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->MDT);
 
-    foreach ($data as $item) {
-        $newArray[] = [
-            'SymptomType' => $item[0] ?? '',
-            'SymptomDurationValue' => $item[1] ?? '',
-            'SymptomDurationType' => $item[2] ?? '',
-            'SymptomDurationNote' => $item[3] ?? ''
-        ];
-    }
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
 
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'MDT',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
+            }
+        }
+        if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Lab);
 
-    if (isset($newArray) && is_array($newArray) && !empty($newArray)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $newArray);
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
 
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'Lab',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
             }
         }
 
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+        if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->Imaging);
 
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'symptoms',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-    if (isset($request->symptoms_score) && is_array($request->symptoms_score) && !empty($request->symptoms_score)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->symptoms_score);
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
 
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'Imaging',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
             }
         }
 
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'symptoms_score',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
+
+        if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->clinical_indicator);
+
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
+
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'ClinicalIndicator',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
+            }
         }
-    }
+        if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
+            $filteredDiagnosisGeneral = array_map(function ($subarray) {
+                return array_filter($subarray, function ($value) {
+                    return $value !== null && $value !== '';
+                });
+            }, $request->clinical_exam);
 
-    if (isset($request->Referral) && is_array($request->Referral) && !empty($request->Referral)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->Referral);
+            // Check if there's any non-empty array in $filteredDiagnosisGeneral
+            $nonEmptyArraysExist = false;
+            foreach ($filteredDiagnosisGeneral as $subarray) {
+                if (!empty($subarray)) {
+                    $nonEmptyArraysExist = true;
+                    break;
+                }
+            }
 
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
+            if ($nonEmptyArraysExist) {
+                $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
+                $dataToInsert[] = [
+                    'patient_id' => $id,
+                    'title_name' => 'ClinicalExam',
+                    'data_value' =>  json_encode($filteredDiagnosisGeneral),
+                    'doctor_id' => $doctor_id,
+                    'AnnotateimageData'=> $newFileName,
+                    'form_type' => 'VaricoseAblation'
+                ];
             }
         }
 
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'Referral',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-    if (isset($request->Supportive) && is_array($request->Supportive) && !empty($request->Supportive)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->Supportive);
-
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
-            }
+        if(!empty($dataToInsert)){
+            ThyroidDiagnosis::insert($dataToInsert);
         }
 
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'Supportive',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-    if (isset($request->SpecialInvestigation) && is_array($request->SpecialInvestigation) && !empty($request->SpecialInvestigation)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->SpecialInvestigation);
-
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
-            }
-        }
-
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'SpecialInvestigation',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-    if (isset($request->ElegibilitySTATUS) && is_array($request->ElegibilitySTATUS) && !empty($request->ElegibilitySTATUS)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->ElegibilitySTATUS);
-
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
-            }
-        }
-
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'ElegibilitySTATUS',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-
-    if (isset($request->Intervention) && is_array($request->Intervention) && !empty($request->Intervention)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->Intervention);
-
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
-            }
-        }
-
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'Intervention',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-    if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->MDT);
-
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
-            }
-        }
-
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'MDT',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-    if (isset($request->Lab) && is_array($request->Lab) && !empty($request->Lab)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->Lab);
-
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
-            }
-        }
-
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'Lab',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-
-    if (isset($request->Imaging) && is_array($request->Imaging) && !empty($request->Imaging)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->Imaging);
-
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
-            }
-        }
-
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'Imaging',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-
-
-    if (isset($request->clinical_indicator) && is_array($request->clinical_indicator) && !empty($request->clinical_indicator)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->clinical_indicator);
-
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
-            }
-        }
-
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'ClinicalIndicator',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-    if (isset($request->clinical_exam) && is_array($request->clinical_exam) && !empty($request->clinical_exam)) {
-        $filteredDiagnosisGeneral = array_map(function ($subarray) {
-            return array_filter($subarray, function ($value) {
-                return $value !== null && $value !== '';
-            });
-        }, $request->clinical_exam);
-
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
-        $nonEmptyArraysExist = false;
-        foreach ($filteredDiagnosisGeneral as $subarray) {
-            if (!empty($subarray)) {
-                $nonEmptyArraysExist = true;
-                break;
-            }
-        }
-
-        if ($nonEmptyArraysExist) {
-            $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
-            $dataToInsert[] = [
-                'patient_id' => $id,
-                'title_name' => 'ClinicalExam',
-                'data_value' =>  json_encode($filteredDiagnosisGeneral),
-                'doctor_id' => $doctor_id,
-                'form_type' => 'VaricoseAblation'
-            ];
-        }
-    }
-
-
-
-
-    if(!empty($dataToInsert)){
-        ThyroidDiagnosis::insert($dataToInsert);
-
-    }
-
-
-       $patientId=  $request->patient_id;
+        $patientId =  $request->patient_id;
 
         return response()->json(['patient_id' => $patientId]);
-}
+
+
+    }
+
+
 
 // VaricoseAblation form edit method
 public function editVaricoseAblationEligibilityForms(Request $request)
 {
+
     $id = decrypt($request->patient_id);
     // $id = decrypt();
     $ThyroidDiagnosis = ThyroidDiagnosis::query();
 
+    $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->latest('id')->first();
+
     $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
     $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
-
 
     $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
     $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->first();
     $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
 
-   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
+    $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
     $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
     $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
     $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->first();
@@ -6474,22 +6728,24 @@ public function editVaricoseAblationEligibilityForms(Request $request)
         'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
         'clinical_indicators' => $ClinicalIndicator,
         'ClinicalExam' => $ClinicalExam,
-        'Imaging'=>$Imaging
-
-
+        'Imaging'=>$Imaging,
+        'VaricoceleEmboForm'=>$VaricoceleEmboForm
     ];
     return view('back/Edit_varicose_ablation', $data);
 }
 
+
 // VaricoseAblation form update method
 public function updateVaricoseAblationEligibilityForms(Request $request)
-{
+{    
+    
     ThyroidDiagnosis::where(['form_type'=>'VaricoseAblation','patient_id'=>decrypt($request->patient_id)])->delete();
 
     $this->storeVaricoseAblationEligibilityForms($request);
+
     $patientId=  $request->patient_id;
 
-       return response()->json(['patient_id' => $patientId]);
+    return response()->json(['patient_id' => $patientId]);
 
 }
 
@@ -6501,7 +6757,12 @@ public function viewVaricoseAblationEligibilityForms(Request $request, $id)
     $patient = User::findOrFail($id);
 
     // $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
-    $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'VaricoseAblation'])->get();    
+    $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'VaricoseAblation'])->get();   
+    
+    
+    $viewImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->latest('id')->first();
+
+
 
   $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Procedure = Procedure::with('doctor')->select('id','doctor_id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -6561,6 +6822,7 @@ public function viewVaricoseAblationEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
+        'viewImage'  =>$viewImage
 
     ];
 
@@ -6575,6 +6837,26 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
 
     $id = decrypt($request->patient_id);
     $dataToInsert = [];
+
+    if ($request->input('canvasImage')) 
+    {  
+        $canvasImage = $request->input('canvasImage');
+
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+       // return $imageData;
+
+        $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+        $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+        file_put_contents($filePath, $imageData);
+
+    }
+    else
+    {
+        $newFileName='';
+    }
 
 
     if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
@@ -6599,6 +6881,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_general',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6625,6 +6908,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_cid',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6666,6 +6950,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'symptoms',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6693,6 +6978,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'symptoms_score',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6721,6 +7007,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'Referral',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6748,6 +7035,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'Supportive',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6775,6 +7063,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'SpecialInvestigation',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6802,6 +7091,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'ElegibilitySTATUS',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6830,6 +7120,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'Intervention',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6857,6 +7148,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'MDT',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6884,6 +7176,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'Lab',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6912,6 +7205,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'Imaging',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6941,6 +7235,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'ClinicalIndicator',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6968,6 +7263,7 @@ public function storePelvicCongEmboEligibilityForms(Request $request)
                 'title_name' => 'ClinicalExam',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData'=>$newFileName,
                 'form_type' => 'PelvicCongEmbo'
             ];
         }
@@ -6992,6 +7288,10 @@ public function editPelvicCongEmboEligibilityForms(Request $request)
     $id = decrypt($request->patient_id);
     // $id = decrypt();
     $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+
+    $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->latest('id')->first();
+
 
     $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->get();
     $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->get();
@@ -7028,7 +7328,8 @@ public function editPelvicCongEmboEligibilityForms(Request $request)
         'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
         'clinical_indicators' => $ClinicalIndicator,
         'ClinicalExam' => $ClinicalExam,
-        'Imaging'=>$Imaging
+        'Imaging'=>$Imaging,
+        'VaricoceleEmboForm'=>$VaricoceleEmboForm
 
 
     ];
@@ -7054,6 +7355,8 @@ public function viewPelvicCongEmboEligibilityForms(Request $request, $id)
 
     //  $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
      $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'PelvicCongEmbo'])->get();    
+
+     $viewForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->latest('id')->first();
 
 
      $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -7114,6 +7417,7 @@ public function viewPelvicCongEmboEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
+        'viewForm'        => $viewForm
 
     ];
 
@@ -7123,6 +7427,26 @@ public function viewPelvicCongEmboEligibilityForms(Request $request, $id)
 // uterine_embo form store method
 public function storeUterineEmboEligibilityForms(Request $request)
 {
+
+
+    if ($request->input('canvasImage')) 
+    {  
+        $canvasImage = $request->input('canvasImage');
+
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+        $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+        $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+        file_put_contents($filePath, $imageData);
+
+    }
+    else
+    {
+        $newFileName='';
+    }
+    
 
     $doctor_id = auth()->guard('doctor')->id();
 
@@ -7152,6 +7476,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_general',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7178,6 +7503,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'diagnosis_cid',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7219,6 +7545,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'symptoms',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7246,6 +7573,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'symptoms_score',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7274,6 +7602,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'Referral',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7301,6 +7630,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'Supportive',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7328,6 +7658,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'SpecialInvestigation',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7355,6 +7686,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'ElegibilitySTATUS',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7383,6 +7715,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'Intervention',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7410,6 +7743,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'MDT',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7437,6 +7771,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'Lab',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7465,6 +7800,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'Imaging',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7494,6 +7830,7 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'ClinicalIndicator',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
@@ -7521,12 +7858,11 @@ public function storeUterineEmboEligibilityForms(Request $request)
                 'title_name' => 'ClinicalExam',
                 'data_value' =>  json_encode($filteredDiagnosisGeneral),
                 'doctor_id' => $doctor_id,
+                'AnnotateimageData' =>$newFileName,
                 'form_type' => 'uterine_embo'
             ];
         }
     }
-
-
 
 
     if(!empty($dataToInsert)){
@@ -7542,12 +7878,17 @@ public function storeUterineEmboEligibilityForms(Request $request)
 // uterine_embo form edit method
 public function editUterineEmboEligibilityForms(Request $request)
 {
+
     $id = decrypt($request->patient_id);
     // $id = decrypt();
     $ThyroidDiagnosis = ThyroidDiagnosis::query();
-
     $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->get();
     $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->get();
+
+
+
+    $postStateFormsImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'uterine_embo'])->latest('id')->first();
+
 
 
     $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->get();
@@ -7581,7 +7922,7 @@ public function editUterineEmboEligibilityForms(Request $request)
         'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
         'clinical_indicators' => $ClinicalIndicator,
         'ClinicalExam' => $ClinicalExam,
-
+        'postStateFormsImage'=>$postStateFormsImage,
         'Imaging'=>$Imaging
 
 
@@ -7607,7 +7948,10 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
     $patient = User::findOrFail($id);
 
     // $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
-    $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'uterine_embo'])->get();    
+    $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'uterine_embo'])->get();  
+    
+    
+    $viewImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'uterine_embo'])->latest('id')->first();
 
 
     $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -7667,7 +8011,8 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
         'Patient_progress_notes'=>$Patient_progress_note,
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
-            'ClinicalExam_db' => $ClinicalExam,
+        'ClinicalExam_db' => $ClinicalExam,
+        'viewImage' =>$viewImage
 
     ];
 
@@ -7677,6 +8022,25 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
     // prostate form store method
     public function storeProstateEligibilityForms(Request $request)
     {
+
+        if ($request->input('canvasImage')) 
+        {     
+            $canvasImage = $request->input('canvasImage');
+
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+            $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+            file_put_contents($filePath, $imageData);
+
+        }
+        else
+        {
+            $newFileName='';
+        }
+
 
         $doctor_id = auth()->guard('doctor')->id();
 
@@ -7706,7 +8070,9 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'diagnosis_general',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
+                    
                 ];
             }
         }
@@ -7732,6 +8098,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'diagnosis_cid',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -7773,6 +8140,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'symptoms',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -7800,6 +8168,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'symptoms_score',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -7828,6 +8197,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Referral',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -7855,6 +8225,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Supportive',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -7882,6 +8253,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'SpecialInvestigation',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -7909,6 +8281,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'ElegibilitySTATUS',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -7937,6 +8310,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Intervention',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -7964,6 +8338,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'MDT',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -7991,6 +8366,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Lab',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -8021,6 +8397,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Imaging',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -8049,6 +8426,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'ClinicalIndicator',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -8076,6 +8454,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'ClinicalExam',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'prostate_form'
                 ];
             }
@@ -8093,8 +8472,11 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
     public function editProstateEligibilityForms(Request $request)
     {
         $id = decrypt($request->patient_id);
+       // echo $id; die;
         // $id = decrypt();
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
+
+         $postStateFormsImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'prostate_form'])->latest('id')->first();
 
         $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'prostate_form'])->get();
         $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'prostate_form'])->get();
@@ -8165,7 +8547,8 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
             'CTCIR48RIGHT'=>$CTCIR48RIGHT,
             'CTCIR48LEFT'=>$CTCIR48LEFT,
             'USBIOPSYPROSTETE690'=>$USBIOPSYPROSTETE690,
-            'Imaging'=>$Imaging
+            'Imaging'=>$Imaging,
+            'postStateFormsImage' =>$postStateFormsImage
 
         ];
         return view('back/Edit_prostate', $data);
@@ -8182,9 +8565,13 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
 
     public function ViewProstateEligibilityForms(Request $request, $id)
     {
+
+
         $id = Crypt::decrypt($id);
         $patient = User::findOrFail($id);
 
+
+        $ViewImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'prostate_form'])->latest('id')->first();
 
         //    $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
         $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'prostate_form'])->get();    
@@ -8266,6 +8653,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
             'Patient_order_labs'=>$Patient_order_labs,
             'supportiveTreatments'=>$SupportiveTreatment,
             'Patient_progress_notes'=>$Patient_progress_note,
+            'ViewImage' =>$ViewImage,
             'Imaging'=>$Imaging
 
         ];
@@ -8290,8 +8678,10 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
 
         $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->get();
+      
         $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->get();
 
+        $thyroidEligibilityFormsImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
 
         $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->get();
 
@@ -8344,6 +8734,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
             'NmParaThyroidScan' => $NmParaThyroidScan,
             'HistopathRightThyroidFNA' => $HistopathRightThyroidFNA,
             'HistopathLeftThyroidFNA' => $HistopathLeftThyroidFNA,
+            'thyroidEligibilityFormsImage' => $thyroidEligibilityFormsImage
 
         ];
         return view('back/Edit_thyroid', $data);
@@ -8360,7 +8751,25 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
     }
 
     public function storeThyroidEligibilityForms(Request $request)
-    {
+    {    
+
+        if ($request->input('canvasImage')) 
+        {  
+            $canvasImage = $request->input('canvasImage');
+
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+
+            $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+            file_put_contents($filePath, $imageData);
+
+        }
+        else
+        {
+            $newFileName='';
+        }
 
 
         $doctor_id = auth()->guard('doctor')->id();
@@ -8391,6 +8800,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'diagnosis_general',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8417,6 +8827,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'diagnosis_cid',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8458,6 +8869,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'symptoms',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8486,6 +8898,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'symptoms_score',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8513,6 +8926,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Referral',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8540,6 +8954,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Supportive',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8567,6 +8982,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'SpecialInvestigation',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8594,6 +9010,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'ElegibilitySTATUS',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8622,6 +9039,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Intervention',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8649,6 +9067,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'MDT',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8676,6 +9095,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Lab',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8704,6 +9124,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'AntithyroidAntibodiesTests',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8732,6 +9153,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Imaging',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8759,6 +9181,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'ClinicalIndicator',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8786,6 +9209,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'ClinicalExam',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8814,6 +9238,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'rightLobeScore',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8842,6 +9267,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'leftLobeScore',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8870,6 +9296,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'Retrosternalextension',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8897,6 +9324,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'EnlargedLymphnodes',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8925,6 +9353,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'paralysis',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8953,6 +9382,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'MRCIR48',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -8983,6 +9413,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'CTCIR48',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -9011,6 +9442,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'NmParaThyroidScan',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -9041,6 +9473,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'HistopathRightThyroidFNA',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
                     'form_type' => 'thyroid_form'
                 ];
             }
@@ -9070,10 +9503,13 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
                     'title_name' => 'HistopathLeftThyroidFNA',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' =>$newFileName,
+                    
                     'form_type' => 'thyroid_form'
                 ];
             }
         }
+      //  return $dataToInsert;
 
         if(!empty($dataToInsert)){
             ThyroidDiagnosis::insert($dataToInsert);

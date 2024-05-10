@@ -10,12 +10,13 @@ use Auth;
 use DB;
 class CalendarController extends Controller
 {
-    //
+
     public function index(Request $request)
     {
-        $doctors=Doctor::select('id','name')->where('user_type','doctor')->orderBy('id','desc')->get();
+        $doctors=Doctor::select('id','name')->where('role_id','1')->orderBy('id','desc')->get();
         $patients=User::select('id','name')->orderBy('id','desc')->get();
 
+       
         $book_appointments= DB::table('book_appointments')
                                         ->select('appointment_type') // Select only the 'title' column
                                         ->distinct()      // Apply distinct on the 'title' column
@@ -24,7 +25,58 @@ class CalendarController extends Controller
         $users=DB::table('users')->orderBy('id','desc')->get();
         $locations=DB::table('locations')->orderBy('id','desc')->get();
         $pathology_price_list = DB::table('pathology_price_list')->get();
-        return view('back/calendar',compact('doctors','patients','book_appointments','users','locations','pathology_price_list'));
+
+        $searchPatient =$request->input('searchPatient');
+        $appontment_availability = [];   
+        $countData = [];
+        $matchingAppointments = [];
+
+        if (request()->isMethod("post")) 
+        {
+            $appointmentType =  $request->input('appointmentType');
+            $location        = $request->input('location');
+            $selectClinician =  $request->input('selectClinician');
+
+
+
+            if(empty($searchPatient))
+                {
+                    $appontment_availability = DB::table('appontment_availability');
+                    if ($appointmentType) {
+                        $appontment_availability->where('appointment_types', $appointmentType);
+                    }
+                    
+                    if ($location) {
+                        $appontment_availability->where('location', $location);
+                    }
+                    
+                    if ($selectClinician) {
+                        $appontment_availability->where('doctor_id', $selectClinician);
+                    }
+                    $countData = $appontment_availability->count(); 
+                    $appontment_availability = $appontment_availability->get(); 
+                }
+
+             if($searchPatient)
+               {
+                    if ($searchPatient) {
+                        $searchPatientName = $searchPatient;
+                    
+                        $matchingUsers = DB::table('users')
+                                                    ->where('name', 'like', '%' . $searchPatientName . '%')
+                                                    ->pluck('id')
+                                                    ->toArray();
+
+                        $matchingAppointments = DB::table('book_appointments')
+                                                    ->whereIn('patient_id', $matchingUsers)
+                                                    ->get();
+                                                    
+                    }    
+                }     
+
+        }
+       
+        return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','pathology_price_list','appontment_availability','countData'));
     }
 
     
@@ -45,9 +97,9 @@ class CalendarController extends Controller
             'appointment_type' => $request->input('appointment_type'),
             'location' => $request->input('location'),
            // 'status' =>  '1',
-            'start_date' => $request->input('start_date'),
+            'start_date' => $request->input('start_date') .  ' ' . $request->input('start_time'),
             'start_time' => $request->input('start_time'),
-            'end_date' => $request->input('end_date'),
+            'end_date' => $request->input('end_date') . ' ' .  $request->input('end_time'),
             'end_time' => $request->input('end_time'),
             'cost' => $request->input('cost'),
             'code' => $request->input('code'),
@@ -137,11 +189,12 @@ class CalendarController extends Controller
                 $events=$events->where('location',$request->input('location'));
             }
 
-
-
             $events  =  $events->get();
 
-          //  dd($events);
+            foreach($events as $allevents)
+            {
+                $allevents->colour_type=DB::table('pathology_price_list')->where('test_name',$allevents->title)->first()->colour_type??'#fffff';
+            }
 
         return response()->json($events);
     }

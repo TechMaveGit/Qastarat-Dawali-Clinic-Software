@@ -1616,6 +1616,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+
+
                                     <div class="accordion-item mm_title">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button"
@@ -1656,6 +1659,11 @@
                                                 </div>
                                             </button>
                                         </h2>
+
+
+
+
+
                                         <div id="collapseleft15" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample15">
                                             <div class="accordion-body">
@@ -1666,11 +1674,7 @@
                                                             <div class="appoin_date">
     
                                                                 <div class="diagnosis_show">
-                                                                    {{-- <p class="diagnosis_date top_de"><span
-                                                                            class="enter_span_hivj">{{ 'Entered By | ' . (isset($Patient_order_imaginary_exams[0]) ? optional(optional($Patient_order_imaginary_exams[0])->doctor)->name : '') }}
-                                                                        </span> <span
-                                                                            class="enter_span_hivj">{{ isset($Patient_order_imaginary_exams[0]) && isset($Patient_order_imaginary_exams[0]->created_at) ? $Patient_order_imaginary_exams[0]->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                        </span></p> --}}
+                                                                  
     
                                                                     <div
                                                                         class="datatable-container allinvoice_table custom_table_area table_test_fgi">
@@ -1747,6 +1751,36 @@
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
+
+
+                                                                    @if ($VaricoceleEmboForm->AnnotateimageData)
+                                                                        
+                                                                   
+                                                                    <div class="appoin_date">
+                                                                        <div>
+                                                                          <div class="diagnosis_show">
+                                                                           <div class="symp_title">
+                                                                            <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span>
+                                                                                <span class="sym_duration"></span></h6>
+                                                                             
+                                                                                
+                                                                                
+                                                                                <a href="{{ asset('public/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}" target="_blank" class="input-group-text view-image-icon">
+                                                                                    <!-- Icon (change fa-eye to your desired icon class, e.g., fa-image for image icon) -->
+                                                                                   <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"> </i></span>Annotation Image <span class="sym_duration"></span>  <i class="far fa-eye csmimage"></i> </h6> 
+                                                                                </a>   
+
+
+
+                                                                          </div>
+                                                                        </div>
+                                                                       
+                                                                      </div>
+                                                                 
+                                                                      </div>
+                                                                      @endif
+
+
     
                                                                 </div>
     
@@ -1863,6 +1897,8 @@
                                                                     onclick="toggleReadMore(this)">Read More</button>
                                                             </div>
                                                             @empty
+                                                            <p></p>
+                                                            
                                                             @endforelse
                                                         </li>
 

@@ -3765,19 +3765,21 @@
 
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Image Annotation</h6>
+                                        <h6 class="section_title__">Image Annotation </h6>
                                         <div class="title_head">
-                                            <h4>Annotate Thyroid / Parathyroid findings</h4>
+                                            <h4>Annotate Thyroid / Parathyroid findings </h4>
                                         </div>
                                         <!-- <h6 class="mb-3 lut_title">Calculate TI-RARDS - RIGHT LOBE score</h6> -->
                                     </div>
                                     <div class="col-lg-12">
-                                        <!-- <div class="nodule_img">
-                                                                                  <img src="images/new-images/nodules.png" alt="">
-                                                                              </div> -->
-                                        <div id="image-container">
-                                            <img src="{{ asset('public/images/new-images/nodules.png') }}" alt="Your Image" id="image">
-                                        </div>
+
+                                           
+                                            <div id="image-container">
+
+
+                                           
+                                              </div>
+
                                         <div class="button_images">
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
                                                 id="draw-mode" type="button">Draw</button>
@@ -3786,6 +3788,10 @@
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
                                                 id="download-image" type="button">Download</button>
                                         </div>
+
+                                          <!-- Hidden input to store canvas image data -->
+                                          <input type="hidden" name="canvasImage" id="canvasImage">
+
                                     </div>
 
                                     <div class="col-lg-12">
@@ -3796,6 +3802,7 @@
                                             <h4>LABTFT39 &gt; <span class="sub_tt__">TFT Results </span></h4>
                                         </div>
                                     </div>
+                                    
 
                                     @php
                                         if (isset($Labs) && !empty($Labs)) {
@@ -5873,8 +5880,127 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
             return true; 
         }
 
+
+
+        
+// Start Image    
+    const stage = new Konva.Stage({
+        container: 'image-container',
+        width: 800,
+        height: 600,
+    });
+
+    const layer = new Konva.Layer();
+    stage.add(layer);
+
+    let isDrawing = false;
+    let annotationMode = false;
+    let lastLine;
+
+    const imageObj = new Image();
+    imageObj.src = '{{ asset('public/assets/thyroid-eligibility-form/' . $thyroidEligibilityFormsImage->AnnotateimageData) }}';
+
+    imageObj.onload = function() {
+        const image = new Konva.Image({
+            image: imageObj,
+            width: 500,
+            height: 600,
+        });
+
+        layer.add(image);
+        stage.draw();
+    };
+
+    stage.on('mousedown touchstart', function(e) {
+        if (annotationMode) {
+            const text = prompt('Enter annotation text:');
+            if (text) {
+                const pos = stage.getPointerPosition();
+                const annotation = new Konva.Label({
+                    x: pos.x,
+                    y: pos.y,
+                });
+
+                annotation.add(
+                    new Konva.Tag({
+                        fill: 'transparent',
+                    })
+                );
+
+                annotation.add(
+                    new Konva.Text({
+                        text: text,
+                        fontSize: 18,
+                        fontStyle: 'bold',
+                        fontFamily: 'Arial',
+                        fill: '#000',
+                    })
+                );
+
+                layer.add(annotation);
+                stage.draw();
+            }
+        } else {
+            isDrawing = true;
+            const pos = stage.getPointerPosition();
+            lastLine = new Konva.Line({
+                stroke: '#2760a4',
+                strokeWidth: 3,
+                globalCompositeOperation: 'source-over',
+                points: [pos.x, pos.y],
+            });
+            layer.add(lastLine);
+        }
+    });
+
+    stage.on('mousemove touchmove', function() {
+        if (!isDrawing) {
+            return;
+        }
+
+        const pos = stage.getPointerPosition();
+        const newPoints = lastLine.points().concat([pos.x, pos.y]);
+        lastLine.points(newPoints);
+        layer.batchDraw();
+    });
+
+    stage.on('mouseup touchend', function() {
+        isDrawing = false;
+        lastLine = null;
+    });
+
+   document.getElementById('draw-mode').addEventListener('click', function() {
+        annotationMode = false;
+    });
+
+    document.getElementById('annotate-mode').addEventListener('click', function() {
+        annotationMode = true;
+    });
+
+
+    document.getElementById('download-image').addEventListener('click', function() {
+        const dataURL = stage.toDataURL({
+            mimeType: 'image/png'
+        });
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'thyroid-image.png';
+        link.click();
+    });
+    
+    // End Image 
+
+
+
+
         
         $("#UpdateThyroidEligibilityForms").submit(function(event) {
+
+            const dataURL = stage.toDataURL({
+                        mimeType: 'image/png'
+                    });
+
+                document.getElementById('canvasImage').value = dataURL;
             
             event.preventDefault();
             let formData = new FormData(this);
@@ -5916,11 +6042,8 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
                                        
                                         }
                                 }
-                             
-                                
+                            
                             });
-              
-                
             }
         }
         });

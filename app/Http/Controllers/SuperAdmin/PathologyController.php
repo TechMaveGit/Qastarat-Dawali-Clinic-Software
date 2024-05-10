@@ -25,8 +25,6 @@ class PathologyController extends Controller
     public function add(Request $req)
     {
 
-       // return $req->all();
-
         $req->validate([
             'email' => [
                 'required',
@@ -94,9 +92,6 @@ class PathologyController extends Controller
                     ]);
               }
         }
-
-
-
 
         return redirect()->back()->with('message', 'Pathology added successfully!');
     }
@@ -454,14 +449,17 @@ class PathologyController extends Controller
             }
             return response()->json(['message' => 'location added successfully!'], 201);
            }
-
-
     }
+
+
     public function getLocation()
     {
         $locations = DB::table('locations')->select('id','name')->orderBy('id','desc')->get();
         return response()->json($locations);
     }
+
+
+    
     public function getLocationDetail(Request $request)
     {
         $location = DB::table('locations')->where('id',$request->location_id)->orderBy('id','desc')->first();

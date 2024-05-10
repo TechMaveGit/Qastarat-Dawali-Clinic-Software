@@ -38,7 +38,6 @@
                                 <div class="profile_main">
                                     <div class="circle">
 
-                                        {{-- https://techmavesoftwaredev.com/webclinic/public/superAdmin/images/avatar/avatar-1.png --}}
 
                                         @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
                                         <img src="{{ asset('/public/assets/patient_profile/' . $doctor->patient_profile_img) }}" alt="">
@@ -217,22 +216,39 @@
 
 
                                 <div>
-									<div class="d-flex align-items-center mb-10">
+									<div class="d-flex align-items-center mb-10">   
 										<div class="me-15">
 
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">
-                                            <h4>Appointment Type</h4>
+                                        
 											<p class="hover-primary text-fade mb-1 fs-14">{{ $add_book_appointments->appointment_type }}</p>
+                                            
+                                            @php
+                                             $doctorDetail= DB::table('doctors')->where('id',$add_book_appointments->doctor_id)->first();
+                                            @endphp
+											<p class="hover-primary text-fade mb-1 fs-14">{{ $doctorDetail->name }}</p>
 
-											{{-- <span class="text-dark fs-14">{{$pathology_price_list->test_name??''}}</span> --}}
+											<span class="text-dark fs-14">{{$pathology_price_list->test_name??''}}</span>
+                                            
 										</div>
 										<div>
-                                            <h4>Start And End Date </h4>
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i>{{ $add_book_appointments->start_date }} {{ $add_book_appointments->start_time }} , {{ $add_book_appointments->end_date }} {{ $add_book_appointments->end_time }}  </p>
+
+                                        @php
+                                            $startDate = \Carbon\Carbon::parse($add_book_appointments->start_date);
+                                            $startTime = \Carbon\Carbon::createFromFormat('H:i', $add_book_appointments->start_time);
+                                            $startDateTime = $startDate->copy()->setTime($startTime->hour, $startTime->minute);
+                                            $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                        @endphp
+
+
+                                           
+											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> {{ $formattedDateTime }}</p>
 										</div>
 									</div>
+                                    <hr>
 								</div>
+                                
 
                                 @empty
 

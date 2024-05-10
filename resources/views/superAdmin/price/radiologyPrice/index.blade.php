@@ -59,6 +59,7 @@
                                                   <th>Type</th>
                                                   <th>Price</th>
                                                   <th>Created Date</th>
+                                                  <th>Status</th>
                                                   <th>Colour</th>
                                                   <th>Action</th>
                                               </tr>
@@ -91,12 +92,13 @@
                                                     <td>AED {{ $allpathology_price_list->price }}</td>
                                                     {{-- <td>{{ $allpathology_price_list->created_at->format('Y-m-d') }}</td> --}}
                                                     <td>{{ \Carbon\Carbon::parse($allpathology_price_list->created_at)->format('Y-m-d') }}</td>
+                                                    <td>{{ $allpathology_price_list->status== '1' ? 'Active' : 'Inactive' }}</td>
                                                     <td> <div class="bg_color_ghi" style="background-color: {{ $allpathology_price_list->colour_type }}"></div>
                                                     </td>
                                                     <td>
                                                     <ul class="action_icons">
                                                         <li>
-                                                            <a onclick="editForm('{{ $allpathology_price_list->id }}','{{ $allpathology_price_list->test_name }}', '{{ $allpathology_price_list->test_code }}', '{{ $allpathology_price_list->included_tests }}', '{{ $allpathology_price_list->turnaround }}', '{{ $allpathology_price_list->note }}', '{{ $allpathology_price_list->price }}', '{{ $allpathology_price_list->price_type }}')" class="waves-effect waves-light btn btn-rounded btn-warning-light">
+                                                            <a onclick="editForm('{{ $allpathology_price_list->id }}','{{ $allpathology_price_list->test_name }}', '{{ $allpathology_price_list->test_code }}', '{{ $allpathology_price_list->included_tests }}', '{{ $allpathology_price_list->turnaround }}', '{{ $allpathology_price_list->note }}', '{{ $allpathology_price_list->price }}', '{{ $allpathology_price_list->price_type }}', '{{ $allpathology_price_list->status }}','{{ $allpathology_price_list->colour_type }}')" class="waves-effect waves-light btn btn-rounded btn-warning-light">
                                                                 <i data-feather="edit"></i>
                                                             </a>
                                                         </li>
@@ -198,6 +200,18 @@ Launch demo modal
                                     </div>
                                 </div>
 
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Status <span class="required">*</span></label>
+                                        <select class="form-control" id="statusId" name="status" style="width: 100%;">
+                                            <option value="">Select Any One</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
 
                                 <div class="col-lg-6">
                                     <div class="inner_element">
@@ -251,7 +265,7 @@ Launch demo modal
     </script>
 
 <script>
-    function editForm(id,test_name,test_code,included_tests,turnaround,note,price,price_type)
+    function editForm(id,test_name,test_code,included_tests,turnaround,note,price,price_type,status,colourId)
     {
         $('#id').val(id);
         $('#lab_name').val(test_name);
@@ -261,6 +275,8 @@ Launch demo modal
         $('#note').val(note);
         $('#price').val(price);
         $('#mulipleType').val(price_type);
+        $('#statusId').val(status);
+        $('#colourId').val(colourId);
         $("#edit_test_info").modal('show');
     }
  </script>
