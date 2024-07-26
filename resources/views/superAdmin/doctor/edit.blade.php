@@ -19,12 +19,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">Edit Doctor</h4>
-        <nav aria-label="breadcrumb">
+        <!-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Doctor</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Doctor</li>
                 </ol>
-            </nav>
+            </nav> -->
         </div>
 
 		</div>
@@ -146,8 +146,34 @@
                         @php
                         $doctors = \App\Models\superAdmin\Doctor::where('user_type','Coordinator')->where('status','active')->get();
                         $nurse = \App\Models\superAdmin\Doctor::where('user_type','Nurse')->where('status','active')->get();
-                        $doctor_nurses=DB::table('doctor_nurse')->select('id','doctor_id','nurse_id')->where('doctor_id',@$id)->get();
+                        $branchs = DB::table('branchs')->where('status','1')->get();
+                        $doctor_nurses=DB::table('doctor_nurse')->select('id','branch_type','doctor_id','nurse_id')->where('doctor_id',@$id)->get();
                          @endphp
+
+
+                         @php
+                            $branchs = DB::table('branchs')->where('status', '1')->get();
+                      @endphp
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Add Branch
+                                </label>
+                                <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple required>
+                                    <option value="">Select Any One</option>
+                                    @forelse ($branchs as $branch)
+                                        <option value="{{ $branch->id }}" {{ in_array($branch->id, $user_branchs) ? 'selected' : '' }}>
+                                            {{ $branch->branch_name }}
+                                        </option>
+                                    @empty
+                                        <!-- Handle case where no branches are available -->
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Select coordinator<span class="clr"> * </span></label>
@@ -178,7 +204,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Select Nurse  <span class="clr"> * </span></label>
-                                <select class="form-control select2 form-select" name="coordinator[]" style="width: 100%;" multiple>
+                                <select class="form-control select2 form-select" name="nurse[]" style="width: 100%;" multiple>
                                     <option value="">Select Any One </option>
                                     @forelse ($nurse as $doctor_)
                                         @php
@@ -233,7 +259,7 @@
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
-                            <input type="text" value="{{ $doctor->email }}" class="form-control" placeholder="" readonly>
+                            <input type="text" value="{{ $doctor->email }}" name="email" class="form-control" placeholder="">
                             @error('email')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -256,7 +282,7 @@
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Mobile Phone</label>
-                            <input type="text" value="{{ $doctor->mobile_no }}" class="form-control" placeholder="" minlength="10" maxlength="15" readonly>
+                            <input type="text" value="{{ $doctor->mobile_no }}" name="mobile_no" class="form-control" placeholder="" minlength="10" maxlength="15">
                             @error('mobile_no')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -305,17 +331,32 @@
                         @enderror
                         </div>
                         </div>
+
+
+                        @php
+                        $allcountries = DB::table('countries')->get();
+                        @endphp
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Country</label>
-                                <select class="form-control select2" style="width: 100%;" name="country">
+                                <select class="form-control select2" name="country" style="width: 100%;"
+                                    required>
                                     <option value="">Select Any One</option>
-                                    <option value="India" {{ $doctor->country == 'India' ? 'selected' : '' }}>India</option>
-                                    <option value="USA" {{ $doctor->country == 'USA' ? 'selected' : '' }}>USA</option>
+
+                                    @forelse ($allcountries as $countries)
+                                        <option value="{{ $countries->Name }}"
+                                            {{ $countries->Name == $doctor->country ? 'selected' : '' }}>
+                                            {{ $countries->Name }}</option>
+
+                                    @empty
+                                    @endforelse
+
                                 </select>
                             </div>
-                        <!-- /.form-group -->
+                            <!-- /.form-group -->
                         </div>
+
+
 
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">

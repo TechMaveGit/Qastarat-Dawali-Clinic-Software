@@ -16,6 +16,7 @@ class GeneralDiagnosis extends Model
         'doctor_id' ,
         'title_name',
         'data_value',
+        'form_type',
         'created_at',
         'updated_at',
       

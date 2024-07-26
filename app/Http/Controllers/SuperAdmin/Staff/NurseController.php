@@ -15,24 +15,30 @@ class NurseController extends Controller
 
     public function view(Request $request,$id)
     {
-        $data['doctor']=Doctor::whereId($id)->first();
+        $data['doctor']=Doctor::with(['staffBranch.userBranchName'])->whereId($id)->first();
         $currentDate = now();
         $data['tasks']=DB::table('tasks')->where('assignTo',$id)->get();
         return view('superAdmin.nurse.view',$data);
     }
 
+
+    // nurse
+
     public function index()
     {
-        $data['nurse'] =   Doctor::select('id','role_id','patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'mobile_no', 'user_type')
+   
+        $data['nurse'] = Doctor::with(['staffBranch.userBranchName'])->select('id','role_id','patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'mobile_no', 'user_type')
                                     ->whereNotIn('role_id', ['1'])
+                                    ->whereNotIn('user_type', ['pathology','radiology'])
                                     ->orderBy('id', 'desc')
                                     ->get();
 
+       // dd($data['nurse']);    
 
         $data['role'] = DB::table('roles')->where('id','!=',1)->get();
         return view('superAdmin.nurse.index',$data);
-    }
 
+    }
 
 
     public function create(Request $request)
@@ -41,11 +47,24 @@ class NurseController extends Controller
         $data['branchs'] = DB::table('branchs')->where('status','1')->get();
         if(request()->isMethod("post"))
         {
+            
             $request->validate([
                 'email' => [
                     'required',
                     'email',
-                    'unique:doctors,email',
+                        function ($attribute, $value, $fail) {
+                            // Check email uniqueness in users table
+                            $userExists = DB::table('users')->where('email', $value)->exists();
+                            if ($userExists) {
+                                $fail('The ' . $attribute . ' has already been taken.');
+                            }
+                
+                            // Check email uniqueness in doctors table
+                            $doctorExists = DB::table('doctors')->where('email', $value)->exists();
+                            if ($doctorExists) {
+                                $fail('The ' . $attribute . ' has already been taken.');
+                            }
+                        },
                     function ($attribute, $value, $fail) {
                         // Custom rule to check email domain
                         $validDomains = ['.com'];
@@ -60,7 +79,7 @@ class NurseController extends Controller
                         }
                     },
                 ],
-                'post_code' => 'between:4,8',
+                // 'post_code' => 'between:4,8',
                 'graduation_year' => 'nullable|regex:/^\d{4}$/',
                 'birth_date'=>'required',
                 'landline' => 'nullable|numeric|digits_between:10,15',
@@ -74,7 +93,7 @@ class NurseController extends Controller
                 'email.required' => 'Email is required.',
                 'email.email' => 'Please enter a valid email address.',
                 'email.unique' => 'This email is already taken.',
-                'post_code.digits_between' => 'Post code must be between 4 and 8 digits.',
+                // 'post_code.digits_between' => 'Post code must be between 4 and 8 digits.',
                 'landline.numeric' => 'Landline must be a number.',
                 'landline.digits_between' => 'Landline must be between 10 and 15 digits.',
                 'mobile_no.required' => 'Mobile Phone is required.',
@@ -116,7 +135,7 @@ class NurseController extends Controller
                 $nurses['doctor_id'] = "TEL".rand('00000','99999'.'0');
                 $nurses['user_type'] = 'Telecaller';
             }elseif($nurses['role_id']==5){
-                $nurses['doctor_id'] = "Acc".rand('00000','99999'.'0');
+                $nurses['doctor_id'] = "ACC".rand('00000','99999'.'0');
                 $nurses['user_type'] = 'Accountant';
             }elseif($nurses['role_id']==2){
                 $nurses['doctor_id'] = "NUR".rand('00000','99999'.'0');
@@ -161,9 +180,20 @@ class NurseController extends Controller
                      }
                  }
 
+                 $role_name= DB::table('roles')->where('id',$request->input('role_id'))->first();
 
-                 $cord=$request->input('');
-                 $cord=$request->input('');
+                 if($role_name->id=='2')
+                 {
+                    $type="nurse";
+                 }
+                 if($role_name->id=='11')
+                 {
+                     $type="coordinator";
+                 }    
+                 else{
+                    $type=$role_name->name;
+                 }
+
 
 
 
@@ -179,7 +209,7 @@ class NurseController extends Controller
                              DB::table('user_branchs')->insertGetId([
                                  'patient_id'        => $lastInsertedId,
                                  'add_branch'        => $request->input('selectBranch')[$i],
-                                 'branch_type'       => $request->input('role_id')
+                                 'branch_type'       => $type,
                              ]);
                        }
                  }
@@ -196,17 +226,12 @@ class NurseController extends Controller
         return view('superAdmin.nurse.create',$data);
     }
 
-
-
-
     public function edit(Request $request,$id)
     {
 
-
-           $data['nurse']=Doctor::whereId($id)->first();
-
-           $user_branchs = DB::table('user_branchs')->where('patient_id',$id)->get();
-           $data['user_branchs']  = $user_branchs->pluck('add_branch')->toArray();
+        $data['nurse']=Doctor::whereId($id)->first();
+        $user_branchs = DB::table('user_branchs')->where('patient_id',$id)->get();
+        $data['user_branchs']  = $user_branchs->pluck('add_branch')->toArray();
 
         $data['id']= $id;
         if(request()->isMethod("post"))
@@ -215,9 +240,27 @@ class NurseController extends Controller
                 'email' => [
                     'required',
                     'email',
-                    Rule::unique('doctors')->ignore($id),
+                    function ($attribute, $value, $fail) use ($id) {
+                        // Check email uniqueness in users table, excluding the current user
+                        $userExists = DB::table('users')
+                            ->where('email', $value)
+                            ->where('id', '!=', $id)
+                            ->exists();
+                        if ($userExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
+                        }
+        
+                        // Check email uniqueness in doctors table
+                        $doctorExists = DB::table('doctors')
+                            ->where('email', $value)
+                            ->where('id', '!=', $id)
+                            ->exists();
+                        if ($doctorExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
+                        }
+                    },
                 ],
-                'post_code' => 'nullable|between:4,8',
+                // 'post_code' => 'nullable|between:4,8',
                 'graduation_year' => 'nullable|regex:/^\d{4}$/',
                 'birth_date'=>'required',
                 'landline' => 'nullable|numeric',
@@ -244,7 +287,7 @@ class NurseController extends Controller
                 $existingFilePath = $nurse_info->patient_profile_img;
 
                 // If an existing file exists, delete it
-                if ($existingFilePath && file_exists(public_path($existingFilePath))) {
+                if ($existingFilePath && file_exists(public_path($existingFilePath))) {  
                     unlink(public_path($existingFilePath));
                 }
 
@@ -282,9 +325,6 @@ class NurseController extends Controller
                 $doctor = $request->input('WorkUnder');
                 if(isset($doctor) && !empty($doctor)){
 
-                    // doctor insert
-
-                //    dd(intval($doctor[0]));
                        if (isset($doctor) && !empty($doctor)) {
                             $hgcount1 = count($doctor);
 
@@ -296,15 +336,24 @@ class NurseController extends Controller
                                             ]);
                         }
                     }
-
                 }
 
                 $nurse_info->update($nurse);
 
+                if($role_name->id=='2')
+                {
+                   $type="nurse";
+                }
+                if($role_name->id=='11')
+                {
+                    $type="coordinator";
+                } 
+                else{
+                    $type=$role_name->name;
+                 }  
 
 
-                DB::table('user_branchs')->where('patient_id',$id)->where('branch_type','staff')->delete();
-
+                DB::table('user_branchs')->where('patient_id',$id)->where('branch_type',$type)->delete();
                 $branchName=$request->input('selectBranch');
                  $branchName = json_decode(json_encode($branchName));
                  if ($branchName) {
@@ -317,7 +366,7 @@ class NurseController extends Controller
                              DB::table('user_branchs')->insertGetId([
                                  'patient_id'        => $id,
                                  'add_branch'        => $request->input('selectBranch')[$i],
-                                 'branch_type'       => 'staff'
+                                 'branch_type'       => $type
                              ]);
                        }
                  }

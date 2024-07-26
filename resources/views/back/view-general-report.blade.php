@@ -4,6 +4,13 @@
     Medical report | QASTARAT & DAWALI CLINICS
 @endpush
 
+<style>
+    .appointments___list.past_medical_history_ak .appoin_date p span.separation {
+        display: unset;
+        color: #ff8585;
+        padding: 0 5px;
+    }
+</style>
 @section('content-section')
 
     @push('custom-css')
@@ -13,67 +20,92 @@
     <?php
     $D = json_decode(json_encode(Auth::guard('doctor')->user()->get_role()), true);
     $arr = [];
-    foreach ($D as $v) {
+    foreach ($D as $v) 
+    {
         $arr[] = $v['permission_id'];
     }
     ?>
 
-@if(session('existingSymptoms'))
-    <script>
-        swal.fire({
-                    title: 'Success',
-                    html: '<strong>Symptom deleted successfully</strong>',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1000 // 1000 milliseconds = 1 second
-                });
-
-    </script>
-@endif
-
-<style>
-    .trash_btn {
-    color: #ff0000;
-    outline: none;
-    border: none;
-    margin-right: 5px;
-    background: transparent;
-}
-</style>
+    @if (session('existingSymptoms'))
+        <script>
+            swal.fire({
+                title: 'Success',
+                html: '<strong>Symptom deleted successfully</strong>',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1000 // 1000 milliseconds = 1 second
+            });
+        </script>
+    @endif
 
 
+    @if (session('deleteDocument'))
+        <script>
+            swal.fire({
+                title: 'Success',
+                html: '<strong>Document deleted successfully</strong>',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1000 // 1000 milliseconds = 1 second
+            });
+        </script>
+    @endif
 
-<!-- Modal -->
-<div class="modal fade edit_patient__" id="diagnosisModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Diagnosis</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-            </div>
 
-                <form action="{{ route('user.edit_Diagnosis') }}" method="post"/> @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                                <label for="diagnosisType">Diagnosis Type</label>
-                                <input type="hidden" name="diagnosisName" id="editDiagnosis"/>
-                                <input type="text" class="form-control" name="diagnosisType" id="editDiagnosisType" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="category">Category</label>
-                                <input type="text" class="form-control" id="editCategory" name="diagnosisCategory">
-                            </div>
+
+
+
+    @php
+        $diagnosis_generals = App\Models\patient\GeneralDiagnosis::with('doctor')
+            ->select('data_value', 'created_at', 'doctor_id')
+            ->where(['title_name' => 'diagnosis_general', 'patient_id' => session()->get('id')])
+            ->where('form_type', 'general_form')
+            ->get();
+        $diagnosis_cids = App\Models\patient\GeneralDiagnosis::with('doctor')
+            ->select('data_value', 'created_at', 'doctor_id')
+            ->where([
+                'title_name' => 'diagnosis_cid',
+                'patient_id' => session()->get('id'),
+                'form_type' => 'general_form',
+            ])
+            ->get();
+
+    @endphp
+
+
+    <!-- Modal -->
+    <div class="modal fade edit_patient__" id="diagnosisModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Diagnosis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <form action="{{ route('user.edit_Diagnosis') }}" method="post" /> @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="diagnosisType">Diagnosis Type</label>
+                        <input type="hidden" name="diagnosisName" id="editDiagnosis" />
+                        <input type="text" class="form-control" name="diagnosisType" id="editDiagnosisType" readonly>
                     </div>
-                    <div class="action text-end bottom_modal">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
-                            Edit</button>
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn" data-bs-dismiss="modal">
-                            Close</a>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" class="form-control" id="editCategory" name="diagnosisCategory">
                     </div>
+                </div>
+                <div class="action text-end bottom_modal">
+                    <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+                        Edit</button>
+                    <button type="button" class="modalCloseBtn" data-bs-dismiss="modal" aria-label="Close">
+                        Close</button>
+                </div>
                 </form>
+            </div>
         </div>
     </div>
-</div>
 
 
 
@@ -88,7 +120,7 @@
                     <div class="top_menus top_menu_up">
 
                         @include('back.custom_link')
-                        
+
                         <div class="middle_mm">
 
                             <div class="view_record_icon">
@@ -115,6 +147,7 @@
                                     <iconify-icon icon="majesticons:script-prescription-line" width="24"></iconify-icon>
                                     <span class="toolTip">Prescribe Drug</span>
                                 </a>
+
                                 <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
                                     data-bs-target="#refer_patient" aria-controls="offcanvasBottom">
 
@@ -136,18 +169,18 @@
 
                             <div class="view_record_icon">
 
-                                <a href="#" class="action_btn_tooltip" data-bs-toggle="modal" data-bs-target="#genrate_report">
+                                <a href="#" class="action_btn_tooltip" onclick="genrate_report('general_form')">
                                     <iconify-icon icon="carbon:report" width="22"></iconify-icon>
-                                    <span class="toolTip">Generate Report</span>
+                                    <span class="toolTip">Generated Reports</span>
                                 </a>
 
-                                <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
+                                <a href="#" class="action_btn_tooltip_" data-bs-toggle="modal"
                                     data-bs-target="#make_appointment">
                                     <iconify-icon icon="formkit:date"></iconify-icon>
                                     <span class="toolTip">Make an Appointment</span>
                                 </a>
 
-                                <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
+                                <a href="#" class="action_btn_tooltip_" data-bs-toggle="modal"
                                     data-bs-target="#video_meeting">
 
                                     <iconify-icon icon="octicon:device-camera-video-24" width="20"></iconify-icon>
@@ -155,7 +188,6 @@
                                     <span class="toolTip">Start a video call</span>
 
                                 </a>
-
 
 
                             </div>
@@ -188,46 +220,68 @@
 
                                 </div>
 
-                                <div class="patient_dt_profile">
+                                @if (isset($patient))
+                                    <div class="patient_dt_profile">
 
-                                    <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} <a
-                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
-                                                icon="material-symbols:edit"></iconify-icon></a></h5>
-                                    @php
-                                        if (!empty($patient->birth_date)) {
-                                            $birthDate = \Carbon\Carbon::createFromFormat(
-                                                'd M, Y',
-                                                $patient->birth_date,
-                                            );
-                                            $patientBirthDate = $birthDate->diffInYears(\Carbon\Carbon::now());
-                                        } else {
-                                            $patientBirthDate = null;    
-                                        }
-
-                                    @endphp
-                                    <p class="patient_age__">{{ $patientBirthDate }} Years , <span
-                                            class="patient_id__">{{ @$patient->patient_id }}</span></p>
-
-                                    <p class="insurance_dt">{{ $insurer != null ? $insurer->insurer_name : '' }} -
-                                        <span>{{ $insurer ? $insurer->insurance_number : '' }}</span>
-                                    </p>
-
-                                </div>
+                                        <h5 class="patient_name__">{{ $patient->sirname ?? '' }} {{ $patient->name ?? '' }}
+                                            <a href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
+                                                    icon="material-symbols:edit"></iconify-icon></a>
+                                        </h5>
 
 
+                                      @php
+
+                                            function parseDate($dateString) {
+                                                $formats = [
+                                                    'd M, Y',
+                                                    'Y-m-d', // Add other formats as needed
+                                                    'm/d/Y',
+                                                    'd/m/Y',
+                                                    'Y-m-d H:i:s',
+                                                    // Add more formats if necessary
+                                                ];
+
+                                                foreach ($formats as $format) {
+                                                    try {
+                                                        return \Carbon\Carbon::createFromFormat($format, $dateString);
+                                                    } catch (\Exception $e) {
+                                                        continue;
+                                                    }
+                                                }
+
+                                                return null;
+                                            }
+
+                                            if (!empty($patient->birth_date ?? '')) {
+                                                $birthDate = parseDate($patient->birth_date);
+                                                if ($birthDate) {
+                                                    $patientBirthDate = $birthDate->diffInYears(\Carbon\Carbon::now());
+                                                } else {
+                                                    $patientBirthDate = null;
+                                                }
+                                            } else {
+                                                $patientBirthDate = null;
+                                            }
+
+                                            @endphp
+                                        <p class="patient_age__">{{ $patientBirthDate }} Years , <span
+                                                class="patient_id__">{{ @$patient->patient_id }}</span></p>
+
+                                        <p class="insurance_dt">{{ $insurer != null ? $insurer->insurer_name : '' }} -
+                                            <span>{{ $insurer ? $insurer->insurance_number : '' }}</span>
+                                        </p>
+
+                                    </div>
+                                @endif
 
 
                             </div>
 
 
-
-
-
-
-
                             <div class="patient_dt_line_mm">
 
-                                <!-- <h3 class="sub_title__">Key Diagnosis</h3> -->
+
+
 
                                 <div class="accordion acordignleft__small" id="accordionExample2">
 
@@ -241,7 +295,7 @@
 
                                                 <div class="top_title_mm_box key_diagnosis">
 
-                                                    <h6>Key Diagnosis</h6>
+                                                    <h6>Generated Reports</h6>
 
 
 
@@ -251,37 +305,68 @@
 
                                         </h2>
 
+
+
                                         <div id="collapseleft1" class="accordion-collapse collapse show"
                                             data-bs-parent="#accordionExample2">
 
-                                            <div class="accordion-body ">
+
+                                            @if ($checkGenerateData->isNotEmpty())
+                                                <div class="accordion-body">
+                                                    <div class="appointments___list past_medical_history_ak">
+                                                        <ul class="scroll_list allergiesdtl">
+
+                                                            @if ($checkGenerateData->isEmpty())
+                                                                <li><small style="font-size:10px;">No Data Found</small>
+                                                                </li>
+                                                            @else
+                                                                @foreach ($checkGenerateData as $key => $report)
+                                                                    <li>
+                                                                        <div class="appoin_title_">
+                                                                            <form
+                                                                                action="{{ route('user.patient_medical_detail', ['id' => @$id]) }}"
+                                                                                method="get">
+
+                                                                                @csrf
+
+                                                                                <h6>General {{ $key + 1 }} <span
+                                                                                        class="text-align-right">
+
+                                                                                        <span class="reportDelete"
+                                                                                            data-id="{{ $report->id }}">
+                                                                                            <i
+                                                                                                class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                        </span>
+                                                                                </h6>
+
+                                                                                <h6>
+                                                                                    <input type="hidden"
+                                                                                        name="checkReport"
+                                                                                        value="{{ $report->id }}" />
+                                                                                    <button type="submit"
+                                                                                        class="view-report-btn">
+                                                                                        <span class="iconify"
+                                                                                            data-icon="ant-design:eye-outlined"></span>
+                                                                                        View Report
+                                                                                    </button>
+                                                                                    {{ \Carbon\Carbon::parse($report->created_at)->format('D, d M Y') }}
+                                                                                </h6>
 
 
 
-                                                <div class="diagnosis_type">
+                                                                            </form>
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
 
-                                                    <h6><span class="point_dia"><i
-                                                                class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                        Gernal diagnosis</h6>
 
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                        eiusmod</p>
 
+                                                        </ul>
+
+                                                    </div>
                                                 </div>
-
-                                                <div class="diagnosis_type">
-
-                                                    <h6><span class="point_dia"><i
-                                                                class="fa-regular fa-circle-dot"></i></span> ICD 10</h6>
-
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                        eiusmod</p>
-
-                                                </div>
-
-
-
-                                            </div>
+                                            @endif
 
                                         </div>
 
@@ -296,49 +381,65 @@
                                                 fdprocessedid="fwkd6">
                                                 <div class="top_title_mm_box">
                                                     <h6 class="allergies_hgjo"><span>Allergies</span>
-                                                        @if (in_array('6', $arr))
-                                                            <a href="#" class="allergies_add_klt"
-                                                                data-bs-toggle="modal" data-bs-target="#allergies_add"><i
-                                                                    class="fa-solid fa-circle-plus"></i></a>
-                                                        @endif
+
+                                                        <a href="#" class="allergies_add_klt"
+                                                            data-bs-toggle="modal" data-bs-target="#allergies_add"><i
+                                                                class="fa-solid fa-circle-plus"></i></a>
 
                                                     </h6>
                                                 </div>
                                             </button>
                                         </h2>
 
+                                        @php
+                                            $patient_allergies = App\Models\patient\Patient_allergy::where(
+                                                'patient_id',
+                                                decrypt(@$id),
+                                            )
+                                                ->where('form_type', 'general-report')
+                                                ->orderBy('id', 'desc')
+                                                ->get();
+                                        @endphp
 
 
                                         <div id="collapseleft7" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample7">
-                                            <div class="accordion-body">
-                                                @if (in_array('5', $arr))
-                                                    <ul class="symptoms">
-                                                        @php
-                                                            $patient_allergies = App\Models\patient\Patient_allergy::where(
-                                                                'patient_id',
-                                                                decrypt(@$id),
-                                                            )
-                                                                ->orderBy('id', 'desc')
-                                                                ->get();
-                                                        @endphp
+                                            @if ($patient_allergies->isNotEmpty())
+
+                                                <div class="accordion-body">
+
+                                                    <ul class="symptoms allergiesdtl scroll_list">
+
 
                                                         @if ($patient_allergies->isEmpty())
                                                             <li><small style="font-size:10px;">No Data Found</small>.</li>
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
-                                                                <li>{{ $patient_allergy->allergy_name }}</li>
+                                                                <li>{{ $patient_allergy->allergy_name }}
+
+                                                                    <span class="alergyDelete"
+                                                                        data-id="{{ $patient_allergy->id }}">
+                                                                        <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                    </span>
+
+                                                                </li>
                                                             @endforeach
                                                         @endif
 
+
+
                                                     </ul>
-                                                @endif
-                                            </div>
+
+                                                </div>
+                                            @endif
                                         </div>
 
 
 
                                     </div>
+
+
+
                                     <div class="accordion-item mm_title">
 
                                         <h2 class="accordion-header">
@@ -349,7 +450,6 @@
                                                 <div class="view_record_icon left_side_icon_inner">
 
 
-                                                    {{-- @if (in_array('8', $arr)) --}}
                                                     <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
                                                         data-bs-target="#past_medical">
 
@@ -359,7 +459,6 @@
                                                         <span class="toolTip">Past Medical History</span>
 
                                                     </a>
-                                                    {{-- @endif --}}
 
                                                 </div>&nbsp;
                                                 <div class="top_title_mm_box">
@@ -374,17 +473,21 @@
 
                                         </h2>
 
+
+
+
                                         <div id="collapseleft3" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample2">
 
 
                                             @if (count($patient_past_history) > 0)
 
-                                            <div class="accordion-body">
-                                                <div class="appointments___list past_medical_history_ak">
+                                                <div class="accordion-body">
+                                                    <div class="appointments___list past_medical_history_ak">
 
-                                                    @if (in_array('7', $arr))
-                                                        <ul id="past_medical_histories">
+
+                                                        <ul id="past_medical_histories"
+                                                            class="allergiesdtl scroll_list allergiesdtl">
                                                             @if ($patient_past_history->isEmpty())
                                                                 <li><small style="font-size:10px;">No Data Found</small>.
                                                                 </li>
@@ -396,39 +499,40 @@
 
                                                                             <h6>{{ $past_history->diseases_name }}</h6>
 
+                                                                            <p><span class="pastMedicalHistoryDelete "
+                                                                                    data-id="{{ $past_history->id }}">
+                                                                                    <i
+                                                                                        class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                </span></p>
+
+
+
+                                                                        </div>
+
+                                                                        <div class="appoin_title">
+
+                                                                            <h6> {{ $past_history->describe }}</h6>
+
                                                                             <p>{{ \Carbon\Carbon::parse($past_history->created_at)->format('D, d M Y') }}
-                                                                            </p>
+
+
+
 
                                                                         </div>
 
-                                                                        <div class="appoin_date">
 
-                                                                            <div class="read-more-content">
+                                                                      
 
-                                                                                <p>
 
-                                                                                    {{ $past_history->describe }}
-                                                                                </p>
-
-                                                                            </div>
-                                                                            @if (strlen($past_history->describe) >= 50)
-                                                                                <button
-                                                                                    class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                    onclick="toggleReadMore(this)">Read
-                                                                                    More</button>
-                                                                            @endif
-
-                                                                        </div>
 
                                                                     </li>
                                                                 @endforeach
                                                             @endif
                                                         </ul>
-                                                    @endif
+
+                                                    </div>
 
                                                 </div>
-
-                                            </div>
                                             @endif
 
                                         </div>
@@ -481,11 +585,11 @@
                                             data-bs-parent="#accordionExample4">
                                             @if (count($patient_past_surgical) > 0)
 
-                                            <div class="accordion-body">
+                                                <div class="accordion-body">
 
-                                                <div class="appointments___list past_medical_history_ak">
-                                                    @if (in_array('10', $arr))
-                                                        <ul>
+                                                    <div class="appointments___list past_medical_history_ak">
+
+                                                        <ul class="scroll_list allergiesdtl">
                                                             @if ($patient_past_surgical->isEmpty())
                                                                 <li><small style="font-size:10px;">No Data Found</small>.
                                                                 </li>
@@ -497,27 +601,30 @@
 
                                                                             <h6>{{ $past_surgical->diseases_name }}</h6>
 
-                                                                            <p>{{ \Carbon\Carbon::parse($past_surgical->created_at)->format('D, d M Y') }}
+                                                                            <p>
+
+                                                                                <span class="patientPastSurgical"
+                                                                                    data-id="{{ $past_surgical->id }}">
+                                                                                    <i
+                                                                                        class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                </span>
+
                                                                             </p>
+
+
 
                                                                         </div>
 
-                                                                        <div class="appoin_date">
+                                                                        <div class="appoin_title">
+                                                                            <h6>
+                                                                                {{ $past_surgical->describe }}
+                                                                            </h6>
 
-                                                                            <div class="read-more-content">
+                                                                            <p> {{ \Carbon\Carbon::parse($past_surgical->created_at)->format('D, d M Y') }}
+                                                                            </p>
 
-                                                                                <p>
 
-                                                                                    {{ $past_surgical->describe }}
-                                                                                </p>
-
-                                                                            </div>
-                                                                            @if (strlen($past_surgical->describe) >= 50)
-                                                                                <button
-                                                                                    class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                    onclick="toggleReadMore(this)">Read
-                                                                                    More</button>
-                                                                            @endif
+                                                                          
 
 
                                                                         </div>
@@ -526,11 +633,10 @@
                                                                 @endforeach
                                                             @endif
                                                         </ul>
-                                                    @endif
+
+                                                    </div>
 
                                                 </div>
-
-                                            </div>
                                             @endif
 
                                         </div>
@@ -575,51 +681,58 @@
                                             data-bs-parent="#accordionExample6">
                                             @if (count($patient_current_med) > 0)
 
-                                            <div class="accordion-body">
-                                                <div class="appointments___list past_medical_history_ak">
+                                                <div class="accordion-body">
+                                                    <div class="appointments___list past_medical_history_ak">
 
-                                                    <ul>
-                                                        @if ($patient_current_med->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
-                                                        @else
-                                                            @foreach ($patient_current_med as $patient_current)
-                                                                <li>
+                                                        <ul class="scroll_list">
+                                                            @if ($patient_current_med->isEmpty())
+                                                                <li><small style="font-size:10px;">No Data Found</small>
+                                                                </li>
+                                                            @else
+                                                                @foreach ($patient_current_med as $patient_current)
+                                                                    <li>
 
-                                                                    <div class="appoin_title">
+                                                                        <div class="appoin_title">
 
-                                                                        <h6>{{ $patient_current->drug_name }}</h6>
+                                                                            <h6>{{ $patient_current->drug_name }}</h6>
+                                                                            <p>
+                                                                                <span class="patientRemoveDrug"
+                                                                                    data-id="{{ $patient_current->id }}">
+                                                                                    <i
+                                                                                        class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                </span>
+                                                                            </p>
 
-                                                                        <p>{{ \Carbon\Carbon::parse($patient_current->created_at)->format('D, d M Y') }}
-                                                                        </p>
 
-                                                                    </div>
 
-                                                                    <div class="appoin_date">
+                                                                        </div>
 
-                                                                        <div class="read-more-content">
+                                                                        <div class="appoin_title">
+                                                                            <h6> Frequency:-
+                                                                                {{ $patient_current->frequency }}</h6>
 
                                                                             <p>
 
-                                                                                {{ $patient_current->frequency }}
+                                                                                {{ \Carbon\Carbon::parse($patient_current->created_at)->format('D, d M Y') }}
                                                                             </p>
 
                                                                         </div>
 
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
+                                                        </ul>
+                                                    </div>
 
-                                                                    </div>
-
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
-                                                    </ul>
                                                 </div>
-
-                                            </div>
                                             @endif
 
                                         </div>
 
                                     </div>
+
+
+
 
                                     <div class="accordion-item mm_title">
 
@@ -642,59 +755,56 @@
                                         <div id="collapseleft10" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample10">
                                             @if (count($procedures) > 0)
-                                            <div class="accordion-body">
-                                                <div class="appointments___list past_medical_history_ak">
-                                                    <ul>
-                                                        @if ($procedures->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
-                                                        @else
-                                                            @foreach ($procedures as $procedure)
-                                                                <li>
+                                                <div class="accordion-body">
+                                                    <div class="appointments___list past_medical_history_ak">
+                                                        <ul class="scroll_list">
+                                                            @if ($procedures->isEmpty())
+                                                                <li><small style="font-size:10px;">No Data Found</small>
+                                                                </li>
+                                                            @else
+                                                                @foreach ($procedures as $procedure)
+                                                                    <li>
 
-                                                                    <div class="appoin_title">
+                                                                        <div class="appoin_title">
 
-                                                                        <h6>{{ $procedure->procedure_name }}</h6>
-
-                                                                        <p class="text-align:right">
-                                                                            {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
-                                                                        </p>
-
-                                                                    </div>
-
-
-                                                                    <div class="appoin_date">
-
-                                                                        <div class="read-more-content">
+                                                                            <h6>{{ $procedure->procedure_name }}</h6>
 
                                                                             <p>
-
-                                                                                {{ $procedure->summary }}
+                                                                                <span class="patientListOf"
+                                                                                    data-id="{{ $procedure->id }}">
+                                                                                    <i
+                                                                                        class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                </span>
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($procedure->summary) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
 
-                                                                    </div>
 
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
-                                                    </ul>
+                                                                        <div class="appoin_date">
+
+
+                                                                            <div class="appoin_title">
+                                                                                <h6> {{ $procedure->summary }}</h6>
+
+                                                                                <p>
+
+                                                                                    {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
+                                                                                </p>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endif
 
                                         </div>
 
                                     </div>
-
-
-
 
                                     <div class="accordion-item mm_title">
 
@@ -714,76 +824,110 @@
 
                                         </h2>
 
+
+                                        @php
+                                            $patientId = decrypt($id);
+                                            $referaldoctors = DB::table('referal_patients')
+                                                ->where('patient_id', $patientId)
+                                                ->get();
+
+                                        @endphp
+
+
                                         <div id="collapseleft11" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample11">
-                                            <div class="accordion-body">
+                                            @if (count($referaldoctors) > 0)
+                                                <div class="accordion-body">
 
-                                                <ul class="referrals_list">
-                                                 @php
-                                                      $patientId = decrypt($id);
-                                                      $referaldoctors = DB::table('referal_patients')->where('patient_id',$patientId)->get();
-                                                   
-                                                    @endphp
+                                                    <ul class="referrals_list scroll_list">
 
-                                                    @forelse ($referaldoctors as $allreferaldoctors)
 
-                                                    @php
-                                                     $doctorDetail = DB::table('doctors')->where('id',$allreferaldoctors->doctor_id)->first();
-                                                    
-                                                    @endphp
-                                                    
-                                                    <li>
-                                                        <div class="booking_card_select">
+                                                        @forelse ($referaldoctors as $allreferaldoctors)
+                                                            @php
 
-                                                            <label for="cbx1">
+                                                                $doctorDetail = DB::table('doctors')
+                                                                    ->where('id', $allreferaldoctors->doctor_id)
+                                                                    ->first();
 
-                                                                <div class="doctor_dt">
+                                                                $userDetail =DB::table('users')->where('id',$allreferaldoctors->patient_id)->first();    
 
-                                                                    <div class="image_dr">
+                                                            @endphp
 
-                                                                        @if (isset($doctorDetail->patient_profile_img))
+                                                            <li style="position: relative;">
 
-                                                                        <img src="{{ asset('/public/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
+                                                                <div class="booking_card_select">
 
-                                                                        @else
-                                                                        <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+                                                                    <label for="cbx1">
 
-                                                                        @endif
+                                                                        <div class="doctor_dt">
 
-                                                                    </div>
+                                                                            <div class="image_dr">
 
-                                                                    <div class="dr_detail">
+                                                                                @if (isset($doctorDetail->patient_profile_img))
+                                                                                    <img src="{{ asset('/public/assets/profileImage/' . $doctorDetail->patient_profile_img) }}"
+                                                                                        alt="">
+                                                                                @else
+                                                                                    <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                        alt="">
+                                                                                @endif
 
-                                                                        <h6 class="dr_name">{{ $doctorDetail->name??'' }}
-                                                                            <span>{{ $doctorDetail->title??'' }}</span>
-                                                                        </h6>
+                                                                            </div>
 
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:{{ $doctorDetail->email??'' }}">{{ $doctorDetail->email??'' }}</a>
-                                                                        </p>
+                                                                            <div class="dr_detail">
 
-                                                                    </div>
+                                                                                <h6 class="dr_name">
+                                                                                    {{ $doctorDetail->name ?? '' }}
+                                                                                    <span>{{ $doctorDetail->title ?? '' }}</span>
+                                                                                </h6>
+
+                                                                                <span class="text-align-right">
+
+                                                                                    <p class="dr_email"><a
+                                                                                            href="mailto:{{ $doctorDetail->email ?? '' }}">{{ $doctorDetail->email ?? '' }}</a>
+                                                                                    </p>
+
+                                                                                    @php
+                                                                                        $documentUrl = asset(
+                                                                                            'public/assets/referalDocument/' .
+                                                                                                $allreferaldoctors->upload_document,
+                                                                                        );
+                                                                                    @endphp
+                                                                                    <p
+                                                                                    onclick="ViewSummary(`{{ $allreferaldoctors->patient_summary }}`,`{{  $allreferaldoctors->upload_document }}`,`{{ $documentUrl }}`,`{{ $allreferaldoctors->reply_summary }}`,`{{ $allreferaldoctors->id}}`)">
+                                                                                    View Summary</p>
+                                                                                </span>
+
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </label>
 
                                                                 </div>
 
-                                                            </label>
+                                                                @if (!(auth()->guard('doctor')->id() == $allreferaldoctors->doctor_id))
+                                                                    <span class="removeReferalPatient"
+                                                                        data-id="{{ $allreferaldoctors->id }}">
+                                                                        <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                    </span>
+                                                                @endif
 
-                                                        </div>
-                                                    </li>
 
-                                                    @empty
-                                                    <li>
-                                                        <h4>No Data Found</h4>
-                                                    </li>
-                                                        
-                                                    @endforelse
 
-                                                  
+                                                            </li>
 
-                                                </ul>
+                                                        @empty
+                                                            {{-- <p>sasd</p> --}}
+                                                        @endforelse
 
-                                            </div>
-                                           
+
+
+                                                    </ul>
+
+                                                </div>
+                                            @endif
+
 
                                         </div>
 
@@ -796,71 +940,67 @@
                                                 aria-expanded="false" aria-controls="collapseleft8"
                                                 fdprocessedid="1qbdpg">
                                                 <div class="top_title_mm_box">
-                                                    <h6>List of Visit</h6>
+                                                    <h6>List of Visit </h6>
                                                 </div>
                                             </button>
                                         </h2>
 
                                         <div id="collapseleft8" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample8" style="">
-                                            @if (count($procedures) > 0)
-                                            <div class="accordion-body">
-                                                <div class="appointments___list past_medical_history_ak">
+                                            {{-- @if (count($procedures) > 0) --}}
+                                                <div class="accordion-body">
+                                                    <div class="appointments___list past_medical_history_ak">
 
-                                                    <ul>
-                                                        @php
-                                                            $patient_id = decrypt(@$id);
-                                                            $visit_notes = App\Models\patient\Patient_progress_note::select(
-                                                                'created_at',
-                                                                'voice_recognition',
-                                                            )
-                                                                ->where([
-                                                                    'progress_note_canned_text_id' => 6,
-                                                                    'patient_id' => @$patient_id,
-                                                                ])
-                                                                ->orderBy('id', 'desc')
-                                                                ->get();
-                                                        @endphp
-                                                        @if ($visit_notes->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
-                                                        @else
-                                                            @foreach ($visit_notes as $visit)
-                                                                <li>
-                                                                    <div class="appoin_title">
+                                                        <ul>
+                                                            @php
+                                                                $patient_id = decrypt(@$id);
+                                                                $visit_notes = App\Models\patient\Patient_progress_note::select(
+                                                                    'created_at',
+                                                                    'voice_recognition',
+                                                                )
+                                                                    ->where([
+                                                                        // 'progress_note_canned_text_id' => 6,
+                                                                        'patient_id' => @$patient_id
+                                                                    ])
+                                                                    ->orderBy('id', 'desc')
+                                                                    ->get();
+                                                            @endphp
+                                                            @if ($visit_notes->isEmpty())
+                                                                <li><small style="font-size:10px;">No Data Found</small>.
+                                                                </li>
+                                                            @else
+                                                                @foreach ($visit_notes as $visit)
+                                                                    <li>
+                                                                        <div class="appoin_title">
 
-                                                                        <h6></h6>
+                                                                            <h6></h6>
 
-                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                        </p>
-
-                                                                    </div>
-                                                                    <div class="appoin_date">
-
-                                                                        <div class="read-more-content">
-
-                                                                            <p>
-
-                                                                                {!! $visit->voice_recognition !!}
+                                                                            <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($visit->voice_recognition) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
+                                                                        <div class="appoin_date">
 
-                                                                    </div>
+                                                                            <div class="read-more-content">
 
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
+                                                                                <p>
 
-                                                    </ul>
+                                                                                    {!! $visit->voice_recognition !!}
+                                                                                </p>
+
+                                                                            </div>
+                                                                          
+
+                                                                        </div>
+
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
+
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            @endif
+                                            {{-- @endif --}}
                                         </div>
                                     </div>
 
@@ -886,52 +1026,55 @@
                                         <div id="collapseleft91" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample8">
                                             @if (count($prescriptions) > 0)
-                                            <div class="accordion-body">
+                                                <div class="accordion-body">
 
-                                                <div class="appointments___list past_medical_history_ak">
+                                                    <div class="appointments___list past_medical_history_ak">
 
-                                                    <ul>
-                                                        @if ($prescriptions->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
-                                                        @else
-                                                            @foreach ($prescriptions as $prescription)
-                                                                <li>
+                                                        <ul class="allergiesdtl scroll_list">
+                                                            @if ($prescriptions->isEmpty())
+                                                                <li><small style="font-size:10px;">No Data Found</small>
+                                                                </li>
+                                                            @else
+                                                                @foreach ($prescriptions as $prescription)
+                                                                    <li>
 
-                                                                    <div class="appoin_title">
+                                                                        <div class="appoin_title">
 
-                                                                        <h6></h6>
+                                                                            <h6>{{ $prescription->prescription }}</h6>
 
-                                                                        <p>{{ \Carbon\Carbon::parse($prescription->created_at)->format('D, d M Y') }}
-                                                                        </p>
-
-                                                                    </div>
-
-                                                                    <div class="appoin_date">
-
-                                                                        <div class="read-more-content">
 
                                                                             <p>
-
-                                                                                {{ $prescription->prescription }}
+                                                                                <span class="prescriptionsMedicines"
+                                                                                    data-id="{{ $prescription->id }}">
+                                                                                    <i
+                                                                                        class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                </span>
                                                                             </p>
 
+
+
                                                                         </div>
-                                                                        @if (strlen($prescription->prescription) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
 
-                                                                    </div>
+                                                                        <div class="appoin_title">
 
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
-                                                    </ul>
+                                                                            <h6></h6>
+
+                                                                            <p>{{ \Carbon\Carbon::parse($prescription->created_at)->format('D, d M Y') }}
+                                                                            </p>
+
+                                                                         
+
+                                                                        </div>
+
+
+
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
-
-                                            </div>
                                             @endif
 
                                         </div>
@@ -993,14 +1136,13 @@
                                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                                                     </div>
                                                                     <div class="dropdown-content">
-                                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                                class="fa-solid fa-print"></i> Print
-                                                                        </a>
-                                                                        <a href="#" class="bottom_btn extract_btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#attach_document">
+
+
+                                                                        <a onclick="viewDocument('general_form','diagnosis')"
+                                                                            class="bottom_btn extract_btn">
                                                                             <i class="fa-solid fa-paperclip"></i> Attach
                                                                         </a>
+
 
                                                                     </div>
                                                                 </div>
@@ -1014,97 +1156,127 @@
                                             </button>
                                         </h2>
 
-                                        
+
                                         <div id="collapseleft24" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample24">
 
-                                            @if (count($diagnosis_generals) > 0 || count($diagnosis_cids) > 0 )
-                                            <div class="accordion-body ">
-                                                <div class="appointments___list past_medical_history_ak diagnosis_data">
-                                                    <ul>
-                                                        
-                                                        @if (count($diagnosis_generals) > 0)
-                                                        <li>
-                                                            <div class="appoin_title">
-                                                                <h6><span class="point_dia"><i
-                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                    Provisional / Gernal diagnosis</h6>
+                                            @if (count($diagnosis_generals) > 0 || count($diagnosis_cids) > 0)
+                                                <div class="accordion-body ">
+                                                    <div
+                                                        class="appointments___list past_medical_history_ak diagnosis_data">
+                                                        <ul>
+                                                            @if (count($diagnosis_generals) > 0)
+                                                                <li>
+                                                                    <div class="appoin_title">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                            Provisional / Gernal diagnosis</h6>
 
-                                                            </div>
+                                                                    </div>
 
-                                                            <div class="appoin_date">
-                                                                <div>
-                                                                  <div class="diagnosis_show">
-                                                                 
-                                                                  <p class="diagnosis_text">
-                                                                    @forelse($diagnosis_generals as $diagnosis_general)
-                                                                    {{ $diagnosis_general->data_value }}
-                                                                    @if(!$loop->last)
-                                                                    <span class="separation">|</span>
-                                                                    @endif
-                                                                      @empty
-                                                                      <small style="font-size:10px;">No Data Found</small>
-                                                                    @endforelse
-                                                                    </p>
-                                                                    @if(isset($diagnosis_general) && isset($diagnosis_general->created_at))
-                                                                    <p class="diagnosis_date">
-                                                                        <span class="enter_span_hivj"> Entered By | {{ optional(optional($diagnosis_general)->doctor)->name ?? '' }}</span> 
-                                                                        <span class="enter_span_hivj">{{ isset($diagnosis_general) && isset($diagnosis_general->created_at) ? $diagnosis_general->created_at->format('D, d M Y, H:i A') : '' }}</span>
-                                                                    </p>
-                                                                    @endif
-                                                                  </div>
-                                                           
-                                                              </div>
-                                                          
-                                                              </div>
-                                                        </li>
-                                                        @endif
-                                                       
+                                                                    <div class="appoin_date">
+                                                                        <div>
+                                                                            <div class="diagnosis_show">
 
-                                                        @if (count($diagnosis_cids) > 0)
-                                                        <li>
-                                                            <div class="appoin_title">
-                                                                <h6><span class="point_dia"><i
-                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                    ICD 10</h6>
+                                                                                <p class="diagnosis_text">
+                                                                                    @forelse($diagnosis_generals as $diagnosis_general)
+                                                                                        {{ $diagnosis_general->data_value }}
+                                                                                        @if (!$loop->last)
+                                                                                            <span
+                                                                                                class="separation">|</span>
+                                                                                        @endif
+                                                                                    @empty
+                                                                                        <small style="font-size:10px;">No
+                                                                                            Data Found</small>
+                                                                                    @endforelse
+                                                                                </p>
+                                                                                @if (isset($diagnosis_general) && isset($diagnosis_general->created_at))
+                                                                                    <p class="diagnosis_date">
+                                                                                        <span class="enter_span_hivj">
+                                                                                            Entered By |
+                                                                                            {{ optional(optional($diagnosis_general)->doctor)->name ?? '' }}</span>
+                                                                                        <span
+                                                                                            class="enter_span_hivj">{{ isset($diagnosis_general) && isset($diagnosis_general->created_at) ? $diagnosis_general->created_at->format('D, d M Y, H:i A') : '' }}</span>
+                                                                                    </p>
+                                                                                @endif
+                                                                            </div>
 
-                                                            </div>
+                                                                        </div>
 
-                                                            <div class="appoin_date">
-                                                                <div>
-                                                                  <div class="diagnosis_show">
-                                                                 
-                                                                  <p class="diagnosis_text">
-                                                                    @forelse ($diagnosis_cids as $diagnosis_cid)
-                                                                  {{ $diagnosis_cid->data_value }}
-                                                                    @if(!$loop->last)
-                                                                    <span class="separation">|</span>
-                                                                    @endif
-                                                                      @empty
-                                                                      <small style="font-size:10px;">No Data Found</small>
-                                                                    @endforelse
-                                                                    </p>
-                                                                    @if(isset($diagnosis_cid) && isset($diagnosis_cid->created_at))
-                                                                    <p class="diagnosis_date">
-                                                                        <span class="enter_span_hivj"> Entered By | {{ optional(optional($diagnosis_cid)->doctor)->name ?? '' }}</span> 
-                                                                        <span class="enter_span_hivj">{{ isset($diagnosis_cid) && isset($diagnosis_cid->created_at) ? $diagnosis_cid->created_at->format('D, d M Y, H:i A') : '' }}</span>
-                                                                    </p>
-                                                                    @endif
-                                                                  </div>
-                                                           
-                                                              </div>
-                                                          
-                                                              </div>
+                                                                    </div>
+                                                                </li>
+                                                            @endif
 
-                                                        </li>
-                                                        @endif
-                                                       
 
-                                                    </ul>
+                                                            @if (count($diagnosis_cids) > 0)
+                                                                <li>
+                                                                    <div class="appoin_title">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                            ICD 10</h6>
+
+                                                                    </div>
+
+                                                                    <div class="appoin_date">
+                                                                        <div>
+                                                                            <div class="diagnosis_show">
+
+                                                                                <p class="diagnosis_text">
+                                                                                    @forelse ($diagnosis_cids as $diagnosis_cid)
+                                                                                        {{ $diagnosis_cid->data_value }}
+                                                                                        @if (!$loop->last)
+                                                                                            <span
+                                                                                                class="separation">|</span>
+                                                                                        @endif
+                                                                                    @empty
+                                                                                        <small style="font-size:10px;">No
+                                                                                            Data Found</small>
+                                                                                    @endforelse
+                                                                                </p>
+                                                                                @if (isset($diagnosis_cid) && isset($diagnosis_cid->created_at))
+                                                                                    <p class="diagnosis_date">
+                                                                                        <span class="enter_span_hivj">
+                                                                                            Entered By |
+                                                                                            {{ optional(optional($diagnosis_cid)->doctor)->name ?? '' }}</span>
+                                                                                        <span
+                                                                                            class="enter_span_hivj">{{ isset($diagnosis_cid) && isset($diagnosis_cid->created_at) ? $diagnosis_cid->created_at->format('D, d M Y, H:i A') : '' }}</span>
+                                                                                    </p>
+                                                                                @endif
+
+
+
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </li>
+                                                            @endif
+
+                                                            @forelse ($document_file as $alldocument_file)
+                                                                @if (in_array($alldocument_file->form_section_type, ['diagnosis']))
+                                                                    <div class="document_view">
+                                                                        <h6><span class="trshDoc"><a
+                                                                                    href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                                        icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                            <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                                target="_blank"><iconify-icon
+                                                                                    icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                                        </h6>
+                                                                    </div>
+                                                                @endif
+                                                            @empty
+                                                            @endforelse
+
+
+
+                                                        </ul>
+                                                    </div>
+
+
                                                 </div>
-
-
-                                            </div>
                                             @endif
                                         </div>
                                     </div>
@@ -1131,13 +1303,10 @@
                                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                                                     </div>
                                                                     <div class="dropdown-content">
-                                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                                class="fa-solid fa-print"></i> Print
-                                                                        </a>
-                                                                        <a href="#" class="bottom_btn extract_btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#attach_document"><i
-                                                                                class="fa-solid fa-paperclip"></i> Attach
+
+                                                                        <a onclick="viewDocument('general_form','symptoms')"
+                                                                            class="bottom_btn extract_btn">
+                                                                            <i class="fa-solid fa-paperclip"></i> Attach
                                                                         </a>
 
                                                                     </div>
@@ -1149,87 +1318,119 @@
                                             </button>
                                         </h2>
 
-                                          
+
                                         <div id="collapseleft16" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample16">
                                             @if (count($generalDiagnosis) > 0)
-                                            <div class="accordion-body">
-                                                <div class="appointments___list past_medical_history_ak diagnosis_data">
+                                                <div class="accordion-body">
+                                                    <div
+                                                        class="appointments___list past_medical_history_ak diagnosis_data">
 
-                                                    <ul>  
-                                                        <li>
-                                                            @forelse ($generalDiagnosis as $key =>$value)
-                                                            <div class="appoin_date">
-                                                              <div>
-                                                                <div class="diagnosis_show">
-                                                                    @php
-                                                                        $givenDate = $value['created_at'];
-                                                                        $startDate =  \Carbon\Carbon::parse($givenDate);
-                                                                        $endDate = \Carbon\Carbon::now();
-                                                                        $monthsDifference = $endDate->diffInMonths($startDate);
-                                                                        $minutesDifference = $endDate->diffInMinutes($startDate) % 60;
-                                                                    @endphp
+                                                        <ul>
+                                                            <li>
+                                                                @forelse ($generalDiagnosis as $key =>$value)
+                                                                
+                                                                <div class="appoin_date">
+                                                                    <div>
+                                                                        <div class="diagnosis_show">
+                                                                            @php
+                                                                                $givenDate = $value['created_at'];
+                                                                                $startDate = \Carbon\Carbon::parse(
+                                                                                    $givenDate,
+                                                                                );
+                                                                                $endDate = \Carbon\Carbon::now();
+                                                                                $monthsDifference = $endDate->diffInMonths(
+                                                                                    $startDate,
+                                                                                );
+                                                                                $minutesDifference =
+                                                                                    $endDate->diffInMinutes(
+                                                                                        $startDate,
+                                                                                    ) % 60;
+                                                                            @endphp
 
-                                                              
-                                                                 <div class="symp_title">
-                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span>  {{ $value['SymptomType'] ?? '' }}<span class="sym_duration">
-                                                                    
-                                                                    @if ($monthsDifference > 0)
-                                                                    {{ $monthsDifference }} Months
-                                                                    @endif
-                                                                
-                                                                    @if ($monthsDifference > 0 && $minutesDifference > 0)
-                                                                        {{ $minutesDifference }} minutes
-                                                                    @elseif ($minutesDifference > 0)
-                                                                        {{ $minutesDifference }} minutes
-                                                                    @endif
-                                                                
-                                                                </span></h6>
-                                                                  <p class="diagnosis_text"> {{ $value['SymptomDurationNote'] ?? '' }}!</p>                 
+
+                                                                            <div class="symp_title">
+                                                                                <h6><span class="point_dia"><i
+                                                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                                                    {{ $value['SymptomType'] ?? '' }}<span
+                                                                                        class="sym_duration">
+
+                                                                                        @if ($monthsDifference > 0)
+                                                                                            {{ $monthsDifference }}
+                                                                                            Months
+                                                                                        @endif
+
+                                                                                        @if ($monthsDifference > 0 && $minutesDifference > 0)
+                                                                                            {{ $minutesDifference }}
+                                                                                            minutes
+                                                                                        @endif
+
+                                                                                        @if ($minutesDifference > 0)
+                                                                                            {{ $minutesDifference }}
+                                                                                            minutes
+                                                                                        @endif
+
+                                                                                    </span></h6>
+                                                                                <p class="diagnosis_text">
+                                                                                    {{ $value['SymptomDurationNote'] ?? '' }}!
+                                                                                </p>
+                                                                            </div>
+
+
+                                                                            @if ($loop->last)
+                                                                                <p class="diagnosis_date"><span
+                                                                                        class="enter_span_hivj">
+                                                                                        Entered By |
+                                                                                        {{ isset($value) ? $value->doctor->name ?? '' : '' }}</span>
+                                                                                    <span
+                                                                                        class="enter_span_hivj">{{ isset($value) && isset($value->created_at) ? $value->created_at->format('D, d M Y, H:i A') : '' }}</span>
+                                                                                </p>
+                                                                            @endif
+
+
+
+
+
+
+
+
+
+                                                                        </div>
+
+                                                                    </div>
+
                                                                 </div>
-                                                               
-                                                                
-                                                                @if($loop->last)
-                                                                <p class="diagnosis_date"><span class="enter_span_hivj"> Entered By |  {{  isset($value) ? $value->doctor->name??'' : '' }}</span> <span class="enter_span_hivj">{{ isset($value) && isset($value->created_at) ? $value->created_at->format('D, d M Y, H:i A') : '' }}</span></p>
+
+                                                                @empty
+                                                                @endforelse
+                                                            </li>
+
+                                                            @forelse ($document_file as $alldocument_file)
+                                                                @if (in_array($alldocument_file->form_section_type, ['symptoms']))
+                                                                    <div class="document_view">
+                                                                        <h6><span class="trshDoc"><a
+                                                                                    href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                                        icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                            <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                                target="_blank"><iconify-icon
+                                                                                    icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                                        </h6>
+                                                                    </div>
                                                                 @endif
-                                                                
+                                                            @empty
+                                                            @endforelse
 
-                                                                </div>
-                                                             
-                                                            </div>
-                                                       
-                                                            </div>
-                                                           
-                                                          
-                                                         
-                                                          @empty
-                                                          <div class="appoin_date">
-                                                            <div>
-                                                            <div class="diagnosis_show">
-                                                            
-                                                            
-                                                              <div class="ss_result_box">
-                                                              <div class="symp_title mb-1">
-                                                              <span style="font-size:10px;">  No Data Found </span>
-                                                              </div>
-                                                              </div>
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                        @endforelse
-                                                    </li>
-                                                   
-                                                    </ul>
-                                                   
+                                                        </ul>
+
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endif
                                         </div>
                                     </div>
 
 
 
-                                    <div class="accordion-item mm_title">
+                                    {{-- <div class="accordion-item mm_title">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#collapseleft2"
@@ -1251,14 +1452,11 @@
                                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                                                     </div>
                                                                     <div class="dropdown-content">
-                                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                                class="fa-solid fa-print"></i> Print
-                                                                        </a>
-                                                                        <a href="#" class="bottom_btn extract_btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#attach_document"><i
-                                                                                class="fa-solid fa-paperclip"></i> Attach
-                                                                        </a>
+                                                                       
+                                                                        <a onclick="viewDocument('general_form','severity')" class="bottom_btn extract_btn"
+                                                                        >
+                                                                         <i class="fa-solid fa-paperclip"></i> Attach
+                                                                       </a>
 
                                                                     </div>
                                                                 </div>
@@ -1269,6 +1467,7 @@
                                                 </div>
                                             </button>
                                         </h2>
+
                                         <div id="collapseleft2" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample2">
                                             @if (count($ClinicalIndicator_db) > 0)
@@ -1278,7 +1477,7 @@
                                                     <ul>
                                                         
                                                         <li>
-                                                            @if(isset($ClinicalIndicator_db) || isset($symptoms_scores_db))
+                                                            @if (isset($ClinicalIndicator_db) || isset($symptoms_scores_db))
                                                             <div class="appoin_date">
                                                               <div>
                                                               <div class="diagnosis_show">
@@ -1320,7 +1519,7 @@
                                                                 @php
                                                                     $jsonData = json_decode($record->data_value, true);
                                                                 @endphp
-                                                                @if(isset($jsonData) && is_array($jsonData) && array_key_exists("Palpitations",$jsonData) )
+                                                                @if (isset($jsonData) && is_array($jsonData) && array_key_exists('Palpitations', $jsonData))
                                                                 <div class="ss_result_box">
                                                                 <div class="symp_title mb-1">
                                                                   <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> hyper-Toxic symptoms: Palpitations | Sweating | Anxiety | tremor | weight loss | hair loss</h6>
@@ -1328,7 +1527,7 @@
                                                                 <p class="ss_result">{{ $jsonData['Palpitations'][0] ?? '' }}</p>
                                                                 </div>
                                                                 @endif
-                                                                @if(isset($jsonData) && is_array($jsonData) && array_key_exists("Carbimazole",$jsonData))
+                                                                @if (isset($jsonData) && is_array($jsonData) && array_key_exists('Carbimazole', $jsonData))
                                                                 <div class="ss_result_box">
                                                                 <div class="symp_title mb-1">
                                                                   <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Anti-thyroid meds (e.g. Carbimazole)</h6>
@@ -1336,7 +1535,7 @@
                                                                 <p class="ss_result">{{ $jsonData['Carbimazole'][0] ?? '' }}</p>
                                                                 </div> 
                                                                 @endif
-                                                                @if(isset($jsonData) && is_array($jsonData) && array_key_exists("lethargy",$jsonData) )
+                                                                @if (isset($jsonData) && is_array($jsonData) && array_key_exists('lethargy', $jsonData))
                                                                 <div class="ss_result_box">
                                                                 <div class="symp_title mb-1">
                                                                   <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Hypo-thyroid symptoms: lethargy | Fatigue | cold intolerance | weight gain | altered mood</h6>
@@ -1344,7 +1543,7 @@
                                                                 <p class="ss_result">{{ $jsonData['lethargy'][0] ?? '' }}</p>
                                                                 </div> 
                                                                 @endif
-                                                                @if (isset($jsonData) && is_array($jsonData) && array_key_exists("Thyroxine",$jsonData) )
+                                                                @if (isset($jsonData) && is_array($jsonData) && array_key_exists('Thyroxine', $jsonData))
                                                                 <div class="ss_result_box">
                                                                 <div class="symp_title mb-1">
                                                                   <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Thyroid hormone replacement (e.g. Thyroxine)</h6>
@@ -1357,6 +1556,19 @@
                                                              
                                                                 <p class="diagnosis_date top_de"><span class="enter_span_hivj">  {{  isset($record) ? $record->doctor->name : '' }}</span> <span class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}</span></p> 
                                                                
+                                                                @forelse ($document_file as $alldocument_file)
+                                                                @if (in_array($alldocument_file->form_section_type, ['severity']))
+                                                                    <p class="diagnosis_date">
+                                                                        <a href="{{ url('public/uploads/'. $alldocument_file->upload_file) }}" target="_blank">
+                                                                            <i class="fa-solid fa-edit"></i>
+                                                                        </a>
+                                                                    </p>
+                                                                @endif
+                                                                @empty
+                                                              
+                                                               @endforelse
+
+
                                                                                 
                                                                 </div>
                             
@@ -1375,15 +1587,26 @@
 
                                                     
                                                         </ul>
+
+                                                    @forelse ($document_file as $alldocument_file)
+                                                        @if (in_array($alldocument_file->form_section_type, ['severity']))
+                                                       
+                                                        <div class="document_view">
+                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                        </div> 
+                                                        @endif
+                                                        @empty
+                                                    @endforelse
                                                        
                                             </div>
                                         </div>
                                         @endif
-                                    </div>
+                                    </div> --}}
 
 
 
                                     <div class="accordion-item mm_title">
+
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#collapseleft5"
@@ -1407,13 +1630,10 @@
                                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                                                     </div>
                                                                     <div class="dropdown-content">
-                                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                                class="fa-solid fa-print"></i> Print
-                                                                        </a>
-                                                                        <a href="#" class="bottom_btn extract_btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#attach_document"><i
-                                                                                class="fa-solid fa-paperclip"></i> Attach
+
+                                                                        <a onclick="viewDocument('general_form','clinical_exam')"
+                                                                            class="bottom_btn extract_btn">
+                                                                            <i class="fa-solid fa-paperclip"></i> Attach
                                                                         </a>
 
                                                                     </div>
@@ -1426,124 +1646,190 @@
                                         </h2>
 
 
+                                        @php
+                                            $regionalpatientGeneralDiagnosis = DB::table('patient_general_diagnosis')
+                                                ->whereNotNull('RegionalExam')
+                                                ->where([
+                                                    'title_name' => 'ClinicalExam',
+                                                    'form_type' => 'general_form',
+                                                    'patient_id' => session()->get('id'),
+                                                ])
+                                                ->orderBy('id', 'desc')
+                                                ->get();
+                                            // ->toArray();
+
+                                            $systemicpatientGeneralDiagnosis = DB::table('patient_general_diagnosis')
+                                                ->whereNotNull('SystemicExam')
+                                                ->where([
+                                                    'title_name' => 'ClinicalExam',
+                                                    'form_type' => 'general_form',
+                                                    'patient_id' => session()->get('id'),
+                                                ])
+                                                ->orderBy('id', 'desc')
+                                                ->get();
+                                        @endphp
+
+
                                         <div id="collapseleft5" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample5">
-                                            @if (count($regionalpatientGeneralDiagnosis) > 0 || count($systemicpatientGeneralDiagnosis) >0 )
-                                            <div class="accordion-body">
-                                                <div class="appointments___list past_medical_history_ak diagnosis_data">
 
-                                                    @php
-                                                        //  echo "<pre>";
-                                                        //  print_r($regionalpatientGeneralDiagnosis);
-                                                      
+                                            @if (count($regionalpatientGeneralDiagnosis) > 0 || count($systemicpatientGeneralDiagnosis) > 0)
 
-                                                    @endphp
+                                                <div class="accordion-body">
+                                                    <div
+                                                        class="appointments___list past_medical_history_ak diagnosis_data">
 
-                                                    
-                                                  @if (count($regionalpatientGeneralDiagnosis) > 0)
-                                                    <ul>
-                                                        @forelse ($regionalpatientGeneralDiagnosis as $record)                                                            
-                                                    
-                                                        <li>
-                                                            <div class="appoin_date">
-                                                              <div>
-                                                              <div class="diagnosis_show">
-                                                    
-                                                                @if (isset($record->RegionalExam))
-                                                                    <div class="ss_result_box">
-                                                                        <div class="symp_title mb-1">
-                                                                        <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Regional Exam
-                                                                        </h6>
-                                                                        </div>
-                                                                       
-                                                                        <p class="ss_result"><strong>{{ $record->RegionalExam }}  {{ $record->RegionalExamNote }}</strong> </p>
+                                                        @if (count($regionalpatientGeneralDiagnosis) > 0)
+                                                            <ul>
+                                                                @forelse ($regionalpatientGeneralDiagnosis as $record)
+                                                                    @if ($loop->last)
+                                                                        <li>
+                                                                            <div class="appoin_date">
+                                                                                <div>
+                                                                                    <div class="diagnosis_show">
 
-                                                                    </div>   
-                                                                @endif
+                                                                                        @if (isset($record->RegionalExam))
+                                                                                            <div class="ss_result_box">
+                                                                                                <div
+                                                                                                    class="symp_title mb-1">
+                                                                                                    <h6><span
+                                                                                                            class="point_dia"><i
+                                                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                                        Regional Exam
+                                                                                                    </h6>
+                                                                                                </div>
+                                                                                                @if ($record->RegionalExam == 'Normal')
+                                                                                                    <p class="ss_result">
+                                                                                                        <strong>{{ $record->RegionalExam }}</strong>
+                                                                                                    </p>
+                                                                                                @else
+                                                                                                    <p class="ss_result">
+                                                                                                        <strong>{{ $record->RegionalExam }}
+                                                                                                            -
+                                                                                                            {{ $record->RegionalExamNote }}</strong>
+                                                                                                    </p>
+                                                                                                @endif
 
-                                                                </div>
-                                                             </div>
-                                                       
-                                                            </div>
-                                                          </li>
-                                                         
-                                                          @empty
-                                                            <li>
-                                                                <div class="appoin_date">
-                                                                    <div>
-                                                                    <div class="diagnosis_show">
-                                                                    
-                                                                    
-                                                                      <div class="ss_result_box">
-                                                                      <div class="symp_title mb-1">
-                                                                      <span style="font-size:10px;">  No Data Found </span>
-                                                                      </div>
-                                                                      </div>
-                                                                    </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
+                                                                                            </div>
+                                                                                        @endif
 
-                                                          @endforelse
-                                                    
-                                                    </ul>
-                                                    @endif
-
-                                                    
-
-                                                      
-                                                    @if (count($systemicpatientGeneralDiagnosis) > 0)
-
-                                                    <ul>
-                                                        @forelse ($systemicpatientGeneralDiagnosis as $record)
-                                                        <li>
-                                                            <div class="appoin_date">
-                                                              <div>
-                                                              <div class="diagnosis_show">
-                                                    
-                                                            
-                                                                @if(isset($record->SystemicExam))
-                                                                       <div class="ss_result_box">   
-                                                                            <div class="symp_title mb-1">
-                                                                            <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span> Systemic Exam</h6>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <p class="ss_result"><strong>{{ $record->SystemicExam }} - {{ $record->SystemicExamNote }}</strong> </p>
+                                                                        </li>
+                                                                    @endif
+
+                                                                @empty
+
+                                                                    <li>
+                                                                        <div class="appoin_date">
+                                                                            <div>
+                                                                                <div class="diagnosis_show">
+
+
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <span style="font-size:10px;">
+                                                                                                No Data Found </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                @endif
-                                                             </div>
-                            
-                                                            </div>
-                                                       
-                                                            </div>
-                                                          </li>
-                                                          @empty
-                                                            <li>
-                                                                <div class="appoin_date">
-                                                                    <div>
-                                                                    <div class="diagnosis_show">
-                                                                    
-                                                                    
-                                                                      <div class="ss_result_box">
-                                                                      <div class="symp_title mb-1">
-                                                                      <span style="font-size:10px;">  No Data Found </span>
-                                                                      </div>
-                                                                      </div>
-                                                                    </div>
-                                                                    </div>
+                                                                    </li>
+                                                                @endforelse
+
+                                                            </ul>
+                                                        @endif
+
+                                                        @if (count($regionalpatientGeneralDiagnosis) > 0)
+                                                            <ul>
+                                                                @forelse ($regionalpatientGeneralDiagnosis as $record)
+                                                                    @if ($loop->last)
+                                                                        <li {{ $record->id }}>
+                                                                            <div class="appoin_date">
+                                                                                <div>
+                                                                                    <div class="diagnosis_show">
+
+
+                                                                                        @if (isset($record->SystemicExam))
+                                                                                            <div class="ss_result_box">
+                                                                                                <div
+                                                                                                    class="symp_title mb-1">
+                                                                                                    <h6><span
+                                                                                                            class="point_dia"><i
+                                                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                                        Systemic Exam</h6>
+                                                                                                </div>
+                                                                                                @if ($record->SystemicExam == 'Normal')
+                                                                                                    <p class="ss_result">
+                                                                                                        <strong>{{ $record->SystemicExam }}</strong>
+                                                                                                    </p>
+                                                                                                @else
+                                                                                                    <p class="ss_result">
+                                                                                                        <strong>{{ $record->SystemicExam }}
+                                                                                                            -
+                                                                                                            {{ $record->SystemicExamNote }}</strong>
+                                                                                                    </p>
+                                                                                                @endif
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </li>
+                                                                    @endif
+                                                                @empty
+                                                                    <li>
+                                                                        <div class="appoin_date">
+                                                                            <div>
+                                                                                <div class="diagnosis_show">
+
+
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <span style="font-size:10px;">
+                                                                                                No Data Found </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                @endforelse
+
+
+                                                            </ul>
+                                                        @endif
+
+
+                                                        {{-- <p class="diagnosis_date top_de"><span class="enter_span_hivj">
+                                                                {{ isset($record) ? $record->doctor->name : '' }}</span>
+                                                            <span
+                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}</span>
+                                                        </p> --}}
+
+
+
+                                                        @forelse ($document_file as $alldocument_file)
+                                                            @if (in_array($alldocument_file->form_section_type, ['clinical_exam']))
+                                                                <div class="document_view">
+                                                                    <h6><span class="trshDoc"><a
+                                                                                href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                                    icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                        <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                            target="_blank"><iconify-icon
+                                                                                icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                                    </h6>
                                                                 </div>
-                                                            </li>
+                                                            @endif
+                                                        @empty
+                                                        @endforelse
 
-                                                          @endforelse
-                                                    </ul>
-                                                    @endif
-
-
-
-
-
-
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endif
                                         </div>
                                     </div>
@@ -1570,13 +1856,10 @@
                                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                                                     </div>
                                                                     <div class="dropdown-content">
-                                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                                class="fa-solid fa-print"></i> Print
-                                                                        </a>
-                                                                        <a href="#" class="bottom_btn extract_btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#attach_document"><i
-                                                                                class="fa-solid fa-paperclip"></i> Attach
+
+                                                                        <a onclick="viewDocument('general_form','order_imaging_exam')"
+                                                                            class="bottom_btn extract_btn">
+                                                                            <i class="fa-solid fa-paperclip"></i> Attach
                                                                         </a>
 
                                                                     </div>
@@ -1587,6 +1870,8 @@
                                                 </div>
                                             </button>
                                         </h2>
+
+
                                         <div id="collapseleft15" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample15">
                                             <div class="accordion-body">
@@ -1597,11 +1882,6 @@
                                                             <div class="appoin_date">
 
                                                                 <div class="diagnosis_show">
-                                                                    {{-- <p class="diagnosis_date top_de"><span
-                                                                        class="enter_span_hivj">{{ 'Entered By | ' . (isset($Patient_order_imaginary_exams[0]) ? optional(optional($Patient_order_imaginary_exams[0])->doctor)->name : '') }}
-                                                                    </span> <span
-                                                                        class="enter_span_hivj">{{ isset($Patient_order_imaginary_exams[0]) && isset($Patient_order_imaginary_exams[0]->created_at) ? $Patient_order_imaginary_exams[0]->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                    </span></p> --}}
 
                                                                     <div
                                                                         class="datatable-container allinvoice_table custom_table_area table_test_fgi">
@@ -1611,10 +1891,11 @@
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Test Name</th>
-                                                                                    <th>Appoinment Date</th>
+                                                                                    {{-- <th>Appoinment Date</th> --}}
                                                                                     <th>Status</th>
                                                                                     <th>Order Date</th>
                                                                                     <th>Action</th>
+                                                                                    <th>Summary</th>
                                                                                 </tr>
                                                                             </thead>
 
@@ -1622,17 +1903,39 @@
                                                                             <tbody>
                                                                                 @forelse ($Patient_order_labs as $Patient_order_lab)
                                                                                     @if ($Patient_order_lab->test_type == 'radiology')
-                                                                                        
                                                                                         <tr>
                                                                                             @php
-                                                                                                $pathology_price_list = DB::table('pathology_price_list')->where('id',$Patient_order_lab->task);
-                                                                                                if ($Patient_order_lab->test_type =='pathology') {
-                                                                                                    $pathology_price_list = $pathology_price_list->where('price_type','0',);
+                                                                                                $approveBy = App\Models\superAdmin\Doctor::where(
+                                                                                                    'id',
+                                                                                                    $Patient_order_lab->assignTo,
+                                                                                                )
+                                                                                                    ->orderBy(
+                                                                                                        'id',
+                                                                                                        'desc',
+                                                                                                    )
+                                                                                                    ->first();
+
+                                                                                                $pathology_price_list = DB::table(
+                                                                                                    'pathology_price_list',
+                                                                                                )->where(
+                                                                                                    'id',
+                                                                                                    $Patient_order_lab->task,
+                                                                                                );
+                                                                                                if (
+                                                                                                    $Patient_order_lab->test_type ==
+                                                                                                    'pathology'
+                                                                                                ) {
+                                                                                                    $pathology_price_list = $pathology_price_list->where(
+                                                                                                        'price_type',
+                                                                                                        '0',
+                                                                                                    );
+                                                                                                } else {
+                                                                                                    $pathology_price_list = $pathology_price_list->where(
+                                                                                                        'price_type',
+                                                                                                        '1',
+                                                                                                    );
                                                                                                 }
-                                                                                                else {
-                                                                                                    $pathology_price_list = $pathology_price_list->where('price_type','1');
-                                                                                                }
-                                                                                                
+
                                                                                                 $pathology_price_list = $pathology_price_list->first();
 
                                                                                             @endphp
@@ -1640,13 +1943,14 @@
                                                                                             <td>{{ $pathology_price_list->test_name ?? '' }}
                                                                                             </td>
 
-                                                                                            <td>{{ $Patient_order_lab->appoinment_date }}
-                                                                                            </td>
+                                                                                            {{-- <td>{{ $Patient_order_lab->appoinment_date }}
+                                                                                            </td> --}}
 
                                                                                             @if ($Patient_order_lab->approveDocumentSts == '1')
                                                                                                 <td><button
                                                                                                         class="pending-badge">Approve
-                                                                                                        By Nurse</button>
+                                                                                                        By
+                                                                                                        {{ $approveBy->name }}</button>
                                                                                                 </td>
                                                                                             @elseif($Patient_order_lab->approveDocumentSts == '0')
                                                                                                 <td><button
@@ -1657,29 +1961,51 @@
                                                                                                 <td><button
                                                                                                         class="confirmed-badge">No
                                                                                                         Action</button>
-                                                                                                </td>  
+                                                                                                </td>
                                                                                             @endif
+
 
                                                                                             <td>
                                                                                                 {{ \Carbon\Carbon::parse($Patient_order_lab->created_at)->format('D, d M Y') }}
+                                                                                            </td>
+
+
+                                                                                    @if ($Patient_order_lab->labDocument)
+                                                                                        @if ($Patient_order_lab->approveDocumentSts == '1')
+                                                                                            <td>
+                                                                                                <a href="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
+                                                                                                    download="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
+                                                                                                    class="download_rp_btn">
+                                                                                                    <i
+                                                                                                        class="fa-solid fa-file-arrow-down"></i>
+                                                                                                    Download Report
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        @elseif ($Patient_order_lab->approveDocumentSts == '0')
+                                                                                        <td>
+                                                                                            <a class="download_rp_btn"
+                                                                                                style="color: #f30728;">
+                                                                                                <i class="fa-solid fa-file-arrow-down"
+                                                                                                    style="color: #db0808; border: 1px solid #e90a0a;"></i>
+                                                                                                Rejected
+                                                                                            </a>
+                                                                                        </td>
+                                                                                        @else
+
+                                                                                        <td>
+                                                                                            <a class="download_rp_btn"
+                                                                                                style="color: #f30728;">
+                                                                                                <i class="fa-solid fa-file-arrow-down"
+                                                                                                    style="color: #db0808; border: 1px solid #e90a0a;"></i>
+                                                                                                Report Not Uploded
+                                                                                            </a>
                                                                                         </td>
 
+                                                                                                @endif
 
-
-                                                                                            @if ($Patient_order_lab->labDocument)
-                                                                                                <td>
-                                                                                                    <a href="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
-                                                                                                        download="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
-                                                                                                        class="download_rp_btn">
-                                                                                                        <i
-                                                                                                            class="fa-solid fa-file-arrow-down"></i>
-                                                                                                        Download Report
-                                                                                                    </a>
-                                                                                                </td>
                                                                                             @else
                                                                                                 <td>
-                                                                                                    <a href=""
-                                                                                                        class="download_rp_btn"
+                                                                                                    <a class="download_rp_btn"
                                                                                                         style="color: #f30728;">
                                                                                                         <i class="fa-solid fa-file-arrow-down"
                                                                                                             style="color: #db0808; border: 1px solid #e90a0a;"></i>
@@ -1688,40 +2014,58 @@
                                                                                                 </td>
                                                                                             @endif
 
+
+                                                                                                <td>
+                                                                                                    <a onclick="ViewOrderSummary(`{{ $Patient_order_lab->order_summary }}`)"
+                                                                                                        class="download_rp_btn"
+                                                                                                        style="color: #011205e1;">
+                                                                                                        <i class="fas fa-eye"
+                                                                                                            style="color: #050606d6; border: 1px solid #e90a0a;"></i>
+                                                                                                        View
+                                                                                                    </a>
+                                                                                                </td>
+
+
                                                                                         </tr>
                                                                                     @else
                                                                                     @endif
 
 
-                                                                                        @empty
+                                                                                @empty
                                                                                     <td colspan="4"
                                                                                         class="text-center">No record found
                                                                                     </td>
                                                                                 @endforelse
-                                                                             </tbody>
+                                                                            </tbody>
                                                                         </table>
+
+
+
+
                                                                     </div>
 
 
-                                                                    {{-- <div class="appoin_date">
-                                                                        <div>
-                                                                          <div class="diagnosis_show">
-                                                                           <div class="symp_title">
-                                                                            <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span>
-                                                                                <span class="sym_duration"></span></h6>
-                                                                                <a href="{{ asset('public/assets/thyroid-eligibility-form/' . $thyroidEligibilityFormsImage->AnnotateimageData) }}" target="_blank" class="input-group-text view-image-icon">
-                                                                                    <!-- Icon (change fa-eye to your desired icon class, e.g., fa-image for image icon) -->
-                                                                                    <i class="far fa-eye"></i> <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"> </i></span> View Image Annotation<span class="sym_duration"></span></h6> 
-                                                                                </a>                
-                                                                          </div>
-                                                                        </div>
-                                                                       
-                                                                      </div>
-                                                                 
-                                                                      </div> --}}
-                                                                     </div>
+                                                                    @forelse ($document_file as $alldocument_file)
+                                                                        @if (in_array($alldocument_file->form_section_type, ['order_imaging_exam']))
+                                                                            <div class="document_view">
+                                                                                <h6><span class="trshDoc"><a
+                                                                                            href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                                                icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                                        target="_blank"><iconify-icon
+                                                                                            icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                                                </h6>
+                                                                            </div>
+                                                                        @endif
+                                                                    @empty
+                                                                    @endforelse
+
+
+
+                                                                </div>
                                                             </div>
                                                         </li>
+
                                                         @forelse ($rightLobeScores as $record)
                                                             <li>
 
@@ -1772,29 +2116,24 @@
                                                                                     @if (isset($sum) && ($sum >= 0 && $sum <= 1))
                                                                                         <p class="ss_result">TR1 (0 pts-
                                                                                             Benign)</p>
-                                                                                        
-                                                                                            @elseif(isset($sum) && ($sum >= 2 && $sum <= 2))
+                                                                                    @elseif(isset($sum) && ($sum >= 2 && $sum <= 2))
                                                                                         <p class="ss_result">TR2 (2 pts-
                                                                                             Not
                                                                                             Suspicious)</p>
-                                                                                        
-                                                                                            @elseif(isset($sum) && ($sum >= 3 && $sum <= 3))
+                                                                                    @elseif(isset($sum) && ($sum >= 3 && $sum <= 3))
                                                                                         <p class="ss_result">TR3 (3 pts-
                                                                                             Mildly
                                                                                             Suspicious)</p>
-                                                                                        
-                                                                                            @elseif(isset($sum) && ($sum >= 4 && $sum <= 6))
+                                                                                    @elseif(isset($sum) && ($sum >= 4 && $sum <= 6))
                                                                                         <p class="ss_result">TR4 (4-6 pts-
                                                                                             Moderately Suspicious)</p>
-                                                                                        
-                                                                                            @elseif(isset($sum) && ($sum >= 7 && $sum <= 6000))
+                                                                                    @elseif(isset($sum) && ($sum >= 7 && $sum <= 6000))
                                                                                         <p class="ss_result">TR5 (7+ pts-
                                                                                             Highly Suspicious)</p>
                                                                                     @endif
 
                                                                                 </div>
                                                                             @empty
-                                                                                
                                                         @endforelse
                                                         @forelse ($leftLobeScores as $record)
                                                             <div class="symp_title mb-3">
@@ -1841,14 +2180,35 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                         </div>
-                                        <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                            onclick="toggleReadMore(this)">Read More</button>
+                                       
                                     </div>
                                 @empty
                                     @endforelse
-                                    </li>
 
+
+
+
+                                    </li>
 
 
 
@@ -1882,12 +2242,10 @@
                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                                     </div>
                                                     <div class="dropdown-content">
-                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                class="fa-solid fa-print"></i> Print
-                                                        </a>
-                                                        <a href="#" class="bottom_btn extract_btn"
-                                                            data-bs-toggle="modal" data-bs-target="#attach_document"><i
-                                                                class="fa-solid fa-paperclip"></i> Attach
+
+                                                        <a onclick="viewDocument('general_form','order_lab_test')"
+                                                            class="bottom_btn extract_btn">
+                                                            <i class="fa-solid fa-paperclip"></i> Attach
                                                         </a>
 
                                                     </div>
@@ -1904,34 +2262,41 @@
                             data-bs-parent="#accordionExample17">
                             <div class="accordion-body">
                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
-                                    
+
                                     <ul>
                                         <li>
 
                                             <div class="appoin_date">
 
                                                 <div class="diagnosis_show">
-                                                   
+
 
                                                     <div
                                                         class="datatable-container allinvoice_table custom_table_area table_test_fgi">
 
 
-                                                        <table id="allinvoice_table" class="display">   
+                                                        <table id="allinvoice_table" class="display">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Test Name</th>
-                                                                    <th>Appoinment Date</th>           
-                                                                    <th>Status</th>             
-                                                                    <th>Order Date</th>             
+                                                                    {{-- <th>Appoinment Date</th> --}}
+                                                                    <th>Status</th>
+                                                                    <th>Order Date</th>
                                                                     <th>Action</th>
+                                                                    <th>Summary</th>
 
                                                                 </tr>
                                                             </thead>
+
+
                                                             <tbody>
                                                                 @forelse ($Patient_order_labs as $Patient_order_lab)
                                                                     @if ($Patient_order_lab->test_type == 'pathology')
-                                                                        <tr>   
+
+                                                                    @php
+                                                                    $approveBy = App\Models\superAdmin\Doctor::where('id',$Patient_order_lab->assignTo)->orderBy( 'id','desc')->first();  @endphp
+
+                                                                        <tr>
                                                                             @php
                                                                                 $pathology_price_list = DB::table(
                                                                                     'pathology_price_list',
@@ -1957,31 +2322,79 @@
 
                                                                             @endphp
 
-                                                                            <td>{{ $pathology_price_list->test_name?? '' }}</td>
-
-                                                                            <td>{{ $Patient_order_lab->appoinment_date }}
+                                                                            <td>{{ $pathology_price_list->test_name ?? '' }}
                                                                             </td>
+
+                                                                            {{-- <td>{{ $Patient_order_lab->appoinment_date }}
+                                                                            </td> --}}
 
                                                                             @if ($Patient_order_lab->approveDocumentSts == '1')
                                                                                 <td><button class="pending-badge">Approve
-                                                                                        By Nurse</button>
+                                                                                        By {{$approveBy->name}}</button>
                                                                                 </td>
                                                                             @elseif($Patient_order_lab->approveDocumentSts == '0')
                                                                                 <td><button class="confirmed-badge">Reject
-                                                                                        By nurse</button>
+                                                                                        By  {{$approveBy->name}}</button>
                                                                                 </td>
                                                                             @else
                                                                                 <td><button class="confirmed-badge">No
-                                                                                        Action</button>   
+                                                                                        Action</button>
                                                                                 </td>
                                                                             @endif
 
                                                                             <td>
-                                                                                  {{ \Carbon\Carbon::parse($Patient_order_lab->created_at)->format('D, d M Y') }}
+                                                                                {{ \Carbon\Carbon::parse($Patient_order_lab->created_at)->format('D, d M Y') }}
                                                                             </td>
 
 
-                                                                            @if ($Patient_order_lab->labDocument)
+
+                                                                               @if ($Patient_order_lab->labDocument)
+                                                                                        @if ($Patient_order_lab->approveDocumentSts == '1')
+                                                                                            <td>
+                                                                                                <a href="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
+                                                                                                    download="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
+                                                                                                    class="download_rp_btn">
+                                                                                                    <i
+                                                                                                        class="fa-solid fa-file-arrow-down"></i>
+                                                                                                    Download Report
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        @elseif ($Patient_order_lab->approveDocumentSts == '0')
+                                                                                        <td>
+                                                                                            <a class="download_rp_btn"
+                                                                                                style="color: #f30728;">
+                                                                                                <i class="fa-solid fa-file-arrow-down"
+                                                                                                    style="color: #db0808; border: 1px solid #e90a0a;"></i>
+                                                                                                Rejected
+                                                                                            </a>
+                                                                                        </td>
+                                                                                        @else
+
+                                                                                        <td>
+                                                                                            <a class="download_rp_btn"
+                                                                                                style="color: #f30728;">
+                                                                                                <i class="fa-solid fa-file-arrow-down"
+                                                                                                    style="color: #db0808; border: 1px solid #e90a0a;"></i>
+                                                                                                Report Not Uploded
+                                                                                            </a>
+                                                                                        </td>
+
+                                                                                    @endif
+
+                                                                                @else
+                                                                                    <td>
+                                                                                        <a class="download_rp_btn"
+                                                                                            style="color: #f30728;">
+                                                                                            <i class="fa-solid fa-file-arrow-down"
+                                                                                                style="color: #db0808; border: 1px solid #e90a0a;"></i>
+                                                                                            Report Not Uploded
+                                                                                        </a>
+                                                                                    </td>
+                                                                                @endif
+
+
+                                                                            {{-- @if ($Patient_order_lab->labDocument)
+                                                                            
                                                                                 <td>
                                                                                     <a href="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
                                                                                         download="{{ env('Document_Url') }}{{ $Patient_order_lab->labDocument }}"
@@ -2001,7 +2414,19 @@
                                                                                         Report Not Uploded
                                                                                     </a>
                                                                                 </td>
-                                                                            @endif
+                                                                            @endif --}}
+
+                                                                            <td>
+                                                                                <a onclick="ViewOrderSummary(`{{ $Patient_order_lab->order_summary }}`)"
+                                                                                    class="download_rp_btn"
+                                                                                    style="color: #011205e1;">
+                                                                                    <i class="fas fa-eye"
+                                                                                        style="color: #050606d6; border: 1px solid #e90a0a;"></i>
+                                                                                    View
+                                                                                </a>
+                                                                            </td>
+
+
 
                                                                         </tr>
                                                                     @endif
@@ -2009,52 +2434,32 @@
                                                                     <td colspan="4" class="text-center">No record found
                                                                     </td>
                                                                 @endforelse
-                                                                {{-- <tr>
-                                                                                    <td>17 Hydroxyprogesterone</td>
-                                                                                    <td>2 week</td>
-                                                                                    <td><button
-                                                                                            class="confirmed-badge">Complete</button>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <a href="images/new-images/dummy.pdf"
-                                                                                            download=""
-                                                                                            class="download_rp_btn"><i
-                                                                                                class="fa-solid fa-file-arrow-down"></i>
-                                                                                            Download Report</a>
-                                                                                    </td>
 
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>5 HIAA</td>
-                                                                                    <td>1 day</td>
-                                                                                    <td><button
-                                                                                            class="pending-badge">Pending</button>
-                                                                                    </td>
-                                                                                    <td>
-
-                                                                                    </td>
-
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>6-TGN</td>
-                                                                                    <td>1 day</td>
-                                                                                    <td><button
-                                                                                            class="pending-badge">Pending</button>
-                                                                                    </td>
-                                                                                    <td>
-
-                                                                                    </td>
-
-
-                                                                                </tr> --}}
                                                             </tbody>
                                                         </table>
 
 
 
+
+
+
                                                     </div>
+
+                                                    @forelse ($document_file as $alldocument_file)
+                                                        @if (in_array($alldocument_file->form_section_type, ['order_lab_test']))
+                                                            <div class="document_view">
+                                                                <h6><span class="trshDoc"><a
+                                                                            href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                                icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                        target="_blank"><iconify-icon
+                                                                            icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                                </h6>
+                                                            </div>
+                                                        @endif
+                                                    @empty
+                                                    @endforelse
+
 
                                                 </div>
 
@@ -2062,8 +2467,14 @@
 
 
 
+
+
+
+
                                             </div>
                                         </li>
+
+
                                         @forelse ($Labs as $record)
                                             <li>
 
@@ -2153,13 +2564,11 @@
 
 
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                  
                                                 </div>
                                             </li>
                                         @empty
                                         @endforelse
-
 
 
 
@@ -2168,6 +2577,8 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="accordion-item mm_title">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -2189,12 +2600,10 @@
                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                                     </div>
                                                     <div class="dropdown-content">
-                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                class="fa-solid fa-print"></i> Print
-                                                        </a>
-                                                        <a href="#" class="bottom_btn extract_btn"
-                                                            data-bs-toggle="modal" data-bs-target="#attach_document"><i
-                                                                class="fa-solid fa-paperclip"></i> Attach
+
+                                                        <a onclick="viewDocument('general_form','order_special_investigation')"
+                                                            class="bottom_btn extract_btn">
+                                                            <i class="fa-solid fa-paperclip"></i> Attach
                                                         </a>
 
                                                     </div>
@@ -2205,46 +2614,74 @@
                                 </div>
                             </button>
                         </h2>
+
                         <div id="collapseleft12" class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample12">
-                            <div class="accordion-body">
-                                <div class="appointments___list past_medical_history_ak diagnosis_data">
-                                    @if (count($SpecialInvestigations_db) > 0)
-                                    <ul>
-                                        
-                                                <li>
-                                                    @if (isset($SpecialInvestigations_db))
+                            @if (count($SpecialInvestigations_db) > 0)
+                                <div class="accordion-body">
+                                    <div class="appointments___list past_medical_history_ak diagnosis_data">
+
+                                        <ul>
+
+                                            <li>
+                                                @if (isset($SpecialInvestigations_db))
                                                     @forelse ($SpecialInvestigations_db as $record)
-                                                    <div class="appoin_date">
-                                                        <div>
-                                                          <div class="diagnosis_show">
-                                                         
-                                                          <p class="diagnosis_text">{{ $record->Title }} </p>
-                                                          <p class="diagnosis_text">{{ $record->SubTitle }} </p>
-                                                          <p class="diagnosis_text">{{ $record->Invistigation }} </p>
-                                                            @if(isset($record) && isset($record->created_at))
-                                                            <p class="diagnosis_date">
-                                                                <span class="enter_span_hivj"> Entered By | {{ optional(optional($record)->doctor)->name ?? '' }}</span> 
-                                                                <span class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}</span>
-                                                            </p>
-                                                            @endif
-                                                          </div>
-                                                   
-                                                      </div>
-                                                  
-                                                      </div>
-                                                
+                                                        <div class="appoin_date">
+                                                            <div>
+                                                                <div class="diagnosis_show">
+
+                                                                    <p class="diagnosis_text">{{ $record->Title }} </p>
+                                                                    <p class="diagnosis_text">{{ $record->SubTitle }}
+                                                                    </p>
+                                                                    <p class="diagnosis_text">
+                                                                        {{ $record->Invistigation }} </p>
+                                                                    @if (isset($record) && isset($record->created_at))
+                                                                        <p class="diagnosis_date">
+                                                                            <span class="enter_span_hivj"> Entered By |
+                                                                                {{ optional(optional($record)->doctor)->name ?? '' }}</span>
+                                                                            <span
+                                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}</span>
+                                                                        </p>
+                                                                    @endif
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    @empty
+                                                        <small style="font-size:10px;">No Data Found</small>
+                                                    @endforelse
+                                                @endif
+                                            </li>
+
+
+                                            @forelse ($document_file as $alldocument_file)
+                                                @if (in_array($alldocument_file->form_section_type, ['order_special_investigation']))
+                                                    <div class="document_view">
+                                                        <h6><span class="trshDoc"><a
+                                                                    href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                        icon="ph:trash-bold"></iconify-icon></a></span> <a
+                                                                href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                target="_blank"><iconify-icon
+                                                                    icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                        </h6>
+                                                    </div>
+                                                @endif
                                             @empty
-                                                <small style="font-size:10px;">No Data Found</small>
                                             @endforelse
-                                        @endif
-                                    </li>
-                                    </ul>
-                                    @endif
+
+
+
+                                        </ul>
+
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
+
+
                     <div class="accordion-item mm_title">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -2267,12 +2704,10 @@
                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                                     </div>
                                                     <div class="dropdown-content">
-                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                class="fa-solid fa-print"></i> Print
-                                                        </a>
-                                                        <a href="#" class="bottom_btn extract_btn"
-                                                            data-bs-toggle="modal" data-bs-target="#attach_document"><i
-                                                                class="fa-solid fa-paperclip"></i> Attach
+
+                                                        <a onclick="viewDocument('general_form','mbt_review')"
+                                                            class="bottom_btn extract_btn">
+                                                            <i class="fa-solid fa-paperclip"></i> Attach
                                                         </a>
 
                                                     </div>
@@ -2283,112 +2718,141 @@
                                 </div>
                             </button>
                         </h2>
+
                         <div id="collapseleft18" class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample18">
-                            <div class="accordion-body">
-                                <div class="appointments___list past_medical_history_ak diagnosis_data">
-                                    @if (count($MDTs_db) > 0)
-                                    <ul>
-                                        @if ($MDTs_db)
-                                            @forelse ($MDTs_db as $record)
-                                                <li>
+                            @if (count($MDTs_db) > 0)
+                                <div class="accordion-body">
+                                    <div class="appointments___list past_medical_history_ak diagnosis_data">
+                                        <ul class="symptoms allergiesdtl scroll_list">
+                                            @if ($MDTs_db)
+                                                @forelse ($MDTs_db as $key=>$record)
+                                                    <li>
+                                                        <div class="appoin_date">
+                                                            <div class="read-more-content " style="">
+                                                                <div class="diagnosis_show">
 
-                                                    <div class="appoin_date">
-                                                        <div class="read-more-content " style="">
-                                                            <div class="diagnosis_show">
-                                                                <p class="diagnosis_date "><span
-                                                                        class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
-                                                                    </span> <span
-                                                                        class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                    </span></p>
-                                                                @php
-                                                                    $MDT = json_decode($record->data_value, true);
-                                                                    // echo "<pre>";
-                                                                    //     print_r($MDT);
-                                                                    //     die;
-                                                                @endphp
-
-
-                                                                @if (isset($MDT['TTA']) && $MDT['TTA'][0] == 'TTA')
-                                                                    <div class="ss_result_box">
-                                                                        <div class="symp_title mb-1">
-                                                                            <h6><span class="point_dia"><i
-                                                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                                                TTA</h6>
-
-                                                                        </div>
-                                                                        <p class="ss_result">
-                                                                            {{ $MDT['TTANote'][0] ?? '' }}.
-                                                                        </p>
+                                                                    <div class="Bottom_btn">
+                                                                        <span class="removeMbtReview"
+                                                                            data-id="{{ $record->id }}">
+                                                                            <i
+                                                                                class="fa-regular fa-trash-can trash_btn"></i>
+                                                                        </span>
                                                                     </div>
-                                                                @endif
-                                                                @if (isset($MDT['TE']) && $MDT['TE'][0] == 'TE')
-                                                                    <div class="ss_result_box">
-                                                                        <div class="symp_title mb-1">
-                                                                            <h6><span class="point_dia"><i
-                                                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                                                TE</h6>
 
-                                                                        </div>
-                                                                        <p class="ss_result">
-                                                                            {{ $MDT['TENote'][0] ?? '' }}.
-                                                                        </p>
-                                                                    </div>
-                                                                @endif
-                                                                @if (isset($MDT['Surgical']) && $MDT['Surgical'][0] == 'Surgical')
-                                                                    <div class="ss_result_box">
-                                                                        <div class="symp_title mb-1">
-                                                                            <h6><span class="point_dia"><i
-                                                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                                                Surgical</h6>
 
-                                                                        </div>
-                                                                        <p class="ss_result">
-                                                                            {{ $MDT['SurgicalNote'][0] ?? '' }}.</p>
-                                                                    </div>
-                                                                @endif
-                                                                @if (isset($MDT['OtherOptions']) && $MDT['OtherOptions'][0] == 'Other options')
-                                                                    <div class="ss_result_box">
-                                                                        <div class="symp_title mb-1">
-                                                                            <h6><span class="point_dia"><i
-                                                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                                                Other options</h6>
 
-                                                                        </div>
-                                                                        <p class="ss_result">
-                                                                            {{ $MDT['OtherOptionsNote'][0] ?? '' }}.</p>
-                                                                    </div>
-                                                                @endif
-                                                                @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['TE']) || !isset($MDT['TTA']))
-                                                                    <div class="ss_result_box">
-                                                                        @foreach ($MDT as $key => $value)
+
+                                                                    @php
+
+                                                                        $MDT = json_decode($record->data_value, true);
+
+                                                                    @endphp
+
+                                                                    @if (isset($MDT['TTA']) && $MDT['TTA'][0] == 'TTA')
+                                                                        <div class="ss_result_box">
                                                                             <div class="symp_title mb-1">
                                                                                 <h6><span class="point_dia"><i
                                                                                             class="fa-regular fa-circle-dot"></i></span>
-                                                                                    {{ $key }}</h6>
+                                                                                    TTA</h6>
+
                                                                             </div>
-                                                                            <p class="ss_result">{{ $value['asd'] ?? '' }}
+                                                                            <p class="ss_result">
+                                                                                {{ $MDT['TTANote'][0] ?? '' }}.
                                                                             </p>
-                                                                        @endforeach
-                                                                    </div>
-                                                                @endif
+                                                                        </div>
+                                                                    @endif
+                                                                    @if (isset($MDT['TE']) && $MDT['TE'][0] == 'TE')
+                                                                        <div class="ss_result_box">
+                                                                            <div class="symp_title mb-1">
+                                                                                <h6><span class="point_dia"><i
+                                                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                                                    TE</h6>
+
+                                                                            </div>
+                                                                            <p class="ss_result">
+                                                                                {{ $MDT['TENote'][0] ?? '' }}.
+                                                                            </p>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if (isset($MDT['Surgical']) && $MDT['Surgical'][0] == 'Surgical')
+                                                                        <div class="ss_result_box">
+                                                                            <div class="symp_title mb-1">
+                                                                                <h6><span class="point_dia"><i
+                                                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                                                    Surgical</h6>
+
+                                                                            </div>
+                                                                            <p class="ss_result">
+                                                                                {{ $MDT['SurgicalNote'][0] ?? '' }}.</p>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if (isset($MDT['OtherOptions']) && $MDT['OtherOptions'][0] == 'Other options')
+                                                                        <div class="ss_result_box">
+                                                                            <div class="symp_title mb-1">
+                                                                                <h6><span class="point_dia"><i
+                                                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                                                    Other options</h6>
+
+                                                                            </div>
+                                                                            <p class="ss_result">
+                                                                                {{ $MDT['OtherOptionsNote'][0] ?? '' }}.
+                                                                            </p>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['TE']) || !isset($MDT['TTA']))
+                                                                        <div class="ss_result_box">
+                                                                            @foreach ($MDT as $key => $value)
+                                                                                <div class="symp_title mb-1">
+                                                                                    <h6><span class="point_dia"><i
+                                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                        {{ $key }} </h6>
+                                                                                </div>
+                                                                                <p class="ss_result">
+                                                                                    {{ $value['asd'] ?? '' }}
+                                                                                </p>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
                                                             </div>
 
 
+                                                           
+                                                            <p class="diagnosis_date "><span
+                                                                    class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                </span> <span
+                                                                    class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                </span>
+
+                                                            </p>
+
 
                                                         </div>
-                                                        <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                            onclick="toggleReadMore(this)">Read More</button>
+                                                    </li>
+                                                @empty
+                                                @endforelse
+                                            @endif
+
+                                            @forelse ($document_file as $alldocument_file)
+                                                @if (in_array($alldocument_file->form_section_type, ['mbt_review']))
+                                                    <div class="document_view">
+                                                        <h6><span class="trshDoc"><a
+                                                                    href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                        icon="ph:trash-bold"></iconify-icon></a></span> <a
+                                                                href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                target="_blank"><iconify-icon
+                                                                    icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                        </h6>
                                                     </div>
-                                                </li>
+                                                @endif
                                             @empty
-                                                <small style="font-size:10px;">No Data Found</small>
                                             @endforelse
-                                        @endif
-                                    </ul>
-                                    @endif
+                                        </ul>
+
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                     <div class="accordion-item mm_title">
@@ -2412,12 +2876,10 @@
                                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                                     </div>
                                                     <div class="dropdown-content">
-                                                        <a href="#" class="bottom_btn copy_btn"><i
-                                                                class="fa-solid fa-print"></i> Print
-                                                        </a>
-                                                        <a href="#" class="bottom_btn extract_btn"
-                                                            data-bs-toggle="modal" data-bs-target="#attach_document"><i
-                                                                class="fa-solid fa-paperclip"></i> Attach
+
+                                                        <a onclick="viewDocument('general_form','eligibility_status')"
+                                                            class="bottom_btn extract_btn">
+                                                            <i class="fa-solid fa-paperclip"></i> Attach
                                                         </a>
 
                                                     </div>
@@ -2428,12 +2890,14 @@
                                 </div>
                             </button>
                         </h2>
+
                         <div id="collapseleft19" class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample19">
-                            <div class="accordion-body">
-                                <div class="appointments___list past_medical_history_ak diagnosis_data">
-                                    <ul>
-                                        @if ($ElegibilitySTATUSDB)
+                            @if (count($ElegibilitySTATUSDB) > 0)
+                                <div class="accordion-body">
+                                    <div class="appointments___list past_medical_history_ak diagnosis_data">
+                                        <ul>
+
                                             @forelse ($ElegibilitySTATUSDB as $record)
                                                 <li>
 
@@ -2441,18 +2905,25 @@
                                                         <div class="read-more-content " style="">
                                                             <div class="diagnosis_show">
                                                                 <p class="diagnosis_date "><span class="enter_span_hivj">
-                                                                        {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
-                                                                    </span> <span
-                                                                        class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                    </span></p>
+
+
+                                                                        <div class="Bottom_btn">
+                                                                            <span class="removeEligibilityStatus"
+                                                                                data-id="{{ $record->id }}">
+                                                                                <i
+                                                                                    class="fa-regular fa-trash-can trash_btn"></i>
+                                                                            </span>
+                                                                        </div>
+
+
+
+                                                                </p>
                                                                 @php
                                                                     $ElegibilitySTATUS = json_decode(
                                                                         $record->data_value,
                                                                         true,
                                                                     );
-                                                                    // echo "<pre>";
-                                                                    //     print_r($ElegibilitySTATUS);
-                                                                    //     die;
+
                                                                 @endphp
 
                                                                 @if (isset($ElegibilitySTATUS['TTA']) && $ElegibilitySTATUS['TTA'][0] == 'THYROID THERMAL ABLATION (TTA)')
@@ -2490,7 +2961,8 @@
 
                                                                         </div>
                                                                         <p class="ss_result">
-                                                                            {{ $ElegibilitySTATUS['TENote'][0] ?? '' }}</p>
+                                                                            {{ $ElegibilitySTATUS['TENote'][0] ?? '' }}
+                                                                        </p>
                                                                     </div>
                                                                 @endif
                                                                 @if (isset($ElegibilitySTATUS['OTHERS']) && $ElegibilitySTATUS['OTHERS'][0] == 'OTHERS')
@@ -2519,7 +2991,8 @@
                                                                                             class="fa-regular fa-circle-dot"></i></span>
                                                                                     {{ $key }}</h6>
                                                                             </div>
-                                                                            <p class="ss_result">{{ $value['asd'] ?? '' }}
+                                                                            <p class="ss_result">
+                                                                                {{ $value['asd'] ?? '' }}
                                                                             </p>
                                                                         @endforeach
                                                                     </div>
@@ -2530,16 +3003,46 @@
 
 
                                                         </div>
-                                                        <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                            onclick="toggleReadMore(this)">Read More</button>
+                                                       
+
+                                                        <p class="diagnosis_date "><span class="enter_span_hivj">
+                                                                {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                            </span> <span
+                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                            </span>
+
+                                                        </p>
+
+
+
                                                     </div>
+
+                                                    @forelse ($document_file as $alldocument_file)
+                                                        @if (in_array($alldocument_file->form_section_type, ['eligibility_status']))
+                                                            <div class="document_view">
+                                                                <h6><span class="trshDoc"><a
+                                                                            href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                                icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                        target="_blank"><iconify-icon
+                                                                            icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                                </h6>
+                                                            </div>
+                                                        @endif
+                                                    @empty
+                                                    @endforelse
+
+
+
+
                                                 </li>
                                             @empty
                                             @endforelse
-                                        @endif
-                                    </ul>
+
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
 
@@ -2548,11 +3051,11 @@
         </div>
     </div>
 
+
+
     <div class="card mb-3 border_yellow without_icon">
         <div class="card-body p-0">
             <div class="accordion acordignleft__small" id="accordionExample2">
-
-
                 <div class="accordion-item mm_title">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -2568,12 +3071,10 @@
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </div>
                                                 <div class="dropdown-content">
-                                                    <a href="#" class="bottom_btn copy_btn"><i
-                                                            class="fa-solid fa-print"></i> Print
-                                                    </a>
-                                                    <a href="#" class="bottom_btn extract_btn"
-                                                        data-bs-toggle="modal" data-bs-target="#attach_document"><i
-                                                            class="fa-solid fa-paperclip"></i> Attach
+
+                                                    <a onclick="viewDocument('general_form','procedure')"
+                                                        class="bottom_btn extract_btn">
+                                                        <i class="fa-solid fa-paperclip"></i> Attach
                                                     </a>
 
                                                 </div>
@@ -2588,54 +3089,96 @@
 
                     <div id="collapseleft20" class="accordion-collapse collapse" data-bs-parent="#accordionExample20">
                         @if (count($procedures) > 0)
-                        <div class="accordion-body">
-                            <div class="appointments___list past_medical_history_ak diagnosis_data">
-                               
-                                <ul>
-                                    @if (isset($procedures))
-                                        @forelse ($procedures  as $record)
-                                            <li>
+                            <div class="accordion-body">
+                                <div class="appointments___list past_medical_history_ak diagnosis_data">
 
-                                                <div class="appoin_date">
-                                                    <div class="read-more-content " style="">
-                                                        <div class="diagnosis_show">
-                                                            <p class="diagnosis_date "><span class="enter_span_hivj">
-                                                                    {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
-                                                                </span> <span
-                                                                    class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                </span></p>
+                                    <ul class="allergiesdtl">
+                                        @if (isset($procedures))
+                                            @forelse ($procedures  as $record)
+                                                <li>
+                                                    <div class="appoin_date">
+                                                        <div class="read-more-content " style="">
+                                                            <div class="diagnosis_show">
 
-                                                            <div class="ss_result_box">
-                                                                <div class="symp_title mb-1">
-                                                                    <h6><span class="point_dia"><i
-                                                                                class="fa-regular fa-circle-dot"></i></span>
-                                                                        {{ $record->procedure_name ?? '' }}</h6>
+
+                                                                <div class="Bottom_btn">
+                                                                    <span class="orderProcedure"
+                                                                        data-id="{{ $record->id }}">
+                                                                        <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                    </span>
+                                                                </div>
+
+
+
+
+
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                            {{ $record->procedure_name ?? '' }}</h6>
+
+                                                                    </div>
+                                                                    <p class="ss_result">
+                                                                        <strong>Entry</strong> &nbsp;&colon;
+                                                                        {{ $record->entry ?? '' }}
+                                                                    </p>
+
+                                                                    <p class="ss_result">
+                                                                        <strong>Summary</strong> &nbsp;&colon;
+                                                                        {{ $record->summary ?? '' }}
+                                                                    </p>
 
                                                                 </div>
-                                                                <p class="ss_result">
-                                                                    <strong>Entry</strong> &nbsp;&colon;
-                                                                    {{ $record->entry ?? '' }}
-                                                                </p>
+
+
+
                                                             </div>
 
 
 
                                                         </div>
 
+                                                       
+
+                                                        <p class="diagnosis_date "><span class="enter_span_hivj">
+                                                                {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                            </span>
+
+                                                            <span
+                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                            </span>
+
+                                                        </p>
 
 
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
-                                                </div>
-                                            </li>
-                                        @empty
-                                            <small style="font-size:10px;">No Data Found</small>
-                                        @endforelse
-                                    @endif
-                                </ul>
+
+
+                                                    @forelse ($document_file as $alldocument_file)
+                                                        @if (in_array($alldocument_file->form_section_type, ['procedure']))
+                                                            <div class="document_view">
+                                                                <h6><span class="trshDoc"><a
+                                                                            href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                                icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                        target="_blank"><iconify-icon
+                                                                            icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                                </h6>
+                                                            </div>
+                                                        @endif
+                                                    @empty
+                                                    @endforelse
+
+
+                                                </li>
+                                            @empty
+                                                <small style="font-size:10px;">No Data Found</small>
+                                            @endforelse
+                                        @endif
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>
@@ -2656,12 +3199,10 @@
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </div>
                                                 <div class="dropdown-content">
-                                                    <a href="#" class="bottom_btn copy_btn"><i
-                                                            class="fa-solid fa-print"></i> Print
-                                                    </a>
-                                                    <a href="#" class="bottom_btn extract_btn"
-                                                        data-bs-toggle="modal" data-bs-target="#attach_document"><i
-                                                            class="fa-solid fa-paperclip"></i> Attach
+
+                                                    <a onclick="viewDocument('general_form','supportive_treatment')"
+                                                        class="bottom_btn extract_btn">
+                                                        <i class="fa-solid fa-paperclip"></i> Attach
                                                     </a>
 
                                                 </div>
@@ -2672,39 +3213,63 @@
                             </div>
                         </button>
                     </h2>
+
                     <div id="collapseleft21" class="accordion-collapse collapse" data-bs-parent="#accordionExample21">
                         @if (count($supportiveTreatments) > 0)
-                        <div class="accordion-body">
-                            <div class="appointments___list past_medical_history_ak diagnosis_data">
-                                <ul>
-                                    @if (isset($supportiveTreatments))
-                                        @forelse ($supportiveTreatments  as $record)
-                                            <li>
+                            <div class="accordion-body">
+                                <div class="appointments___list past_medical_history_ak diagnosis_data">
+                                    <ul class="allergiesdtl">
+                                        @if (isset($supportiveTreatments))
+                                            @forelse ($supportiveTreatments  as $record)
+                                                <li>
+                                                    <div class="appoin_date">
+                                                        <div class="read-more-content " style="">
+                                                            <div class="diagnosis_show">
+                                                                <div class="Bottom_btn">
 
-                                                <div class="appoin_date">
-                                                    <div class="read-more-content " style="">
-                                                        <div class="diagnosis_show">
-                                                            <p class="diagnosis_date "><span class="enter_span_hivj">
-                                                                    {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
-                                                                </span> <span
-                                                                    class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                </span></p>
+                                                                    <span class="supportiveTrea"
+                                                                        data-id="{{ $record->id }}">
+                                                                        <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                    </span>
+                                                                </div>
 
-                                                            <div class="ss_result_box">
-                                                                <div class="symp_title mb-1">
-                                                                    <h6><span class="point_dia"><i
-                                                                                class="fa-regular fa-circle-dot"></i></span>
-                                                                        {{ $record->title ?? '' }}</h6>
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <p class="ss_result">
+                                                                            <strong>Title</strong> &nbsp;&colon;
+                                                                            {{ $record->title ?? '' }}
+                                                                        </p>
+
+
+                                                                    </div>
+
+                                                                    <div class="symp_title mb-1">
+
+                                                                        <p class="ss_result">
+                                                                            <strong>Sub Ttile</strong> &nbsp;&colon;
+                                                                            {{ $record->sub_title ?? '' }}
+                                                                        </p>
+
+
+                                                                    </div>
+
+
+                                                                    <div class="symp_title mb-1">
+
+
+
+                                                                        <p class="ss_result">
+                                                                            <strong>Treatment</strong> &nbsp;&colon;
+                                                                            {{ $record->treatment ?? '' }}
+                                                                        </p>
+
+
+                                                                    </div>
 
                                                                 </div>
-                                                                <p class="ss_result">
-                                                                    -
-                                                                    {{ $record->sub_title ?? '' }}
-                                                                </p>
-                                                                <p class="ss_result">
-                                                                    &nbsp;&nbsp;
-                                                                    {{ $record->treatment ?? '' }}
-                                                                </p>
+
+
+
                                                             </div>
 
 
@@ -2713,18 +3278,46 @@
 
 
 
+                                                        <p class="diagnosis_date "><span class="enter_span_hivj">
+                                                                {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                            </span> <span
+                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                            </span>
+
+
+                                                        </p>
+
+
+
+
+
+
+
+
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
-                                                </div>
-                                            </li>
-                                        @empty
-                                            <small style="font-size:10px;">No Data Found</small>
-                                        @endforelse
-                                    @endif
-                                </ul>
+                                                    <br>
+                                                    @forelse ($document_file as $alldocument_file)
+                                                        @if (in_array($alldocument_file->form_section_type, ['supportive_treatment']))
+                                                            <div class="document_view">
+                                                                <h6><span class="trshDoc"><a
+                                                                            href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                                icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                        target="_blank"><iconify-icon
+                                                                            icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                                </h6>
+                                                            </div>
+                                                        @endif
+                                                    @empty
+                                                    @endforelse
+                                                </li>
+                                            @empty
+                                                <small style="font-size:10px;">No Data Found</small>
+                                            @endforelse
+                                        @endif
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>
@@ -2744,12 +3337,10 @@
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </div>
                                                 <div class="dropdown-content">
-                                                    <a href="#" class="bottom_btn copy_btn"><i
-                                                            class="fa-solid fa-print"></i> Print
-                                                    </a>
-                                                    <a href="#" class="bottom_btn extract_btn"
-                                                        data-bs-toggle="modal" data-bs-target="#attach_document"><i
-                                                            class="fa-solid fa-paperclip"></i> Attach
+
+                                                    <a onclick="viewDocument('general_form','plan_recomandation')"
+                                                        class="bottom_btn extract_btn">
+                                                        <i class="fa-solid fa-paperclip"></i> Attach
                                                     </a>
 
                                                 </div>
@@ -2762,55 +3353,90 @@
                     </h2>
                     <div id="collapseleft9" class="accordion-collapse collapse" data-bs-parent="#accordionExample9">
                         @if (count($patient_future_plans) > 0)
-                        <div class="accordion-body">
-                            <div class="appointments___list">
+                            <div class="accordion-body">
+                                <div class="appointments___list past_medical_history_ak diagnosis_data">
 
-                                <ul>
-                                    @if (isset($patient_future_plans))
-                                        @forelse ($patient_future_plans  as $record)
-                                            <li>
+                                    <ul>
+                                        @if (isset($patient_future_plans))
+                                            @forelse ($patient_future_plans  as $record)
+                                                <li>
 
-                                                <div class="appoin_date">
-                                                    <div class="read-more-content " style="">
-                                                        <div class="diagnosis_show">
-                                                            <p class="diagnosis_date "><span class="enter_span_hivj">
-                                                                    {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
-                                                                </span> <span
-                                                                    class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                </span></p>
+                                                    <div class="appoin_date">
+                                                        <div class="read-more-content " style="">
+                                                            <div class="diagnosis_show">
 
-                                                            <div class="ss_result_box">
-                                                                <div class="symp_title mb-1">
-                                                                    <h6><span class="point_dia"><i
-                                                                                class="fa-regular fa-circle-dot"></i></span>
-                                                                        {{ $record->date ?? '' }}</h6>
 
+                                                                <div class="Bottom_btn">
+
+                                                                    <span class="removeFuturePlan"
+                                                                        data-id="{{ $record->id }}">
+                                                                        <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                    </span>
                                                                 </div>
 
-                                                                <p class="ss_result">
-                                                                    &nbsp;&nbsp;
-                                                                    {{ $record->plan_text ?? '' }}
-                                                                </p>
+
+
+
+
+
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                            {{ $record->date ?? '' }}</h6>
+
+                                                                    </div>
+
+                                                                    <p class="ss_result">
+                                                                        &nbsp;&nbsp;
+                                                                        {{ $record->plan_text ?? '' }}
+                                                                    </p>
+                                                                </div>
+
+
+
                                                             </div>
 
 
 
                                                         </div>
+                                                       
 
+                                                        <p class="diagnosis_date "><span class="enter_span_hivj">
+                                                                {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                            </span> <span
+                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                            </span>
+                                                        </p>
 
 
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
-                                                </div>
-                                            </li>
-                                        @empty
-                                            <small style="font-size:10px;">No Data Found</small>
-                                        @endforelse
-                                    @endif
-                                </ul>
+
+                                                    <br>
+                                                    @forelse ($document_file as $alldocument_file)
+                                                        @if (in_array($alldocument_file->form_section_type, ['plan_recomandation']))
+                                                            <div class="document_view">
+                                                                <h6><span class="trshDoc"><a
+                                                                            href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                                icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                        target="_blank"><iconify-icon
+                                                                            icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                                </h6>
+                                                            </div>
+                                                        @endif
+                                                    @empty
+                                                    @endforelse
+
+
+                                                </li>
+                                            @empty
+                                                <small style="font-size:10px;">No Data Found</small>
+                                            @endforelse
+                                        @endif
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>
@@ -2838,13 +3464,12 @@
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </div>
                                                 <div class="dropdown-content">
-                                                    <a href="#" class="bottom_btn copy_btn"><i
-                                                            class="fa-solid fa-print"></i> Print
+
+                                                    <a onclick="viewDocument('general_form','progress_notes')"
+                                                        class="bottom_btn extract_btn">
+                                                        <i class="fa-solid fa-paperclip"></i> Attach
                                                     </a>
-                                                    <a href="#" class="bottom_btn extract_btn"
-                                                        data-bs-toggle="modal" data-bs-target="#attach_document"><i
-                                                            class="fa-solid fa-paperclip"></i> Attach
-                                                    </a>
+
 
                                                 </div>
                                             </div>
@@ -2854,58 +3479,89 @@
                             </div>
                         </button>
                     </h2>
+
                     <div id="collapseleft14" class="accordion-collapse collapse" data-bs-parent="#accordionExample14">
                         @if (count($Patient_progress_notes) > 0)
-                        <div class="accordion-body">
-                            <div class="appointments___list">
+                            <div class="accordion-body">
+                                <div class="appointments___list past_medical_history_ak diagnosis_data">
 
-                                <ul>
-                                    @if (isset($Patient_progress_notes))
-                                        @forelse ($Patient_progress_notes  as $record)
-                                            <li>
+                                    <ul>
+                                        @if (isset($Patient_progress_notes))
+                                            @forelse ($Patient_progress_notes  as $record)
+                                                <li>
 
-                                                <div class="appoin_date">
-                                                    <div class="read-more-content " style="">
-                                                        <div class="diagnosis_show">
-                                                            <p class="diagnosis_date "><span class="enter_span_hivj">
-                                                                    {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
-                                                                </span> <span
-                                                                    class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
-                                                                </span></p>
+                                                    <div class="appoin_date">
+                                                        <div class="read-more-content " style="">
+                                                            <div class="diagnosis_show">
 
-                                                            <div class="ss_result_box">
-                                                                <div class="symp_title mb-1">
-                                                                    <h6><span class="point_dia"><i
-                                                                                class="fa-regular fa-circle-dot"></i></span>
-                                                                        {{ $record->progressNote->canned_name ?? '' }}
-                                                                    </h6>
+                                                                <div class="Bottom_btn">
 
+                                                                    <span class="removeNotes"
+                                                                        data-id="{{ $record->id }}">
+                                                                        <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                    </span>
                                                                 </div>
 
-                                                                <p class="ss_result">
-                                                                    <strong>Summery</strong> &nbsp;&colon;
-                                                                    {{ $record->summery ?? '' }}
-                                                                </p>
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                            {{ $record->progressNote->canned_name ?? '' }}
+                                                                        </h6>
+
+                                                                    </div>
+
+                                                                    @if ($record->voice_recognition)
+                                                                        <p class="ss_result">
+                                                                            <strong>Summery 1</strong> &nbsp;&colon;
+                                                                            {{ strip_tags($record->voice_recognition ?? '') }}
+                                                                        </p>
+                                                                    @endif
+
+                                                                    @if ($record->summery)
+                                                                        <p class="ss_result">
+                                                                            <strong>Summery 2</strong> &nbsp;&colon;
+                                                                            {{ $record->summery ?? '' }}
+                                                                        </p>
+                                                                    @endif
+                                                                 </div>
                                                             </div>
 
-
-
                                                         </div>
-
-
-
+                                                      
+                                                        <p class="diagnosis_date "><span class="enter_span_hivj">
+                                                                {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                            </span> <span
+                                                                class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                            </span></p>
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
-                                                </div>
-                                            </li>
-                                        @empty
-                                            <small style="font-size:10px;">No Data Found</small>
-                                        @endforelse
-                                    @endif
-                                </ul>
+
+
+
+
+                                                </li>
+                                            @empty
+                                                <small style="font-size:10px;">No Data Found</small>
+                                            @endforelse
+                                        @endif
+                                    </ul>
+                                    <br>
+                                    @forelse ($document_file as $alldocument_file)
+                                        @if (in_array($alldocument_file->form_section_type, ['progress_notes']))
+                                            <div class="document_view">
+                                                <h6><span class="trshDoc"><a
+                                                            href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
+                                                                icon="ph:trash-bold"></iconify-icon></a></span> <a
+                                                        href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                        target="_blank"><iconify-icon
+                                                            icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
+                                                </h6>
+                                            </div>
+                                        @endif
+                                    @empty
+                                    @endforelse
+                                </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>
@@ -2929,8 +3585,8 @@
 
 
     <!----------------------------
-                 Add or Remove Diagnosis
-                ---------------------------->
+                         Add or Remove Diagnosis
+                        ---------------------------->
     <div class="modal fade edit_patient__" id="diagnosis" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -2944,6 +3600,7 @@
                     @csrf
                     <input type="hidden" value="{{ @$id }}" name="patient_id" />
                     <input type="hidden" value="general_form" name="formType" />
+                    <input type="hidden" value="" id="hiddenremoveDiagnosis" name="hiddenDiagnosis" />
                     <div class="modal-body padding-0">
                         <div class="inner_data">
                             <div class="row">
@@ -2966,7 +3623,7 @@
                                         <input type="text" class="form-control category-input"
                                             placeholder="Type Diagnosis here...">
                                         <button class="btn r-04 btn--theme hover--tra-black add_patient add-category"
-                                            type="button"><i class="fa-solid fa-plus"></i> Add</button>
+                                            type="button"><i class="fa-solid fa-plus"></i> Add More</button>
                                     </div>
 
                                 </div>
@@ -2983,14 +3640,14 @@
                                                 <th>Diagnosis Type</th>
                                                 <th>Diagnosis</th>
                                                 <th>Action</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        
+
                                         </tbody>
-                                </table>
-                             </div>
+                                    </table>
+                                </div>
                             </div>
 
                         </div>
@@ -3005,17 +3662,17 @@
                     </div>
                 </form>
                 <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                   </div> -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                           </div> -->
             </div>
         </div>
     </div>
 
 
     <!----------------------------
-                     Symptoms
-                ---------------------------->
+                             Symptoms
+                        ---------------------------->
     <div class="modal fade edit_patient__" id="symptoms_add" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -3110,7 +3767,7 @@
                                 </div>
                                 <div class="col-lg-12 text-end">
                                     <a href="javascript:void(0)" class="diseases_name" id="addNewSymptoms">+ Add
-                                        </a>
+                                    </a>
                                 </div>
 
                                 <div class="add_data_Symptom">
@@ -3125,11 +3782,11 @@
                                         <tbody id="Symptoms">
 
                                         </tbody>
-                                       
+
 
                                     </table>
                                 </div>
-                                
+
 
                             </div>
                         </div>
@@ -3144,9 +3801,9 @@
                     </div>
                 </form>
                 <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                   </div> -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                           </div> -->
             </div>
         </div>
     </div>
@@ -3154,8 +3811,8 @@
 
 
     <!----------------------------
-                clinical_exam
-                ---------------------------->
+                        clinical_exam
+                        ---------------------------->
     <div class="modal fade edit_patient__" id="clinical_exam" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog ">
@@ -3175,30 +3832,30 @@
                                 <div class="col-lg-12">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <h6 class="mb-3 lut_title">Regional Exam</h6>
+                                            <h6 class="mb-3 lut_title">Regional Exam </h6>
                                         </div>
 
-                                        
+
                                         <div class="col-lg-6">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio"
-                                                    name="RegionalExamRadio" value="Normal"
-                                                    id="clinic_exam_1">
+                                                <input class="form-check-input"type="radio" id="RegionalExamRadioId"
+                                                    name="RegionalExamRadio" value="Normal" id="clinic_exam_1">
                                                 <label class="form-check-label" for="clinic_exam_1">
                                                     Normal
                                                 </label>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-6">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio"
-                                                    name="RegionalExamRadio" value="Abnormal"
-                                                    id="clinic_exam_2">
+                                                <input class="form-check-input" type="radio"
+                                                    name="RegionalExamRadio" value="Abnormal" id="clinic_exam_2">
                                                 <label class="form-check-label" for="clinic_exam_2">
                                                     Abnormal
                                                 </label>
                                             </div>
                                         </div>
+
 
 
 
@@ -3218,19 +3875,17 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio"
-                                                    name="SystemicExamRadio" value="Normal"
-                                                    id="clinic_exam_3">
+                                                <input class="form-check-input"type="radio" id="SystemicExamRadioId"
+                                                    name="SystemicExamRadio" value="Normal" id="clinic_exam_3">
                                                 <label class="form-check-label" for="clinic_exam_3">
                                                     Normal
                                                 </label>
                                             </div>
-                                        </div>   
+                                        </div>
                                         <div class="col-lg-6">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio"
-                                                    name="SystemicExamRadio" value="Abnormal"
-                                                    id="clinic_exam_4">
+                                                <input class="form-check-input"type="radio" name="SystemicExamRadio"
+                                                    value="Abnormal" id="clinic_exam_4">
                                                 <label class="form-check-label" for="clinic_exam_4">
                                                     Abnormal
                                                 </label>
@@ -3259,17 +3914,17 @@
                     </div>
                 </form>
                 <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                   </div> -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                           </div> -->
             </div>
         </div>
     </div>
 
 
     <!----------------------------
-                   order imagenairy Exam
-                ---------------------------->
+                           order imagenairy Exam
+                        ---------------------------->
     <div class="modal fade edit_patient__" id="order_imagenairy" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -3321,9 +3976,9 @@
                         <div class="action text-end bottom_modal">
                             <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
                                 Save</button>
-                            <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            <div class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
                                 data-bs-dismiss="modal">
-                                Close</a>
+                                Close</div>
                         </div>
                     </div>
                 </form>
@@ -3334,9 +3989,10 @@
 
 
 
+
     <!----------------------------
-                    Lab Test
-                ---------------------------->
+                            Lab Test
+                        ---------------------------->
     <div class="modal fade edit_patient__" id="lab_test" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog ">
@@ -3353,7 +4009,7 @@
                     <input type="hidden" name="patient_id" value="{{ @$id }}" />
                     <input type="hidden" value="general_form" name="formType" />'
                     <input type="hidden" id="doctorValue" name="doctorId"
-                    value="{{ auth()->guard('doctor')->user()->id }}" />
+                        value="{{ auth()->guard('doctor')->user()->id }}" />
                     <div class="modal-body padding-0">
                         <div class="inner_data">
                             <div class="row top_head_vitals">
@@ -3379,13 +4035,17 @@
                                             <span id="LabTestNamesError" style="color: red;"></span>
                                         </div>
 
+
+
                                         <input type="hidden" id="doctorValue" name="doctorId"
                                             value="{{ auth()->guard('doctor')->user()->id }}" />
 
 
                                         <div class="col-lg-12">
-
-
+                                            <div class="mb-3 form-group">
+                                                <label for="validationCustom01" class="form-label">Write Summary</label>
+                                                <textarea class="form-control" placeholder="" style="height:150px" name="test_summery"></textarea>
+                                            </div>
                                         </div>
 
 
@@ -3417,8 +4077,8 @@
 
 
     <!----------------------------
-                  Order Supportive Surface
-                ---------------------------->
+                          Order Supportive Surface
+                        ---------------------------->
     <div class="modal fade edit_patient__" id="order_supportive_surface" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -3489,8 +4149,8 @@
     </div>
 
     <!----------------------------
-                  MDT Review
-                ---------------------------->
+                          MDT Review
+                        ---------------------------->
     <div class="modal fade edit_patient__" id="mdt_review" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog ">
@@ -3515,12 +4175,13 @@
                                                 name="mdt_decision[]">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
 
+                                    <div class="col-lg-12">
                                         <div class="mb-3 form-group">
                                             <label for="validationCustom01" class="form-label">Enter Elaborate / notes
                                                 here***</label>
-                                            <textarea class="form-control" placeholder="" style="height:100px" name="mdt_elaborate[]"></textarea>
+                                            <textarea class="form-control" placeholder="" id="enter_elaborate" style="height:100px"
+                                                name="mdt_elaborate[]"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 text-end">
@@ -3554,8 +4215,8 @@
 
 
     <!----------------------------
-                  Eligibility Status
-                ---------------------------->
+                          Eligibility Status
+                        ---------------------------->
     <div class="modal fade edit_patient__" id="eligibility_status" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -3625,126 +4286,132 @@
         </div>
     </div>
 
+
+
+
     @push('custom-js')
         <script>
-
             // Add or Remove Diagnosis
             $(document).ready(function() {
                 var diagnosisData = {
-                        general: [],
-                        icd: []
-                    };
+                    general: [],
+                    icd: []
+                };
 
-                    $('.select_diagnosis').change(function() {
-                        var diagnosisType = $(this).val();
-                        $('.add-category').attr('data-diagnosis-type', diagnosisType);
-                        $('.category-container .category-input').val('');
-                    });
+                $('.select_diagnosis').change(function() {
+                    var diagnosisType = $(this).val();
+                    $('.add-category').attr('data-diagnosis-type', diagnosisType);
+                    $('.category-container .category-input').val('');
+                });
 
-                    $('.add-category').click(function() {
-                        var diagnosisType = $(this).attr('data-diagnosis-type');
-                        var category = $('.category-container .category-input').val().trim();
+                $('.add-category').click(function() {
+                    var diagnosisType = $(this).attr('data-diagnosis-type');
+                    var category = $('.category-container .category-input').val().trim();
 
-                        if (category !== '') {
-                            diagnosisData[diagnosisType].push(category);
-                            updateTable();
-                            $('.category-container .category-input').val('');
-                        }
-                    });
-
-                    $('.add_data_diagnosis').on('click', '.edit-category', function() {
-                        var row = $(this).closest('tr');
-                        row.find('.diagnosis-cell').attr('contenteditable', 'true').focus();
-                        row.find('.edit-category').hide();
-                        row.find('.save-category').show();
-                    });
-
-                    $('.add_data_diagnosis').on('click', '.save-category', function() {
-                        var row = $(this).closest('tr');
-                        var diagnosisType = row.data('diagnosis-type');
-                        var editedCategory = row.find('.diagnosis-cell').text().trim();
-                    
-                        var oldCategory = row.data('old-category');
-                        var index = diagnosisData[diagnosisType].indexOf(oldCategory);
-                        if (index !== -1) {
-                            diagnosisData[diagnosisType][index] = editedCategory;
-                        }
-                        
-                        row.find('.diagnosis-cell').attr('contenteditable', 'false');
-                        row.find('.edit-category').show();
-                        row.find('.save-category').hide();
-                    });
-
-                    $('.add_data_diagnosis').on('click', '.remove-category', function() {
-                        var row = $(this).closest('tr');
-                        var category = row.find('.diagnosis-cell').text().trim();
-                        var diagnosisType = row.data('diagnosis-type');
-
-                        diagnosisData[diagnosisType] = diagnosisData[diagnosisType].filter(function(item) {
-                            return item !== category;
-                        });
-
+                    if (category !== '') {
+                        //  console.log("first");
+                        diagnosisData[diagnosisType].push(category);
                         updateTable();
-                       
-                    });
+                        $('.category-container .category-input').val('');
+                    }
+                });
 
-                    function updateTable() {
-                        var tableBody = $('.add_data_diagnosis tbody');
-                        tableBody.empty();
+                $('.add_data_diagnosis').on('click', '.edit-category', function() {
+                    var row = $(this).closest('tr');
+                    row.find('.diagnosis-cell').attr('contenteditable', 'true').focus();
+                    row.find('.edit-category').hide();
+                    row.find('.save-category').show();
+                });
 
-                        Object.keys(diagnosisData).forEach(function(diagnosisType) {
-                            diagnosisData[diagnosisType].forEach(function(category) {
-                                var row = $('<tr data-diagnosis-type="' + diagnosisType + '">');
-                                row.append('<td>' + diagnosisType + '</td>');
-                                row.append('<td class="diagnosis-cell" contenteditable="false">' + category + '</td>');
-                                row.append('<td><button class="trash_btn remove-category"><i class="fa-regular fa-trash-can"></i></button>' +
-                                    '<a class="edit_btn" onclick="editDiagnosis(`'+diagnosisType+'`,`'+category+'`)"><i class="fa-solid fa-edit"></i></a>' +
-                                    '</td>');
-                                tableBody.append(row);
-                            });
-                        });
-                        console.log('diagnosisData_________________',diagnosisData);
+                $('.add_data_diagnosis').on('click', '.save-category', function() {
+                    var row = $(this).closest('tr');
+                    var diagnosisType = row.data('diagnosis-type');
+                    var editedCategory = row.find('.diagnosis-cell').text().trim();
+
+                    var oldCategory = row.data('old-category');
+                    var index = diagnosisData[diagnosisType].indexOf(oldCategory);
+                    if (index !== -1) {
+                        diagnosisData[diagnosisType][index] = editedCategory;
                     }
 
+                    row.find('.diagnosis-cell').attr('contenteditable', 'false');
+                    row.find('.edit-category').show();
+                    row.find('.save-category').hide();
+                });
 
-              
-                
+                $('.add_data_diagnosis').on('click', '.remove-category', function() {
+                    console.log("ok");
+                    $('#hiddenremoveDiagnosis').val('removeIt');
+                    var row = $(this).closest('tr');
+                    var category = row.find('.diagnosis-cell').text().trim();
+                    var diagnosisType = row.data('diagnosis-type');
+
+                    diagnosisData[diagnosisType] = diagnosisData[diagnosisType].filter(function(item) {
+                        return item !== category;
+                    });
+
+                    // console.log("second");
+
+                    updateTable();
+
+                });
+
+                function updateTable() { // console.log("fifth");
+                    let tableBody_1 = $('.add_data_diagnosis tbody');
+                    tableBody_1.empty();
+
+                    Object.keys(diagnosisData).forEach(function(diagnosisType) {
+                        diagnosisData[diagnosisType].forEach(function(category) {
+                            var row = $('<tr data-diagnosis-type="' + diagnosisType + '">');
+                            row.append('<td>' + diagnosisType + '</td>');
+                            row.append('<td class="diagnosis-cell" contenteditable="false">' +
+                                category + '</td>');
+                            row.append(
+                                '<td><button class="trash_btn remove-category"><i class="fa-regular fa-trash-can"></i></button>' +
+                                '<a class="edit_btn" onclick="editDiagnosis(`' + diagnosisType +
+                        '`,`' + category + '`)"><i class="fa-solid fa-edit"></i></a>' +
+                                '</td>');
+                            tableBody_1.append(row);
+                        });
+                    });
+                }
 
                 // get general /icd 10
 
                 function fetchDataFromDB() {
-                       
-                        $.ajax({
-                            url: '{{ route("getDiagnosisData") }}',
-                            method: 'GET',
-                            success: function(data) {
-                               
-                                diagnosisData.general = data.general;
-                                diagnosisData.icd = data.icd;
-                            
-                                updateTable();
-                            },
-                            error: function(error) {
-                                console.error('Error fetching data from DB:', error);
-                            }
-                        });
+                    //   console.log("getDiagnosisData");
 
-                    }
+                    $.ajax({
+                        url: '{{ route('getDiagnosisData') }}',
+                        method: 'GET',
+                        success: function(data) {
 
-                    
-                    fetchDataFromDB();
+                            diagnosisData.general = data.general;
+                            diagnosisData.icd = data.icd;
+
+                            updateTable();
+                        },
+                        error: function(error) {
+                            console.error('Error fetching data from DB:', error);
+                        }
+                    });
+
+                }
+
+
+                fetchDataFromDB();
                 // end
 
 
                 // store into DB
-                $('#formAdd_Diagnosis_form').submit(function(e) 
-                {
+                $('#formAdd_Diagnosis_form').submit(function(e) {
                     e.preventDefault();
                     var csrfToken = $('input[name="_token"]').val();
                     var formType = $('input[name="formType"]').val();
                     var patientId = $('input[name="patient_id"]').val();
+                    var hiddenDiagnosis = $('input[name="hiddenDiagnosis"]').val();
                     $.ajax({
-                        url: '{{ route("user.Add_Diagnosis") }}',
+                        url: '{{ route('user.Add_Diagnosis') }}',
                         type: 'POST',
                         data: JSON.stringify({
                             _token: csrfToken,
@@ -3759,28 +4426,56 @@
 
                             if (result != '') {
 
-                                Swal.fire({
-                                            title: 'Success',
-                                            text: 'Diagnosis  Added Successfully!',
-                                            icon: 'success',
-                                            timer: 2000, // Auto close alert after 2 seconds
-                                            showConfirmButton: false // Hide the "OK" button
-                                        }).then(function() {
-                                            // Reload the page after the alert is closed
-                                            location.reload();
-                                        });
-                            } 
-                            
-                            else {
+                                if (hiddenDiagnosis) {
 
-                                swal.fire("Error!", "Enter valid Diagnosis Details!",
-                                    "error");
+                                    Swal.fire({
+                                        title: 'Success',
+                                        text: 'Diagnosis Deleted Successfully!',
+                                        icon: 'success',
+                                        timer: 2000, // Auto close alert after 2 seconds
+                                        showConfirmButton: false // Hide the "OK" button
+                                    }).then(function() {
+                                        // Reload the page after the alert is closed
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Success',
+                                        text: 'Diagnosis  Added Successfully!',
+                                        icon: 'success',
+                                        timer: 2000, // Auto close alert after 2 seconds
+                                        showConfirmButton: false // Hide the "OK" button
+                                    }).then(function() {
+                                        // Reload the page after the alert is closed
+                                        location.reload();
+                                    });
+                                }
+                            } else {
+
+                                Swal.fire({
+                                    title: 'Success',
+                                    text: 'Diagnosis Deleted Successfully!',
+                                    icon: 'success',
+                                    timer: 2000, // Auto close alert after 2 seconds
+                                    showConfirmButton: false // Hide the "OK" button
+                                }).then(function() {
+                                    // Reload the page after the alert is closed
+                                    location.reload();
+                                });
 
                             }
                         },
                         error: function(error) {
-                            swal.fire("Error!", "Enter valid Diagnosis Details!",
-                                "error");
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Diagnosis Deleted Successfully!',
+                                icon: 'success',
+                                timer: 2000, // Auto close alert after 2 seconds
+                                showConfirmButton: false // Hide the "OK" button
+                            }).then(function() {
+                                // Reload the page after the alert is closed
+                                location.reload();
+                            });
                         }
                     });
 
@@ -3789,26 +4484,22 @@
             });
 
 
-            function editDiagnosis(diagnosisType,category)
-                {
+            function editDiagnosis(diagnosisType, category) {
 
-                    $('#editDiagnosis').val(category);
-                    $('#editDiagnosisType').val(diagnosisType);
-                    $('#editCategory').val(category);
-                
-                    $('#diagnosis').modal('hide');
-                    $('#diagnosisModal').modal('show');
+                $('#editDiagnosis').val(category);
+                $('#editDiagnosisType').val(diagnosisType);
+                $('#editCategory').val(category);
 
-                }    
+                $('#diagnosis').modal('hide');
+                $('#diagnosisModal').modal('show');
+
+            }
         </script>
 
         <script>
             // Add Symptoms
             $(document).ready(function() {
-
-
-
-                $('#addNewSymptoms').click(function() { 
+                $('#addNewSymptoms').click(function() {
 
                     let SymptomType = $("#SymptomType").val().trim();
                     let SymptomDurationNote = $("#SymptomDurationNote").val();
@@ -3821,10 +4512,10 @@
                         let addressHtml = `<tr id="address${microtime}">
                                     <td hidden>
                                         <input type="hidden" name="checkData" value="saveValue"/>
-                                        <input name="SymptomType_[]" hidden value="${SymptomType}">
-                                        <input name="SymptomDurationValue_[]" hidden value="${SymptomDurationValue}">
-                                        <input name="SymptomDurationType_[]" hidden value="${SymptomDurationType}">
-                                        <input name="SymptomDurationNote_[]" hidden value="${SymptomDurationNote}">
+                                        <input name="SymptomType[]" hidden value="${SymptomType}">
+                                        <input name="SymptomDurationValue[]" hidden value="${SymptomDurationValue}">
+                                        <input name="SymptomDurationType[]" hidden value="${SymptomDurationType}">
+                                        <input name="SymptomDurationNote[]" hidden value="${SymptomDurationNote}">
                                     </td>
                                     <td>
                                         ${SymptomType}
@@ -3842,7 +4533,7 @@
                                                     class="fa-regular fa-trash-can"></i></a></td>
 
                             </tr>`;
-                        $("#Symptoms").append(addressHtml);   
+                        $("#Symptoms").append(addressHtml);
                     } else {
                         alert('Type Symptom is required');
                     }
@@ -3851,7 +4542,7 @@
                     document.getElementById('SymptomDurationType').value = '';
 
                     $("#SymptomType").val('');
-                    // $("#SymptomDurationNote").val('');
+                    $("#SymptomDurationNote").val('');
                     $('#SymptomDurationValue').val('').trigger('change');
                     $('#SymptomDurationType').val('').trigger('change');
                     // $("#SymptomDurationType").val('');
@@ -3872,18 +4563,14 @@
                 });
 
 
-                
-
-
-     // Function to fetch existing symptoms from the database
-        function fetchExistingSymptoms() {
-            $.ajax({   
-                url: '{{ route("fetchExistingSymptom") }}', 
-                method: 'GET',
-                success: function(data) {
-                    if (data && data.length > 0) {
-                        data.forEach(function(symptom) {
-                            let addressHtml = `<tr>
+                function fetchExistingSymptoms() {
+                    $.ajax({
+                        url: '{{ route('fetchExistingSymptom') }}',
+                        method: 'GET',
+                        success: function(data) {
+                            if (data && data.length > 0) {
+                                data.forEach(function(symptom) {
+                                    let addressHtml = `<tr>
                                                     <td hidden>
                                                         <input name="SymptomType[]" hidden value="${symptom.SymptomType}">
                                                         <input name="SymptomDurationValue[]" hidden value="${symptom.SymptomDurationValue}">
@@ -3896,22 +4583,22 @@
                                                     <td>${symptom.SymptomDurationNote}</td>
                                                     <td><a href="https://techmavesoftwaredemo.com/webclinic/login/remove-Existing-Symptom/${symptom.id}/" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a></td>
                                                 </tr>`;
-                            $("#Symptoms").append(addressHtml);
-                        });
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching existing symptoms:', error);
+                                    $("#Symptoms").append(addressHtml);
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching existing symptoms:', error);
+                        }
+                    });
                 }
-            });
-        }
 
 
-    
-   
-  
-  
-        fetchExistingSymptoms();
+
+
+
+
+                fetchExistingSymptoms();
 
 
                 // store into DB
@@ -3919,7 +4606,7 @@
                     e.preventDefault();
 
                     $.ajax({
-                        url: '{{ route("user.Add_Symptoms") }}',
+                        url: '{{ route('user.Add_Symptoms') }}',
                         type: 'POST',
                         data: $(this).serialize(),
 
@@ -3931,17 +4618,17 @@
 
 
                                 Swal.fire({
-                                            title: 'Success',
-                                            text: 'Symptoms Added successfully!',
-                                            icon: 'success',
-                                            timer: 2000, // Auto close alert after 2 seconds
-                                            showConfirmButton: false // Hide the "OK" button
-                                        }).then(function() {
-                                            // Reload the page after the alert is closed
-                                            location.reload();
-                                        });
+                                    title: 'Success',
+                                    text: 'Symptoms Added successfully!',
+                                    icon: 'success',
+                                    timer: 2000, // Auto close alert after 2 seconds
+                                    showConfirmButton: false // Hide the "OK" button
+                                }).then(function() {
+                                    // Reload the page after the alert is closed
+                                    location.reload();
+                                });
 
-                         
+
                             } else {
 
                                 swal.fire("Error!", "Enter valid Symptoms Details!",
@@ -3962,52 +4649,54 @@
         </script>
         <!-- Order Special Invistigation form data -->
 
+
         <script>
             $(document).ready(function() {
 
-             // Form submission
-                $('#OrderSpecialInvistigation').submit(function (e) {
+                // Form submission
+                $('#OrderSpecialInvistigation').submit(function(e) {
                     e.preventDefault();
 
-                     let isValid = validateFormOrderSpecialInvistigation();
+                    let isValid = validateFormOrderSpecialInvistigation();
 
                     if (isValid) {
-                    $.ajax({
-                        url: '{{ route("checkSpecialInvestigations") }}',
-                        method: 'POST',
-                        data: $('#OrderSpecialInvistigation').serialize(),
-                        success: function(response) {
-                            if (response.exists) {
-                                updateSpecialInvestigation();
-                            } else {
-                               
-                                insertSpecialInvestigation();
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error checking special investigation data:', error);
-                        }
-                    });
+                        $.ajax({
+                            url: '{{ route('checkSpecialInvestigations') }}',
+                            method: 'POST',
+                            data: $('#OrderSpecialInvistigation').serialize(),
+                            success: function(response) {
+                                if (response.exists) {
+                                    updateSpecialInvestigation();
+                                } else {
 
-                }
+                                    insertSpecialInvestigation();
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error checking special investigation data:', error);
+                            }
+                        });
+
+                    }
+
                     function updateSpecialInvestigation() {
 
                         $.ajax({
-                            url: '{{ route("updateSpecialInvestigations") }}', 
+                            url: '{{ route('updateSpecialInvestigations') }}',
                             method: 'POST',
                             data: $('#OrderSpecialInvistigation').serialize(),
                             success: function(data) {
 
                                 Swal.fire({
-                                                title: '', // Empty title
-                                                text: data.message, // Success message
-                                                icon: 'success',
-                                                showConfirmButton: false, // Hide the default "OK" button
-                                                timer: 2000 // Display the message for 2 seconds
-                                            }).then(function() {
-                                                // Reload the current page after the alert is closed
-                                                window.location.reload();
-                                            });
+                                    title: '', // Empty title
+                                    text: data.message, // Success message
+                                    icon: 'success',
+                                    showConfirmButton: false, // Hide the default "OK" button
+                                    timer: 2000 // Display the message for 2 seconds
+                                }).then(function() {
+                                    // Reload the current page after the alert is closed
+                                    window.location.reload();
+                                });
 
                             },
                             error: function(xhr, status, error) {
@@ -4016,26 +4705,26 @@
                         });
                     }
 
-                   
+
                     function insertSpecialInvestigation() {
                         $.ajax({
-                            url: '{{ route("insertSpecialInvestigations") }}', 
+                            url: '{{ route('insertSpecialInvestigations') }}',
                             method: 'POST',
                             data: $('#OrderSpecialInvistigation').serialize(),
                             success: function(data) {
 
-                                   Swal.fire({
-                                        title: '', // Empty title
-                                        text:  data.message, // Success message
-                                        icon: 'success',
-                                        showConfirmButton: false, // Hide the default "OK" button
-                                        timer: 2000 // Display the message for 2 seconds
-                                    }).then(function() {
-                                        window.location.reload();
-                                    });
+                                Swal.fire({
+                                    title: '', // Empty title
+                                    text: data.message, // Success message
+                                    icon: 'success',
+                                    showConfirmButton: false, // Hide the default "OK" button
+                                    timer: 2000 // Display the message for 2 seconds
+                                }).then(function() {
+                                    window.location.reload();
+                                });
 
-                       
-                                
+
+
                             },
                             error: function(xhr, status, error) {
                                 console.error('Error inserting special investigation data:', error);
@@ -4044,63 +4733,63 @@
                     }
 
                     function validateFormOrderSpecialInvistigation() {
-                    let isValid = true;
-                    // data-bs-dismiss="modal"
-                    // Validate Title
-                    let Title = $('select[name="Title"]').val();
-                    if (Title === '') {
+                        let isValid = true;
+                        // data-bs-dismiss="modal"
+                        // Validate Title
+                        let Title = $('select[name="Title"]').val();
+                        if (Title === '') {
 
-                        isValid = false;
+                            isValid = false;
 
-                        $('#TitleError').text('Please select a Title');
-                        $('select[name="Title"]').addClass('error');
+                            $('#TitleError').text('Please select a Title');
+                            $('select[name="Title"]').addClass('error');
+                        }
+
+                        // Validate SubTitle
+                        let SubTitle = $('input[name="SubTitle"]').val();
+                        if (SubTitle === '') {
+                            isValid = false;
+
+                            $('#SubTitleError').text('SubTitle is required');
+                            $('input[name="SubTitle"]').addClass('error');
+                        }
+
+
+
+                        // Validate Invistigation
+                        let Invistigation = $('textarea[name="Invistigation"]').val();
+                        if (Invistigation === '') {
+                            isValid = false;
+
+                            $('#InvistigationError').text('Invistigation  is required');
+                            $('textarea[name="Invistigation"]').addClass('error');
+                        }
+
+
+                        return isValid;
                     }
 
-                    // Validate SubTitle
-                    let SubTitle = $('input[name="SubTitle"]').val();
-                    if (SubTitle === '') {
-                        isValid = false;
-
-                        $('#SubTitleError').text('SubTitle is required');
-                        $('input[name="SubTitle"]').addClass('error');
-                    }
-
-
-
-                    // Validate Invistigation
-                    let Invistigation = $('textarea[name="Invistigation"]').val();
-                    if (Invistigation === '') {
-                        isValid = false;
-
-                        $('#InvistigationError').text('Invistigation  is required');
-                        $('textarea[name="Invistigation"]').addClass('error');
-                    }
-
-
-                    return isValid;
-                }
-                   
                 });
                 $.ajax({
-                        url: '{{ route("getSpecialInvestigations") }}', 
-                        method: 'GET',
-                        data: {
-                            patient_id: '{{ @$id }}', 
-                            formType: 'general_form'
-                        },
-                        success: function(data) {
-                            if (data) {
-                                $('#Title').val(data.Title);
-                                $('#SubTitle').val(data.SubTitle);
-                                $('#Invistigation').val(data.Invistigation);
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error fetching special investigation data:', error);
+                    url: '{{ route('getSpecialInvestigations') }}',
+                    method: 'GET',
+                    data: {
+                        patient_id: '{{ @$id }}',
+                        formType: 'general_form'
+                    },
+                    success: function(data) {
+                        if (data) {
+                            $('#Title').val(data.Title);
+                            $('#SubTitle').val(data.SubTitle);
+                            $('#Invistigation').val(data.Invistigation);
                         }
-                    });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching special investigation data:', error);
+                    }
+                });
 
-              
+
 
             });
         </script>
@@ -4162,15 +4851,13 @@
 
                                 if (result != '') {
 
-                                    swal.fire(
-
-                                        'Success',
-
-                                        'MDT Review Added successfully!',
-
-                                        'success'
-
-                                    ).then(function() {
+                                    Swal.fire({
+                                        title: 'Success',
+                                        html: 'MDT Review Added successfully!',
+                                        icon: 'success',
+                                        showConfirmButton: false,
+                                        timer: 1000 // Display the message for 1 second (1000 milliseconds)
+                                    }).then(() => {
                                         location.reload();
                                     });
 
@@ -4326,6 +5013,7 @@
         <!-- End Add  Eligibility Status form data into database-->
         <script>
             function toggleReadMore(button) {
+                console.log(button);
 
                 var content = button.previousElementSibling; // Assumes the content is always before the button
 
@@ -4715,15 +5403,14 @@
 
                                 if (result != '') {
 
-                                    swal.fire(
-
-                                        'Success',
-
-                                        'Order Imaginary Exam Added successfully!',
-
-                                        'success'
-
-                                    ).then(function() {
+                                    swal.fire({
+                                        title: 'Success',
+                                        text: 'Order Imaginary Exam Added successfully!!',
+                                        icon: 'success',
+                                        showConfirmButton: false,
+                                        timer: 1000 // Display the message for 1 second (1000 milliseconds)
+                                    }).then(() => {
+                                        // Reload the page immediately after the message is closed
                                         location.reload();
                                     });
 
@@ -4783,18 +5470,17 @@
                                 }, 1000);
 
                                 if (result != '') {
+                                    Swal.fire({
+                                        title: 'Success',
+                                        html: 'Clinical exam data saved/updated successfully!',
+                                        icon: 'success',
+                                        showConfirmButton: false,
+                                        timer: 1000 // Display the message for 1 second (1000 milliseconds)
+                                    }).then(() => {
+                                        // Reload the page immediately after the message is closed
+                                        location.reload();
+                                    });
 
-                                    swal.fire(
-                                                    'Success',
-                                                    'Clinical exam data saved/updated successfully!',
-                                                    'success'
-                                                ).then((result) => {
-                                                    // Check if user clicked the "OK" button
-                                                    if (result.isConfirmed) {
-                                                        // Reload the page
-                                                        location.reload();
-                                                    }
-                                                });
                                     fetchAndDisplayPatientOrderLabTest(patient_id);
                                 } else {
 
@@ -5242,16 +5928,25 @@
 
                                 if (result != '') {
 
-                                    swal.fire(
+                                    // Swal.fire({
+                                    //         icon: 'success',
+                                    //         text: 'Video Call Added successfully!',
+                                    //         showConfirmButton: false, // Hide the "OK" button
+                                    //         timer: 1000 // Automatically close after 1 second (1000 milliseconds)
+                                    //     });
 
-                                        'Success',
+                                    Swal.fire({
+                                        title: 'Success',
+                                        text: 'Video Call Added successfully!',
+                                        icon: 'success',
+                                        showConfirmButton: false,
+                                        timer: 2000 // Display the message for 2 seconds
+                                    }).then(() => {
+                                        location
+                                            .reload(); // Refresh the page after the timer ends
+                                    });
 
-                                        'Video Call Added successfully!',
 
-                                        'success'
-
-                                    )
-                                    location.reload();
                                 } else {
 
                                     swal.fire("Error!", "Enter valid Video Call Details!", "error");
@@ -5293,6 +5988,8 @@
             });
         </script>
 
+
+
         <!-- Add Drugs / Current Meds form data into database-->
         <script>
             $(document).ready(function() {
@@ -5332,15 +6029,14 @@
 
                                 if (result != '') {
 
-                                    swal.fire(
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Drug!',
+                                        text: ' Drug Item Added successfully!',
+                                        showConfirmButton: false, // Hide the "OK" button
+                                        timer: 1000 // Automatically close after 1 second (1000 milliseconds)
+                                    });
 
-                                        'Success',
-
-                                        ' Drug Item Added successfully!',
-
-                                        'success'
-
-                                    )
                                     fetchAndDisplayPatientDrugList(patient_id);
                                 } else {
 
@@ -5391,19 +6087,19 @@
                         $('input[name="duration"]').addClass('error');
                     }
                     // Check if the checkbox is checked
-                    let isChecked = $('#is_stopped').is(':checked');
-                    if (!isChecked) {
+                    // let isChecked = $('#is_stopped').is(':checked');
+                    // if (!isChecked) {
 
 
-                        // Validate stopped_date
-                        let stopped_date = $('input[name="stopped_date"]').val();
-                        if (stopped_date === '') {
-                            isValid = false;
+                    //     // Validate stopped_date
+                    //     let stopped_date = $('input[name="stopped_date"]').val();
+                    //     if (stopped_date === '') {
+                    //         isValid = false;
 
-                            $('#stopped_dateError').text('Stopped Date  is required');
-                            $('input[name="stopped_date"]').addClass('error');
-                        }
-                    }
+                    //         $('#stopped_dateError').text('Stopped Date  is required');
+                    //         $('input[name="stopped_date"]').addClass('error');
+                    //     }
+                    // }
                     // Validate drug_code
                     // let drug_code = $('input[name="drug_code"]').val();
                     // if (drug_code === '') {
@@ -5421,8 +6117,6 @@
         <!-- Function to fetch and populate patient data -->
         <script>
             function fetchAndDisplayPatientDrugList(patient_id) {
-
-                // let patient_id = $('input[name="patient_id"]').val();
                 $.ajax({
                     url: '{{ route('user.drug_item_list') }}',
                     type: 'GET',
@@ -5430,34 +6124,30 @@
                         patient_id: patient_id
                     },
                     dataType: 'json',
-                    success: function(data) {
+                    success: function(response) {
                         let patientData = $('#drug_table_body');
                         patientData.empty();
-
-                        if (data && data.length > 0) {
-                            data.forEach(item => {
-                                var rowHtml2 = `<tr>
-                    <td>${item.drug_name}</td>
-
-                    <td>${item.frequency}</td>
-                    <td>${item.today_date}</td>
-                    <td>${item.duration}</td>
-                    <td>${item.stopped}</td>
-                    <td>${item.stopped_date}</td>
-                    <td>${item.code}</td>
-                    <td>
-                        <a onclick="removeDrugItem(this, ${item.id})" class="trash_btn">
-                          <i class="fa-regular fa-trash-can"></i>
-                        </a>
-                    </td>
-                </tr>`;
-
-                                $("#drug_table_body").append(rowHtml2);
+                        if (response && response.patient_current_med && response.patient_current_med.length > 0) {
+                            response.patient_current_med.forEach(item => {
+                                var rowHtml2 = `
+                                    <tr>
+                                        <td>${item.drug_name}</td>
+                                        <td>${item.frequency}</td>
+                                        <td>${item.today_date}</td>
+                                        <td>${item.duration}</td>
+                                        <td>${item.stopped}</td>
+                                        <td>${item.stopped_date}</td>
+                                        <td>${item.code}</td>
+                                        <td>
+                                            <a onclick="removeDrugItem(this, ${item.id})" class="trash_btn">
+                                                <i class="fa-regular fa-trash-can"></i>
+                                            </a>
+                                        </td>
+                                    </tr>`;
+                                patientData.append(rowHtml2);
                             });
-
-
                         } else {
-                            $('#drug_table_body').html('<tr><td colspan="8">No Drug Item found.</td></tr>');
+                            patientData.html('<tr><td colspan="8">No Drug nhh Item found.</td></tr>');
                         }
                     },
                     error: function(xhr, status, error) {
@@ -5470,8 +6160,9 @@
             $(document).ready(function() {
                 let patient_id1 = $('input[name="patient_id"]').val();
                 $(".drug_add").on('click', function() {
-
+                    // console.log("ok");
                     fetchAndDisplayPatientDrugList(patient_id1);
+
                 });
 
             });
@@ -5500,12 +6191,22 @@
                             },
                             dataType: 'json',
                             success: function(result) {
-                                swal.fire({
+
+                                Swal.fire({
                                     icon: 'success',
                                     title: 'Deleted!',
                                     text: 'Drug Item Deleted',
-                                    timer: 1000
+                                    showConfirmButton: false, // Hide the "OK" button
+                                    timer: 1000 // Automatically close after 1 second (1000 milliseconds)
                                 });
+
+
+                                // swal.fire({
+                                //     icon: 'success',
+                                //     title: 'Deleted!',
+                                //     text: 'Drug Item Deleted',
+                                //     timer: 1000
+                                // });
 
                                 if (that) {
                                     // Delete specific row
@@ -5591,6 +6292,8 @@
 
             });
         </script>
+
+
         <!-- Add  Symptoms form data into database-->
         <script>
             $(document).ready(function() {
@@ -5662,77 +6365,92 @@
 
         <script>
             $(document).ready(function() {
-            $('#clinical_exam').on('shown.bs.modal', function () {
-                let patient_id = '{{ @$id }}'; 
-                let formType = 'general_form';
-
-                $.ajax({
-                    url: '{{ route("getClinicalExams") }}',
-                    method: 'GET',
-                    data: {
-                        patient_id: patient_id,
-                        formType: formType
-                    },
-                    success: function(data) {
-                        if (data) {
-                            
-                            if (data.RegionalExam) {
-                                $(`input[name="clinical_exam[RegionalExam][]"][value="${data.RegionalExam}"]`).prop('checked', true);
-                                $('#RegionalExamNote').val(data.RegionalExamNote);
-                            }
-                            if (data.SystemicExam) {
-                                $(`input[name="clinical_exam[SystemicExam][]"][value="${data.SystemicExam}"]`).prop('checked', true);
-                                $('#SystemicExamNote').val(data.SystemicExamNote);
-                            }
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching clinical exam data:', error);
-                    }
-                });
-
-                // Form submission
-                $('#clinical_exam_form').submit(function(e) {
-                    e.preventDefault();
-
-                    let RegionalExam = $('input[name="clinical_exam[RegionalExam][]"]:checked').val();
-                    let RegionalExamNote = $('#RegionalExamNote').val();
-                    let SystemicExam = $('input[name="clinical_exam[SystemicExam][]"]:checked').val();
-                    let SystemicExamNote = $('#SystemicExamNote').val();
+                $('#clinical_exam').on('shown.bs.modal', function() {
+                    let patient_id = '{{ @$id }}';
+                    let formType = 'general_form';
 
                     $.ajax({
-                        url: '{{ route("saveClinicalExams") }}',
-                        method: 'POST',
-                        data: $(this).serialize(),
-                        success: function(response) {
+                        url: '{{ route('getClinicalExams') }}',
+                        method: 'GET',
+                        data: {
+                            patient_id: patient_id,
+                            formType: formType
+                        },
+                        success: function(data) {
+                            if (data) {
 
-                            swal.fire(
-                                            'Success',
-                                            'Clinical exam data saved/updated successfully!',
-                                            'success'
-                                        ).then((result) => {
-                                            // Check if user clicked the "OK" button
-                                            if (result.isConfirmed) {
-                                                // Reload the page
-                                                location.reload();
-                                            }
-                                        });
+                                console.log(data.RegionalExam);
+
+                                if (data.RegionalExam !== "Normal") {
+                                    $(`input[name="RegionalExamRadio"][value="${data.RegionalExam}"]`)
+                                        .prop('checked', true);
+                                    $('#RegionalExamNote').val(data.RegionalExamNote);
+                                } else {
+                                    $(`#RegionalExamRadioId`).prop('checked', true);
+                                    $('#RegionalExamNote').val(data.RegionalExamNote);
+                                }
+
+                                console.log(data.SystemicExam);
+
+                                if (data.SystemicExam !== "Normal") {
+                                    $(`input[name="SystemicExamRadio"][value="${data.SystemicExam}"]`)
+                                        .prop('checked', true);
+                                    $('#SystemicExamNote').val(data.SystemicExamNote);
+                                } else {
+                                    $(`#SystemicExamRadioId`).prop('checked', true);
+                                    $('#SystemicExamNote').val(data.SystemicExamNote);
+                                }
 
 
-
-                            console.log('Clinical exam data saved/updated successfully:', response);
-
-                            
-                           
+                            }
                         },
                         error: function(xhr, status, error) {
-                            console.error('Error saving/updating clinical exam data:', error);
+                            console.error('Error fetching clinical exam data:', error);
                         }
                     });
 
-                    return false;
+                    // Form submission
+                    $('#clinical_exam_form').submit(function(e) {
+                        e.preventDefault();
+
+                        let RegionalExam = $('input[name="clinical_exam[RegionalExam][]"]:checked')
+                            .val();
+                        let RegionalExamNote = $('#RegionalExamNote').val();
+                        let SystemicExam = $('input[name="clinical_exam[SystemicExam][]"]:checked')
+                            .val();
+                        let SystemicExamNote = $('#SystemicExamNote').val();
+
+                        $.ajax({
+                            url: '{{ route('saveClinicalExams') }}',
+                            method: 'POST',
+                            data: $(this).serialize(),
+                            success: function(response) {
+
+                                Swal.fire({
+                                    title: '', // Empty title
+                                    text: 'Clinical exam data saved/updated successfully!', // Success message
+                                    icon: 'success',
+                                    showConfirmButton: false, // Hide the default "OK" button
+                                    timer: 2000 // Display the message for 2 seconds
+                                }).then(() => {
+                                    // Reload the page after the timer expires
+                                    location.reload();
+                                });
+
+
+
+
+
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error saving/updating clinical exam data:',
+                                    error);
+                            }
+                        });
+
+                        return false;
+                    });
                 });
-            });
 
 
 
@@ -5902,24 +6620,15 @@
                                 // $('#add_patient').modal('hide');
 
                                 if (result != '') {
-
-                                    swal.fire(
-
-                                        'Success',
-
-                                        'Past Medical History Added successfully!',
-
-                                        'success'
-
-                                    ).then(function() {
+                                    swal.fire({
+                                        title: 'Success',
+                                        html: 'Past Medical History Added successfully!',
+                                        icon: 'success',
+                                        showConfirmButton: false,
+                                        timer: 1000 // 1000 milliseconds = 1 second
+                                    }).then(() => {
                                         location.reload();
                                     });
-
-                                    // Call the function every second
-                                    setInterval(function() {
-                                        $('[id*="Error"]').text('');
-                                    }, 1000);
-
 
                                 } else {
 
@@ -5985,17 +6694,28 @@
 
                                 if (result != '') {
 
-                                    swal.fire(
-
-                                        'Success',
-
-                                        'Past Surgical History Added successfully!',
-
-                                        'success'
-
-                                    ).then(function() {
+                                    swal.fire({
+                                        title: 'Success',
+                                        html: 'Past Surgical History Added successfully!',
+                                        icon: 'success',
+                                        showConfirmButton: false,
+                                        timer: 1000 // 1000 milliseconds = 1 second
+                                    }).then(() => {
                                         location.reload();
                                     });
+
+
+                                    // swal.fire(
+
+                                    //     'Success',
+
+                                    //     'Past Surgical History Added successfully!',
+
+                                    //     'success'
+
+                                    // ).then(function() {
+                                    //     location.reload();
+                                    // });
 
                                 } else {
 
@@ -6364,7 +7084,6 @@
                             data.forEach(item => {
                                 var rowHtml2 = `<tr>
                                 <td>${item.drug_name}</td>
-
                                 <td>${item.frequency}</td>
                                 <td>${item.today_date}</td>
                                 <td>${item.duration}</td>
@@ -6378,7 +7097,7 @@
                                 </td>
                             </tr>`;
 
-                                $("#add_data_diagnosis").append(rowHtml2);
+                                $("#add_data_diagnosis").html(rowHtml2);
                             });
 
 

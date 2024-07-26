@@ -49,6 +49,7 @@ class LoginController extends Controller
 
 
         return view('superAdmin.index',$data);
+        
     }
     public function logout(Request $request)
     {

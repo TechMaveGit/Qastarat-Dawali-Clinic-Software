@@ -358,7 +358,7 @@
                   <li class="{{ Route::is('pathology.index') ? 'active' : '' }}">
 					<a href="{{ route('pathology.index') }}">
 					  <i data-feather="calendar"></i>
-					  <span>Pathology Department</span>
+					  <span> Pathology/Lab Department</span>
 
 					</a>
 
@@ -402,7 +402,7 @@
 				<li>
                     <a href="{{ route('branch.management.index') }}">
 					<i data-feather="map-pin"></i>
-					<span>Branch Management</span>
+					<span>Location Management </span>
 
 				  </a>
 				</li>
@@ -425,7 +425,7 @@
 					  </span>
 					</a>
 					<ul class="treeview-menu website_icon">
-					  <li class="{{ Route::is('homes.index') ? 'active' : '' }}"><a href="{{ route('homes.index') }}"><iconify-icon icon="carbon:home"></iconify-icon> Home</a></li>
+					  <!-- <li class="{{ Route::is('homes.index') ? 'active' : '' }}"><a href="{{ route('homes.index') }}"><iconify-icon icon="carbon:home"></iconify-icon> Home</a></li>
 					  <li class="{{ Route::is('aboutUs.aboutUs') ? 'active' : '' }}"><a href="{{ route('aboutUs.aboutUs') }}"><iconify-icon icon="mdi:about-circle-outline"></iconify-icon> About Us</a></li>
 					  <li class="{{ Route::is('ourTreatments.ourTreatment') ? 'active' : '' }}"><a href="{{ route('ourTreatments.ourTreatment') }}"><iconify-icon icon="healthicons:hospitalized-outline"></iconify-icon>Our Treatments</a></li>
 					  <li class="{{ Route::is('ourServices.ourService') ? 'active' : '' }}"><a href="{{ route('ourServices.ourService') }}"><iconify-icon icon="grommet-icons:services"></iconify-icon> Our Services</a></li>
@@ -433,7 +433,7 @@
 					  <li class="{{ Route::is('ourBranches.ourBranch') ? 'active' : '' }}"><a href="{{ route('ourBranches.ourBranch') }}"><iconify-icon icon="fluent:branch-24-regular"></iconify-icon> Our Branches</a></li>
 					  <li class="{{ Route::is('ourTeams.ourTeam') ? 'active' : '' }}"><a href="{{ route('ourTeams.ourTeam') }}"><iconify-icon icon="fluent:people-team-16-regular"></iconify-icon> Our Teams</a></li>
 					  <li class="{{ Route::is('contactUs.contactUs') ? 'active' : '' }}"><a href="{{ route('contactUs.contactUs') }}"><iconify-icon icon="pixelarticons:contact-plus"></iconify-icon> Contact Us</a></li>
-					  <li class="{{ Route::is('faqs.faq') ? 'active' : '' }}"><a href="{{ route('faqs.faq') }}"><iconify-icon icon="wpf:faq"></iconify-icon> FAQ</a></li>
+					  <li class="{{ Route::is('faqs.faq') ? 'active' : '' }}"><a href="{{ route('faqs.faq') }}"><iconify-icon icon="wpf:faq"></iconify-icon> FAQ</a></li> -->
 					  <li class="{{ Route::is('footers.footer') ? 'active' : '' }}"><a href="{{ route('footers.footer') }}"><iconify-icon icon="fluent-mdl2:footer"></iconify-icon> Footer</a></li>
 					</ul>
 				  </li>

@@ -9,13 +9,8 @@
   <!-- Content Header (Page header) -->
   <div class="content-header">
       <div class="d-flex">
-      <h4 class="page-title">Branch Management</h4>
-      {{-- <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Branch Management</li>
-              </ol>
-          </nav> --}}
+      <h4 class="page-title">Location   Management</h4>
+     
       </div>
 
       </div>
@@ -26,8 +21,8 @@
 <div class="box">
  <div class="box-header with-border">
   <div class="top_area">
-  <h3 class="box-title">All Branches</h3>
-  <a href="#" class="waves-effect waves-light btn btn-md btn-primary" data-bs-toggle="modal" data-bs-target="#add_lab"><i class="fa-solid fa-plus"></i> Add Branch</a>
+  <h3 class="box-title">All Location</h3>
+  <a href="#" class="waves-effect waves-light btn btn-md btn-primary" data-bs-toggle="modal" data-bs-target="#add_lab"><i class="fa-solid fa-plus"></i> Add Location</a>
   </div>
 
  </div>
@@ -37,7 +32,7 @@
        <table id="custom_table" class="custom_table table  table-striped table-hover" style="width:100%">
          <thead>
              <tr>
-                 <th>Branch Name</th>
+                 <th>Location Name</th>
                  <th>Phone No.</th>
                  <th>Address</th>
                  <th>Status</th>
@@ -98,7 +93,7 @@
           @csrf
           <div class="modal-content">
              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Branch
+                <h5 class="modal-title" id="exampleModalLabel">Edit Location
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
@@ -106,7 +101,7 @@
                 <div class="row">
                    <div class="col-md-6">
                       <div class="form-group">
-                         <label class="form-label">Branch Name</label>
+                         <label class="form-label">Location Name</label>
                          <input type="hidden" name="id" id="id"  class="form-control" placeholder="">
                          <input type="text" name="branch_name" id="lab_name" class="form-control" placeholder="" required>
                       </div>
@@ -159,7 +154,7 @@
 
  <div class="modal-content">
  <div class="modal-header">
- <h5 class="modal-title" id="exampleModalLabel">Add Branch</h5>
+ <h5 class="modal-title" id="exampleModalLabel">Add Location</h5>
  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
  </div>
 
@@ -167,7 +162,7 @@
  <div class="row">
  <div class="col-md-6">
  <div class="form-group">
- <label class="form-label">Branch Name
+ <label class="form-label">Location Name
 </label>
  <input type="text" name="branch_name" class="form-control" placeholder="" required>
  </div>

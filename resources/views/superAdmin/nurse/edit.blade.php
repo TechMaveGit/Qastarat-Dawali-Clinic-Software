@@ -10,12 +10,12 @@
   <div class="content-header">
       <div class="d-flex">
       <h4 class="page-title">Edit Staff</h4>
-      <nav aria-label="breadcrumb">
+      <!-- <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="{{ route('nurses.index') }}">Staff</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Edit Staff</li>
               </ol>
-          </nav>
+          </nav> -->
       </div>
 
       </div>
@@ -114,7 +114,6 @@
 
                       @php
                             $branchs = DB::table('branchs')->where('status', '1')->get();
-                            // Get array of selected branch IDs
                       @endphp
                         <div class="col-md-3">
                             <div class="form-group">
@@ -230,37 +229,30 @@
                       </div>
                       </div>
 
-                    {{-- <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Country</label>
-                            <select class="form-control select2"  name="country" style="width: 100%;">
-                                <option value="">Select Any One</option>
-                                <option value="India" {{ $patientId->country == 'India' ? 'selected' : '' }}>India</option>
-                                <option value="USA" {{ $patientId->country == 'USA' ? 'selected' : '' }}>USA</option>
-                            </select>
-                            @error('country')
-                        <span class="error text-danger">{{ $message }}</span>
-                    @enderror
+
+
+                      @php
+                        $allcountries = DB::table('countries')->get();
+                        @endphp
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Country</label>
+                                <select class="form-control select2" name="country" style="width: 100%;"
+                                    required>
+                                    <option value="">Select Any One</option>
+
+                                    @forelse ($allcountries as $countries)
+                                        <option value="{{ $countries->Name }}"
+                                            {{ $countries->Name == $nurse->country ? 'selected' : '' }}>
+                                            {{ $countries->Name }}</option>
+
+                                    @empty
+                                    @endforelse
+
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
                         </div>
-                    <!-- /.form-group -->
-                    </div> --}}
-
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Country</label>
-                            <select class="form-control select2"  name="country" style="width: 100%;">
-                                <option value="">Select Any One</option>
-                                <option value="India" {{ $nurse->country == 'India' ? 'selected' : '' }}>India</option>
-                                <option value="USA" {{ $nurse->country == 'USA' ? 'selected' : '' }}>USA</option>
-                            </select>
-                            @error('country')
-                        <span class="error text-danger">{{ $message }}</span>
-                    @enderror
-                        </div>
-                    <!-- /.form-group -->
-                    </div>
-
 
 
 

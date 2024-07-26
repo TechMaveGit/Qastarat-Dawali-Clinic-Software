@@ -9,12 +9,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">Edit Patient</h4>
-        <nav aria-label="breadcrumb">
+        {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ Route('patients.index') }}">Patients</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Patient</li>
                 </ol>
-            </nav>
+            </nav> --}}
         </div>
 
 		</div>
@@ -259,13 +259,25 @@
                         </div>
                         </div>
 
+                        @php
+                        $allCountrie=  DB::table('countries')->get();
+                      @endphp
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Country</label>
                                 <select class="form-control select2"  name="country" style="width: 100%;">
-                                    <option value="">Select Any One</option>
+
+                                    {{-- <option value="">Select Any One</option>
                                     <option value="India" {{ $patientId->country == 'India' ? 'selected' : '' }}>India</option>
-                                    <option value="USA" {{ $patientId->country == 'USA' ? 'selected' : '' }}>USA</option>
+                                    <option value="USA" {{ $patientId->country == 'USA' ? 'selected' : '' }}>USA</option> --}}
+
+                                    @forelse ($allCountrie as $countrie)
+                                    <option value="{{ $countrie->Name }}" {{ $countrie->Name == $patientId->country ? 'selected' : '' }}>{{ $countrie->Name }}</option>
+                                    @empty
+                                    @endforelse
+
+
                                 </select>
                                 @error('country')
                             <span class="error text-danger">{{ $message }}</span>
@@ -276,44 +288,40 @@
 
 
 
-
-
-
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Document Type</h4>
 							</div>
 						</div>
+
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Select Document</label>
-                                <select class="form-control select2"  name="document_type" style="width: 100%;">
+                                <label class="form-label">Select Id</label>
+                                <select class="form-control select2" name="document_type" id="document_type" style="width: 100%;">
                                     <option value="">Select Any One</option>
-                                    <option value="Passport" {{ $patientId->document_type == 'Passport' ? 'selected="selected"' : '' }}>Passport </option>
-                                    <option value="Address proof" {{ $patientId->document_type == 'Address proof' ? 'selected="selected"' : '' }}>Address proof</option>
+                                    <option value="CIVIL ID" {{ $patientId->document_type == 'CIVIL ID' ? 'selected' : '' }}>CIVIL ID </option>
+                                    <option value="EID" {{ $patientId->document_type == 'EID' ? 'selected' : '' }}>EID</option>
+                                    <option value="PERSONAL NUMBER" {{ $patientId->document_type == 'PERSONAL NUMBER' ? 'selected' : '' }}>PERSONAL NUMBER</option>
+                                    <option value="RESIDENT ID" {{ $patientId->document_type == 'RESIDENT ID' ? 'selected' : '' }}>RESIDENT ID</option>
+                                    <option value="PASSPORT, DRIVER's LICENSE, ETC" {{ $patientId->document_type == 'PASSPORT, DRIVERs LICENSE, ETC' ? 'selected' : '' }}>PASSPORT, DRIVER's LICENSE, ETC</option>
 
                                 </select>
                                 @error('document_type')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
                             </div>
-                        <!-- /.form-group -->
                         </div>
 
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                              <label class="form-label">Upload Document (PDF,IMAGE) </label>
-                              <input name="id_proof" type="file" class="dropify" data-height="100" />
-                              </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">    
+                              <label class="form-label">Enter Id Number</label>
+                              <input type="text" name="enterIdNumber" id="enterIdNumber" value="{{ $patientId->enterIdNumber}}" class="form-control" placeholder="">
+                              <span class="error text-danger" id="validationMessage"> </span>
+
                             </div>
-
-
-                        {{-- <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Patient Id</label>
-                            <input type="text"  class="form-control" placeholder="">
                         </div>
-                        </div> --}}
+
+
 
                     </div>
                 </div>
@@ -336,6 +344,58 @@
 
       </div>
  </div>
+
+
+
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const documentTypeSelect = document.getElementById('document_type');     
+        const idNumberInput = document.getElementById('enterIdNumber');
+        const validationMessage = document.getElementById('validationMessage');
+
+        documentTypeSelect.addEventListener('change', validateInput);
+        idNumberInput.addEventListener('input', validateInput);
+
+        function validateInput() {
+            const selectedType = documentTypeSelect.value;
+            const idNumber = idNumberInput.value;
+            let maxLength = 0;
+            let message = '';
+
+            switch (selectedType) {
+                case 'CIVIL ID':
+                    maxLength = 9;
+                    message = 'CIVIL ID must be exactly 9 digits';
+                    break;
+                case 'EID':
+                    maxLength = 18;
+                    message = 'EID must be exactly 15 digits';
+                    break;
+                case 'PERSONAL NUMBER':
+                case 'RESIDENT ID':
+                    maxLength = 10;
+                    message = selectedType + ' must be exactly 11 digits';
+                    break;
+                case 'PASSPORT, DRIVER\'s LICENSE, ETC':     
+                    maxLength = Infinity;
+                    message = '';  
+                    break;
+            }
+
+            if (maxLength !== Infinity && idNumber.length > maxLength) {
+                idNumberInput.value = idNumber.slice(0, maxLength);
+            }
+
+            if (maxLength !== Infinity && idNumber.length !== maxLength) {
+                validationMessage.textContent = message;
+            } else {
+                validationMessage.textContent = '';
+            }
+        }
+    });
+    </script>
+
+
 
 
  <script>

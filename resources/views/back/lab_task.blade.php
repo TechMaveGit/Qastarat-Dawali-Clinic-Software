@@ -31,6 +31,7 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
 
                                 <tbody>
                                    @forelse($nurse_tasks as $nurse_task)
+                                   @if ($nurse_task->form_type!='Meeting')
                                    <tr>
                                     <td hidden></td>
                                     <td>
@@ -109,13 +110,16 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
                                                                 <span>&nbsp;</span>
                                                                 @endif
                                                             </li>
+
                                                             <li>
                                                                 <div class="tb_listTitle_label">Status</div>
 
-                                                                @if ($nurse_task->assigned=='7')
-                                                                <span>Report Uploaded</span>
+                                                                @if ($nurse_task->approveDocumentSts=='1')
+                                                                <span>Approved</span>
+                                                                @elseif ($nurse_task->approveDocumentSts=='0')
+                                                                <span>Rejected</span>
                                                                 @else
-                                                                <span>Pending</span>
+                                                                <span>Report Not Uploded</span>
                                                                 @endif
 
                                                             </li>
@@ -131,15 +135,37 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
                                                                 </button>
                                                             </li>
                                                             @else
+
+                                                          
                                                             <li class="">
                                                                 <button type="button" class="btn btn-primary btnFileUpload"
                                                                     data-bs-toggle="modal"
-                                                                    onclick="setTaskId({{ $nurse_task->id ?? '' }})"
-                                                                    data-bs-target="#uploadModal">
-                                                                    <iconify-icon icon="ant-design:cloud-upload-outlined"></iconify-icon>ReUpload Documents
+                                                                    @if (empty($nurse_task->approveDocumentSts))
+                                                                        onclick="setTaskId({{ $nurse_task->id ?? '' }})"
+                                                                    @endif
+                                                                    data-bs-target="#uploadModal"
+                                                                    {{ empty($nurse_task->approveDocumentSts) ? '' : 'disabled' }}>
+                                                                    <iconify-icon icon="ant-design:cloud-upload-outlined"></iconify-icon>
+                                                                    ReUpload Documents
                                                                 </button>
                                                             </li>
-                                                            <li class="">
+
+                                                        </li>
+
+
+
+                                                        <li>    
+                                                            <div class="tb_listTitle_label">Summary</div>
+                                                                <a onclick="ViewOrderSummary(`{{ $nurse_task->order_summary  }}`)"
+                                                                    class="download_rp_btn"
+                                                                    style="color: #011205e1;">
+                                                                    <i class="fas fa-eye"
+                                                                        style="color: #050606d6; border: 1px solid #e90a0a;"></i>
+                                                                </a>
+                                                        </li>
+                                                        
+                                                        
+                                                        <li class="">
                                                                 <a target="block" href="{{ env('Document_Url') . $nurse_task->labDocument }}" type="button" class="btn btn-primary btnFileUpload">
                                                                     <iconify-icon icon="ant-design:cloud-upload-outlined"></iconify-icon> View Report
                                                                 </a>
@@ -174,6 +200,7 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
                                     </td>
 
                                 </tr>
+                                @endif
                                    @empty
 
                                    @endforelse

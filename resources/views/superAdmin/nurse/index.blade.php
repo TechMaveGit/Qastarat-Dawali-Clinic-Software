@@ -72,7 +72,7 @@
                    <th>Mobile No.</th>
                    <th>Email Address</th>
                    <th>Staff Type</th>
-                   <th>Postal Code</th>
+                   <th>Branch</th>
                     <th>Status</th>
                    <th>Action</th>
 
@@ -107,7 +107,25 @@
                     $roleName = DB::table('roles')->where('id',$allnurse->role_id)->first();
                    @endphp
                    <td>{{ $roleName->name ??''}}</td>
-                   <td>{{ $allnurse->post_code}}</td>
+
+
+                   <td>
+                    <span class="branchcls" style="color: #74afe7;">
+                   @forelse ($allnurse->staffBranch as $getbranchName)
+                           
+                   @if ($getbranchName->branch_type!='patient')
+                   <p>{{ $getbranchName->userBranchName->branch_name??'' }} @if (!$loop->last) ,@endif</p>
+
+                   @endif                      
+                          
+                   @empty
+                 
+                   @endforelse
+                </span>
+
+                </td>
+
+
 
                    @if($allnurse->status)
                    <td>{{ ucfirst($allnurse->status) }}</td>

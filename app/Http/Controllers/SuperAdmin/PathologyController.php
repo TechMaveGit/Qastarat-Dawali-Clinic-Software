@@ -29,7 +29,19 @@ class PathologyController extends Controller
             'email' => [
                 'required',
                 'email',
-                'unique:doctors,email',
+                function ($attribute, $value, $fail) {
+                    // Check email uniqueness in users table
+                    $userExists = DB::table('users')->where('email', $value)->exists();
+                    if ($userExists) {
+                        $fail('The ' . $attribute . ' has already been taken.');
+                    }
+        
+                    // Check email uniqueness in doctors table
+                    $doctorExists = DB::table('doctors')->where('email', $value)->exists();
+                    if ($doctorExists) {
+                        $fail('The ' . $attribute . ' has already been taken.');
+                    }
+                },
                 function ($attribute, $value, $fail) {
                     // Custom rule to check email domain
                     $validDomains = ['.com'];
@@ -106,7 +118,25 @@ class PathologyController extends Controller
             'email' => [
                 'required',
                 'email',
-                Rule::unique('doctors')->ignore($id),
+                function ($attribute, $value, $fail) use ($id) {
+                    // Check email uniqueness in users table, excluding the current user
+                    $userExists = DB::table('users')
+                        ->where('email', $value)
+                        ->where('id', '!=', $id)
+                        ->exists();
+                    if ($userExists) {
+                        $fail('The ' . $attribute . ' has already been taken.');
+                    }
+    
+                    // Check email uniqueness in doctors table
+                    $doctorExists = DB::table('doctors')
+                        ->where('email', $value)
+                        ->where('id', '!=', $id)
+                        ->exists();
+                    if ($doctorExists) {
+                        $fail('The ' . $attribute . ' has already been taken.');
+                    }
+                },
             ],
             'post_code' => 'nullable|between:4,8',
             'lab_name' => 'required',
@@ -421,18 +451,16 @@ class PathologyController extends Controller
         
             $request->validate([
                 'location_name'=>'required|string',
-                'appointment'=>'required'
             ]);
 
-           $filteredValues = $request->only(['location_name', 'geographicLocation', 'appointment',  'postalAddress','location_update']);
+           $filteredValues = $request->only(['location_name', 'geographicLocation', 'postalAddress']);
 
            if(isset($request->location_update)){
 
-            DB::table('locations')->where('id', $request->location_update)->update([
-                'name'=>$filteredValues['location_name'],
-                'geographicLocation'=>$filteredValues['geographicLocation'],
-                'appointmentType'=>$filteredValues['appointment'],
-                'postalAddress'=>$filteredValues['postalAddress'],
+            DB::table('branchs')->where('id', $request->location_update)->update([
+                'branch_name'=>$filteredValues['location_name'],
+                'phone_no'=>$filteredValues['geographicLocation'],
+                'address'=>$filteredValues['postalAddress'],
             ]);
 
             return response()->json(['message' => 'location Updated successfully!'], 201);
@@ -440,11 +468,10 @@ class PathologyController extends Controller
            else{
             if (!empty($filteredValues)) {
 
-                DB::table('locations')->insert([
-                    'name'=>$filteredValues['location_name'],
-                    'geographicLocation'=>$filteredValues['geographicLocation'],
-                    'appointmentType'=>$filteredValues['appointment'],
-                    'postalAddress'=>$filteredValues['postalAddress'],
+                DB::table('branchs')->insert([
+                    'branch_name'=>$filteredValues['location_name'],
+                    'phone_no'=>$filteredValues['geographicLocation'],
+                    'address'=>$filteredValues['postalAddress'],
                 ]);
             }
             return response()->json(['message' => 'location added successfully!'], 201);
@@ -454,7 +481,7 @@ class PathologyController extends Controller
 
     public function getLocation()
     {
-        $locations = DB::table('locations')->select('id','name')->orderBy('id','desc')->get();
+        $locations = DB::table('branchs')->orderBy('id','desc')->get();
         return response()->json($locations);
     }
 
@@ -462,7 +489,7 @@ class PathologyController extends Controller
     
     public function getLocationDetail(Request $request)
     {
-        $location = DB::table('locations')->where('id',$request->location_id)->orderBy('id','desc')->first();
+        $location = DB::table('branchs')->where('id',$request->location_id)->orderBy('id','desc')->first();
         return response()->json($location);
     }
 }

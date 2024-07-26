@@ -225,19 +225,33 @@
                                 @enderror
                                 </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Country</label>
-                                        <select class="form-control select2" name="country" style="width: 100%;">
-                                            <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
-                                            <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
-                                        </select>
-                                        @error('country')
-                                        <span class="error text-danger">{{ $message }}</span>
-                                    @enderror
-                                    </div>
-                                <!-- /.form-group -->
+
+
+                                @php
+                                $allcountries = DB::table('countries')->get();
+                            @endphp
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Country</label>
+                                    <select class="form-control select2" name="country" style="width: 100%;"
+                                        required>
+                                        <option value="">Select Any One</option>
+
+                                        @forelse ($allcountries as $countries)
+                                            <option value="{{ $countries->Name }}"
+                                                {{ $countries->Name == $countries->Name ? 'selected' : '' }}>
+                                                {{ $countries->Name }}</option>
+
+                                        @empty
+                                        @endforelse
+
+                                    </select>
                                 </div>
+                                <!-- /.form-group -->
+                            </div>
+
+
+
                         <div class="col-lg-12 mt-3">
 							<div class="title_head">
 								<h4>Educational Background</h4>

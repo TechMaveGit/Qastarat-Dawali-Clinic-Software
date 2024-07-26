@@ -20,6 +20,7 @@ class RolePermissionController extends Controller
 
     public function create(Request $request)
     {
+        
         if(request()->isMethod("post"))
         {
             $this->validate($request, [
@@ -68,9 +69,7 @@ class RolePermissionController extends Controller
         $d = json_decode(json_encode($set_permission),true);
         $data['array'] = array_column($d, 'permission_id');
         if(request()->isMethod("post"))
-        {
-           // return $request->all();
-
+        {   
             $alphas = range('A', 'Z');
             shuffle($alphas);
             $alphas = array_slice($alphas, 0, 2);

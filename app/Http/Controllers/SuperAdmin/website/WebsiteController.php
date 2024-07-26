@@ -172,10 +172,8 @@ class WebsiteController extends Controller
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('assets/video'), $new_name);
                 $temp_data['videoFile'] = $new_name;
-    
-           
                }
-               $temp_data['video_url'] = $data['video_url'];
+            //    $temp_data['video_url'] = $data['video_url'];
                $temp_data['title'] = $data['title'];
                $temp_data['subTitle'] = $data['subTitle'];
                $temp_data['Womenhealbetter'] = $data['Womenhealbetter'];
@@ -420,79 +418,94 @@ class WebsiteController extends Controller
     public function ourTeam(Request $request)
     {
         
-        if(request()->isMethod("post")) {
-           
-            $rules = [
-                // 'title' => 'required|string',
-                // 'member_image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Assuming image uploads
-            ];
-        
-           
-            $validator = Validator::make($request->all(), $rules);
-        
-            if ($validator->fails()) {
-                return back()->withErrors($validator)->withInput();
-            }
-        
-           
-            $temp_data = [];
-        
-            
-            $memberImages = $request->file('member_image');
+        if (request()->isMethod("post")) {
+            $memberNames = $request->input('member_name');
+            $memberTitles = $request->input('member_title');
             $memberSocialFb = $request->input('member_social_fb');
             $memberSocialTwitter = $request->input('member_social_twitter');
             $memberSocialInstagram = $request->input('member_social_instagram');
             $memberSocialLinkedin = $request->input('member_social_linkedin');
-            $memberNames = $request->input('member_name');
-            $memberTitles = $request->input('member_title');
             $currentImages = $request->input('current_image');
-            
-            foreach ($memberNames as $index => $name) {
-               
-                if (!isset($name)) {
-                    continue;
-                }
         
-                $new_name = null;
-
-           
-            if(isset($memberImages[$index])) {
-                $image = $memberImages[$index];
+            // Check if image is uploaded
+            if ($request->hasFile('member_image')) {
+                $image = $request->file('member_image');
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('assets/video'), $new_name);
-            } elseif (isset($currentImages[$index])) {
-               
-                $new_name = $currentImages[$index];
+            } elseif (isset($currentImages)) {
+                $new_name = $currentImages;
             }
         
-               
-                $form_data = [
-                    'name' => $name,
-                    'title' => $memberTitles[$index],
-                    'image_url' => $new_name,
-                    'social_fb' => $memberSocialFb[$index],
-                    'social_twitter' => $memberSocialTwitter[$index],
-                    'social_instagram' => $memberSocialInstagram[$index],
-                    'social_linkedin' => $memberSocialLinkedin[$index],
-                ];
+            // Build form data
+            $form_data = [
+                'name' => $memberNames,
+                'title' => $memberTitles,
+                'image_url' => isset($new_name) ? $new_name : null,
+                'social_fb' => $memberSocialFb,
+                'social_twitter' => $memberSocialTwitter,
+                'social_instagram' => $memberSocialInstagram,
+                'social_linkedin' => $memberSocialLinkedin,
+            ];
         
-                
-                $temp_data[] = $form_data;
-            }
+            // Update the database
+            DB::table('TeamMembers')->where('id', $request->input('teamId'))->update($form_data);
         
-            
-            if (!empty($temp_data)) {
-                DB::table('TeamMembers')->truncate(); 
-                DB::table('TeamMembers')->insert($temp_data); 
-        
-                return back()->with('status', 'Data updated successfully');
-            }
+            return back()->with('status', 'Data updated successfully');
         }
         
          $TeamMembers=   DB::table('TeamMembers')->get();
-         return view('superAdmin.website.team',compact('TeamMembers'));
-       
+         return view('superAdmin.website.team',compact('TeamMembers'));  
     }
+
+    public function addTeam(Request $request)
+    {
+        
+        if (request()->isMethod("post")) {
+
+            $memberNames = $request->input('member_name');
+            $memberTitles = $request->input('member_title');
+            $memberSocialFb = $request->input('member_social_fb');
+            $memberSocialTwitter = $request->input('member_social_twitter');
+            $memberSocialInstagram = $request->input('member_social_instagram');
+            $memberSocialLinkedin = $request->input('member_social_linkedin');
+            $currentImages = $request->input('current_image');
+        
+            // Check if image is uploaded
+            if ($request->hasFile('member_image')) {
+                $image = $request->file('member_image');
+                $new_name = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('assets/video'), $new_name);
+            } elseif (isset($currentImages)) {
+                $new_name = $currentImages;
+            }
+        
+            // Build form data
+            $form_data = [
+                'name' => $memberNames,
+                'title' => $memberTitles,
+                'image_url' => isset($new_name) ? $new_name : null,
+                'social_fb' => $memberSocialFb,
+                'social_twitter' => $memberSocialTwitter,
+                'social_instagram' => $memberSocialInstagram,
+                'social_linkedin' => $memberSocialLinkedin,
+            ];
+        
+            // Update the database
+            DB::table('TeamMembers')->insert($form_data);
+        
+            return back()->with('teamAdd', 'Team added successfully');
+        }   
+    }
+
+    public function deleteTeam(Request $request)
+        {
+           $teamMembers= DB::table('TeamMembers')->where('id',$request->input('memberId'))->delete();
+           if($teamMembers)
+           {
+            return response()->json(['success' => true, 'message' => 'Team member deleted successfully']);
+           }
+        }
+
     public function contactUs(Request $request)
     {
         $contactUs=  DB::table('contactUs')->first();

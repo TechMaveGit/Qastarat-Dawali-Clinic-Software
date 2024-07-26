@@ -109,7 +109,7 @@
 
                    <th>Email Address</th>
 
-                   <th>Postal Code</th>
+                   <th>Branch</th>
 
                    <th>Assigned Doctor</th>
 
@@ -164,9 +164,25 @@
 
                    <td>{{ $allUsers->mobile_no }}</td>
 
-                   <td>{{ $allUsers->email }}</td>
+                   <td>{{ $allUsers->email }}</td> 
 
-                   <td>{{ $allUsers->post_code }}</td>
+                <td>
+                    <span class="branchcls" style="color: #74afe7;">
+                   @forelse ($allUsers->userBranch as $getbranchName)
+                           
+                            <p>{{ $getbranchName->userBranchName->branch_name??'' }} @if (!$loop->last) ,@endif</p>
+                      
+                     
+                  
+                          
+                   @empty
+                 
+                   @endforelse
+                </span>
+
+                </td>
+
+                  
 
                    @php
                       $doctorName= DB::table('doctors')->where('id',$allUsers->doctor_id)->first();

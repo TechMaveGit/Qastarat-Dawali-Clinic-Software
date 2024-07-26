@@ -8,6 +8,29 @@
     @endpush
 
     <style>
+      .loader_1 {
+  border: 7px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 7px solid #3498db;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+        
+        /* Safari */
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+        
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        </style>
+
+    <style>
         .view_medical_record 
         {
             margin-right: 4px;
@@ -46,6 +69,7 @@
    $arr[] = $v['permission_id'];
  }
  ?>
+
 
  @if(in_array("1", $arr) || in_array("2", $arr) || in_array("3", $arr) ||in_array("5", $arr))
 
@@ -201,6 +225,11 @@
             </li>
         </ul>
     </div>
+
+
+   
+
+
     <div class="search_result">
         <!-- <div id="searchResults"></div> -->
         <!-- <div id="noDataFound" class="no_data_found">
@@ -224,6 +253,48 @@
                         </div>
                         <div class="blcard_body">
                             <div class="datatable-container allinvoice_table custom_table_area patient_table_info">
+
+                                <div class="container">
+                                    <div class="row referaldivcls" style="justify-content: flex-end;">
+
+                                       
+                                            <div class="col-md-12 px-0">
+                                                <form action="{{route('user.getPatientsData')}}" method="get">@csrf
+                                                <div class="row justify-content-end">
+                                                    @php
+                                                    $allBranch=  DB::table('branchs')->get();   
+                                                  @endphp
+                                                    <div class="col-lg-3">
+                                                        
+                                                        <select class="form-control select2_referal" onchange="fetchReferalBranch(this.value)">
+                                                            <option value="" selected>All Branch</option>
+                                                           @forelse ($allBranch as $allBranch)
+                                                           <option value="{{ $allBranch->id }}">{{ $allBranch->branch_name }}</option>   
+                                                           
+                                                               
+                                                           @empty
+                                                               
+                                                           @endforelse
+                                                        </select>
+
+                                                   
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-3 pe-0">
+                                                        <select class="form-control select2_referal" onchange="fetchReferalPatient(this.value)">
+                                                            <option value="" selected>All Patient</option>
+                                                            <option value="1">Referrals Patient</option>
+                                                        </select>
+                                                    </div>
+
+                                                
+                                                
+                                                    
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <table id="allinvoice_table" class="display">
                                     <thead>
@@ -438,17 +509,23 @@
 
             });
         </script>
-        <!-- add patinets form data -->
+
         <script>
             $(document).ready(function() {
+
                 $('#patientForm').submit(function(e) {
+                                    
                     e.preventDefault();
 
                     let isValid = validateForm();
                     let searchInput = null;
 
-                    if (isValid) {
+                    if (isValid) 
+                    {
                         let formData = new FormData(this);
+
+                        // Show the loader
+                        $('#ajaxLoader').show();
 
                         $.ajax({
                             url: '{{ route("user.patient.store") }}',
@@ -456,32 +533,23 @@
                             data: formData,
                             processData: false,
                             contentType: false,
-
                             success: function(result) {
+                                // Hide the loader
+                                $('#ajaxLoader').hide();
                                 $('#patientForm')[0].reset();
                                 $('#add_patient').modal('hide');
 
                                 if (!result.error) {
-
                                     Swal.fire({
-                                                    title: '', // Empty title
-                                                    text: 'Patient Details Added successfully!', // Success message
-                                                    icon: 'success',
-                                                    showConfirmButton: false, // Hide the default "OK" button
-                                                    timer: 2000 // Display the message for 2 seconds
-                                                }).then(function() {
-                                                    // Reload the current page after the alert is closed
-                                                    window.location.reload();
-                                                });
-
-
-                                    // swal.fire(
-                                    //     'Success',
-                                    //     'Patient Details Added successfully!',
-                                    //     'success'
-                                    // );
-
-
+                                        title: '', // Empty title
+                                        text: 'Patient Details Added successfully!', // Success message
+                                        icon: 'success',
+                                        showConfirmButton: false, // Hide the default "OK" button
+                                        timer: 2000 // Display the message for 2 seconds
+                                    }).then(function() {
+                                        // Reload the current page after the alert is closed
+                                        window.location.reload();
+                                    });
 
                                     fetchAndDisplayPatients(searchInput);
                                 } else {
@@ -491,11 +559,12 @@
                                 }
                             },
                             error: function(xhr, status, error) {
+                                // Hide the loader
+                                $('#ajaxLoader').hide();
 
                                 if (xhr.status == 422) {
-
                                     var errors = JSON.parse(xhr.responseText);
-                                    console.log('validation-error',errors);
+                                    console.log('validation-error', errors);
                                     var errorMessage = 'Validation error(s):<br>';
 
                                     $.each(errors.error, function(key, value) {
@@ -508,16 +577,13 @@
                                 } else if (xhr.status == 500) {
                                     swal.fire('Error!', 'Internal server error. Please try again later.', 'error');
                                 } else {
-                                    swal.fire('Error!', 'hhhh An error occurred. Please try again later.', 'error');
+                                    swal.fire('Error!', 'An error occurred. Please try again later.', 'error');
                                 }
                             }
-
-
-
-
                         });
                     }
-                });
+                 });
+
 
 
                 function validateForm() {
@@ -569,13 +635,13 @@
                         $('input[name="email"]').addClass('error');
                     }
                     // Validate post code
-                    let post_code = $('input[name="post_code"]').val();
-                    if (post_code === '') {
-                        isValid = false;
+                    // let post_code = $('input[name="post_code"]').val();
+                    // if (post_code === '') {
+                    //     isValid = false;
 
-                        $('#post_codeError').text('Post code  is required');
-                        $('input[name="post_code"]').addClass('error');
-                    }
+                    //     $('#post_codeError').text('Post code  is required');
+                    //     $('input[name="post_code"]').addClass('error');
+                    // }
                     // Validate street
                     let street = $('input[name="street"]').val();
                     if (street === '') {
@@ -609,13 +675,13 @@
                         $('input[name="mobile_no"]').addClass('error');
                     }
                     // Validate landline   number
-                    let landline = $('input[name="landline"]').val();
-                    if (landline === '') {
-                        isValid = false;
+                    // let landline = $('input[name="landline"]').val();
+                    // if (landline === '') {
+                    //     isValid = false;
 
-                        $('#landlineError').text('landline number is required');
-                        $('input[name="landline"]').addClass('error');
-                    }
+                    //     $('#landlineError').text('landline number is required');
+                    //     $('input[name="landline"]').addClass('error');
+                    // }
                     // Validate document type
                     let document_type = $('input[name="document_type"]').val();
                     if (document_type === '') {
@@ -625,13 +691,13 @@
                         $('input[name="document_type"]').addClass('error');
                     }
                     // Validate password
-                    let password = $('input[name="password"]').val();
-                    if (password === '') {
-                        isValid = false;
+                    // let password = $('input[name="password"]').val();
+                    // if (password === '') {
+                    //     isValid = false;
 
-                        $('#passwordError').text('Password  is required');
-                        $('input[name="password"]').addClass('error');
-                    }
+                    //     $('#passwordError').text('Password  is required');
+                    //     $('input[name="password"]').addClass('error');
+                    // }
 
                     return isValid;
                 }
@@ -661,10 +727,10 @@
 
 
                         if (data && Object.keys(data).length > 0) {
-                            Object.values(data).forEach(function(patient, index) {
+                            Object.values(data).forEach(function(patient, index) {   
 
 
-                                let row = '<tr>' +
+                                let row = '<tr class="' + (patient.referal_status == '1' ? 'pain_inv odd' : '') + '">' +
                                                     '<td hidden></td>' +
                                                     '<td class="sorting_1">' +  patient.patient_id  + '</td>' +
                                                     '<td>' +
@@ -682,7 +748,7 @@
                                                     '<td>' + patient.post_code + '</td>' +
                                                     '<td>';
 
-                                                row += '<a href="https://techmavesoftwaredemo.com/webclinic/login/invoice/?id=' +  patient.id  +
+                                                row += '<a href="http://qastarat.com/login/invoice/?id=' +  patient.id  +
                                                         '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
                                                         '<i class="fa-regular fa-file-lines"></i> View Invoice</a>&nbsp;';
 
@@ -719,6 +785,174 @@
                     }
                 });
             }
+
+                // Change Dropdown
+                function fetchReferalPatient(dropdownValue) {
+
+                $('#loader').show();
+
+                $.ajax({
+                    url: '{{ route('user.getPatientsData') }}',
+
+                    type: 'GET',
+
+                    data: {
+                        dropdownValue: dropdownValue
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+
+                        let allinvoice_table = $('#allinvoice_table').DataTable();
+
+                        allinvoice_table.clear().draw();
+
+
+                        if (data && Object.keys(data).length > 0) {
+                            Object.values(data).forEach(function(patient, index) {
+
+
+                                let row = '<tr>' +
+                                                    '<td hidden></td>' +
+                                                    '<td class="sorting_1">' +  patient.patient_id  + '</td>' +
+                                                    '<td>' +
+                                                    '<div class="patent_detail__">' +
+                                                    '<div class="patient_profile">' +
+                                                    '<img src="images/new-images/avtar.jpg" alt="">' +
+                                                    '</div>' +
+                                                    '<div class="patient_name__dt_">' +
+                                                    '<h6>' + patient.name + '</h6>' +
+                                                    '</div>' +
+                                                    '</div>' +
+                                                    '</td>' +
+                                                    '<td>' + patient.mobile_no + '</td>' +
+                                                    '<td>' + patient.email + '</td>' +
+                                                    '<td>' + patient.post_code + '</td>' +
+                                                    '<td>';
+
+                                                row += '<a href="http://qastarat.com/login/invoice/?id=' +  patient.id  +
+                                                        '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
+                                                        '<i class="fa-regular fa-file-lines"></i> View Invoice</a>&nbsp;';
+
+
+                                                @if(in_array("2", $arr))
+                                                    row += '<a href="patient-medical-detail/' +  patient.id  +
+                                                        '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
+                                                        '<i class="fa-regular fa-rectangle-list"></i> View Medical Record</a>';
+                                                @endif
+
+                                                @if(in_array("5", $arr))
+                                                row += '<a href="patient-detail/' +  patient.id  +
+                                                        '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
+                                                        '<i class="fa-regular fa-rectangle-list"></i>Edit Patient </a>';
+                                                @endif
+
+                                                        row += '</td></tr>';
+
+
+
+                                allinvoice_table.row.add($(row)[0]);
+
+
+                            });
+                            allinvoice_table.columns.adjust().draw();
+
+                        } else {
+                            allinvoice_table.row.add($(row)[0]);
+                            allinvoice_table.columns.adjust().draw();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+                }
+
+
+
+                function fetchReferalBranch(dropdownValue) 
+                {
+
+                    $('#loader').show();
+
+                    $.ajax({
+                        url: '{{ route('user.getPatientsData') }}',
+
+                        type: 'GET',
+
+                        data: {
+                            dropdownBranchValue: dropdownValue
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+
+                            let allinvoice_table = $('#allinvoice_table').DataTable();
+
+                            allinvoice_table.clear().draw();
+
+
+                            if (data && Object.keys(data).length > 0) {
+                                Object.values(data).forEach(function(patient, index) {
+
+
+                                    let row = '<tr>' +
+                                                        '<td hidden></td>' +
+                                                        '<td class="sorting_1">' +  patient.patient_id  + '</td>' +
+                                                        '<td>' +
+                                                        '<div class="patent_detail__">' +
+                                                        '<div class="patient_profile">' +
+                                                        '<img src="images/new-images/avtar.jpg" alt="">' +
+                                                        '</div>' +
+                                                        '<div class="patient_name__dt_">' +
+                                                        '<h6>' + patient.name + '</h6>' +
+                                                        '</div>' +
+                                                        '</div>' +
+                                                        '</td>' +
+                                                        '<td>' + patient.mobile_no + '</td>' +
+                                                        '<td>' + patient.email + '</td>' +
+                                                        '<td>' + patient.post_code + '</td>' +
+                                                        '<td>';
+
+                                                    row += '<a href="http://qastarat.com/login/invoice/?id=' +  patient.id  +
+                                                            '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
+                                                            '<i class="fa-regular fa-file-lines"></i> View Invoice</a>&nbsp;';
+
+
+                                                    @if(in_array("2", $arr))
+                                                        row += '<a href="patient-medical-detail/' +  patient.id  +
+                                                            '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
+                                                            '<i class="fa-regular fa-rectangle-list"></i> View Medical Record</a>';
+                                                    @endif
+
+                                                    @if(in_array("5", $arr))
+                                                    row += '<a href="patient-detail/' +  patient.id  +
+                                                            '" class="btn r-04 btn--theme hover--tra-black add_patient view_medical_record">' +
+                                                            '<i class="fa-regular fa-rectangle-list"></i>Edit Patient </a>';
+                                                    @endif
+
+                                                            row += '</td></tr>';
+
+
+
+                                    allinvoice_table.row.add($(row)[0]);
+
+
+                                });
+                                allinvoice_table.columns.adjust().draw();
+
+                            } else {
+                                allinvoice_table.row.add($(row)[0]);
+                                allinvoice_table.columns.adjust().draw();
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching data:', error);
+                        }
+                    });
+                }
+
+
+
+                
 
             // Call the function on page load
             $(document).ready(function() {

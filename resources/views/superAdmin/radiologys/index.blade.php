@@ -3,7 +3,6 @@
     <title>All Radiology | Super Admin</title>
 @endpush
 @push('custom-js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 @endpush
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -34,6 +33,9 @@
                                             class="fa-solid fa-plus"></i> Add New Radiology</a>
                                 </div>
                             </div>
+
+
+                            
                             <!-- /.box-header -->
                             <div class="box-body">
                                 <div class="row">

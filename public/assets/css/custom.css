@@ -1,3 +1,36 @@
+.document_view .trshDoc{
+  line-height: 0;
+  margin-right: 10px;
+  position: absolute;
+  left: -20px;
+  transition: 0.2s all;
+}
+.document_view:hover{
+  padding-left: 30px;
+  transition: 0.2s all;
+}
+.document_view:hover .trshDoc {
+  left: 10px;
+  transition: 0.2s all;
+}
+.document_view .trshDoc:hover{
+  color: #ff0000;
+}
+.document_view {
+  display: inline-block;
+  padding: 5px 15px;
+  background: #d1d8e2;
+  position: relative;
+  overflow: hidden;
+  transition: 0.2s all;
+  border-radius: 5px;
+}
+.document_view h6 {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  gap: 5px;
+}
 .wsmainwp {
   margin: 0 auto;
   max-width: 1350px;
@@ -1356,7 +1389,7 @@ span.sub_tt__ {
 }
 .read-more-content {
   overflow: hidden;
-  max-height: 40px;
+  max-height: 80px;
   transition: max-height 0.3s ease-out;
 }
 .btn_read {
@@ -5416,9 +5449,9 @@ section.our_branch {
   margin-bottom: 10px;
 }
 .single-doctors-card .doctors-content h3 {
-  font-size: 21px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+	font-size: 15px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 .our_doctors {
   padding: 80px 0;

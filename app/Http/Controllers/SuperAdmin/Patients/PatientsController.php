@@ -17,9 +17,10 @@ use Illuminate\Support\Facades\Validator;
 class PatientsController extends Controller
 {
 
-    public function index()
-    {
-        $data['users'] = User::orderBy('id', 'desc')->select('id','status','doctor_id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
+    public function index() 
+    {  
+        $data['users'] = User::with(['userBranch.userBranchName'])->orderBy('id', 'ASC')->select('id','status','doctor_id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
+      //  dd($data['users']);
         return view('superAdmin.patient.index', $data);
     }
 
@@ -33,7 +34,7 @@ class PatientsController extends Controller
 
     public function view(Request $request ,$id)
     {
-        $data['doctor']=User::whereId($id)->first();
+        $data['doctor']=User::whereId($id)->with(['userBranch.userBranchName'])->first();
         $data['book_appointments']=DB::table('book_appointments')->where('patient_id', $id)->get();
         return view('superAdmin.patient.view',$data);
     }
@@ -42,61 +43,69 @@ class PatientsController extends Controller
     public function addCreate(Request $request)
     {
 
-      //  return $request->all();
-
-        $validatedData = $request->validate([
-            'email' => [
-                'required',
-                'email',
-                'unique:users,email',
-                function ($attribute, $value, $fail) {
-                    // Custom rule to check email domain
-                    $validDomains = ['.com'];
-                    $valid = false;
-                    foreach ($validDomains as $domain) {
-                        if (str_ends_with(strtolower($value), $domain)) {
-                            $valid = true;
-                        }
+      $validatedData = $request->validate([
+        'email' => [
+            'required',
+            'email',
+            function ($attribute, $value, $fail) {
+                // Check email uniqueness in users table
+                $userExists = DB::table('users')->where('email', $value)->exists();
+                if ($userExists) {
+                    $fail('The ' . $attribute . ' has already been taken.');
+                }
+    
+                // Check email uniqueness in doctors table
+                $doctorExists = DB::table('doctors')->where('email', $value)->exists();
+                if ($doctorExists) {
+                    $fail('The ' . $attribute . ' has already been taken.');
+                }
+            },
+            function ($attribute, $value, $fail) {
+                // Custom rule to check email domain
+                $validDomains = ['.com'];
+                $valid = false;
+                foreach ($validDomains as $domain) {
+                    if (str_ends_with(strtolower($value), $domain)) {
+                        $valid = true;
+                        break; // Stop the loop once a valid domain is found
                     }
-                    if (!$valid) {
-                        $fail('The ' . $attribute . ' must end with .com');
-                    }
-                },
-            ],
-            'post_code' => 'nullable|between:4,8',
-            'landline' => 'nullable|numeric|digits_between:10,15',
-            'mobile_no' => 'required|numeric|unique:users,mobile_no|regex:/^[0-9]{10,15}$/',
-            'password' => 'required|min:6',
-
-            'name' => 'required',
-            'gendar'=>'required',
-            'title' => 'required',
-            'birth_date'=>'required'
-        ], [
-            'email.required' => 'Email is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'email.unique' => 'This email is already taken.',
-            'post_code.digits_between' => 'Post code must be between 4 and 8 digits.',
-            'landline.numeric' => 'Landline must be a number.',
-            'landline.digits_between' => 'Landline must be between 10 and 15 digits.',
-            'mobile_no.required' => 'Mobile Phone is required.',
-            'mobile_no.numeric' => 'Mobile Phone must be a number.',
-            'mobile_no.unique' => 'This mobile Phone is already taken.',
-            'mobile_no.digits_between' => 'Mobile number must be between 10 and 15 digits.',
-            'password.required' => 'Password is required.',
-            'password.min' => 'Password must be at least :min characters.',
-            // 'birth_date.required' => 'Date of Birth  is required.',
-            // 'birth_date.date' => 'Please enter a valid date for the birth date.',
-            'name.required' => 'Name is required.',
-            'gendar.required' => 'Gender  is required.',
-            'title.required' => 'Title  is required.',
-        ]);
-
+                }
+                if (!$valid) {
+                    $fail('The ' . $attribute . ' must end with .com');
+                }
+            },
+        ],
+        // 'post_code' => 'nullable|digits_between:4,8',
+        'landline' => 'nullable|numeric|digits_between:10,15',
+        'mobile_no' => 'required|numeric|unique:users,mobile_no|regex:/^[0-9]{10,15}$/',
+        'password' => 'required|min:6',
+        'name' => 'required',
+        'gendar' => 'required',
+        'title' => 'required',
+        'birth_date' => 'required'
+    ], [
+        'email.required' => 'Email is required.',
+        'email.email' => 'Please enter a valid email address.',
+        // 'post_code.digits_between' => 'Post code must be between 4 and 8 digits.',
+        'landline.numeric' => 'Landline must be a number.',
+        'landline.digits_between' => 'Landline must be between 10 and 15 digits.',
+        'mobile_no.required' => 'Mobile Phone is required.',
+        'mobile_no.numeric' => 'Mobile Phone must be a number.',
+        'mobile_no.unique' => 'This mobile Phone is already taken.',
+        'mobile_no.digits_between' => 'Mobile number must be between 10 and 15 digits.',
+        'password.required' => 'Password is required.',
+        'password.min' => 'Password must be at least :min characters.',
+        'name.required' => 'Name is required.',
+        'gendar.required' => 'Gender is required.',
+        'title.required' => 'Title is required.',
+        'birth_date.required' => 'Date of Birth is required.'
+    ]);
+    
+    
 
 
         $patient = $request->except(['_token', 'submit']);
         $currentDate = $request->input('birth_date');
-
               // Regular expressions to match the two date formats
                 $regexDMY = '/^\d{2}-\d{2}-\d{4}$/';
                 $regexDFY = '/^\d{2} [a-zA-Z]{3}, \d{4}$/';
@@ -116,9 +125,8 @@ class PatientsController extends Controller
 
 
                 $carbonDate->format('d M, Y');
-
                 $patient['birth_date'] = $carbonDate->format('d M, Y');
-                $patient['patient_id']  = "MA" . rand('00000', '99999' . '0');
+                $patient['patient_id']  = "PA" . rand('00000', '99999' . '0');
                 $patient['doctor_id'] = $request->input('doctorName');
                 $patient['password'] = Hash::make($request->input('password'));
 
@@ -161,14 +169,7 @@ class PatientsController extends Controller
                     ]);
               }
         }
-
-
-        
-
-
-
-
-        return to_route('patients.index')->with('message', 'Patient added successfully.');
+          return to_route('patients.index')->with('message', 'Patient added successfully.');
     }
 
     public function patient_delete(Request $request)
@@ -198,22 +199,42 @@ class PatientsController extends Controller
 
     public function edit(Request $request, $id)
     {
-
-        $user_branchs = DB::table('user_branchs')->where('patient_id',$id)->get();
+      
+        $user_branchs = DB::table('user_branchs')->where('patient_id',$id)->where('branch_type','patient')->get();
 
         $data['userDetail']=User::whereId($id)->first();
 
         $data['user_branchs']  = $user_branchs->pluck('add_branch')->toArray();
 
         $data['patientId'] = User::whereId($id)->first();
+
         if (request()->isMethod("post")) {
+
             $request->validate([
                 'email' => [
                     'required',
                     'email',
-                    Rule::unique('users')->ignore($id),
+                    function ($attribute, $value, $fail) use ($id) {
+                        // Check email uniqueness in users table, excluding the current user
+                        $userExists = DB::table('users')
+                            ->where('email', $value)
+                            ->where('id', '!=', $id)
+                            ->exists();
+                        if ($userExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
+                        }
+        
+                        // Check email uniqueness in doctors table
+                        $doctorExists = DB::table('doctors')
+                            ->where('email', $value)
+                            ->where('id', '!=', $id)
+                            ->exists();
+                        if ($doctorExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
+                        }
+                    },
                 ],
-                'birth_date'=>'required',
+                'birth_date' => 'required|date', // Added date validation
                 'password' => 'nullable|min:6',
                 'landline' => 'nullable|numeric',
                 'mobile_no' => [
@@ -223,6 +244,7 @@ class PatientsController extends Controller
                     Rule::unique('users')->ignore($id),
                 ],
             ]);
+            
 
             $patient_info = User::where('id', $id)->first();
             $patient = $request->except(['_token','submit']);
@@ -257,6 +279,7 @@ class PatientsController extends Controller
             $currentDate = $request->input('birth_date');
 
               // Regular expressions to match the two date formats
+              
                 $regexDMY = '/^\d{2}-\d{2}-\d{4}$/';
                 $regexDFY = '/^\d{2} [a-zA-Z]{3}, \d{4}$/';
 
@@ -271,10 +294,13 @@ class PatientsController extends Controller
                     // '14-Jun-2004' format matches
                     $carbonDate = Carbon::createFromFormat('d-M-Y', $currentDate);
                 }
+
+
+
             // dd( $carbonDate);
             $patient['title'] = $request->title;
             $patient['name'] = $request->name;
-            // $patient['birth_date'] = $carbonDate->birth_date('d M, Y') ?? '';
+            $patient['birth_date'] = $carbonDate->format('d M, Y');
             $patient['gendar'] = $request->gendar;
             $patient['post_code'] = $request->post_code;
             $patient['street'] = $request->street;

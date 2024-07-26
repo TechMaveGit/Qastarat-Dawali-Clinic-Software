@@ -60,19 +60,21 @@
 
              <tr>
                  <td>{{$key+1}}</td>
-                 <td>{{$allTemplate->canned_name}}</td>
-                 <td>{!! $allsnippets->describe !!}</td>
-                 <td>
-                   <div class="btn-group">
-                      <a class="hover-primary dropdown-toggle no-caret" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
-                      <div class="dropdown-menu">
-                      <!-- <a class="dropdown-item" href="#">View Details</a> -->
-                      <a class="dropdown-item" href="{{ route('edit.snippets', ['id' => $allsnippets->id]) }}">Edit</a>
+                 <td>{{$allTemplate->canned_name??''}}</td>
+                 <td>{!! $allsnippets->describe??'' !!}</td>
 
-                      {{-- <a class="dropdown-item" href="#">Delete</a> --}}
-                      </div>
-                  </div>
+                 <td>
+
+                    <ul class="action_icons">
+                     
+                      <li>
+                              <a href="{{ route('edit.snippets', ['id' => $allsnippets->id]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                          </li>
+                         
+                      </ul>
+
                  </td>
+
              </tr>
              @empty
 

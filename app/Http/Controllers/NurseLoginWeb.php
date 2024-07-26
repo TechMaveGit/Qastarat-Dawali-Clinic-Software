@@ -13,14 +13,15 @@ class NurseLoginWeb extends Controller
 {
     //
     public function nurseTask()
-    {
+    {    
+
         $user_id=auth('doctor')->user()->id;
         $user=DB::table('doctors')->select('id','role_id','user_type')->where('id',$user_id)->first();
 
-        if($user->role_id =="1"){
-            $nurse_tasks=DB::table('nurse_tasks')->orderBy('created_at', 'DESC')->where('doctor_id',$user_id)->get();
-            return view('back/doctor_task', compact('nurse_tasks'));
-        }
+        if($user->role_id =="1"){ 
+            $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->get();
+            return view('back/doctor_task', compact('nurse_tasks'));   
+        }     
 
         elseif($user->role_id =="10" || $user->role_id =="11"){
             $nurse_tasks = DB::table('tasks')->orderBy('created_at', 'DESC')->get();
@@ -29,16 +30,18 @@ class NurseLoginWeb extends Controller
 
         elseif($user->role_id =="2"){
             $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->where('assigned','!=','9')->where('assignTo',$user->id)->get();
+         //   dd($nurse_tasks);
             return view('back/nurse_task', compact('nurse_tasks'));
         }
 
-
         elseif($user->user_type =="pathology" || $user->user_type =="radiology"){
+          
              $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->where('assignToLabPerson',$user->id)->whereNotNull('assignToLab')->where('assignToLab','1')->get();
             return view('back/lab_task', compact('nurse_tasks'));
         }
 
       $nurse_tasks= DB::table('nurse_tasks')->where('nurse_id',$user_id)->get();
+      
 
     }
 
@@ -47,36 +50,15 @@ class NurseLoginWeb extends Controller
     public function taskAssignedToNurse(Request $request)
     {
 
-      //  return $request->all();
 
         $task_id=(int)$request->task_id;
         $nurse_id=(int)$request->nurse;
         $date=$request->date;
+        
         $receptionists= DB::table('tasks')->where('id',$task_id)->update(['assigned'=>'4', 'assignTo'=>$nurse_id, 'assignDate'=>$date]);
         if(!empty($receptionists)){
             return response()->json(['error' => 200]);
         }
-
-    //     $task_id=(int)$request->task_id;
-    //     $nurse_id=(int)$request->nurse;
-    //     $date=$request->date;
-    //     $time=$request->time;
-    //     $dataInsertedToNurse=[];
-
-    //     $receptionists= DB::table('receptionist_tasks')->where('nurse_task_id',$task_id)->update(['status'=>'assigned_to_nurse','appoinment_date'=>$date,'appoinment_time'=>$time]);
-
-    //     $dataInsertedToNurse=[
-    //     'nurse_task_id'=> isset($task_id) ? $task_id : null,
-    //     'nurse_id'=> isset($nurse_id) ? $nurse_id : null,
-    //     'appoinment_date'=> isset($date) ? $date : null,
-    //     'appoinment_time'=> isset($time) ? $time : null,
-
-    //     ];
-    //   $nurse_has_tasks_inserted_id=  DB::table('nurse_has_tasks')->insertGetId($dataInsertedToNurse);
-
-    //     if(!empty($nurse_has_tasks_inserted_id)){
-    //         return response()->json(['error' => 200]);
-    //     }
 
     }
 
@@ -104,14 +86,12 @@ class NurseLoginWeb extends Controller
          $lab_id   = (int)$request->lab_id;
          $labType  = $request->assignPerson;
 
-
-
          $labAssign= DB::table('tasks')->where('id',$task_id)->update(['assigned'=>'5','assignToLab'=>$lab_id,'assignToLabPerson'=>$labType]);
 
-           if(!empty($labAssign))
-           {
+        //    if(!empty($labAssign))
+        //    {
             return response()->json(['error' => 200]);
-           }
+         //  }
     }
 
 
@@ -214,25 +194,66 @@ class NurseLoginWeb extends Controller
     public function referalPatient(Request $request)
     {
 
-        $patientId = decrypt($request->input('patient_id'));
+        if($request->input('patient_id'))
+        {
+            $patientId = decrypt($request->input('patient_id'));
+        }
+         else
+         {
+            $patientId = $request->session()->get('id');
+        }
+        
         $doctorIds = $request->input('doctorId'); // Assuming this is an array of doctor IDs
 
-        $countDoctors = count($doctorIds);
+        if($doctorIds)
+        {
+                $countDoctors = count($doctorIds);
+                DB::table('users')->where('id', $patientId)->update([      
+                                                'referal_status' => '1',
+                                                'check_edit_referal' =>$request->input('checkViewPatient')??'0'
+                                            ]);
 
-        for ($i = 0; $i < $countDoctors; $i++) {  
-            DB::table('doctors')->where('id', $doctorIds[$i])->update([      
-                'referal_status' => '1'
-            ]);
+                for ($i = 0; $i < $countDoctors; $i++) {  
+                                DB::table('doctors')->where('id', $doctorIds[$i])->update([      
+                                    'referal_status' => '1'
+                                ]);
+                
+                    $exists = DB::table('referal_patients')
+                                        ->where('patient_id', $patientId)
+                                        ->where('doctor_id', $doctorIds[$i])
+                                        ->exists();
+                                        
+                    if ($request->file('uplaodDocument') != '')
+                    {
+                        $uplaodDocument = $request->file('uplaodDocument');
+                        $upload_uplaodDocument = rand() . '.' . $uplaodDocument->getClientOriginalExtension();
+                        $uplaodDocument->move(public_path('assets/referalDocument'), $upload_uplaodDocument);
+                    }
+                    else{
+                        $upload_uplaodDocument='';
+                    }
+                    if (!$exists) {
+                        DB::table('referal_patients')->insert(
+                                        [
+                                            'patient_id' => $patientId,
+                                            'patient_summary' => $request->input('patientSummary'),
+                                            'doctor_id' => $doctorIds[$i],
+                                            'referal_doctor' =>auth('doctor')->user()->id,
+                                            'upload_document' =>$upload_uplaodDocument
+                                        ]);
+                    }
+                    else{
+                        return redirect()->back()->with('referralAlreadyRfd', 'Patient Already Referred!');
 
-            // Insert into referal_patients table
-            DB::table('referal_patients')->insert([
-                'patient_id' => $patientId,
-                'doctor_id' => $doctorIds[$i]
-            ]);
+                    }
+                }
+                return redirect()->back()->with('referralMessage', 'Patient referred successfully!');
         }
+        else{
+            return redirect()->back()->with('referralError', 'pokj');
+        }
+                                    
 
-        // Redirect back with a success message after all doctors are processed
-        return redirect()->back()->with('message', 'Patient referred successfully!');
 
         
     }

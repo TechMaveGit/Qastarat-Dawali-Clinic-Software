@@ -172,6 +172,18 @@
 </head>
 
 <body>
+    
+
+   <style>
+    .cke_notification_warning{
+        z-index: 0;
+        display: none;
+    }
+    .cke_notifications_area{
+        z-index: 0;
+        display: none;
+    }
+   </style>
 
 
 
@@ -248,7 +260,7 @@
 	
 							<!-- HEADER BLACK LOGO -->
 							<div class="desktoplogo">
-								<a href="{{ route('front.home.page') }}" class="logo-black">
+								<a href="" class="logo-black">
 									@isset($footer->websitelogo)
 										<img class="light-theme-img"  src="{{ asset('public/assets/video/'.$footer->websitelogo) }}"
 										alt="footer-logo">
@@ -271,35 +283,10 @@
 									<ul class="wsmenu-list nav-theme">
 	
 	
-										<!-- DROPDOWN SUB MENU -->
-										<!-- <li aria-haspopup="true"><a href="#" class="h-link">Home<span class="wsarrow"></span></a>
-											<ul class="sub-menu">
-												<li aria-haspopup="true"><a href="#features-2">Why Martex?</a></li>
-												<li aria-haspopup="true"><a href="#lnk-1">Best Solutions</a></li>
-												<li aria-haspopup="true"><a href="#lnk-2">How It Works</a></li>
-												<li aria-haspopup="true"><a href="#lnk-3">Integrations</a></li>
-												<li aria-haspopup="true"><a href="#reviews-2">Testimonials</a></li>	
-											   </ul>
-										</li> -->
-	
-	
-										<!-- SIMPLE NAVIGATION LINK -->
-										<li class="nl-simple {{  request()->routeIs('front.home.page') ? 'active': '' }}" aria-haspopup="true"><a href="{{ route('front.home.page') }}"
-												class="h-link">Home</a></li>
-										<li class="nl-simple " aria-haspopup="true"><a href="#About_Us"
-												class="h-link" onclick="scrollToSection('about_us-1')">About Us</a></li>
-										<li class="nl-simple" aria-haspopup="true"><a href="#Our_Branches"
-												class="h-link" onclick="scrollToSection('Our_Branches')">Our Branches</a></li>
-										<li class="nl-simple " aria-haspopup="true"><a href="#Qastarat_Team"
-												class="h-link" onclick="scrollToSection('Qastarat_Team')">Qastarat Team</a></li>
-										<!-- <li class="nl-simple active" aria-haspopup="true"><a href="#" class="h-link">Qastarat Team</a></li> -->
-	
-										<!-- SIMPLE NAVIGATION LINK -->
-										<!-- <li class="nl-simple" aria-haspopup="true"><a href="login.php" class="h-link">Patients</a></li> -->
-	
+										
 	
 										<!-- SIMPLE NAVIGATION LINK service_section-->
-										<li class="nl-simple" onclick="scrollToSection('service_section')"  aria-haspopup="true"><a href="#Our_Services"
+										<li class="nl-simple"><a href="{{ url('/service') }}"
 												class="h-link">Services </a>
 	
 										</li>
@@ -314,14 +301,61 @@
 									</ul>
 								</nav> <!-- END MAIN MENU -->
 	
-								<!-- <div class="profile_box">
-								<div class="logoIconHeader profile">
-								<img class="" src="images/new-images/iconqas.png" alt="logo"> 
-							
-								</div>
-								   
-										
-									 </div> -->
+								        @php
+                                                $doctor=auth('web')->user();
+											
+                                            @endphp
+
+											@if($doctor)
+									 <div class="profile_box">
+
+                                    <div class="profile">
+    
+    
+    
+                                        <div class="img-box">
+                                           
+                                        @isset($doctor->patient_profile_img)
+                                        <img src="{{ asset('public/assets/patient_profile/' . $doctor->patient_profile_img) }}"
+                                        alt="">
+                                        @else
+                                        <img src="{{ asset('public/assets/images/team-13.jpg') }}"
+                                        alt="">
+                                        @endisset
+                                          
+    
+                                        </div>
+    
+                                        <div class="user">
+    
+                                            <h3 class="h-link text-white">{{ auth('web')->user()->name ?? '' }}</h3>
+    
+                                        </div>
+    
+                                    </div>
+                                    <div class="menu menu__">
+    
+                                        <ul>
+    
+                                            <li><a href="{{ route('patient.profile') }}"><i class="fa-solid fa-user"></i>&nbsp;Profile</a></li>
+                                            <li><a href="{{ route('patient.myLabResult') }}"><i class="fa-solid fa-file-medical"></i>&nbsp;My result</a></li>
+                                            <li><a href="{{ route('patient.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a>
+                                            </li>
+                                            @auth('web')
+                                                @if (Auth::user()->role == 'user')
+                                                    <li><a href="{{ route('patient.logout') }}"><i
+                                                                class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Sign
+                                                            Out</a></li>
+                                                @endif
+                                            @endauth
+    
+    
+                                        </ul>
+    
+                                    </div>
+    
+                                </div>
+								@endif
 							</div>
 	
 	

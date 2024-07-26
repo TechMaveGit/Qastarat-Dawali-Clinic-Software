@@ -251,20 +251,16 @@
 
                    <td>
 
-                   <div class="btn-group">
+					  <ul class="action_icons">
+                        <li >
+                            <a href="{{ route('doctors.view',['id'=>$alldoctor->id]) }}" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
+                        </li>
+                        <li>
+                                <a href="{{ route('doctors.edit',['id'=>$alldoctor->id]) }}" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
+                            </li>
+                           
+                        </ul>
 
-                        <a class="hover-primary dropdown-toggle no-caret" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
-
-                        <div class="dropdown-menu">
-
-                            <a class="dropdown-item" href="{{ route('doctors.view',['id'=>$alldoctor->id]) }}">View Details</a>
-
-                            <a class="dropdown-item" href="{{ route('doctors.edit',['id'=>$alldoctor->id]) }}">Edit Details</a>
-
-                           {{-- <a class="dropdown-item" href="#">Delete</a> --}}
-
-                        </div>
-                    </div>
                    </td>
                </tr>
 

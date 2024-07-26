@@ -25,7 +25,19 @@ class TelecallerController extends Controller
                 'email' => [
                     'required',
                     'email',
-                    'unique:doctors,email',
+                        function ($attribute, $value, $fail) {
+                            // Check email uniqueness in users table
+                            $userExists = DB::table('users')->where('email', $value)->exists();
+                            if ($userExists) {
+                                $fail('The ' . $attribute . ' has already been taken.');
+                            }
+                
+                            // Check email uniqueness in doctors table
+                            $doctorExists = DB::table('doctors')->where('email', $value)->exists();
+                            if ($doctorExists) {
+                                $fail('The ' . $attribute . ' has already been taken.');
+                            }
+                        },
                     function ($attribute, $value, $fail) {
                         // Custom rule to check email domain
                         $validDomains = ['.com'];
@@ -114,7 +126,25 @@ class TelecallerController extends Controller
                 'email' => [
                     'required',
                     'email',
-                    Rule::unique('doctors')->ignore($id),
+                    function ($attribute, $value, $fail) use ($id) {
+                        // Check email uniqueness in users table, excluding the current user
+                        $userExists = DB::table('users')
+                            ->where('email', $value)
+                            ->where('id', '!=', $id)
+                            ->exists();
+                        if ($userExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
+                        }
+        
+                        // Check email uniqueness in doctors table
+                        $doctorExists = DB::table('doctors')
+                            ->where('email', $value)
+                            ->where('id', '!=', $id)
+                            ->exists();
+                        if ($doctorExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
+                        }
+                    },
                 ],
                 'post_code' => 'nullable|between:4,8',
                 'graduation_year' => 'nullable|regex:/^\d{4}$/',

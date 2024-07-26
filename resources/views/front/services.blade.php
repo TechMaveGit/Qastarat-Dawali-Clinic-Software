@@ -453,7 +453,7 @@
                                     <ul>
 
                                         <li><a href="{{ route('patient.profile') }}"><i class="fa-solid fa-user"></i>&nbsp;Profile</a></li>
-
+                                        <li><a href="{{ route('patient.myLabResult') }}"><i class="fa-solid fa-file-medical"></i>&nbsp;My result</a></li>
                                         <li><a href="{{ route('patient.dashboard') }}"><i class="fa-solid fa-house"></i>&nbsp;Dashboard</a>
                                         </li>
                                         @auth('web')
@@ -697,6 +697,9 @@
            </div>
         </div>
      </section>
+
+
+     
      <footer id="footer-3" class="pt-100 footer ft-3-ntr">
 
         <div class="container">

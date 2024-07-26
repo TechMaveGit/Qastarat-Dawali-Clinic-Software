@@ -42,6 +42,7 @@ class User extends Model implements Authenticatable
         'remember_token',
         'gp',
         'kin',
+        'enterIdNumber',
         'policy_no',
         'additional_info',
         'tags',
@@ -62,6 +63,13 @@ class User extends Model implements Authenticatable
     public function thyroidDiagnoses() {
         return $this->hasMany(ThyroidDiagnosis::class, 'patient_id')->select('title_name','created_at','patient_id','id');
     }
+
+    public function userBranch() {
+        return $this->hasMany(UserBranch::class, 'patient_id', 'id')->select('id','patient_id','add_branch')->where('branch_type','patient');
+    }
+
+   
+
     // public function setIdAttribute($value)
     // {
     //     $this->attributes['id'] = Crypt::decrypt($value);

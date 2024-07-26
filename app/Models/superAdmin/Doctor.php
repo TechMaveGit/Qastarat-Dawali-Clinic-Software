@@ -62,6 +62,22 @@ class Doctor extends Model implements Authenticatable
         return $this->hasMany(ThyroidDiagnosis::class, 'doctor_id');
     }
 
+
+
+    public function userBranch() {
+        return $this->hasMany(UserBranch::class, 'patient_id')->select('id','patient_id','add_branch');
+    }
+
+     public function doctorBranch() {
+        return $this->hasMany(UserBranch::class, 'patient_id')->select('id','patient_id','add_branch')->where('branch_type','doctor');;
+    }
+
+    public function staffBranch() {
+        return $this->hasMany(UserBranch::class, 'patient_id')->select('id','patient_id','branch_type','add_branch');
+    }
+
+    
+
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',

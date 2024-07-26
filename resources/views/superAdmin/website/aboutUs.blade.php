@@ -46,7 +46,7 @@
 								<h4>Basic Info.</h4>
 							</div>
 						</div>
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Video</label>
                                 @if(isset($aboutUs->videoFile))
@@ -61,7 +61,7 @@
                                 <span class="text-danger font-size: 14px;">{{ $message }}</span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Video Url</label>

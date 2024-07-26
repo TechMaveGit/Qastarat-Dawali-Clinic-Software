@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="form-label">Video Url</label>
                                 <input type="url" class="form-control" placeholder="Enter video URL" name="video_url" value="{{ $treatment->video_url }}">
                                 @error('video_url')
@@ -70,7 +70,7 @@
                                     
                                 @enderror
                             </div>
-                            </div>
+                            </div> -->
                         
                         <div class="col-lg-12">
                             <div class="form-group">

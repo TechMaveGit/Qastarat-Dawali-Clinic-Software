@@ -43,6 +43,7 @@ foreach($D as $v)
 
                                 <tbody>
                                     @forelse ( $nurse_tasks as $nurse_task)
+                                    @if ($nurse_task->form_type!='Meeting')
                                     <tr>
                                         <td>
                                             <div class="lists_tasks_Report">
@@ -112,7 +113,7 @@ foreach($D as $v)
                                                                          $receptionist_task_status= DB::table('receptionist_tasks')->where('nurse_task_id',$nurse_task->id)->first();
 
                                                                     @endphp
-                                                                    <li>
+                                                                    {{-- <li>
                                                                         <div class="tb_listTitle_label">Appoinment Date</div>
                                                                         @if (isset($receptionist_task_status->appoinment_date))
                                                                         <span>{{ \Carbon\Carbon::parse($receptionist_task_status->appoinment_date)->format('d M, Y') }}</span>
@@ -120,7 +121,7 @@ foreach($D as $v)
                                                                         <span>&nbsp;</span>
                                                                         @endif
 
-                                                                    </li>
+                                                                    </li> --}}
 
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Status</div>
@@ -139,8 +140,7 @@ foreach($D as $v)
 
 
                                                                 <li class="book_bx_">
-
-
+                                                                    <div class="tb_listTitle_label">asdfv</div>
                                                                         <a href="#" class="book_appointment_btn"
                                                                             onclick="setTaskId({{ $receptionist_task_status->nurse_task_id }})"
                                                                             data-bs-toggle="modal"
@@ -148,6 +148,24 @@ foreach($D as $v)
                                                                             Assign to Nurse
                                                                             </a>
                                                                 </li>
+
+
+                                                            </li>
+
+                                                            <li>    
+                                                                <div class="tb_listTitle_label">Summary</div>
+                                                                
+                                                                    <a onclick="ViewOrderSummary(`{{ $nurse_task->order_summary  }}`)"
+                                                                        class="download_rp_btn"
+                                                                        style="color: #011205e1;">
+                                                                        <i class="fas fa-eye"
+                                                                            style="color: #050606d6; border: 1px solid #e90a0a;"></i>
+                                                                        
+                                                                    </a>
+                                                               
+
+                                                            </li>
+
                                                             </ul>
                                                         </div>
 
@@ -177,6 +195,7 @@ foreach($D as $v)
                                         </td>
 
                                     </tr>
+                                    @endif
                                     @empty
 
                                     @endforelse

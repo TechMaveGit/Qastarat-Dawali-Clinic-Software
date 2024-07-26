@@ -4,8 +4,6 @@
 @endpush
 
 @push('custom-js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-@endpush
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -22,13 +20,12 @@
                             <div class="box-header with-border">
 
                                 <div class="top_area">
-                                    <h3 class="box-title">All Pathology</h3>
+                                    <h3 class="box-title">All Pathology/Lab</h3>
                                     <a onclick="openForm()" class="waves-effect waves-light btn btn-md btn-primary"><i
                                             class="fa-solid fa-plus"></i> Add </a>
                                 </div>
                             </div>
 
-                            <!-- /.box-header -->
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -49,6 +46,7 @@
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
+
                                                 <tbody>
                                                     @foreach ($pathologys as $key => $allpathologys)
                                                         <tr>
@@ -58,18 +56,46 @@
                                                             <td>{{ $allpathologys->email }}</td>
                                                             <td>{{ $allpathologys->mobile_no }}</td>
                                                             <td>{{ $allpathologys->landline }}</td>
-                                                            <td>{{ $allpathologys->street }}</td>    
+                                                            <td>{{ $allpathologys->street }}</td>
+                                                                
                                                             @php
-                                                            $user_branchs = DB::table('user_branchs')->where('patient_id', $allpathologys->id)->where('branch_type', 'pathology')->first();
-                                                            $getBranchName = $user_branchs ? DB::table('branchs')->where('id', $user_branchs->add_branch)->first() : null;
-                                                            @endphp
-                                                            <td>{{ $getBranchName->branch_name??'' }}</td>
-                                                             <td>{{ ucfirst($allpathologys->status) }}</td>
+                                                    $user_branchs = DB::table('user_branchs')
+                                                        ->where('patient_id', $allpathologys->id)
+                                                        ->where('branch_type', 'pathology')
+                                                        ->first();
+
+                                                    // Initialize $getBranchName to null
+                                                    $getBranchName = null;
+
+                                                    if ($user_branchs) {
+                                                        $getBranchName = DB::table('branchs')
+                                                            ->where('id', $user_branchs->add_branch)
+                                                            ->first();
+                                                    }
+                                                @endphp
+
+                                                            <td>{{ $getBranchName->branch_name ?? '' }}</td>
+                                                            <td>{{ ucfirst($allpathologys->status) }}</td>
                                                             <td>
                                                                 <ul class="action_icons">
                                                                     <li>
-                                                                        <a onclick="editForm('{{ $allpathologys->id }}',`{{ $allpathologys->lab_name }}`,`{{ $allpathologys->email }}`,`{{ $allpathologys->mobile_no }}`,`{{ $allpathologys->landline }}`,'{{ $allpathologys->post_code }}',`{{ $allpathologys->street }}`,`{{ $allpathologys->town }}`,'{{ $allpathologys->status }}','{{ $getBranchName->branch_name??'' }}')"
-                                                                            class="waves-effect waves-light btn btn-rounded btn-warning-light"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                                                        <a onclick="editForm(
+                                                                            '{{ $allpathologys->id }}',
+                                                                            `{{ $allpathologys->lab_name ?? '' }}`,
+                                                                            `{{ $allpathologys->email ?? '' }}`,
+                                                                            `{{ $allpathologys->mobile_no ?? '' }}`,
+                                                                            `{{ $allpathologys->landline ?? '' }}`,
+                                                                            '{{ $allpathologys->post_code }}',
+                                                                            `{{ $allpathologys->street ?? '' }}`,
+                                                                            `{{ $allpathologys->town }}`,
+                                                                            '{{ $allpathologys->status }}',
+                                                                            '{{ $user_branchs->add_branch ?? '' }}'
+                                                                        )" class="waves-effect waves-light btn btn-rounded btn-warning-light">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                                                                <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
+                                                                                <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                                                                            </svg>
+                                                                        </a>
                                                                     </li>
                                                                 </ul>
                                                             </td>
@@ -148,7 +174,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                                 <label class="form-label">Status</label>
-                                <select class="form-control select2" name="status" id="status" style="width: 100%;">
+                                <select class="form-control" name="status" id="status" style="width: 100%;">
                                     <option value="active">Active</option>
                                     <option value="inactive">Inactive</option>
                                 </select>
@@ -162,7 +188,7 @@
                             <div class="form-group">
                                 <label class="form-label">Add Branch</label>    
 
-                                <select class="form-control form-select" name="selectBranch[]"  style="width: 100%;">
+                                <select class="form-control form-select" name="selectBranch[]" id="branchId"  style="width: 100%;">
 
                                      <option value="">Select Any One</option>
                                     @forelse ($branchs as $allbranchs)
@@ -172,7 +198,6 @@
                                     @endforelse
                                 </select>
                             </div>
-                        <!-- /.form-group -->
                         </div>
 
 
@@ -199,7 +224,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Country</label>
-                                <select class="form-control" name="country" id="countries" style="width: 100%;">
+                                <!-- <select class="" name="country" id="countries" style="width: 100%;"> -->
+                                <select class="form-control" name="country"  style="width: 100%;">
+
                                     <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
                                     <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
                                 </select>
@@ -247,6 +274,9 @@
             </form>
         </div>
     </div>
+
+
+    
 
 
     <div class="modal fade select2_dp" id="add_lab" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -410,8 +440,9 @@
             $("#add_lab").modal('show');
         }
 
-        function editForm(id, lab_name, email, mobile_phone, landline, post_code, street, town , status , branch) {
-
+        function editForm(id, lab_name, email, mobile_phone, landline, post_code, street, town , status , branch) 
+        {
+             console.log(branch);
             $('#id').val(id);
             $('#lab_name').val(lab_name);
             $('#email').val(email);
@@ -421,8 +452,8 @@
             $('#street').val(street);
             $('#town').val(town);
             $('#status').val(status);
-            $('#branchType').val(branch);
-
+            $('#branchId').val(branch);
+            // branchId
             $("#edit_lab").modal('show');
         }
     </script>

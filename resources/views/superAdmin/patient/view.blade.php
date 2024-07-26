@@ -16,12 +16,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">Patient Details</h4>
-        <nav aria-label="breadcrumb">
+        <!-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Patient</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Patient Details</li>
                 </ol>
-            </nav>
+            </nav> -->
         </div>
 
 		</div>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="dr_name">
 									<h4>{{ $doctor->name }}</h4>
-									<p><i class="fa-solid fa-user-doctor"></i> {{ $doctor->qualifications }}</p>
+									<p> {{ $doctor->qualifications }}</p>
 								</div>
 							</div>
 						</div>
@@ -71,14 +71,14 @@
                                     <ul>
 
 
-                                        <li>
+                                        <!-- <li>
                                             <div class="detail_title">
                                                 <h6>Surname</h6>
                                             </div>
                                             <div class="detail_ans">
                                                 <h6>{{ $doctor->sirname }}</h6>
                                             </div>
-                                        </li>
+                                        </li> -->
 
                                         <li>
                                             <div class="detail_title">
@@ -159,7 +159,7 @@
                                             <div class="detail_ans imageSize">
                                                 @if($doctor->patient_profile_img)
                                                  <a href="{{ asset('public/assets/patient_profile') }}/{{ $doctor->patient_profile_img }}" target="_blank">
-                                                            <img src="{{ asset('public/assets/patient_profile') }}/{{ $doctor->patient_profile_img }}" alt="Profile Image"/>
+                                                            <img src="{{ asset('public/assets/patient_profile') }}/{{ $doctor->patient_profile_img }}" alt="Profile Image" style="max-width: 50%;"/>
                                                 </a>
                                                 @endif
                                             </div>
@@ -189,6 +189,51 @@
                                                 </h6>
                                             </div>
                                         </li>
+
+
+                                        <li>
+                                            <div class="detail_title">
+                                                <h6>Document Type</h6>
+                                            </div>
+                                            <div class="detail_ans">
+
+                                               <h6>
+                                                  {{ $doctor->document_type }}    
+                                                </h6>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="detail_title">
+                                                <h6>Id Number</h6>
+                                            </div>
+                                            <div class="detail_ans">
+
+                                               <h6>
+                                                  {{ $doctor->enterIdNumber }}
+                                                </h6>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="detail_title">
+                                                <h6>Branch Name</h6>
+                                            </div>
+                                            <div class="detail_ans">
+                                                <span class="branchcls">
+                                                    @forelse ($doctor->userBranch as $getbranchName)
+                                                            
+                                                             <p>{{ $getbranchName->userBranchName->branch_name }} @if (!$loop->last) ,@endif</p>
+                                                       
+                                                       @empty
+                                                  
+                                                    @endforelse
+                                                 </span>
+                                            </div>
+                                        </li>
+
+
+
 
                                     </ul>
 
@@ -227,7 +272,7 @@
                                             @php
                                              $doctorDetail= DB::table('doctors')->where('id',$add_book_appointments->doctor_id)->first();
                                             @endphp
-											<p class="hover-primary text-fade mb-1 fs-14">{{ $doctorDetail->name }}</p>
+											<p class="hover-primary text-fade mb-1 fs-14">{{ $doctorDetail->name??'' }}</p>
 
 											<span class="text-dark fs-14">{{$pathology_price_list->test_name??''}}</span>
                                             

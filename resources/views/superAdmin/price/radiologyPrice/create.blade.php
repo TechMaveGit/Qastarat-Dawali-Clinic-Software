@@ -3,173 +3,185 @@
     <title>Add New Radiology Test | Super Admin</title>
 @endpush
 @section('content')
-
 <style>
-    .form-control:disabled, .form-control:read-only {
-    background-color: #ffffff;
-    opacity: 1;
-}
+    .form-control:disabled,
+    .form-control:read-only {
+        background-color: #ffffff;
+        opacity: 1;
+    }
 </style>
 
 <div class="content-wrapper">
     <div class="container-full">
-  <!-- Content Header (Page header) -->
-  <div class="content-header">
-      <div class="d-flex">
-      <h4 class="page-title lab_name">Add Appointments & services</h4>
-          {{-- <nav aria-label="breadcrumb">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="d-flex">
+                <h4 class="page-title lab_name">Add Appointments & services</h4>
+                {{-- <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Appointments & services</a></li>
                   <li class="breadcrumb-item active" aria-current="page"><a href="#">Appointments & services</a></li>
 
               </ol>
           </nav> --}}
-      </div>
-
-      </div>
-      <section class="content">
-      <div class="row">
-
-
-          <div class="col-12">
-          <div class="box">
-              <div class="box-body">
-                  <div class="row">
-                  <div class="col-lg-12 mt-2">
-                          <div class="title_head">
-                              <h4>Add Appointments & services</h4>
-                          </div>
-                      </div>
-
-                     <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Test Name <span class="required">*</span></label>
-                          <input type="text" name="test_name[]" id="test_name" class="form-control" placeholder="">
-                          <div id="selectTypeId" style="color: red; display: none;">Please Add Test Name.</div>
-
-
-                      </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Test Code <span class="required">*</span></label>
-                          <input type="text" name="test_code[]" name="test_code" id="test_code" class="form-control" placeholder="">
-                      </div>
-                      </div>
-
-                      <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Turnaround</label>
-                          <input type="text" name="turnaround[]" id="turnaround" class="form-control" placeholder="">
-                      </div>
-                      </div>
-
-                      <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Price <span class="required">*</span></label>
-                            <input type="number"  name="price[]"   step="0.01" min="0" class="form-control" placeholder="">
-                        </div>
-                      </div>
-
-                      <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Type <span class="required">*</span></label>
-                            <select class="form-control" id="mulipleType" name="type[]" style="width: 100%;">
-                                <option value="11">Select Any One</option>
-                                <option value="0">Pathology</option>
-                                <option value="1">Radiology</option>
-                                <option value="2">Other</option>
-                            </select>
-
-                            <div id="selectType" style="color: red; display: none;">Please Select Any One Type.</div>
-
-                        </div>
-                      </div>
-
-                      <div class="col-lg-3">
-                            <div class="form-group">
-                                <label class="form-label">Included Tests</label>
-                                <textarea rows="2" name="included_tests[]" id="included_tests" class="form-control" placeholder=""></textarea>
-                              </div>
-                      </div>
-                      <div class="col-lg-4">
-                      <div class="form-group">
-                                <label class="form-label">Note</label>
-                                <textarea rows="2" name="note[]"  id="note" maxlength="100" class="form-control" placeholder=""></textarea>
-                              </div>
-                      </div>
-
-                      <div class="col-lg-2">
-                        <div class="inner_element">
-                            <div class="form-group">
-                                <label class="form-label">Colour Code</label>
-                                {{-- <img style="min-width:16px;min-height:16px;box-sizing:unset;box-shadow:none;background:unset;padding:0 6px 0 0;cursor:pointer;" src="chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" title="Select with ColorPick Eyedropper - See advanced option: &quot;Add ColorPick Eyedropper near input[type=color] fields on websites&quot;" class="colorpick-eyedropper-input-trigger"> --}}
-                                <input type="color" name="colour[]" id="colourId" class="colorpicker form-control" colorpick-eyedropper-active="true">
-                            </div>
-                        </div>
-                      </div>
-
-                       <br>
-                      </br>
-
-
-
-
-                      <div class="col-lg-12">
-                          <div class="add_price_btn">
-                            <a onclick="addNewRate()" class="icon-link">
-                                <i data-feather="plus-circle"></i>
-                                Add Test
-                            </a>
-                          </div>
-                      </div>
-
-                      <form action="{{ route('price.addradiologyPrice') }}" method="post">@csrf
-
-                         <div class="col-lg-12" id="test_list">
-                                  <table class="table lab_test table-striped table-hover" style="width:100%">
-                                          <thead>
-                                              <tr>
-
-                                                  <th>Test Name</th>
-                                                  <th>Test Code</th>
-                                                  <th>Turnaround</th>
-                                                  <th>Price</th>
-                                                  <th>Included Tests</th>
-                                                  <th>Note</th>
-                                                  <th>Type</th>
-                                                  <th>Action</th>
-                                              </tr>
-                                          </thead>
-                                                <tbody id="addNewAppendRate">
-
-                                                </tbody>
-
-                                      </table>
-                               </div>
-                               <div class="col-md-12">
-                                <div class="submit_btn text-end">
-                                  <button type="submit" class="waves-effect waves-light btn btn-primary"><i class="fa-regular fa-floppy-disk"></i> Save</button>
-                                </div>
-                            </div>
-
-                        </form>
-
-                  </div>
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-                  <div class="row">
-
-                  </div>
-                </div>
-
-              </div>
-              <!-- /.box -->
-          </div>
+            </div>
 
         </div>
-      </section>
+        <section class="content">
+            <div class="row">
+
+
+                <div class="col-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-12 mt-2">
+                                    <div class="title_head">
+                                        <h4>Add Appointments & services</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Test Name <span class="required">*</span></label>
+                                        <input type="text" name="test_name[]" id="test_name" class="form-control"
+                                            placeholder="">
+                                        <div id="selectTypeId" style="color: red; display: none;">Please Add Test Name.
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Test Code <span class="required">*</span></label>
+                                        <input type="text" name="test_code[]" name="test_code" id="test_code"
+                                            class="form-control" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Turnaround</label>
+                                        <input type="text" name="turnaround[]" id="turnaround" class="form-control"
+                                            placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Price <span class="required">*</span></label>
+                                        <input type="number" name="price[]" id="price" step="0.01" min="0"
+                                            class="form-control" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Type <span class="required">*</span></label>
+                                        <select class="form-control" id="mulipleType" name="type[]"
+                                            style="width: 100%;">
+                                            <option value="11">Select Any One</option>
+                                            <option value="0">Pathology</option>
+                                            <option value="1">Radiology</option>
+                                            <option value="2">Other</option>
+                                        </select>
+
+                                        <div id="selectType" style="color: red; display: none;">Please Select Any One
+                                            Type.</div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Included Tests</label>
+                                        <textarea rows="2" name="included_tests[]" id="included_tests"
+                                            class="form-control" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Note</label>
+                                        <textarea rows="2" name="note[]" id="note" maxlength="100" class="form-control"
+                                            placeholder=""></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="inner_element">
+                                        <div class="form-group">
+                                            <label class="form-label">Colour Code</label>
+                                            {{-- <img style="min-width:16px;min-height:16px;box-sizing:unset;box-shadow:none;background:unset;padding:0 6px 0 0;cursor:pointer;" src="chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" title="Select with ColorPick Eyedropper - See advanced option: &quot;Add ColorPick Eyedropper near input[type=color] fields on websites&quot;" class="colorpick-eyedropper-input-trigger"> --}}
+                                            <input type="color" name="colour[]" id="colourId"
+                                                class="colorpicker form-control" colorpick-eyedropper-active="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                </br>
+
+
+
+
+                                <div class="col-lg-12">
+                                    <div class="add_price_btn">
+                                        <a onclick="addNewRate()" class="icon-link">
+                                            <i data-feather="plus-circle"></i>
+                                            Add Test
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <form action="{{ route('price.addradiologyPrice') }}" method="post">
+                                    @csrf
+
+                                    <div class="col-lg-12" id="test_list">
+                                        <table class="table lab_test table-striped table-hover" style="width:100%">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>Test Name</th>
+                                                    <th>Test Code</th>
+                                                    <th>Turnaround</th>
+                                                    <th>Price</th>
+                                                    <th>Included Tests</th>
+                                                    <th>Note</th>
+                                                    <th>Type</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="addNewAppendRate">
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="submit_btn text-end">
+                                            <button type="submit" class="waves-effect waves-light btn btn-primary"><i
+                                                    class="fa-regular fa-floppy-disk"></i> Save</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <div class="row">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+            </div>
+        </section>
 
     </div>
 </div>
@@ -177,23 +189,20 @@
 
 
 <script>
-
-function addNewRate()
- {
-    let test_name      = $("#test_name").val();
-    let test_code      = $("#test_code").val();
-    let turnaround     = $("#turnaround").val();
-    let price          = $("#price").val();
-    let included_tests = $("#included_tests").val();
-    let note           = $("#note").val();
-    let colourId       = $("#colourId").val();
-    let mulipleType    = $("#mulipleType").val();
-    let mulipleType_1    = $("#mulipleType").val()?? '';
+    function addNewRate() {
+        let test_name = $("#test_name").val();
+        let test_code = $("#test_code").val();
+        let turnaround = $("#turnaround").val();
+        let price = $("#price").val();
+        let included_tests = $("#included_tests").val();
+        let note = $("#note").val();
+        let colourId = $("#colourId").val();
+        let mulipleType = $("#mulipleType").val();
+        let mulipleType_1 = $("#mulipleType").val();
 
 
-    if (mulipleType == 1)
-        {
-        mulipleType = 'Radiology'; // Update the existing variable
+        if (mulipleType == 1) {
+            mulipleType = 'Radiology'; // Update the existing variable
         } else if (mulipleType == 0) {
             mulipleType = 'Pathology'; // Update the existing variable
         } else if (mulipleType == 2) {
@@ -203,43 +212,42 @@ function addNewRate()
             mulipleType = 'Unknown';
         }
 
-    // console.log(mulipleType);
+        // console.log(mulipleType);
 
-    var selectType= document.getElementById('test_name').value;
-    var mulipleType_= document.getElementById('mulipleType').value;
+        var selectType = document.getElementById('test_name').value;
+        var mulipleType_ = document.getElementById('mulipleType').value;
 
-    if(selectType == ''){
-        document.getElementById('selectTypeId').style.display = 'block';
-    return false;
-    }
-    else{
-        document.getElementById('selectTypeId').style.display = 'none';
-    }
+        if (selectType == '') {
+            document.getElementById('selectTypeId').style.display = 'block';
+            return false;
+        } else {
+            document.getElementById('selectTypeId').style.display = 'none';
+        }
 
 
-    if(mulipleType_ == ''){
-        document.getElementById('selectType').style.display = 'block';
-    return false;
-    }
-    else{
-        document.getElementById('selectType').style.display = 'none';
-    }
+        if (mulipleType_ == '') {
+            document.getElementById('selectType').style.display = 'block';
+            return false;
+        } else {
+            document.getElementById('selectType').style.display = 'none';
+        }
 
-    var csrfToken = $('meta[name="csrf-token"]').attr('content');
-    $.ajaxSetup({
-                headers: {
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $.ajaxSetup({
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-                });
-         $.ajax({
-                url: "{{ route('price.checkPostCode') }}",
-                type: 'POST',
-                data:{testCode:test_code},
-                    success: function(result) {
-                        if (result.message === 200)
-                        {
-                             let microtime = Date.now();
-                             let addressHtml = `<tr id="address${microtime}">
+            }
+        });
+        $.ajax({
+            url: "{{ route('price.checkPostCode') }}",
+            type: 'POST',
+            data: {
+                testCode: test_code
+            },
+            success: function (result) {
+                if (result.message === 200) {
+                    let microtime = Date.now();
+                    let addressHtml = `<tr id="address${microtime}">
 
                                     <td hidden>
                                         <input name="test_name[]" hidden value="${test_name || ''}">
@@ -284,53 +292,51 @@ function addNewRate()
                                         </ul>
                                     </td>
                             </tr>`;
-                            $("#addNewAppendRate").append(addressHtml);
-                            swal.fire({
-                                            title: 'Success',
-                                            html: '<strong>Add Test</strong>',
-                                            icon: 'success',
-                                            showConfirmButton: false,
-                                            timer: 1000 // 1000 milliseconds = 1 second
-                                        });
-                            resetAddress();
-                        }
-
-                        else {
-                            swal.fire({
-                                            title: 'Error',
-                                            html: '<strong>This test code is already exist</strong>',
-                                            icon: 'error',
-                                            showConfirmButton: false,
-                                            timer: 3000 // 1000 milliseconds = 1 second
-                                        });
-                        }
-                    },
-            });
-  }
-
-
-  function deleteTabletr(tabletr,filenumber='none'){
-
-    swal.fire({
+                    $("#addNewAppendRate").append(addressHtml);
+                    swal.fire({
                         title: 'Success',
-                        html: '<strong>Test Delete Successfully</strong>',
+                        html: '<strong>Add Test</strong>',
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 1000 // 1000 milliseconds = 1 second
                     });
+                    resetAddress();
+                } else {
+                    swal.fire({
+                        title: 'Error',
+                        html: '<strong>This test code is already exist</strong>',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 3000 // 1000 milliseconds = 1 second
+                    });
+                }
+            },
+        });
+    }
+
+
+    function deleteTabletr(tabletr, filenumber = 'none') {
+
+        swal.fire({
+            title: 'Success',
+            html: '<strong>Test Delete Successfully</strong>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1000 // 1000 milliseconds = 1 second
+        });
 
 
         $(`#${tabletr}`).remove();
-        if(filenumber != 'none'){
+        if (filenumber != 'none') {
             $(`#documentFilesDocsDiv${filenumber}`).remove();
         }
     }
 
 
 
-  function resetAddress(){
+    function resetAddress() {
 
-     //   $('#resetform')[0].reset();
+        //   $('#resetform')[0].reset();
         $("#test_name").val('');
         $("#test_code").val('');
         $("#turnaround").val('');
@@ -344,22 +350,20 @@ function addNewRate()
         document.getElementById('selectTypeId').style.display = 'none';
         document.getElementById('selectType').style.display = 'none';
     }
-
-
 </script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#test_list").hide();
-        $("#add_test").click(function(){
+        $("#add_test").click(function () {
             $("#test_list").show();
         })
-        $("#remove_test").click(function(){
+        $("#remove_test").click(function () {
             $("#test_list").hide();
         })
 
     })
- </script>
+</script>
 
 
 <script>
@@ -367,7 +371,7 @@ function addNewRate()
     const phoneInput = document.getElementById('price');
 
     // Add an event listener for the keypress event
-    phoneInput.addEventListener('keypress', function(event) {
+    phoneInput.addEventListener('keypress', function (event) {
         // Get the value of the pressed key
         const key = event.key;
 
@@ -386,7 +390,7 @@ function addNewRate()
 
 <script>
     // Disable the "Select Any One" option using JavaScript
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const selectElement = document.querySelector('select[name="type[]"]');
         const selectAnyOneOption = selectElement.querySelector('option[value="11"]');
 
@@ -395,6 +399,4 @@ function addNewRate()
         }
     });
 </script>
-
-
- @endsection
+@endsection

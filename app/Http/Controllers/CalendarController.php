@@ -13,17 +13,17 @@ class CalendarController extends Controller
 
     public function index(Request $request)
     {
+
         $doctors=Doctor::select('id','name')->where('role_id','1')->orderBy('id','desc')->get();
         $patients=User::select('id','name')->orderBy('id','desc')->get();
 
-       
         $book_appointments= DB::table('book_appointments')
-                                        ->select('appointment_type') // Select only the 'title' column
-                                        ->distinct()      // Apply distinct on the 'title' column
+                                        ->select('appointment_type')
+                                        ->distinct()
                                         ->get();
 
         $users=DB::table('users')->orderBy('id','desc')->get();
-        $locations=DB::table('locations')->orderBy('id','desc')->get();
+        $locations=DB::table('branchs')->orderBy('id','desc')->get();
         $pathology_price_list = DB::table('pathology_price_list')->get();
 
         $searchPatient =$request->input('searchPatient');
@@ -31,11 +31,13 @@ class CalendarController extends Controller
         $countData = [];
         $matchingAppointments = [];
 
-        if (request()->isMethod("post")) 
+        if (request()->isMethod("post"))    
         {
-            $appointmentType =  $request->input('appointmentType');
-            $location        = $request->input('location');
-            $selectClinician =  $request->input('selectClinician');
+           // echo "ok"; die;  user_id
+                 
+            $appointmentType  =  $request->input('appointmentType');    
+            $location         = $request->input('location');      
+            $selectClinician  =  $request->input('user_id');
 
 
 
@@ -60,6 +62,7 @@ class CalendarController extends Controller
              if($searchPatient)
                {
                     if ($searchPatient) {
+
                         $searchPatientName = $searchPatient;
                     
                         $matchingUsers = DB::table('users')
@@ -85,8 +88,7 @@ class CalendarController extends Controller
 
     public function createOrUpdateEvent(Request $request)
     {
-
-        // return $request->all();
+      //  return $request->all();
 
         $eventId = $request->input('event_id');
         $eventData = [
@@ -103,9 +105,10 @@ class CalendarController extends Controller
             'end_time' => $request->input('end_time'),
             'cost' => $request->input('cost'),
             'code' => $request->input('code'),
-            'clinician_id' => $request->input('clinician_id'),
             'confirmation' => isset($request->confirmation) ? 'yes' : 'no',
         ];
+
+   //     dd($eventData);
 
 
         if ($eventId)
@@ -145,6 +148,8 @@ class CalendarController extends Controller
  public function getEvents(Request $request)
     {
 
+      //  return $request->all();
+
             $checkdoctor=Auth::guard('doctor')->user();
 
             $events = BookAppointment::select(
@@ -178,7 +183,7 @@ class CalendarController extends Controller
             }
 
             if ($request->input('user_id')) {
-                $events=$events->where('patient_id',$request->input('user_id'));
+                $events=$events->where('doctor_id',$request->input('user_id'));
             }
 
             if ($request->input('appointment_type')) {

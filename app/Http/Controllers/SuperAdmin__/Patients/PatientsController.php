@@ -18,8 +18,12 @@ class PatientsController extends Controller
 {
 
     public function index()
-    {
-        $data['users'] = User::orderBy('id', 'desc')->select('id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
+    {   
+        echo "OK"; die;
+        $data['users'] = User::with('userBranch')->orderBy('id', 'desc')->select('id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
+
+        return $data['users'];
+        
         return view('superAdmin.patient.index', $data);
     }
 
@@ -32,9 +36,6 @@ class PatientsController extends Controller
 
     public function addCreate(Request $request)
     {
-
-        
-
         $validatedData = $request->validate([
             'email' => [
                 'required',

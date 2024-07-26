@@ -10,6 +10,8 @@ use App\Models\patient\Patient_order_imaginary_exam;
 use App\Models\patient\Patient_order_lab;
 use App\Models\patient\Patient_invoice_item;
 use App\Models\patient\Patient_task;
+use App\Models\AttachDocument;
+
 use App\Models\patient\Patient_appointment;
 use App\Models\patient\Patient_video_call;
 use App\Models\patient\Patient_current_med;
@@ -49,12 +51,17 @@ use Illuminate\Validation\Rule;
 class PatientController extends Controller
 {
     public function dashboard()
-    {    
-        $id = auth('web')->user()->id;
-        $patient = User::findOrFail($id);
-        $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->orderBy('id', 'desc')->first();
-        $Patient_appointments = Patient_appointment::where('patient_id', $id)->orderBy('id', 'desc')->get();
-        return view('front/patient-dashboard', compact('id', 'patient', 'Patient_insurer', 'Patient_appointments'));
+    {       
+        $id = auth('web')->user();
+        $patient = User::with(['userBranch.userBranchName'])->where('id',$id->id)->first();
+        $doctors = DB::table('doctors')->where('id',$id->doctor_id)->first();
+        $Patient_insurer = Patient_insurer::where(['patient_id' => $id->id, 'status' => 'active'])->orderBy('id', 'desc')->first();
+
+        $Patient_appointments = DB::table('book_appointments')->where('patient_id', $id->id)->orderBy('id', 'desc')->get();
+        $doctorId=DB::table('referal_patients')->where('patient_id',$id->id)->pluck('doctor_id')->toArray();
+        $doctorDetail=DB::table('doctors')->whereIn('id',$doctorId)->get();
+
+        return view('front/patient-dashboard', compact('id', 'patient', 'Patient_insurer', 'Patient_appointments','doctors','doctorDetail'));
     }
 
     public function allSnippets()
@@ -90,12 +97,12 @@ class PatientController extends Controller
     }
 
     public function service()
-    {
+    {   
         return view('front/services');
     }
 
     public function profile()
-    {      
+    {         
         $doctor =User::select('id','email','password','patient_profile_img','name','title')->find(auth('web')->user()->id);
         return view('front/profile',compact('doctor'));
     }
@@ -160,10 +167,8 @@ class PatientController extends Controller
         $Patient_appointments = DB::table('book_appointments')->where('patient_id', $id)->orderBy('id', 'desc')->get();
 
         $id = Crypt::encrypt($id);
+        
         return view('back/patient-detail', compact('id', 'patient', 'Patient_insurer', 'Patient_appointments'));
-
-
-
     }
 
     public function submitInvoice(Request $request)
@@ -187,71 +192,166 @@ class PatientController extends Controller
     {
 
         $id = Crypt::decrypt($id);
+
+        $request->session()->put('id',$id);
+       
         $patient = User::findOrFail($id);
 
         $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form'])->get();    
 
         $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->latest('id')->first();
-
-
         $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+              
+     
         $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+       
+
         $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Procedure = Procedure::with('doctor')->select('id','doctor_id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $SupportiveTreatment = SupportiveTreatment::with('doctor')->select('id','doctor_id', 'title', 'sub_title', 'created_at', 'treatment')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Patient_progress_note = Patient_progress_note::with(['doctor','progressNote'])->select('id','doctor_id', 'progress_note_canned_text_id', 'voice_recognition', 'created_at', 'summery')->where('patient_id', $id)->orderBy('id', 'desc')->get();
-
         $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+       
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
-        $diagnosis_cid = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
 
 
-        $diagnosis_general = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
 
-        // dd('general',$diagnosis_general,'icd',$diagnosis_cid);
-        $symptoms = GeneralDiagnosis::with('doctor')->select('SymptomType','SymptomDurationValue','SymptomDurationType','SymptomDurationNote', 'created_at', 'doctor_id')->where(['title_name' => 'Symptom', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
-      
-      //  dd($symptoms);
+    //     if($request->input('form_print_type')=='general_form')
+    //     {
+    //         $diagnosis_general = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id])->where('form_type','general_form')->get();
+    //         $diagnosis_general->checkValData='';
+    //     }
+    //     else
+    //     {
+    //         $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
+    //         $diagnosis_general->checkValData="netGeneral";
+    //     }
 
-        $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
 
-        $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $SpecialInvestigations = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id','Title','SubTitle','Invistigation')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
-        $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
-        $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
-        $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+    //     if($request->input('form_print_type')=='general_form')
+    //     {
+    //         $diagnosis_cid = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
+    //         $diagnosis_cid->checkValData='';
+    //     }
+    //     else
+    //     {   
+            
+    //          $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
+          
+    //         $diagnosis_cid->checkValData="netGeneral";
+    //     }
 
-        $AntithyroidAntibodiesTests = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+    //  //   return $request->all();
 
-        $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
-    
         
-        $RegionalpatientGeneralDiagnosis = DB::table('patient_general_diagnosis')->whereNotNull('RegionalExam')->where(['title_name'=>'ClinicalExam', 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
 
-        $SystemicpatientGeneralDiagnosis = DB::table('patient_general_diagnosis')->whereNotNull('SystemicExam')->where(['title_name'=>'ClinicalExam', 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
-     //   dd($patientGeneralDiagnosis);
-     //  regionalpatientGeneralDiagnosis
+    //     if($request->input('form_print_type')=='general_form')
+    //     {
+    //         $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' =>'general_form'])->orderBy('id', 'desc')->get();
+    //         $ClinicalExam->checkValData='';
 
-        $rightLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
-        $leftLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'leftLobeScore', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
-        $Retrosternalextension = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Retrosternalextension', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $EnlargedLymphnodes = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'EnlargedLymphnodes', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $paralysis = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'paralysis', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $MRCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'MRCIR48', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $CTCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'CTCIR48', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $NmThyroidScan = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $HistopathRightThyroidFNA = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-    
-        $generalDiagnosis =  GeneralDiagnosis::where([ 'form_type'=>'general_form','title_name' => 'Symptom'])->get(); 
+    //         $RegionalpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('RegionalExam')->where(['title_name'=>'ClinicalExam', 'patient_id' => $id, 'form_type' =>'general_form'])->orderBy('id', 'ASC')->get();
+    //         $SystemicpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('SystemicExam')->where(['title_name'=>'ClinicalExam',  'patient_id' => $id, 'form_type' =>'general_form'])->orderBy('id', 'desc')->get();
+            
+
+            
+    //     }
+    //     else
+    //     {     
+    //         $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' =>$request->input('form_print_type')])->orderBy('id', 'desc')->get();
+            
+    //         $ClinicalExam->checkValData="netGeneral";
+
+    //         $RegionalpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('RegionalExam')->where(['title_name'=>'ClinicalExam', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'ASC')->get();
+    //         $SystemicpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('SystemicExam')->where(['title_name'=>'ClinicalExam',  'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
+            
+    //     }
 
 
-        $data = [
-            'patient' => $patient,
+    if($request->input('form_print_type')=='general_form')  
+        {
+            $diagnosis_general = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id])->where('form_type','general_form')->get();
+            $diagnosis_general->checkValData='';
+        }
+        else
+        {
+            $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
+            $diagnosis_general->checkValData="netGeneral";
+        }
+
+        
+
+        if($request->input('form_print_type')=='general_form')
+        {
+            $diagnosis_cid = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
+            $diagnosis_cid->checkValData='';
+        }
+        else
+        {   
+             $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
+             $diagnosis_cid->checkValData="netGeneral";
+        }
+
+        if($request->input('form_print_type')=='general_form')
+        {
+            $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' =>'general_form'])->orderBy('id', 'desc')->get();
+            $ClinicalExam->checkValData='';
+            $RegionalpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('RegionalExam')->where(['title_name'=>'ClinicalExam', 'patient_id' => $id, 'form_type' =>'general_form'])->orderBy('id', 'ASC')->get();
+            $SystemicpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('SystemicExam')->where(['title_name'=>'ClinicalExam',  'patient_id' => $id, 'form_type' =>'general_form'])->orderBy('id', 'desc')->get();
+        }
+        else
+        {     
+            $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' =>$request->input('form_print_type')])->orderBy('id', 'desc')->get();
+            
+            $ClinicalExam->checkValData="netGeneral";
+
+            $RegionalpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('RegionalExam')->where(['title_name'=>'ClinicalExam', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'ASC')->get();
+            $SystemicpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('SystemicExam')->where(['title_name'=>'ClinicalExam',  'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
+            
+        }
+
+   
+
+        $symptoms = GeneralDiagnosis::with('doctor')->select('SymptomType','SymptomDurationValue','SymptomDurationType','SymptomDurationNote', 'created_at', 'doctor_id')->where(['title_name' => 'Symptom', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
+        $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')??'general_form'])->get();
+        $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $SpecialInvestigations = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id','Title','SubTitle','Invistigation')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        
+        $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('id','data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id , 'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        
+        $MDTs = ThyroidDiagnosis::with('doctor')->select('id','data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+             
+        $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $AntithyroidAntibodiesTests = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id,'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+       
+       
+        $rightLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $leftLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'leftLobeScore', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $Retrosternalextension = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Retrosternalextension', 'patient_id' => $id,'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $EnlargedLymphnodes = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'EnlargedLymphnodes', 'patient_id' => $id,'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $paralysis = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'paralysis', 'patient_id' => $id,'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $MRCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'MRCIR48', 'patient_id' => $id,'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $CTCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'CTCIR48', 'patient_id' => $id,'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $NmThyroidScan = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id,'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $HistopathRightThyroidFNA = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id,'form_type' => $request->input('form_print_type')??'general_form'])->orderBy('id', 'desc')->get();
+        $document_file = AttachDocument::where(['form_type'=>'general_form','patient_id'=>$id])->get(); 
+
+
+        $generalDiagnosis =  GeneralDiagnosis::where(['form_type'=>'general_form','title_name' => 'Symptom','patient_id'=>$id])->get(); 
+        
+        $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'general_form','patient_id'=>$id])->get();
+        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' =>$request->input('form_type')])->latest('id')->first();
+  
+        
+        // dd($ClinicalExam);  clinicalExam  regionalpatientGeneralDiagnosis
+        
+        $data = [    
+            'patient' => $patient,  
             'id' => Crypt::encrypt($id),
             'patient_past_history' => $Patient_past_medical_history,
             'patient_past_surgical' => $Patient_past_surgical_history,
@@ -265,7 +365,7 @@ class PatientController extends Controller
             'symptoms_db' => $symptoms,
             'symptoms_scores_db' => $symptoms_scores,
             'Referrals' => $Referrals,
-            'generalDiagnosis' => $generalDiagnosis,
+            'generalDiagnosis' => $generalDiagnosis,  
             'supportives' => $supportives,
             'SpecialInvestigations_db' => $SpecialInvestigations,
             'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
@@ -288,12 +388,15 @@ class PatientController extends Controller
             'Patient_progress_notes'=>$Patient_progress_note,
             'regionalpatientGeneralDiagnosis'=>$RegionalpatientGeneralDiagnosis,
             'systemicpatientGeneralDiagnosis'=>$SystemicpatientGeneralDiagnosis,
-        ];
-
-        
-
-        if($request->input('print_form')=="print_form")
-        {  
+            'checkGenerateData' =>$checkGenerateData,
+            'VaricoceleEmboForm' =>$VaricoceleEmboForm,
+            'document_file' =>$document_file
+        ];     
+                
+                      
+     
+        if($request->input('print_form')=="print_form")  
+        {    
             $request->all();
             $checkPrint = [
                 "generalDiagnosis_"              => $request->input('sympotms'),   
@@ -312,15 +415,56 @@ class PatientController extends Controller
                 "supportiveTreatment"         => $request->input('supportiveTreatement'),
                 "listOfPrescribed"         => $request->input('listOfPrescribed'),
                 "planRecommendation"       => $request->input('planRecommandation'),
+                'VaricoceleEmboForm'       =>$request->input('ImagingExam'),
+                'patient_id'              =>$id,
+                'form_type'               => $request->input('form_print_type')  
             ];
+            
+                DB::table('general_reports')->insert($checkPrint);
 
-            return view('back/print-medical/print-medical-report',$data,$checkPrint);
+               return view('back/print-medical/print-medical-report',$data,$checkPrint,$patient);
         }
 
-        
 
-        return view('back/view-general-report')->with($data);    
+
+        if($request->input('checkReport'))
+        {              
+            if($checkGenerateData)
+            {  
+                $request->all();
+                $checkPrint = [
+                    "generalDiagnosis_"        => DB::table('general_reports')->select('id','generalDiagnosis_')->where('id',$request->input('checkReport'))->where('patient_id' , $id)->first()->generalDiagnosis_ ?? '',   
+                    "pastMedicalHistory"       =>  DB::table('general_reports')->select('id','pastMedicalHistory')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->pastMedicalHistory??'',
+                    "pastSurgicalHistory"      =>  DB::table('general_reports')->select('id','pastSurgicalHistory')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->pastSurgicalHistory??'',
+                    "oldCurrentMeds"           => DB::table('general_reports')->select('id','oldCurrentMeds')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->oldCurrentMeds??'',
+                    "allergies"                =>  DB::table('general_reports')->select('id','allergies')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->allergies??'',
+                    "clinicalExam"             =>  DB::table('general_reports')->select('id','clinicalExam')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->clinicalExam??'',
+                    "imagingExam"              =>  DB::table('general_reports')->select('id','imagingExam')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->imagingExam??'',
+                    "lab_"                     =>  DB::table('general_reports')->select('id','lab_')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->lab_??'',
+                    "specialInvestigation"     =>  DB::table('general_reports')->select('id','specialInvestigation')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->specialInvestigation??'',
+                    "mdtReview"                =>  DB::table('general_reports')->select('id','mdtReview')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->mdtReview??'',
+                    "diagnosis"                =>  DB::table('general_reports')->select('id','diagnosis')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->diagnosis??'',
+                    "eligibility"              => DB::table('general_reports')->select('id','eligibility')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->eligibility??'',
+                    "list"                     => DB::table('general_reports')->select('id','list')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->list??'',
+                    "supportiveTreatment"      =>  DB::table('general_reports')->select('id','supportiveTreatment')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->supportiveTreatment??'',
+                    "listOfPrescribed"         =>  DB::table('general_reports')->select('id','listOfPrescribed')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->listOfPrescribed??'',
+                    "planRecommendation"       =>  DB::table('general_reports')->select('id','planRecommendation')->where('id',$request->input('checkReport'))->where('patient_id', $id)->first()->planRecommendation??''
+                ];
+                return view('back/print-medical/print-medical-report',$data,$checkPrint,$patient,$checkGenerateData);
+            }
+        }
+
+        return view('back/view-general-report')->with($data);            
     }
+
+
+
+    public function referalReplySummary(Request $request)
+    {
+       DB::table('referal_patients')->where('id',$request->input('referalName'))->update(['reply_summary'=> $request->input('replySummary')]);
+       return redirect()->back()->with('message','Reply added successfully');  
+    }
+
 
  
     public function removeExistingSymptom(Request $request ,$id)
@@ -328,24 +472,9 @@ class PatientController extends Controller
 
         $existingSymptoms = GeneralDiagnosis::where([ 'id' => $id])->delete(); 
         // return redirect->back();
-        return redirect()->back()->with('existingSymptoms','Symptom deleted successfully');
-
-
-        // if ($existingSymptoms) {
-        //     return response()->json(['message' => 'Data deleted successfully'], 200);
-        // } else {
-        //     return response()->json(['error' => 'Data not found'], 404);
-        // }   
+        return redirect()->back()->with('existingSymptoms','Symptom deleted successfully');  
      
      }
-
-
- //   ClinicalExam_db
-
-
-
-
-
 
     public function ViewThyroidAblationForm(Request $request, $id)
     {
@@ -364,7 +493,8 @@ class PatientController extends Controller
         $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
 
-        $Procedure = Procedure::with('doctor')->select('id','doctor_id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();        $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $Procedure = Procedure::with('doctor')->select('id','doctor_id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();   
+        $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
 
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
 
@@ -397,9 +527,16 @@ class PatientController extends Controller
         $NmThyroidScan = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $HistopathRightThyroidFNA = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id])->orderBy('id', 'desc')->get();
        
+
+        
        
         $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'thyroid_form'])->latest('id')->first();
+      
+        $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'thyroid_form','patient_id'=>$id])->get();
+
         
+        $document_file = AttachDocument::where(['form_type'=>'thyroid_ablation','patient_id'=>$id])->get();
+
         $data = [
             'patient' => $patient,
             'id' => Crypt::encrypt($id),
@@ -435,12 +572,16 @@ class PatientController extends Controller
             'Patient_order_labs'=>$Patient_order_labs,
             'supportiveTreatments'=>$SupportiveTreatment,
             'Patient_progress_notes'=>$Patient_progress_note,
-            'VaricoceleEmboForm'   =>$VaricoceleEmboForm
-
+            'VaricoceleEmboForm'   =>$VaricoceleEmboForm,
+            'checkGenerateData'   =>$checkGenerateData,
+            'document_file' =>$document_file
 
         ];
         return view('back/view-thyroid-ablation-report')->with($data);
     }
+
+
+
     public function ViewUterineEmboForm(Request $request, $id)
     {
         $id = Crypt::decrypt($id);
@@ -452,6 +593,9 @@ class PatientController extends Controller
         $Patient_future_plan = Patient_future_plan::select('id', 'date', 'plan_text')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'prostate_form','patient_id'=>$id])->get();
+        $document_file = AttachDocument::where(['form_type'=>'prostate_report','patient_id'=>$id])->get();
+
         $data = [
             'patient' => $patient,
             'id' => Crypt::encrypt($id),
@@ -461,12 +605,17 @@ class PatientController extends Controller
             'patient_future_plan' => $Patient_future_plan,
             'procedures' => $Procedure,
             'prescriptions' => $Prescription,
-            'insurer' => $Patient_insurer
+            'insurer' => $Patient_insurer,
+            'checkGenerateData'=>$checkGenerateData,
+            'document_file'=>$document_file
         ];
         return view('back/view-uterine-embo-report')->with($data);
     }
+
+
+    
     public function ViewVaricoceleEmboForm(Request $request, $id)
-    {
+    {   
         $id = Crypt::decrypt($id);
         $patient = User::findOrFail($id);
         $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
@@ -548,13 +697,21 @@ class PatientController extends Controller
 
     public function Add_Diagnosis(Request $request)
     {
-        GeneralDiagnosis::where('title_name','diagnosis_general')->delete();
-        GeneralDiagnosis::where('title_name','diagnosis_cid')->delete();
+
+        //  return $request->all();
         $doctor_id = auth()->guard('doctor')->id();
         $id = decrypt($request->patient_id);
+
+        GeneralDiagnosis::where(['title_name'=>'diagnosis_general','patient_id'=>$id])->delete();
+        GeneralDiagnosis::where(['title_name'=>'diagnosis_cid','patient_id'=>$id])->delete();
+
+       
         $diagnosis_general = $request->Diagnosis['general'];
         $diagnosis_cid = $request->Diagnosis['icd'];
         $form_type = $request->form_type;
+        $hiddenDiagnosis = $request->hiddenDiagnosis;
+        
+        
         $dataToInsert = [];
       // dd('diagnosis_general',$diagnosis_general,'diagnosis_cid',$diagnosis_cid,'form_type',$form_type);
         if (isset($diagnosis_general) && is_array($diagnosis_general) && !empty($diagnosis_general)) {
@@ -580,6 +737,7 @@ class PatientController extends Controller
         if (isset($diagnosis_cid) && is_array($diagnosis_cid) && !empty($diagnosis_cid)) {
             $filteredDiagnosisGeneral =  array_filter($diagnosis_cid, function ($value) {
                 return $value !== null && $value !== '';
+               
             });
 
 
@@ -598,6 +756,9 @@ class PatientController extends Controller
 
             }
         }
+
+
+       
 
         $filteredDiagnosisGeneral = array_map(function ($subarray) {
             return array_filter($subarray, function ($value) {
@@ -631,8 +792,9 @@ class PatientController extends Controller
     }
     public function getDiagnosis(Request $request)
     {
-       $general= GeneralDiagnosis::where('title_name','diagnosis_general')->pluck('data_value');
-       $icd= GeneralDiagnosis::where('title_name','diagnosis_cid')->pluck('data_value');
+       $id = $request->session()->get('id');
+       $general= GeneralDiagnosis::where('title_name','diagnosis_general')->where('patient_id',$id)->pluck('data_value');
+       $icd= GeneralDiagnosis::where('title_name','diagnosis_cid')->where('patient_id',$id)->pluck('data_value');
        return response()->json([
                             'general'=>$general,
                             'icd'=>$icd
@@ -643,29 +805,27 @@ class PatientController extends Controller
     public function Add_Symptoms(Request $request)
     {
 
-        // GeneralDiagnosis::where([ 'form_type'=>'general_form','title_name' => 'Symptom'])->delete(); 
-        if($request->input('checkData'))
+
+        $inserted='';
+        $form_type = $request->formType;
+        $doctor_id = auth()->guard('doctor')->id();
+        $id = decrypt($request->patient_id);
+        GeneralDiagnosis::where([ 'form_type'=>$form_type,'title_name' => 'Symptom','patient_id'=>$id])->delete(); 
+        if($request->input('formType'))
         { 
-    
                 $data=$request->all();
-
-                $doctor_id = auth()->guard('doctor')->id();
-
-                $id = decrypt($request->patient_id);
-
-                $form_type = $request->formType;
                 $dataToInsert = [];
             
-                foreach ($data['SymptomType_'] as $index => $type) {
+                foreach ($data['SymptomType'] as $index => $type) {
                     $dataToInsert[] = [
                         'SymptomType' => $type ?? '',
                         'patient_id' => $id,
                         'doctor_id' => $doctor_id,
                         'title_name' => 'Symptom',
                         'form_type'=>$form_type,
-                        'SymptomDurationValue' => $data['SymptomDurationValue_'][$index] ?? '',
-                        'SymptomDurationType' => $data['SymptomDurationType_'][$index] ?? '',
-                        'SymptomDurationNote' => $data['SymptomDurationNote_'][$index] ?? ''
+                        'SymptomDurationValue' => $data['SymptomDurationValue'][$index] ?? '',
+                        'SymptomDurationType' => $data['SymptomDurationType'][$index] ?? '',
+                        'SymptomDurationNote' => $data['SymptomDurationNote'][$index] ?? ''
                     ];
                 }
 
@@ -678,20 +838,25 @@ class PatientController extends Controller
             return response()->json($inserted);
     }
 
-    public function fetchExistingSymptoms()
+    public function fetchExistingSymptoms(Request $request)
     {
-        $existingSymptoms = GeneralDiagnosis::where([ 'form_type'=>'general_form','title_name' => 'Symptom'])->get(); 
+        $id = $request->session()->get('id');
+        $existingSymptoms = GeneralDiagnosis::where([ 'form_type'=>'general_form','title_name' => 'Symptom','patient_id'=>$id])->get(); 
 
         return response()->json($existingSymptoms);
     }
 
     public function checkSpecialInvestigation(Request $request)
-    {
+    {  
+
+        // return $request->all();
+
         $patient_id = decrypt($request->patient_id);
         $formType = $request->input('formType');
-
+        $id = $request->session()->get('id');
         $exists = GeneralDiagnosis::where('patient_id', $patient_id)
             ->where('form_type', $formType)
+            ->where('patient_id', $id)
             ->whereNotNull('SubTitle')
             ->exists();
 
@@ -795,10 +960,39 @@ class PatientController extends Controller
         $clinicalExam = DB::table('patient_general_diagnosis')->where('patient_id', $patient_id)
             ->where('form_type', $formType)
             ->where('title_name', 'ClinicalExam')
+            ->orderBy('id','DESC')
             ->first();
 
         return response()->json($clinicalExam);
     }
+
+    // public function saveClinicalExam(Request $request)
+    // {
+
+    //     $patient_id = decrypt($request->patient_id);
+    //     $doctor_id = auth()->guard('doctor')->id();
+
+    //     $formType = $request->input('formType');
+
+    //     $RegionalExamRadio = $request->input('RegionalExamRadio');
+    //     $RegionalExamNote = $request->input('RegionalExamRadioNote');
+    //     $SystemicExamRadio = $request->input('SystemicExamRadio');
+    //     $SystemicExamRadioNote = $request->input('SystemicExamRadioNote');
+            
+    //         DB::table('patient_general_diagnosis')->insert([
+    //             'patient_id' => $patient_id,
+    //             'doctor_id' => $doctor_id,
+    //             'form_type' => $formType,
+    //             'title_name' => 'ClinicalExam',
+    //             'RegionalExam' => $RegionalExamRadio??'Abnormal',
+    //             'RegionalExamNote' => $RegionalExamNote,
+    //             'SystemicExam' => $SystemicExamRadio??'Abnormal',
+    //             'SystemicExamNote' => $SystemicExamRadioNote,
+    //         ]);
+
+    //     return response()->json(['message' => 'Clinical exam data saved/updated']);
+    // }
+
 
     public function saveClinicalExam(Request $request)
     {
@@ -815,19 +1009,19 @@ class PatientController extends Controller
         $SystemicExamRadio = $request->input('SystemicExamRadio');
         $SystemicExamRadioNote = $request->input('SystemicExamRadioNote');
 
-        // $clinicalExam = DB::table('patient_general_diagnosis')->where('patient_id', $patient_id)
-        //     ->where('form_type', $formType)
-        //     ->first();
-        //  RegionalExamNote
-        // if ($clinicalExam) {
+        $clinicalExam = DB::table('patient_general_diagnosis')->where('patient_id', $patient_id)
+            ->where('form_type', $formType)
+            ->first();
+         
+        if ($clinicalExam) {
            
-        //     DB::table('patient_general_diagnosis')->where([ 'title_name' => 'ClinicalExam', 'patient_id' => $patient_id])->update([
-        //         'RegionalExam' => $RegionalExam,
-        //         'RegionalExamNote' => $RegionalExamNote,
-        //         'SystemicExam' => $SystemicExam,
-        //         'SystemicExamNote' => $SystemicExamNote,
-        //     ]);
-        // } else {   
+            DB::table('patient_general_diagnosis')->where([ 'title_name' => 'ClinicalExam', 'patient_id' => $patient_id])->update([
+                'RegionalExam' => $RegionalExamRadio,
+                'RegionalExamNote' => $RegionalExamNote,
+                'SystemicExam' => $SystemicExamRadio,
+                'SystemicExamNote' => $SystemicExamRadioNote,
+            ]);
+        } else {   
             
             DB::table('patient_general_diagnosis')->insert([
                 'patient_id' => $patient_id,
@@ -839,26 +1033,23 @@ class PatientController extends Controller
                 'SystemicExam' => $SystemicExamRadio,
                 'SystemicExamNote' => $SystemicExamRadioNote,
             ]);
-    //    }
+       }
 
         return response()->json(['message' => 'Clinical exam data saved/updated']);
     }
 
+
     public function MDTReview(Request $request)
     {
-
-
+        
         $mdt_decisions=$request->mdt_decision;
         $mdt_elaborates=$request->mdt_elaborate;
         $doctor_id = auth()->guard('doctor')->id();
-
         $id = decrypt($request->patient_id);
-
         $form_type = $request->formType;
         $dataToInsert = [];
 
         $newArray = [];
-        // dd($request->all());
         if(!empty($mdt_decisions)){
             foreach ($mdt_decisions as $key => $value) {
                 if($value === null || empty($value)){
@@ -867,7 +1058,6 @@ class PatientController extends Controller
                 $newArray[$value] = ['asd' => $mdt_elaborates[$key]];
             }
         }
-
 
 
         if ($newArray) {
@@ -887,19 +1077,66 @@ class PatientController extends Controller
                 return $value !== null && $value !== '';
             });
         }, $dataToInsert);
+
         // Filter out empty subarrays
         $final_result = array_filter($filteredDiagnosisGeneral, function($subarray) {
             return !empty($subarray);
         });
         $inserted=false;
 
+        // return $dataToInsert;
+
         if(isset($final_result) && count($final_result) !== 0){
             $inserted =   ThyroidDiagnosis::insert($dataToInsert);
         }
 
-
         return response()->json($inserted);
 
+    }
+
+    public function saveDocuments(Request $request)
+    {
+
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $fileName);
+
+            $formType=$request->input('formType');
+            $documentName=$request->input('documentName');
+           
+            $formSection=$request->input('formSection');
+
+            $attachDocument = new AttachDocument();
+
+            $id = $request->session()->get('id');
+            $attachDocument->patient_id = $id;
+            $attachDocument->form_type = $formType;
+            $attachDocument->upload_file = $fileName; 
+            $attachDocument->document_title = $documentName; 
+            $attachDocument->form_section_type = $formSection; 
+            $attachDocument->save();
+
+            return response()->json(['success' => true, 'message' => 'File uploaded successfully']);
+
+        }
+        return response()->json(['success' => false, 'message' => 'File upload failed']);
+
+    }
+
+
+    public function getDocuments()
+    {
+        $documents = AttachDocument::all();
+        return response()->json(['success' => true, 'documents' => $documents]);
+    }
+
+    public function deleteDocument($id)
+    {   
+            $document = AttachDocument::find($id);
+            $document->delete();
+            return redirect()->back()->with('deleteDocument','Document deleted successfully');       
     }
 
 
@@ -966,6 +1203,8 @@ class PatientController extends Controller
         $Patient_vitals = Patient_vital::where('patient_id', $request->patient_id)->orderBy('id', 'desc')->get();
         return response()->json($Patient_vitals);
     }
+
+
     public function patient_progress_list(Request $request)
     {
 
@@ -975,6 +1214,9 @@ class PatientController extends Controller
         ];
         return response()->json($data);
     }
+
+
+
     public function patient_progress_predefine_notes_list(Request $request)
     {
         $describe =  Patient_progress_predefine_note_detail::select('describe')->where(['progress_note_canned_text_id' => $request->canned_texts_id])->first();
@@ -984,10 +1226,11 @@ class PatientController extends Controller
         return response()->json($data);
     }
 
+
+
+
     public function patient_progress_list_save(Request $request)
     {
-
-
         $add_progress = [
             'patient_id' => !empty($request->patient_id) ? decrypt($request->patient_id) : null,
             'progress_note_contents_id' => !empty($request->note_contents) ? $request->note_contents : null,
@@ -1010,6 +1253,56 @@ class PatientController extends Controller
             return response()->json($add_progress);
         }
     }
+
+
+    public function save_patient_note(Request $request)
+    {
+       
+        $newContextData = [
+            'canned_name' => $request->newContext,
+        ];
+    
+        $progressNoteCannedTextId = DB::table('progress_note_canned_text')->insertGetId($newContextData);
+    
+        $progressNoteContentData = [
+            'note_name' => $request->snippetText,
+            'progress_note_id' => $progressNoteCannedTextId,
+        ];
+    
+
+        $progressNoteContentId = DB::table('progress_note_contents')->insertGetId($progressNoteContentData);
+    
+        $patientProgressNoteData = [
+            'progress_note_canned_text_id' => $progressNoteCannedTextId,
+            'progress_note_contents_id' => $progressNoteContentId,
+            'describe' => $request->snippetDescription,
+        ];
+    
+        $inserted = DB::table('patient_progress_note_details')->insert($patientProgressNoteData);
+    
+        return response()->json(['success' => $inserted]);
+    }
+
+    public function deleteNote(Request $request)
+    {     
+        $id = $request->input('note_id');
+        try {
+             $prgNoteId=  DB::table('progress_note_contents')->where('id',$id)->first();
+             DB::table('progress_note_canned_text')->where('id', $prgNoteId->progress_note_id)->delete();
+
+            // Delete the note from the progress_note_contents table
+            DB::table('progress_note_contents')->where('id', $id)->delete();
+            
+            return response()->json(['success' => true, 'message' => 'Note deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to delete note']);
+        }
+    }
+
+    
+
+
+
     public function patient_vital_list_delete(Request $request)
     {
 
@@ -1102,7 +1395,8 @@ class PatientController extends Controller
                                                 'doctor_id'       => $doctor_id,
                                                 'task'            => $request->input('lab_test_names')[$i],
                                                 'form_type'       => $request->input('formType'),
-                                                'test_type'       => 'pathology'
+                                                'test_type'       => 'pathology',
+                                                'order_summary'         =>  $request->input('test_summery')
                                             ]);
             $result=true;
         }
@@ -1163,10 +1457,12 @@ class PatientController extends Controller
 
     public function invoice_item_add(Request $request)
     {
+        
          $taskId= $request->input('taskId');
          $discount= $request->input('discount');
          $vatDiscount= $request->input('vatDiscount');
          $finalAmount= $request->input('finalAmount');
+         $taskPrice= $request->input('taskPrice');
 
          $taskIdCount = count($taskId);
 
@@ -1178,6 +1474,7 @@ class PatientController extends Controller
                                         ->update([
                                             'discount' => $discount[$i],
                                             'vatDiscount' => $vatDiscount[$i],
+                                            'amountPaid'  => $taskPrice[$i],
                                             'toInvoiceStatus' => '1',
                                             'finalAmount' => $finalAmount[$i]
 
@@ -1185,7 +1482,7 @@ class PatientController extends Controller
                   }
             }
 
-            return redirect()->back()->with('message','Create invoice Successfully');
+           return redirect()->back()->with('message','Create invoice Successfully');
 
     }
 
@@ -1263,28 +1560,47 @@ class PatientController extends Controller
 
         return response()->json($data);
     }
+    
+
+
     public function video_call_add(Request $request)
     {
-        $data = $request->all();
-
-        $patientId = decrypt($data['patient_id']);
-
-        $meeting_date = $data['meeting_date'];
-        $meeting_url = $data['meeting_url'];
 
 
-        $isConfirmation = $request->has('is_confirmation') ? 'yes' : 'no';
+        $task_id = DB::table('pathology_price_list')->where('price_type','2')->latest('id')->first();
+       
+        
 
-        Patient_video_call::create([
-            'patient_id' => $patientId,
-            'date' => $meeting_date,
-            'meeting_url' => $meeting_url
+            $data = $request->all();
+    
+            $patientId = decrypt($data['patient_id']);
 
-        ]);
+            $appointmentDate = Carbon::createFromFormat('Y-m-d\TH:i',  $data['meeting_date'])->format('Y-m-d H:i:s');
 
+            $meeting_date = $appointmentDate;
+            
+            $meeting_url = $data['meeting_url'];
+            $doctor_id = auth('doctor')->user()->id;
+            $isConfirmation = $request->has('is_confirmation') ? 'yes' : 'no';  
+        
+            $videoCall = Patient_video_call::create([
+                'patient_id' => $patientId,
+                'date' => $meeting_date,
+                'meeting_url' => $meeting_url,
+            ]);
 
-
-        return response()->json($data);
+         
+            $task = DB::table('tasks')->insert([
+                            'patient_id' => $patientId,
+                            'doctor_id' => $doctor_id,
+                            'invoiceNumber'  => sprintf("%06d", rand(0, 9999999)),
+                            'form_type'  => 'Meeting',
+                            'task'       =>$task_id->id??"'",
+                            'appoinment_date' =>$appointmentDate??'0:0:0'
+                        ]);
+                    
+            return response()->json($data);
+       
     }
 
     public function drug_add(Request $request)
@@ -1308,12 +1624,7 @@ class PatientController extends Controller
             'stopped' => $isstopped,
             'stopped_date' => $stopped_date,
             'code' => $drug_code
-
-
         ]);
-
-
-
         return response()->json($data);
     }
     public function drug_item_list(Request $request)
@@ -1321,7 +1632,8 @@ class PatientController extends Controller
 
         $patient_id = decrypt($request->patient_id);
         $Patient_order_labs = Patient_current_med::where('patient_id', $patient_id)->orderBy('id', 'desc')->get();
-        return response()->json($Patient_order_labs);
+        return response()->json(['patient_current_med' => $Patient_order_labs]);
+
     }
     public function drug_item_list_delete(Request $request)
     {
@@ -1336,10 +1648,12 @@ class PatientController extends Controller
         $patientId = decrypt($data['patient_id']);
 
         $allergy = $data['allergy'];
+        $formType = $data['formType'];
 
         Patient_allergy::create([
             'patient_id' => $patientId,
-            'allergy_name' => $allergy
+            'allergy_name' => $allergy,
+            'form_type' => $formType
         ]);
 
 
@@ -1347,6 +1661,119 @@ class PatientController extends Controller
         return response()->json($data);
     }
 
+
+    public function deletePatientAllergy($id)
+        {
+            $allergy = Patient_allergy::findOrFail($id);
+            $allergy->delete();
+
+            return response()->json(['success' => 'Allergy deleted successfully.']);
+        }
+
+        public function deleteReport($id)
+        {
+            $allergy = DB::table('general_reports')->whereId($id)->delete();
+            return response()->json(['success' => 'Report Deleted successfully.']);
+        }
+
+        
+
+    public function deletePatientPastMediacl($id)
+    {
+        $allergy = Patient_past_medical_history::findOrFail($id);
+        $allergy->delete();
+
+        return response()->json(['success' => 'Allergy deleted successfully.']);
+    }
+
+    public function deletePatientPastSurgical($id)
+    {
+        $allergy = Patient_past_surgical_history::findOrFail($id);
+        $allergy->delete();
+
+        return response()->json(['success' => 'Patient past surgical history deleted successfully.']);
+    }
+    
+    public function deleteOrderProcedure($id)
+    {
+        $allergy = DB::table('patient_order_procedures')->where('id', $id)->delete();
+        return response()->json(['success' => 'Patient order procedures deleted successfully.']);
+    }
+
+    public function patientSupportiveTreatments($id)
+    {
+        $allergy = DB::table('patient_supportive_treatments')->where('id', $id)->delete();
+        return response()->json(['success' => 'Patient order procedures deleted successfully.']);
+    }
+
+
+    public function patientFuturePlans($id)
+    {
+        $allergy = DB::table('patient_future_plans')->where('id', $id)->delete();
+        return response()->json(['success' => 'Patient deleted successfully.']);
+    }
+
+    public function patientRemoveDrug($id)
+    {  
+        $allergy = DB::table('patient_current_meds')->where('id', $id)->delete();
+        return response()->json(['success' => 'Patient deleted successfully.']);
+    }
+
+    public function listofprocedure($id)
+    {  
+        $allergy = DB::table('patient_order_procedures')->where('id', $id)->delete();
+        return response()->json(['success' => 'successfully.']);
+    }
+
+    
+
+    
+
+
+    public function patientProgressNote($id)
+    {
+        $allergy = DB::table('patient_progress_notes')->where('id', $id)->delete();
+        return response()->json(['success' => 'Patient deleted successfully.']);
+    }
+
+    public function PatientPrescribedMedicines($id)
+    {   
+        //return $id;
+        $allergy = DB::table('patient_prescriptions')->where('id', $id)->delete();
+        return response()->json(['success' => 'Patient prescriptions deleted successfully.']);
+    }
+
+
+    public function patientReferrals($id)
+    {   
+        $allergy = DB::table('referal_patients')->where('id', $id)->delete();
+        return response()->json(['success' => 'referal_patients deleted successfully.']);
+    }
+
+
+    public function patientMbt($id)
+    {    
+      //  return $request->all();
+        $patient_thyroid_diagnosis = DB::table('patient_thyroid_diagnosis')->where('id', $id)->delete();
+        return response()->json(['success' => 'patient thyroid diagnosis deleted successfully.']);
+    }
+
+    public function patientEligibilityStatus($id)
+    {   
+          // echo "ok"; die;
+        $patient_thyroid_diagnosis = DB::table('patient_thyroid_diagnosis')->where('id', $id)->delete();
+        return response()->json(['success' => 'patient thyroid diagnosis deleted successfully.']);
+    }
+
+    
+
+    
+
+    
+    
+
+
+    
 
     public function add_patient_prescription(Request $request)
     {
@@ -1619,11 +2046,11 @@ class PatientController extends Controller
     }
     public function patient_info_edit(Request $request)
     {
+   
+          $patient_id = decrypt($request->patient_id);
 
-        $patient_id = decrypt($request->patient_id);
-        $Patient_info = User::where('id', $patient_id)->orderBy('id', 'desc')->first();
-        $Patient_insurer = Patient_insurer::select('id', 'insurer_name', 'status')->where('patient_id', $patient_id)->orderBy('id', 'desc')->get();
-
+         $Patient_info = User::where('id', $patient_id)->orderBy('id', 'desc')->first(); 
+         $Patient_insurer = Patient_insurer::select('id', 'insurer_name', 'status')->where('patient_id', $patient_id)->orderBy('id', 'desc')->get();
 
         $data = [
             'patient_info' => $Patient_info,
@@ -1631,13 +2058,13 @@ class PatientController extends Controller
 
         ];
         return response()->json($data);
+
     }
+
+
+
     public function patient_info_update(Request $request)
     {
-
-
-        // patient_gendar
-
         $data = $request->all();
 
         $patientId = decrypt($data['patient_id']);
@@ -1675,16 +2102,15 @@ class PatientController extends Controller
         $patient_policy_no = $data['patient_policy_no'];
         $patient_gp = $data['patient_gp'];
         $patient_additional_info = $data['patient_additional_info'];
-        $patient_edit_id = $data['patient_edit_id'];
         $patient_tags_list = $data['patient_tags_list'];
-
+        $document_type = $data['document_type'];
+        $enterIdNumber = $data['enterIdNumber'];
         $patient_info = User::where('email', $patient_email)->first();
         $userEmailExists = User::where('email', $patient_email)
             ->exists();
         $userMobExists = User::where('mobile_no', $patient_mobile_no)
             ->exists();
 
-          //  dd($patient_info);
 
 
         $patient_info->sirname = $patient_sirname??'';
@@ -1706,16 +2132,15 @@ class PatientController extends Controller
         $patient_info->policy_no = $patient_policy_no;
         $patient_info->gp = $patient_gp;
         $patient_info->additional_info = $patient_additional_info;
-      //  $patient_info->document_type = $patient_document_type;
-        $patient_info->patient_id = $patient_edit_id;
+        // $patient_info->patient_id = $patient_edit_id;
         $patient_info->tags = $patient_tags_list;
+        $patient_info->document_type = $document_type;
+        $patient_info->enterIdNumber = $enterIdNumber;  
         // handle profile_image
+
         if ($request->hasFile('profile_image')) {
-
             $oldFilePath = public_path('assets/patient_profile') . '/' . $patient_info->patient_profile_img;
-
             if (file_exists($oldFilePath) && is_file($oldFilePath)) {
-                //    dd($oldFilePath);
                 unlink($oldFilePath);
                 $image = $request->file('profile_image');
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -1735,9 +2160,7 @@ class PatientController extends Controller
 
     private function generateRandomMA()
     {
-        $randomMA = 'MA' . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
-
-
+        $randomMA = 'PA' . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
         return $randomMA;
     }
 
@@ -1746,6 +2169,8 @@ class PatientController extends Controller
 
     public function store(Request $request)
     {
+
+       // return $request->all();
        
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email',
@@ -1792,17 +2217,28 @@ class PatientController extends Controller
             'doctor_id' =>  !empty($request->doctor_id) ? $request->doctor_id : null,
             'landline' => !empty($request->landline) ? $request->landline : null,
             'document_type' => !empty($request->document_type) ? $request->document_type : null,
+            'enterIdNumber' => !empty($request->enterIdNumber) ? $request->enterIdNumber : null,
             'gendar' => !empty($request->gender) ? $request->gender : null,
             'patient_id' => $this->generateRandomMA(),
             'patient_profile_img' => !empty($new_name) ? $new_name : null,
-            'customFile' => !empty($customFile) ? $customFile : null,
+            'customFile' => !empty($customFile) ? $customFile : null,  	
         ];
 
-        if (!empty($add_patient)) {
-            $add_patient = User::insert($add_patient);
+        if (!empty($add_patient)) 
+        {
+            $add_patient = User::create($add_patient);
+            $lastId = $add_patient->id;
+          
+            DB::table('user_branchs')->insertGetId([
+                'patient_id'     =>  $lastId,
+                'add_branch'     =>  $request->input('selectBranch'),
+                'branch_type'    => 'patient'
+            ]);
+        
             return response()->json(['message' => 'Patient created successfully'], 201);
-        } else {
-
+        } 
+        else 
+        {
             return response()->json(['error' => 'Failed to add patient details. Please try again.'], 'error');
         }
     }
@@ -1813,11 +2249,17 @@ class PatientController extends Controller
         return response()->json($users);
     }
 
-    public function getPatientsData(Request $request)
-    {
-        $patient = User::query();
-        if ($request->has('searchInput')) {
 
+
+    public function getPatientsData(Request $request)
+    {  
+       
+
+        $getType=Auth::guard('doctor')->user();
+        $patient = User::query();
+        if($request->input('dropdownBranchValue'))
+        {  
+            // return $req = $request->input('dropdownBranchValue');
             $searchInput = $request->input('searchInput');
             $patient->where(function ($query) use ($searchInput) {
                 $query->where('name', 'like',  $searchInput . '%')
@@ -1826,41 +2268,191 @@ class PatientController extends Controller
                     ->orWhere('post_code', 'like', $searchInput . '%')
                     ->orWhere('mobile_no', 'like', $searchInput . '%')
                     ->orWhere('patient_id', 'like', $searchInput . '%');
-            });
+            });     
 
+                $patients = $patient->orderBy('id', 'desc')->Where('status','1');
+                $patientBranch = DB::table('user_branchs')->select('patient_id')->where('add_branch',$request->input('dropdownBranchValue'))->pluck('patient_id')->toArray();
+                
+                
+                $patients=$patients->whereIn('id',$patientBranch);
+
+
+                $patients = $patients->get();
+
+                $patientData = [];
+                foreach ($patients as $patient) 
+                {
+                    if (!is_null($patient->id)) {
+                        $encryptedId = Crypt::encrypt($patient->id);
+                        $patientData[] = [
+                            'id' => $encryptedId,
+                            'name' => $patient->name,
+                            'street' => $patient->street,
+                            'email' => $patient->email??'--',
+                            'post_code' => $patient->post_code??'--',
+                            'mobile_no' => $patient->mobile_no,
+                            'patient_id' => $patient->patient_id,
+                        ];
+                    }
+                }
+                $patientDataObject = (object) $patientData;
+                return response()->json($patientDataObject);
+                
         }
-        //
-        $patients = $patient->orderBy('id', 'desc')->Where('status','1');
 
-        $getType=Auth::guard('doctor')->user();
-        if($getType->role_id=='1')
-        {
-            $patients=$patients->where('doctor_id',$getType->id);
-        }
 
-        $patients = $patients->get();
+        if(empty($request->input('dropdownValue')))
+        {    
+            if ($request->has('searchInput')) { 
+                $searchInput = $request->input('searchInput');
+                $patient->where(function ($query) use ($searchInput) {
+                    $query->where('name', 'like',  $searchInput . '%')
+                        ->orWhere('street', 'like',  $searchInput . '%')
+                        ->orWhere('email', 'like',  $searchInput . '%')
+                        ->orWhere('post_code', 'like', $searchInput . '%')
+                        ->orWhere('mobile_no', 'like', $searchInput . '%')
+                        ->orWhere('patient_id', 'like', $searchInput . '%');
+                });
 
-        $patientData = [];
-        foreach ($patients as $patient) {
-            if (!is_null($patient->id)) {
-                $encryptedId = Crypt::encrypt($patient->id);
-                $patientData[] = [
-                    'id' => $encryptedId,
-                    'name' => $patient->name,
-                    'street' => $patient->street,
-                    'email' => $patient->email,
-                    'post_code' => $patient->post_code,
-                    'mobile_no' => $patient->mobile_no,
-                    'patient_id' => $patient->patient_id,
-                ];
             }
+            
+            $patients = $patient->orderBy('id', 'desc')->Where('status','1');
+
+            
+            if($getType->role_id=='1')
+            {
+               // $patients=$patients->where('doctor_id',$getType->id);
+            }
+
+            $patients = $patients->get();
+
+            $patientData = [];
+            foreach ($patients as $patient) {
+                if (!is_null($patient->id)) {
+                    $encryptedId = Crypt::encrypt($patient->id);
+                    $patientData[] = [
+                        'id' => $encryptedId,
+                        'name' => $patient->name,
+                        'street' => $patient->street,
+                        'email' => $patient->email??'--',
+                        'post_code' => $patient->post_code??'--',
+                        'mobile_no' => $patient->mobile_no,
+                        'patient_id' => $patient->patient_id,
+                    ];
+                }
+            }
+            $patientDataObject = (object) $patientData;
         }
 
+        else{
+           
+            if ($request->has('searchInput')) {
 
-        $patientDataObject = (object) $patientData;
+                $searchInput = $request->input('searchInput');
+                $patient->where(function ($query) use ($searchInput) {
+                    $query->where('name', 'like',  $searchInput . '%')
+                        ->orWhere('street', 'like',  $searchInput . '%')
+                        ->orWhere('email', 'like',  $searchInput . '%')
+                        ->orWhere('post_code', 'like', $searchInput . '%')
+                        ->orWhere('mobile_no', 'like', $searchInput . '%')
+                        ->orWhere('patient_id', 'like', $searchInput . '%');
+                });
+
+            }
+            
+            $patients = $patient->orderBy('id', 'desc')->Where('status','1');
+            
+            if($getType->role_id=='1')
+            {
+            $referalPatients = DB::table('referal_patients')->select('patient_id')->where('doctor_id',$getType->id)->pluck('patient_id')->toArray();
+            }
+            else
+            {
+               $nursePatient  = DB::table('doctor_nurse')->where('nurse_id',$getType->id)->pluck('doctor_id')->toArray();
+               $referalPatients = DB::table('referal_patients')->select('patient_id')->whereIn('doctor_id',$nursePatient)->pluck('patient_id')->toArray();
+
+            }
+            
+            $patients=$patients->whereIn('id',$referalPatients);
+
+
+            $patients = $patients->get();
+
+            $patientData = [];
+            foreach ($patients as $patient) {
+                if (!is_null($patient->id)) {
+                    $encryptedId = Crypt::encrypt($patient->id);
+                    $patientData[] = [
+                        'id' => $encryptedId,
+                        'name' => $patient->name,
+                        'street' => $patient->street,
+                        'email' => $patient->email??'--',
+                        'post_code' => $patient->post_code??'--',
+                        'mobile_no' => $patient->mobile_no,
+                        'patient_id' => $patient->patient_id,
+                    ];
+                }
+            }
+            $patientDataObject = (object) $patientData;
+
+           
+        }
 
         return response()->json($patientDataObject);
     }
+
+
+    // public function getPatientsData(Request $request)
+    // {
+    //     $patient = User::query();
+    //     if ($request->has('searchInput')) {
+
+    //         $searchInput = $request->input('searchInput');
+    //         $patient->where(function ($query) use ($searchInput) {
+    //             $query->where('name', 'like',  $searchInput . '%')
+    //                 ->orWhere('street', 'like',  $searchInput . '%')
+    //                 ->orWhere('email', 'like',  $searchInput . '%')
+    //                 ->orWhere('post_code', 'like', $searchInput . '%')
+    //                 ->orWhere('mobile_no', 'like', $searchInput . '%')
+    //                 ->orWhere('patient_id', 'like', $searchInput . '%');
+    //         });
+
+    //     }
+    //     //
+    //     $patients = $patient->orderBy('id', 'desc')->Where('status','1');
+
+    //     $getType=Auth::guard('doctor')->user();
+    //     if($getType->role_id=='1')
+    //     {
+    //         $patients=$patients->where('doctor_id',$getType->id);
+    //     }
+
+    //     $patients = $patients->get();
+
+    //     $patientData = [];
+    //     foreach ($patients as $patient) {
+    //         if (!is_null($patient->id)) {
+    //             $encryptedId = Crypt::encrypt($patient->id);
+    //             $patientData[] = [
+    //                 'id' => $encryptedId,
+    //                 'name' => $patient->name,    
+    //                 'street' => $patient->street,
+    //                 'email' => $patient->email,
+    //                 'post_code' => $patient->post_code,
+    //                 'mobile_no' => $patient->mobile_no,
+    //                 'patient_id' => $patient->patient_id,
+    //                 'referal_status'=> $patient->referal_status,
+    //             ];
+    //         }
+    //     }
+
+
+    //     $patientDataObject = (object) $patientData;
+
+    //     DB::table('referal_patients')->where('doctor_id',$getType->id)->get();
+
+    //     return response()->json($patientDataObject);
+    // }
 
     public function slectEligibilityForms(Request $request)
     {
@@ -2029,8 +2621,8 @@ public function updateVaricoceleEmboEligibilityForms(Request $request)
 
     //Varicocele Embo  form view method
 public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
-{
-    $id = Crypt::decrypt($id);
+{    
+    $id = Crypt::decrypt($id); 
     $patient = User::findOrFail($id);
 
     // $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
@@ -2069,10 +2661,16 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
     $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
     $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
     $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
-    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+    $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('id','data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
     $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
     $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
+    
+    $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'view_varicocele_embo_report','patient_id'=>$id])->get();
+    $document_file = AttachDocument::where(['form_type'=>'varicoceleEmbo_form','patient_id'=>$id])->get();
+
+    
+
 
     $data = [
         'patient' => $patient,
@@ -2082,7 +2680,7 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
         'patient_current_med' => $Patient_current_med,
         'patient_future_plans' => $Patient_future_plan,
         'procedures' => $Procedure,
-        'prescriptions' => $Prescription,
+        'prescriptions' => $Prescription,   
         'insurer' => $Patient_insurer,
         'diagnosis_generals' => $diagnosis_general,
         'diagnosis_cids' => $diagnosis_cid,
@@ -2101,7 +2699,10 @@ public function viewVaricoceleEmboEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
-        'viewForm' =>$viewImage
+        'viewForm' =>$viewImage,
+        'checkGenerateData'=>$checkGenerateData,
+        'document_file'  =>$document_file
+
 
     ];
 
@@ -3159,6 +3760,11 @@ public function viewHeadachePainEligibilityForms(Request $request, $id)
 
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
 
+
+    $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'headache_pain_report','patient_id'=>$id])->get();
+    $document_file = AttachDocument::where(['form_type'=>'headache_pain_report','patient_id'=>$id])->get();
+
+
     $data = [
         'patient' => $patient,
         'id' => Crypt::encrypt($id),
@@ -3175,7 +3781,7 @@ public function viewHeadachePainEligibilityForms(Request $request, $id)
         'symptoms_scores_db' => $symptoms_scores,
         'Referrals' => $Referrals,
         'supportives' => $supportives,
-        'SpecialInvestigations_db' => $SpecialInvestigations,
+        'SpecialInvestigations_db' => $SpecialInvestigations,    
         'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
         'Interventions' => $Interventions,
         'MDTs_db' => $MDTs,
@@ -3186,7 +3792,10 @@ public function viewHeadachePainEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
-        'viewForm' =>$ViewImage
+        'viewForm' =>$ViewImage,
+        'checkGenerateData'=>$checkGenerateData,
+        'document_file'=>$document_file
+
 
     ];
 
@@ -3790,6 +4399,11 @@ public function viewShoulderPainEligibilityForms(Request $request, $id)
     $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
 
+    $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'view_shoulder_pain','patient_id'=>$id])->get();
+    $document_file = AttachDocument::where(['form_type'=>'view_shoulder_pain','patient_id'=>$id])->get();
+
+    
+    
     $data = [
         'patient' => $patient,
         'id' => Crypt::encrypt($id),
@@ -3817,7 +4431,10 @@ public function viewShoulderPainEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
-        'viewForm'   =>$Viewimage
+        'viewForm'   =>$Viewimage,
+        'checkGenerateData'=>$checkGenerateData,
+        'document_file'=>$document_file
+
 
     ];
 
@@ -4383,6 +5000,10 @@ public function viewMSKPainEligibilityForms(Request $request, $id)
     $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
 
+    $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'msk_pain_report','patient_id'=>$id])->get();
+    $document_file = AttachDocument::where(['form_type'=>'msk_pain_report','patient_id'=>$id])->get();
+
+
     $data = [
         'patient' => $patient,
         'id' => Crypt::encrypt($id),
@@ -4410,6 +5031,11 @@ public function viewMSKPainEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
+        'checkGenerateData'=>$checkGenerateData,
+        'document_file'=>$document_file
+
+
+
 
     ];
 
@@ -4974,6 +5600,11 @@ public function viewSpinePainEligibilityForms(Request $request, $id)
     $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->get();
 
+    $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'print_form','patient_id'=>$id])->get();
+
+    $document_file = AttachDocument::where(['form_type'=>'spine_pain','patient_id'=>$id])->get();
+
+
     $data = [
         'patient' => $patient,
         'id' => Crypt::encrypt($id),
@@ -5001,6 +5632,9 @@ public function viewSpinePainEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
+        'checkGenerateData' =>$checkGenerateData,
+        'document_file' =>$document_file
+
 
     ];
 
@@ -5536,6 +6170,10 @@ public function viewKneePainEligibilityForms(Request $request, $id)
     $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
 
+    $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'knee_pain_report','patient_id'=>$id])->get();
+    $document_file = AttachDocument::where(['form_type'=>'knee_pain_report','patient_id'=>$id])->get();
+
+
     $data = [
         'patient' => $patient,
         'id' => Crypt::encrypt($id),
@@ -5563,12 +6201,18 @@ public function viewKneePainEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
-        'viewForm'  =>$viewForm
+        'viewForm'  =>$viewForm,
+        'checkGenerateData'=>$checkGenerateData,
+        'document_file'=>$document_file
+
 
     ];
 
     return view('back/view-knee-pain-report')->with($data);
 }
+
+
+
 
 // KneePain form edit method
 public function editKneePainEligibilityForms(Request $request)
@@ -6128,6 +6772,10 @@ public function viewHaemorrhoidsEmboEligibilityForms(Request $request, $id)
     $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'HaemorrhoidsEmbo'])->orderBy('id', 'desc')->get();
 
+    $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'HaemorrhoidsEmbo','patient_id'=>$id])->get();
+    $document_file = AttachDocument::where(['form_type'=>'HaemorrhoidsEmbo','patient_id'=>$id])->get();
+
+
     $data = [
         'patient' => $patient,
         'id' => Crypt::encrypt($id),
@@ -6155,8 +6803,9 @@ public function viewHaemorrhoidsEmboEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
-        'ViewImage'      => $ViewImage
-
+        'ViewImage'      => $ViewImage,
+        'checkGenerateData'=>$checkGenerateData,
+        'document_file' =>$document_file
     ];
 
     return view('back/view-haemorrhoids-embo-report')->with($data);
@@ -6229,11 +6878,9 @@ public function updateHaemorrhoidsEmboEligibilityForms(Request $request)
 }
 
 
-    // VaricoseAblation form store method
 
     public function storeVaricoseAblationEligibilityForms(Request $request)
     {
-
 
         $doctor_id = auth()->guard('doctor')->id();
 
@@ -6677,17 +7324,21 @@ public function updateHaemorrhoidsEmboEligibilityForms(Request $request)
 
         $patientId =  $request->patient_id;
 
-        return response()->json(['patient_id' => $patientId]);
+
+
+         return response()->json(['patient_id' => $patientId]);
+
+        // return redirect()->route('user.updateVaricoseAblationEligibilityForms')->with('success', 'Your success message here!');
+
 
 
     }
 
-
+    
 
 // VaricoseAblation form edit method
 public function editVaricoseAblationEligibilityForms(Request $request)
-{
-
+{   
     $id = decrypt($request->patient_id);
     // $id = decrypt();
     $ThyroidDiagnosis = ThyroidDiagnosis::query();
@@ -6735,20 +7386,17 @@ public function editVaricoseAblationEligibilityForms(Request $request)
 }
 
 
-// VaricoseAblation form update method
+// VaricoseAblation form update method   
 public function updateVaricoseAblationEligibilityForms(Request $request)
 {    
-    
+
     ThyroidDiagnosis::where(['form_type'=>'VaricoseAblation','patient_id'=>decrypt($request->patient_id)])->delete();
-
     $this->storeVaricoseAblationEligibilityForms($request);
-
     $patientId=  $request->patient_id;
 
-    return response()->json(['patient_id' => $patientId]);
-
+    return redirect()->route('user.viewVaricoseAblationEligibilityForms', ['id' => $patientId])->with('updateVaricoseAblationEligibilityForms', 'Form updated successfully!');
+    
 }
-
 
 // VaricoseAblation form view method Edit_varicose_ablation
 public function viewVaricoseAblationEligibilityForms(Request $request, $id)
@@ -6794,6 +7442,9 @@ public function viewVaricoseAblationEligibilityForms(Request $request, $id)
     $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
     $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
+   
+    $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'varicose_ablation','patient_id'=>$id])->get();
+    $document_file = AttachDocument::where(['form_type'=>'varicose_ablation','patient_id'=>$id])->get();
 
     $data = [
         'patient' => $patient,
@@ -6822,7 +7473,9 @@ public function viewVaricoseAblationEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
-        'viewImage'  =>$viewImage
+        'viewImage'  =>$viewImage,
+        'checkGenerateData'=>$checkGenerateData,
+        'document_file' =>$document_file
 
     ];
 
@@ -7347,13 +8000,13 @@ public function updatePelvicCongEmboEligibilityForms(Request $request)
     return response()->json(['patient_id' => $patientId]);
 }
 
-// PelvicCongEmbo form view method
+
+
 public function viewPelvicCongEmboEligibilityForms(Request $request, $id)
 {
-    $id = Crypt::decrypt($id);
-    $patient = User::findOrFail($id);
+     $id = Crypt::decrypt($id);
+     $patient = User::findOrFail($id);
 
-    //  $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
      $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'PelvicCongEmbo'])->get();    
 
      $viewForm = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->latest('id')->first();
@@ -7362,11 +8015,11 @@ public function viewPelvicCongEmboEligibilityForms(Request $request, $id)
      $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
      $Procedure = Procedure::with('doctor')->select('id','doctor_id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
      $SupportiveTreatment = SupportiveTreatment::with('doctor')->select('id','doctor_id', 'title', 'sub_title', 'created_at', 'treatment')->where('patient_id', $id)->orderBy('id', 'desc')->get();
-    $Patient_progress_note = Patient_progress_note::with(['doctor','progressNote'])->select('id','doctor_id', 'progress_note_canned_text_id', 'voice_recognition', 'created_at', 'summery')->where('patient_id', $id)->orderBy('id', 'desc')->get();
-    $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
-    $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
-    $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
-    $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+     $Patient_progress_note = Patient_progress_note::with(['doctor','progressNote'])->select('id','doctor_id', 'progress_note_canned_text_id', 'voice_recognition', 'created_at', 'summery')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+     $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
+     $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+     $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
+     $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
 
 
     $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -7389,6 +8042,9 @@ public function viewPelvicCongEmboEligibilityForms(Request $request, $id)
     $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
     $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
+
+    $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'view_pelvic_cong_embo','patient_id'=>$id])->get();
+    $document_file = AttachDocument::where(['form_type'=>'view_pelvic_cong','patient_id'=>$id])->get();
 
     $data = [
         'patient' => $patient,
@@ -7417,7 +8073,10 @@ public function viewPelvicCongEmboEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
-        'viewForm'        => $viewForm
+        'viewForm'        => $viewForm,
+        'checkGenerateData' =>$checkGenerateData,
+        'document_file' =>$document_file
+
 
     ];
 
@@ -7427,7 +8086,6 @@ public function viewPelvicCongEmboEligibilityForms(Request $request, $id)
 // uterine_embo form store method
 public function storeUterineEmboEligibilityForms(Request $request)
 {
-
 
     if ($request->input('canvasImage')) 
     {  
@@ -7557,7 +8215,6 @@ public function storeUterineEmboEligibilityForms(Request $request)
             });
         }, $request->symptoms_score);
 
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
         $nonEmptyArraysExist = false;
         foreach ($filteredDiagnosisGeneral as $subarray) {
             if (!empty($subarray)) {
@@ -7586,7 +8243,6 @@ public function storeUterineEmboEligibilityForms(Request $request)
             });
         }, $request->Referral);
 
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
         $nonEmptyArraysExist = false;
         foreach ($filteredDiagnosisGeneral as $subarray) {
             if (!empty($subarray)) {
@@ -7614,7 +8270,6 @@ public function storeUterineEmboEligibilityForms(Request $request)
             });
         }, $request->Supportive);
 
-        // Check if there's any non-empty array in $filteredDiagnosisGeneral
         $nonEmptyArraysExist = false;
         foreach ($filteredDiagnosisGeneral as $subarray) {
             if (!empty($subarray)) {
@@ -7875,6 +8530,8 @@ public function storeUterineEmboEligibilityForms(Request $request)
 
         return response()->json(['patient_id' => $patientId]);
 }
+
+
 // uterine_embo form edit method
 public function editUterineEmboEligibilityForms(Request $request)
 {
@@ -7895,7 +8552,7 @@ public function editUterineEmboEligibilityForms(Request $request)
     $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->first();
     $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
 
-   $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
+    $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
     $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
     $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
     $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->first();
@@ -7964,6 +8621,8 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
     $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
 
 
+
+    
     $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
     $ThyroidDiagnosis = ThyroidDiagnosis::query();
     $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
@@ -7979,11 +8638,21 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
 
     $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
     $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-    $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+    
+    $SpecialInvestigations = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id','Title','SubTitle','Invistigation')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+
+   
+   
+    
     $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
     $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
     $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
     $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+
+     $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'uterine_embo','patient_id'=>$id])->get();
+    $document_file = AttachDocument::where(['form_type'=>'uterine_embo','patient_id'=>$id])->get();
+
+    
 
     $data = [
         'patient' => $patient,
@@ -8012,9 +8681,12 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
         'Imaging'=>$Imaging,
         'ClinicalIndicator_db' => $ClinicalIndicator,
         'ClinicalExam_db' => $ClinicalExam,
-        'viewImage' =>$viewImage
+        'viewImage' =>$viewImage,
+        'checkGenerateData'=>$checkGenerateData,
+        'document_file'=>$document_file
 
     ];
+    
 
     return view('back/view-uterine-embo-report')->with($data);
 }
@@ -8469,6 +9141,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
 
         return response()->json(['patient_id' => $patientId]);
     }
+
     public function editProstateEligibilityForms(Request $request)
     {
         $id = decrypt($request->patient_id);
@@ -8555,7 +9228,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
     }
 
     public function UpdateProstateEligibilityForms(Request $request)
-    {
+    {   
         ThyroidDiagnosis::where(['form_type'=>'prostate_form','patient_id'=>decrypt($request->patient_id)])->delete();
 
         $this->storeProstateEligibilityForms($request);
@@ -8563,17 +9236,16 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
         return response()->json(['patient_id' => $patientId]);
     }
 
+    
+
     public function ViewProstateEligibilityForms(Request $request, $id)
     {
-
 
         $id = Crypt::decrypt($id);
         $patient = User::findOrFail($id);
 
-
         $ViewImage = DB::table('patient_thyroid_diagnosis')->select('id','AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'prostate_form'])->latest('id')->first();
 
-        //    $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'general_form','approveDocumentSts'=>'1'])->get();
         $Patient_order_labs= Task::where(['patient_id'=>$id,'form_type'=>'prostate_form'])->get();    
 
         $Patient_future_plan = Patient_future_plan::with('doctor')->select('id','doctor_id', 'date', 'plan_text','created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
@@ -8584,31 +9256,35 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
         $Patient_past_medical_history = Patient_past_medical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Patient_past_surgical_history = Patient_past_surgical_history::select('id', 'diseases_name', 'describe', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Patient_current_med = Patient_current_med::select('id', 'drug_name', 'frequency', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
-
-
         $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
         $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
 
-
         $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+
         $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
-
         $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
-        // dd($symptoms);
         $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
-
         $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+        $SpecialInvestigations = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id','Title','SubTitle','Invistigation')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+
         $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
         $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+       
         $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
-
         $AntithyroidAntibodiesTests = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+       
+       
+       
+       
         $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
+       
+       
+       
+       
         // $rightLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
         // $leftLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at','doctor_id')->where(['title_name' => 'leftLobeScore', 'patient_id' => $id, 'form_type' => 'prostate_form'])->orderBy('id', 'desc')->get();
         $Retrosternalextension = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Retrosternalextension', 'patient_id' => $id])->orderBy('id', 'desc')->get();
@@ -8618,6 +9294,12 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
         $CTCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'CTCIR48', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $NmThyroidScan = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $HistopathRightThyroidFNA = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'prostate_form','patient_id'=>$id])->get();
+        $document_file = AttachDocument::where(['form_type'=>'prostate_report','patient_id'=>$id])->get();
+
+        
+        
+
         $data = [
             'patient' => $patient,
             'id' => Crypt::encrypt($id),
@@ -8642,7 +9324,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
             'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
             'ClinicalIndicator_db' => $ClinicalIndicator,
             'ClinicalExam_db' => $ClinicalExam,
-
+            'document_file' =>$document_file,
             'Retrosternalextension' => $Retrosternalextension,
             'EnlargedLymphnodes' => $EnlargedLymphnodes,
             'paralysis' => $paralysis,
@@ -8654,11 +9336,16 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
             'supportiveTreatments'=>$SupportiveTreatment,
             'Patient_progress_notes'=>$Patient_progress_note,
             'ViewImage' =>$ViewImage,
-            'Imaging'=>$Imaging
-
+            'Imaging'=>$Imaging,
+            'checkGenerateData'=>$checkGenerateData
         ];
+
         return view('back/view-prostate-report')->with($data);
     }
+
+    // diagnosis_generals
+
+
     public function ProstateArteryEmbolizationEligibilityFormDiagnosisList(Request $request)
     {
         $patient_id = decrypt($request->patient_id);
@@ -8707,6 +9394,8 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
         $NmParaThyroidScan = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'NmParaThyroidScan', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
         $HistopathRightThyroidFNA = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
         $HistopathLeftThyroidFNA = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'HistopathLeftThyroidFNA', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type'=>'prostate_form','patient_id'=>$id])->get();
+        $document_file = AttachDocument::where(['form_type'=>'prostate_report','patient_id'=>$id])->get();
         $data = [
             'patient_id' => Crypt::encrypt($id),
             'diagnosis_generals_db' => $diagnosis_general,
@@ -8734,7 +9423,10 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
             'NmParaThyroidScan' => $NmParaThyroidScan,
             'HistopathRightThyroidFNA' => $HistopathRightThyroidFNA,
             'HistopathLeftThyroidFNA' => $HistopathLeftThyroidFNA,
-            'thyroidEligibilityFormsImage' => $thyroidEligibilityFormsImage
+            'thyroidEligibilityFormsImage' => $thyroidEligibilityFormsImage,
+            'checkGenerateData'=>$checkGenerateData,
+            'document_file'=>$document_file
+
 
         ];
         return view('back/Edit_thyroid', $data);
@@ -8752,6 +9444,7 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
 
     public function storeThyroidEligibilityForms(Request $request)
     {    
+
 
         if ($request->input('canvasImage')) 
         {  

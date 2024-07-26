@@ -32,7 +32,7 @@ foreach($D as $v)
             <div class="col-lg-12">
                 <div class="card listtableCard">
                     <div class="card-body p-0">
-                        <h4 class="cr_title_kj">All Tests  </h4>
+                        <h4 class="cr_title_kj">All Tests </h4>
                         <div class="inner_tb_flo">
                             <table class="table task_table listTable_custom  dt-responsive nowrap w-100">
                                 <thead>
@@ -44,15 +44,21 @@ foreach($D as $v)
 
 
                                 <tbody>
-                                    @forelse ($nurse_tasks as $nurse_task)
 
+                                    @forelse ($nurse_tasks as $nurse_task)
+                                    @if ($nurse_task->form_type!='Meeting')
                                     <tr>
                                         <td hidden></td>
                                         <td>
                                             <div class="lists_tasks_Report">
                                                 <div class="" data-bs-interval="3000">
+
+                                                    @if ($nurse_task->paidStatus=='1')
+                                                    <div class="task_card cardtaskslist_item" style="background: #f0fff2 !important;">
+                                                    @else
                                                     <div class="task_card cardtaskslist_item">
-                                                        <!-- <div class="date_test_jh">27 Jan, 2024</div> -->
+                                                    @endif
+
                                                         <div class="taskOtherDetails">
                                                             <ul class="book_li">
                                                                 <li>
@@ -118,14 +124,14 @@ foreach($D as $v)
                                                                         //  $receptionist_task_status= DB::table('receptionist_tasks')->where('nurse_task_id',$nurse_task->id)->first();
 
                                                                     @endphp
-                                                                    <li>
+                                                                    {{-- <li>
                                                                         <div class="tb_listTitle_label">Appoinment Date</div>
                                                                         @if (isset($nurse_task->appoinment_date))
                                                                         <span>{{ \Carbon\Carbon::parse($nurse_task->appoinment_date)->format('d M, Y') }}</span>
                                                                         @else
                                                                         <span>&nbsp;</span>
                                                                         @endif
-                                                                    </li>
+                                                                    </li> --}}
 
                                                                     <li>
                                                                         <div class="tb_listTitle_label">Assigned Nurse</div>
@@ -166,30 +172,64 @@ foreach($D as $v)
                                                                     @endif
 
                                                                 </li>
-
-
-
-
-
+                                                                
                                                                 <li class="book_bx_">
 
+                                                                <div class="tb_listTitle_label">Report Status</div>
+                                                    
+                                                            @if ($nurse_task->approveDocumentSts=='1')
+                                                            <span>Approved</span>
+                                                            @elseif ($nurse_task->approveDocumentSts=='0')
+                                                            <span>Rejected</span>
+                                                            @else
+                                                            <span>Report Not Uploded</span>
+                                                            @endif
 
-                                                                @if (!empty($nurse_task->assignTo))
-                                                                        <a class="book_appointment_btn"
-                                                                            >
-                                                                            Assigned to Nurse
-                                                                        </a>
-                                                                @else
-                                                                    <a href="#" class="book_appointment_btn"
-                                                                        onclick="setTaskId({{ $nurse_task->id ??'' }})"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#book_appointment">
-                                                                        Assign to Nurse
+                                                            </li>
+
+
+                                                            @if ($nurse_task->approveDocumentSts != '1')    
+                                                            <li class="book_bx_">
+                                                                  @if (!empty($nurse_task->assignTo))
+                                                                      <a href="#" class="book_appointment_btn"
+                                                                      onclick="setTaskId({{ $nurse_task->id ??'' }})"
+                                                                      data-bs-toggle="modal"
+                                                                      data-bs-target="#book_appointment">
+                                                                      Resign to Nurse
+                                                                  </a>
+                                                                   @else
+                                                                  <a href="#" class="book_appointment_btn"
+                                                                      onclick="setTaskId({{ $nurse_task->id ??'' }})"
+                                                                      data-bs-toggle="modal"
+                                                                      data-bs-target="#book_appointment">
+                                                                      Assign to Nurse
+                                                                  </a>
+
+                                                                 @endif
+                                                             </li>
+                                                          @endif  
+
+
+
+
+
+                                                            <li>    
+                                                                <div class="tb_listTitle_label">Summary</div>
+
+                                                                
+                                                                    <a onclick="ViewOrderSummary(`{{ $nurse_task->order_summary  }}`)"
+                                                                        class="download_rp_btn"
+                                                                        style="color: #011205e1;">
+                                                                        <i class="fas fa-eye"
+                                                                            style="color: #050606d6; border: 1px solid #e90a0a;"></i>
+                                                                        
                                                                     </a>
+                                                               
 
-                                                                @endif
+                                                            </li>
 
-                                                                </li>
+                                                            
+
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -201,6 +241,7 @@ foreach($D as $v)
                                         </td>
 
                                     </tr>
+                                    @endif
                                     @empty
 
                                     @endforelse
@@ -432,12 +473,12 @@ foreach($D as $v)
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+
             <div class="modal-header">
                 <h1 class="modal-title" id="exampleModalLabel">Assign to Nurse</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                         class="fa-solid fa-xmark"></i></button>
             </div>
-
 
             <form id="taskAssigendForm" method="POST">
                 @csrf
@@ -467,12 +508,12 @@ foreach($D as $v)
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6">   
                                     <div class="inner_element">
                                         <div class="form-group">
                                             <label for="validationCustom01" class="form-label">Date</label>
                                             <input type="text" class="form-control datepickerInput"
-                                                placeholder="17 Nov,2023" name="date" value="{{ date('Y-m-d H:i:s') }}">
+                                                placeholder="17 Nov,2023" name="date" value="{{ date('Y-m-d') }}">
                                                 <span class="text-danger" style="font-size: 14px" id="dateError"></span>
                                         </div>
                                     </div>

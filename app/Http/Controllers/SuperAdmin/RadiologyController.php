@@ -26,22 +26,25 @@ class RadiologyController extends Controller
         $req->validate([
             'email' => [
                 'required',
-                'email',
-                'unique:doctors,email',
-                function ($attribute, $value, $fail) {
-                    // Custom rule to check email domain
-                    $validDomains = ['.com'];
-                    $valid = false;
-                    foreach ($validDomains as $domain) {
-                        if (str_ends_with(strtolower($value), $domain)) {
-                            $valid = true;
+                'email' => [
+                    'required',
+                    'email',
+                    function ($attribute, $value, $fail) {
+                        // Check email uniqueness in users table
+                        $userExists = DB::table('users')->where('email', $value)->exists();
+                        if ($userExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
                         }
-                    }
-                    if (!$valid) {
-                        $fail('The ' . $attribute . ' must end with .com');
-                    }
-                },
+            
+                        // Check email uniqueness in doctors table
+                        $doctorExists = DB::table('doctors')->where('email', $value)->exists();
+                        if ($doctorExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
+                        }
+                    },
+                ],
             ],
+           
             'post_code' => 'nullable|between:4,8|unique:doctors,post_code',
             'landline' => 'nullable|numeric|digits_between:10,15',
             'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:10,15|regex:/^[0-9]{10,15}$/',
@@ -104,7 +107,25 @@ class RadiologyController extends Controller
                 'email' => [
                     'required',
                     'email',
-                    Rule::unique('doctors')->ignore($id),
+                    function ($attribute, $value, $fail) use ($id) {
+                        // Check email uniqueness in users table, excluding the current user
+                        $userExists = DB::table('users')
+                            ->where('email', $value)
+                            ->where('id', '!=', $id)
+                            ->exists();
+                        if ($userExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
+                        }
+        
+                        // Check email uniqueness in doctors table
+                        $doctorExists = DB::table('doctors')
+                            ->where('email', $value)
+                            ->where('id', '!=', $id)
+                            ->exists();
+                        if ($doctorExists) {
+                            $fail('The ' . $attribute . ' has already been taken.');
+                        }
+                    },
                 ],
                 'post_code' => 'nullable|between:4,8',
                 'lab_name' => 'required',
@@ -132,7 +153,7 @@ class RadiologyController extends Controller
             DB::table('doctors')->whereId($id)->update($radiologys);
 
 
-            DB::table('user_branchs')->where('patient_id',$id)->where('branch_type','pathology')->delete();
+            DB::table('user_branchs')->where('patient_id',$id)->where('branch_type','radiology')->delete();
             $branchName=$request->input('selectBranch');
             $branchName = json_decode(json_encode($branchName));
             if ($branchName) {
@@ -150,12 +171,6 @@ class RadiologyController extends Controller
                   }
             }
     
-
-            
-
-
-
-
             return to_route('radiology.index')->with('message', 'Lab Updated Successfully');
     }
 }

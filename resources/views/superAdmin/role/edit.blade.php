@@ -229,7 +229,7 @@
                                 @if ($value->verify_status=='4')
                                 <td>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}">
+                                        <input class="form-check-input" name="permission[]" value="{{$value->id}}" type="checkbox" id="autoSizingCheck2a{{$value->id}}" <?php if(in_array($value->id,$array)){ echo "checked";}?>>
                                         <label class="form-check-label" for="autoSizingCheck2a{{$value->id}}">
                                         </label>
                                     </div>

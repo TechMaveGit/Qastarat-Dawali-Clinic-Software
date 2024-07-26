@@ -11,7 +11,8 @@ class Patient_allergy extends Model
     protected $table = "patient_allergies";
     protected $fillable = [
         'patient_id',
-        'allergy_name'
+        'allergy_name',
+        'form_type'
         
     ];
 }

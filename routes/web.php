@@ -1,31 +1,34 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NurseLoginWeb;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\CalendarController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\NurseLoginWeb;
-use App\Http\Controllers\ViewMedicalReportController;
+
+use App\Http\Controllers\DashboardController;
+
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SuperAdmin\LoginController;
-use App\Http\Controllers\SuperAdmin\Permission\RolePermissionController;
-use App\Http\Controllers\SuperAdmin\Patients\PatientsController;
-use App\Http\Controllers\SuperAdmin\Price\OtherExpenseController;
-use App\Http\Controllers\SuperAdmin\RadiologyController;
-use App\Http\Controllers\SuperAdmin\BranchManagementController;
-use App\Http\Controllers\SuperAdmin\Doctors\DoctorController;
-use App\Http\Controllers\SuperAdmin\Staff\AccountantController;
+use App\Http\Controllers\Doctor\DoctorAuthController;
+use App\Http\Controllers\ViewMedicalReportController;
 use App\Http\Controllers\SuperAdmin\PathologyController;
+use App\Http\Controllers\SuperAdmin\RadiologyController;
+use App\Http\Controllers\Doctor\DoctorDashboadController;
 use App\Http\Controllers\SuperAdmin\Staff\NurseController;
+use App\Http\Controllers\SuperAdmin\Doctors\DoctorController;
+use App\Http\Controllers\SuperAdmin\website\WebsiteController;
+use App\Http\Controllers\SuperAdmin\BranchManagementController;
+use App\Http\Controllers\SuperAdmin\Staff\AccountantController;
+
 use App\Http\Controllers\SuperAdmin\Staff\TeleCallerController;
 
-use App\Http\Controllers\Doctor\DoctorAuthController;
+use App\Http\Controllers\SuperAdmin\Patients\PatientsController;
 
-
-use App\Http\Controllers\Doctor\DoctorDashboadController;
-use App\Http\Controllers\SuperAdmin\website\WebsiteController;
+use App\Http\Controllers\SuperAdmin\Price\OtherExpenseController;
+use App\Http\Controllers\SuperAdmin\Permission\RolePermissionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +45,28 @@ use App\Http\Controllers\SuperAdmin\website\WebsiteController;
 | Web front Routes
 |--------------------------------------------------------------------------
 */
+
+Route::get('submit', function () {
+
+
+    $data = [
+                'email' => 'qastaratclinics@yopmail.com',
+                'password' => 'ok',
+                'first_name' => 'manish',
+                'last_name' => 'rajput'
+            ];
+
+    $to = 'qastaratclinics@yopmail.com'; 
+    $subject = 'Customer-Registration';
+    
+    Mail::send('appointment', $data, function ($message) use ($to, $subject) {
+        $message->to($to)->subject($subject);
+    });
+
+
+
+
+});
 
 
 Route::get('cache', function () {
@@ -62,10 +87,21 @@ Route::get('cache', function () {
 Route::get('/login', function () {
     return redirect('/');
   })->name('login');
+
+
+
+
+
 Route::get('/', function () {
-    return view('front/home');
+   // return view('front/home');
+    return view('front/webLogin');
 })->name('front.home.page');
-Route::get('/service', function () {
+
+
+
+
+
+Route::get('/service', function () {      
     return view('front/service');
 })->name('front.service.page');
 
@@ -91,12 +127,20 @@ Route::get('/cookie', function () {
 
     // patient route
     Route::prefix('patient')->name('patient.')->group(function () {
+
     Route::group(['middleware' => ['auth:web']], function () {
          Route::get('dashboard', [PatientController::class, 'dashboard'])->name('dashboard');
+
+         Route::get('my-records', [DoctorAuthController::class, 'myLabResult'])->name('myLabResult');
+
+         
          Route::get('service', [PatientController::class, 'service'])->name('service');
+
          Route::get('profile', [PatientController::class, 'profile'])->name('profile');
          
          Route::post('update-profile', [PatientController::class, 'updateProfile'])->name('update_profile');
+
+         Route::get('patient-info-edit_1', [PatientController::class, 'patient_info_edit'])->name('patient-info-edit-edt');
 
          Route::get('patient-info-edit', [PatientController::class, 'patient_info_edit'])->name('patient-info-edit');
 
@@ -145,6 +189,10 @@ Route::prefix('login')->group(function () {
         Route::post('set-location',[PathologyController::class, 'setLocation'])->name('setLocations');
         Route::get('get-location',[PathologyController::class, 'getLocation'])->name('getLocations');
         Route::get('get-doctor',[AppointmentController::class, 'geDoctor'])->name('getdoctors');
+
+        Route::post('add-availability',[AppointmentController::class, 'addAvailability'])->name('add.Availability');
+
+
         Route::get('get-single-location-details',[PathologyController::class, 'getLocationDetail'])->name('getLocationDetails');
         
 
@@ -156,27 +204,26 @@ Route::prefix('login')->group(function () {
         Route::post('lab-document-upload', [NurseLoginWeb::class, 'labDocumentUpload'])->name('labDocumentUpload');
         Route::get('profile', [DoctorAuthController::class, 'profile'])->name('profile');
         Route::post('update-profile', [DoctorAuthController::class, 'updateProfile'])->name('update_profile');
-        // Route::get('order-medical-report', [DoctorAuthController::class, 'orderMedicalReport'])->name('orderMedicalReport');
-        // Route::get('my-radiology-report', [DoctorAuthController::class, 'myRadiologyReport'])->name('myRadiologyReport');
-        Route::get('my-records', [DoctorAuthController::class, 'myLabResult'])->name('myLabResult');
+      
         Route::get('service', [DoctorAuthController::class, 'service'])->name('service');
 
-        Route::get('dashboard', [DoctorDashboadController::class, 'index'])->name('admin.dashboard');
+        Route::any('dashboard', [DoctorDashboadController::class, 'index'])->name('admin.dashboard');
+
         Route::get('logout', [DoctorAuthController::class, 'logout'])->name('doctor.logout');
         Route::post('patient-delete', [PatientController::class, 'patient_delete'])->name('user.patient_delete');
         Route::post('add-patient-vital/{id?}', [PatientController::class, 'patient_vital'])->name('user.patient_vital');
         Route::post('add-patient-diagnosis/{id?}', [PatientController::class, 'Add_Diagnosis'])->name('user.Add_Diagnosis');
-
         Route::post('edit-patient-diagnosis', [PatientController::class, 'editDiagnosis'])->name('user.edit_Diagnosis');
 
         Route::get('get-Diagnosis-Data', [PatientController::class, 'getDiagnosis'])->name('getDiagnosisData');
         Route::get('get-Symptoms-Data', [PatientController::class, 'fetchExistingSymptoms'])->name('fetchExistingSymptom');
+        Route::post('referalReplySummary', [PatientController::class, 'referalReplySummary'])->name('referalReplySummary');
 
         Route::any('remove-Existing-Symptom/{id}', [PatientController::class, 'removeExistingSymptom'])->name('removeExistingSymptom');
-
         Route::get('get-special-investigation', [PatientController::class, 'getSpecialInvestigation'])->name('getSpecialInvestigations');
         Route::get('get-clinical-exam', [PatientController::class, 'getClinicalExam'])->name('getClinicalExams');
         Route::post('check-special-investigation', [PatientController::class, 'checkSpecialInvestigation'])->name('checkSpecialInvestigations');
+
         Route::post('save-clinical-exam', [PatientController::class, 'saveClinicalExam'])->name('saveClinicalExams');
         Route::post('update-special-investigation', [PatientController::class, 'updateSpecialInvestigation'])->name('updateSpecialInvestigations');
         Route::post('insert-special-investigation', [PatientController::class, 'insertSpecialInvestigation'])->name('insertSpecialInvestigations');
@@ -188,6 +235,17 @@ Route::prefix('login')->group(function () {
         Route::get('patient-progress-list', [PatientController::class, 'patient_progress_list'])->name('user.patient_progress_list');
         Route::get('patient-progress-predefine-note-list', [PatientController::class, 'patient_progress_predefine_notes_list'])->name('user.patient_progress_predefine_notes_list');
         Route::post('patient-progress-list-save', [PatientController::class, 'patient_progress_list_save'])->name('user.patient_progress_list_save');
+        Route::post('save-patient-note', [PatientController::class, 'save_patient_note'])->name('user.save_patient_note');
+        Route::post('/deleteNote', [PatientController::class, 'deleteNote'])->name('note.delete');
+
+
+        Route::post('/save-documents', [PatientController::class, 'saveDocuments'])->name('save-document');
+        Route::get('/get-documents', [PatientController::class, 'getDocuments'])->name('get-documents');
+        Route::get('/delete-document/{id}', [PatientController::class, 'deleteDocument'])->name('delete-document');
+
+
+
+
         Route::post('patient-vital-list-delete', [PatientController::class, 'patient_vital_list_delete'])->name('user.patient_vital_list_delete');
         Route::post('order-imaginary-exam', [PatientController::class, 'order_imaginary_exam'])->name('user.order_imaginary_exam');
         Route::post('order-lab-test', [PatientController::class, 'order_lab_test'])->name('user.order_lab_test');
@@ -223,13 +281,32 @@ Route::prefix('login')->group(function () {
 
         Route::get('patient-medical-detail/{id}', [PatientController::class, 'patient_medical_detail'])->name('user.patient_medical_detail');
 
+        Route::delete('/patient-allergy/{id}', [PatientController::class, 'deletePatientAllergy'])->name('patient.allergy.delete');
+        
+        Route::delete('/delete-report/{id}', [PatientController::class, 'deleteReport'])->name('deleteReport');
+
+        Route::delete('/patient-past-medical/{id}', [PatientController::class, 'deletePatientPastMediacl'])->name('patient.past.medical.delete');
+        Route::delete('/patient-patient-surgical/{id}', [PatientController::class, 'deletePatientPastSurgical'])->name('patient.past.surgical');
+        Route::delete('/deleteOrderProcedure/{id}', [PatientController::class, 'deleteOrderProcedure'])->name('patient.order.procedure');
+        Route::delete('/patient-supportive-treatments/{id}', [PatientController::class, 'patientSupportiveTreatments'])->name('patient.supportive.treatments');
+
+        Route::delete('/patient-progress-note/{id}', [PatientController::class, 'patientProgressNote'])->name('patient.progress.note');
+        Route::delete('/patient-future-plans/{id}', [PatientController::class, 'patientFuturePlans'])->name('patient.future.plans');
+        Route::delete('/patientRemoveDrug/{id}', [PatientController::class, 'patientRemoveDrug'])->name('patientRemoveDrug');
+        Route::delete('/listofprocedure/{id}', [PatientController::class, 'listofprocedure'])->name('list.of.procedure');
+
+        Route::delete('/patient-prescribed Medicines/{id}', [PatientController::class, 'PatientPrescribedMedicines'])->name('patient.prescribed.medicines');
+        Route::delete('/patient-referrals/{id}', [PatientController::class, 'patientReferrals'])->name('patient.referrals');
+        Route::delete('/patient-mbt/{id}', [PatientController::class, 'patientMbt'])->name('patient.mbt');
+        Route::delete('/patient-eligibility-status/{id}', [PatientController::class, 'patientEligibilityStatus'])->name('patient.eligibility.status');
+
         Route::any('invoice', [InvoiceController::class, 'index'])->name('user.invoice');
         
         Route::post('submit-invoice', [PatientController::class, 'submitInvoice'])->name('submit.invoice');
         
         Route::get('print-invoice/{id}', [InvoiceController::class, 'printInvoice'])->name('user.print.invoice');
 
-        Route::get('fullcalender', [CalendarController::class, 'index'])->name('user.calendar');   
+        Route::match(['get', 'post'], 'fullcalendar', [CalendarController::class, 'index'])->name('user.calendar');
         
         Route::post('deleteInvoice', [InvoiceController::class, 'deleteInvoice'])->name('delete.invoice');
 
@@ -508,6 +585,9 @@ Route::prefix('admin')->group(function () {
          // OUR TEAMS Routes
          Route::name('ourTeams.')->prefix('ourTeam')->controller(WebsiteController::class)->group(function () {
             Route::any('/', 'ourTeam')->name('ourTeam');
+            Route::any('/delete', 'deleteTeam')->name('deleteTeam');
+            Route::any('/addTeam', 'addTeam')->name('addTeam');
+            
         });
 
          // CONTACT US Routes

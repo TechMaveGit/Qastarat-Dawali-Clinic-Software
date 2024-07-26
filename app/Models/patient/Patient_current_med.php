@@ -17,7 +17,8 @@ class Patient_current_med extends Model
         'stopped',
         'stopped_date',
         'code',
-        'today_date'
+        'today_date',
+        'forn_type'
        
         
     ];

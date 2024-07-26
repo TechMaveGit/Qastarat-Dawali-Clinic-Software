@@ -14,6 +14,19 @@ Home | Nurse  tasks QASTARAT & DAWALI CLINICS
 
 @endpush
 
+<style>
+    .download_rp_btn_ i 
+            {
+                padding: 6px 8px;
+                background: #21477557;
+                border-radius: 50px;
+                color: #214775;
+                font-size: 13px;
+                margin-right: 5px;
+                border: 1px solid #214775;
+            }
+</style>
+
 
 
 <?php
@@ -62,14 +75,15 @@ foreach($D as $v)
                                         <tr>
                                             <td hidden></td>
                                             <td><span class="testName" id="testName"> </span></td>
+
                                             <td>
                                                 <a href="{{ env('Document_Url') }}" download
-                                                    class="download_rp_btn"><i class="fa-solid fa-file-arrow-down"></i>
+                                                    class="download_rp_btn downloadReportHide"><i class="fa-solid fa-file-arrow-down"></i>
                                                     Download Report</a>
                                             </td>
 
                                             <td>
-                                                <a href="{{ env('Document_Url') }}" target="_blank" class="download_rp_btn">
+                                                <a href="{{ env('Document_Url') }}" target="_blank" class="download_rp_btn downloadReportHide">
                                                     <i class="fa-solid fa-file-arrow-down"></i> View Report
                                                 </a>
                                             </td>
@@ -92,7 +106,7 @@ foreach($D as $v)
                                             <button type="submit" class="book_appointment_btn">Approve</button>
                                         </form>
 
-                                        <form action="{{ route('approveDocument') }}" method="post" > @csrf
+                                        <form action="{{ route('rejectDocument') }}" method="post" > @csrf
                                             <input type="hidden" class="taskCls" id="taskId" name="taskId"/>
                                          <button type="submit" class="book_appointment_btn">Reject</button>
                                         </form>
@@ -121,6 +135,8 @@ foreach($D as $v)
 </div>
 
 
+
+
     <!-- End report section -->
 
 <div class="task_main">
@@ -143,6 +159,9 @@ foreach($D as $v)
 
                                 <tbody>
                                     @forelse ($nurse_tasks as $nurse_task)
+                                    @if ($nurse_task->form_type!='Meeting')
+                                        
+                                   
                                     <tr>
                                         <td hidden></td>
                                         <td>
@@ -157,18 +176,10 @@ foreach($D as $v)
 
                                                                     @php
                                                                     $pathology_price_list=  DB::table('pathology_price_list')->where('id',$nurse_task->task);
+                                                                     
+                                                                    $userDetail=DB::table('doctors')->where('user_type',$nurse_task->test_type)->where('status','active')->get();
 
-                                                                    // if($nurse_task->test_type == 'pathology'){
-                                                                    //   $pathology_price_list =  $pathology_price_list->where('price_type', '0');
-
-                                                                        $userDetail=DB::table('doctors')->where('user_type',$nurse_task->test_type)->where('status','active')->get();
-
-                                                                    // }
-                                                                    // else {
-                                                                    //   $pathology_price_list=  $pathology_price_list->where('price_type', '1');
-
-                                                                    //    $userDetail=DB::table('doctors')->where('user_type','radiology')->get();
-                                                                    // }
+                                                                    $assignUser=DB::table('doctors')->where('id',$nurse_task->assignToLabPerson)->first();
 
                                                                     $pathology_price_list =$pathology_price_list->first();
 
@@ -189,7 +200,7 @@ foreach($D as $v)
 
                                                                 <li>
                                                                     <div class="tb_listTitle_label"> Patient Name</div>
-                                                                    <span>{{ $patient->name }}</span>
+                                                                    <span>{{ $patient->name??'' }}</span>
                                                                 </li>
 
                                                                 <li>
@@ -199,42 +210,42 @@ foreach($D as $v)
 
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Patient Id</div>
-                                                                    <span>{{ $patient->patient_id }}</span>
+                                                                    <span>{{ $patient->patient_id??'' }}</span>
                                                                 </li>
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Mobile No.</div>
-                                                                    <span>{{ $patient->mobile_no }}</span>
+                                                                    <span>{{ $patient->mobile_no??'' }}</span>
                                                                 </li>
                                                                 @php
+                                                                $dta='';
                                                                 $nurse_task_status= DB::table('tasks')->where('id',$nurse_task->id)->first();
 
                                                                @endphp
-                                                               <li>
-                                                                <div class="tb_listTitle_label">Appoinment Date
-                                                                </div>
-                                                                @if (isset($nurse_task_status->appoinment_date))
-                                                                <span>{{ \Carbon\Carbon::parse($nurse_task_status->appoinment_date)->format('d M, Y') }}</span>
-                                                                @else
-                                                                <span>&nbsp;</span>
-                                                                @endif
-                                                            </li>
+                                                              
 
                                                                 <li>
+
                                                                     <div class="tb_listTitle_label">Status</div>
 
 
                                                                     @if(empty($nurse_task->assignToLab))
-                                                                    <span>Not Assign</span>
+                                                                       <button class="pending-badge">Assigned to nurse</button>
                                                                     @else
                                                                         @if ($nurse_task->assigned	=='7')
-                                                                        <span>Report Uploaded</span>
+                                                                        <button class="confirmed-badge">Report Uploaded</button>
                                                                         @else
-                                                                        <span>Assigned to Lab</span>
+                                                                        @php   
+                                                                              $dta="Reassign to lab";
+                                                                        @endphp
+                                                                        <button class="confirmed-badge">Assigned to {{ $assignUser->lab_name??'' }}</button>
+                                                                        <span></span>
                                                                         @endif
                                                                     @endif
 
                                                                 </li>
 
+
+                                                                
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Document Status</div>
                                                                     @if($nurse_task->approveDocumentSts=='1')
@@ -248,33 +259,78 @@ foreach($D as $v)
 
 
 
-                                                                @if(!empty($nurse_task->assignToLab))
-                                                                    <li class="book_bx_">
-                                                                        <a href="{{ url('/') }}/login/fullcalender?patientId={{ $nurse_task->patient_id }}" class="book_appointment_btn">
-                                                                            Schedule appointment
-                                                                        </a>
-                                                                    </li>
-                                                                    @else
+                                                                <li>
+                                                                    <div class="tb_listTitle_label">View Report</div>
+
+                                                                    <a onclick="viewDocuemnt(`{{$nurse_task->id ??''}}`,`{{$pathology_price_list->test_name??''}}`,`{{$nurse_task->labDocument??''}}`,`{{ $nurse_task->approveDocumentSts??'' }}`)"
+                                                                        class="download_rp_btn_"
+                                                                        style="color: #011205e1;">
+                                                                        <i class="fas fa-eye"
+                                                                            style="color: #050606d6; border: 1px solid #e90a0a;"></i>
+                                                                        
+                                                                    </a>
+
+                                                                </li>
+
+
+
+
 
                                                                     <li class="status">
+                                                                        @if($dta)
+                                                                        <div class="tb_listTitle_label">ReAssign to lab</div>
+                                                                        @else
                                                                         <div class="tb_listTitle_label">Assign to lab</div>
+                                                                        @endif
                                                                         <div class="form-group">
-                                                                        <select class="form-control select2_without_search SelectLab select2_with_search" name="labType">
+
+                                                                            @if($nurse_task->approveDocumentSts != 1)
+                                                                               <select class="form-control select2_without_search SelectLab select2_with_search" name="labType">
+                                                                            @else
+                                                                            <select class="form-control select2_without_search SelectLab select2_with_search" name="labType" disabled>
+                                                                            @endif
                                                                                 <option>Select Any one Lab</option>
                                                                                 @forelse ($userDetail as $alluserDetail)
                                                                                 <option data-assign-id='{{ $alluserDetail->id}}'  data-task-id='{{ $nurse_task->id}}' data-lab-id="1">{{ $alluserDetail->name }} ({{ $alluserDetail->email }})</option>
                                                                                 @empty
 
                                                                                 @endforelse
-                                                                                {{-- <option value="1" data-task-id='{{ $nurse_task->id}}' data-lab-id="1"  {{ $nurse_task->assignToLab == '1' ? 'selected' : '' }}>Pathology</option> --}}
 
                                                                         </select>
                                                                         </div>
                                                                     </li>
-                                                                @endif
+                                                                {{-- @endif --}}
+
+                                                                <li>    
+                                                                    <div class="tb_listTitle_label">Summary</div>
+    
+                                                                       @if($nurse_task->task=='115')
+                                                                                @php
+                                                                                    $getCallSummery = DB::table('patient_video_calls')->where('patient_id',$nurse_task->patient_id)->first();
+                                                                                @endphp
+                                                                                <a onclick="ViewOrderCallSummary(`{{ $getCallSummery->meeting_url}}` ,`{{ $getCallSummery->date }}`)"
+                                                                                    class="download_rp_btn"
+                                                                                    style="color: #011205e1; display: show!important">
+                                                                                    <i class="fas fa-eye"
+                                                                                        style="color: #050606d6; border: 1px solid #e90a0a;"></i>
+                                                                                </a>
+                                                                        @else
+                                                                        <a onclick="ViewOrderSummary(`{{ $nurse_task->order_summary  }}`)"
+                                                                            class="download_rp_btn"
+                                                                            style="color: #011205e1; display: show!important">
+                                                                            <i class="fas fa-eye"
+                                                                                style="color: #050606d6; border: 1px solid #e90a0a;"></i>
+                                                                        </a>
+
+                                                                        @endif
+                                                                   
+    
+                                                                </li>
+    
                                                             </ul>
                                                         </div>
-                                                        <div class="customdotdropdown dropbtnRight">
+                                                            
+                                                            {{-- <div class="customdotdropdown dropbtnRight">
                                                                         <div class="buttondrop_dot">
                                                                             <i
                                                                                 class="fa-solid fa-ellipsis-vertical"></i>
@@ -283,7 +339,7 @@ foreach($D as $v)
 
                                                                         <a onclick="viewDocuemnt(`{{$nurse_task->id ??''}}`,`{{$pathology_price_list->test_name??''}}`,`{{$nurse_task->labDocument??''}}`,`{{ $nurse_task->approveDocumentSts??'' }}`)" class="bottom_btn extract_btn"> <i class="fa-regular fa-eye"></i> View  Report </a>
 
-                                                                        </div>
+                                                            </div> --}}
 
                                                     </div>
 
@@ -294,6 +350,7 @@ foreach($D as $v)
                                         </td>
 
                                     </tr>
+                                    @endif
                                     @empty
 
                                     @endforelse
@@ -594,11 +651,11 @@ $('#book_appointment').on('hidden.bs.modal', function () {
         {
           //  console.log("null");
             $("#hideDivid").hide();
-            $('.download_rp_btn').hide();
+            $('.downloadReportHide').hide();
         }
 
         var downloadLink = documentUrl + labDocument;
-         $('.download_rp_btn').attr('href', downloadLink);
+         $('.downloadReportHide').attr('href', downloadLink);
          $('#view_report').modal('show');
     }
 </script>

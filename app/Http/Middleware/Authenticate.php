@@ -39,9 +39,13 @@ class Authenticate extends Middleware
 
     protected function getGuard(Request $request)
     {
-
+        
         if ($request->is('admin/*')) {
             return 'admin';
+        }
+
+        if ($request->is('login/*')) {
+            return redirect('/');
         }
 
         if ($request->is('api/*')) {

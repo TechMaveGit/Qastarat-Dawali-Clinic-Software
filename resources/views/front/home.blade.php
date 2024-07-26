@@ -36,29 +36,34 @@
                                 {{ $home->title ?? '' }}</h6>
                             <h2 class="bnr_title">{{ isset($lastTwoWords) ? $remainingWords : $sentence  }} <span>..{{ $lastTwoWords ?? '' }}</span></h2>
 
-                            <div class="lognBothButtonsContainer">
-                                <button class="c-button" data-bs-toggle="modal" data-bs-target="#modelpatientLogin">
 
-                                    <span class="c-main">
-                                        <span class="c-ico"><span class="c-blur"></span> <span class="ico-text">
-                                                <iconify-icon icon="fa:user-o"></iconify-icon>
-                                            </span></span>
-                                        Patient Login
-                                    </span>
-                                </button>
+                            @if(auth('web')->check())
+                           
+                        @else
+                        <div class="lognBothButtonsContainer">
+                            <button class="c-button" data-bs-toggle="modal" data-bs-target="#modelpatientLogin">
+                                <span class="c-main">
+                                    <span class="c-ico"><span class="c-blur"></span> <span class="ico-text">
+                                        <iconify-icon icon="fa:user-o"></iconify-icon>
+                                    </span></span>
+                                    Patient Login
+                                </span>
+                            </button>
+                    
+                            <button class="c-button btnstaffLog" data-bs-toggle="modal" data-bs-target="#modelStaffLogin">
+                                <span class="c-main">
+                                    <span class="c-ico"><span class="c-blur"></span> <span class="ico-text">
+                                        <iconify-icon icon="teenyicons:users-outline"></iconify-icon>
+                                    </span></span>
+                                    IR Staff Login
+                                </span>
+                            </button>
+                        </div>
+                        @endif
+                        
 
-                                <button class="c-button btnstaffLog" data-bs-toggle="modal"
-                                    data-bs-target="#modelStaffLogin">
 
-                                    <span class="c-main">
-                                        <span class="c-ico"><span class="c-blur"></span> <span class="ico-text">
-                                                <iconify-icon icon="teenyicons:users-outline"></iconify-icon>
-                                            </span></span>
-                                        IR Staff Login
-                                    </span>
-                                </button>
 
-                            </div>
                         </div>
 
                     </div>
@@ -95,7 +100,7 @@
 
 							<!-- Text -->
 							<div class="statistic-block-txt color--grey">
-								<p class="p-md">Reasonal Clinics</p>
+								<p class="p-md">Regional Clinics</p>
 							</div>
 
 						</div>
@@ -269,21 +274,13 @@
                     <div class=" img-block video-preview leftvideoContainer wow fadeInUp">
 
                         <!-- Play Icon -->
-                        @if($treatment->video_url)
-                            <a class="video-popup" href="{{ $treatment->video_url ?? '#' }}">
+                        @if($treatment->videoFile)
+                            <a class="video-popup" href="{{  asset('public/assets/video'.'/'.$treatment->videoFile)  }}">
                                 <div class="video-btn video-btn-xl bg--theme">
                                     <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
                                 </div>
                             </a>
-                        @elseif ($treatment->videoFile)
-                        <?php
-                        $videoUrl = asset('public/assets/video/' . $treatment->videoFile);
-                             ?>
-                        <a class="video-popup" href="{{ $videoUrl ?? '#' }}">
-                            <div class="video-btn video-btn-xl bg--theme">
-                                <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
-                            </div>
-                        </a>
+                      
                       @endif
                        
 
@@ -977,7 +974,7 @@
                             <div class="doctor_dt_ghi">
                                 <h6>{{ $Member->title ?? '' }}</h6>
                                 <!-- <h6>Consultant <span>Interventional Radiologist</span></h6>
-                                <h6>American Board of Radiology certified Fellow, Royal College of Physicians  & Surgeons
+                                <h6>American Board&nbsp;of Radiology certified Fellow,&nbsp;Royal College&nbsp;of Physicians &nbsp;& Surgeons
                                 </h6> -->
                             </div>
                         </div>
@@ -1019,7 +1016,7 @@
        
             </ul>
        
-            <h6 class="contact_sub_title">Worldwide Patients , Please contact us directly at</h6>
+            <h6 class="contact_sub_title">Worldwide Patients&nbsp;, Please contact us directly at</h6>
             <ul class="contact_list_icon">
              <li>
               <div class="icon">
@@ -1103,7 +1100,7 @@
                            @forelse ($allfaq as $allfaq)
                                
                             <!-- QUESTIONS CATEGORY #1 -->
-                            <li class="accordion-item @if ($loop->first) is-active @endif">
+                            <li class="accordion-item @if ($loop->first)  @endif">
 
                                 <!-- CATEGORY HEADER -->
                                 <div class="accordion-thumb">
@@ -1425,7 +1422,7 @@
 						} else if (xhr.status == 500) {
 							swal.fire('Error!', 'Internal server error. Please try again later.', 'error');
 						} else {
-							swal.fire('Error!', 'hhhh An error occurred. Please try again later.', 'error');
+							swal.fire('Error!', 'Your account is inactive. Please contact support for assistance.', 'error');
 						}
 					}
 
