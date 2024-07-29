@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/superAdmin/login/css/iofrm-style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/superAdmin/login/css/iofrm-theme12.css')}}">
     <link rel="icon" href="{{ asset('/superAdmin/images/newimages/iconlogo.png')}}">
-    <link href="{{ url('/assets') }}/css/flaticon.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/flaticon.css')}}" rel="stylesheet">
     <style>
 
         /* Default styles for the eye icon */

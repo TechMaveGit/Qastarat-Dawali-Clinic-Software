@@ -830,7 +830,7 @@
 
                                                                         <div class="comonactionbtn printbtnacti">
 
-                                                                            <img src="{{ url('/assets') }}/images/new-images/printer.gif"
+                                                                            <img src="{{ asset('/assets/images/new-images/printer.gif')}}"
                                                                                 alt="">
 
                                                                         </div>

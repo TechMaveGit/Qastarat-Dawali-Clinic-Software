@@ -24,7 +24,7 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
           <div class="tm_invoice_in">
             <div class="tm_invoice_head tm_align_center tm_mb20">  
               <div class="tm_invoice_left">    
-                <div class="tm_logo"><img src="{{ url('/assets') }}/video/657131764.png" alt="Logo"></div>   
+                <div class="tm_logo"><img src="{{ asset('/assets/video/657131764.png')}}" alt="Logo"></div>   
               </div>
 
 
@@ -213,10 +213,10 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
 
 
 
-  <script src="{{ url('/assets') }}/invoiceassets/js/jquery.min.js"></script>
-  <script src="{{ url('/assets') }}/invoiceassets/js/jspdf.min.js"></script>
-  <script src="{{ url('/assets') }}/invoiceassets/js/html2canvas.min.js"></script>
-  <script src="{{ url('/assets') }}/invoiceassets/js/main.js"></script>
+  <script src="{{ asset('/assets/invoiceassets/js/jquery.min.js')}}"></script>
+  <script src="{{ asset('/assets/invoiceassets/js/jspdf.min.js')}}"></script>
+  <script src="{{ asset('/assets/invoiceassets/js/html2canvas.min.js')}}"></script>
+  <script src="{{ asset('/assets/invoiceassets/js/main.js')}}"></script>
 
   
 @endsection

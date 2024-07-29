@@ -42,9 +42,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
 
 
-    <link href="{{ url('/assets') }}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/bootstrap.min.css')}}" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ url('/assets') }}/invoiceassets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('/assets/invoiceassets/css/style.css')}}">
 
     <!-- Dropify css -->
 
@@ -56,92 +56,92 @@
 
     <!-- form plugin field css -->
 
-    <link href="{{ url('/assets') }}/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/assets/libs/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 
-    <link href="{{ url('/assets') }}/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/libs/spectrum-colorpicker2/spectrum.min.css" rel="stylesheet"
+    <link href="{{ asset('/assets/libs/spectrum-colorpicker2/spectrum.min.css')}}" rel="stylesheet"
         type="text/css">
 
-    <link href="{{ url('/assets') }}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    <link href="{{ asset('/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}"
         rel="stylesheet">
 
 
 
     <!-- DataTables -->
 
-    <link href="{{ url('/assets') }}/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+    <link href="{{ asset('/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet"
         type="text/css" />
 
-    <link href="{{ url('/assets') }}/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    <link href="{{ asset('/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}"
         rel="stylesheet" type="text/css" />
 
-    <link href="{{ url('/assets') }}/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    <link href="{{ asset('/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}"
         rel="stylesheet" type="text/css" />
 
 
 
     <!-- Responsive datatable examples -->
 
-    <link href="{{ url('/assets') }}/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    <link href="{{ asset('/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}"
         rel="stylesheet" type="text/css" />
 
 
 
     <!-- FONT ICONS -->
 
-    <link href="{{ url('/assets') }}/css/flaticon.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/flaticon.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
     <!-- PLUGINS STYLESHEET -->
 
-    <link href="{{ url('/assets') }}/css/menu.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/menu.css')}}" rel="stylesheet">
 
-    <link id="effect" href="{{ url('/assets') }}/css/dropdown-effects/fade-down.css" media="all"
+    <link id="effect" href="{{ asset('/assets/css/dropdown-effects/fade-down.css')}}" media="all"
         rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/css/magnific-popup.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/magnific-popup.css')}}" rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/owl.carousel.min.css')}}" rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/owl.theme.default.min.css')}}" rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/css/lunar.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/lunar.css')}}" rel="stylesheet">
 
 
 
     <!-- ON SCROLL ANIMATION -->
 
-    <link href="{{ url('/assets') }}/css/animate.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/animate.css')}}" rel="stylesheet">
 
 
 
     <!-- TEMPLATE CSS -->
 
-    <link href="{{ url('/assets') }}/css/violet-theme.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/violet-theme.css')}}" rel="stylesheet">
 
 
 
     <!-- Style Switcher CSS -->
 
-    <link href="{{ url('/assets') }}/css/blue-theme.css" rel="alternate stylesheet" title="blue-theme">
+    <link href="{{ asset('/assets/css/blue-theme.css')}}" rel="alternate stylesheet" title="blue-theme">
 
-    <link href="{{ url('/assets') }}/css/crocus-theme.css" rel="alternate stylesheet" title="crocus-theme">
+    <link href="{{ asset('/assets/css/crocus-theme.css')}}" rel="alternate stylesheet" title="crocus-theme">
 
-    <link href="{{ url('/assets') }}/css/green-theme.css" rel="alternate stylesheet" title="green-theme">
+    <link href="{{ asset('/assets/css/green-theme.css')}}" rel="alternate stylesheet" title="green-theme">
 
-    <link href="{{ url('/assets') }}/css/magenta-theme.css" rel="alternate stylesheet" title="magenta-theme">
+    <link href="{{ asset('/assets/css/magenta-theme.css')}}" rel="alternate stylesheet" title="magenta-theme">
 
-    <link href="{{ url('/assets') }}/css/pink-theme.css" rel="alternate stylesheet" title="pink-theme">
+    <link href="{{ asset('/assets/css/pink-theme.css')}}" rel="alternate stylesheet" title="pink-theme">
 
-    <link href="{{ url('/assets') }}/css/purple-theme.css" rel="alternate stylesheet" title="purple-theme">
+    <link href="{{ asset('/assets/css/purple-theme.css')}}" rel="alternate stylesheet" title="purple-theme">
 
-    <link href="{{ url('/assets') }}/css/skyblue-theme.css" rel="alternate stylesheet" title="skyblue-theme">
+    <link href="{{ asset('/assets/css/skyblue-theme.css')}}" rel="alternate stylesheet" title="skyblue-theme">
 
-    <link href="{{ url('/assets') }}/css/red-theme.css" rel="alternate stylesheet" title="red-theme">
+    <link href="{{ asset('/assets/css/red-theme.css')}}" rel="alternate stylesheet" title="red-theme">
 
-    <link href="{{ url('/assets') }}/css/custom.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/custom.css')}}" rel="stylesheet">
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
@@ -149,11 +149,11 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
 
-    <link rel="stylesheet" href="{{ url('/assets') }}/css/sumoselect.css">
+    <link rel="stylesheet" href="{{ asset('/assets/css/sumoselect.css')}}">
 
     <!-- RESPONSIVE CSS -->
 
-    <link href="{{ url('/assets') }}/css/responsive.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/responsive.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
@@ -162,9 +162,9 @@
 
     <!-- sweetalert2 asset CSS and JS -->
 
-    <script src="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="{{ asset('/assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
-    <link rel="stylesheet" href="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="{{ asset('/assets/libs/sweetalert2/sweetalert2.min.css')}}">
     <!--summer note text editor-->
 
     @stack('custom-css')

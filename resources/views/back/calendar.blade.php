@@ -1912,21 +1912,21 @@
 
 
     @push('custom-js')
-        <link rel="stylesheet" href="{{ url('/assets') }}/libs/fullcalendar/core/main.min.css" type="text/css">
-        <link rel="stylesheet" href="{{ url('/assets') }}/libs/fullcalendar/daygrid/main.min.css" type="text/css">
-        <link rel="stylesheet" href="{{ url('/assets') }}/libs/fullcalendar/bootstrap/main.min.css" type="text/css">
-        <link rel="stylesheet" href="{{ url('/assets') }}/libs/fullcalendar/timegrid/main.min.css" type="text/css">
+        <link rel="stylesheet" href="{{ asset('/assets/libs/fullcalendar/core/main.min.css')}}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('/assets/libs/fullcalendar/daygrid/main.min.css')}}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('/assets/libs/fullcalendar/bootstrap/main.min.css')}}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('/assets/libs/fullcalendar/timegrid/main.min.css')}}" type="text/css">
 
-        <script src="{{ url('/assets') }}/libs/moment/min/moment.min.js"></script>
-        <script src="{{ url('/assets') }}/libs/jquery-ui-dist/jquery-ui.min.js"></script>
-        <script src="{{ url('/assets') }}/libs/fullcalendar/core/main.min.js"></script>
-        <script src="{{ url('/assets') }}/libs/fullcalendar/bootstrap/main.min.js"></script>
-        <script src="{{ url('/assets') }}/libs/fullcalendar/daygrid/main.min.js"></script>
-        <script src="{{ url('/assets') }}/libs/fullcalendar/timegrid/main.min.js"></script>
-        <script src="{{ url('/assets') }}/libs/fullcalendar/interaction/main.min.js"></script>
+        <script src="{{ asset('/assets/libs/moment/min/moment.min.js')}}"></script>
+        <script src="{{ asset('/assets/libs/jquery-ui-dist/jquery-ui.min.js')}}"></script>
+        <script src="{{ asset('/assets/libs/fullcalendar/core/main.min.js')}}"></script>
+        <script src="{{ asset('/assets/libs/fullcalendar/bootstrap/main.min.js')}}"></script>
+        <script src="{{ asset('/assets/libs/fullcalendar/daygrid/main.min.js')}}"></script>
+        <script src="{{ asset('/assets/libs/fullcalendar/timegrid/main.min.js')}}"></script>
+        <script src="{{ asset('/assets/libs/fullcalendar/interaction/main.min.js')}}"></script>
 
 
-        <script src="{{ url('/assets') }}/js/app.js"></script>
+        <script src="{{ asset('/assets/js/app.js')}}"></script>
 
 
 

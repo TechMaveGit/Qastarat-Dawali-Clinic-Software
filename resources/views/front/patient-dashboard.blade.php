@@ -8,7 +8,7 @@
 
 
 <div class="sub_bnr"
-    style="background-image: url({{ asset('/assets/images/hero-15.jpg') }});">
+    style="background-image: url({{ asset('/assets/images/hero-15.jpg')}}') }});">
 
     <div class="sub_bnr_cnt">
 
@@ -124,7 +124,7 @@
                         <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                             alt="">
                     @else
-                        <img src="{{ asset('/assets/images/team-13.jpg') }}" alt="">
+                        <img src="{{ asset('/assets/images/team-13.jpg')}}') }}" alt="">
                     @endisset
 
 
@@ -3864,7 +3864,7 @@
 
                                                             <div class="image_dr">
 
-                                                                <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
+                                                                <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}"
                                                                     alt="">
 
                                                             </div>
@@ -3904,7 +3904,7 @@
 
                                                             <div class="image_dr">
 
-                                                                <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
+                                                                <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}"
                                                                     alt="">
 
                                                             </div>
@@ -3944,7 +3944,7 @@
 
                                                             <div class="image_dr">
 
-                                                                <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
+                                                                <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}"
                                                                     alt="">
 
                                                             </div>
@@ -3984,7 +3984,7 @@
 
                                                             <div class="image_dr">
 
-                                                                <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
+                                                                <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}"
                                                                     alt="">
 
                                                             </div>
@@ -5318,7 +5318,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ asset('/assets/images/new-images/forms.png')}}"
                                                 alt="">
 
                                         </div>
@@ -5348,7 +5348,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ asset('/assets/images/new-images/forms.png')}}"
                                                 alt="">
 
                                         </div>
@@ -5378,7 +5378,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ asset('/assets/images/new-images/forms.png')}}"
                                                 alt="">
 
                                         </div>
@@ -5407,7 +5407,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ asset('/assets/images/new-images/forms.png')}}"
                                                 alt="">
 
                                         </div>
@@ -5436,7 +5436,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ asset('/assets/images/new-images/forms.png')}}"
                                                 alt="">
 
                                         </div>
@@ -5465,7 +5465,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ asset('/assets/images/new-images/forms.png')}}"
                                                 alt="">
 
                                         </div>
@@ -6140,7 +6140,7 @@
 
                                     <div class="d-flex document pt-2">
 
-                                        <img src="{{ url('/assets') }}/images/new-images/documents.png"
+                                        <img src="{{ asset('/assets/images/new-images/documents.png')}}"
                                             class="avatar rounded me-3" alt="shreyu">
 
                                         <div class="flex-grow-1">

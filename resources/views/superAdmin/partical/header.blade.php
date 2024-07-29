@@ -30,7 +30,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-	<link href="{{ url('/assets') }}/css/flaticon.css" rel="stylesheet">
+	<link href="{{ asset('/assets/css/flaticon.css')}}" rel="stylesheet">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -80,9 +80,9 @@
 	<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
 	<!-- sweetalert2 asset CSS and JS -->
 
-	<script src="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
+	<script src="{{ asset('/assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
-	<link rel="stylesheet" href="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.css">
+	<link rel="stylesheet" href="{{ asset('/assets/libs/sweetalert2/sweetalert2.min.css')}}">
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-success fixed">
@@ -425,15 +425,7 @@
 					  </span>
 					</a>
 					<ul class="treeview-menu website_icon">
-					  <!-- <li class="{{ Route::is('homes.index') ? 'active' : '' }}"><a href="{{ route('homes.index') }}"><iconify-icon icon="carbon:home"></iconify-icon> Home</a></li>
-					  <li class="{{ Route::is('aboutUs.aboutUs') ? 'active' : '' }}"><a href="{{ route('aboutUs.aboutUs') }}"><iconify-icon icon="mdi:about-circle-outline"></iconify-icon> About Us</a></li>
-					  <li class="{{ Route::is('ourTreatments.ourTreatment') ? 'active' : '' }}"><a href="{{ route('ourTreatments.ourTreatment') }}"><iconify-icon icon="healthicons:hospitalized-outline"></iconify-icon>Our Treatments</a></li>
-					  <li class="{{ Route::is('ourServices.ourService') ? 'active' : '' }}"><a href="{{ route('ourServices.ourService') }}"><iconify-icon icon="grommet-icons:services"></iconify-icon> Our Services</a></li>
-					  <li class="{{ Route::is('ourUniqueSoftwares.ourUniqueSoftware') ? 'active' : '' }}"><a href="{{ route('ourUniqueSoftwares.ourUniqueSoftware') }}"><iconify-icon icon="carbon:software-resource-cluster"></iconify-icon> Our Unique Softwares</a></li>
-					  <li class="{{ Route::is('ourBranches.ourBranch') ? 'active' : '' }}"><a href="{{ route('ourBranches.ourBranch') }}"><iconify-icon icon="fluent:branch-24-regular"></iconify-icon> Our Branches</a></li>
-					  <li class="{{ Route::is('ourTeams.ourTeam') ? 'active' : '' }}"><a href="{{ route('ourTeams.ourTeam') }}"><iconify-icon icon="fluent:people-team-16-regular"></iconify-icon> Our Teams</a></li>
-					  <li class="{{ Route::is('contactUs.contactUs') ? 'active' : '' }}"><a href="{{ route('contactUs.contactUs') }}"><iconify-icon icon="pixelarticons:contact-plus"></iconify-icon> Contact Us</a></li>
-					  <li class="{{ Route::is('faqs.faq') ? 'active' : '' }}"><a href="{{ route('faqs.faq') }}"><iconify-icon icon="wpf:faq"></iconify-icon> FAQ</a></li> -->
+					  
 					  <li class="{{ Route::is('footers.footer') ? 'active' : '' }}"><a href="{{ route('footers.footer') }}"><iconify-icon icon="fluent-mdl2:footer"></iconify-icon> Footer</a></li>
 					</ul>
 				  </li>

@@ -41,7 +41,7 @@
 
     <!-- BOOTSTRAP CSS -->
 
-    <link href="{{ url('/assets') }}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/bootstrap.min.css')}}" rel="stylesheet">
 
 
 
@@ -57,114 +57,114 @@
 
     <!-- form plugin field css -->
 
-    <link href="{{ url('/assets') }}/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/assets/libs/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 
-    <link href="{{ url('/assets') }}/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/libs/spectrum-colorpicker2/spectrum.min.css" rel="stylesheet"
+    <link href="{{ asset('/assets/libs/spectrum-colorpicker2/spectrum.min.css')}}" rel="stylesheet"
         type="text/css">
 
-    <link href="{{ url('/assets') }}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    <link href="{{ asset('/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}"
         rel="stylesheet">
 
 
 
     <!-- DataTables -->
 
-    <link href="{{ url('/assets') }}/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+    <link href="{{ asset('/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet"
         type="text/css" />
 
-    <link href="{{ url('/assets') }}/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    <link href="{{ asset('/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}"
         rel="stylesheet" type="text/css" />
 
-    <link href="{{ url('/assets') }}/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    <link href="{{ asset('/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}"
         rel="stylesheet" type="text/css" />
 
 
 
     <!-- Responsive datatable examples -->
 
-    <link href="{{ url('/assets') }}/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    <link href="{{ asset('/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}"
         rel="stylesheet" type="text/css" />
 
 
 
     <!-- FONT ICONS -->
 
-    <link href="{{ url('/assets') }}/css/flaticon.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/flaticon.css')}}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')}}" />
 
     <!-- PLUGINS STYLESHEET -->
 
-    <link href="{{ url('/assets') }}/css/menu.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/menu.css')}}" rel="stylesheet">
 
-    <link id="effect" href="{{ url('/assets') }}/css/dropdown-effects/fade-down.css" media="all"
+    <link id="effect" href="{{ asset('/assets/css/dropdown-effects/fade-down.css')}}" media="all"
         rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/css/magnific-popup.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/magnific-popup.css')}}" rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/owl.carousel.min.css')}}" rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/owl.theme.default.min.css')}}" rel="stylesheet">
 
-    <link href="{{ url('/assets') }}/css/lunar.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/lunar.css')}}" rel="stylesheet">
 
 
 
     <!-- ON SCROLL ANIMATION -->
 
-    <link href="{{ url('/assets') }}/css/animate.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/animate.css')}}" rel="stylesheet">
 
 
 
     <!-- TEMPLATE CSS -->
 
-    <link href="{{ url('/assets') }}/css/violet-theme.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/violet-theme.css')}}" rel="stylesheet">
 
 
 
     <!-- Style Switcher CSS -->
 
-    <link href="{{ url('/assets') }}/css/blue-theme.css" rel="alternate stylesheet" title="blue-theme">
+    <link href="{{ asset('/assets/css/blue-theme.css')}}" rel="alternate stylesheet" title="blue-theme">
 
-    <link href="{{ url('/assets') }}/css/crocus-theme.css" rel="alternate stylesheet" title="crocus-theme">
+    <link href="{{ asset('/assets/css/crocus-theme.css')}}" rel="alternate stylesheet" title="crocus-theme">
 
-    <link href="{{ url('/assets') }}/css/green-theme.css" rel="alternate stylesheet" title="green-theme">
+    <link href="{{ asset('/assets/css/green-theme.css')}}" rel="alternate stylesheet" title="green-theme">
 
-    <link href="{{ url('/assets') }}/css/magenta-theme.css" rel="alternate stylesheet" title="magenta-theme">
+    <link href="{{ asset('/assets/css/magenta-theme.css')}}" rel="alternate stylesheet" title="magenta-theme">
 
-    <link href="{{ url('/assets') }}/css/pink-theme.css" rel="alternate stylesheet" title="pink-theme">
+    <link href="{{ asset('/assets/css/pink-theme.css')}}" rel="alternate stylesheet" title="pink-theme">
 
-    <link href="{{ url('/assets') }}/css/purple-theme.css" rel="alternate stylesheet" title="purple-theme">
+    <link href="{{ asset('/assets/css/purple-theme.css')}}" rel="alternate stylesheet" title="purple-theme">
 
-    <link href="{{ url('/assets') }}/css/skyblue-theme.css" rel="alternate stylesheet" title="skyblue-theme">
+    <link href="{{ asset('/assets/css/skyblue-theme.css')}}" rel="alternate stylesheet" title="skyblue-theme">
 
-    <link href="{{ url('/assets') }}/css/red-theme.css" rel="alternate stylesheet" title="red-theme">
+    <link href="{{ asset('/assets/css/red-theme.css')}}" rel="alternate stylesheet" title="red-theme">
 
-    <link href="{{ url('/assets') }}/css/custom.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/custom.css')}}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css')}}">
 
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css')}}">
 
-    <link rel="stylesheet" href="{{ url('/assets') }}/css/sumoselect.css">
+    <link rel="stylesheet" href="{{ asset('/assets/css/sumoselect.css')}}">
 
     <!-- RESPONSIVE CSS -->
 
-    <link href="{{ url('/assets') }}/css/responsive.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/responsive.css')}}" rel="stylesheet">
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')}}">
 
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css')}}">
 
     <!-- sweetalert2 asset CSS and JS -->
 
-    <script src="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="{{ asset('/assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
-    <link rel="stylesheet" href="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="{{ asset('/assets/libs/sweetalert2/sweetalert2.min.css')}}">
     <!--summer note text editor-->
 
 
@@ -4090,7 +4090,7 @@
 
                                                                 <div class="image_dr">
 
-                                                                    <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
+                                                                    <img src="{{ asset('/images/new-images/avtar.jpg"
                                                                         alt="">
 
                                                                 </div>
@@ -4131,7 +4131,7 @@
 
                                                                 <div class="image_dr">
 
-                                                                    <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
+                                                                    <img src="{{ asset('/images/new-images/avtar.jpg"
                                                                         alt="">
 
                                                                 </div>
@@ -4172,7 +4172,7 @@
 
                                                                 <div class="image_dr">
 
-                                                                    <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
+                                                                    <img src="{{ asset('/images/new-images/avtar.jpg"
                                                                         alt="">
 
                                                                 </div>
@@ -4213,7 +4213,7 @@
 
                                                                 <div class="image_dr">
 
-                                                                    <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
+                                                                    <img src="{{ asset('/images/new-images/avtar.jpg"
                                                                         alt="">
 
                                                                 </div>
@@ -5538,7 +5538,7 @@
 
                                             <div class="form_img">
 
-                                                <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                                <img src="{{ asset('/images/new-images/forms.png"
                                                     alt="">
 
                                             </div>
@@ -5568,7 +5568,7 @@
 
                                             <div class="form_img">
 
-                                                <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                                <img src="{{ asset('/images/new-images/forms.png"
                                                     alt="">
 
                                             </div>
@@ -5598,7 +5598,7 @@
 
                                             <div class="form_img">
 
-                                                <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                                <img src="{{ asset('/images/new-images/forms.png"
                                                     alt="">
 
                                             </div>
@@ -5627,7 +5627,7 @@
 
                                             <div class="form_img">
 
-                                                <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                                <img src="{{ asset('/images/new-images/forms.png"
                                                     alt="">
 
                                             </div>
@@ -5656,7 +5656,7 @@
 
                                             <div class="form_img">
 
-                                                <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                                <img src="{{ asset('/images/new-images/forms.png"
                                                     alt="">
 
                                             </div>
@@ -5685,7 +5685,7 @@
 
                                             <div class="form_img">
 
-                                                <img src="{{ url('/assets') }}/images/new-images/forms.png"
+                                                <img src="{{ asset('/images/new-images/forms.png"
                                                     alt="">
 
                                             </div>
@@ -6369,7 +6369,7 @@
 
                                         <div class="d-flex document pt-2">
 
-                                            <img src="{{ url('/assets') }}/images/new-images/documents.png"
+                                            <img src="{{ asset('/images/new-images/documents.png"
                                                 class="avatar rounded me-3" alt="shreyu">
 
                                             <div class="flex-grow-1">
@@ -8862,37 +8862,37 @@
 
                     ============================================= -->
 
-    <script src="{{ url('/assets') }}/js/jquery-3.7.0.min.js"></script>
+    <script src="{{ asset('/js/jquery-3.7.0.min.js"></script>
 
 
 
-    <script src="{{ url('/assets') }}/js/bootstrap.min.js"></script>
+    <script src="{{ asset('/js/bootstrap.min.js"></script>
 
-    <script src="{{ url('/assets') }}/js/modernizr.custom.js"></script>
+    <script src="{{ asset('/js/modernizr.custom.js"></script>
 
-    <script src="{{ url('/assets') }}/js/jquery.easing.js"></script>
+    <script src="{{ asset('/js/jquery.easing.js"></script>
 
-    <script src="{{ url('/assets') }}/js/jquery.appear.js"></script>
+    <script src="{{ asset('/js/jquery.appear.js"></script>
 
-    <script src="{{ url('/assets') }}/js/menu.js"></script>
+    <script src="{{ asset('/js/menu.js"></script>
 
-    <script src="{{ url('/assets') }}/js/owl.carousel.min.js"></script>
+    <script src="{{ asset('/js/owl.carousel.min.js"></script>
 
-    <script src="{{ url('/assets') }}/js/pricing-toggle.js"></script>
+    <script src="{{ asset('/js/pricing-toggle.js"></script>
 
-    <script src="{{ url('/assets') }}/js/jquery.magnific-popup.min.js"></script>
+    <script src="{{ asset('/js/jquery.magnific-popup.min.js"></script>
 
-    <script src="{{ url('/assets') }}/js/request-form.js"></script>
+    <script src="{{ asset('/js/request-form.js"></script>
 
-    <script src="{{ url('/assets') }}/js/jquery.validate.min.js"></script>
+    <script src="{{ asset('/js/jquery.validate.min.js"></script>
 
-    <script src="{{ url('/assets') }}/js/jquery.ajaxchimp.min.js"></script>
+    <script src="{{ asset('/js/jquery.ajaxchimp.min.js"></script>
 
-    <script src="{{ url('/assets') }}/js/popper.min.js"></script>
+    <script src="{{ asset('/js/popper.min.js"></script>
 
-    <script src="{{ url('/assets') }}/js/lunar.js"></script>
+    <script src="{{ asset('/js/lunar.js"></script>
 
-    <script src="{{ url('/assets') }}/js/wow.js"></script>
+    <script src="{{ asset('/js/wow.js"></script>
 
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
@@ -8908,7 +8908,7 @@
 
     <!-- Custom Script -->
 
-    <script src="{{ url('/assets') }}/js/custom.js"></script>
+    <script src="{{ asset('/js/custom.js"></script>
 
 
 
@@ -9112,9 +9112,9 @@
 
 
 
-    <script src="{{ url('/assets') }}/js/changer.js"></script>
+    <script src="{{ asset('/js/changer.js"></script>
 
-    <script defer src="{{ url('/assets') }}/js/styleswitch.js"></script>
+    <script defer src="{{ asset('/js/styleswitch.js"></script>
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	 -->
 
@@ -9178,13 +9178,13 @@
 
     <!-- iconify icons js -->
 
-    <script src="{{ url('/assets') }}/js/iconify-icons.js"></script>
+    <script src="{{ asset('/js/iconify-icons.js')}}"></script>
 
 
 
     <!-- timepicker js -->
 
-    <script src="{{ url('/assets') }}/js/jquery.timepicker.min.js"></script>
+    <script src="{{ asset('/js/jquery.timepicker.min.js')}}"></script>
 
     <!-- timepicker js end -->
 
@@ -9192,41 +9192,41 @@
 
     <!-- form plugin js -->
 
-    <script src="{{ url('/assets') }}/libs/select2/js/select2.min.js"></script>
+    <script src="{{ asset('/libs/select2/js/select2.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ asset('/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/spectrum-colorpicker2/spectrum.min.js"></script>
+    <script src="{{ asset('/libs/spectrum-colorpicker2/spectrum.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="{{ asset('/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/admin-resources/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
+    <script src="{{ asset('/libs/admin-resources/bootstrap-filestyle/bootstrap-filestyle.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+    <script src="{{ asset('/libs/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
 
 
 
-    <script src="{{ url('/assets') }}/js/pages/form-advanced.init.js"></script>
+    <script src="{{ asset('/js/pages/form-advanced.init.js')}}"></script>
 
     <!-- apexcharts -->
 
-    <script src="{{ url('/assets') }}/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="{{ asset('/libs/apexcharts/apexcharts.min.js')}}"></script>
 
 
 
     <!-- Vector map-->
 
-    <script src="{{ url('/assets') }}/libs/jsvectormap/js/jsvectormap.min.js"></script>
+    <script src="{{ asset('/libs/jsvectormap/js/jsvectormap.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/jsvectormap/maps/world-merc.js"></script>
+    <script src="{{ asset('/libs/jsvectormap/maps/world-merc.js')}}"></script>
 
 
 
     <!-- Required datatable js -->
 
-    <script src="{{ url('/assets') }}/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 
 
 
@@ -9234,49 +9234,49 @@
 
     <!-- Buttons examples -->
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/jszip/jszip.min.js"></script>
+    <script src="{{ asset('/libs/jszip/jszip.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="{{ asset('/libs/pdfmake/build/pdfmake.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="{{ asset('/libs/pdfmake/build/vfs_fonts.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-buttons/js/buttons.colVis.min.js')}}"></script>
 
 
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-select/js/dataTables.select.min.js')}}"></script>
 
 
 
     <!-- Responsive examples -->
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 
-    <script src="{{ url('/assets') }}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="{{ asset('/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
 
 
 
     <!-- Datatable init js -->
 
-    <script src="{{ url('/assets') }}/js/pages/datatables.init.js"></script>
+    <script src="{{ asset('/js/pages/datatables.init.js')}}"></script>
 
     <!-- linecharts init -->
 
-    <script src="{{ url('/assets') }}/js/pages/apexcharts-line.init.js"></script>
+    <script src="{{ asset('/js/pages/apexcharts-line.init.js')}}"></script>
 
     <!-- App js -->
 
-    <script src="{{ url('/assets') }}/js/app.js"></script>
+    <script src="{{ asset('/js/app.js')}}"></script>
 
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 
