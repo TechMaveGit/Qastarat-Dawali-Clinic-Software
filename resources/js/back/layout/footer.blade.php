@@ -713,10 +713,10 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
             <div class="col-xl-4">
                 <div class="footer-info mb-0">
                     @isset($footer->websitelogo)
-                    <img class="footer-logo" src="{{ asset('public/assets/video/'.$footer->websitelogo) }}"
+                    <img class="footer-logo" src="{{ asset('/assets/video/'.$footer->websitelogo) }}"
                     alt="footer-logo">
                         @else
-                        <img class="footer-logo" src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
+                        <img class="footer-logo" src="{{ asset('/assets/images/new-images/logofwhite.png') }}"
                         alt="footer-logo">
                     @endisset
 
@@ -795,9 +795,9 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 					<div class="coonect_box">
 						<div class="left_flag">
                             @isset($footer->logo1)
-                            <img src="{{ asset('public/assets/video/'.$footer->logo1) }}" alt="">
+                            <img src="{{ asset('/assets/video/'.$footer->logo1) }}" alt="">
                                 @else
-                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Oman.svg.png') }}" alt="">
+                                <img src="{{ asset('/assets/images/new-images/Flag_of_Oman.svg.png') }}" alt="">
                             @endisset
 
 						</div>
@@ -810,9 +810,9 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 					<div class="coonect_box">
 						<div class="left_flag">
                             @isset($footer->logo2)
-                            <img src="{{ asset('public/assets/video/'.$footer->logo2) }}" alt="">
+                            <img src="{{ asset('/assets/video/'.$footer->logo2) }}" alt="">
                                 @else
-                                <img src="{{ asset('public/assets/images/new-images/Flag_of_the_United_Arab_Emirates.svg.png') }}" alt="">
+                                <img src="{{ asset('/assets/images/new-images/Flag_of_the_United_Arab_Emirates.svg.png') }}" alt="">
                             @endisset
 
 						</div>
@@ -825,9 +825,9 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 					<div class="coonect_box">
 						<div class="left_flag">
                             @isset($footer->logo3)
-                            <img src="{{ asset('public/assets/video/'.$footer->logo3) }}" alt="">
+                            <img src="{{ asset('/assets/video/'.$footer->logo3) }}" alt="">
                                 @else
-                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Saudi_Arabia.svg.png') }}" alt="">
+                                <img src="{{ asset('/assets/images/new-images/Flag_of_Saudi_Arabia.svg.png') }}" alt="">
                             @endisset
 
 						</div>
@@ -840,9 +840,9 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 					<div class="coonect_box">
 						<div class="left_flag">
                             @isset($footer->logo4)
-                            <img src="{{ asset('public/assets/video/'.$footer->logo4) }}" alt="">
+                            <img src="{{ asset('/assets/video/'.$footer->logo4) }}" alt="">
                                 @else
-                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Bahrain-manama.png') }}" alt="">
+                                <img src="{{ asset('/assets/images/new-images/Flag_of_Bahrain-manama.png') }}" alt="">
                             @endisset
 
 						</div>
@@ -3842,10 +3842,10 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 
                                                                             @if (isset($alldoctorList->patient_profile_img))
 
-                                                                            <img src="{{ asset('/public/assets/profileImage/' . $alldoctorList->patient_profile_img) }}" alt="">
+                                                                            <img src="{{ asset('//assets/profileImage/' . $alldoctorList->patient_profile_img) }}" alt="">
 
                                                                             @else
-                                                                            <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+                                                                            <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
                                                                             @endif
 
@@ -4750,7 +4750,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img genral_form_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -4776,7 +4776,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                             <div class="form_box card-input">
 
                                                 <div class="form_img form1_bg">
-                                                    <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                         alt="">
 
                                                 </div>
@@ -4819,7 +4819,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 
                                                 <div class="form_img form2_bg">
 
-                                                    <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                         alt="">
                                                 </div>
                                                 <div class="form_dt">
@@ -4863,7 +4863,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 
                                                 <div class="form_img form3_bg">
 
-                                                    <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                    <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                         alt="">
 
                                                 </div>
@@ -4903,7 +4903,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img form4_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -4945,7 +4945,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img form5_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -4984,7 +4984,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img form6_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -5022,7 +5022,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img form7_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -5060,7 +5060,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img form8a_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -5098,7 +5098,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img form8b_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -5136,7 +5136,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img form8c_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -5174,7 +5174,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img form8d_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -5212,7 +5212,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                                         <div class="form_box card-input">
 
                                             <div class="form_img form8e_bg">
-                                                <img src="{{ asset('public/assets/images/new-images/forms1.png') }}"
+                                                <img src="{{ asset('/assets/images/new-images/forms1.png') }}"
                                                     alt="">
                                             </div>
                                             <div class="form_dt">
@@ -7970,13 +7970,13 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 
                             <td data-th="Supplier Code">
 
-                                AED 100.00
+                                {{env('SHOW_CURRENCY')}} 100.00
 
                             </td>
 
                             <td data-th="Supplier Name">
 
-                                AED 100.00
+                                {{env('SHOW_CURRENCY')}} 100.00
 
                             </td>
 
@@ -8035,7 +8035,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
             <div class="newbalance_area">
 
                 <div class="balance_amount_number">
-                    <h1>New Balance : </h1> <span>AED 100.00</span>
+                    <h1>New Balance : </h1> <span>{{env('SHOW_CURRENCY')}} 100.00</span>
                 </div>
 
 
@@ -8241,37 +8241,37 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 
                     ============================================= -->
 
-<script src="{{ url('public/assets') }}/js/jquery-3.7.0.min.js"></script>
+<script src="{{ url('/assets') }}/js/jquery-3.7.0.min.js"></script>
 
 
 
-<script src="{{ url('public/assets') }}/js/bootstrap.min.js"></script>
+<script src="{{ url('/assets') }}/js/bootstrap.min.js"></script>
 
-<script src="{{ url('public/assets') }}/js/modernizr.custom.js"></script>
+<script src="{{ url('/assets') }}/js/modernizr.custom.js"></script>
 
-<script src="{{ url('public/assets') }}/js/jquery.easing.js"></script>
+<script src="{{ url('/assets') }}/js/jquery.easing.js"></script>
 
-<script src="{{ url('public/assets') }}/js/jquery.appear.js"></script>
+<script src="{{ url('/assets') }}/js/jquery.appear.js"></script>
 
-<script src="{{ url('public/assets') }}/js/menu.js"></script>
+<script src="{{ url('/assets') }}/js/menu.js"></script>
 
-<script src="{{ url('public/assets') }}/js/owl.carousel.min.js"></script>
+<script src="{{ url('/assets') }}/js/owl.carousel.min.js"></script>
 
-<script src="{{ url('public/assets') }}/js/pricing-toggle.js"></script>
+<script src="{{ url('/assets') }}/js/pricing-toggle.js"></script>
 
-<script src="{{ url('public/assets') }}/js/jquery.magnific-popup.min.js"></script>
+<script src="{{ url('/assets') }}/js/jquery.magnific-popup.min.js"></script>
 
-<script src="{{ url('public/assets') }}/js/request-form.js"></script>
+<script src="{{ url('/assets') }}/js/request-form.js"></script>
 
-<script src="{{ url('public/assets') }}/js/jquery.validate.min.js"></script>
+<script src="{{ url('/assets') }}/js/jquery.validate.min.js"></script>
 
-<script src="{{ url('public/assets') }}/js/jquery.ajaxchimp.min.js"></script>
+<script src="{{ url('/assets') }}/js/jquery.ajaxchimp.min.js"></script>
 
-<script src="{{ url('public/assets') }}/js/popper.min.js"></script>
+<script src="{{ url('/assets') }}/js/popper.min.js"></script>
 
-<script src="{{ url('public/assets') }}/js/lunar.js"></script>
+<script src="{{ url('/assets') }}/js/lunar.js"></script>
 
-<script src="{{ url('public/assets') }}/js/wow.js"></script>
+<script src="{{ url('/assets') }}/js/wow.js"></script>
 
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
@@ -8287,7 +8287,7 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 
 <!-- Custom Script -->
 
-<script src="{{ url('public/assets') }}/js/custom.js"></script>
+<script src="{{ url('/assets') }}/js/custom.js"></script>
 
 
 
@@ -8436,9 +8436,9 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
                     </script>
                     
 
-<script src="{{ url('public/assets') }}/js/changer.js"></script>
+<script src="{{ url('/assets') }}/js/changer.js"></script>
 
-<script defer src="{{ url('public/assets') }}/js/styleswitch.js"></script>
+<script defer src="{{ url('/assets') }}/js/styleswitch.js"></script>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	 -->
 
@@ -8476,13 +8476,13 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 
 <!-- iconify icons js -->
 
-<script src="{{ url('public/assets') }}/js/iconify-icons.js"></script>
+<script src="{{ url('/assets') }}/js/iconify-icons.js"></script>
 
 
 
 <!-- timepicker js -->
 
-<script src="{{ url('public/assets') }}/js/jquery.timepicker.min.js"></script>
+<script src="{{ url('/assets') }}/js/jquery.timepicker.min.js"></script>
 
 <!-- timepicker js end -->
 
@@ -8490,41 +8490,41 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 
 <!-- form plugin js -->
 
-<script src="{{ url('public/assets') }}/libs/select2/js/select2.min.js"></script>
+<script src="{{ url('/assets') }}/libs/select2/js/select2.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ url('/assets') }}/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/spectrum-colorpicker2/spectrum.min.js"></script>
+<script src="{{ url('/assets') }}/libs/spectrum-colorpicker2/spectrum.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="{{ url('/assets') }}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/admin-resources/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
+<script src="{{ url('/assets') }}/libs/admin-resources/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="{{ url('/assets') }}/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
 
 
 
-<script src="{{ url('public/assets') }}/js/pages/form-advanced.init.js"></script>
+<script src="{{ url('/assets') }}/js/pages/form-advanced.init.js"></script>
 
 <!-- apexcharts -->
 
-{{-- <script src="{{ url('public/assets') }}/libs/apexcharts/apexcharts.min.js"></script> --}}
+{{-- <script src="{{ url('/assets') }}/libs/apexcharts/apexcharts.min.js"></script> --}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
 
 <!-- Vector map-->
 
-<script src="{{ url('public/assets') }}/libs/jsvectormap/js/jsvectormap.min.js"></script>
+<script src="{{ url('/assets') }}/libs/jsvectormap/js/jsvectormap.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/jsvectormap/maps/world-merc.js"></script>
+<script src="{{ url('/assets') }}/libs/jsvectormap/maps/world-merc.js"></script>
 
 
 
 <!-- Required datatable js -->
 
-<script src="{{ url('public/assets') }}/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
 
 
@@ -8532,62 +8532,62 @@ function ViewSummary(formType, fileName ,documentUrl, reply_summary, id)
 
 <!-- Buttons examples -->
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/jszip/jszip.min.js"></script>
+<script src="{{ url('/assets') }}/libs/jszip/jszip.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ url('/assets') }}/libs/pdfmake/build/pdfmake.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="{{ url('/assets') }}/libs/pdfmake/build/vfs_fonts.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
 
 
 
 <!-- Responsive examples -->
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 
 
 <!-- Datatable init js -->
 
-<script src="{{ url('public/assets') }}/js/pages/datatables.init.js"></script>
+<script src="{{ url('/assets') }}/js/pages/datatables.init.js"></script>
 
 <!-- linecharts init -->
 
-{{-- <script src="{{ url('public/assets') }}/js/pages/apexcharts-line.init.js"></script> --}}
+{{-- <script src="{{ url('/assets') }}/js/pages/apexcharts-line.init.js"></script> --}}
 
 <!-- App js tinymce.min-->
 
-<script src="{{ url('public/assets') }}/js/app.js"></script>
+<script src="{{ url('/assets') }}/js/app.js"></script>
 
 <!-- tinymce editor -->
 <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 
 {{--
-<script src="{{ url('public/assets') }}/js/tinymce.min.js"></script>
- <script src="{{ url('public/assets') }}/js/model.min.js"></script>
- <script src="{{ url('public/assets') }}/js/theme.min.js"></script>
- <script src="{{ url('public/assets') }}/js/icons.min.js"></script>
+<script src="{{ url('/assets') }}/js/tinymce.min.js"></script>
+ <script src="{{ url('/assets') }}/js/model.min.js"></script>
+ <script src="{{ url('/assets') }}/js/theme.min.js"></script>
+ <script src="{{ url('/assets') }}/js/icons.min.js"></script>
 
-<script src="{{ url('public/assets') }}/js/skin.min.css"></script>
-<script src="{{ url('public/assets') }}/js/content.min.css"></script>
-<script src="{{ url('public/assets') }}/js/css/content.min.css"></script> --}}
+<script src="{{ url('/assets') }}/js/skin.min.css"></script>
+<script src="{{ url('/assets') }}/js/content.min.css"></script>
+<script src="{{ url('/assets') }}/js/css/content.min.css"></script> --}}
 
 <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 

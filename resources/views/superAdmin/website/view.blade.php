@@ -22,7 +22,7 @@
         <div class="row">
 				<div class="col-xl-8 col-12">
 					<div class="box">
-						<div class="box-body text-end min-h-150" style="background-image:url('{{ asset('public/superAdmin/images/gallery/landscape14.jpg')}}'); background-repeat: no-repeat; background-position: center;background-size: cover;">
+						<div class="box-body text-end min-h-150" style="background-image:url('{{ asset('/superAdmin/images/gallery/landscape14.jpg')}}'); background-repeat: no-repeat; background-position: center;background-size: cover;">
 							<a href="{{ route('doctors.edit',['id'=>$doctor->id]) }}" class="btn-md btn btn-success"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
 						</div>
 						<div class="box-body wed-up position-relative">
@@ -31,12 +31,12 @@
                                 <div class="profile_main">
                                     <div class="circle">
 
-                                        {{-- https://techmavesoftwaredev.com/webclinic/public/superAdmin/images/avatar/avatar-1.png --}}
+                                        {{-- https://techmavesoftwaredev.com/webclinic//superAdmin/images/avatar/avatar-1.png --}}
 
                                         @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
-                                        <img src="{{ asset('/public/assets/doctor_profile/' . $doctor->patient_profile_img) }}" alt="">
+                                        <img src="{{ asset('//assets/doctor_profile/' . $doctor->patient_profile_img) }}" alt="">
                                         @else
-                                        <img class="profile-pic" src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+                                        <img class="profile-pic" src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
                                         @endif
 
@@ -176,9 +176,9 @@
 									<div class="d-flex align-items-center mb-10">
 										<div class="me-15">
 											@if($userDetail->patient_profile_img)
-											<img src="{{ asset('public/assets/patient_profile/'.$userDetail->patient_profile_img)}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/assets/patient_profile/'.$userDetail->patient_profile_img)}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 											@else
-											<img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 											@endif
 										</div>
 										<div class="d-flex flex-column flex-grow-1 fw-500">

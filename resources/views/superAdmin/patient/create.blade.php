@@ -192,7 +192,7 @@
                                         <label for="example-text-input" class="col-sm-2 col-form-label"> </label>
                                         <div class="col-md-10">
                                             <img style="width:100px" id="showImage" class="rounded avatar-lg"
-                                                src="{{ asset('public/superAdmin/images/newimages/avtar.jpg') }}"
+                                                src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
                                                 alt="Card image cap">
                                         </div>
                                     </div>

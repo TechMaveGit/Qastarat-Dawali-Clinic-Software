@@ -10,7 +10,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
     </style>
 @endpush
 @section('content-section')
-    <div class="sub_bnr" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
+    <div class="sub_bnr" style="background-image: url({{ asset('/assets/images/hero-15.jpg') }});">
         <div class="sub_bnr_cnt">
             <h1 class=""> <span class="blue_theme"> Eligibility</span> Form</h1>
             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
@@ -4433,7 +4433,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
 
     const imageObj = new Image();
 
-    imageObj.src = '{{ asset('public/assets/thyroid-eligibility-form/add/ShoulderPain.jpg') }}';
+    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/ShoulderPain.jpg') }}';
 
     imageObj.onload = function() {
         const image = new Konva.Image({

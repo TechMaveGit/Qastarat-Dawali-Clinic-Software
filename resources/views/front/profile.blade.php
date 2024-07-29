@@ -25,10 +25,10 @@
 
                         @isset($doctor->patient_profile_img)
 
-                        <div id="imagePreview" style="background-image: url('{{ asset("public/assets/patient_profile/" . $doctor->patient_profile_img) }}');">
+                        <div id="imagePreview" style="background-image: url('{{ asset("/assets/patient_profile/" . $doctor->patient_profile_img) }}');">
                         </div>
                         @else
-                        <div id="imagePreview" style="background-image: url('{{ asset("public/assets/images/team-13.jpg") }}');">
+                        <div id="imagePreview" style="background-image: url('{{ asset("/assets/images/team-13.jpg") }}');">
                         </div>
                         @endisset
 

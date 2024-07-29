@@ -9,7 +9,7 @@
     @endpush
 
 
-    <div class="sub_bnr" style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
+    <div class="sub_bnr" style="background-image: url({{ asset('/assets/images/hero-15.jpg') }});">
 
         <div class="sub_bnr_cnt">
 
@@ -117,10 +117,10 @@
                         <div class="profile_img">
 
                             @isset($patient->patient_profile_img)
-                                <img src="{{ asset('public/assets/patient_profile/' . $patient->patient_profile_img) }}"
+                                <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                                     alt="">
                             @else
-                                <img src="{{ asset('public/assets/images/team-13.jpg') }}" alt="temp_img">
+                                <img src="{{ asset('/assets/images/team-13.jpg') }}" alt="temp_img">
                             @endisset
 
 

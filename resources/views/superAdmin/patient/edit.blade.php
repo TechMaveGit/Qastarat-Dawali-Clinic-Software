@@ -166,14 +166,14 @@
                         <div class="col-md-3">
                             <label for="example-text-input" class="col-sm-2 col-form-label">  </label>
                            <div class="col-md-10">
-                               <img style="width:100px" id="showImage" class="rounded avatar-lg" src="{{ asset('public/assets/patient_profile/'.$patientId->patient_profile_img ) }}" alt="Profile image">
+                               <img style="width:100px" id="showImage" class="rounded avatar-lg" src="{{ asset('/assets/patient_profile/'.$patientId->patient_profile_img ) }}" alt="Profile image">
                            </div>
                        </div>
                        @else
                        <div class="col-md-3">
                         <label for="example-text-input" class="col-sm-2 col-form-label">  </label>
                        <div class="col-md-10">
-                           <img style="width:100px" id="showImage" class="rounded avatar-lg" src="{{ asset('public/superAdmin/images/newimages/avtar.jpg') }}" alt="Profile image">
+                           <img style="width:100px" id="showImage" class="rounded avatar-lg" src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}" alt="Profile image">
                        </div>
                    </div>
                         @endif

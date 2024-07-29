@@ -383,7 +383,7 @@
                             <input type="hidden" name="patient_id" value="{{ @$id }}" />
                             <div class="profile_img">
 
-                                <img src="{{ asset('public/assets/patient_profile/' . $patient->patient_profile_img) }}"
+                                <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                                     alt="">
 
                                 <div class="insure_btn">
@@ -978,10 +978,10 @@
 
                                                                     @if (isset($referaldoctors->patient_profile_img))
 
-                                                                    <img src="{{ asset('/public/assets/profileImage/' . $referaldoctors->patient_profile_img) }}" alt="">
+                                                                    <img src="{{ asset('//assets/profileImage/' . $referaldoctors->patient_profile_img) }}" alt="">
 
                                                                     @else
-                                                                    <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+                                                                    <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
                                                                     @endif
 

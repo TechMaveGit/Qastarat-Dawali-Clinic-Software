@@ -89,7 +89,7 @@
                                                         ---
                                                         @endif
                                                     </td>
-                                                    <td>AED {{ $allpathology_price_list->price }}</td>
+                                                    <td>{{env('SHOW_CURRENCY')}} {{ $allpathology_price_list->price }}</td>
                                                     {{-- <td>{{ $allpathology_price_list->created_at->format('Y-m-d') }}</td> --}}
                                                     <td>{{ \Carbon\Carbon::parse($allpathology_price_list->created_at)->format('Y-m-d') }}</td>
                                                     <td>{{ $allpathology_price_list->status== '1' ? 'Active' : 'Inactive' }}</td>

@@ -15,7 +15,7 @@ Order Medical report  | QASTARAT & DAWALI CLINICS
 @endpush
 
 <section id="hero-15" class="bg--scroll innerbannerSection hero-section"
-   style="background-image: url({{ asset('public/assets/images/new-images/page-title.jpg') }});">
+   style="background-image: url({{ asset('/assets/images/new-images/page-title.jpg') }});">
    <div class="container">
       <!-- <div id="owl-carousel" class="service_slider owl-carousel owl-theme"></div> -->
       <div class="row d-flex ">
@@ -51,7 +51,7 @@ Order Medical report  | QASTARAT & DAWALI CLINICS
             <div class="service-content row">
                <div class="col-lg-6">
                   <div class="service-content-image">
-                     <img decoding="async" src="{{ asset('public/assets/images/new-images/qs-service1.png') }}" alt="iqonic-service">
+                     <img decoding="async" src="{{ asset('/assets/images/new-images/qs-service1.png') }}" alt="iqonic-service">
                   </div>
                </div>
                <div class="col-lg-6">
@@ -107,7 +107,7 @@ Order Medical report  | QASTARAT & DAWALI CLINICS
 
 <section class="service2fullwidth Service_detailBox">
 <div class="service-content-image">
-                  <img decoding="async" src="{{ asset('public/assets/images/new-images/medical-report.png') }}" alt="iqonic-service">
+                  <img decoding="async" src="{{ asset('/assets/images/new-images/medical-report.png') }}" alt="iqonic-service">
                </div>
 
                <div class="container-fluid">
@@ -171,7 +171,7 @@ Order Medical report  | QASTARAT & DAWALI CLINICS
             <div class="service-content row">
               <div class="col-lg-6">
               <div class="service-content-image">
-                  <img decoding="async" src="{{ asset('public/assets/images/new-images/bvgfhn.png') }}" alt="iqonic-service">
+                  <img decoding="async" src="{{ asset('/assets/images/new-images/bvgfhn.png') }}" alt="iqonic-service">
                </div>
               </div>
               <div class="col-lg-6">

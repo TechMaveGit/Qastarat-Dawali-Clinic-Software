@@ -37,7 +37,7 @@
 								<div class="box-body ">
                                    <div class="top_card">
 								   <div class="bg-danger-light rounded10 top_card_img_box">
-										<img src="{{ asset('public/superAdmin/images/newimages/icon-3.svg')}}" class="" alt="" />
+										<img src="{{ asset('/superAdmin/images/newimages/icon-3.svg')}}" class="" alt="" />
 
 										</div>
 
@@ -63,7 +63,7 @@
 								<div class="box-body ">
 									<div class="top_card">
 									<div class="bg-info-light rounded10 top_card_img_box">
-										<img src="{{ asset('public/superAdmin/images/newimages/icon-2.svg')}}" class="" alt="" />
+										<img src="{{ asset('/superAdmin/images/newimages/icon-2.svg')}}" class="" alt="" />
 
 										</div>
 										<div class="top_card_dt">
@@ -85,7 +85,7 @@
 								<div class="box-body ">
 									<div class="top_card">
 									<div class="bg-warning-light rounded10 top_card_img_box">
-										<img src="{{ asset('public/superAdmin/images/newimages/medical-team(2).png')}}" class="" alt="" />
+										<img src="{{ asset('/superAdmin/images/newimages/medical-team(2).png')}}" class="" alt="" />
 
 										</div>
 
@@ -113,7 +113,7 @@
                                    <div class="top_card">
                                        <div class="bg-primary-light rounded10 top_card_img_box">
 
-										   <img src="{{ asset('public/superAdmin/images/newimages/flask.png')}}" class="" alt="" />
+										   <img src="{{ asset('/superAdmin/images/newimages/flask.png')}}" class="" alt="" />
 
 									    </div>
 
@@ -223,10 +223,10 @@
 
                         @if (isset($alldoctor->patient_profile_img))
 
-                        <img src="{{ asset('/public/assets/profileImage/' . $alldoctor->patient_profile_img) }}" alt="">
+                        <img src="{{ asset('//assets/profileImage/' . $alldoctor->patient_profile_img) }}" alt="">
 
                         @else
-                        <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+                        <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
                         @endif
 

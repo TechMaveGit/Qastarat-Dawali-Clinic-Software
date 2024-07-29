@@ -199,7 +199,7 @@
                         @elseif ($aboutUs->videoFile)
                          <?php
                                 
-                                $videoUrl = asset('public/assets/video/' . $aboutUs->videoFile);
+                                $videoUrl = asset('/assets/video/' . $aboutUs->videoFile);
                             ?>
                         <a class="video-popup" href="{{ $videoUrl ?? '#'  }}">
                             <div class="video-btn video-btn-xl bg--theme">
@@ -217,10 +217,10 @@
 
                         <!-- Preview Image -->
                         @isset($aboutUs->imageUpload)
-                        <img class="img-fluid" src="{{ asset('public/assets/video/'.$aboutUs->imageUpload) }}"
+                        <img class="img-fluid" src="{{ asset('/assets/video/'.$aboutUs->imageUpload) }}"
                         alt="video-preview">
                             @else
-                            <img class="img-fluid" src="{{ asset('public/assets/video/new-images/17a8091499.png') }}"
+                            <img class="img-fluid" src="{{ asset('/assets/video/new-images/17a8091499.png') }}"
                             alt="video-preview">
                         @endisset
                        
@@ -259,10 +259,10 @@
                             <!-- Preview Image -->
                             @isset($treatment->imageUpload)
                             <img class="img-fluid img_fg"
-                                src="{{ asset('public/assets/video/'.$treatment->imageUpload) }}" alt="video-preview">
+                                src="{{ asset('/assets/video/'.$treatment->imageUpload) }}" alt="video-preview">
                                 @else
                                 <img class="img-fluid img_fg"
-                                src="{{ asset('public/assets/images/new-images/about_us.png') }}" alt="video-preview">
+                                src="{{ asset('/assets/images/new-images/about_us.png') }}" alt="video-preview">
                             @endisset
                             
                         </div>
@@ -604,11 +604,11 @@
                                     <div class="featured-thumbnail">
                                         @isset($service->image1)
                                         <img width="620" height="332" class="img-fluid"
-                                            src="{{ asset('public/assets/video/'.$service->image1) }}"
+                                            src="{{ asset('/assets/video/'.$service->image1) }}"
                                             alt="img">
                                             @else
                                             <img width="620" height="332" class="img-fluid"
-                                            src="{{ asset('public/assets/images/new-images/qs-service1.png') }}"
+                                            src="{{ asset('/assets/images/new-images/qs-service1.png') }}"
                                             alt="img">
                                         @endisset
                                         
@@ -629,11 +629,11 @@
                                     <div class="featured-thumbnail">
                                         @isset($service->image2)
                                         <img width="620" height="332" class="img-fluid"
-                                        src="{{ asset('public/assets/video/'.$service->image2) }}"
+                                        src="{{ asset('/assets/video/'.$service->image2) }}"
                                         alt="img">
                                             @else
                                             <img width="620" height="332" class="img-fluid"
-                                            src="{{ asset('public/assets/images/new-images/medical-report.png') }}"
+                                            src="{{ asset('/assets/images/new-images/medical-report.png') }}"
                                             alt="img">
                                         @endisset
                                        
@@ -655,11 +655,11 @@
                                     <div class="featured-thumbnail">
                                         @isset($service->image3)
                                         <img width="620" height="332" class="img-fluid"
-                                        src="{{ asset('public/assets/video/'.$service->image3) }}"
+                                        src="{{ asset('/assets/video/'.$service->image3) }}"
                                         alt="img">
                                             @else
                                             <img width="620" height="332" class="img-fluid"
-                                            src="{{ asset('public/assets/images/new-images/bvgfhn.png') }}"
+                                            src="{{ asset('/assets/images/new-images/bvgfhn.png') }}"
                                             alt="img">
                                         @endisset
                                        
@@ -720,9 +720,9 @@
         </div>
         <div class="why_us_img">
             @isset($software->imageUpload)
-            <img src="{{ asset('public/assets/video/'.$software->imageUpload) }}" alt="">
+            <img src="{{ asset('/assets/video/'.$software->imageUpload) }}" alt="">
                 @else
-                <img src="{{ asset('public/assets/images/new-images/lab-4-min.jpg') }}" alt="">
+                <img src="{{ asset('/assets/images/new-images/lab-4-min.jpg') }}" alt="">
             @endisset
             
         </div>
@@ -747,10 +747,10 @@
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <div class="fid-map-items position-relative mt-60 res-1199-mt-30 res-767-mt-0">
                         @isset($branches->imageUpload)
-                        <img class="img-fluid" src="{{ asset('public/assets/video/'.$branches->imageUpload) }}"
+                        <img class="img-fluid" src="{{ asset('/assets/video/'.$branches->imageUpload) }}"
                         alt="image" width="590" height="296">
                             @else
-                            <img class="img-fluid" src="{{ asset('public/assets/images/new-images/maphvr.png') }}"
+                            <img class="img-fluid" src="{{ asset('/assets/images/new-images/maphvr.png') }}"
                             alt="image" width="590" height="296">
                         @endisset
                        
@@ -908,9 +908,9 @@
                         <div class="doctors-image">
                             <a href="#">
                                 @isset($Member->image_url)
-                                <img src="{{ asset('public/assets/video/'.$Member->image_url) }}" alt="image">
+                                <img src="{{ asset('/assets/video/'.$Member->image_url) }}" alt="image">
                                     @else
-                                    <img src="{{ asset('public/assets/images/new-images/dr-safi.png') }}" alt="image">
+                                    <img src="{{ asset('/assets/images/new-images/dr-safi.png') }}" alt="image">
                                 @endisset
                                 
                             </a>
@@ -1031,9 +1031,9 @@
                 <div class="col-lg-6">
                     <div class="contact_ushome_img">
                         @isset($contactUs->imageUpload)
-                        <img src="{{ asset('public/assets/video/'.$contactUs->imageUpload) }}" alt="">
+                        <img src="{{ asset('/assets/video/'.$contactUs->imageUpload) }}" alt="">
                             @else
-                            <img src="{{ asset('public/assets/images/new-images/contact-us-qs.png') }}" alt="">
+                            <img src="{{ asset('/assets/images/new-images/contact-us-qs.png') }}" alt="">
                         @endisset
                        
                     </div>
@@ -1048,7 +1048,7 @@
           $allfaq=DB::table('faq')->get();
          @endphp
     <section id="faqs-2" class="faqs-section faq_section"
-        style="background-image: url({{ asset('public/assets/video/'.$faq->imageUpload) }});">
+        style="background-image: url({{ asset('/assets/video/'.$faq->imageUpload) }});">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

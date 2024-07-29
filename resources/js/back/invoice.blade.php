@@ -701,7 +701,7 @@
                                                 </td>
 
                                                 @if ($amount->price)
-                                                    <td>AED {{ $amount->price }}.00</td>
+                                                    <td>{{env('SHOW_CURRENCY')}} {{ $amount->price }}.00</td>
                                                 @else
                                                     <td></td>
                                                 @endif
@@ -725,7 +725,7 @@
                                                 </td>
 
                                                 @if ($alltaskInvoice->finalAmount)
-                                                    <td>AED {{ $alltaskInvoice->finalAmount }}.00</td>
+                                                    <td>{{env('SHOW_CURRENCY')}} {{ $alltaskInvoice->finalAmount }}.00</td>
                                                 @else
                                                     <td></td>
                                                 @endif
@@ -797,7 +797,7 @@
                                        )"
                                                                         aria-controls="offcanvasBottom">
                                                                         <div class="comonactionbtn copybtn">
-                                                                            <img src="{{ url('public/assets/images/new-images/note.gif') }}"
+                                                                            <img src="{{ url('/assets/images/new-images/note.gif') }}"
                                                                                 alt="">
                                                                         </div>
                                                                     </li>
@@ -816,7 +816,7 @@
                                        )"
                                                                         aria-controls="offcanvasBottom">
                                                                         <div class="comonactionbtn copybtn">
-                                                                            <img src="{{ url('public/assets/images/new-images/note.gif') }}"
+                                                                            <img src="{{ url('/assets/images/new-images/note.gif') }}"
                                                                                 alt="">
                                                                         </div>
                                                                     </li>
@@ -834,7 +834,7 @@
 
                                                                         <div class="comonactionbtn printbtnacti">
 
-                                                                            <img src="{{ url('public/assets') }}/images/new-images/printer.gif"
+                                                                            <img src="{{ url('/assets') }}/images/new-images/printer.gif"
                                                                                 alt="">
 
                                                                         </div>
@@ -1076,7 +1076,7 @@
                                                         <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Total
                                                             invoice raised</p>
                                                         <div class="d-flex align-items-center justify-content-between">
-                                                            <h5 class="fw-semibold mb-0 lh-1 total_count__">AED
+                                                            <h5 class="fw-semibold mb-0 lh-1 total_count__">{{env('SHOW_CURRENCY')}}
                                                                 {{ $totalRased }}</h5>
                                                         </div>
                                                     </div>
@@ -1102,7 +1102,7 @@
                                                         <p class="mb-0 fs-10 op-7 text-muted fw-semibold title_">Total paid
                                                             invoice </p>
                                                         <div class="d-flex align-items-center justify-content-between">
-                                                            <h5 class="fw-semibold mb-0 lh-1 total_count__">AED
+                                                            <h5 class="fw-semibold mb-0 lh-1 total_count__">{{env('SHOW_CURRENCY')}}
                                                                 {{ $paidfinalAmount }}</h5>
                                                         </div>
                                                     </div>
@@ -1129,10 +1129,10 @@
                                                             unpaid invoice</p>
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             @if ($unpaidfinalAmount > 0)
-                                                                <h5 class="fw-semibold mb-0 lh-1 total_count__">AED
+                                                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{env('SHOW_CURRENCY')}}
                                                                     {{ $unpaidfinalAmount }}</h5>
                                                             @else
-                                                                <h5 class="fw-semibold mb-0 lh-1 total_count__">AED 0.00
+                                                                <h5 class="fw-semibold mb-0 lh-1 total_count__">{{env('SHOW_CURRENCY')}} 0.00
                                                                 </h5>
                                                             @endif
 

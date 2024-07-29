@@ -52,7 +52,7 @@
                         <div class="col-lg-=12">
                             <div class="form-group">
                               <label class="form-label">image Upload</label>
-                              <input name="imageUpload" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($contactUs->imageUpload)) data-default-file="{{ asset('public/assets/video'.'/'.$contactUs->imageUpload) }}" @endif/>
+                              <input name="imageUpload" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($contactUs->imageUpload)) data-default-file="{{ asset('/assets/video'.'/'.$contactUs->imageUpload) }}" @endif/>
                               @error('imageUpload')
                               <span class="text-danger font-size: 14px;">{{ $message }}</span>
                               @enderror

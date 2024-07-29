@@ -7,12 +7,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="ThemeMarch">
-    <link class="dark-theme-img" rel="icon" href="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
+    <link class="dark-theme-img" rel="icon" href="{{ asset('/assets/images/new-images/logofwhite.png') }}"
         type="image/x-icon">
 
     <!-- Site Title -->
     <title>Print Medical Record</title>
-    <link rel="stylesheet" href="{{ asset('public/assets/report-genrate/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/report-genrate/css/style.css') }}">
 </head>
 
 <style>
@@ -78,7 +78,7 @@
                 <div class="cs-invoice_head logo_head cs-type1 cs-mb25">
                     <div class="cs-invoice_right cs-text_right">
                         <div class="cs-logo cs-mb5"><img
-                                src="{{ asset('public/assets/report-genrate/img/FullLogo-01.svg') }}" alt="Logo">
+                                src="{{ asset('/assets/report-genrate/img/FullLogo-01.svg') }}" alt="Logo">
                         </div>
                     </div>
 
@@ -565,7 +565,7 @@
                         @if ($VaricoceleEmboForm)
                             <div class="ClinicalExam_section">
                                 <img
-                                    src="{{ asset('public/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData ?? '') }}" />
+                                    src="{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData ?? '') }}" />
                             </div>
                         @endif
 
@@ -1513,7 +1513,7 @@
                     <div class="MainBox">
                         <div class="leftSide">
                             <div class="footerogo">
-                                <img src="{{ asset('public/assets/report-genrate/img/dsgd.png') }}" alt="">
+                                <img src="{{ asset('/assets/report-genrate/img/dsgd.png') }}" alt="">
                             </div>
                             <div class="footerContact">
                                 <ul>
@@ -1593,10 +1593,10 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('public/assets/report-genrate/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('public/assets/report-genrate/js/jspdf.min.js') }}"></script>
-    <script src="{{ asset('public/assets/report-genrate/js/html2canvas.min.js') }}"></script>
-    <script src="{{ asset('public/assets/report-genrate/js/main.js') }}"></script>
+    <script src="{{ asset('/assets/report-genrate/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('/assets/report-genrate/js/jspdf.min.js') }}"></script>
+    <script src="{{ asset('/assets/report-genrate/js/html2canvas.min.js') }}"></script>
+    <script src="{{ asset('/assets/report-genrate/js/main.js') }}"></script>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js')}}"></script>
 </body>
 

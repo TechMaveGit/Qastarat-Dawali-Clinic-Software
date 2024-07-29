@@ -287,7 +287,7 @@
                             <input type="hidden" name="patient_id" value="{{ @$id }}" />
                             <div class="profile_img">
 
-                                <img src="{{ asset('public/assets/patient_profile/' . $patient->patient_profile_img) }}"
+                                <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                                     alt="">
 
                                 <div class="insure_btn">
@@ -911,10 +911,10 @@
 
                                                                         @if (isset($doctorDetail->patient_profile_img))
 
-                                                                        <img src="{{ asset('/public/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
+                                                                        <img src="{{ asset('//assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
 
                                                                         @else
-                                                                        <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+                                                                        <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
                                                                         @endif
 
@@ -933,7 +933,7 @@
                                                                         </p>
 
                                                                         @php
-                                                                        $documentUrl = asset('public/assets/referalDocument/' . $allreferaldoctors->upload_document);
+                                                                        $documentUrl = asset('/assets/referalDocument/' . $allreferaldoctors->upload_document);
                                                                         @endphp
                                                                         <p onclick="ViewSummary(`{{ $allreferaldoctors->patient_summary}}`,`{{ $documentUrl }}`)"> View Summary</p></span>
 
@@ -2020,7 +2020,7 @@
                                                                          
                                                                             
                                                                             
-                                                                            <a href="{{ asset('public/assets/thyroid-eligibility-form/' . $ViewImage->AnnotateimageData) }}" target="_blank" class="input-group-text view-image-icon">
+                                                                            <a href="{{ asset('/assets/thyroid-eligibility-form/' . $ViewImage->AnnotateimageData) }}" target="_blank" class="input-group-text view-image-icon">
                                                                                 <!-- Icon (change fa-eye to your desired icon class, e.g., fa-image for image icon) -->
                                                                                <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"> </i></span>Annotation Image <span class="sym_duration"></span>  <i class="far fa-eye csmimage"></i> </h6> 
                                                                             </a>   

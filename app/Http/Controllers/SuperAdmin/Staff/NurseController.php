@@ -117,7 +117,7 @@ class NurseController extends Controller
 
                 $files = $request->file('patient_profile_img');
 
-                $destinationPath = 'public/assets/nurse_profile';
+                $destinationPath = '/assets/nurse_profile';
                 $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $file_name);
 
@@ -281,7 +281,7 @@ class NurseController extends Controller
             $nurse_info=Doctor::findOrFail($id);
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
-                $destinationPath = 'public/assets/nurse_profile';
+                $destinationPath = '/assets/nurse_profile';
 
                 // Get the existing file path from the database
                 $existingFilePath = $nurse_info->patient_profile_img;
@@ -415,7 +415,7 @@ class NurseController extends Controller
         // dd($patient);
 
             $files = $request->file('patient_profile_img');
-            $destinationPath = 'public/assets/doctor_profile/';
+            $destinationPath = '/assets/doctor_profile/';
 
             // Get the existing file path from the database
             $existingFilePath = $Doctor->patient_profile_img;

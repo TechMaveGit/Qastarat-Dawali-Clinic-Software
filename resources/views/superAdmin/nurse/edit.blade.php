@@ -312,7 +312,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label class="form-label">Profile Image</label>
-                            <input type="file" class="dropify" data-default-file="{{ asset('/public/assets/nurse_profile/' . $nurse->patient_profile_img) }}" name="patient_profile_img" accept="image/*"/>
+                            <input type="file" class="dropify" data-default-file="{{ asset('//assets/nurse_profile/' . $nurse->patient_profile_img) }}" name="patient_profile_img" accept="image/*"/>
                         </div>
                     </div>
                     

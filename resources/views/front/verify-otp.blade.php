@@ -22,7 +22,7 @@
 
 		<!-- FAVICON AND TOUCH ICONS -->
 
-		<link rel="icon" href="{{ url('public/assets') }}/images/new-images/favicon-qastarat.png" type="image/x-icon">
+		<link rel="icon" href="{{ url('/assets') }}/images/new-images/favicon-qastarat.png" type="image/x-icon">
 
 
 
@@ -44,71 +44,71 @@
 
 		<!-- BOOTSTRAP CSS -->
 
-		<link href="{{ url('public/assets') }}/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{{ url('/assets') }}/css/bootstrap.min.css" rel="stylesheet">
 
 				
 
 		<!-- FONT ICONS -->
 
-		<link href="{{ url('public/assets') }}/css/flaticon.css" rel="stylesheet">
+		<link href="{{ url('/assets') }}/css/flaticon.css" rel="stylesheet">
 
 
 
 		<!-- PLUGINS STYLESHEET -->
 
-		<link href="{{ url('public/assets') }}/css/menu.css" rel="stylesheet">	
+		<link href="{{ url('/assets') }}/css/menu.css" rel="stylesheet">	
 
-		<link id="effect" href="{{ url('public/assets') }}/css/dropdown-effects/fade-down.css" media="all" rel="stylesheet">
+		<link id="effect" href="{{ url('/assets') }}/css/dropdown-effects/fade-down.css" media="all" rel="stylesheet">
 
-		<link href="{{ url('public/assets') }}/css/magnific-popup.css" rel="stylesheet">	
+		<link href="{{ url('/assets') }}/css/magnific-popup.css" rel="stylesheet">	
 
-		<link href="{{ url('public/assets') }}/css/owl.carousel.min.css" rel="stylesheet">
+		<link href="{{ url('/assets') }}/css/owl.carousel.min.css" rel="stylesheet">
 
-		<link href="{{ url('public/assets') }}/css/owl.theme.default.min.css" rel="stylesheet">
+		<link href="{{ url('/assets') }}/css/owl.theme.default.min.css" rel="stylesheet">
 
-		<link href="{{ url('public/assets') }}/css/lunar.css" rel="stylesheet">
+		<link href="{{ url('/assets') }}/css/lunar.css" rel="stylesheet">
 
 
 
 		<!-- ON SCROLL ANIMATION -->
 
-		<link href="{{ url('public/assets') }}/css/animate.css" rel="stylesheet">
+		<link href="{{ url('/assets') }}/css/animate.css" rel="stylesheet">
 
 
 
 		<!-- TEMPLATE CSS -->
 
-		<link href="{{ url('public/assets') }}/css/blue-theme.css" rel="stylesheet">
+		<link href="{{ url('/assets') }}/css/blue-theme.css" rel="stylesheet">
 
 
 
 		<!-- Style Switcher CSS -->	
 
-		<link href="{{ url('public/assets') }}/css/crocus-theme.css" rel="alternate stylesheet" title="crocus-theme">	
+		<link href="{{ url('/assets') }}/css/crocus-theme.css" rel="alternate stylesheet" title="crocus-theme">	
 
-		<link href="{{ url('public/assets') }}/css/green-theme.css" rel="alternate stylesheet" title="green-theme">
+		<link href="{{ url('/assets') }}/css/green-theme.css" rel="alternate stylesheet" title="green-theme">
 
-		<link href="{{ url('public/assets') }}/css/magenta-theme.css" rel="alternate stylesheet" title="magenta-theme">
+		<link href="{{ url('/assets') }}/css/magenta-theme.css" rel="alternate stylesheet" title="magenta-theme">
 
-		<link href="{{ url('public/assets') }}/css/pink-theme.css" rel="alternate stylesheet" title="pink-theme">	
+		<link href="{{ url('/assets') }}/css/pink-theme.css" rel="alternate stylesheet" title="pink-theme">	
 
-		<link href="{{ url('public/assets') }}/css/purple-theme.css" rel="alternate stylesheet" title="purple-theme">
+		<link href="{{ url('/assets') }}/css/purple-theme.css" rel="alternate stylesheet" title="purple-theme">
 
-		<link href="{{ url('public/assets') }}/css/skyblue-theme.css" rel="alternate stylesheet" title="skyblue-theme">	
+		<link href="{{ url('/assets') }}/css/skyblue-theme.css" rel="alternate stylesheet" title="skyblue-theme">	
 
-		<link href="{{ url('public/assets') }}/css/red-theme.css" rel="alternate stylesheet" title="red-theme">	
+		<link href="{{ url('/assets') }}/css/red-theme.css" rel="alternate stylesheet" title="red-theme">	
 
-		<link href="{{ url('public/assets') }}/css/violet-theme.css" rel="alternate stylesheet" title="violet-theme">	
+		<link href="{{ url('/assets') }}/css/violet-theme.css" rel="alternate stylesheet" title="violet-theme">	
 
 		
 
 		<!-- RESPONSIVE CSS -->
 
-		<link href="{{ url('public/assets') }}/css/responsive.css" rel="stylesheet">
+		<link href="{{ url('/assets') }}/css/responsive.css" rel="stylesheet">
 
-		<script src="{{ url('public/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
+		<script src="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
 
-		<link rel="stylesheet" href="{{ url('public/assets') }}/libs/sweetalert2/sweetalert2.min.css">
+		<link rel="stylesheet" href="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.css">
 
 	</head>
 
@@ -228,9 +228,9 @@
 
 							<div class="login-page-logo">
 
-								<img class="img-fluid light-theme-img" src="{{ url('public/assets') }}/images/new-images/qastrat-logo2.png" alt="logo-image">		
+								<img class="img-fluid light-theme-img" src="{{ url('/assets') }}/images/new-images/qastrat-logo2.png" alt="logo-image">		
 
-								<img class="img-fluid dark-theme-img" src="{{ url('public/assets') }}/images/new-images/qastrat-logo2.png" alt="logo-image">			
+								<img class="img-fluid dark-theme-img" src="{{ url('/assets') }}/images/new-images/qastrat-logo2.png" alt="logo-image">			
 
 							</div> 	
 
@@ -303,41 +303,41 @@
 
 		============================================= -->	
 
-		<script src="{{ url('public/assets') }}/js/jquery-3.7.0.min.js"></script>
+		<script src="{{ url('/assets') }}/js/jquery-3.7.0.min.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/bootstrap.min.js"></script>	
+		<script src="{{ url('/assets') }}/js/bootstrap.min.js"></script>	
 
-		<script src="{{ url('public/assets') }}/js/modernizr.custom.js"></script>
+		<script src="{{ url('/assets') }}/js/modernizr.custom.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/jquery.easing.js"></script>
+		<script src="{{ url('/assets') }}/js/jquery.easing.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/jquery.appear.js"></script>
+		<script src="{{ url('/assets') }}/js/jquery.appear.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/menu.js"></script>
+		<script src="{{ url('/assets') }}/js/menu.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/owl.carousel.min.js"></script>
+		<script src="{{ url('/assets') }}/js/owl.carousel.min.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/pricing-toggle.js"></script>
+		<script src="{{ url('/assets') }}/js/pricing-toggle.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/jquery.magnific-popup.min.js"></script>
+		<script src="{{ url('/assets') }}/js/jquery.magnific-popup.min.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/request-form.js"></script>	
+		<script src="{{ url('/assets') }}/js/request-form.js"></script>	
 
-		<script src="{{ url('public/assets') }}/js/jquery.validate.min.js"></script>
+		<script src="{{ url('/assets') }}/js/jquery.validate.min.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/jquery.ajaxchimp.min.js"></script>	
+		<script src="{{ url('/assets') }}/js/jquery.ajaxchimp.min.js"></script>	
 
-		<script src="{{ url('public/assets') }}/js/popper.min.js"></script>
+		<script src="{{ url('/assets') }}/js/popper.min.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/lunar.js"></script>
+		<script src="{{ url('/assets') }}/js/lunar.js"></script>
 
-		<script src="{{ url('public/assets') }}/js/wow.js"></script>
+		<script src="{{ url('/assets') }}/js/wow.js"></script>
 
 				
 
 		<!-- Custom Script -->		
 
-		<script src="{{ url('public/assets') }}/js/custom.js"></script>
+		<script src="{{ url('/assets') }}/js/custom.js"></script>
 
 
 
@@ -425,9 +425,9 @@
 
 
 
-		<script src="{{ url('public/assets') }}/js/changer.js"></script>
+		<script src="{{ url('/assets') }}/js/changer.js"></script>
 
-		<script defer src="{{ url('public/assets') }}/js/styleswitch.js"></script>	
+		<script defer src="{{ url('/assets') }}/js/styleswitch.js"></script>	
 
 
 

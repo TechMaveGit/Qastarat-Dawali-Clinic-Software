@@ -5,7 +5,7 @@ Cookie | QASTARAT & DAWALI CLINICS
 @section('content-section')
 
 <section id="hero-15" class="bg--scroll innerbannerSection hero-section"
-   style="background-image: url({{ asset('public/assets/images/new-images/page-title.jpg') }});">
+   style="background-image: url({{ asset('/assets/images/new-images/page-title.jpg') }});">
    <div class="container">
       <!-- <div id="owl-carousel" class="service_slider owl-carousel owl-theme"></div> -->
       <div class="row d-flex ">

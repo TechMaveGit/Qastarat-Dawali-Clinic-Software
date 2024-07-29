@@ -263,7 +263,7 @@ class DoctorAuthController extends Controller
         // doctor
         if($doctor->role_id=='1'){
             // if(isset($doctor->patient_profile_img)){
-            //     unlink('public/assets/doctor_profile'.'/'.$doctor->patient_profile_img);
+            //     unlink('/assets/doctor_profile'.'/'.$doctor->patient_profile_img);
             // }
             $image = $data['patient_profile_img'];
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -274,7 +274,7 @@ class DoctorAuthController extends Controller
         // Nurse
         if($doctor->role_id=='2'){
             // if(isset($doctor->patient_profile_img)){
-            //     unlink('public/assets/nurse_profile'.'/'.$doctor->patient_profile_img);
+            //     unlink('/assets/nurse_profile'.'/'.$doctor->patient_profile_img);
             // }
             $image = $data['patient_profile_img'];
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -285,7 +285,7 @@ class DoctorAuthController extends Controller
          // Accountant
          if($doctor->role_id=='5'){
             // if(isset($doctor->patient_profile_img)){
-            //     unlink('public/assets/accountant_profile'.'/'.$doctor->patient_profile_img);
+            //     unlink('/assets/accountant_profile'.'/'.$doctor->patient_profile_img);
             // }
             $image = $data['patient_profile_img'];
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -296,7 +296,7 @@ class DoctorAuthController extends Controller
          // Telecaller
          if($doctor->role_id=='6'){
             // if(isset($doctor->patient_profile_img)){
-            //     unlink('public/assets/telecaller_profile'.'/'.$doctor->patient_profile_img);
+            //     unlink('/assets/telecaller_profile'.'/'.$doctor->patient_profile_img);
             // }
             $image = $data['patient_profile_img'];
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -307,7 +307,7 @@ class DoctorAuthController extends Controller
          // Telecaller
          if($doctor->role_id=='11'){
             // if(isset($doctor->patient_profile_img)){
-            //     unlink('public/assets/accountant_profile'.'/'.$doctor->patient_profile_img);
+            //     unlink('/assets/accountant_profile'.'/'.$doctor->patient_profile_img);
             // }
             $image = $data['patient_profile_img'];
             $new_name = rand() . '.' . $image->getClientOriginalExtension();

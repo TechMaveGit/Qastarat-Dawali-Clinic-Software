@@ -50,7 +50,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                               <label class="form-label">Image</label>
-                              <input name="image1" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($service->image1)) data-default-file="{{ asset('public/assets/video'.'/'.$service->image1) }}" @endif/>
+                              <input name="image1" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($service->image1)) data-default-file="{{ asset('/assets/video'.'/'.$service->image1) }}" @endif/>
                               @error('image1')
                               <span class="text-danger font-size: 14px;">{{ $message }}</span>
                               @enderror
@@ -79,7 +79,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                       <label class="form-label">Image</label>
-                                      <input name="image2" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($service->image2)) data-default-file="{{ asset('public/assets/video'.'/'.$service->image2) }}" @endif/>
+                                      <input name="image2" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($service->image2)) data-default-file="{{ asset('/assets/video'.'/'.$service->image2) }}" @endif/>
                                       @error('image2')
                                       <span class="text-danger font-size: 14px;">{{ $message }}</span>
                                       @enderror
@@ -108,7 +108,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                               <label class="form-label">Image</label>
-                                              <input name="image3" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($service->image3)) data-default-file="{{ asset('public/assets/video'.'/'.$service->image3) }}" @endif/>
+                                              <input name="image3" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($service->image3)) data-default-file="{{ asset('/assets/video'.'/'.$service->image3) }}" @endif/>
                                               @error('image3')
                                               <span class="text-danger font-size: 14px;">{{ $message }}</span>
                                               @enderror

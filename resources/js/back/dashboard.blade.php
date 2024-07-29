@@ -62,22 +62,22 @@
                         $doctor = auth('doctor')->user();
                         $doctor_profile = '';
                         if ($doctor->role_id == '1') {
-                            $doctor_profile = asset('public/assets/profileImage/') . '/' . $doctor->patient_profile_img;
+                            $doctor_profile = asset('/assets/profileImage/') . '/' . $doctor->patient_profile_img;
                         } elseif ($doctor->role_id == '2') {
                             $doctor_profile =
-                                asset('public/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
+                                asset('/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
                         } elseif ($doctor->role_id == '5') {
                             $doctor_profile =
-                                asset('public/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
+                                asset('/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
                         } elseif ($doctor->role_id == '6') {
                             $doctor_profile =
-                                asset('public/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
+                                asset('/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
                         } elseif ($doctor->role_id == '11') {
                             $doctor_profile =
-                                asset('public/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
+                                asset('/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
                         } elseif ($doctor->role_id == '10') {
                             $doctor_profile =
-                                asset('public/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
+                                asset('/assets/nurse_profile/') . '/' . $doctor->patient_profile_img;
                         }
 
                     @endphp
@@ -85,13 +85,13 @@
 
 
                     @isset($doctor->patient_profile_img)
-                        <img src="{{ $doctor_profile ?? asset('public/assets/images/team-13.jpg') }}" alt="db_img">
+                        <img src="{{ $doctor_profile ?? asset('/assets/images/team-13.jpg') }}" alt="db_img">
                     @else
-                        <img src="{{ asset('public/assets/images/team-13.jpg') }}" alt="temp_img">
+                        <img src="{{ asset('/assets/images/team-13.jpg') }}" alt="temp_img">
                     @endisset
                 </div>
                 <div class="back">
-                    <img src="{{ asset('public/assets/images/new-images/qastara-logo1.png') }}" />
+                    <img src="{{ asset('/assets/images/new-images/qastara-logo1.png') }}" />
                 </div>
             </div>
         </div>

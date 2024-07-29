@@ -120,7 +120,7 @@
                                                     <div class="single-doctors-card">
                                                         <div class="doctors-image">
                                                             <div class="form-group">
-                                                            <input name="member_image" type="file"  class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($member->image_url)) data-default-file="{{ asset('public/assets/video'.'/'.$member->image_url) }}" @endif/>
+                                                            <input name="member_image" type="file"  class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($member->image_url)) data-default-file="{{ asset('/assets/video'.'/'.$member->image_url) }}" @endif/>
                                                                     @if(isset($member->image_url))
                                                                     <input type="hidden" name="current_image" value="{{ $member->image_url }}">
                                                                     @endif
@@ -272,7 +272,7 @@
  </div>
  </div>
  @push('custom-js')
- <script src="{{ url('public/assets') }}/js/jquery-3.7.0.min.js"></script>
+ <script src="{{ url('/assets') }}/js/jquery-3.7.0.min.js"></script>
 
  @if (session('status'))
 <script>

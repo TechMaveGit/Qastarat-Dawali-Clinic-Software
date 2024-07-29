@@ -11,7 +11,7 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
 @endphp
 
 
-<link rel="stylesheet" href="{{ asset('public/assets/invoiceassets/css/style.css')}}">
+<link rel="stylesheet" href="{{ asset('/assets/invoiceassets/css/style.css')}}">
 
 
 <div class="main_invoicing" id="printContent">
@@ -24,7 +24,7 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
           <div class="tm_invoice_in">
             <div class="tm_invoice_head tm_align_center tm_mb20">  
               <div class="tm_invoice_left">    
-                <div class="tm_logo"><img src="{{ url('public/assets') }}/video/657131764.png" alt="Logo"></div>   
+                <div class="tm_logo"><img src="{{ url('/assets') }}/video/657131764.png" alt="Logo"></div>   
               </div>
 
 
@@ -115,7 +115,7 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
                           <td class="tm_width_2">{{ $printData->invoiceNumber }}</td>
                           <td class="tm_width_1">{{ $printData->discount }}%</td>
                           <td class="tm_width_1">{{ $printData->vatDiscount }}%</td>
-                          <td class="tm_width_2 tm_text_right">AED {{ $printData->finalAmount }} </td>
+                          <td class="tm_width_2 tm_text_right">{{env('SHOW_CURRENCY')}} {{ $printData->finalAmount }} </td>
                         </tr>
                     </tbody>
                   </table>
@@ -143,7 +143,7 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
                       </tr> -->
                       <tr class="tm_border_top tm_border_bottom">
                         <td class="tm_width_3 tm_border_top_0 tm_bold tm_f16 tm_primary_color">Grand Total	</td>
-                        <td class="tm_width_3 tm_border_top_0 tm_bold tm_f16 tm_primary_color tm_text_right">AED {{ $printData->finalAmount }}</td>
+                        <td class="tm_width_3 tm_border_top_0 tm_bold tm_f16 tm_primary_color tm_text_right">{{env('SHOW_CURRENCY')}} {{ $printData->finalAmount }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -213,10 +213,10 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
 
 
 
-  <script src="{{ url('public/assets') }}/invoiceassets/js/jquery.min.js"></script>
-  <script src="{{ url('public/assets') }}/invoiceassets/js/jspdf.min.js"></script>
-  <script src="{{ url('public/assets') }}/invoiceassets/js/html2canvas.min.js"></script>
-  <script src="{{ url('public/assets') }}/invoiceassets/js/main.js"></script>
+  <script src="{{ url('/assets') }}/invoiceassets/js/jquery.min.js"></script>
+  <script src="{{ url('/assets') }}/invoiceassets/js/jspdf.min.js"></script>
+  <script src="{{ url('/assets') }}/invoiceassets/js/html2canvas.min.js"></script>
+  <script src="{{ url('/assets') }}/invoiceassets/js/main.js"></script>
 
   
 @endsection

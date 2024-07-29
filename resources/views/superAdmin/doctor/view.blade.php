@@ -40,14 +40,14 @@
                                     <div class="profile_main">
                                         <div class="circle">
 
-                                            {{-- https://techmavesoftwaredev.com/webclinic/public/superAdmin/images/avatar/avatar-1.png --}}
+                                            {{-- https://techmavesoftwaredev.com/webclinic//superAdmin/images/avatar/avatar-1.png --}}
 
                                             @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
-                                                <img src="{{ asset('/public/assets/profileImage/' . $doctor->patient_profile_img) }}"
+                                                <img src="{{ asset('//assets/profileImage/' . $doctor->patient_profile_img) }}"
                                                     alt="">
                                             @else
                                                 <img class="profile-pic"
-                                                    src="{{ asset('public/superAdmin/images/newimages/avtar.jpg') }}"
+                                                    src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
                                                     alt="">
                                             @endif
 
@@ -226,15 +226,15 @@
 
 
                                                             @if ($extension == 'pdf')
-                                                                <a href="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}"
+                                                                <a href="{{ asset('/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}"
                                                                     target="_blank">View License Document</a>
                                                             @elseif($extension == 'xlsx')
-                                                                <a href="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}"
+                                                                <a href="{{ asset('/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}"
                                                                     target="_blank">View License Document</a>
                                                             @else
-                                                                <a href="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}"
+                                                                <a href="{{ asset('/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}"
                                                                     target="_blank">
-                                                                    <img src="{{ asset('public/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}"
+                                                                    <img src="{{ asset('/assets/LicenseUpload') }}/{{ $doctor->LicenseUpload }}"
                                                                         alt="License Image" />
                                                                 </a>
                                                             @endif
@@ -249,7 +249,7 @@
                                                     </div>
                                                     <div class="detail_ans imageSize">
                                                         @if ($doctor->AcademicDocumentUpload)
-                                                            <a href="{{ asset('public/assets/AcademicDocumentUpload') }}/{{ $doctor->AcademicDocumentUpload }}"
+                                                            <a href="{{ asset('/assets/AcademicDocumentUpload') }}/{{ $doctor->AcademicDocumentUpload }}"
                                                                 target="_blank">
                                                                 <i class="fas fa-file-pdf"></i> Academic Document
                                                             </a>

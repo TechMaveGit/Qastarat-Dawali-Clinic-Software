@@ -36,7 +36,7 @@
                                                          </tr>
                                                       
                                                          <tr>
-                                                            <td  align="center"><img style="display:block;width:100%;max-width:70px;" alt="img" src="{{ asset('public/assets/images/icon.png') }}" width="70"></td>
+                                                            <td  align="center"><img style="display:block;width:100%;max-width:70px;" alt="img" src="{{ asset('/assets/images/icon.png') }}" width="70"></td>
                                                          </tr>
                                                          <tr>
                                                             <td height="20">&nbsp;</td>

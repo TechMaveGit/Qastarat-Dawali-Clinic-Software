@@ -49,7 +49,7 @@
 
 					<div class="box">
 
-						<div class="box-body text-end min-h-150" style="background-image:url('{{ asset('public/superAdmin/images/gallery/landscape14.jpg')}}'); background-repeat: no-repeat; background-position: center;background-size: cover;">
+						<div class="box-body text-end min-h-150" style="background-image:url('{{ asset('/superAdmin/images/gallery/landscape14.jpg')}}'); background-repeat: no-repeat; background-position: center;background-size: cover;">
 
 							<a href="doctor-edit.php" class="btn-md btn btn-success"><i class="fa-regular fa-pen-to-square"></i> Edit</a>	
 
@@ -59,13 +59,13 @@
 
 							<div class="d-md-flex align-items-end">
 
-								<!-- <img src="{{ asset('public/superAdmin/images/avatar/avatar-1.png')}}" class="bg-success-light rounded10 me-20" alt="" /> -->
+								<!-- <img src="{{ asset('/superAdmin/images/avatar/avatar-1.png')}}" class="bg-success-light rounded10 me-20" alt="" /> -->
 
                                 <div class="profile_main">
 
                                     <div class="circle">
 
-                                    <img class="profile-pic" src="{{ asset('public/superAdmin/images/avatar3.png')}}">
+                                    <img class="profile-pic" src="{{ asset('/superAdmin/images/avatar3.png')}}">
 
 
 
@@ -325,7 +325,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/1.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/1.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -355,7 +355,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/2.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/2.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -385,7 +385,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/3.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/3.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -415,7 +415,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/4.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/4.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -445,7 +445,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/5.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/5.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -475,7 +475,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/6.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/6.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -505,7 +505,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/7.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/7.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -535,7 +535,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/8.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/8.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -565,7 +565,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/9.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/9.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -595,7 +595,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/1.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/1.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 
@@ -625,7 +625,7 @@
 
 										<div class="me-15">
 
-											<img src="{{ asset('public/superAdmin/images/avatar/2.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
+											<img src="{{ asset('/superAdmin/images/avatar/2.jpg')}}" class="avatar avatar-lg rounded10 bg-primary-light" alt="" />
 
 										</div>
 

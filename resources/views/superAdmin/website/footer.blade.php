@@ -22,7 +22,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                               <label class="form-label">website logo</label>
-                              <input name="websitelogo" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->websitelogo)) data-default-file="{{ asset('public/assets/video'.'/'.$footer->websitelogo) }}" @endif/>
+                              <input name="websitelogo" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->websitelogo)) data-default-file="{{ asset('/assets/video'.'/'.$footer->websitelogo) }}" @endif/>
                               @error('websitelogo')
                               <span class="text-danger font-size: 14px;">{{ $message }}</span>
                               @enderror
@@ -67,7 +67,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                               <label class="form-label">logo</label>
-                              <input name="logo1" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->logo1)) data-default-file="{{ asset('public/assets/video'.'/'.$footer->logo1) }}" @endif/>
+                              <input name="logo1" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->logo1)) data-default-file="{{ asset('/assets/video'.'/'.$footer->logo1) }}" @endif/>
                               @error('logo1')
                               <span class="text-danger font-size: 14px;">{{ $message }}</span>
                               @enderror
@@ -96,7 +96,7 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                       <label class="form-label">logo</label>
-                                      <input name="logo2" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->logo2)) data-default-file="{{ asset('public/assets/video'.'/'.$footer->logo2) }}" @endif/>
+                                      <input name="logo2" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->logo2)) data-default-file="{{ asset('/assets/video'.'/'.$footer->logo2) }}" @endif/>
                                       @error('logo2')
                                       <span class="text-danger font-size: 14px;">{{ $message }}</span>
                                       @enderror
@@ -125,7 +125,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                               <label class="form-label">logo</label>
-                                              <input name="logo3" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->logo3)) data-default-file="{{ asset('public/assets/video'.'/'.$footer->logo3) }}" @endif/>
+                                              <input name="logo3" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->logo3)) data-default-file="{{ asset('/assets/video'.'/'.$footer->logo3) }}" @endif/>
                                               @error('logo3')
                                               <span class="text-danger font-size: 14px;">{{ $message }}</span>
                                               @enderror
@@ -154,7 +154,7 @@
                                                 <div class="col-lg-4">
                                                     <div class="form-group">
                                                       <label class="form-label">logo</label>
-                                                      <input name="logo4" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->logo4)) data-default-file="{{ asset('public/assets/video'.'/'.$footer->logo4) }}" @endif/>
+                                                      <input name="logo4" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($footer->logo4)) data-default-file="{{ asset('/assets/video'.'/'.$footer->logo4) }}" @endif/>
                                                       @error('logo4')
                                                       <span class="text-danger font-size: 14px;">{{ $message }}</span>
                                                       @enderror

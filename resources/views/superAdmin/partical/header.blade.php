@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-	<link class="dark-theme-img" rel="icon" href="{{ asset('public/assets/images/new-images/imgpsh_fullsize_anim (1).png') }}" type="image/x-icon">
+	<link class="dark-theme-img" rel="icon" href="{{ asset('/assets/images/new-images/imgpsh_fullsize_anim (1).png') }}" type="image/x-icon">
 
     @stack('title')
 
@@ -16,26 +16,26 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<!-- Vendors Style-->
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/vendors_css.css')}}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/css/vendors_css.css')}}">
 
 	<!-- Style-->
 
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/style.css') }}">
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/skin_color.css')}}">
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/custom.css')}}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/css/skin_color.css')}}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/css/custom.css')}}">
 
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/sumoselect.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/css/sumoselect.min.css')}}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-	<link href="{{ url('public/assets') }}/css/flaticon.css" rel="stylesheet">
+	<link href="{{ url('/assets') }}/css/flaticon.css" rel="stylesheet">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
-   <link href="{{ asset('public/assets/css/toastr.min.css')}}" rel="stylesheet">
+   <link href="{{ asset('/assets/css/toastr.min.css')}}" rel="stylesheet">
  <!-- CHARTJS JS -->
  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 	<style>
@@ -80,9 +80,9 @@
 	<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
 	<!-- sweetalert2 asset CSS and JS -->
 
-	<script src="{{ url('public/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
+	<script src="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
 
-	<link rel="stylesheet" href="{{ url('public/assets') }}/libs/sweetalert2/sweetalert2.min.css">
+	<link rel="stylesheet" href="{{ url('/assets') }}/libs/sweetalert2/sweetalert2.min.css">
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-success fixed">
@@ -162,9 +162,9 @@
 		<a href="{{ route('super-admin.dashboard') }}" class="logo">
 		  <!-- logo-->
 		  <div class="logo-mini">
-			  <span class="light-logo LogoFull_width"><img src="{{ asset('public/superAdmin/images/newimages/qastara-logo.png') }}" alt="logo"></span>
-			  <span class="light-logo logowIcon"><img src="{{ asset('public/superAdmin/images/newimages/FullLogo-icon.png') }}" alt="logo"></span>
-			  <!-- <span class="dark-logo"><img src="{{ asset('public/superAdmin/images/logo-letter.png') }}" alt="logo"></span> -->
+			  <span class="light-logo LogoFull_width"><img src="{{ asset('/superAdmin/images/newimages/qastara-logo.png') }}" alt="logo"></span>
+			  <span class="light-logo logowIcon"><img src="{{ asset('/superAdmin/images/newimages/FullLogo-icon.png') }}" alt="logo"></span>
+			  <!-- <span class="dark-logo"><img src="{{ asset('/superAdmin/images/logo-letter.png') }}" alt="logo"></span> -->
 		  </div>
 
 		</a>
@@ -267,7 +267,7 @@
 						<p class="pt-5 fs-14 mb-0 fw-700 text-primary">{{ auth('admin')->user()->name }}</p>
 						<small class="fs-10 mb-0 text-uppercase text-mute">Admin</small>
 					</div>
-					<img src="{{ asset('public/superAdmin/images/avatar/images.png')}}" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />
+					<img src="{{ asset('/superAdmin/images/avatar/images.png')}}" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />
 				</div>
             </a>
             <ul class="dropdown-menu animated flipInX">
@@ -443,7 +443,7 @@
 			  <div class="sidebar-widgets">
 				  <div class="mx-25 mb-30 pb-20 side-bx bg-primary-light rounded20">
 					<div class="text-center">
-						<img src="{{ asset('public/superAdmin/images/sidebar-img.svg')}}" class="sideimg p-5" alt="">
+						<img src="{{ asset('/superAdmin/images/sidebar-img.svg')}}" class="sideimg p-5" alt="">
 						<h4 class="title-bx text-primary">Make an Appointments</h4>
 						<a href="javascript:void(0);" class="py-10 fs-14 mb-0 text-primary">
 							Best Helth Care here <i class="mdi mdi-arrow-right"></i>

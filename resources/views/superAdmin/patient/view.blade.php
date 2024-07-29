@@ -40,9 +40,9 @@
 
 
                                         @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
-                                        <img src="{{ asset('/public/assets/patient_profile/' . $doctor->patient_profile_img) }}" alt="">
+                                        <img src="{{ asset('//assets/patient_profile/' . $doctor->patient_profile_img) }}" alt="">
                                         @else
-                                        <img class="profile-pic" src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+                                        <img class="profile-pic" src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
                                         @endif
 
@@ -158,8 +158,8 @@
 
                                             <div class="detail_ans imageSize">
                                                 @if($doctor->patient_profile_img)
-                                                 <a href="{{ asset('public/assets/patient_profile') }}/{{ $doctor->patient_profile_img }}" target="_blank">
-                                                            <img src="{{ asset('public/assets/patient_profile') }}/{{ $doctor->patient_profile_img }}" alt="Profile Image" style="max-width: 50%;"/>
+                                                 <a href="{{ asset('/assets/patient_profile') }}/{{ $doctor->patient_profile_img }}" target="_blank">
+                                                            <img src="{{ asset('/assets/patient_profile') }}/{{ $doctor->patient_profile_img }}" alt="Profile Image" style="max-width: 50%;"/>
                                                 </a>
                                                 @endif
                                             </div>

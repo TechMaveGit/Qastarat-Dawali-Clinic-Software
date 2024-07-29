@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ asset('public/superAdmin/images/newimages/iconlogo.png')}}">
+    <link rel="icon" href="{{ asset('/superAdmin/images/newimages/iconlogo.png')}}">
 
     @stack('title')
 
@@ -15,15 +15,15 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<!-- Vendors Style-->
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/vendors_css.css')}}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/css/vendors_css.css')}}">
 
 	<!-- Style-->
 
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/style.css') }}">
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/skin_color.css')}}">
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/ccss/custom.css')}}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/css/skin_color.css')}}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/ccss/custom.css')}}">
 	<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
-	<link rel="stylesheet" href="{{ asset('public/superAdmin/css/sumoselect.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('/superAdmin/css/sumoselect.min.css')}}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -110,9 +110,9 @@
 		<a href="{{ route('super-admin.dashboard') }}" class="logo">
 		  <!-- logo-->
 		  <div class="logo-mini">
-			  <span class="light-logo LogoFull_width"><img src="{{ asset('public/superAdmin/images/newimages/logo.png') }}" alt="logo"></span>
-			  <span class="light-logo logowIcon"><img src="{{ asset('public/superAdmin/images/newimages/iconlogo.png') }}" alt="logo"></span>
-			  <span class="dark-logo"><img src="{{ asset('public/superAdmin/images/logo-letter.png') }}" alt="logo"></span>
+			  <span class="light-logo LogoFull_width"><img src="{{ asset('/superAdmin/images/newimages/logo.png') }}" alt="logo"></span>
+			  <span class="light-logo logowIcon"><img src="{{ asset('/superAdmin/images/newimages/iconlogo.png') }}" alt="logo"></span>
+			  <span class="dark-logo"><img src="{{ asset('/superAdmin/images/logo-letter.png') }}" alt="logo"></span>
 		  </div>
 
 		</a>
@@ -215,7 +215,7 @@
 						<p class="pt-5 fs-14 mb-0 fw-700 text-primary">{{ auth('admin')->user()->name }}</p>
 						<small class="fs-10 mb-0 text-uppercase text-mute">Admin</small>
 					</div>
-					<img src="{{ asset('public/superAdmin/images/avatar/avatar-1.png')}}" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />
+					<img src="{{ asset('/superAdmin/images/avatar/avatar-1.png')}}" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />
 				</div>
             </a>
             <ul class="dropdown-menu animated flipInX">
@@ -373,7 +373,7 @@
 			  <div class="sidebar-widgets">
 				  <div class="mx-25 mb-30 pb-20 side-bx bg-primary-light rounded20">
 					<div class="text-center">
-						<img src="{{ asset('public/superAdmin/https://rhythm-admin-template.multipurposethemes.com/images/svg-icon/color-svg/custom-17.svg" class="sideimg p-5" alt="">
+						<img src="{{ asset('/superAdmin/https://rhythm-admin-template.multipurposethemes.com/images/svg-icon/color-svg/custom-17.svg" class="sideimg p-5" alt="">
 						<h4 class="title-bx text-primary">Make an Appointments</h4>
 						<a href="javascript:void(0);" class="py-10 fs-14 mb-0 text-primary">
 							Best Helth Care here <i class="mdi mdi-arrow-right"></i>

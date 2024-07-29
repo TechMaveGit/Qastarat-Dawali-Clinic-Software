@@ -65,7 +65,7 @@
                                                     <td>{{ $allpathology_price_list->included_tests }}</td>
                                                     <td>{{ $allpathology_price_list->turnaround }}</td>
                                                     <td>{{ $allpathology_price_list->note }}</td>
-                                                    <td>AED {{ $allpathology_price_list->price }}</td>
+                                                    <td>{{env('SHOW_CURRENCY')}} {{ $allpathology_price_list->price }}</td>
                                                     <td>
                                                     <ul class="action_icons">
 

@@ -8,7 +8,7 @@
 
 
 <div class="sub_bnr"
-    style="background-image: url({{ asset('public/assets/images/hero-15.jpg') }});">
+    style="background-image: url({{ asset('/assets/images/hero-15.jpg') }});">
 
     <div class="sub_bnr_cnt">
 
@@ -121,10 +121,10 @@
 
 
                     @isset($patient->patient_profile_img)
-                        <img src="{{ asset('public/assets/patient_profile/' . $patient->patient_profile_img) }}"
+                        <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                             alt="">
                     @else
-                        <img src="{{ asset('public/assets/images/team-13.jpg') }}" alt="">
+                        <img src="{{ asset('/assets/images/team-13.jpg') }}" alt="">
                     @endisset
 
 
@@ -576,11 +576,11 @@
                 <div class="footer-info mb-0">
                     @isset($footer->websitelogo)
                         <img class="footer-logo"
-                            src="{{ asset('public/assets/video/'.$footer->websitelogo) }}"
+                            src="{{ asset('/assets/video/'.$footer->websitelogo) }}"
                             alt="footer-logo">
                     @else
                         <img class="footer-logo"
-                            src="{{ asset('public/assets/images/new-images/logofwhite.png') }}"
+                            src="{{ asset('/assets/images/new-images/logofwhite.png') }}"
                             alt="footer-logo">
                     @endisset
                 </div>
@@ -657,10 +657,10 @@
                     <div class="coonect_box">
                         <div class="left_flag">
                             @isset($footer->logo1)
-                                <img src="{{ asset('public/assets/video/'.$footer->logo1) }}"
+                                <img src="{{ asset('/assets/video/'.$footer->logo1) }}"
                                     alt="">
                             @else
-                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Oman.svg.png') }}"
+                                <img src="{{ asset('/assets/images/new-images/Flag_of_Oman.svg.png') }}"
                                     alt="">
                             @endisset
 
@@ -678,10 +678,10 @@
                     <div class="coonect_box">
                         <div class="left_flag">
                             @isset($footer->logo2)
-                                <img src="{{ asset('public/assets/video/'.$footer->logo2) }}"
+                                <img src="{{ asset('/assets/video/'.$footer->logo2) }}"
                                     alt="">
                             @else
-                                <img src="{{ asset('public/assets/images/new-images/Flag_of_the_United_Arab_Emirates.svg.png') }}"
+                                <img src="{{ asset('/assets/images/new-images/Flag_of_the_United_Arab_Emirates.svg.png') }}"
                                     alt="">
                             @endisset
 
@@ -699,10 +699,10 @@
                     <div class="coonect_box">
                         <div class="left_flag">
                             @isset($footer->logo3)
-                                <img src="{{ asset('public/assets/video/'.$footer->logo3) }}"
+                                <img src="{{ asset('/assets/video/'.$footer->logo3) }}"
                                     alt="">
                             @else
-                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Saudi_Arabia.svg.png') }}"
+                                <img src="{{ asset('/assets/images/new-images/Flag_of_Saudi_Arabia.svg.png') }}"
                                     alt="">
                             @endisset
 
@@ -720,10 +720,10 @@
                     <div class="coonect_box">
                         <div class="left_flag">
                             @isset($footer->logo4)
-                                <img src="{{ asset('public/assets/video/'.$footer->logo4) }}"
+                                <img src="{{ asset('/assets/video/'.$footer->logo4) }}"
                                     alt="">
                             @else
-                                <img src="{{ asset('public/assets/images/new-images/Flag_of_Bahrain-manama.png') }}"
+                                <img src="{{ asset('/assets/images/new-images/Flag_of_Bahrain-manama.png') }}"
                                     alt="">
                             @endisset
 
@@ -3864,7 +3864,7 @@
 
                                                             <div class="image_dr">
 
-                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
+                                                                <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
                                                                     alt="">
 
                                                             </div>
@@ -3904,7 +3904,7 @@
 
                                                             <div class="image_dr">
 
-                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
+                                                                <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
                                                                     alt="">
 
                                                             </div>
@@ -3944,7 +3944,7 @@
 
                                                             <div class="image_dr">
 
-                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
+                                                                <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
                                                                     alt="">
 
                                                             </div>
@@ -3984,7 +3984,7 @@
 
                                                             <div class="image_dr">
 
-                                                                <img src="{{ url('public/assets') }}/images/new-images/avtar.jpg"
+                                                                <img src="{{ url('/assets') }}/images/new-images/avtar.jpg"
                                                                     alt="">
 
                                                             </div>
@@ -5318,7 +5318,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('public/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
                                                 alt="">
 
                                         </div>
@@ -5348,7 +5348,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('public/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
                                                 alt="">
 
                                         </div>
@@ -5378,7 +5378,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('public/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
                                                 alt="">
 
                                         </div>
@@ -5407,7 +5407,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('public/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
                                                 alt="">
 
                                         </div>
@@ -5436,7 +5436,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('public/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
                                                 alt="">
 
                                         </div>
@@ -5465,7 +5465,7 @@
 
                                         <div class="form_img">
 
-                                            <img src="{{ url('public/assets') }}/images/new-images/forms.png"
+                                            <img src="{{ url('/assets') }}/images/new-images/forms.png"
                                                 alt="">
 
                                         </div>
@@ -6140,7 +6140,7 @@
 
                                     <div class="d-flex document pt-2">
 
-                                        <img src="{{ url('public/assets') }}/images/new-images/documents.png"
+                                        <img src="{{ url('/assets') }}/images/new-images/documents.png"
                                             class="avatar rounded me-3" alt="shreyu">
 
                                         <div class="flex-grow-1">
@@ -8406,13 +8406,13 @@
 
                             <td data-th="Supplier Code">
 
-                                AED 100.00
+                                {{env('SHOW_CURRENCY')}} 100.00
 
                             </td>
 
                             <td data-th="Supplier Name">
 
-                                AED 100.00
+                                {{env('SHOW_CURRENCY')}} 100.00
 
                             </td>
 
@@ -8471,7 +8471,7 @@
             <div class="newbalance_area">
 
                 <div class="balance_amount_number">
-                    <h1>New Balance : </h1> <span>AED 100.00</span>
+                    <h1>New Balance : </h1> <span>{{env('SHOW_CURRENCY')}} 100.00</span>
                 </div>
 
 

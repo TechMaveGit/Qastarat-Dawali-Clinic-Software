@@ -106,7 +106,7 @@ class DoctorController extends Controller
 
                if ($request->hasFile('profileImage')) {
                 $files = $request->file('profileImage');
-                $destinationPath = 'public/assets/profileImage';
+                $destinationPath = '/assets/profileImage';
 
                 // Get the existing file path from the database
                 $existingFilePath = $request->profileImage;
@@ -125,7 +125,7 @@ class DoctorController extends Controller
               if ($request->hasFile('LicenseUpload'))
               {
                   $files = $request->file('LicenseUpload');
-                  $destinationPath = 'public/assets/LicenseUpload';
+                  $destinationPath = '/assets/LicenseUpload';
                   $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                   $files->move($destinationPath, $file_name);
                   $doctorData['LicenseUpload'] = $file_name;
@@ -135,7 +135,7 @@ class DoctorController extends Controller
                if ($request->hasFile('AcademicDocumentUpload'))
                {
                    $files = $request->file('AcademicDocumentUpload');
-                   $destinationPath = 'public/assets/AcademicDocumentUpload';
+                   $destinationPath = '/assets/AcademicDocumentUpload';
                    $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                    $files->move($destinationPath, $file_name);
                    $doctorData['AcademicDocumentUpload'] = $file_name;
@@ -357,7 +357,7 @@ class DoctorController extends Controller
 
               if ($request->hasFile('profileImage')) {
                 $files = $request->file('profileImage');
-                $destinationPath = 'public/assets/profileImage';
+                $destinationPath = '/assets/profileImage';
 
                 // Get the existing file path from the database
                 $existingFilePath = $doctor_info->profileImage;
@@ -375,7 +375,7 @@ class DoctorController extends Controller
 
             if ($request->hasFile('LicenseUpload')) {
                 $files = $request->file('LicenseUpload');
-                $destinationPath = 'public/assets/LicenseUpload';
+                $destinationPath = '/assets/LicenseUpload';
 
                 // Get the existing file path from the database
                 $existingFilePath = $doctor_info->LicenseUpload;
@@ -392,7 +392,7 @@ class DoctorController extends Controller
 
             if ($request->hasFile('AcademicDocumentUpload')) {
                 $files = $request->file('AcademicDocumentUpload');
-                $destinationPath = 'public/assets/AcademicDocumentUpload';
+                $destinationPath = '/assets/AcademicDocumentUpload';
 
                 // Get the existing file path from the database
                 $existingFilePath = $doctor_info->AcademicDocumentUpload;
@@ -562,7 +562,7 @@ class DoctorController extends Controller
         // dd($patient);
 
             $files = $request->file('patient_profile_img');
-            $destinationPath = 'public/assets/doctor_profile/';
+            $destinationPath = '/assets/doctor_profile/';
 
             // Get the existing file path from the database
             $existingFilePath = $Doctor->patient_profile_img;

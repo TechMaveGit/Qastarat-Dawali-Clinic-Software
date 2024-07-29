@@ -105,7 +105,7 @@ class TelecallerController extends Controller
             $telecaller['birth_date']=$carbonDate->format('d M, Y'); 
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
-                $destinationPath = 'public/assets/telecaller_profile';
+                $destinationPath = '/assets/telecaller_profile';
                 $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $file_name);
                 $telecaller['patient_profile_img'] = $file_name;
@@ -163,7 +163,7 @@ class TelecallerController extends Controller
            $nurse_info=Doctor::findOrFail($id);
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
-                $destinationPath = 'public/assets/telecaller_profile';
+                $destinationPath = '/assets/telecaller_profile';
             
                 // Get the existing file path from the database
                 $existingFilePath = $nurse_info->patient_profile_img;
@@ -215,7 +215,7 @@ class TelecallerController extends Controller
         // dd($patient);
         
             $files = $request->file('patient_profile_img');
-            $destinationPath = 'public/assets/telecaller_profile/';
+            $destinationPath = '/assets/telecaller_profile/';
         
             // Get the existing file path from the database
             $existingFilePath = $Doctor->patient_profile_img;

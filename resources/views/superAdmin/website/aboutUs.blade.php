@@ -51,11 +51,11 @@
                                 <label class="form-label">Video</label>
                                 @if(isset($aboutUs->videoFile))
                                     <video width="400" controls class="text-center">
-                                        <source src="{{  asset('public/assets/video'.'/'.$aboutUs->videoFile)  }}" type="video/mp4">
+                                        <source src="{{  asset('/assets/video'.'/'.$aboutUs->videoFile)  }}" type="video/mp4">
                                         Your browser does not support HTML video.
                                     </video>
                                 @endif
-                                <input name="videoFile" type="file" class="dropify" data-height="100" accept="video/*" @if(isset($aboutUs->videoFile)) data-default-file="{{ asset('public/assets/video'.'/'.$aboutUs->videoFile) }}" @endif/>
+                                <input name="videoFile" type="file" class="dropify" data-height="100" accept="video/*" @if(isset($aboutUs->videoFile)) data-default-file="{{ asset('/assets/video'.'/'.$aboutUs->videoFile) }}" @endif/>
                                
                                 @error('videoFile')
                                 <span class="text-danger font-size: 14px;">{{ $message }}</span>
@@ -76,7 +76,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                               <label class="form-label">image Upload</label>
-                              <input name="imageUpload" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($aboutUs->imageUpload)) data-default-file="{{ asset('public/assets/video'.'/'.$aboutUs->imageUpload) }}" @endif/>
+                              <input name="imageUpload" type="file" class="dropify" data-height="100" accept="image/png, image/gif, image/jpeg" @if(isset($aboutUs->imageUpload)) data-default-file="{{ asset('/assets/video'.'/'.$aboutUs->imageUpload) }}" @endif/>
                               @error('imageUpload')
                               <span class="text-danger font-size: 14px;">{{ $message }}</span>
                               @enderror

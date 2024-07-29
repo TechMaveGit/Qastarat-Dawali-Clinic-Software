@@ -29,6 +29,8 @@ use App\Http\Controllers\SuperAdmin\Patients\PatientsController;
 
 use App\Http\Controllers\SuperAdmin\Price\OtherExpenseController;
 use App\Http\Controllers\SuperAdmin\Permission\RolePermissionController;
+use Illuminate\Support\Facades\Artisan;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

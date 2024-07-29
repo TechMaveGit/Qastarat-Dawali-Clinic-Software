@@ -149,11 +149,11 @@
 
                         @if (isset($alldoctor->patient_profile_img))
 
-                        <img src="{{ asset('/public/assets/profileImage/' . $alldoctor->patient_profile_img) }}" alt="">
+                        <img src="{{ asset('//assets/profileImage/' . $alldoctor->patient_profile_img) }}" alt="">
 
                         @else
                         
-                        <img src="{{ asset('public/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+                        <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
                         @endif
 

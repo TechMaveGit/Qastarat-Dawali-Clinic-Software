@@ -32,23 +32,23 @@ profile  | QASTARAT & DAWALI CLINICS
                                 @php
                                    $doctor_profile='';
                                     if($doctor->role_id=='1'){
-                                        $doctor_profile=asset('public/assets/profileImage/').'/'.$doctor->patient_profile_img;
+                                        $doctor_profile=asset('/assets/profileImage/').'/'.$doctor->patient_profile_img;
                                     }elseif($doctor->role_id=='2'){
-                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                        $doctor_profile=asset('/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
                                     }
                                     elseif($doctor->role_id=='5'){
-                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                        $doctor_profile=asset('/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
                                     }
                                     elseif($doctor->role_id=='6'){
-                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                        $doctor_profile=asset('/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
                                     }
 
                                     elseif($doctor->role_id=='11'){
-                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                        $doctor_profile=asset('/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
                                     }
                                     
                                     elseif($doctor->role_id=='10'){
-                                        $doctor_profile=asset('public/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
+                                        $doctor_profile=asset('/assets/nurse_profile/').'/'.$doctor->patient_profile_img;
                                     }
 
                                 @endphp
@@ -58,7 +58,7 @@ profile  | QASTARAT & DAWALI CLINICS
                             
                         </div>
                         @else
-                        <div id="imagePreview" style="background-image: url('{{ asset("public/assets/images/team-13.jpg") }}');">
+                        <div id="imagePreview" style="background-image: url('{{ asset("/assets/images/team-13.jpg") }}');">
                         </div>
                         @endisset
 

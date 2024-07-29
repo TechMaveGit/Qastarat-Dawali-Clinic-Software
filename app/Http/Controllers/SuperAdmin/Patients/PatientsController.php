@@ -134,7 +134,7 @@ class PatientsController extends Controller
         $patient['patient_profile_img'] = '';
         if ($request->hasFile('patient_profile_img')) {
             $files = $request->file('patient_profile_img');
-            $destinationPath = 'public/assets/patient_profile';
+            $destinationPath = '/assets/patient_profile';
             $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $file_name);
             $patient['patient_profile_img'] = $file_name;
@@ -143,7 +143,7 @@ class PatientsController extends Controller
         $patient['id_proof'] = '';
         if ($request->hasFile('id_proof')) {
             $files = $request->file('id_proof');
-            $destinationPath = 'public/assets/patient_id';
+            $destinationPath = '/assets/patient_id';
             $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $file_name);
             $patient['id_proof'] = $file_name;
@@ -180,7 +180,7 @@ class PatientsController extends Controller
         // dd($patient);
 
             $files = $request->file('patient_profile_img');
-            $destinationPath = 'public/assets/patient_profile/';
+            $destinationPath = '/assets/patient_profile/';
 
             // Get the existing file path from the database
             $existingFilePath = $patient->patient_profile_img;
@@ -250,7 +250,7 @@ class PatientsController extends Controller
             $patient = $request->except(['_token','submit']);
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
-                $destinationPath = 'public/assets/patient_profile';
+                $destinationPath = '/assets/patient_profile';
 
                 // Get the existing file path from the database
                 $existingFilePath = $patient_info->patient_profile_img;

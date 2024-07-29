@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-  <link href="{{ asset('public/assets/images/newChange/img/qastara-logo.png')}}" rel="icon" />
+  <link href="{{ asset('/assets/images/newChange/img/qastara-logo.png')}}" rel="icon" />
   <title>Qastarat - Login</title>
   <meta name="description" content="Login and Register Form Html Template">
   <meta name="author" content="harnishdesign.net">
@@ -17,20 +17,20 @@
 
   <!-- Stylesheet
 ========================= -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/images/newChange/css/bootstrap.min.css')}}" />
-  <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/images/newChange/css/all.min.css')}}" />
-  <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/images/newChange/css/qastarata.css')}}" />
+  <link rel="stylesheet" type="text/css" href="{{ asset('/assets/images/newChange/css/bootstrap.min.css')}}" />
+  <link rel="stylesheet" type="text/css" href="{{ asset('/assets/images/newChange/css/all.min.css')}}" />
+  <link rel="stylesheet" type="text/css" href="{{ asset('/assets/images/newChange/css/qastarata.css')}}" />
   <!-- Colors Css -->
-  <link id="color-switcher" type="text/css" rel="stylesheet" href="{{ asset('public/assets/images/newChange/color-teal.css')}}"/>
+  <link id="color-switcher" type="text/css" rel="stylesheet" href="{{ asset('/assets/images/newChange/color-teal.css')}}"/>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-  <script src="{{ url('/public/assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
+  <script src="{{ url('//assets') }}/libs/sweetalert2/sweetalert2.min.js"></script>
 
-  <link rel="stylesheet" href="{{ url('/public/assets') }}/libs/sweetalert2/sweetalert2.min.css">
+  <link rel="stylesheet" href="{{ url('//assets') }}/libs/sweetalert2/sweetalert2.min.css">
 
 
 </head>
@@ -64,7 +64,7 @@
                      </div>
                    </div>
                 <div class="logo mt-5 mb-5 mx-auto"> <a class="d-flex" href="#" title="Oxyy">
-                    <img src="{{ asset('public/assets/images/newChange/img/qastara-logo-new.png')}}" alt="Oxyy"></a> </div>
+                    <img src="{{ asset('/assets/images/newChange/img/qastara-logo-new.png')}}" alt="Oxyy"></a> </div>
               </div>
             </div>
             <div class="row g-0">
@@ -154,7 +154,7 @@
                 <div class="row g-0 my-auto">
                   <div class="col-12 col-md-12 col-lg-12 mx-auto">
                     <div class="right_img position-relative">
-                      <img src="{{ asset('public/assets/images/newChange/img/Health professional team-bro (1).png')}}" alt="">
+                      <img src="{{ asset('/assets/images/newChange/img/Health professional team-bro (1).png')}}" alt="">
                     </div>
                     <div class="right_content">
                    <h1>Full Website</h1>
@@ -329,24 +329,24 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.1.0/dist/iconify-icon.min.js"></script>
-  <script src="{{ asset('public/assets/images/newChange/js/jquery.min.js')}}"></script>
-  <script src="{{ asset('public/assets/images/newChange/js/bootstrap.min.js')}}"></script>
+  <script src="{{ asset('/assets/images/newChange/js/jquery.min.js')}}"></script>
+  <script src="{{ asset('/assets/images/newChange/js/bootstrap.min.js')}}"></script>
   <!-- Style Switcher -->
-  <script src="{{ asset('public/assets/images/newChange/js/switcher.min.js')}}"></script>
-  <script src="{{ asset('public/assets/images/newChange/js/theme.js')}}"></script>
+  <script src="{{ asset('/assets/images/newChange/js/switcher.min.js')}}"></script>
+  <script src="{{ asset('/assets/images/newChange/js/theme.js')}}"></script>
 
 
 
 
 <!-- iconify icons js -->
 
-<script src="{{ url('public/assets') }}/js/iconify-icons.js"></script>
+<script src="{{ url('/assets') }}/js/iconify-icons.js"></script>
 
 
 
 <!-- timepicker js -->
 
-<script src="{{ url('public/assets') }}/js/jquery.timepicker.min.js"></script>
+<script src="{{ url('/assets') }}/js/jquery.timepicker.min.js"></script>
 
 <!-- timepicker js end -->
 
@@ -354,41 +354,41 @@
 
 <!-- form plugin js -->
 
-<script src="{{ url('public/assets') }}/libs/select2/js/select2.min.js"></script>
+<script src="{{ url('/assets') }}/libs/select2/js/select2.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ url('/assets') }}/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/spectrum-colorpicker2/spectrum.min.js"></script>
+<script src="{{ url('/assets') }}/libs/spectrum-colorpicker2/spectrum.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="{{ url('/assets') }}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/admin-resources/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
+<script src="{{ url('/assets') }}/libs/admin-resources/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="{{ url('/assets') }}/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
 
 
 
-<script src="{{ url('public/assets') }}/js/pages/form-advanced.init.js"></script>
+<script src="{{ url('/assets') }}/js/pages/form-advanced.init.js"></script>
 
 <!-- apexcharts -->
 
-<script src="{{ url('public/assets') }}/libs/apexcharts/apexcharts.min.js"></script>
+<script src="{{ url('/assets') }}/libs/apexcharts/apexcharts.min.js"></script>
 
 
 
 <!-- Vector map-->
 
-<script src="{{ url('public/assets') }}/libs/jsvectormap/js/jsvectormap.min.js"></script>
+<script src="{{ url('/assets') }}/libs/jsvectormap/js/jsvectormap.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/jsvectormap/maps/world-merc.js"></script>
+<script src="{{ url('/assets') }}/libs/jsvectormap/maps/world-merc.js"></script>
 
 
 
 <!-- Required datatable js -->
 
-<script src="{{ url('public/assets') }}/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
 
 
@@ -396,49 +396,49 @@
 
 <!-- Buttons examples -->
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/jszip/jszip.min.js"></script>
+<script src="{{ url('/assets') }}/libs/jszip/jszip.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ url('/assets') }}/libs/pdfmake/build/pdfmake.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="{{ url('/assets') }}/libs/pdfmake/build/vfs_fonts.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
 
 
 
 <!-- Responsive examples -->
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 
-<script src="{{ url('public/assets') }}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ url('/assets') }}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 
 
 <!-- Datatable init js -->
 
-<script src="{{ url('public/assets') }}/js/pages/datatables.init.js"></script>
+<script src="{{ url('/assets') }}/js/pages/datatables.init.js"></script>
 
 <!-- linecharts init -->
 
-<script src="{{ url('public/assets') }}/js/pages/apexcharts-line.init.js"></script>
+<script src="{{ url('/assets') }}/js/pages/apexcharts-line.init.js"></script>
 
 <!-- App js -->
 
-<script src="{{ url('public/assets') }}/js/app.js"></script>
+<script src="{{ url('/assets') }}/js/app.js"></script>
 
 <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 

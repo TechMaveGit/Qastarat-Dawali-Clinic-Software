@@ -91,7 +91,7 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload'])){
            
                 if(isset($aboutUs->imageUpload)){
-                    unlink('public/assets/video'.'/'.$aboutUs->imageUpload);
+                    unlink('/assets/video'.'/'.$aboutUs->imageUpload);
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -103,7 +103,7 @@ class WebsiteController extends Controller
                if(isset($data['videoFile'])){
            
                 if(isset($aboutUs->videoFile)){
-                    unlink('public/assets/video'.'/'.$aboutUs->videoFile);
+                    unlink('/assets/video'.'/'.$aboutUs->videoFile);
                 }
                 $image = $data['videoFile'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -154,7 +154,7 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload'])){
            
                 if(isset($treatment->imageUpload)){
-                    unlink('public/assets/video'.'/'.$treatment->imageUpload);
+                    unlink('/assets/video'.'/'.$treatment->imageUpload);
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -166,7 +166,7 @@ class WebsiteController extends Controller
                if(isset($data['videoFile'])){
            
                 if(isset($treatment->videoFile)){
-                    unlink('public/assets/video'.'/'.$treatment->videoFile);
+                    unlink('/assets/video'.'/'.$treatment->videoFile);
                 }
                 $image = $data['videoFile'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -240,7 +240,7 @@ class WebsiteController extends Controller
             if(isset($data['image1'])){
            
                 if(isset($service->image1)){
-                    unlink('public/assets/video'.'/'.$service->image1);
+                    unlink('/assets/video'.'/'.$service->image1);
                 }
                 $image = $data['image1'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -255,7 +255,7 @@ class WebsiteController extends Controller
                if(isset($data['image2'])){
            
                 if(isset($service->image2)){
-                    unlink('public/assets/video'.'/'.$service->image2);
+                    unlink('/assets/video'.'/'.$service->image2);
                 }
                 $image = $data['image2'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -270,7 +270,7 @@ class WebsiteController extends Controller
                if(isset($data['image3'])){
            
                 if(isset($service->image3)){
-                    unlink('public/assets/video'.'/'.$service->image3);
+                    unlink('/assets/video'.'/'.$service->image3);
                 }
                 $image = $data['image3'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -322,7 +322,7 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload'])){
            
                 if(isset($software->imageUpload)){
-                    unlink('public/assets/video'.'/'.$software->imageUpload);
+                    unlink('/assets/video'.'/'.$software->imageUpload);
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -381,7 +381,7 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload'])){
            
                 if(isset($branch->imageUpload)){
-                    unlink('public/assets/video'.'/'.$branch->imageUpload);
+                    unlink('/assets/video'.'/'.$branch->imageUpload);
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -531,7 +531,7 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload'])){
            
                 if(isset($contactUs->imageUpload)){
-                    unlink('public/assets/video'.'/'.$contactUs->imageUpload);
+                    unlink('/assets/video'.'/'.$contactUs->imageUpload);
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -543,7 +543,7 @@ class WebsiteController extends Controller
                if(isset($data['videoFile'])){
            
                 if(isset($contactUs->videoFile)){
-                    unlink('public/assets/video'.'/'.$contactUs->videoFile);
+                    unlink('/assets/video'.'/'.$contactUs->videoFile);
                 }
                 $image = $data['videoFile'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -602,7 +602,7 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload']))
                {
                     if(isset($faq->imageUpload)){
-                        unlink('public/assets/video'.'/'.$faq->imageUpload);
+                        unlink('/assets/video'.'/'.$faq->imageUpload);
                     }
                     $image = $data['imageUpload'];
                     $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -649,7 +649,7 @@ class WebsiteController extends Controller
             if(isset($data['websitelogo'])){
            
                 if(isset($footer->websitelogo)){
-                    unlink('public/assets/video'.'/'.$footer->websitelogo);
+                    unlink('/assets/video'.'/'.$footer->websitelogo);
                 }
                 $image = $data['websitelogo'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -661,7 +661,7 @@ class WebsiteController extends Controller
                if(isset($data['logo1'])){
            
                 if(isset($footer->logo1)){
-                    unlink('public/assets/video'.'/'.$footer->logo1);
+                    unlink('/assets/video'.'/'.$footer->logo1);
                 }
                 $image = $data['logo1'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -676,7 +676,7 @@ class WebsiteController extends Controller
                if(isset($data['logo2'])){
            
                 if(isset($footer->logo2)){
-                    unlink('public/assets/video'.'/'.$footer->logo2);
+                    unlink('/assets/video'.'/'.$footer->logo2);
                 }
                 $image = $data['logo2'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -691,7 +691,7 @@ class WebsiteController extends Controller
                if(isset($data['logo3'])){
            
                 if(isset($footer->logo3)){
-                    unlink('public/assets/video'.'/'.$footer->logo3);
+                    unlink('/assets/video'.'/'.$footer->logo3);
                 }
                 $image = $data['logo3'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -706,7 +706,7 @@ class WebsiteController extends Controller
                if(isset($data['logo4'])){
            
                 if(isset($footer->logo4)){
-                    unlink('public/assets/video'.'/'.$footer->logo4);
+                    unlink('/assets/video'.'/'.$footer->logo4);
                 }
                 $image = $data['logo4'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();

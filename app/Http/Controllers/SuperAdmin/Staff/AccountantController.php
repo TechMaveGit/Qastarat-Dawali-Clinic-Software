@@ -143,7 +143,7 @@ class AccountantController extends Controller
                $doctor['birth_date']=$carbonDate->format('d M, Y');
                 if ($request->hasFile('patient_profile_img')) {
                     $files = $request->file('patient_profile_img');
-                    $destinationPath = 'public/assets/accountant_profile';
+                    $destinationPath = '/assets/accountant_profile';
                     $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                     $files->move($destinationPath, $file_name);
                     $doctor['patient_profile_img'] = $file_name;
@@ -199,7 +199,7 @@ class AccountantController extends Controller
             $nurse_info=Doctor::findOrFail($id);
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
-                $destinationPath = 'public/assets/accountant_profile';
+                $destinationPath = '/assets/accountant_profile';
 
                 // Get the existing file path from the database
                 $existingFilePath = $nurse_info->patient_profile_img;
@@ -265,7 +265,7 @@ class AccountantController extends Controller
         // dd($patient);
 
             $files = $request->file('patient_profile_img');
-            $destinationPath = 'public/assets/accountant_profile/';
+            $destinationPath = '/assets/accountant_profile/';
 
             // Get the existing file path from the database
             $existingFilePath = $Doctor->patient_profile_img;

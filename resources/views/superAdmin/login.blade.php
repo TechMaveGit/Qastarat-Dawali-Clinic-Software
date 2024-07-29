@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - QASTARAT & DAWALI CLINICS</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/superAdmin/login/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/superAdmin/login/css/fontawesome-all.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/superAdmin/login/css/iofrm-style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/superAdmin/login/css/iofrm-theme12.css')}}">
-    <link rel="icon" href="{{ asset('public/superAdmin/images/newimages/iconlogo.png')}}">
-    <link href="{{ url('public/assets') }}/css/flaticon.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/superAdmin/login/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/superAdmin/login/css/fontawesome-all.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/superAdmin/login/css/iofrm-style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/superAdmin/login/css/iofrm-theme12.css')}}">
+    <link rel="icon" href="{{ asset('/superAdmin/images/newimages/iconlogo.png')}}">
+    <link href="{{ url('/assets') }}/css/flaticon.css" rel="stylesheet">
     <style>
 
         /* Default styles for the eye icon */
@@ -59,7 +59,7 @@
                         <div class="website-logo-inside">
                             <a href="{{ url('/') }}">
                                 <div class="logo">
-                                    <img class="logo-size" src="{{ asset('public/superAdmin/images/newimages/qastara-logo.png') }}" alt="">
+                                    <img class="logo-size" src="{{ asset('/superAdmin/images/newimages/qastara-logo.png') }}" alt="">
                                 </div>
                             </a>
                         </div>
@@ -103,10 +103,10 @@
             </div>
         </div>
     </div>
-<script src="{{ asset('public/superAdmin/login/js/jquery.min.js')}}"></script>
-<script src="{{ asset('public/superAdmin/login/js/popper.min.js')}}"></script>
-<script src="{{ asset('public/superAdmin/login/js/bootstrap.min.js')}}"></script>
-<script src="{{ asset('public/superAdmin/login/js/main.js')}}"></script>
+<script src="{{ asset('/superAdmin/login/js/jquery.min.js')}}"></script>
+<script src="{{ asset('/superAdmin/login/js/popper.min.js')}}"></script>
+<script src="{{ asset('/superAdmin/login/js/bootstrap.min.js')}}"></script>
+<script src="{{ asset('/superAdmin/login/js/main.js')}}"></script>
 
 <script>
     $(document).ready(function() {
