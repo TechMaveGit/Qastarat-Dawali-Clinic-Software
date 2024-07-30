@@ -3919,14 +3919,7 @@
                                 <div class="col-lg-12 mb-2">
                                     <label for="validationCustom01" class="form-label">Select Imaging Tests</label>
                                     <select id="sumo-select4" multiple name="test_name[]">
-                                        @php
-                                            $test_names = App\Models\patient\Order_imaginary_exam_test::orderBy('id', 'desc')->get();
-                                        @endphp
-                                        @foreach ($test_names as $test_name)
-                                            <option value="{{ $test_name->id }}">{{ $test_name->test_name }}
-                                            </option>
-                                        @endforeach
-
+                                        
 
                                     </select>
                                     <span id="testNameError" style="color: red;font-size:small"></span>

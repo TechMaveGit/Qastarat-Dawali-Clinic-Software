@@ -4069,13 +4069,7 @@
                                         <div class="col-lg-12">
                                             <label for="validationCustom01" class="form-label">Select Lab Tests</label>
                                             <select id="sumo-select" multiple name="lab_test_names[]">
-                                                @php
-                                                    $patient_order_labs = App\Models\patient\Order_lab_test::orderBy('id', 'desc')->get();
-                                                @endphp
-                                                @foreach ($patient_order_labs as $patient_order_lab)
-                                                    <option value="{{ $patient_order_lab->id }}">
-                                                        {{ $patient_order_lab->test_name }}</option>
-                                                @endforeach
+                                               
                                             </select>
                                             <span id="LabTestNamesError" style="color: red;"></span>
                                         </div>
