@@ -76,7 +76,7 @@ class DoctorAuthController extends Controller
                                             if($roleId->status=='1' || $user->role_id=='0')
                                             {
                                                 if (Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                                                    return response()->json(['error' => 301]); // You can return any success response here
+                                                    return response()->json(['error' => 'Invalid email or password'], 422);
                                                 } else {
                                                     // Authentication failed due to invalid email or password
                                                     return response()->json(['error' => 'Invalid email or password'], 422);
@@ -100,7 +100,7 @@ class DoctorAuthController extends Controller
                                 else{
                                     if (Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password])) {
                                         // Authentication successful
-                                        return response()->json(['error' => 301]); // You can return any success response here
+                                        return response()->json(['error' => 'Invalid email or password'], 422); // You can return any success response here
                                     } else {
                                         // Authentication failed due to invalid email or password
                                         return response()->json(['error' => 'Invalid email or password'], 422);
