@@ -77,7 +77,7 @@ class DoctorAuthController extends Controller
             $user = DB::table('users')->where('email', $request->email)->first();
             if (!$user) {
                 return response()->json(['error' => 'Invalid account.'], 422);
-            }elseif ($user->status != 'active') {
+            }elseif ($user->status != '1') {
                 return response()->json(['error' => 'Your account is inactive. Please contact support for assistance.'], 422);
             }else{
                 if (Auth::guard('web')->attempt($credentials)) {
