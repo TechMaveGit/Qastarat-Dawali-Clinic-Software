@@ -132,7 +132,7 @@
         form.paidMain {
             position: absolute;
             top: 1px;
-            right: 193px;
+            right: 273px;
         }
 
         .paid_select {
@@ -433,7 +433,7 @@
                         <button type="submit"
                             class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black add_patient">Save</button>
 
-                        <button type="button" id="closeFormBtn"
+                       <button type="button" id="closeAddLabFormBtn"
                             class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black secondary_btn">Close</button>
 
                     </div>
@@ -454,6 +454,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Find the close button element
             var closeButton = document.getElementById('closeFormBtn');
+            var closeAddLabFormBtn = document.getElementById('closeAddLabFormBtn');
 
             // Find the modal element
             var modalElement = document.getElementById('add_lab');
@@ -461,9 +462,12 @@
 
             // Add a click event listener to the close button
             closeButton.addEventListener('click', function() {
+                if(modalElement2)$(modalElement2).modal('hide');
+            });
+
+            closeAddLabFormBtn.addEventListener('click', function() {
                 // Use Bootstrap modal method to hide the modal
-                $(modalElement).modal('hide');
-                $(modalElement2).modal('hide');
+                if(modalElement)$(modalElement).modal('hide');
             });
         });
     </script>
@@ -1208,6 +1212,7 @@
     @push('custom-js')
         <!-- invoice datatable -->
         <script>
+            var SHOW_CURRENCY = "{{env('SHOW_CURRENCY')}} ";
             $('#allinvoice_table').DataTable({
                 scrollX: true,
                 "pagingType": "simple_numbers",
@@ -1534,7 +1539,7 @@
                 $('#invoiceIdCls').val(invoiceId);
                 $('.patientNameCls').text(name);
                 $('.invoiceNumber').text(invoiceNumber);
-                var combinedText = 'ADE ' + finalAmount;
+                var combinedText = SHOW_CURRENCY + finalAmount;
                 $('.amountPaid').text(combinedText);
                 $('.amountPaid_2').text(payAmount);
                 $('#add_lab').modal('show');
@@ -1545,7 +1550,7 @@
                 paymentMethod) {
                 $('.patientNameCls').text(name);
                 $('.invoiceNumber').text(invoiceNumber);
-                var combinedText = 'ADE ' + finalAmount;
+                var combinedText = SHOW_CURRENCY + finalAmount;
                 $('.hiddenamountPaid').text(combinedText);
                 $('.amountPaid_2').text(payAmount);
                 $('#datePaid').val(datePaid);
