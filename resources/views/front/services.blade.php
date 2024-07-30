@@ -2047,7 +2047,6 @@
                             });
                         });
                     </script>
-                    <!-- Edit Patient Info. form data into database-->
                     <script>
                         $(document).ready(function() {
                             let patient_id = $('input[name="patient_id"]').val();

@@ -70,7 +70,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" name="birth_date"  value="{{ $patientId->birth_date }}" class="form-control pull-right datepicker">
+                                    <input type="text" name="birth_date" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" value="{{ $patientId->birth_date }}" class="form-control pull-right datepicker">
                                     @error('birth_date')
                                     <span class="error text-danger">{{ $message }}</span>
                                    @enderror

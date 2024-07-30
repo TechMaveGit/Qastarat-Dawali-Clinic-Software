@@ -42,12 +42,6 @@ return [
             'provider' => 'users',
         ],
 
-        'rg' => [
-            'driver' => 'session',
-            'provider' => 'rgs',
-        ],
-
-
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -57,6 +51,7 @@ return [
             'driver' => 'session',
             'provider' => 'doctors',
         ],
+
 
     ],
 
@@ -81,11 +76,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ],
-
-        'rgs' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
         ],
 
         'admins' => [

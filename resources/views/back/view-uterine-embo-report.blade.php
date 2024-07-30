@@ -4050,59 +4050,6 @@
                     </div>
                   </form>
                   
-                  
-{{--                 
-                <form id="order_imaginary_exam_form">
-                    @csrf
-                    <input type="hidden" value="{{ @$id }}" name="patient_id"/>
-                        <input type="hidden" value="uterine_embo" name="formType"/>
-                <div class="modal-body padding-0">
-                    <div class="inner_data">
-                        <div class="row">
-                           
-
-                            <div class="col-lg-12 mb-2">
-                                <label for="validationCustom01" class="form-label">Select Imaging Tests</label>
-                                <select id="sumo-select4" multiple name="test_name[]">
-                                    @php
-                                    $test_names = App\Models\patient\Order_imaginary_exam_test::orderBy('id', 'desc')->get();
-                                @endphp
-                                @foreach ($test_names as $test_name)
-                                    <option value="{{ $test_name->id }}">{{ $test_name->test_name }}
-                                    </option>
-                                @endforeach
-
-
-                                </select>
-                                <span id="testNameError" style="color: red;font-size:small"></span>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3 form-group">
-                                    <label for="validationCustom01" class="form-label">Write Summary</label>
-                                    <textarea class="form-control" placeholder="" style="height:150px" name="test_summery"></textarea>
-                                </div>
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                    <div class="action text-end bottom_modal">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient"
-                            >
-                            Save</button>
-                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
-                            data-bs-dismiss="modal">
-                            Close</a>
-                    </div>
-                </div>
-                </form> --}}
-                <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-       </div> -->
             </div>
         </div>
     </div>
