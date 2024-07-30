@@ -3827,7 +3827,7 @@
 
 
                                                                     @if (isset($alldoctorList->patient_profile_img))
-                                                                        <img src="{{ asset('//assets/profileImage/' . $alldoctorList->patient_profile_img) }}"
+                                                                        <img src="{{ asset('/assets/profileImage/' . $alldoctorList->patient_profile_img) }}"
                                                                             alt="">
                                                                     @else
                                                                         <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
@@ -4622,16 +4622,7 @@
 
                                         <select class="form-control select2_imaginary_test" name="test_name[]"
                                             multiple="multiple">
-                                            @php
-                                                $test_names = App\Models\patient\Order_imaginary_exam_test::orderBy(
-                                                    'id',
-                                                    'desc',
-                                                )->get();
-                                            @endphp
-                                            @foreach ($test_names as $test_name)
-                                                <option value="{{ $test_name->id }}">{{ $test_name->test_name }}
-                                                </option>
-                                            @endforeach
+                                            
 
                                         </select>
                                         <span id="testNameError" style="color: red;font-size:small"></span>
@@ -6650,16 +6641,7 @@
                                             Tests</label>
 
                                         <select id="sumo-select" multiple name="lab_test_names[]">
-                                            @php
-                                                $patient_order_labs = App\Models\patient\Order_lab_test::orderBy(
-                                                    'id',
-                                                    'desc',
-                                                )->get();
-                                            @endphp
-                                            @foreach ($patient_order_labs as $patient_order_lab)
-                                                <option value="{{ $patient_order_lab->id }}">
-                                                    {{ $patient_order_lab->test_name }}</option>
-                                            @endforeach
+                                            
                                         </select>
                                         <span id="LabTestNamesError" style="color: red;"></span>
                                     </div>
@@ -10853,21 +10835,16 @@
     });
 
 
-
-
-
-
-    document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener('DOMContentLoaded', (event) => {       
         const startRecognitionButton = document.getElementById('startRecognition_');
 
         let recognition;
         let recognizing = false;
 
-        // Check if the browser supports the Web Speech API
-        if (!('webkitSpeechRecognition' in window)) {
-            alert('Your browser does not support the Web Speech API. Please use Google Chrome.');
-        } else {
-            recognition = new webkitSpeechRecognition();
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+
             recognition.continuous = true; // Enable continuous recognition
             recognition.interimResults = true; // Enable interim results
             recognition.lang = 'en-US';
@@ -10917,6 +10894,8 @@
                 }
                 recognition.start();
             });
+        }else{
+            // 'Web Speech API is not supported in this browser.';
         }
     });
 </script>
