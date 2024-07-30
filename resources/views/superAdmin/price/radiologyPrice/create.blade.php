@@ -208,29 +208,53 @@
         } else if (mulipleType == 2) {
             mulipleType = 'Other'; // Update the existing variable
         } else {
-            // Handle other cases or provide a default value if needed
             mulipleType = 'Unknown';
         }
 
-        // console.log(mulipleType);
+        let isValid = true;
 
-        var selectType = document.getElementById('test_name').value;
-        var mulipleType_ = document.getElementById('mulipleType').value;
+        // Clear previous errors
+        $(".error_show").remove();
 
-        if (selectType == '') {
-            document.getElementById('selectTypeId').style.display = 'block';
-            return false;
-        } else {
-            document.getElementById('selectTypeId').style.display = 'none';
+        if (test_name === '') {
+            $("#test_name").after('<span class="error_show text-danger">This Field Is Required !</span>');
+            isValid = false;
         }
 
-
-        if (mulipleType_ == '') {
-            document.getElementById('selectType').style.display = 'block';
-            return false;
-        } else {
-            document.getElementById('selectType').style.display = 'none';
+        if (test_code === '') {
+            $("#test_code").after('<span class="error_show text-danger">This Field Is Required !</span>');
+            isValid = false;
         }
+
+        if (!mulipleType_1 ||mulipleType_1 === '') {
+            $("#mulipleType").after('<span class="error_show text-danger">This Field Is Required !</span>');
+            isValid = false;
+        }
+
+        if (price === '') {
+            $("#price").after('<span class="error_show text-danger">This Field Is Required !</span>');
+            isValid = false;
+        }
+
+        // if (included_tests === '') {
+        //     $("#included_tests").after('<span class="error_show text-danger">This Field Is Required !</span>');
+        //     isValid = false;
+        // }
+
+        // if (note === '') {
+        //     $("#note").after('<span class="error_show text-danger">This Field Is Required !</span>');
+        //     isValid = false;
+        // }
+
+        // if (colourId === '') {
+        //     $("#colourId").after('<span class="error_show text-danger">This Field Is Required !</span>');
+        //     isValid = false;
+        // }
+
+        if (!isValid) {
+            return false;
+        }
+
 
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
         $.ajaxSetup({
