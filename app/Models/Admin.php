@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Illuminate\Database\Eloquent\Model;
 
-
-class Admin extends Model implements Authenticatable
+class Admin extends Model implements Authenticatable 
 {
     use HasFactory,AuthenticableTrait;
       /**
@@ -16,7 +15,6 @@ class Admin extends Model implements Authenticatable
      *
      * @var array<int, string>
      */
-    protected $guard="admin";
     protected $fillable = [
         'name',
         'email',

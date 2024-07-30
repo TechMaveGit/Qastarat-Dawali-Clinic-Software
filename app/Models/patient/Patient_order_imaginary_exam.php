@@ -17,9 +17,7 @@ class Patient_order_imaginary_exam extends Model
         'status'
     ];
 
-    public function test(){
-        return $this->belongsTo(Order_imaginary_exam_test::class, 'test_id')->select('id','test_name','duration');
-    }
+    
     public function doctor(){
         return $this->belongsTo(doctor::class, 'doctor_id')->select('id','name');
     }

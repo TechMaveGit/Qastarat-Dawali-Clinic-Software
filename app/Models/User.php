@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use App\Models\patient\ThyroidDiagnosis;
-use Illuminate\Support\Facades\Crypt;
- use Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
 class User extends Model implements Authenticatable
 {
-     use AuthenticableTrait;
+     use AuthenticableTrait, HasApiTokens, Notifiable;
    
     /**
      * The attributes that are mass assignable.

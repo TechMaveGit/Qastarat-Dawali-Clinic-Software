@@ -10223,12 +10223,10 @@ public function viewUterineEmboEligibilityForms(Request $request, $id)
 
     public function logout(Request $request)
     {
+        
         Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
         return redirect()->route('front.home.page');
     }
 

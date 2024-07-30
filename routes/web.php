@@ -175,7 +175,7 @@ Route::prefix('auth')->group(function () {
     Route::post('staff-reset-forget-password/{token}', [DoctorAuthController::class, 'updateNewPassword'])->name('doctor.forget.password.reset.update');
 });
 // doctor route
-Route::group(['middleware' => ['auth:doctor']], function () {
+Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::get('/get-users', [PatientController::class, 'getUsers'])->name('getUsers');
     Route::get('patient', [PatientController::class, 'index'])->name('user.patient');
     Route::get('task', [NurseLoginWeb::class, 'nurseTask'])->name('nurseTask');
@@ -424,9 +424,8 @@ Route::group(['middleware' => ['auth:doctor']], function () {
 
 Route::prefix('admin')->group(function () {
     Route::any('/', [LoginController::class, 'login'])->name('admin.login');
+    
     Route::group(['middleware' => ['auth:admin']], function () {
-
-
         Route::any('snippets', [PatientController::class, 'allSnippets'])->name('snippets');
         Route::any('add-snippets', [PatientController::class, 'addSnippets'])->name('add.snippets');
         Route::any('/edit-snippets/{id}', [PatientController::class, 'editSnippets'])->name('edit.snippets');
@@ -442,7 +441,6 @@ Route::prefix('admin')->group(function () {
         });
 
         Route::name('patients.')->prefix('patients')->controller(PatientsController::class)->group(function () {
-
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/add-create', 'addCreate')->name('addCreate');
