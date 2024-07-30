@@ -382,7 +382,7 @@
 
                                         <td data-th="Due Date">
 
-                                            <select name="paymentMethod">
+                                            <select name="paymentMethod" class="form-select">
 
                                                 <option value="Cash">Cash</option>
 
@@ -1538,6 +1538,10 @@
                 $('#paymentMethod').val(paymentMethod);
                 $('#close_lab').modal('show');
             }
+
+            $('.datepickerInput').datepicker({
+                                dateFormat: 'yy-mm-dd',
+                            });
         </script>
     @endpush
 
