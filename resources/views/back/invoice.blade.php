@@ -5,7 +5,15 @@
 @endpush
 
 @section('content-section')
+<style>
+    .custom_table_area table th{
+        border: 1px #595959 solid;
+    }
 
+    table.dataTable.display tbody td {
+        border: 1px solid #d4f7d9;
+    }
+</style>
 
     <?php
     $D = json_decode(json_encode(Auth::guard('doctor')->user()->get_role()), true);
@@ -132,7 +140,7 @@
         form.paidMain {
             position: absolute;
             top: 1px;
-            right: 193px;
+            right: 273px;
         }
 
         .paid_select {
@@ -433,7 +441,7 @@
                         <button type="submit"
                             class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black add_patient">Save</button>
 
-                        <button type="button" id="closeFormBtn"
+                       <button type="button" id="closeAddLabFormBtn"
                             class="btn cmncanvasft_buttons r-04 btn--theme hover--tra-black secondary_btn">Close</button>
 
                     </div>
@@ -454,6 +462,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Find the close button element
             var closeButton = document.getElementById('closeFormBtn');
+            var closeAddLabFormBtn = document.getElementById('closeAddLabFormBtn');
 
             // Find the modal element
             var modalElement = document.getElementById('add_lab');
@@ -461,9 +470,12 @@
 
             // Add a click event listener to the close button
             closeButton.addEventListener('click', function() {
+                if(modalElement2)$(modalElement2).modal('hide');
+            });
+
+            closeAddLabFormBtn.addEventListener('click', function() {
                 // Use Bootstrap modal method to hide the modal
-                $(modalElement).modal('hide');
-                $(modalElement2).modal('hide');
+                if(modalElement)$(modalElement).modal('hide');
             });
         });
     </script>
@@ -643,6 +655,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
 
 
 
@@ -782,34 +795,14 @@
 
                                                             @if (in_array('9', $arr))
                                                                 @if ($alltaskInvoice->paidStatus == '0')
-                                                                    <li id="invoice-item"
-                                                                        onclick="openInvoice(
-                                             '{{ $alltaskInvoice->id ?? '' }}',
-                                             '{{ $patientName->name ?? '' }}',
-                                             '{{ $alltaskInvoice->invoiceNumber ?? '' }}',
-                                             '{{ $amount->price ?? (0 - $alltaskInvoice->discountAmount ?? '') }}',
-                                             '{{ $alltaskInvoice->payAmount ?? 0 }}',
-                                             '{{ $alltaskInvoice->finalAmount ?? '' }}'
-                                       )"
-                                                                        aria-controls="offcanvasBottom">
+                                                                    <li id="invoice-item" onclick="openInvoice('{{ $alltaskInvoice->id ?? '' }}','{{ $patientName->name ?? '' }}','{{ $alltaskInvoice->invoiceNumber ?? '' }}','{{ $amount->price ?? (0 - $alltaskInvoice->discountAmount ?? '') }}','{{ $alltaskInvoice->payAmount ?? 0 }}','{{ $alltaskInvoice->finalAmount ?? '' }}')" aria-controls="offcanvasBottom">
                                                                         <div class="comonactionbtn copybtn">
                                                                             <img src="{{ asset('/assets/images/new-images/note.gif') }}" alt="">
                                                                         </div>
                                                                     </li>
                                                                 @else
                                                                     <li id="invoice-item"
-                                                                        onclick="closeInvoice(
-                                             '{{ $alltaskInvoice->id ?? '' }}',
-                                             '{{ $patientName->name ?? '' }}',
-                                             '{{ $alltaskInvoice->invoiceNumber ?? '' }}',
-                                             '{{ $amount->price ?? (0 - $alltaskInvoice->discountAmount ?? '') }}',
-                                             '{{ $alltaskInvoice->payAmount ?? 0 }}',
-                                             '{{ $alltaskInvoice->finalAmount ?? '' }}',
-                                             '{{ $alltaskInvoice->paymentNote ?? '' }}',
-                                             '{{ $alltaskInvoice->datePaid ?? '' }}',
-                                             '{{ $alltaskInvoice->paymentMethod ?? '' }}'
-                                       )"
-                                                                        aria-controls="offcanvasBottom">
+                                                                        onclick="closeInvoice('{{ $alltaskInvoice->id ?? '' }}','{{ $patientName->name ? addslashes($patientName->name) : '' }}','{{ $alltaskInvoice->invoiceNumber ?? '' }}','{{ $amount->price ?? (0 - $alltaskInvoice->discountAmount ?? '') }}','{{ $alltaskInvoice->payAmount ?? 0 }}','{{ $alltaskInvoice->finalAmount ?? '' }}','{{ $alltaskInvoice->paymentNote ? addslashes($alltaskInvoice->paymentNote) : '' }}','{{ $alltaskInvoice->datePaid ?? '' }}','{{ $alltaskInvoice->paymentMethod ?? '' }}')" aria-controls="offcanvasBottom">
                                                                         <div class="comonactionbtn copybtn">
                                                                             <img src="{{ asset('/assets/images/new-images/note.gif') }}" alt="">
                                                                         </div>
@@ -845,15 +838,7 @@
                                                     </div>
 
                                                 </td>
-
-
-
-
-
-
-
-
-                                                </tr>
+                                            </tr>
 
                                             @empty
                                             @endforelse
@@ -947,7 +932,7 @@
 
 
                                                     <td data-title="Action">
-                                                        <div class="dltwh_check">
+                                                        <div class="dltwh_check" style="padding-right: 16px;">
                                                             <div class="deletebtn_prtientgh"
                                                                 onclick="removeInvoice(`{{ $alltaskInvoice->id }}`)">
                                                                 {{-- <a class="btn text-danger btn-sm" onclick="deleteRow(356)" data-bs-toggle="tooltip" data-bs-original-title="Delete"><span class="fe fe-trash-2 fs-14"></span></a> --}}
@@ -1208,8 +1193,8 @@
     @push('custom-js')
         <!-- invoice datatable -->
         <script>
+            var SHOW_CURRENCY = "{{env('SHOW_CURRENCY')}} ";
             $('#allinvoice_table').DataTable({
-                scrollX: true,
                 "pagingType": "simple_numbers",
                 "language": {
                     "paginate": {
@@ -1534,7 +1519,7 @@
                 $('#invoiceIdCls').val(invoiceId);
                 $('.patientNameCls').text(name);
                 $('.invoiceNumber').text(invoiceNumber);
-                var combinedText = 'ADE ' + finalAmount;
+                var combinedText = SHOW_CURRENCY + finalAmount;
                 $('.amountPaid').text(combinedText);
                 $('.amountPaid_2').text(payAmount);
                 $('#add_lab').modal('show');
@@ -1545,7 +1530,7 @@
                 paymentMethod) {
                 $('.patientNameCls').text(name);
                 $('.invoiceNumber').text(invoiceNumber);
-                var combinedText = 'ADE ' + finalAmount;
+                var combinedText = SHOW_CURRENCY + finalAmount;
                 $('.hiddenamountPaid').text(combinedText);
                 $('.amountPaid_2').text(payAmount);
                 $('#datePaid').val(datePaid);
