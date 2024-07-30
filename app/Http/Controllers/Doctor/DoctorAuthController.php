@@ -406,13 +406,9 @@ class DoctorAuthController extends Controller
 
     public function logout(Request $request)
     {
-
         Auth::guard('doctor')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
         return redirect()->route('front.home.page');
     }
 }

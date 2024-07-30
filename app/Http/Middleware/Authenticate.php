@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Authenticate extends Middleware
 {
@@ -15,43 +16,34 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
+        if (!$request->expectsJson()) {
             $guard = $this->getGuard($request);
             switch ($guard) {
                 case 'admin':
                     return route('admin.login');
                     break;
-                    
-                case 'users':
-                    return "ok";
+                case 'user':
+                    return route('login');
                     break;
                 default:
-             //       return route('login');
-               //     break;
+                    return route('login');
+                    break;
             }
-          //  return route('admin.login');
-
-            // return route('login');
-
-
+            return route('home');
         }
     }
+    
 
     protected function getGuard(Request $request)
     {
-        
-        if ($request->is('admin/*')) {
-            return 'admin';
-        }
-
-        if ($request->is('login/*')) {
-            return redirect('/');
+        if ($request->is('seller/*')) {
+            return 'seller';
         }
 
         if ($request->is('api/*')) {
             abort(response()->json(['status'=>false,'error' => 'Unauthenticated.'], 401));
         }
 
-        return 'admin';
+        return 'user';
     }
 }
