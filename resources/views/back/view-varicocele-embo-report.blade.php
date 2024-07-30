@@ -17,6 +17,7 @@
     foreach ($D as $v) {
         $arr[] = $v['permission_id'];
     }
+    // dd($patient);
     ?>
 
 
@@ -148,15 +149,18 @@
                                     <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} <a
                                             href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
                                                 icon="material-symbols:edit"></iconify-icon></a></h5>
+                                    
                                     @php
-                                        if (!empty(@$patient->birth_date)) {
-                                            $birthDate = \Carbon\Carbon::createFromFormat('d M, Y', @$patient->birth_date);
+                                        if ($patient->birth_date && !empty($patient->birth_date)) {
+                                            $birthDate = \Carbon\Carbon::createFromFormat('d M, Y', date('d M, Y',strtotime($patient->birth_date)));
+                                            
                                             $patientBirthDate = $birthDate->diffInYears(\Carbon\Carbon::now());
                                         } else {
                                             $patientBirthDate = null;
                                         }
 
                                     @endphp
+                                    
                                     <p class="patient_age__">{{ $patientBirthDate }} Years , <span
                                             class="patient_id__">{{ @$patient->patient_id }}</span></p>
 
