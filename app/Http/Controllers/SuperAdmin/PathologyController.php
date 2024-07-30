@@ -339,9 +339,10 @@ class PathologyController extends Controller
                     // dd($$final);
                     PathologyPriceList::insert($final);
                 }
+                return redirect()->route('price.radiologyPriceList')->with('message', 'Radiology  price added successfully!');
             }
-
-            return redirect()->route('price.radiologyPriceList')->with('message', 'Radiology  price added successfully!');
+            return redirect()->back();
+            
         }
         return view('superAdmin.price.radiologyPrice.create');
     }

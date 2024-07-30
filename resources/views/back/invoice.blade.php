@@ -5,7 +5,15 @@
 @endpush
 
 @section('content-section')
+<style>
+    .custom_table_area table th{
+        border: 1px #595959 solid;
+    }
 
+    table.dataTable.display tbody td {
+        border: 1px solid #d4f7d9;
+    }
+</style>
 
     <?php
     $D = json_decode(json_encode(Auth::guard('doctor')->user()->get_role()), true);
@@ -647,6 +655,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
 
 
 
@@ -786,34 +795,14 @@
 
                                                             @if (in_array('9', $arr))
                                                                 @if ($alltaskInvoice->paidStatus == '0')
-                                                                    <li id="invoice-item"
-                                                                        onclick="openInvoice(
-                                             '{{ $alltaskInvoice->id ?? '' }}',
-                                             '{{ $patientName->name ?? '' }}',
-                                             '{{ $alltaskInvoice->invoiceNumber ?? '' }}',
-                                             '{{ $amount->price ?? (0 - $alltaskInvoice->discountAmount ?? '') }}',
-                                             '{{ $alltaskInvoice->payAmount ?? 0 }}',
-                                             '{{ $alltaskInvoice->finalAmount ?? '' }}'
-                                       )"
-                                                                        aria-controls="offcanvasBottom">
+                                                                    <li id="invoice-item" onclick="openInvoice('{{ $alltaskInvoice->id ?? '' }}','{{ $patientName->name ?? '' }}','{{ $alltaskInvoice->invoiceNumber ?? '' }}','{{ $amount->price ?? (0 - $alltaskInvoice->discountAmount ?? '') }}','{{ $alltaskInvoice->payAmount ?? 0 }}','{{ $alltaskInvoice->finalAmount ?? '' }}')" aria-controls="offcanvasBottom">
                                                                         <div class="comonactionbtn copybtn">
                                                                             <img src="{{ asset('/assets/images/new-images/note.gif') }}" alt="">
                                                                         </div>
                                                                     </li>
                                                                 @else
                                                                     <li id="invoice-item"
-                                                                        onclick="closeInvoice(
-                                             '{{ $alltaskInvoice->id ?? '' }}',
-                                             '{{ $patientName->name ?? '' }}',
-                                             '{{ $alltaskInvoice->invoiceNumber ?? '' }}',
-                                             '{{ $amount->price ?? (0 - $alltaskInvoice->discountAmount ?? '') }}',
-                                             '{{ $alltaskInvoice->payAmount ?? 0 }}',
-                                             '{{ $alltaskInvoice->finalAmount ?? '' }}',
-                                             '{{ $alltaskInvoice->paymentNote ?? '' }}',
-                                             '{{ $alltaskInvoice->datePaid ?? '' }}',
-                                             '{{ $alltaskInvoice->paymentMethod ?? '' }}'
-                                       )"
-                                                                        aria-controls="offcanvasBottom">
+                                                                        onclick="closeInvoice('{{ $alltaskInvoice->id ?? '' }}','{{ $patientName->name ? addslashes($patientName->name) : '' }}','{{ $alltaskInvoice->invoiceNumber ?? '' }}','{{ $amount->price ?? (0 - $alltaskInvoice->discountAmount ?? '') }}','{{ $alltaskInvoice->payAmount ?? 0 }}','{{ $alltaskInvoice->finalAmount ?? '' }}','{{ $alltaskInvoice->paymentNote ? addslashes($alltaskInvoice->paymentNote) : '' }}','{{ $alltaskInvoice->datePaid ?? '' }}','{{ $alltaskInvoice->paymentMethod ?? '' }}')" aria-controls="offcanvasBottom">
                                                                         <div class="comonactionbtn copybtn">
                                                                             <img src="{{ asset('/assets/images/new-images/note.gif') }}" alt="">
                                                                         </div>
@@ -849,15 +838,7 @@
                                                     </div>
 
                                                 </td>
-
-
-
-
-
-
-
-
-                                                </tr>
+                                            </tr>
 
                                             @empty
                                             @endforelse
@@ -951,7 +932,7 @@
 
 
                                                     <td data-title="Action">
-                                                        <div class="dltwh_check">
+                                                        <div class="dltwh_check" style="padding-right: 16px;">
                                                             <div class="deletebtn_prtientgh"
                                                                 onclick="removeInvoice(`{{ $alltaskInvoice->id }}`)">
                                                                 {{-- <a class="btn text-danger btn-sm" onclick="deleteRow(356)" data-bs-toggle="tooltip" data-bs-original-title="Delete"><span class="fe fe-trash-2 fs-14"></span></a> --}}
@@ -1214,7 +1195,6 @@
         <script>
             var SHOW_CURRENCY = "{{env('SHOW_CURRENCY')}} ";
             $('#allinvoice_table').DataTable({
-                scrollX: true,
                 "pagingType": "simple_numbers",
                 "language": {
                     "paginate": {
