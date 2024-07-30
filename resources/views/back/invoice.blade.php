@@ -793,8 +793,7 @@
                                        )"
                                                                         aria-controls="offcanvasBottom">
                                                                         <div class="comonactionbtn copybtn">
-                                                                            <img src="{{ url('/assets/images/new-images/note.gif') }}"
-                                                                                alt="">
+                                                                            <img src="{{ asset('/assets/images/new-images/note.gif') }}" alt="">
                                                                         </div>
                                                                     </li>
                                                                 @else
@@ -812,8 +811,7 @@
                                        )"
                                                                         aria-controls="offcanvasBottom">
                                                                         <div class="comonactionbtn copybtn">
-                                                                            <img src="{{ url('/assets/images/new-images/note.gif') }}"
-                                                                                alt="">
+                                                                            <img src="{{ asset('/assets/images/new-images/note.gif') }}" alt="">
                                                                         </div>
                                                                     </li>
                                                                 @endif

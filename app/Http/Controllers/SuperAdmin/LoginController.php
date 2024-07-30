@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\superAdmin\Doctor;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -40,25 +40,15 @@ class LoginController extends Controller
        $data['radiology']=Doctor::where('user_type','radiology')->count();
        $data['pathology']=Doctor::where('user_type','pathology')->count();
        $data['adddoctor']=Doctor::where('user_type','doctor')->orderBy('id','desc')->get();
-
-
-       $data['nurseCount'] =   Doctor::select('id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'mobile_no', 'user_type')
-                                        ->whereNotIn('user_type', ['doctor', 'radiology','pathology'])
-
-                                        ->count();
-
-
+       $data['nurseCount'] =   Doctor::select('id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'mobile_no', 'user_type')->whereNotIn('user_type', ['doctor', 'radiology','pathology'])->count();
         return view('superAdmin.index',$data);
         
     }
     public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
         return redirect()->route('admin.login');
     }
 }
