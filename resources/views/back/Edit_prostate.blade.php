@@ -3392,7 +3392,7 @@ let annotationMode = false;
 let lastLine;
 
 const imageObj = new Image();
-imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $postStateFormsImage->AnnotateimageData) }}';
+imageObj.src = '{{ (isset($postStateFormsImage->AnnotateimageData) && $postStateFormsImage->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $postStateFormsImage->AnnotateimageData) : '' }}';
 
 imageObj.onload = function() {
     const image = new Konva.Image({
