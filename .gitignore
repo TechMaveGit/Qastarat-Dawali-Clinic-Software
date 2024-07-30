@@ -7,8 +7,6 @@
 /vendor
 .env
 .env.backup
-composer.lock
-.env.production
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -18,3 +16,15 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+node_modules/
+npm-debug.log
+yarn-error.log
+
+storage/*.key
+Homestead.yaml
+Homestead.json
+/.vagrant
+.phpunit.result.cache
+.github/*
+*.DS_Store
+.github
