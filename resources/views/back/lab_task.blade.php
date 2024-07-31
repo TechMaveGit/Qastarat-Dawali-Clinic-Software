@@ -96,10 +96,6 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
                                                                 <div class="tb_listTitle_label">Patient Id</div>
                                                                 <span>{{ $patient->patient_id }}</span>
                                                             </li>
-                                                            @php
-                                                            $lab_task_status= DB::table('lab_has_tasks')->where('nurse_task_id',$nurse_task->id)->first();
-
-                                                             @endphp
                                                               <li>
                                                                 <div class="tb_listTitle_label">Reports uploaded
                                                                     Date
