@@ -61,11 +61,13 @@ class DoctorAuthController extends Controller
 
             if (!$user) {
                 return response()->json(['error' => 'Invalid account.'], 422);
-            } elseif ($user->status != 'active') {
+            } elseif ($user->status && $user->status != 'active') {
                 return response()->json(['error' => 'Your account is inactive. Please contact support for assistance.'], 422);
-            } elseif ($roleId->status != '1') {
-                return response()->json(['error' => 'Your role is inactive. Please contact support for assistance.'], 422);
-            } else {
+            } 
+            // elseif ($roleId && $roleId->status != '1') {
+            //     return response()->json(['error' => 'Your role is inactive or not assign. Please contact support for assistance.'], 422);
+            // } 
+            else {
                 if (Auth::guard('doctor')->attempt($credentials)) {
                     return response()->json(['error' => 301]);
                 } else {
