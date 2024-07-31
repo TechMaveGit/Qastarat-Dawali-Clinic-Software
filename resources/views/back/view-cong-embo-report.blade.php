@@ -400,7 +400,7 @@
                                                 icon="material-symbols:edit"></iconify-icon></a></h5>
                                     @php
                                         if (!empty(@$patient->birth_date)) {
-                                            $birthDate = \Carbon\Carbon::createFromFormat('d M, Y', @$patient->birth_date);
+                                            $birthDate = \Carbon\Carbon::createFromFormat('d M, Y', date('Y-m-d',strtotime(@$patient->birth_date)));
                                             $patientBirthDate = $birthDate->diffInYears(\Carbon\Carbon::now());
                                         } else {
                                             $patientBirthDate = null;

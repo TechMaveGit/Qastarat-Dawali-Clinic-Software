@@ -355,7 +355,7 @@
                                                         );
                                                         $startTime = \Carbon\Carbon::createFromFormat(
                                                             'H:i',
-                                                            $allbook_appointments->start_time,
+                                                            date('H:i',strtotime($allbook_appointments->start_time)),
                                                         );
                                                         $startDateTime = $startDate
                                                             ->copy()
