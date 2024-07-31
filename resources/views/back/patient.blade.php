@@ -346,6 +346,7 @@
 
     @push('custom-js')
         <script>
+            var invoiceUrl = "{{route('user.invoice')}}";
             document.addEventListener("DOMContentLoaded", function() {
 
                 const searchInput = document.getElementById("searchInput");
@@ -748,7 +749,7 @@
                                                     '<td>' + patient.post_code + '</td>' +
                                                     '<td>';
 
-                                                row += '<a href="http://qastarat.com/login/invoice/?id=' +  patient.id  +
+                                                row += '<a href="'+invoiceUrl+'?id=' +  patient.id  +
                                                         '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
                                                         '<i class="fa-regular fa-file-lines"></i> View Invoice</a>&nbsp;';
 
@@ -829,7 +830,7 @@
                                                     '<td>' + patient.post_code + '</td>' +
                                                     '<td>';
 
-                                                row += '<a href="http://qastarat.com/login/invoice/?id=' +  patient.id  +
+                                                row += '<a href="'+invoiceUrl+'?id=' +  patient.id  +
                                                         '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
                                                         '<i class="fa-regular fa-file-lines"></i> View Invoice</a>&nbsp;';
 
@@ -912,7 +913,7 @@
                                                         '<td>' + patient.post_code + '</td>' +
                                                         '<td>';
 
-                                                    row += '<a href="http://qastarat.com/login/invoice/?id=' +  patient.id  +
+                                                    row += '<a href="'+invoiceUrl+'?id=' +  patient.id  +
                                                             '" class="btn r-04 btn--theme hover--tra-black add_patient view_invoice">' +
                                                             '<i class="fa-regular fa-file-lines"></i> View Invoice</a>&nbsp;';
 
