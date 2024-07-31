@@ -142,7 +142,7 @@ function parseDate($dateString) {
 
     foreach ($formats as $format) {
         try {
-            return Carbon::createFromFormat($format, $dateString);
+            return Carbon::createFromFormat($format, date('Y-m-d H:i:s',strtotime($dateString)));
         } catch (\Exception $e) {
             continue;
         }
@@ -506,7 +506,7 @@ if (!empty($patient->birth_date ?? '')) {
                                             $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
                                             $startTime = \Carbon\Carbon::createFromFormat(
                                                 'H:i',
-                                                $Patient_appointment->start_time,
+                                                date('H:i',strtotime($Patient_appointment->start_time)),
                                             );
                                             $startDateTime = $startDate
                                                 ->copy()

@@ -66,22 +66,6 @@ class NurseLoginWeb extends Controller
     public function taskAssignedToLab(Request $request)
     {
 
-        // $task_id=(int)$request->task_id;
-        // $lab_id=(int)$request->lab_id;
-        // $dataInsertedToLab=[];
-        // $nurse_has_tasks= DB::table('nurse_has_tasks')->where('nurse_task_id',$task_id)->update(['status'=>'assigned_to_lab']);
-
-        // $dataInsertedToLab=[
-        //     'nurse_task_id'=> isset($task_id) ? $task_id : null,
-        //     'lab_id'=> isset($lab_id) ? $lab_id : null,
-        //     ];
-
-        // $lab_has_tasks_inserted_id=  DB::table('lab_has_tasks')->insertGetId($dataInsertedToLab);
-
-        // if(!empty($lab_has_tasks_inserted_id)){
-        //     return response()->json(['error' => 200]);
-        // }
-
          $task_id  = (int)$request->task_id;
          $lab_id   = (int)$request->lab_id;
          $labType  = $request->assignPerson;
@@ -94,73 +78,6 @@ class NurseLoginWeb extends Controller
          //  }
     }
 
-
-    // public function taskAssignedToNurse(Request $request)
-    // {
-    //     $task_id=(int)$request->task_id;
-    //     $nurse_id=(int)$request->nurse;
-    //     $date=$request->date;
-    //     $time=$request->time;
-    //     $dataInsertedToNurse=[];
-    //     $receptionists= DB::table('receptionist_tasks')->where('nurse_task_id',$task_id)->update(['status'=>'assigned_to_nurse','appoinment_date'=>$date,'appoinment_time'=>$time]);
-
-    //     $dataInsertedToNurse=[
-    //     'nurse_task_id'=> isset($task_id) ? $task_id : null,
-    //     'nurse_id'=> isset($nurse_id) ? $nurse_id : null,
-    //     'appoinment_date'=> isset($date) ? $date : null,
-    //     'appoinment_time'=> isset($time) ? $time : null,
-
-    //     ];
-    //   $nurse_has_tasks_inserted_id=  DB::table('nurse_has_tasks')->insertGetId($dataInsertedToNurse);
-
-    //     if(!empty($nurse_has_tasks_inserted_id)){
-    //         return response()->json(['error' => 200]);
-    //     }
-
-    // }
-
-
-    // public function taskAssignedToLab(Request $request)
-    // {
-
-
-    //     $task_id=(int)$request->task_id;
-    //     $lab_id=(int)$request->lab_id;
-    //     $dataInsertedToLab=[];
-    //     $nurse_has_tasks= DB::table('nurse_has_tasks')->where('nurse_task_id',$task_id)->update(['status'=>'assigned_to_lab']);
-
-    //     $dataInsertedToLab=[
-    //         'nurse_task_id'=> isset($task_id) ? $task_id : null,
-    //         'lab_id'=> isset($lab_id) ? $lab_id : null,
-    //         ];
-
-    //     $lab_has_tasks_inserted_id=  DB::table('lab_has_tasks')->insertGetId($dataInsertedToLab);
-
-    //     if(!empty($lab_has_tasks_inserted_id)){
-    //         return response()->json(['error' => 200]);
-    //     }
-    // }
-
-
-
-
-    // public function labDocumentUpload(Request $request)
-    // {
-
-    //         $task_id=(int)$request->task_id;
-    //     if ($request->file('document') != '') {
-    //         $document = $request->file('document');
-
-    //         $rename_document = rand() . '.' . $document->getClientOriginalExtension();
-    //         $document->move(public_path('assets/labTestDocument'), $rename_document);
-
-    //     }
-    //     $result=  DB::table('lab_has_tasks')->where('nurse_task_id',$task_id)->update(['document'=>$rename_document,'status'=>'lab_report_uploaded','appoinment_date'=>now()]);
-    //     if(!empty($result)){
-    //         return response()->json(['error' => 200]);
-    //     }
-
-    // }
 
     public function labDocumentUpload(Request $request)
     {

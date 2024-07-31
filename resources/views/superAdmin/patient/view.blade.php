@@ -281,7 +281,7 @@
 
                                         @php
                                             $startDate = \Carbon\Carbon::parse($add_book_appointments->start_date);
-                                            $startTime = \Carbon\Carbon::createFromFormat('H:i', $add_book_appointments->start_time);
+                                            $startTime = \Carbon\Carbon::createFromFormat('H:i', date('H:i',strtotime($add_book_appointments->start_time)));
                                             $startDateTime = $startDate->copy()->setTime($startTime->hour, $startTime->minute);
                                             $formattedDateTime = $startDateTime->format('l, j F Y H:i');
                                         @endphp
