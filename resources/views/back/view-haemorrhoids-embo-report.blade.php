@@ -302,14 +302,23 @@
                                     <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} <a
                                             href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
                                                 icon="material-symbols:edit"></iconify-icon></a></h5>
+                                    
+
+
+
                                     @php
-                                        if (!empty(@$patient->birth_date)) {
-                                            $birthDate = \Carbon\Carbon::createFromFormat('d M, Y', date('Y-m-d',strtotime(@$patient->birth_date)));
-                                            $patientBirthDate = $birthDate->diffInYears(\Carbon\Carbon::now());
-                                        } else {
+                                    use Carbon\Carbon;
+
+                                    $patientBirthDate = null;
+                                    if (isset($patient->birth_date) && !empty($patient->birth_date)) {
+                                        try {
+                                            $birthDate = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($patient->birth_date)));
+                                            $patientBirthDate = $birthDate->diffInYears(Carbon::now());
+                                        } catch (\Exception $e) {
+                                            // Handle the exception if the date format is incorrect
                                             $patientBirthDate = null;
                                         }
-
+                                    }
                                     @endphp
                                     <p class="patient_age__">{{ $patientBirthDate }} Years , <span
                                             class="patient_id__">{{ @$patient->patient_id }}</span></p>
