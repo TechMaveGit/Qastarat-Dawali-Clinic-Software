@@ -57,7 +57,7 @@ class DoctorAuthController extends Controller
 
         if ($request->input('formValue') == '1') {
             $user = DB::table('doctors')->where('email', $request->email)->first();
-            $roleId = DB::table('roles')->where('id', $user->role_id)->first();
+            // $roleId = DB::table('roles')->where('id', $user->role_id)->first();
 
             if (!$user) {
                 return response()->json(['error' => 'Invalid account.'], 422);
