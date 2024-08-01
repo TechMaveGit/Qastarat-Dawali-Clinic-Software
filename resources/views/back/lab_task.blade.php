@@ -51,14 +51,10 @@ Home | lab   tasks QASTARAT & DAWALI CLINICS
 
 
 
-                                                                if($nurse_task->test_type == 'pathology'){
-                                                                  $pathology_price_list=  $pathology_price_list->where('price_type', '0');
-
+                                                                if($nurse_task->test_type){
+                                                                  $pathology_price_list=  $pathology_price_list->where('price_type', $nurse_task->test_type);
                                                                 }
-                                                                else {
-
-                                                                  $pathology_price_list=  $pathology_price_list->where('price_type', '1');
-                                                                }
+                                                                
 
                                                                 $pathology_price_list =$pathology_price_list->pluck('test_name');
 

@@ -3814,7 +3814,7 @@
                                     <select id="sumo-select4" multiple name="lab_test_names[]">
                                         @php
                                             $patient_order_labs = DB::table('pathology_price_list')
-                                                ->where('price_type', '1')
+                                                ->where('price_type', 'Radiology')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
                                         @endphp
@@ -3882,7 +3882,7 @@
                                                 @php
                                                     $patient_order_labs = DB::table('pathology_price_list')
                                                         ->distinct('test_name')
-                                                        ->where('price_type', '0')
+                                                        ->where('price_type', 'Pathology')
                                                         ->orderBy('id', 'desc')
                                                         ->get();
                                                 @endphp

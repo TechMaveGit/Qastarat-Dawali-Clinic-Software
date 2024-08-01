@@ -6373,7 +6373,7 @@
 
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
 
                                         <div class="inner_element">
 
@@ -6392,24 +6392,8 @@
 
                                     </div>
 
-                                    {{-- <div class="col-lg-6">
-
-                                        <div class="inner_element">
-
-                                            <div class="form-group">
-
-
-
-                                                <input type="text"
-                                                    class="form-control datepickerInputDate end_date"
-                                                    placeholder="YYYY-MM-DD" name="end_date">                                           
-                                                     </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6">
+                                    
+                                    <div class="col-lg-3">
 
                                         <div class="inner_element">
 
@@ -6425,7 +6409,7 @@
 
                                         </div>
 
-                                    </div> --}}
+                                    </div>
 
 
 
@@ -9230,8 +9214,7 @@
                         }, 1000);
 
                         if (result != '') {
-                            document.querySelector('.select2_appoin_ttype__')
-                                .selectedIndex = 0;
+                            document.querySelector('.select2_appoin_ttype__').selectedIndex = 0;
                             swal.fire({
                                 title: 'Success',
                                 html: 'Appointment Booked successfully!',

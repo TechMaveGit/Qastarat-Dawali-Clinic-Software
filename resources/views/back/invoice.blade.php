@@ -614,12 +614,12 @@
                                                         <span>Patient</span>
                                                     </div>
                                                 </th>
-                                                <th class="sortable" style="width: 58.8672px;">
+                                                {{-- <th class="sortable" style="width: 58.8672px;">
                                                     <div class="arrow_box">
                                                         <span>Amount </span>
                                                     </div>
-                                                </th>
-                                                <th class="sortable" style="width: 58.8672px;">
+                                                </th> --}}
+                                                {{-- <th class="sortable" style="width: 58.8672px;">
                                                     <div class="arrow_box">
                                                         <span>% Discount </span>
                                                     </div>
@@ -628,7 +628,7 @@
                                                     <div class="arrow_box">
                                                         <span>% VAT </span>
                                                     </div>
-                                                </th>
+                                                </th> --}}
 
                                                 <th class="sortable" style="width: 86.9661px;">
                                                     <div class="arrow_box">
@@ -673,9 +673,10 @@
                                                 </td>
 
 
-                                                <td>{{ $alltaskInvoice->invoiceNumber }}</td>
+                                                <td>{{ $alltaskInvoice->invoice_no }}</td>
+                                                <td>{{ $alltaskInvoice->tasks->count() }}</td>
 
-                                                @php
+                                                {{-- @php
                                                     $pathology_price_list = DB::table('pathology_price_list')->where(
                                                         'id',
                                                         $alltaskInvoice->task,
@@ -696,7 +697,7 @@
                                                                 href="mailto:{{ $patient->email??'' }}">{{ $patient->email??'' }}</a>
                                                         </span>
                                                     </div>
-                                                </td>
+                                                </td> --}}
 
 
                                                 <td>
@@ -705,23 +706,23 @@
                                                         $patientName = DB::table('users')
                                                             ->whereId($alltaskInvoice->patient_id)
                                                             ->first();
-                                                        $amount = DB::table('pathology_price_list')
-                                                            ->whereId($alltaskInvoice->task)
-                                                            ->first();
+                                                        // $amount = DB::table('pathology_price_list')
+                                                        //     ->whereId($alltaskInvoice->task)
+                                                        //     ->first();
 
                                                     @endphp
                                                     <div class="flex-grow-1">{{ $patientName->name??'' }}</div>
                                                 </td>
 
-                                                @if ($amount->price)
-                                                    <td>{{env('SHOW_CURRENCY')}} {{ $alltaskInvoice->amountPaid }}.00</td>
+                                                @if ($alltaskInvoice->finalAmount)
+                                                    <td>{{env('SHOW_CURRENCY')}} {{ $alltaskInvoice->finalAmount }}.00</td>
                                                 @else
                                                     <td></td>
                                                 @endif
 
 
 
-                                                <td>
+                                                {{-- <td>
                                                     @isset($alltaskInvoice->discount)
                                                         {{ $alltaskInvoice->discount }}%
                                                     @else
@@ -741,7 +742,7 @@
                                                     <td>{{env('SHOW_CURRENCY')}} {{ $alltaskInvoice->finalAmount }}.00</td>
                                                 @else
                                                     <td></td>
-                                                @endif
+                                                @endif --}}
 
                                                 @if ($alltaskInvoice->paidStatus == '1')
                                                     <td>

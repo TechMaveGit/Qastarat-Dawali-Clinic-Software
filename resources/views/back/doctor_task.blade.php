@@ -157,26 +157,10 @@ foreach($D as $v)
                                             )
                                             ->first();
 
-                                    $pathology_price_list = DB::table(
-                                                                        'pathology_price_list',
-                                                                    )->where(
-                                                                        'id',
-                                                                        $nurse_task->task,
-                                                                    );
-                                                                    if (
-                                                                        $nurse_task->test_type ==
-                                                                        'pathology'
-                                                                    ) {
-                                                                        $pathology_price_list = $pathology_price_list->where(
-                                                                            'price_type',
-                                                                            '0',
-                                                                        );
-                                                                    } else {
-                                                                        $pathology_price_list = $pathology_price_list->where(
-                                                                            'price_type',
-                                                                            '1',
-                                                                        );
-                                                                    }
+                                    $pathology_price_list = DB::table('pathology_price_list')->where('id'$nurse_task->task);
+                                    if ($nurse_task->test_type) {
+                                        $pathology_price_list = $pathology_price_list->where('price_type',$nurse_task->test_type);
+                                    }
                                     $pathology_price_list = $pathology_price_list->first();
 
                                 @endphp

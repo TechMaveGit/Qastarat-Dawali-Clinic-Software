@@ -1919,18 +1919,8 @@
                                                                                     
                                                                                     <tr>
                                                                                         @php
-                                                                                            $approveBy= App\Models\superAdmin\Doctor::where('id', $Patient_order_lab->assignTo)->orderBy('id', 'desc')->first();
+                                                                                            $approveBy= App\Models\superAdmin\Doctor::where('id', $Patient_order_lab->assignTo)->where('price_type','Radiology')->orderBy('id', 'desc')->first();
                                             
-                                                                                            $pathology_price_list = DB::table('pathology_price_list')->where('id',$Patient_order_lab->task);
-                                                                                            if ($Patient_order_lab->test_type =='pathology') {
-                                                                                                $pathology_price_list = $pathology_price_list->where('price_type','0',);
-                                                                                            }
-                                                                                            else {
-                                                                                                $pathology_price_list = $pathology_price_list->where('price_type','1');
-                                                                                            }
-                                                                                            
-                                                                                            $pathology_price_list = $pathology_price_list->first();
-
                                                                                         @endphp
 
                                                                                         <td>{{ $pathology_price_list->test_name ?? '' }}
@@ -2354,17 +2344,9 @@
                                                                                     
                                                                                     <tr>
                                                                                         @php
-                                                                                            $approveBy= App\Models\superAdmin\Doctor::where('id', $Patient_order_lab->assignTo)->orderBy('id', 'desc')->first();
+                                                                                            $approveBy= App\Models\superAdmin\Doctor::where('id', $Patient_order_lab->assignTo)->where('price_type','Radiology')->orderBy('id', 'desc')->first();
                                             
-                                                                                            $pathology_price_list = DB::table('pathology_price_list')->where('id',$Patient_order_lab->task);
-                                                                                            if ($Patient_order_lab->test_type =='pathology') {
-                                                                                                $pathology_price_list = $pathology_price_list->where('price_type','0',);
-                                                                                            }
-                                                                                            else {
-                                                                                                $pathology_price_list = $pathology_price_list->where('price_type','1');
-                                                                                            }
-                                                                                            
-                                                                                            $pathology_price_list = $pathology_price_list->first();
+                                                                                           
 
                                                                                         @endphp
 
@@ -4060,7 +4042,7 @@
                                     <select id="sumo-select4" multiple name="lab_test_names[]">
                                         @php
                                             $patient_order_labs = DB::table('pathology_price_list')
-                                                ->where('price_type', '1')
+                                                ->where('price_type', 'Radiology')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
                                         @endphp
@@ -4125,7 +4107,7 @@
                                                 @php
                                                     $patient_order_labs = DB::table('pathology_price_list')
                                                         ->distinct('test_name')
-                                                        ->where('price_type', '0')
+                                                        ->where('price_type', 'Pathology')
                                                         ->orderBy('id', 'desc')
                                                         ->get();
                                                 @endphp

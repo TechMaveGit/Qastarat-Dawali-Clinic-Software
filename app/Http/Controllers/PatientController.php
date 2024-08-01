@@ -187,6 +187,7 @@ class PatientController extends Controller
     public function patient_medical_detail(Request $request, $id)
     {
 
+        // dd($request->all());
         $id = Crypt::decrypt($id);
 
         $request->session()->put('id', $id);
@@ -415,23 +416,24 @@ class PatientController extends Controller
         if ($request->input('checkReport')) {
             if ($checkGenerateData) {
                 $request->all();
+                $general_reports = DB::table('general_reports')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first();
                 $checkPrint = [
-                    "generalDiagnosis_"        => DB::table('general_reports')->select('id', 'generalDiagnosis_')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->generalDiagnosis_ ?? '',
-                    "pastMedicalHistory"       =>  DB::table('general_reports')->select('id', 'pastMedicalHistory')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->pastMedicalHistory ?? '',
-                    "pastSurgicalHistory"      =>  DB::table('general_reports')->select('id', 'pastSurgicalHistory')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->pastSurgicalHistory ?? '',
-                    "oldCurrentMeds"           => DB::table('general_reports')->select('id', 'oldCurrentMeds')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->oldCurrentMeds ?? '',
-                    "allergies"                =>  DB::table('general_reports')->select('id', 'allergies')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->allergies ?? '',
-                    "clinicalExam"             =>  DB::table('general_reports')->select('id', 'clinicalExam')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->clinicalExam ?? '',
-                    "imagingExam"              =>  DB::table('general_reports')->select('id', 'imagingExam')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->imagingExam ?? '',
-                    "lab_"                     =>  DB::table('general_reports')->select('id', 'lab_')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->lab_ ?? '',
-                    "specialInvestigation"     =>  DB::table('general_reports')->select('id', 'specialInvestigation')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->specialInvestigation ?? '',
-                    "mdtReview"                =>  DB::table('general_reports')->select('id', 'mdtReview')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->mdtReview ?? '',
-                    "diagnosis"                =>  DB::table('general_reports')->select('id', 'diagnosis')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->diagnosis ?? '',
-                    "eligibility"              => DB::table('general_reports')->select('id', 'eligibility')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->eligibility ?? '',
-                    "list"                     => DB::table('general_reports')->select('id', 'list')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->list ?? '',
-                    "supportiveTreatment"      =>  DB::table('general_reports')->select('id', 'supportiveTreatment')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->supportiveTreatment ?? '',
-                    "listOfPrescribed"         =>  DB::table('general_reports')->select('id', 'listOfPrescribed')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->listOfPrescribed ?? '',
-                    "planRecommendation"       =>  DB::table('general_reports')->select('id', 'planRecommendation')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first()->planRecommendation ?? ''
+                    "generalDiagnosis_"        => $general_reports->generalDiagnosis_ ?? '',
+                    "pastMedicalHistory"       =>  $general_reports->pastMedicalHistory ?? '',
+                    "pastSurgicalHistory"      =>  $general_reports->pastSurgicalHistory ?? '',
+                    "oldCurrentMeds"           => $general_reports->oldCurrentMeds ?? '',
+                    "allergies"                =>  $general_reports->allergies ?? '',
+                    "clinicalExam"             =>  $general_reports->clinicalExam ?? '',
+                    "imagingExam"              =>  $general_reports->imagingExam ?? '',
+                    "lab_"                     =>  $general_reports->lab_ ?? '',
+                    "specialInvestigation"     =>  $general_reports->specialInvestigation ?? '',
+                    "mdtReview"                =>  $general_reports->mdtReview ?? '',
+                    "diagnosis"                =>  $general_reports->diagnosis ?? '',
+                    "eligibility"              => $general_reports->eligibility ?? '',
+                    "list"                     => $general_reports->list ?? '',
+                    "supportiveTreatment"      =>  $general_reports->supportiveTreatment ?? '',
+                    "listOfPrescribed"         =>  $general_reports->listOfPrescribed ?? '',
+                    "planRecommendation"       =>  $general_reports->planRecommendation ?? ''
                 ];
                 return view('back/print-medical/print-medical-report', $data, $checkPrint, $patient, $checkGenerateData);
             }
@@ -777,6 +779,11 @@ class PatientController extends Controller
             'icd' => $icd
         ]);
     }
+
+
+    
+    
+
     public function Add_Symptoms(Request $request)
     {
 
@@ -810,6 +817,24 @@ class PatientController extends Controller
             return response()->json($inserted);
         }
         return response()->json($inserted);
+    }
+
+    public function editSymptoms(Request $request)
+    {
+        // dd('----');
+        $patient_id = $request->input('patient_id');
+        $doctor_id = $request->input('doctor_id');
+        $SymptomType = $request->input('SymptomType');
+        $SymptomDurationValue = $request->input('SymptomDurationValue');
+        $SymptomDurationType = $request->input('SymptomDurationType');
+        $Note = $request->input('Note');
+
+        // dd(['SymptomType'=>$SymptomType,'patient_id'=>$patient_id,'title_name'=>'Symptom'],['SymptomDurationValue'=>$SymptomDurationValue,'SymptomDurationType'=>$SymptomDurationType,'SymptomDurationNote'=>$Note]);
+
+
+        GeneralDiagnosis::where(['SymptomType'=>$SymptomType,'patient_id'=>$patient_id,'title_name'=>'Symptom'])->update(['SymptomDurationValue'=>$SymptomDurationValue,'SymptomDurationType'=>$SymptomDurationType,'SymptomDurationNote'=>$Note]);
+
+        return redirect()->back()->with('updateDiagnosis', 'Edit Updated Successfully!');
     }
 
     public function fetchExistingSymptoms(Request $request)
@@ -1428,22 +1453,42 @@ class PatientController extends Controller
         $vatDiscount = $request->input('vatDiscount');
         $finalAmount = $request->input('finalAmount');
         $taskPrice = $request->input('taskPrice');
-
         $taskIdCount = count($taskId);
 
+        $invoice_data = [];
+        $task_data = [];
         if ($taskIdCount > 0) {
             for ($i = 0; $i < $taskIdCount; $i++) {
-                DB::table('tasks')->where('id', $taskId[$i])
-                    ->update([
-                        'discount' => $discount[$i],
-                        'vatDiscount' => $vatDiscount[$i],
-                        'amountPaid'  => $taskPrice[$i],
-                        'toInvoiceStatus' => '1',
-                        'finalAmount' => $finalAmount[$i]
+                $tasks = DB::table('tasks')->where('id', $taskId[$i])->first();
+                $pdid = $tasks->doctor_id.'_'.$tasks->patient_id;
+                DB::table('tasks')->where('id', $taskId[$i])->update(['discount' => $discount[$i], 'vatDiscount' => $vatDiscount[$i], 'amountPaid'  => $taskPrice[$i], 'toInvoiceStatus' => '1', 'finalAmount' => $finalAmount[$i]]);
 
-                    ]);
+                $task_data[$pdid][]=$taskId[$i];
+                $invoice_data[$pdid]['doctor_id'] = $tasks->doctor_id;
+                $invoice_data[$pdid]['patient_id'] = $tasks->patient_id;
+                $invoice_data[$pdid]['invoice_no'] = $tasks->id.sprintf("%06d", rand(111111, 999999));
+
+                if(isset($invoice_data[$pdid]) && isset($invoice_data[$pdid]['finalAmount'])) {
+                    $invoice_data[$pdid]['finalAmount'] += (float)$finalAmount[$i];
+                }
+                else {
+                    $invoice_data[$pdid]['finalAmount'] = (float)$finalAmount[$i];
+                }
             }
         }
+        // dd($invoice_data,$task_data);
+
+        if($invoice_data){
+            foreach($invoice_data as $kk=>$idata){
+                $inId = DB::table('invoices')->insertGetId($idata);
+                if($task_data[$kk]){
+                    foreach($task_data[$kk] as $inva){
+                        DB::table('tasks')->where('id', $inva)->update(['invoice_id'=>$inId]);
+                    }
+                }
+            }
+        }
+        
 
         return redirect()->back()->with('message', 'Create invoice Successfully');
     }
@@ -1529,7 +1574,7 @@ class PatientController extends Controller
     {
 
 
-        $task_id = DB::table('pathology_price_list')->where('price_type', '2')->latest('id')->first();
+        $task_id = DB::table('pathology_price_list')->where('price_type', 'Other')->latest('id')->first();
 
 
 

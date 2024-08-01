@@ -56,18 +56,13 @@ foreach($D as $v)
                                                                 <li>
                                                                     <div class="tb_listTitle_label labe_test">Test :
                                                                     </div>
-                                                                    @php
+                                                                @php
                                                                     $pathology_price_list_ids  = json_decode($nurse_task->pathology_price_list_id);
 
-                                                                  $pathology_price_list=  DB::table('pathology_price_list')->whereIn('id',$pathology_price_list_ids);
+                                                                    $pathology_price_list=  DB::table('pathology_price_list')->whereIn('id',$pathology_price_list_ids);
 
-                                                                    if($nurse_task->test_type == 'pathology'){
-                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '0');
-
-                                                                    }
-                                                                    else {
-
-                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '1');
+                                                                    if($nurse_task->test_type){
+                                                                      $pathology_price_list=  $pathology_price_list->where('price_type',$nurse_task->test_type);
                                                                     }
 
                                                                     $pathology_price_list =$pathology_price_list->pluck('test_name');
