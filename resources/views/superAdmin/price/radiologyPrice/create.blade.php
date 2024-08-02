@@ -287,7 +287,7 @@
                                         <input name="price[]" hidden value="${price}">
                                         <input name="included_tests[]" hidden value="${included_tests}">
                                         <input name="note[]" hidden value="${note}">
-                                        <input name="mulipleType[]" hidden value="${mulipleType_1}">
+                                        <input name="mulipleType[]" hidden value="${mulipleType}">
                                         <input name="colourId[]" hidden value="${colourId}">
 
                                     </td>
