@@ -276,7 +276,7 @@
                 testCode: test_code
             },
             success: function (result) {
-                if (result.message === 200) {
+                if (result.message == 200) {
                     let microtime = Date.now();
                     let addressHtml = `<tr id="address${microtime}">
 
@@ -323,7 +323,9 @@
                                         </ul>
                                     </td>
                             </tr>`;
+                            // console.log(addressHtml);
                     $("#addNewAppendRate").append(addressHtml);
+                    $("#test_list").css("display",'block');
                     swal.fire({
                         title: 'Success',
                         html: '<strong>Add Test</strong>',
