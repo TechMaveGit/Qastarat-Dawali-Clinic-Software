@@ -910,7 +910,7 @@
                                                                             <div class="image_dr">
 
                                                                                 @if (isset($doctorDetail->patient_profile_img))
-                                                                                    <img src="{{ asset('//assets/profileImage/' . $doctorDetail->patient_profile_img) }}"
+                                                                                    <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}"
                                                                                         alt="">
                                                                                 @else
                                                                                     <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
@@ -1401,20 +1401,7 @@
                                                                                     {{ $value['SymptomType'] ?? '' }}<span
                                                                                         class="sym_duration">
 
-                                                                                        @if ($monthsDifference > 0)
-                                                                                            {{ $monthsDifference }}
-                                                                                            Months
-                                                                                        @endif
-
-                                                                                        @if ($monthsDifference > 0 && $minutesDifference > 0)
-                                                                                            {{ $minutesDifference }}
-                                                                                            minutes
-                                                                                        @endif
-
-                                                                                        @if ($minutesDifference > 0)
-                                                                                            {{ $minutesDifference }}
-                                                                                            minutes
-                                                                                        @endif
+                                                                                        {{ $value['SymptomDurationValue'] ?? '' }} &nbsp;{{ $value['SymptomDurationType'] ?? '' }}
 
                                                                                     </span></h6>
                                                                                 <p class="diagnosis_text">

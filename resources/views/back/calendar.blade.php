@@ -2107,7 +2107,7 @@ if($(this).val() == "Other"){
                     deleteButton.on('click', function() {
                         var eventId = form.find('input[name="event_id"]').val();
 
-                        var deleteUrl = '{{ url('login/delete-event/') }}' + '/' + eventId;
+                        var deleteUrl = '{{ route('user.delete.event') }}' + '?id=' + eventId;
 
                         if (eventId) {
                             $.ajax({
@@ -2647,13 +2647,16 @@ if($(this).val() == "Other"){
                             $('#serviceList').empty();
                             services.forEach(function(service) {
                                 let priceType=service.price_type;
-                                
+                                let notes = service.note;
+                                if(service.note == null){
+                                    notes = '-';
+                                }
 
                                 let serviceBox = `
                         <div class="service_box_appoin">
                             <p><span class="bx_color_ghi" style="background: ${service.colour_type};"></span>
                             <span>${service.test_name}</span></p>
-                            <span><b>Note :</b> ${service.note}</span>
+                            <span><b>Note :</b> ${notes}</span>
                             <span><b>Type :</b>${priceType}</span>
                             <span><b>Price :</b>${service.price}</span>
                            

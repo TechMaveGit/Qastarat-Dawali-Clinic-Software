@@ -34,7 +34,7 @@
                                         {{-- https://techmavesoftwaredev.com/webclinic//superAdmin/images/avatar/avatar-1.png --}}
 
                                         @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
-                                        <img src="{{ asset('//assets/doctor_profile/' . $doctor->patient_profile_img) }}" alt="">
+                                        <img src="{{ asset('/assets/doctor_profile/' . $doctor->patient_profile_img) }}" alt="">
                                         @else
                                         <img class="profile-pic" src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 

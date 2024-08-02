@@ -424,7 +424,7 @@
                          <div class="col-lg-6">
                               <div class="form-group">
                                 <label class="form-label">Profile Image</label>
-                                <input  type="file" class="dropify" data-default-file="{{ asset('//assets/profileImage/' . $doctor->patient_profile_img) }}"  data-height="100" name="profileImage"/>
+                                <input  type="file" class="dropify" data-default-file="{{ asset('/assets/profileImage/' . $doctor->patient_profile_img) }}"  data-height="100" name="profileImage"/>
                                 </div>
                         </div>
 
@@ -433,14 +433,14 @@
                          <div class="col-lg-6">
                             <div class="form-group">
                               <label class="form-label">License Upload</label>
-                              <input  type="file" class="dropify"  data-default-file="{{ asset('//assets/LicenseUpload/' . $doctor->LicenseUpload) }}" data-height="100" name="LicenseUpload"/>
+                              <input  type="file" class="dropify"  data-default-file="{{ asset('/assets/LicenseUpload/' . $doctor->LicenseUpload) }}" data-height="100" name="LicenseUpload"/>
                               </div>
                          </div>
 
                         <div class="col-lg-6">
                             <div class="form-group">
                               <label class="form-label">Academic Document Upload</label>   
-                              <input  type="file" class="dropify"  data-default-file="{{ asset('//assets/LicenseUpload/' . $doctor->AcademicDocumentUpload) }}" data-height="100" name="AcademicDocumentUpload"/>
+                              <input  type="file" class="dropify"  data-default-file="{{ asset('/assets/LicenseUpload/' . $doctor->AcademicDocumentUpload) }}" data-height="100" name="AcademicDocumentUpload"/>
                               </div>
                         </div>
 

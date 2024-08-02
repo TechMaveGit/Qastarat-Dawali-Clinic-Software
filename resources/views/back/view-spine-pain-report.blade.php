@@ -924,7 +924,7 @@
 
                                                                         @if (isset($doctorDetail->patient_profile_img))
 
-                                                                        <img src="{{ asset('//assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
+                                                                        <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
 
                                                                         @else
                                                                         <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
@@ -1879,8 +1879,8 @@
               
                                                                                   @if($Patient_order_lab->labDocument)
                                                                                   <td>
-                                                                                      <a href="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}"
-                                                                                          download="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
+                                                                                      <a href="{{ asset('/assets/')}}/{{ $Patient_order_lab->labDocument }}"
+                                                                                          download="{{ asset('/assets/')}}/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
                                                                                           <i class="fa-solid fa-file-arrow-down"></i>
                                                                                           Download Report
                                                                                       </a>
@@ -2246,8 +2246,8 @@
                 
                                                                                     @if($Patient_order_lab->labDocument)
                                                                                     <td>
-                                                                                        <a href="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}"
-                                                                                            download="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
+                                                                                        <a href="{{ asset('/assets/')}}/{{ $Patient_order_lab->labDocument }}"
+                                                                                            download="{{ asset('/assets/')}}/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
                                                                                             <i class="fa-solid fa-file-arrow-down"></i>
                                                                                             Download Report
                                                                                         </a>

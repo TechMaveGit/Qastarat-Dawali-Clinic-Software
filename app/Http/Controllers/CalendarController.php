@@ -122,9 +122,9 @@ class CalendarController extends Controller
         return response()->json(['message' => $message, 'event' => $event], 200);
     }
 
-    public function deleteEvent(Request $request, $id)
+    public function deleteEvent(Request $request)
     {
-        $event = BookAppointment::find($id);
+        $event = BookAppointment::find($request->id);
 
         if (!$event) {
             return response()->json(['error' => 'Event not found'], 404);

@@ -312,7 +312,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
 
     Route::get('/user/calendar', [CalendarController::class, 'getEvents'])->name('user.calendar.getEvents');
     Route::post('/create-update-event', [CalendarController::class, 'createOrUpdateEvent'])->name('user.calendar.event');
-    Route::get('/delete-event/{id}', [CalendarController::class, 'deleteEvent'])->name('user.delete.event');
+    Route::get('/delete-event', [CalendarController::class, 'deleteEvent'])->name('user.delete.event');
     Route::get('view-medical-report', [ViewMedicalReportController::class, 'index'])->name('user.view-medical-report');
     Route::post('EligibilityForms', [PatientController::class, 'slectEligibilityForms'])->name('user.slectEligibilityForms');
 
