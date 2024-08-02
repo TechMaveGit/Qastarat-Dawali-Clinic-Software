@@ -515,8 +515,8 @@
                             <div class="appoin_title">    
 
                             @php
-                                              $doctorName=DB::table('doctors')->where('id',$Patient_appointment->doctor_id)->first();
-                                            @endphp
+                                $doctorName=DB::table('doctors')->where('id',$Patient_appointment->doctor_id)->first();
+                            @endphp
                                
                                 <h6>{{ $Patient_appointment->appointment_type }}</h6>
                                 <p style="font-size: 15px;"> <span
@@ -531,7 +531,7 @@
                             <div class="appoin_date">
                                 <h6 style="font-size: 12px;">Appointment Date</h6>
 
-                                <p>{{ $Patient_appointment->start_date }} 
+                                <p>{{ $Patient_appointment->start_date }} - {{ $Patient_appointment->end_date??'' }} 
                                 </p>
 
 
