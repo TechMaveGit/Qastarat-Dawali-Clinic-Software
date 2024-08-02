@@ -361,11 +361,12 @@
                                                             ->copy()
                                                             ->setTime($startTime->hour, $startTime->minute);
                                                         $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                        $endTime = $allbook_appointments->end_time ? date('H:i', strtotime($allbook_appointments->end_time)) : '';
                                                     @endphp
 
 
                                                     <p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i>
-                                                        {{ $formattedDateTime }}</p>
+                                                        {{ $formattedDateTime }} - {{$endTime}}</p>
                                                 </div>
                                             </div>
                                             <hr>

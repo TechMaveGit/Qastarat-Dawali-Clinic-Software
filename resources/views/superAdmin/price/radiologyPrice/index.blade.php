@@ -80,7 +80,7 @@
                                                     <td>{{ $allpathology_price_list->note }}</td>
                                                     <td>
                                                         @if ($allpathology_price_list->price_type)
-                                                        $allpathology_price_list->price_type
+                                                        {{$allpathology_price_list->price_type}}
                                                         @else
                                                         ---
                                                         @endif

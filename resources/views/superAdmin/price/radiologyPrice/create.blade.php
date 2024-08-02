@@ -138,7 +138,7 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('price.addradiologyPrice') }}" method="post">
+                                <form action="{{ route('price.addradiologyPrice') }}" method="post" class="mt-4">
                                     @csrf
 
                                     <div class="col-lg-12" id="test_list">

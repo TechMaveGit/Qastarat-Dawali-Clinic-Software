@@ -5,7 +5,10 @@
 @endpush
 
 @section('content-section')
-
+@php
+    
+    use Carbon\Carbon;
+@endphp
 
 <div class="sub_bnr"
     style="background-image: url({{ asset('/assets/images/hero-15.jpg')}}') }});">
@@ -137,7 +140,7 @@
 
 
                         @php
-                        use Carbon\Carbon;
+                        
 
                         $patientBirthDate = null;
                         if (isset($patient->birth_date) && !empty($patient->birth_date)) {
@@ -4241,7 +4244,7 @@
 
                             <div class="">
                                 @php
-                                    @$formattedDate = Carbon\Carbon::now()->format('M d, Y g:i A');
+                                    @$formattedDate = Carbon::now()->format('M d, Y g:i A');
                                     @$patient = App\Models\User::where('id', @$id)->first();
                                 @endphp
                                 <h6 class="patient_on_ new_entry">New entry on: <span>

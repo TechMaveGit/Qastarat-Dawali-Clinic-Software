@@ -50,6 +50,30 @@
             .fc-timeGrid-view .fc-day-grid .fc-row .fc-content-skeleton {
                 padding-bottom: 2em !important;
             }
+            .appointment_service{
+                height: 300px;
+            }
+
+            .service_box_appoin {
+                display: inline-block;
+                width: 100%;
+               
+            }
+
+            .service_box_appoin p{
+                display: flex;
+                margin-bottom: 0px;
+            }
+
+            .service_box_appoin p>span{
+                margin-right: 5px;
+            }
+
+            .service_box_appoin span{
+                display: inherit;
+                white-space: inherit;
+                margin-right:15px; 
+            }
         </style>
     @endpush
 
@@ -1871,13 +1895,18 @@ if($(this).val() == "Other"){
                             center: "title",
                             right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
                         },
+                        eventTimeFormat: { 
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        },
                         events: events,
 
                         eventRender: function(info) {
                             var eventEl = info.el;
                             var priority = info.event.extendedProps.priority;
                             var colour_type = info.event.extendedProps.colour_type;
-                            console.log(colour_type);
+                            // console.log(info);
 
                             // Create a span element for the icon
                             var iconSpan = document.createElement('span');
@@ -1900,21 +1929,18 @@ if($(this).val() == "Other"){
                             }
 
                             // Set icon HTML with specified class and color
-                            iconSpan.innerHTML =
-                                `<i class="${iconClass}" style="color: ${iconColor};"></i>`;
+                            iconSpan.innerHTML = `<i class="${iconClass}" style="color: ${iconColor};"></i>`;
 
                             // Append the icon span to the event element
                             eventEl.appendChild(iconSpan);
 
                             if (colour_type) {
-                                eventEl.style.backgroundColor =
-                                    colour_type; // Light red background for danger
+                                eventEl.style.backgroundColor = colour_type; // Light red background for danger
                             } else {
-                                eventEl.style.backgroundColor =
-                                    "#fff3cd"; // Light yellow background for other priorities
+                                eventEl.style.backgroundColor = "#fff3cd"; // Light yellow background for other priorities
                             }
                         },
-
+                        
 
 
 
@@ -2128,6 +2154,7 @@ if($(this).val() == "Other"){
                         location: location
                     },
                     success: function(response) {
+                        // console.log(response);
                         initCalendar(response);
                     },
                     error: function(xhr, status, error) {
@@ -2624,11 +2651,11 @@ if($(this).val() == "Other"){
 
                                 let serviceBox = `
                         <div class="service_box_appoin">
-                            <span class="bx_color_ghi" style="background: ${service.colour_type};"></span>
-                            <span>${service.test_name}</span>
-                            <span>${service.note}</span>
-                            <span>${priceType}</span>
-                            <span>${service.price}</span>
+                            <p><span class="bx_color_ghi" style="background: ${service.colour_type};"></span>
+                            <span>${service.test_name}</span></p>
+                            <span><b>Note :</b> ${service.note}</span>
+                            <span><b>Type :</b>${priceType}</span>
+                            <span><b>Price :</b>${service.price}</span>
                            
                         </div>
                     `;

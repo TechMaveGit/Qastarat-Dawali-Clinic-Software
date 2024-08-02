@@ -284,11 +284,14 @@
                                             $startTime = \Carbon\Carbon::createFromFormat('H:i', date('H:i',strtotime($add_book_appointments->start_time)));
                                             $startDateTime = $startDate->copy()->setTime($startTime->hour, $startTime->minute);
                                             $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+
+
+                                            $endTime = $add_book_appointments->end_time ? date('H:i', strtotime($add_book_appointments->end_time)) : '-';
                                         @endphp
 
 
                                            
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> {{ $formattedDateTime }}</p>
+											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> {{ $formattedDateTime }} - {{$endTime}}</p>
 										</div>
 									</div>
                                     <hr>

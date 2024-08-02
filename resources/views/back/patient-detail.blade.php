@@ -514,10 +514,12 @@ if (!empty($patient->birth_date ?? '')) {
                                             $formattedDateTime = $startDateTime->format('l, j F Y H:i');
                                             $startDate = $startDateTime->format('l, j F Y');
                                             $startTime = $startDateTime->format('H:i');
+
+                                            $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
                                         @endphp
 
 
-                                        <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }}</span></p>
+                                        <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
 
                                     </div>
 
