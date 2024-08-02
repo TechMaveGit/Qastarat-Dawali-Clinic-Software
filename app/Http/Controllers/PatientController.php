@@ -452,11 +452,10 @@ class PatientController extends Controller
 
 
 
-    public function removeExistingSymptom(Request $request, $id)
+    public function removeExistingSymptom(Request $request)
     {
 
-        $existingSymptoms = GeneralDiagnosis::where(['id' => $id])->delete();
-        // return redirect->back();
+        $existingSymptoms = GeneralDiagnosis::where(['id' => $request->id])->delete();
         return redirect()->back()->with('existingSymptoms', 'Symptom deleted successfully');
     }
 

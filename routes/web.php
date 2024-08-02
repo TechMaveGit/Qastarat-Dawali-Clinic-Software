@@ -217,7 +217,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::get('get-Symptoms-Data', [PatientController::class, 'fetchExistingSymptoms'])->name('fetchExistingSymptom');
     Route::post('referalReplySummary', [PatientController::class, 'referalReplySummary'])->name('referalReplySummary');
 
-    Route::any('remove-Existing-Symptom/{id}', [PatientController::class, 'removeExistingSymptom'])->name('removeExistingSymptom');
+    Route::any('remove-Existing-Symptom/', [PatientController::class, 'removeExistingSymptom'])->name('removeExistingSymptom');
     Route::get('get-special-investigation', [PatientController::class, 'getSpecialInvestigation'])->name('getSpecialInvestigations');
     Route::get('get-clinical-exam', [PatientController::class, 'getClinicalExam'])->name('getClinicalExams');
     Route::post('check-special-investigation', [PatientController::class, 'checkSpecialInvestigation'])->name('checkSpecialInvestigations');

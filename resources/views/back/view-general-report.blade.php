@@ -4603,12 +4603,15 @@
                 
 
                 function fetchExistingSymptoms() {
+                    
                     $.ajax({
                         url: '{{ route('fetchExistingSymptom') }}',
                         method: 'GET',
                         success: function(data) {
                             if (data && data.length > 0) {
                                 data.forEach(function(symptom) {
+                                    let sid = symptom.id;
+                                    var editUrl = "{{route('removeExistingSymptom')}}?id="+sid;
                                     let addressHtml = `<tr>
                                                     <td hidden>
                                                         <input name="SymptomType[]" hidden value="${symptom.SymptomType}">
@@ -4620,7 +4623,7 @@
                                                     <td>${symptom.SymptomDurationValue}</td>
                                                     <td>${symptom.SymptomDurationType}</td>
                                                     <td>${symptom.SymptomDurationNote}</td>
-                                                    <td><a href="https://techmavesoftwaredemo.com/webclinic/login/remove-Existing-Symptom/${symptom.id}/" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a>
+                                                    <td><a href="${editUrl}" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a>
                                                         <a class="edit_btn" onclick="editSymptomType('${symptom.SymptomType}','${symptom.SymptomDurationNote}','${symptom.SymptomDurationType}','${symptom.SymptomDurationValue}')"><i class="fa-solid fa-edit"></i></a></td>
                                                 </tr>`;
                                     $("#Symptoms").append(addressHtml);
