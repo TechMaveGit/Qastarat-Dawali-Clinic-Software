@@ -293,7 +293,10 @@
                                                     </div>
                                                     <div class="detail_ans">
                                                         <span class="branchcls">
-                                                            @forelse ($doctor->userBranch as $getbranchName)
+                                                            @php
+                                                                $uniqueBranch = $doctor->userBranch->unique('add_branch');
+                                                            @endphp
+                                                            @forelse ($uniqueBranch as $getbranchName)
                                                                 <p>{{ $getbranchName->userBranchName->branch_name }}
                                                                     @if (!$loop->last)
                                                                         ,
