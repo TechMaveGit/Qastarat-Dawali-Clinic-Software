@@ -241,7 +241,7 @@
                                             <div class="d-flex align-items-center mb-10">
 
                                                 <div class="d-flex flex-column flex-grow-1 fw-500">
-                                                    <p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name }}
+                                                    <p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name??'' }}
                                                     </p>
                                                     @php
 
