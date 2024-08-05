@@ -1739,24 +1739,6 @@
 
                                 </div>
 
-                                {{-- <div class="col-lg-6">
-
-                                 <div class="mb-3 form-group">
-
-                                     <label class="form-label">Insurer Name</label>
-
-                                     <select class="form-control select2_edit_info" name="patient_insurer"
-                                         id="patient_insurer">
-
-                                     </select>
-
-                                     <span id="patient_insurerError" style="color: red;font-size:smaller"></span>
-
-                                 </div>
-
-                             </div>
---}}
-
                                 <div class="col-lg-6">
 
                                     <div class="mb-3 form-group">
@@ -1910,7 +1892,7 @@
                                         <input type="text" name="enterIdNumber" id="editEnterIdNumber"
                                             value="{{ old('enterIdNumber') }}" class="form-control"
                                             placeholder="">
-                                        <span class="error text-danger" id="validationMessage"> </span>
+                                        <span class="error text-danger" id="editValidationMessage"> </span>
 
                                     </div>
                                 </div>
@@ -6373,7 +6355,7 @@
 
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
 
                                         <div class="inner_element">
 
@@ -6392,24 +6374,8 @@
 
                                     </div>
 
-                                    {{-- <div class="col-lg-6">
-
-                                        <div class="inner_element">
-
-                                            <div class="form-group">
-
-
-
-                                                <input type="text"
-                                                    class="form-control datepickerInputDate end_date"
-                                                    placeholder="YYYY-MM-DD" name="end_date">                                           
-                                                     </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6">
+                                    
+                                    <div class="col-lg-3">
 
                                         <div class="inner_element">
 
@@ -6425,7 +6391,7 @@
 
                                         </div>
 
-                                    </div> --}}
+                                    </div>
 
 
 
@@ -9178,7 +9144,7 @@
         });
 
         $('#event-modal').on('hidden.bs.modal', function(e) {
-            location.reload();
+            // location.reload();
         });
         //   date format
         $(function() {
@@ -9230,8 +9196,7 @@
                         }, 1000);
 
                         if (result != '') {
-                            document.querySelector('.select2_appoin_ttype__')
-                                .selectedIndex = 0;
+                            document.querySelector('.select2_appoin_ttype__').selectedIndex = 0;
                             swal.fire({
                                 title: 'Success',
                                 html: 'Appointment Booked successfully!',
@@ -9952,6 +9917,11 @@
 
 <script>
     $(document).ready(function() {
+
+
+        
+
+
         $('#document_type').change(function() {
             $('#enterIdNumber').val('');
             //  $('#validationMessage').hide();
@@ -9962,7 +9932,8 @@
 
             $('#fileInputContainer').html(fileInputHtml);
         });
-        $("#insure_add_edit .add_patient").click(function() {
+        $("#insure_add_edit .add_patient").click(function(e) {
+            e.preventDefault();
             setTimeout(function() {
                 location.reload();
             }, 3000);
@@ -9974,7 +9945,89 @@
 
 
 
+<script>
+    $(document).ready(function() {
 
+            function setupCategorySection(containerID, inputClass, addButtonClass, listID) {
+
+                var categories = [];
+
+
+
+                $(containerID).on('click', addButtonClass, function() {
+
+                    var category = $(inputClass, containerID).val();
+
+                    if (category.trim() !== '') {
+
+                        categories.push(category);
+
+                        var categoryItem = $('<div class="category">' + category +
+
+                            '<i class="remove-category fas fa-times"></i></div>');
+
+                        $(listID).append(categoryItem);
+
+                        $(inputClass, containerID).val('');
+
+                    }
+
+                });
+
+
+
+                $(inputClass, containerID).keypress(function(event) {
+
+                    if (event.which === 13) {
+
+                        var category = $(inputClass, containerID).val();
+
+                        if (category.trim() !== '') {
+
+                            categories.push(category);
+
+                            var categoryItem = $('<div class="category">' + category +
+
+                                '<i class="remove-category fas fa-times"></i></div>');
+
+                            $(listID).append(categoryItem);
+
+                            $(inputClass, containerID).val('');
+
+                        }
+
+                    }
+
+                });
+
+
+
+                $(listID).on('click', '.remove-category', function() {
+
+                    var category = $(this).parent().text().trim();
+
+                    categories = categories.filter(function(item) {
+
+                        return item !== category;
+
+                    });
+
+                    $(this).parent().remove();
+
+                });
+
+            }
+
+
+
+            setupCategorySection('#category-container-1', '.category-input', '.add-category', '#categories-list-1');
+
+            setupCategorySection('#category-container-2', '.category-input', '.add-category', '#categories-list-2');
+
+            setupCategorySection('#category-container-3', '.category-input', '.add-category', '#categories-list-3');
+
+        });
+</script>
 
 
 <script>
@@ -10206,23 +10259,22 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const documentTypeSelect = document.getElementById('document_type');
-        const idNumberInput = document.getElementById('enterIdNumber');
-        const validationMessage = document.getElementById('validationMessage');
+        $("#Edit_document_type").change(function(){
+            $("#editEnterIdNumber").val('');
+            $("#editValidationMessage").text('');
+            validateInput('editEnterIdNumber','Edit_document_type','editValidationMessage');
+        })
 
-        documentTypeSelect.addEventListener('change', validateInput);
-        idNumberInput.addEventListener('input', validateInput);
+        $("#document_type").change(function(){
+            $("#enterIdNumber").val('');
+            $("#validationMessage").text('');
+            validateInput('enterIdNumber','document_type','validationMessage');
+        })
 
-        // console.log("function");
+        function validateInput(valpoint,selectId,vmsg) {
+            const selectedType = $(`#${selectId}`).val();
+            const idNumber = $(`#${valpoint}`).val();
 
-        function validateInput() {
-
-
-
-            // $('#enterIdNumber').val();
-            const selectedType = documentTypeSelect.value;
-
-            const idNumber = idNumberInput.value;
             let maxLength = 0;
             let message = '';
 
@@ -10237,7 +10289,7 @@
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
-                    maxLength = 10;
+                    maxLength = 11;
                     message = selectedType + ' must be exactly 11 digits';
                     break;
                 case 'PASSPORT, DRIVER\'s LICENSE, ETC':
@@ -10247,13 +10299,14 @@
             }
 
             if (maxLength !== Infinity && idNumber.length > maxLength) {
-                idNumberInput.value = idNumber.slice(0, maxLength);
+                $(`#${valpoint}`).val(idNumber.slice(0, maxLength));
             }
+            // console.log(idNumber.length,maxLength,message);
 
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
-                validationMessage.textContent = message;
+                $(`#${vmsg}`).text(message);
             } else {
-                validationMessage.textContent = '';
+                $(`#${vmsg}`).text('');
             }
         }
     });

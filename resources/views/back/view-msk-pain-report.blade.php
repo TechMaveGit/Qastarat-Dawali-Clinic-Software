@@ -800,7 +800,7 @@
 
                                                                         @if (isset($doctorDetail->patient_profile_img))
 
-                                                                        <img src="{{ asset('//assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
+                                                                        <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
 
                                                                         @else
                                                                         <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
@@ -1752,15 +1752,8 @@
                                                                             @if($Patient_order_lab->test_type=='radiology')
                                                                               <tr>
                                                                                   @php
-                                                                                   $pathology_price_list=  DB::table('pathology_price_list')->where('id',$Patient_order_lab->task);
-                                                                                      if($Patient_order_lab->test_type == 'pathology'){
-                                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '0');
-                                                                                      }
-                                                                                      else {
-                                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '1');
-                                                                                      }
-                                                                                      $pathology_price_list =$pathology_price_list->first();
-                                                                          
+                                                                                   $pathology_price_list=  DB::table('pathology_price_list')->where('id',$Patient_order_lab->task)->where('price_type', 'Radiology')->first();
+                                                                                     
                                                                                   @endphp
                                                                                   
                                                                                   <td>{{ $pathology_price_list->test_name??'' }}</td>
@@ -1784,8 +1777,8 @@
               
                                                                                   @if($Patient_order_lab->labDocument)
                                                                                   <td>
-                                                                                      <a href="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}"
-                                                                                          download="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
+                                                                                      <a href="{{ asset('/assets/')}}{{ $Patient_order_lab->labDocument }}"
+                                                                                          download="{{ asset('/assets/')}}{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
                                                                                           <i class="fa-solid fa-file-arrow-down"></i>
                                                                                           Download Report
                                                                                       </a>
@@ -2084,28 +2077,7 @@
                                                                             @if ($Patient_order_lab->test_type == 'pathology')
                                                                                 <tr>   
                                                                                     @php
-                                                                                        $pathology_price_list = DB::table(
-                                                                                            'pathology_price_list',
-                                                                                        )->where(
-                                                                                            'id',
-                                                                                            $Patient_order_lab->task,
-                                                                                        );
-                                                                                        if (
-                                                                                            $Patient_order_lab->test_type ==
-                                                                                            'pathology'
-                                                                                        ) {
-                                                                                            $pathology_price_list = $pathology_price_list->where(
-                                                                                                'price_type',
-                                                                                                '0',
-                                                                                            );
-                                                                                        } else {
-                                                                                            $pathology_price_list = $pathology_price_list->where(
-                                                                                                'price_type',
-                                                                                                '1',
-                                                                                            );
-                                                                                        }
-                                                                                        $pathology_price_list = $pathology_price_list->first();
-        
+                                                                                        $pathology_price_list = DB::table('pathology_price_list')->where('id',$Patient_order_lab->task)->where('price_type','Pathology')->first();
                                                                                     @endphp
         
                                                                                     <td>{{ $pathology_price_list->test_name?? '' }}</td>
@@ -3792,7 +3764,7 @@
                                     <select id="sumo-select4" multiple name="lab_test_names[]">
                                         @php
                                             $patient_order_labs = DB::table('pathology_price_list')
-                                                ->where('price_type', '1')
+                                                ->where('price_type', 'Radiology')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
                                         @endphp
@@ -3856,7 +3828,7 @@
                                                 @php
                                                 $patient_order_labs = DB::table('pathology_price_list')
                                                     ->distinct('test_name')
-                                                    ->where('price_type', '0')
+                                                    ->where('price_type', 'Pathology')
                                                     ->orderBy('id', 'desc')
                                                     ->get();
                                             @endphp
@@ -5801,7 +5773,7 @@ fetchAndDisplayPatientOrderLabTest(patient_id);
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -6648,7 +6620,7 @@ fetchAndDisplayPatientOrderLabTest(patient_id);
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>

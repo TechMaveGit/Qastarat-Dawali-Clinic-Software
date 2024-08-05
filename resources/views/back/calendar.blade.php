@@ -50,6 +50,30 @@
             .fc-timeGrid-view .fc-day-grid .fc-row .fc-content-skeleton {
                 padding-bottom: 2em !important;
             }
+            .appointment_service{
+                height: 300px;
+            }
+
+            .service_box_appoin {
+                display: inline-block;
+                width: 100%;
+               
+            }
+
+            .service_box_appoin p{
+                display: flex;
+                margin-bottom: 0px;
+            }
+
+            .service_box_appoin p>span{
+                margin-right: 5px;
+            }
+
+            .service_box_appoin span{
+                display: inherit;
+                white-space: inherit;
+                margin-right:15px; 
+            }
         </style>
     @endpush
 
@@ -395,8 +419,6 @@
                                         </select>
 
                                         <span id="priorityError" style="color: red;"></span>
-
-                                        
                                     </div>
 
 
@@ -441,8 +463,7 @@
                                                     <option value=""> --Select Appoinment Type-- </option>
                                                     @foreach ($pathology_price_list as $allpathology_price_list)
                                                         @if (!empty($allpathology_price_list))
-                                                            <option value="{{ $allpathology_price_list->test_name }}">
-                                                                {{ $allpathology_price_list->test_name }}</option>
+                                                            <option value="{{ $allpathology_price_list->test_name }}">{{ $allpathology_price_list->test_name }}</option>
                                                         @endif
                                                     @endforeach
                                                 </select>
@@ -454,21 +475,11 @@
                                     <div class="col-lg-6">
                                         <div class="inner_element">
                                             <div class="form-group">
-
-                                                <select class="form-control select2_modal" name="location"
-                                                    id="location">
-
+                                                <select class="form-control select2_modal" name="location"id="location">
                                                     @forelse ($locations as $alllocations)
-                                                        <option value="{{ $alllocations->branch_name }}">
-                                                            {{ $alllocations->branch_name }}</option>
-
+                                                        <option value="{{ $alllocations->branch_name }}">{{ $alllocations->branch_name }}</option>
                                                     @empty
                                                     @endforelse
-
-
-
-
-
                                                 </select>
                                             </div>
                                         </div>
@@ -482,54 +493,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="inner_element">
                                             <div class="form-group">
-
                                                 <input type="time" class="form-control" placeholder="12:00"
                                                     name="start_time">
                                             </div>
                                         </div>
                                     </div>
-
-                                    {{-- <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="inner_element">
                                             <div class="form-group">
-
-                                                <input type="text" class="form-control datepickerInput_1"
-                                                placeholder="Y-m-d" id="end_date" name="end_date">
+                                                <input type="time" class="form-control" placeholder="12:00"
+                                                    name="end_time">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="inner_element">
-                                            <div class="form-group">
-
-                                                <input type="time" class="form-control"
-                                                    placeholder="12:00" name="end_time">
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
-
-                                    {{-- <div class="col-lg-4">
-                                        <div class="inner_element">
-                                            <div class="form-group">
-
-                                                <input type="text" class="form-control"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Cost"
-                                                    name="cost" id="cost">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="inner_element">
-                                            <div class="form-group">
-
-                                                <input type="text" class="form-control" placeholder="Code"
-                                                    name="code" id="code">
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     <div class="col-lg-4">
                                         <div class="inner_element">
                                             <div class="form-group">
@@ -700,8 +679,8 @@
                                                         <span id="mobile_noError"
                                                             style="color: red;font-size:smaller"></span>
                                                         <!-- @error('mobile_no')
-        <span class="alert alert-danger">{{ $message }}</span>
-    @enderror -->
+                                                                <span class="alert alert-danger">{{ $message }}</span>
+                                                            @enderror -->
 
                                                     </div>
                                                 </div>
@@ -1072,22 +1051,6 @@
                                                 </div>
 
 
-                                                {{-- <div class="inner_element appoin_type">
-                                                <div class="mb-3 form-group">
-                                                    <label  class="form-label">Select Appointment
-                                                        Type Available</label>
-                                                        <select class="form-control select2_service select2" name="appointment" id="appointment">
-                                                            <option value="">Select Any One</option>
-                                                                <option value="0">Pathology</option>
-                                                                <option value="1">Radiology</option>
-                                                                <option value="2">Other</option>
-    
-                                                        </select>
-                                                        <span id="appointmentError" class="text-danger" style="font-size: 14px;"></span>
-                                                </div>
-                                            </div> --}}
-
-
                                                 <div class="inner_element">
                                                     <div class="form-group">
                                                         <label class="form-label">Postal
@@ -1242,13 +1205,19 @@
                                                 <div class="inner_element appoin_type">
                                                     <div class="mb-3 form-group">
                                                         <label for="validationCustom01" class="form-label">Type</label>
-                                                        <select class="form-control" name="price_type">
+                                                        <select class="form-control" id="mulipleType" name="price_type">
                                                             <option value="">Select Any One</option>
-                                                            <option value="0">Pathology</option>
-                                                            <option value="1">Radiology</option>
-                                                            <option value="2">Other</option>
+                                                            @if($patho_types)
+                                                            @foreach($patho_types as  $value)
+                                                                <option value="{{$value}}">{{$value}}</option>
+                                                            @endforeach
+                                                            @endif
+                                                            <option value="Other">Other</option>
 
                                                         </select>
+                                                        <div id="mulipleTypeInput" hidden>
+                                                            <input class="form-control" name="mulipleTypeOt" id="mulipleTypeOt" placeholder="Enter New Type Here..." />
+                                                        </div>
                                                         <span id="price_typeError" class="text-danger"
                                                             style="font-size: 14px;"></span>
                                                     </div>
@@ -1857,6 +1826,17 @@
 
 
         <script>
+
+$("#mulipleType").on('change',function(){
+
+$("#mulipleTypeInput").attr('hidden',true);
+// $("#mulipleType").attr('hidden',false);
+if($(this).val() == "Other"){
+    $("#mulipleTypeInput").attr('hidden',false);
+    // $("#mulipleType").attr('hidden',true);
+}
+})
+
             document.addEventListener('DOMContentLoaded', function() {
                 // Get all list items
                 var listItems = document.querySelectorAll('.clinic_listactive li');
@@ -1915,13 +1895,18 @@
                             center: "title",
                             right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
                         },
+                        eventTimeFormat: { 
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        },
                         events: events,
 
                         eventRender: function(info) {
                             var eventEl = info.el;
                             var priority = info.event.extendedProps.priority;
                             var colour_type = info.event.extendedProps.colour_type;
-                            console.log(colour_type);
+                            // console.log(info);
 
                             // Create a span element for the icon
                             var iconSpan = document.createElement('span');
@@ -1944,21 +1929,18 @@
                             }
 
                             // Set icon HTML with specified class and color
-                            iconSpan.innerHTML =
-                                `<i class="${iconClass}" style="color: ${iconColor};"></i>`;
+                            iconSpan.innerHTML = `<i class="${iconClass}" style="color: ${iconColor};"></i>`;
 
                             // Append the icon span to the event element
                             eventEl.appendChild(iconSpan);
 
                             if (colour_type) {
-                                eventEl.style.backgroundColor =
-                                    colour_type; // Light red background for danger
+                                eventEl.style.backgroundColor = colour_type; // Light red background for danger
                             } else {
-                                eventEl.style.backgroundColor =
-                                    "#fff3cd"; // Light yellow background for other priorities
+                                eventEl.style.backgroundColor = "#fff3cd"; // Light yellow background for other priorities
                             }
                         },
-
+                        
 
 
 
@@ -2125,7 +2107,7 @@
                     deleteButton.on('click', function() {
                         var eventId = form.find('input[name="event_id"]').val();
 
-                        var deleteUrl = '{{ url('login/delete-event/') }}' + '/' + eventId;
+                        var deleteUrl = '{{ route('user.delete.event') }}' + '?id=' + eventId;
 
                         if (eventId) {
                             $.ajax({
@@ -2172,6 +2154,7 @@
                         location: location
                     },
                     success: function(response) {
+                        // console.log(response);
                         initCalendar(response);
                     },
                     error: function(xhr, status, error) {
@@ -2204,7 +2187,7 @@
                 });
 
                 $('#event-modal').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
                 //   date format
                 $(function() {
@@ -2650,14 +2633,7 @@
                         $('input[name="price"]').addClass('error');
                     }
 
-                    // // Validate price_type
-                    // let price_type = $('select[name="price_type"]').val();
-                    // if (price_type === '' || price_type === 'Select') {
-                    //     isValid = false;
-
-                    //     $('#price_typeError').text('Please select a price type');
-                    //     $('select[name="price_type"]').addClass('error');
-                    // }
+                    
 
                     return isValid;
                 }
@@ -2670,22 +2646,19 @@
                         success: function(services) {
                             $('#serviceList').empty();
                             services.forEach(function(service) {
-                                let priceType;
-                                if (service.price_type === 0) {
-                                    priceType = 'Pathology';
-                                } else if (service.price_type === 1) {
-                                    priceType = 'Radiology';
-                                } else {
-                                    priceType = 'Other';
+                                let priceType=service.price_type;
+                                let notes = service.note;
+                                if(service.note == null){
+                                    notes = '-';
                                 }
 
                                 let serviceBox = `
                         <div class="service_box_appoin">
-                            <span class="bx_color_ghi" style="background: ${service.colour_type};"></span>
-                            <span>${service.test_name}</span>
-                            <span>${service.note}</span>
-                            <span>${priceType}</span>
-                            <span>${service.price}</span>
+                            <p><span class="bx_color_ghi" style="background: ${service.colour_type};"></span>
+                            <span>${service.test_name}</span></p>
+                            <span><b>Note :</b> ${notes}</span>
+                            <span><b>Type :</b>${priceType}</span>
+                            <span><b>Price :</b>${service.price}</span>
                            
                         </div>
                     `;

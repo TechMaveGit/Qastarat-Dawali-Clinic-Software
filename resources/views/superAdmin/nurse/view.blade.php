@@ -45,7 +45,7 @@
                                         <div class="circle">
 
                                             @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
-                                                <img src="{{ asset('//assets/nurse_profile/' . '/' . $doctor->patient_profile_img) }}"
+                                                <img src="{{ asset('/assets/nurse_profile/' . '/' . $doctor->patient_profile_img) }}"
                                                     alt="">
                                             @else
                                                 <img class="profile-pic"
@@ -149,9 +149,9 @@
 
                                                     <div class="detail_ans imageSize">
                                                         @if ($doctor->patient_profile_img)
-                                                            <a href="{{ asset('//assets/nurse_profile') }}/{{ $doctor->patient_profile_img }}"
+                                                            <a href="{{ asset('/assets/nurse_profile') }}/{{ $doctor->patient_profile_img }}"
                                                                 target="_blank">
-                                                                <img src="{{ asset('//assets/nurse_profile') }}/{{ $doctor->patient_profile_img }}"
+                                                                <img src="{{ asset('/assets/nurse_profile') }}/{{ $doctor->patient_profile_img }}"
                                                                     alt="Profile Image" style="max-width: 50%;" />
                                                             </a>
                                                         @endif
@@ -241,7 +241,7 @@
                                             <div class="d-flex align-items-center mb-10">
 
                                                 <div class="d-flex flex-column flex-grow-1 fw-500">
-                                                    <p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name }}
+                                                    <p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name??'' }}
                                                     </p>
                                                     @php
 

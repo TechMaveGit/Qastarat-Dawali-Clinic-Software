@@ -81,15 +81,19 @@
                                         <label class="form-label">Type <span class="required">*</span></label>
                                         <select class="form-control" id="mulipleType" name="type[]"
                                             style="width: 100%;">
-                                            <option value="11">Select Any One</option>
-                                            <option value="0">Pathology</option>
-                                            <option value="1">Radiology</option>
-                                            <option value="2">Other</option>
+                                            <option value="0">Select Any One</option>
+                                            @if($patho_types)
+                                            @foreach($patho_types as  $value)
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endforeach
+                                            @endif
+                                            <option value="Other">Other</option>
                                         </select>
+                                        <div id="mulipleTypeInput" hidden>
+                                            <input class="form-control" name="mulipleTypeOt" id="mulipleTypeOt" placeholder="Enter New Type Here..." />
+                                        </div>
 
-                                        <div id="selectType" style="color: red; display: none;">Please Select Any One
-                                            Type.</div>
-
+                                        <div id="selectType" style="color: red; display: none;">Please Select Any One Type.</div>
                                     </div>
                                 </div>
 
@@ -134,7 +138,7 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('price.addradiologyPrice') }}" method="post">
+                                <form action="{{ route('price.addradiologyPrice') }}" method="post" class="mt-4">
                                     @csrf
 
                                     <div class="col-lg-12" id="test_list">
@@ -187,8 +191,21 @@
 </div>
 
 
-
+@push('custom-js')
 <script>
+
+
+
+    $("#mulipleType").on('change',function(){
+
+        $("#mulipleTypeInput").attr('hidden',true);
+        // $("#mulipleType").attr('hidden',false);
+        if($(this).val() == "Other"){
+            $("#mulipleTypeInput").attr('hidden',false);
+            // $("#mulipleType").attr('hidden',true);
+        }
+    })
+
     function addNewRate() {
         let test_name = $("#test_name").val();
         let test_code = $("#test_code").val();
@@ -198,18 +215,7 @@
         let note = $("#note").val();
         let colourId = $("#colourId").val();
         let mulipleType = $("#mulipleType").val();
-        let mulipleType_1 = $("#mulipleType").val();
-
-
-        if (mulipleType == 1) {
-            mulipleType = 'Radiology'; // Update the existing variable
-        } else if (mulipleType == 0) {
-            mulipleType = 'Pathology'; // Update the existing variable
-        } else if (mulipleType == 2) {
-            mulipleType = 'Other'; // Update the existing variable
-        } else {
-            mulipleType = 'Unknown';
-        }
+        let mulipleTypeOt = $("#mulipleTypeOt").val();
 
         let isValid = true;
 
@@ -226,20 +232,21 @@
             isValid = false;
         }
 
-        if (!mulipleType_1 ||mulipleType_1 === '') {
+        if (!mulipleType || mulipleType == '' || mulipleType == '0') {
             $("#mulipleType").after('<span class="error_show text-danger">This Field Is Required !</span>');
             isValid = false;
         }
 
-        if (price === '') {
+        if (price == '') {
             $("#price").after('<span class="error_show text-danger">This Field Is Required !</span>');
             isValid = false;
         }
+        
 
-        // if (included_tests === '') {
-        //     $("#included_tests").after('<span class="error_show text-danger">This Field Is Required !</span>');
-        //     isValid = false;
-        // }
+        if (mulipleType == 'Other' && mulipleTypeOt === '') {
+            $("#mulipleTypeOt").after('<span class="error_show text-danger">This Field Is Required !</span>');
+            isValid = false;
+        }
 
         // if (note === '') {
         //     $("#note").after('<span class="error_show text-danger">This Field Is Required !</span>');
@@ -269,7 +276,7 @@
                 testCode: test_code
             },
             success: function (result) {
-                if (result.message === 200) {
+                if (result.message == 200) {
                     let microtime = Date.now();
                     let addressHtml = `<tr id="address${microtime}">
 
@@ -280,7 +287,7 @@
                                         <input name="price[]" hidden value="${price}">
                                         <input name="included_tests[]" hidden value="${included_tests}">
                                         <input name="note[]" hidden value="${note}">
-                                        <input name="mulipleType[]" hidden value="${mulipleType_1}">
+                                        <input name="mulipleType[]" hidden value="${mulipleType}">
                                         <input name="colourId[]" hidden value="${colourId}">
 
                                     </td>
@@ -316,7 +323,9 @@
                                         </ul>
                                     </td>
                             </tr>`;
+                            // console.log(addressHtml);
                     $("#addNewAppendRate").append(addressHtml);
+                    $("#test_list").css("display",'block');
                     swal.fire({
                         title: 'Success',
                         html: '<strong>Add Test</strong>',
@@ -337,6 +346,8 @@
             },
         });
     }
+
+    
 
 
     function deleteTabletr(tabletr, filenumber = 'none') {
@@ -367,7 +378,7 @@
         $("#price").val('');
         $("#included_tests").val('');
         $("#note").val('');
-        $("#mulipleType").val('11');
+        $("#mulipleType").val('0');
 
 
 
@@ -423,4 +434,5 @@
         }
     });
 </script>
+@endpush
 @endsection

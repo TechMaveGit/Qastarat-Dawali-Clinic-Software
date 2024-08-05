@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\superAdmin\Doctor;
-use DB;
+use Illuminate\Support\Facades\DB;
+
 class AppointmentController extends Controller
 {
     //

@@ -328,8 +328,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Select Id</label>
-                                            <select class="form-control select2" name="document_type" id="document_type"
-                                                onclick="emptyId()" style="width: 100%;">
+                                            <select class="form-control select2" name="document_type" id="document_type"  style="width: 100%;">
                                                 <option value="">Select Any One</option>
                                                 <option value="CIVIL ID"
                                                     {{ old('document_type') == 'CIVIL ID' ? 'selected' : '' }}>
@@ -393,25 +392,17 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const documentTypeSelect = document.getElementById('document_type');
-        const idNumberInput = document.getElementById('enterIdNumber');
-        const validationMessage = document.getElementById('validationMessage');
+        
 
-        documentTypeSelect.addEventListener('change', handleDropdownChange);
-        idNumberInput.addEventListener('input', validateInput);
-
-        function handleDropdownChange() {
-            // Reset the value of the input field
-            idNumberInput.value = '';
-            // Clear the validation message
-            validationMessage.textContent = '';
-            // Validate input to enforce new rules
+        $("#document_type").change(function(){
+            $("#enterIdNumber").val('');
+            $("#validationMessage").text('');
             validateInput();
-        }
+        })
 
         function validateInput() {
-            const selectedType = documentTypeSelect.value;
-            const idNumber = idNumberInput.value;
+            const selectedType = $("#document_type").val();
+            const idNumber = $("#enterIdNumber").val();
 
             let maxLength = 0;
             let message = '';
@@ -437,13 +428,13 @@
             }
 
             if (maxLength !== Infinity && idNumber.length > maxLength) {
-                idNumberInput.value = idNumber.slice(0, maxLength);
+                $("#enterIdNumber").val(idNumber.slice(0, maxLength));
             }
 
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
-                validationMessage.textContent = message;
+                $("#validationMessage").text(message);
             } else {
-                validationMessage.textContent = '';
+                $("#validationMessage").text('');
             }
         }
     });

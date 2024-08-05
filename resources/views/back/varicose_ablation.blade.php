@@ -4260,9 +4260,12 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
+                        width:500,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
                     })
                 );
 
@@ -4318,56 +4321,76 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
         link.click();
     });
 
+    function isFormDataValid(formData) {
+        for (let [key, value] of formData.entries()) {
+            if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                if (value.trim() !== '') {
+                    return true; // A blank value found
+                }
+            }
+        }
+        return false; // All values are non-blank
+    }
+
         
         $("#storeVaricoseAblationEligibilityForms").submit(function(event) {
             
             event.preventDefault();
             let formData = new FormData(this);
-            if (!validateForm()) {
-                e.preventDefault(); 
-            } 
-            else {
-                if(validateForm()){
+            
+            if(isFormDataValid(formData)){
+                if (!validateForm()) {
+                    e.preventDefault(); 
+                } 
+                else {
+                    if(validateForm()){
 
+                    
+                    
+                    $.ajax({
+                                    url: '{{ route("user.storeVaricoseAblationEligibilityForms") }}',
+                                    type: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function(response) {
+                                        
+                                        var patientId = response.patient_id;
+                                        if(response!=''){
                 
+                                            swal.fire(
                 
-                $.ajax({
-                                url: '{{ route("user.storeVaricoseAblationEligibilityForms") }}',
-                                type: 'POST',
-                                data: formData,
-                                processData: false,
-                                contentType: false,
-                                success: function(response) {
-                                    
-                                    var patientId = response.patient_id;
-                                    if(response!=''){
-              
-                                        swal.fire(
-              
-                                            'Success',
-              
-                                            'Varicose Ablation form saved successfully!',
-              
-                                            'success'
-              
-                                        ).then(function() {
+                                                'Success',
+                
+                                                'Varicose Ablation form saved successfully!',
+                
+                                                'success'
+                
+                                            ).then(function() {
+                                                    
                                                 
-                                               
-                                            var redirectUrl = "{{ route('user.viewVaricoseAblationEligibilityForms', ['id' => ':id']) }}";
-                                            redirectUrl = redirectUrl.replace(':id', patientId);
-                                            window.location.href = redirectUrl;
-                                            });
-                                       
-                                       
-                                        }
-                                }
-                             
+                                                var redirectUrl = "{{ route('user.viewVaricoseAblationEligibilityForms', ['id' => ':id']) }}";
+                                                redirectUrl = redirectUrl.replace(':id', patientId);
+                                                window.location.href = redirectUrl;
+                                                });
+                                        
+                                        
+                                            }
+                                    }
                                 
-                            });
-              
+                                    
+                                });
                 
+                    
+                }
+                }
+            }else{
+                Swal.fire({
+                    title: "Fill Data?",
+                    text: "Please fill the details.",
+                    icon: "info",
+                });
             }
-        }
         });
     });
 </script>

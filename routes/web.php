@@ -211,12 +211,13 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('add-patient-vital/{id?}', [PatientController::class, 'patient_vital'])->name('user.patient_vital');
     Route::post('add-patient-diagnosis/{id?}', [PatientController::class, 'Add_Diagnosis'])->name('user.Add_Diagnosis');
     Route::post('edit-patient-diagnosis', [PatientController::class, 'editDiagnosis'])->name('user.edit_Diagnosis');
+    Route::post('edit-patient-symptoms', [PatientController::class, 'editSymptoms'])->name('user.edit_Symptoms');
 
     Route::get('get-Diagnosis-Data', [PatientController::class, 'getDiagnosis'])->name('getDiagnosisData');
     Route::get('get-Symptoms-Data', [PatientController::class, 'fetchExistingSymptoms'])->name('fetchExistingSymptom');
     Route::post('referalReplySummary', [PatientController::class, 'referalReplySummary'])->name('referalReplySummary');
 
-    Route::any('remove-Existing-Symptom/{id}', [PatientController::class, 'removeExistingSymptom'])->name('removeExistingSymptom');
+    Route::any('remove-Existing-Symptom/', [PatientController::class, 'removeExistingSymptom'])->name('removeExistingSymptom');
     Route::get('get-special-investigation', [PatientController::class, 'getSpecialInvestigation'])->name('getSpecialInvestigations');
     Route::get('get-clinical-exam', [PatientController::class, 'getClinicalExam'])->name('getClinicalExams');
     Route::post('check-special-investigation', [PatientController::class, 'checkSpecialInvestigation'])->name('checkSpecialInvestigations');
@@ -311,7 +312,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
 
     Route::get('/user/calendar', [CalendarController::class, 'getEvents'])->name('user.calendar.getEvents');
     Route::post('/create-update-event', [CalendarController::class, 'createOrUpdateEvent'])->name('user.calendar.event');
-    Route::get('/delete-event/{id}', [CalendarController::class, 'deleteEvent'])->name('user.delete.event');
+    Route::get('/delete-event', [CalendarController::class, 'deleteEvent'])->name('user.delete.event');
     Route::get('view-medical-report', [ViewMedicalReportController::class, 'index'])->name('user.view-medical-report');
     Route::post('EligibilityForms', [PatientController::class, 'slectEligibilityForms'])->name('user.slectEligibilityForms');
 

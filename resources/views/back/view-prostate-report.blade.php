@@ -973,7 +973,7 @@
 
                                                                         @if (isset($doctorDetail->patient_profile_img))
 
-                                                                        <img src="{{ asset('//assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
+                                                                        <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
 
                                                                         @else
                                                                         <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
@@ -1989,18 +1989,7 @@
                                                                                     
                                                                                     <tr>
                                                                                         @php
-                                                                                            $approveBy= App\Models\superAdmin\Doctor::where('id', $Patient_order_lab->assignTo)->orderBy('id', 'desc')->first();
-                                            
-                                                                                            $pathology_price_list = DB::table('pathology_price_list')->where('id',$Patient_order_lab->task);
-                                                                                            if ($Patient_order_lab->test_type =='pathology') {
-                                                                                                $pathology_price_list = $pathology_price_list->where('price_type','0',);
-                                                                                            }
-                                                                                            else {
-                                                                                                $pathology_price_list = $pathology_price_list->where('price_type','1');
-                                                                                            }
-                                                                                            
-                                                                                            $pathology_price_list = $pathology_price_list->first();
-
+                                                                                            $approveBy= App\Models\superAdmin\Doctor::where('id', $Patient_order_lab->assignTo)->orderBy('id', 'desc')->where('price_type','Radiology')->first();
                                                                                         @endphp
 
                                                                                         <td>{{ $pathology_price_list->test_name ?? '' }}
@@ -2472,28 +2461,7 @@
                                                                                 @if ($Patient_order_lab->test_type == 'pathology')
                                                                                     <tr>   
                                                                                         @php
-                                                                                            $pathology_price_list = DB::table(
-                                                                                                'pathology_price_list',
-                                                                                            )->where(
-                                                                                                'id',
-                                                                                                $Patient_order_lab->task,
-                                                                                            );
-                                                                                            if (
-                                                                                                $Patient_order_lab->test_type ==
-                                                                                                'pathology'
-                                                                                            ) {
-                                                                                                $pathology_price_list = $pathology_price_list->where(
-                                                                                                    'price_type',
-                                                                                                    '0',
-                                                                                                );
-                                                                                            } else {
-                                                                                                $pathology_price_list = $pathology_price_list->where(
-                                                                                                    'price_type',
-                                                                                                    '1',
-                                                                                                );
-                                                                                            }
-                                                                                            $pathology_price_list = $pathology_price_list->first();
-            
+                                                                                            $pathology_price_list = DB::table('pathology_price_list')->where('id',$Patient_order_lab->task)->where('price_type','Pathology')->first();
                                                                                         @endphp
             
                                                                                         <td>{{ $pathology_price_list->test_name?? '' }}</td>
@@ -4134,7 +4102,7 @@
                                     <select id="sumo-select4" multiple name="lab_test_names[]">
                                         @php
                                             $patient_order_labs = DB::table('pathology_price_list')
-                                                ->where('price_type', '1')
+                                                ->where('price_type', 'Radiology')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
                                         @endphp
@@ -4205,7 +4173,7 @@
                                                 @php
                                                     $patient_order_labs = DB::table('pathology_price_list')
                                                         ->distinct('test_name')
-                                                        ->where('price_type', '0')
+                                                        ->where('price_type', 'Pathology')
                                                         ->orderBy('id', 'desc')
                                                         ->get();
                                                 @endphp
@@ -4253,64 +4221,6 @@
                     </div>
                 </form>
 
-
-{{--                 
-                <form id="order_lab_test_form" method="POST">
-                    @csrf
-                    <input type="hidden" name="patient_id" value="{{ @$id }}" />
-                    <input type="hidden" value="prostate_form" name="formType" />
-                    <div class="modal-body padding-0">
-                        <div class="inner_data">
-                            <div class="row top_head_vitals">
-
-                                <div class="col-lg-12">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <label for="validationCustom01" class="form-label">Select Lab Tests</label>
-                                            <select id="sumo-select" multiple name="lab_test_names[]">
-                                                @php
-                                                    $patient_order_labs = DB::table('pathology_price_list')
-                                                        ->distinct('test_name')
-                                                        ->where('price_type', '0')
-                                                        ->orderBy('id', 'desc')
-                                                        ->get();
-                                                @endphp
-                                                @foreach ($patient_order_labs as $patient_order_lab)    
-                                                    <option value="{{ $patient_order_lab->id }}">
-                                                        {{ $patient_order_lab->test_name }}</option>
-                                                @endforeach
-                                            </select>
-                                            <span id="LabTestNamesError" style="color: red;"></span>  
-                                        </div>
-    
-                                        <input type="hidden" id="doctorValue" name="doctorId"
-                                            value="{{ auth()->guard('doctor')->user()->id }}" />
-
-
-                                        <div class="col-lg-12">   
-
-
-                                        </div>
-
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="action text-end bottom_modal">
-                            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
-                                Order</button>
-                            <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
-                                data-bs-dismiss="modal">
-                                Cancel</a>
-                        </div>
-                    </div>
-                </form> --}}
-                <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-           </div> -->
             </div>
         </div>
     </div>
@@ -6260,7 +6170,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -7093,7 +7003,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>

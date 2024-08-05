@@ -38,6 +38,7 @@
    <link href="{{ asset('/assets/css/toastr.min.css')}}" rel="stylesheet">
  <!-- CHARTJS JS -->
  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<style>
 	.website_icon iconify-icon {
 	font-size: 17px;

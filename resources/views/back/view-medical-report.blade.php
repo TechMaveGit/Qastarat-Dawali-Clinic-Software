@@ -751,7 +751,7 @@
 
                                                                         @if (isset($doctorDetail->patient_profile_img))
 
-                                                                        <img src="{{ asset('//assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
+                                                                        <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
 
                                                                         @else
                                                                         <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
@@ -3316,7 +3316,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -4623,7 +4623,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>

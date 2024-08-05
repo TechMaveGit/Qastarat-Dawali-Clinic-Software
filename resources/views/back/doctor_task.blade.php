@@ -145,7 +145,6 @@ foreach($D as $v)
 
                                 <tbody>
                                     @forelse ($nurse_tasks as $nurse_task)
-
                                     @php
                                         $approveBy = App\Models\superAdmin\Doctor::where(
                                             'id',
@@ -157,26 +156,10 @@ foreach($D as $v)
                                             )
                                             ->first();
 
-                                    $pathology_price_list = DB::table(
-                                                                        'pathology_price_list',
-                                                                    )->where(
-                                                                        'id',
-                                                                        $nurse_task->task,
-                                                                    );
-                                                                    if (
-                                                                        $nurse_task->test_type ==
-                                                                        'pathology'
-                                                                    ) {
-                                                                        $pathology_price_list = $pathology_price_list->where(
-                                                                            'price_type',
-                                                                            '0',
-                                                                        );
-                                                                    } else {
-                                                                        $pathology_price_list = $pathology_price_list->where(
-                                                                            'price_type',
-                                                                            '1',
-                                                                        );
-                                                                    }
+                                    $pathology_price_list = DB::table('pathology_price_list')->where('id',$nurse_task->task);
+                                    if ($nurse_task->test_type) {
+                                        $pathology_price_list = $pathology_price_list->where('price_type',$nurse_task->test_type);
+                                    }
                                     $pathology_price_list = $pathology_price_list->first();
 
                                 @endphp
@@ -591,7 +574,7 @@ function refreshPage() {
     window.location.reload();
 }
 $('#book_appointment').on('hidden.bs.modal', function () {
-    refreshPage();
+    // refreshPage();
 });
 </script>
 

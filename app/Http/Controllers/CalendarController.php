@@ -17,14 +17,13 @@ class CalendarController extends Controller
         $doctors=Doctor::select('id','name')->where('role_id','1')->orderBy('id','desc')->get();
         $patients=User::select('id','name')->orderBy('id','desc')->get();
 
-        $book_appointments= DB::table('book_appointments')
-                                        ->select('appointment_type')
-                                        ->distinct()
-                                        ->get();
+        $book_appointments= DB::table('book_appointments')->select('appointment_type')->distinct()->get();
 
         $users=DB::table('users')->orderBy('id','desc')->get();
         $locations=DB::table('branchs')->orderBy('id','desc')->get();
         $pathology_price_list = DB::table('pathology_price_list')->get();
+
+        $patho_types = $pathology_price_list ? $pathology_price_list->unique('price_type')->pluck('price_type') : [];
 
         $searchPatient =$request->input('searchPatient');
         $appontment_availability = [];   
@@ -79,7 +78,7 @@ class CalendarController extends Controller
 
         }
        
-        return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','pathology_price_list','appontment_availability','countData'));
+        return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','pathology_price_list','appontment_availability','countData','patho_types'));
     }
 
     
@@ -98,7 +97,6 @@ class CalendarController extends Controller
             'priority' => $request->input('priority'),
             'appointment_type' => $request->input('appointment_type'),
             'location' => $request->input('location'),
-           // 'status' =>  '1',
             'start_date' => $request->input('start_date') .  ' ' . $request->input('start_time'),
             'start_time' => $request->input('start_time'),
             'end_date' => $request->input('end_date') . ' ' .  $request->input('end_time'),
@@ -108,22 +106,15 @@ class CalendarController extends Controller
             'confirmation' => isset($request->confirmation) ? 'yes' : 'no',
         ];
 
-   //     dd($eventData);
 
-
-        if ($eventId)
-
-        {
+        if ($eventId){
             $event = BookAppointment::find($eventId);
             if (!$event) {
                 return response()->json(['error' => 'Event not found'], 404);
             }
             $event->update($eventData);
             $message = 'Event updated successfully';
-        }
-
-        else {
-
+        }else {
             $event = BookAppointment::create($eventData);
             $message = 'Appointment added successfully';
         }
@@ -131,9 +122,9 @@ class CalendarController extends Controller
         return response()->json(['message' => $message, 'event' => $event], 200);
     }
 
-    public function deleteEvent(Request $request, $id)
+    public function deleteEvent(Request $request)
     {
-        $event = BookAppointment::find($id);
+        $event = BookAppointment::find($request->id);
 
         if (!$event) {
             return response()->json(['error' => 'Event not found'], 404);

@@ -108,6 +108,52 @@
     </div>
 
 
+    
+
+    <div class="modal fade edit_patient__" id="symptomsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Symptoms</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <form action="{{route('user.edit_Symptoms')}}" method="post"> 
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="diagnosisType">Type Symptom</label>
+                            <input type="hidden" name="patient_id" value="{{session()->get('id')}}" />
+                            <input type="hidden" name="doctor_id" value="{{auth()->guard('doctor')->id()}}" />
+                            <input type="text" class="form-control bg-muted" name="SymptomType" id="ModelSymptomType" readonly style="background: #eee;">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Duration value</label>
+                            <input type="text" class="form-control" id="ModelSymptomDurationValue" name="SymptomDurationValue">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Duration Type</label>
+                            <input type="text" class="form-control" id="ModalSymptomDurationType" name="SymptomDurationType">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Note</label>
+                            <input type="text" class="form-control" id="ModelNote" name="Note">
+                        </div>
+                    </div>
+                    <div class="action text-end bottom_modal">
+                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+                            Edit</button>
+                        <button type="button" class="modalCloseBtn" data-bs-dismiss="modal" aria-label="Close">
+                            Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 
     <div class="patient-detail">
 
@@ -864,7 +910,7 @@
                                                                             <div class="image_dr">
 
                                                                                 @if (isset($doctorDetail->patient_profile_img))
-                                                                                    <img src="{{ asset('//assets/profileImage/' . $doctorDetail->patient_profile_img) }}"
+                                                                                    <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}"
                                                                                         alt="">
                                                                                 @else
                                                                                     <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
@@ -1355,20 +1401,7 @@
                                                                                     {{ $value['SymptomType'] ?? '' }}<span
                                                                                         class="sym_duration">
 
-                                                                                        @if ($monthsDifference > 0)
-                                                                                            {{ $monthsDifference }}
-                                                                                            Months
-                                                                                        @endif
-
-                                                                                        @if ($monthsDifference > 0 && $minutesDifference > 0)
-                                                                                            {{ $minutesDifference }}
-                                                                                            minutes
-                                                                                        @endif
-
-                                                                                        @if ($minutesDifference > 0)
-                                                                                            {{ $minutesDifference }}
-                                                                                            minutes
-                                                                                        @endif
+                                                                                        {{ $value['SymptomDurationValue'] ?? '' }} &nbsp;{{ $value['SymptomDurationType'] ?? '' }}
 
                                                                                     </span></h6>
                                                                                 <p class="diagnosis_text">
@@ -1909,7 +1942,7 @@
                                                                                                     'id',
                                                                                                     $Patient_order_lab->assignTo,
                                                                                                 )
-                                                                                                    ->orderBy(
+                                                                                                ->orderBy(
                                                                                                         'id',
                                                                                                         'desc',
                                                                                                     )
@@ -1920,23 +1953,11 @@
                                                                                                 )->where(
                                                                                                     'id',
                                                                                                     $Patient_order_lab->task,
-                                                                                                );
-                                                                                                if (
-                                                                                                    $Patient_order_lab->test_type ==
-                                                                                                    'pathology'
-                                                                                                ) {
-                                                                                                    $pathology_price_list = $pathology_price_list->where(
+                                                                                                )->where(
                                                                                                         'price_type',
-                                                                                                        '0',
-                                                                                                    );
-                                                                                                } else {
-                                                                                                    $pathology_price_list = $pathology_price_list->where(
-                                                                                                        'price_type',
-                                                                                                        '1',
-                                                                                                    );
-                                                                                                }
-
-                                                                                                $pathology_price_list = $pathology_price_list->first();
+                                                                                                        'Radiology'
+                                                                                                    )->first();
+                                                                                                
 
                                                                                             @endphp
 
@@ -2303,22 +2324,11 @@
                                                                                 )->where(
                                                                                     'id',
                                                                                     $Patient_order_lab->task,
-                                                                                );
-                                                                                if (
-                                                                                    $Patient_order_lab->test_type ==
-                                                                                    'pathology'
-                                                                                ) {
-                                                                                    $pathology_price_list = $pathology_price_list->where(
+                                                                                )->where(
                                                                                         'price_type',
-                                                                                        '0',
-                                                                                    );
-                                                                                } else {
-                                                                                    $pathology_price_list = $pathology_price_list->where(
-                                                                                        'price_type',
-                                                                                        '1',
-                                                                                    );
-                                                                                }
-                                                                                $pathology_price_list = $pathology_price_list->first();
+                                                                                        'Pathology'
+                                                                                    )->first();
+                                                                               
 
                                                                             @endphp
 
@@ -3952,7 +3962,7 @@
                                     <select id="sumo-select4" multiple name="lab_test_names[]">
                                         @php
                                             $patient_order_labs = DB::table('pathology_price_list')
-                                                ->where('price_type', '1')
+                                                ->where('price_type', 'Radiology')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
                                         @endphp
@@ -4023,7 +4033,7 @@
                                                 @php
                                                     $patient_order_labs = DB::table('pathology_price_list')
                                                         ->distinct('test_name')
-                                                        ->where('price_type', '0')
+                                                        ->where('price_type', 'Pathology')
                                                         ->orderBy('id', 'desc')
                                                         ->get();
                                                 @endphp
@@ -4291,6 +4301,19 @@
 
     @push('custom-js')
         <script>
+
+            function editSymptomType(SymptomType,SymptomDurationNote,SymptomDurationType,SymptomDurationValue) {
+
+                    $('#ModelSymptomType').val(SymptomType);
+                    $('#ModelSymptomDurationValue').val(SymptomDurationValue);
+                    $('#ModalSymptomDurationType').val(SymptomDurationType);
+                    $('#ModelNote').val(SymptomDurationNote);
+
+                    $('#symptoms_add').modal('hide');
+                    $('#symptomsModal').modal('show');
+
+            }
+
             // Add or Remove Diagnosis
             $(document).ready(function() {
                 var diagnosisData = {
@@ -4494,11 +4517,14 @@
                 $('#diagnosisModal').modal('show');
 
             }
+
+            
         </script>
 
         <script>
             // Add Symptoms
             $(document).ready(function() {
+
                 $('#addNewSymptoms').click(function() {
 
                     let SymptomType = $("#SymptomType").val().trim();
@@ -4529,8 +4555,7 @@
                                     <td>
                                         ${SymptomDurationNote}
                                     </td>
-                                    <td><a href="javascript:void(0)" class="trash_btn" ><i
-                                                    class="fa-regular fa-trash-can"></i></a></td>
+                                    <td><a href="javascript:void(0)" class="trash_btn" ><i class="fa-regular fa-trash-can"></i></a><a class="edit_btn" onclick="editSymptomType('${SymptomType}','${SymptomDurationNote}','${SymptomDurationType}','${SymptomDurationValue}')"><i class="fa-solid fa-edit"></i></a></td>
 
                             </tr>`;
                         $("#Symptoms").append(addressHtml);
@@ -4562,14 +4587,18 @@
                     });
                 });
 
+                
 
                 function fetchExistingSymptoms() {
+                    
                     $.ajax({
                         url: '{{ route('fetchExistingSymptom') }}',
                         method: 'GET',
                         success: function(data) {
                             if (data && data.length > 0) {
                                 data.forEach(function(symptom) {
+                                    let sid = symptom.id;
+                                    var editUrl = "{{route('removeExistingSymptom')}}?id="+sid;
                                     let addressHtml = `<tr>
                                                     <td hidden>
                                                         <input name="SymptomType[]" hidden value="${symptom.SymptomType}">
@@ -4581,7 +4610,8 @@
                                                     <td>${symptom.SymptomDurationValue}</td>
                                                     <td>${symptom.SymptomDurationType}</td>
                                                     <td>${symptom.SymptomDurationNote}</td>
-                                                    <td><a href="https://techmavesoftwaredemo.com/webclinic/login/remove-Existing-Symptom/${symptom.id}/" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a></td>
+                                                    <td><a href="${editUrl}" class="trash_btn"><i class="fa-regular fa-trash-can"></i></a>
+                                                        <a class="edit_btn" onclick="editSymptomType('${symptom.SymptomType}','${symptom.SymptomDurationNote}','${symptom.SymptomDurationType}','${symptom.SymptomDurationValue}')"><i class="fa-solid fa-edit"></i></a></td>
                                                 </tr>`;
                                     $("#Symptoms").append(addressHtml);
                                 });
@@ -4599,7 +4629,7 @@
 
 
                 fetchExistingSymptoms();
-
+                
 
                 // store into DB
                 $('#Add_Symptoms_form').submit(function(e) {
@@ -5995,13 +6025,13 @@
             $(document).ready(function() {
                 $('.secondary_btn').click(function(e) {
                     e.preventDefault();
-                    location.reload();
+                    // location.reload();
                     $('#medicine_add_edit').modal('hide');
 
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -6944,13 +6974,13 @@
             $(document).ready(function() {
                 $('.secondary_btn').click(function(e) {
                     e.preventDefault();
-                    location.reload();
+                    // location.reload();
                     $('#medicine_add_edit').modal('hide');
 
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>

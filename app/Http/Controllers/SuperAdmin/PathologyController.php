@@ -195,9 +195,13 @@ class PathologyController extends Controller
 
     public function pathologyPriceList(Request $req)
     {
-        $data['pathology_price_list'] = DB::table('pathology_price_list')->where('price_type', '0')->orderBy('id', 'desc')->get();
+        $data['pathology_price_list'] = DB::table('pathology_price_list')->where('price_type', 'Pathology')->orderBy('id', 'desc')->get();
         if (request()->isMethod("post")) {
             $PathologyPriceList = $req->except(['_token', 'submit']);
+            if($PathologyPriceList['price_type']=='Other'){
+                $PathologyPriceList['price_type'] = $req->input('mulipleTypeOt');
+            }
+            unset($PathologyPriceList['mulipleTypeOt']);
             $id = $req->input('id');
             DB::table('pathology_price_list')->whereId($id)->update($PathologyPriceList);
             return redirect()->back()->with('message', 'Pathology price updated successfully!');
@@ -208,28 +212,7 @@ class PathologyController extends Controller
     public function addPathologyPrice(Request $req)
     {
         if (request()->isMethod("post")) {
-            // dd($req->all());
-            // $test_name=$req->input('test_name');
-            // dd($req->all());
-            // $test_name = json_decode(json_encode($test_name));
-            // if(isset($test_name) && !empty($test_name))
-            // if ($test_name) {
-            //     $test_name = count($test_name);
-            // }
-            // if($test_name > 0){
-            //     for ($i = 0; $i < $test_name; $i++)
-            //     {
-            //         PathologyPriceList::insertGetId([
-            //                         'test_name'     => $req->input('test_name')[$i],
-            //                         'test_code'     => $req->input('test_code')[$i],
-            //                         'included_tests'=> $req->input('included_tests')[$i],
-            //                         'turnaround'    => $req->input('turnaround')[$i],
-            //                         'note'          => $req->input('note')[$i],
-            //                         'price'          => $req->input('price')[$i],
-            //                         'price_type'    => '0'
-            //                     ]);
-            //     }
-            // }
+            
             if ($req->has('test_name') && count($req->input('test_name')) > 0) {
                 $testNames = $req->input('test_name');
                 $testCodes = $req->input('test_code');
@@ -248,7 +231,7 @@ class PathologyController extends Controller
                         'price'         => isset($prices[$i]) ? $prices[$i] : '',
                         'included_tests' => isset($includedTests[$i]) ? $includedTests[$i] : '',
                         'note'          => isset($notes[$i]) ? $notes[$i] : '',
-                        'price_type'    => isset($testNames[$i]) ? '0' : ''
+                        'price_type'    => isset($testNames[$i]) ? 'Pathology' : ''
                     ];
                 }
 
@@ -283,8 +266,13 @@ class PathologyController extends Controller
     public function radiologyPriceList(Request $req)
     {
         $data['pathology_price_list'] = DB::table('pathology_price_list')->orderBy('id', 'desc')->get();
+        $data['patho_types'] = $data['pathology_price_list'] ? $data['pathology_price_list']->unique('price_type')->pluck('price_type') : [];
         if (request()->isMethod("post")) {
             $PathologyPriceList = $req->except(['_token', 'submit']);
+            if($PathologyPriceList['price_type']=='Other'){
+                $PathologyPriceList['price_type'] = $req->input('mulipleTypeOt');
+            }
+            unset($PathologyPriceList['mulipleTypeOt']);
             $id = $req->input('id');
             DB::table('pathology_price_list')->whereId($id)->update($PathologyPriceList);
             return redirect()->back()->with('message', 'Radiology price updated successfully!');
@@ -305,6 +293,9 @@ class PathologyController extends Controller
                 $includedTests = $req->input('included_tests');
                 $notes = $req->input('note');
                 $mulipleType = $req->input('mulipleType');
+                if($mulipleType=='Other'){
+                    $mulipleType = $req->input('mulipleTypeOt');
+                }
                 $colourId = $req->input('colourId');
                 $filteredValues=[];
                 for ($i = 0; $i < count($testNames); $i++) {
@@ -344,57 +335,10 @@ class PathologyController extends Controller
             return redirect()->back();
             
         }
-        return view('superAdmin.price.radiologyPrice.create');
+        $patho_types =  DB::table('pathology_price_list')->distinct()->orderBy('id', 'desc')->get()->unique('price_type')->pluck('price_type');
+        return view('superAdmin.price.radiologyPrice.create',compact('patho_types'));
     }
 
-
-    // public function addradiologyPrice(Request $req)
-    // {
-    //     if (request()->isMethod("post")) {
-
-    //         if ($req->has('test_name') && count($req->input('test_name')) > 0) {
-    //             $testNames = $req->input('test_name');
-    //             $testCodes = $req->input('test_code');
-    //             $turnarounds = $req->input('turnaround');
-    //             $prices = $req->input('price');
-    //             $includedTests = $req->input('included_tests');
-    //             $notes = $req->input('note');
-    //             $filteredValues=[];
-    //             for ($i = 0; $i < count($testNames); $i++) {
-    //                 // Filter out null or empty values
-
-    //                 $filteredValues[] = [
-    //                     'test_name'     => isset($testNames[$i]) ? $testNames[$i] : '',
-    //                     'test_code'     => isset($testCodes[$i]) ? $testCodes[$i] : '' ,
-    //                     'turnaround'    => isset($turnarounds[$i]) ? $turnarounds[$i] : '',
-    //                     'price'         => isset($prices[$i]) ? $prices[$i] : '',
-    //                     'included_tests' => isset($includedTests[$i]) ? $includedTests[$i] : '',
-    //                     'note'          => isset($notes[$i]) ? $notes[$i] : '',
-    //                     'price_type'    => isset($testNames[$i]) ? '1' : ''
-    //                 ];
-    //             }
-
-    //             $filteredTest = array_map(function ($subarray) {
-    //                 return array_filter($subarray, function ($value) {
-    //                     return $value !== null && $value !== '';
-    //                 });
-    //             }, $filteredValues);
-    //             // Filter out empty subarrays
-    //             $final = array_filter($filteredTest, function($subarray) {
-    //                 return !empty($subarray);
-    //             });
-
-    //             // Check if any non-null or non-empty values exist
-    //             if (!empty($final)) {
-    //                 // dd($$final);
-    //                 PathologyPriceList::insert($final);
-    //             }
-    //         }
-
-    //         return redirect()->route('price.radiologyPriceList')->with('message', 'Radiology price added successfully!');
-    //     }
-    //     return view('superAdmin.price.radiologyPrice.create');
-    // }
 
     public function addNewTestName(Request $request)
     {
@@ -409,6 +353,10 @@ class PathologyController extends Controller
                             'test_name', 'test_code', 'turnaround', 'price', 'color_type',
                             'included_test', 'note', 'price_type'
                                ]);
+
+            if($filteredValues['price_type']=='Other'){
+                $filteredValues['price_type'] = $request->input('mulipleTypeOt');
+            }
 
          if (!empty($filteredValues)) {
 

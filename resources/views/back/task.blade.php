@@ -62,15 +62,10 @@ foreach($D as $v)
                                                                    
                                                                   $pathology_price_list=  DB::table('pathology_price_list')->whereIn('id',$pathology_price_list_ids);
                                                                   
-                                                                    if($nurse_task->test_type == 'pathology'){
-                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '0');
-                      
+                                                                    if($nurse_task->test_type){
+                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', $nurse_task->test_type);
                                                                     }
-                                                                    else {
-                                                                      
-                                                                      $pathology_price_list=  $pathology_price_list->where('price_type', '1');
-                                                                    }
-                                                                  
+                                                                   
                                                                     $pathology_price_list =$pathology_price_list->pluck('test_name');
                                                                    
                                                                   @endphp

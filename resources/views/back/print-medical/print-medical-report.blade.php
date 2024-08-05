@@ -613,22 +613,14 @@
                                                                         @php
                                                                             $pathology_price_list = DB::table(
                                                                                 'pathology_price_list',
-                                                                            )->where('id', $Patient_order_lab->task);
-                                                                            if (
-                                                                                $Patient_order_lab->test_type ==
-                                                                                'pathology'
-                                                                            ) {
-                                                                                $pathology_price_list = $pathology_price_list->where(
-                                                                                    'price_type',
-                                                                                    '0',
-                                                                                );
-                                                                            } else {
-                                                                                $pathology_price_list = $pathology_price_list->where(
-                                                                                    'price_type',
-                                                                                    '1',
-                                                                                );
-                                                                            }
-                                                                            $pathology_price_list = $pathology_price_list->first();
+                                                                            )->where('id', $Patient_order_lab->task)->where('price_type',$Patient_order_lab->test_type)->first();
+
+                                                                            // if ($Patient_order_lab->test_type) {
+                                                                                // $pathology_price_list = $pathology_price_list;
+                                                                            // } else {
+                                                                            //     $pathology_price_list = $pathology_price_list->where('price_type','Radiology');
+                                                                            // }
+                                                                            // $pathology_price_list = $pathology_price_list
 
                                                                         @endphp
 
