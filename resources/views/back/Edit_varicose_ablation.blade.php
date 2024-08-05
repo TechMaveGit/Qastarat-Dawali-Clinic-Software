@@ -4606,9 +4606,12 @@ if (annotateImageData) {
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
+                        width:500,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
                     })
                 );
     
@@ -4663,6 +4666,17 @@ if (annotateImageData) {
         link.click();
     });
 
+
+    function isFormDataValid(formData) {
+        for (let [key, value] of formData.entries()) {
+            if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                if (value.trim() !== '') {
+                    return true; // A blank value found
+                }
+            }
+        }
+        return false; // All values are non-blank
+    }
       
 
     
@@ -4677,6 +4691,7 @@ if (annotateImageData) {
             
             event.preventDefault();
             let formData = new FormData(this);
+            if(isFormDataValid(formData)){
             if (!validateForm()) {
                 e.preventDefault(); 
             } 
@@ -4716,6 +4731,12 @@ if (annotateImageData) {
               
                 
             }
+        }}else{
+            Swal.fire({
+                title: "Fill Data?",
+                text: "Please fill the details.",
+                icon: "info",
+            });
         }
         });
     });

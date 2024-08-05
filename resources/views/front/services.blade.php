@@ -1981,9 +1981,12 @@
                                         new Konva.Text({
                                             text: text,
                                             fontSize: 18,
+                                            width:500,
                                             fontStyle: 'bold',
                                             fontFamily: 'Arial',
                                             fill: '#000',
+                                            wrap:'word',
+                                            ellipsis:true
                                         })
                                     );
                 
@@ -2043,7 +2046,7 @@
                         $(document).ready(function() {
                             //  
                             $('#edit_patient').on('hidden.bs.modal', function(e) {
-                                location.reload();
+                                // location.reload();
                             });
                         });
                     </script>

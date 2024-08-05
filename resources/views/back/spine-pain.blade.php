@@ -3912,6 +3912,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
 
 
     @push('custom-js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             $(document).ready(function() {
                 $("#abnormal_a74").hide();
@@ -5211,9 +5212,12 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
+                        width:500,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
                     })
                 );
 
@@ -5270,7 +5274,16 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     });
 
 
-
+    function isFormDataValid(formData) {
+        for (let [key, value] of formData.entries()) {
+            if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                if (value.trim() !== '') {
+                    return true; // A blank value found
+                }
+            }
+        }
+        return false; // All values are non-blank
+    }
         
         $("#storeSpinePainEligibilityForms").submit(function(event) {
 
@@ -5283,51 +5296,57 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
             
             event.preventDefault();
             let formData = new FormData(this);
+            if (isFormDataValid(formData)) {
+                
+            
             if (!validateForm()) {
                 e.preventDefault(); 
             } 
             else {
                 if(validateForm()){
-
-                
-                
-                $.ajax({
-                                url: '{{ route("user.storeSpinePainEligibilityForms") }}',
-                                type: 'POST',
-                                data: formData,
-                                processData: false,
-                                contentType: false,
-                                success: function(response) {
-                                    
-                                    var patientId = response.patient_id;
-                                    if(response!=''){
-              
-                                        swal.fire(
-              
-                                            'Success',
-              
-                                            'Spine Pain form saved successfully!',
-              
-                                            'success'
-              
-                                        ).then(function() {
-                                                
-                                               
-                                            var redirectUrl = "{{ route('user.viewSpinePainEligibilityForms', ['id' => ':id']) }}";
-                                            redirectUrl = redirectUrl.replace(':id', patientId);
-                                            window.location.href = redirectUrl;
-                                            });
-                                       
-                                       
-                                        }
-                                }
-                             
+                    $.ajax({
+                        url: '{{ route("user.storeSpinePainEligibilityForms") }}',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            console.log(response);
+                            
+                            var patientId = response.patient_id;
+                            if(response!=''){
+        
+                                swal.fire(
+        
+                                    'Success',
+        
+                                    'Spine Pain form saved successfully!',
+        
+                                    'success'
+        
+                                ).then(function() {
+                                        
+                                        
+                                    var redirectUrl = "{{ route('user.viewSpinePainEligibilityForms', ['id' => ':id']) }}";
+                                    redirectUrl = redirectUrl.replace(':id', patientId);
+                                    window.location.href = redirectUrl;
+                                    });
                                 
-                            });
-              
-                
+                                
+                                }
+                        }
+                        
+                        
+                    });
+                }
             }
-        }
+        } else {
+                Swal.fire({
+                    title: "Fill Data?",
+                    text: "Please fill the details.",
+                    icon: "info",
+                });
+            }
         });
     });
 </script>

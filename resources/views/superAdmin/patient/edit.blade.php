@@ -348,17 +348,19 @@
 
 
  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const documentTypeSelect = document.getElementById('document_type');     
-        const idNumberInput = document.getElementById('enterIdNumber');
-        const validationMessage = document.getElementById('validationMessage');
+    document.addEventListener('DOMContentLoaded', function () {
+        
 
-        documentTypeSelect.addEventListener('change', validateInput);
-        idNumberInput.addEventListener('input', validateInput);
+        $("#document_type").change(function(){
+            $("#enterIdNumber").val('');
+            $("#validationMessage").text('');
+            validateInput();
+        })
 
         function validateInput() {
-            const selectedType = documentTypeSelect.value;
-            const idNumber = idNumberInput.value;
+            const selectedType = $("#document_type").val();
+            const idNumber = $("#enterIdNumber").val();
+
             let maxLength = 0;
             let message = '';
 
@@ -373,23 +375,23 @@
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
-                    maxLength = 10;
+                    maxLength = 11;
                     message = selectedType + ' must be exactly 11 digits';
                     break;
-                case 'PASSPORT, DRIVER\'s LICENSE, ETC':     
+                case 'PASSPORT, DRIVER\'s LICENSE, ETC':
                     maxLength = Infinity;
-                    message = '';  
+                    message = '';
                     break;
             }
 
             if (maxLength !== Infinity && idNumber.length > maxLength) {
-                idNumberInput.value = idNumber.slice(0, maxLength);
+                $("#enterIdNumber").val(idNumber.slice(0, maxLength));
             }
 
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
-                validationMessage.textContent = message;
+                $("#validationMessage").text(message);
             } else {
-                validationMessage.textContent = '';
+                $("#validationMessage").text('');
             }
         }
     });

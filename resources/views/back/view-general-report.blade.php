@@ -6025,13 +6025,13 @@
             $(document).ready(function() {
                 $('.secondary_btn').click(function(e) {
                     e.preventDefault();
-                    location.reload();
+                    // location.reload();
                     $('#medicine_add_edit').modal('hide');
 
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -6974,13 +6974,13 @@
             $(document).ready(function() {
                 $('.secondary_btn').click(function(e) {
                     e.preventDefault();
-                    location.reload();
+                    // location.reload();
                     $('#medicine_add_edit').modal('hide');
 
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>

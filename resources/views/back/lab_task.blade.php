@@ -650,7 +650,7 @@ function refreshPage() {
     window.location.reload();
 }
 $('#uploadModal').on('hidden.bs.modal', function () {
-    refreshPage();
+    // refreshPage();
 });
 </script>
 @endpush

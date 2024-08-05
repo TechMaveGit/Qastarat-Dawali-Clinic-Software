@@ -130,7 +130,10 @@ class PatientController extends Controller
         if (isset($data['patient_profile_img'])) {
 
             if (isset($doctor->patient_profile_img)) {
-                unlink('/public/assets/patient_profile' . '/' . $doctor->patient_profile_img);
+                $filePath = public_path('assets/patient_profile/' . $doctor->patient_profile_img);
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
             }
             $image = $data['patient_profile_img'];
             $new_name = rand() . '.' . $image->getClientOriginalExtension();

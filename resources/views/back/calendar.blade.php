@@ -2187,7 +2187,7 @@ if($(this).val() == "Other"){
                 });
 
                 $('#event-modal').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
                 //   date format
                 $(function() {

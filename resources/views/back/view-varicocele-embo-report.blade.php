@@ -5987,7 +5987,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -6835,7 +6835,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>

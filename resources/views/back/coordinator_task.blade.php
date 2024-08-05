@@ -654,7 +654,7 @@ function refreshPage() {
     window.location.reload();
 }
 $('#book_appointment').on('hidden.bs.modal', function () {
-    refreshPage();
+    // refreshPage();
 });
 </script>
 @endpush

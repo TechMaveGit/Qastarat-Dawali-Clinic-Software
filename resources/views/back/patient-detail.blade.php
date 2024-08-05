@@ -550,7 +550,7 @@ if (!empty($patient->birth_date ?? '')) {
             $(document).ready(function() {
                 //
                 $('#edit_patient').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -592,7 +592,7 @@ if (!empty($patient->birth_date ?? '')) {
                                     )
 
                                     fetchAndDisplayPatientInfoData(patient_id);
-                                    location.reload();
+                                    // location.reload();
                                 } else {
 
                                     swal.fire("Error!", "Enter valid Patient Info  Details!",
