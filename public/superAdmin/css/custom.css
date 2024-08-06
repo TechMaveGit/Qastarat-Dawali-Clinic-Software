@@ -293,10 +293,11 @@ div.dataTables_wrapper div.dataTables_filter input {
     margin-bottom: 10px;
 }
 .detail_box ul li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ececec;
 }
 .border-right-dashed {
     border-right: 2px dashed #ececec;
@@ -696,4 +697,18 @@ div.dataTables_wrapper div.dataTables_filter input {
 .sidebar-collapse .sidebar-menu.tree {
   padding: 0;
   margin: 20px 0 0;
+}
+.filterBntBox {
+	display: flex;
+	gap: 7px;
+}
+.filterbtn {
+	padding: 6px 10px;
+	background: #ededed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	border-radius: 5px;
+	color: #000;
 }
