@@ -20,13 +20,12 @@
             <div class="content-header">
                 <div class="d-flex">
                     <h4 class="page-title">Staff Details</h4>
-                    <!-- <nav aria-label="breadcrumb">
-                                                                                                <ol class="breadcrumb">
-                                                                                                    <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Staff</a></li>
-                                                                                                    <li class="breadcrumb-item active" aria-current="page">Staff Details</li>
-                                                                                                </ol>
-                                                                                            </nav> -->
-                </div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('nurses.index') }}">All Staff</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Staff Details</li>
+                        </ol>
+                    </nav>
 
             </div>
             <section class="content">

@@ -10,7 +10,17 @@
     <div class="content-wrapper">
         <div class="container-full">
             <!-- Content Header (Page header) -->
-            <div class="content-header edit_title_head mb-0">
+            <div class="content-header">
+                <div class="d-flex">
+                    <h4 class="page-title">All Pathology/Lab</h4>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">All Pathology/Lab</li>
+                        </ol>
+                    </nav>
+                </div>
+        
             </div>
             <section class="content">
                 <div class="row">

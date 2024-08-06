@@ -9,17 +9,17 @@
     <div class="content-wrapper">
         <div class="container-full">
             <!-- Content Header (Page header) -->
-            <div class="content-header edit_title_head mb-0">
+            <div class="content-header">
                 <div class="d-flex">
-                    <h4 class="page-title lab_name">All Radiology</h4>
-                    {{-- <nav aria-label="breadcrumb">
+                    <h4 class="page-title">All Radiology</h4>
+                    <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Radiology Department</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active" aria-current="page">All Radiology</li>
                         </ol>
-                    </nav> --}}
+                    </nav>
                 </div>
-                <!-- <a href="manage-lab.php" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-gears"></i> Manage Lab</a> -->
+        
             </div>
             <section class="content">
                 <div class="row">

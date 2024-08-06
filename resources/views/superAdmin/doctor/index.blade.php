@@ -4,7 +4,14 @@
 @endpush
 @section('content')
 
-
+<style>
+    .branchcls span {
+        border: 1px solid #ececec;
+        border-radius: 17px;
+        padding: 0px 8px;
+        background: #fff;
+    }
+</style>
 <!-- delete Modal -->
 <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -49,27 +56,17 @@
 	<!-- Content Header (Page header) -->
 
     <div class="content-header">
-
         <div class="d-flex">
-
-
-          {{-- <nav aria-label="breadcrumb">
-
+            <h4 class="page-title">All Doctors</h4>
+            <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-
-                    <li class="breadcrumb-item active" aria-current="page">Doctors</li>
-
+                    <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">All Doctors</li>
                 </ol>
-
-            </nav> --}}
-
+            </nav>
         </div>
 
-
-
-		</div>
+    </div>
 
         <section class="content">
 
@@ -178,7 +175,7 @@
                     <span class="branchcls"  style="color: #74afe7;">
                     @forelse ($alldoctor->doctorBranch as $getbranchName)
                            
-                           <p>{{ $getbranchName->userBranchName->branch_name??'' }} @if (!$loop->last) ,@endif</p>
+                           <span>{{ $getbranchName->userBranchName->branch_name??'' }} </span>
                      
                   @empty
                 

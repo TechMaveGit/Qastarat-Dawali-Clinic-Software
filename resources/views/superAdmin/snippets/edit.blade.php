@@ -1,7 +1,7 @@
 @extends('superAdmin.superAdminLayout.main')
 <!-- Content Wrapper. Contains page content -->
 @push('title')
-    <title>edit-snippets</title>
+    <title>Edit Snippets</title>
 @endpush
 @section('content')
 
@@ -15,8 +15,8 @@
       <h4 class="page-title lab_name">Edit Snippet</h4>
       <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Add New Snippet</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"><a href="#">Edit Snippet</a></li>
+                  <li class="breadcrumb-item"><a href="{{route('snippets')}}">All Snippets</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Edit Snippet</li>
 
               </ol>
           </nav>

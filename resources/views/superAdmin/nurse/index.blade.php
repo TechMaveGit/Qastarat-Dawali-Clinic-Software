@@ -3,7 +3,14 @@
     <title>All Staffs | Super Admin</title>
 @endpush
 @section('content')
-
+<style>
+    .branchcls span {
+        border: 1px solid #ececec;
+        border-radius: 17px;
+        padding: 0px 8px;
+        background: #fff;
+    }
+</style>
 <!-- delete Modal -->
 <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -36,18 +43,18 @@
 <div class="content-wrapper">
 	  <div class="container-full">
 	<!-- Content Header (Page header) -->
-    {{-- <div class="content-header">
+    <div class="content-header">
         <div class="d-flex">
-        <h4 class="page-title">All staffs</h4>
+        <h4 class="page-title">All Staff</h4>
         <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('nurses.index') }}">Staff</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">list</li>
+                    <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">All Staff</li>
                 </ol>
             </nav>
         </div>
 
-		</div> --}}
+		</div>
         <section class="content">
         <div class="row">
         <div class="col-12">
@@ -114,7 +121,7 @@
                    @forelse ($allnurse->staffBranch as $getbranchName)
                            
                    @if ($getbranchName->branch_type!='patient')
-                   <p>{{ $getbranchName->userBranchName->branch_name??'' }} @if (!$loop->last) ,@endif</p>
+                   <span>{{ $getbranchName->userBranchName->branch_name??'' }}</span>
 
                    @endif                      
                           

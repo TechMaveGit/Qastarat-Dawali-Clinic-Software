@@ -9,12 +9,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">Edit Patient</h4>
-        {{-- <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ Route('patients.index') }}">Patients</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Patient</li>
                 </ol>
-            </nav> --}}
+            </nav>
         </div>
 
 		</div>

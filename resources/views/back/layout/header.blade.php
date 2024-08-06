@@ -305,7 +305,10 @@
                {
                 position: absolute;
                }
-                
+                .content-header nav{
+                    right: 3%;
+                    position: absolute;
+                }
     </style>
 
 

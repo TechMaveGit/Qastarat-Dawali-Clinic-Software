@@ -1,6 +1,6 @@
 @extends('superAdmin.superAdminLayout.main')
 @push('title')
-    <title>Add New Radiology Test | Super Admin</title>
+    <title>Add Appointments & Services | Super Admin</title>
 @endpush
 @section('content')
 <style>
@@ -16,14 +16,14 @@
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="d-flex">
-                <h4 class="page-title lab_name">Add Appointments & services</h4>
-                {{-- <nav aria-label="breadcrumb">
+                <h4 class="page-title lab_name">Add Appointments & Services</h4>
+                <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Appointments & services</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"><a href="#">Appointments & services</a></li>
+                  <li class="breadcrumb-item"><a href="{{route('price.radiologyPriceList')}}">Appointments & Services</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Add Appointments & services</li>
 
               </ol>
-          </nav> --}}
+          </nav>
             </div>
 
         </div>
