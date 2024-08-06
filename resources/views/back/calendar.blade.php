@@ -2313,8 +2313,23 @@ if($(this).val() == "Other"){
                                     'Patient Details Added successfully!',
                                     'success'
                                 );
+                               
                                 $('#patientDetail_box').hide();
                                 $('#appoinment_book_bx').show();
+
+
+                                $('select[name="sirname"]').val('');
+                                $('input[name="name"]').val();
+                                $('input[name="birth_date"]').val('');
+                                $('select[name="gender"]').val('');
+                                $('input[name="post_code"]').val('');
+                                $('input[name="street"]').val('');
+                                $('input[name="town"]').val('');
+                                $('select[name="country"]').val('');
+                                $('input[name="email"]').val('');
+                                $('input[name="mobile_no"]').val('');
+                                $('input[name="password"]').val('');
+
                                 populateUsers();
                             },
                             error: function(xhr, status, error) {
@@ -2358,7 +2373,6 @@ if($(this).val() == "Other"){
                     // Validate sirname
                     let selectedTitle = $('select[name="sirname"]').val();
                     if (selectedTitle === '') {
-
                         isValid = false;
 
                         $('#titleError').text('Please select a title');
@@ -2441,13 +2455,13 @@ if($(this).val() == "Other"){
                         $('input[name="mobile_no"]').addClass('error');
                     }
                     // Validate landline   number
-                    let landline = $('input[name="landline"]').val();
-                    if (landline === '') {
-                        isValid = false;
+                    // let landline = $('input[name="landline"]').val();
+                    // if (landline === '') {
+                    //     isValid = false;
 
-                        $('#landlineError').text('landline number is required');
-                        $('input[name="landline"]').addClass('error');
-                    }
+                    //     $('#landlineError').text('landline number is required');
+                    //     $('input[name="landline"]').addClass('error');
+                    // }
                     // Validate document type
                     // let document_type = $('input[name="document_type"]').val();
                     // if (document_type === '') {

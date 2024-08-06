@@ -20,24 +20,38 @@ class NurseController extends Controller
         $data['doctor'] = Doctor::with(['staffBranch.userBranchName'])->whereId($id)->first();
         $currentDate = now();
         $data['tasks'] = DB::table('tasks')->where('assignTo', $id)->get();
+        
         return view('superAdmin.nurse.view', $data);
     }
 
 
     // nurse
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $data['nurse'] = Doctor::with(['staffBranch.userBranchName'])->select('id', 'role_id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status', 'post_code', 'mobile_no', 'user_type')
+        $qurStaff = Doctor::with(['staffBranch.userBranchName']);
+
+            if(isset($request->stname) && $request->stname != ''){
+                $qurStaff->where('name','LIKE',"%{$request->stname}%");
+            }
+            if(isset($request->status) && $request->status != 0){
+                $qurStaff->where('status',$request->status);
+            }
+            if(isset($request->branch)){
+                $qurStaff->whereHas('staffBranch',function ($query) use($request) {
+                    $query->whereIn('add_branch',$request->branch);
+                });
+            }
+    
+            $data['nurse'] = $qurStaff->select('id', 'role_id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status', 'post_code', 'mobile_no', 'user_type')
             ->whereNotIn('role_id', ['1'])
             ->whereNotIn('user_type', ['pathology', 'radiology'])
             ->orderBy('id', 'desc')
             ->get();
 
-        // dd($data['nurse']);    
-
         $data['role'] = DB::table('roles')->where('id', '!=', 1)->get();
+        $data['branchs'] = DB::table('branchs')->get();
         return view('superAdmin.nurse.index', $data);
     }
 

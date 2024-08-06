@@ -10284,7 +10284,7 @@
                     message = 'CIVIL ID must be exactly 9 digits';
                     break;
                 case 'EID':
-                    maxLength = 18;
+                    maxLength = 15;
                     message = 'EID must be exactly 15 digits';
                     break;
                 case 'PERSONAL NUMBER':
@@ -10302,7 +10302,8 @@
                 $(`#${valpoint}`).val(idNumber.slice(0, maxLength));
             }
             // console.log(idNumber.length,maxLength,message);
-
+            $(`#${valpoint}`).attr('maxlength',maxLength);
+            $(`#${valpoint}`).attr('minlength',maxLength);
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
                 $(`#${vmsg}`).text(message);
             } else {

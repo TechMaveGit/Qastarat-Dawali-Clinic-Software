@@ -99,6 +99,14 @@
                                                         <h6>{{ $doctor->email }}</h6>
                                                     </div>
                                                 </li>
+                                                <li>
+                                                    <div class="detail_title">
+                                                        <h6>Mobile No </h6>
+                                                    </div>
+                                                    <div class="detail_ans">
+                                                        <h6>{{ $doctor->mobile_no }}</h6>
+                                                    </div>
+                                                </li>
 
                                                 <li>
                                                     <div class="detail_title">

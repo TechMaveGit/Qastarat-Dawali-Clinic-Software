@@ -76,11 +76,66 @@
         <section class="content">
 
             <div class="row">
+                <div class="col-lg-12" id="filterBox">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <div class="top_area">
+                                <h3 class="box-title">Filter By</h3>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Patient Name</label>
+                                            <input type="text" name="paname" value="{{request()->get('paname')}}"
+                                                class="form-control" placeholder="Search here">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Select Branch</label>
+                                            <select multiple class="form-control testselect2" name="branch[]"
+                                                style="width: 100%;">
+                                                <option value="0">All Branch</option>
+                                                @if($branchs)
+                                                @foreach($branchs as $value)
+                                                <option {{ request()->get('branch') &&
+                                                    in_array($value->id,request()->get('branch')) ? 'selected' : '' }}
+                                                    value="{{$value->id}}">{{$value->branch_name}}</option>
+                                                @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+
+                                        <div class="form-group">
+                                            <label class="form-label">Status</label>
+                                            <select class="form-control select2" name="status" style="width: 100%;">
+                                                <option value="">All Status</option>
+                                                <option {{request()->get('status') == "1" ? 'selected' : '' }}
+                                                    value="1">Active</option>
+                                                <option {{request()->get('status') == "0" ? 'selected' : '' }}
+                                                    value="0">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="form-label" style="visibility: hidden;">-</label>
+                                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                                            <a href="{{route('patients.index')}}" class="btn btn-danger btn-sm">Reset</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-12">
-
-
-
                     <div class="box">
 
                         <div class="box-header with-border">
@@ -88,10 +143,15 @@
                             <div class="top_area">
 
                                 <h3 class="box-title">All Patients</h3>
+                                <div class="filterBntBox">
+                                    <a href="#" class="filterbtn" id="FilterBtn">
+                                        <iconify-icon icon="mi:filter"></iconify-icon> Filter
+                                    </a>
+                                    <a href="{{ route('patients.create') }}"
+                                        class="waves-effect waves-light btn btn-md btn-primary"><i
+                                            class="fa-solid fa-plus"></i> Add Patient</a>
+                                </div>
 
-                                <a href="{{ route('patients.create') }}"
-                                    class="waves-effect waves-light btn btn-md btn-primary"><i
-                                        class="fa-solid fa-plus"></i> Add Patient</a>
 
                             </div>
 
@@ -265,7 +325,7 @@
 
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script>
     function remove_patient(id)
         {
@@ -273,6 +333,13 @@
             $('#hidden_id').val(id);
             $("#deleteRecordModal").modal('show');
         }
+
+        $(document).ready(function(){
+            $('#filterBox').hide();
+            $('#FilterBtn').click(function(){
+                $('#filterBox').toggle();
+            });
+        });
 </script>
 
 

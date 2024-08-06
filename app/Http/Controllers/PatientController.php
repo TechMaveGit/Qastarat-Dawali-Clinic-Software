@@ -28,19 +28,13 @@ use App\Models\patient\Prescription;
 use App\Models\patient\Invistigation;
 use App\Models\patient\Procedure;
 use App\Models\Task;
-use App\Models\VideoCall;
 use App\Models\patient\SupportiveTreatment;
 use App\Models\patient\Patient_progress_note;
 use App\Models\patient\Diagnosis;
 use App\Models\patient\ThyroidDiagnosis;
 use App\Models\patient\GeneralDiagnosis;
-use App\Models\patient\UterineEmboDiagnosis;
-use App\Models\patient\VaricoceleEmboDiagnosis;
-use App\Models\patient\PelvicCongEmbo_diagnosis;
-use App\Models\patient\VaricoseAblationDiagnosis;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Throwable;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
@@ -83,7 +77,7 @@ class PatientController extends Controller
         $template = $request->input('Titledescription');
         if ($template) {
             DB::table('patient_progress_note_details')->where('id', $id)->update(['describe' => $template]);
-            return redirect()->route('snippets')->with('success', 'Snippet Updated Successfully');
+            return redirect()->route('snippets')->with('message', 'Snippet Updated Successfully');
         }
         return view('superAdmin/snippets/edit', $data);
     }

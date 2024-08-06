@@ -14,32 +14,46 @@
     <title>Print Medical Record</title>
     <link rel="stylesheet" href="{{ asset('/assets/report-genrate/css/style.css') }}">
     <style>
-      .form-control {
-	padding: 10px 10px;
-	width: 100%;
-	border: 1px solid #dedede;
-	margin-bottom: 10px;
-	border-radius: 5px;
-}
+        .form-control {
+            padding: 10px 10px;
+            width: 100%;
+            border: 1px solid #dedede;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
         .signature-pad canvas {
-	border: 1px solid #ececec;
-	width: 100%;
-}
-.InputBox {
-	display: flex;
-	gap: 10px;
-}
-#clear-signature {
-	padding: 4px 7px;
-	color: #fff;
-	background: #78ade6;
-	border: 1px solid #78ade6;
-	border-radius: 5px;
-}
-.formGroup label {
-	display: block;
-	margin-bottom: 5px;
-}
+            border: 1px solid #ececec;
+            width: 100%;
+        }
+
+        .InputBox {
+            display: flex;
+            gap: 10px;
+        }
+
+        #clear-signature {
+            padding: 4px 7px;
+            color: #fff;
+            background: #78ade6;
+            border: 1px solid #78ade6;
+            border-radius: 5px;
+        }
+
+        .formGroup label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+     <style>
+        #save-signature{
+            padding: 4px 7px;
+            color: #fff;
+            background: #78e68e;
+            border: 1px solid #81e678;
+            border-radius: 5px;
+            float: right;
+        }
     </style>
 </head>
 
@@ -97,7 +111,6 @@
     .mb-4 {
         margin-bottom: 20px;
     }
-    
 </style>
 
 <body>
@@ -106,8 +119,8 @@
             <div class="cs-invoice_in pdf_box" id="download_section">
                 <div class="cs-invoice_head logo_head cs-type1 cs-mb25">
                     <div class="cs-invoice_right cs-text_right">
-                        <div class="cs-logo cs-mb5"><img
-                                src="{{ asset('/assets/report-genrate/img/FullLogo-01.svg') }}" alt="Logo">
+                        <div class="cs-logo cs-mb5"><img src="{{ asset('/assets/report-genrate/img/FullLogo-01.svg') }}"
+                                alt="Logo">
                         </div>
                     </div>
 
@@ -182,108 +195,107 @@
 
                     @if (isset($generalDiagnosis_) && !empty($generalDiagnosis_))
 
-                        <div class="symptoms_section">
-                            <div class="section_title">
-                                <h2>Symptoms</h2>
-                            </div>
-                            <div class="appointments___list past_medical_history_ak diagnosis_data">
-
-                                <ul>
-                                    <li>
-                                        @forelse ($generalDiagnosis as $key =>$value)
-                                            <div class="appoin_date">
-                                                <div>
-                                                    <div class="diagnosis_show">
-
-                                                        <div class="symp_title">
-                                                            <h6><span class="point_dia"><i
-                                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                                {{ $value['SymptomType'] ?? '' }}<span
-                                                                    class="sym_duration">
-                                                                   </span>
-                                                            </h6>
-                                                            <p class="diagnosis_text">
-                                                                {{ $value['SymptomDurationNote'] ?? '' }}!</p>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                        @empty
-                                            <div class="appoin_date">
-                                                <div>
-                                                    <div class="diagnosis_show">
-
-
-                                                        <div class="ss_result_box">
-                                                            <div class="symp_title mb-1">
-                                                                <span style="font-size:10px;"> ---- </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforelse
-                                    </li>
-
-                                </ul>
-                            </div>
+                    <div class="symptoms_section">
+                        <div class="section_title">
+                            <h2>Symptoms</h2>
                         </div>
+                        <div class="appointments___list past_medical_history_ak diagnosis_data">
+
+                            <ul>
+                                <li>
+                                    @forelse ($generalDiagnosis as $key =>$value)
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
+
+                                                <div class="symp_title">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        {{ $value['SymptomType'] ?? '' }}<span class="sym_duration">
+                                                        </span>
+                                                    </h6>
+                                                    <p class="diagnosis_text">
+                                                        {{ $value['SymptomDurationNote'] ?? '' }}!</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    @empty
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
+
+
+                                                <div class="ss_result_box">
+                                                    <div class="symp_title mb-1">
+                                                        <span style="font-size:10px;"> ---- </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforelse
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
                     @endif
 
 
 
                     @if (isset($pastMedicalHistory) && !empty($pastMedicalHistory))
 
-                        <div class="pastMedical_section">
-                            <div class="section_title">
-                                <h2>Past Medical History</h2>
-                            </div>
-                            <div class="appointments___list past_medical_history_ak">
-
-
-
-                                <ul id="past_medical_histories">
-                                    @if ($patient_past_history->isEmpty())
-                                        <li><small style="font-size:10px;">----</small>.
-                                        </li>
-                                    @else
-                                        @foreach ($patient_past_history as $past_history)
-                                            <li>
-
-                                                <div class="appoin_title">
-
-                                                    <h6>{{ $past_history->diseases_name }}</h6>
-
-                                                    </p>
-
-                                                </div>
-
-                                                <div class="appoin_date">
-
-                                                    <div class="read-more-content">
-
-                                                        <p>
-
-                                                            {{ $past_history->describe }}
-                                                        </p>
-
-                                                    </div>
-
-
-                                                </div>
-
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
+                    <div class="pastMedical_section">
+                        <div class="section_title">
+                            <h2>Past Medical History</h2>
                         </div>
+                        <div class="appointments___list past_medical_history_ak">
+
+
+
+                            <ul id="past_medical_histories">
+                                @if ($patient_past_history->isEmpty())
+                                <li><small style="font-size:10px;">----</small>.
+                                </li>
+                                @else
+                                @foreach ($patient_past_history as $past_history)
+                                <li>
+
+                                    <div class="appoin_title">
+
+                                        <h6>{{ $past_history->diseases_name }}</h6>
+
+                                        </p>
+
+                                    </div>
+
+                                    <div class="appoin_date">
+
+                                        <div class="read-more-content">
+
+                                            <p>
+
+                                                {{ $past_history->describe }}
+                                            </p>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </li>
+                                @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
                     @endif
 
 
@@ -291,220 +303,217 @@
 
                     @if (isset($pastSurgicalHistory) && !empty($pastSurgicalHistory))
 
-                        <div class="pastSurgical_section">
-                            <div class="section_title">
-                                <h2>Past Surgical History</h2>
-                            </div>
-                            <div class="appointments___list past_medical_history_ak">
-
-                                <ul>
-                                    @if ($patient_past_surgical->isEmpty())
-                                        <li><small style="font-size:10px;">----</small>.
-                                        </li>
-                                    @else
-                                        @foreach ($patient_past_surgical as $past_surgical)
-                                            <li>
-
-                                                <div class="appoin_title">
-
-                                                    <h6>{{ $past_surgical->diseases_name }}</h6>
-
-
-
-                                                </div>
-
-                                                <div class="appoin_date">
-
-                                                    <div class="read-more-content">
-
-                                                        <p>
-
-                                                            {{ $past_surgical->describe }}
-                                                        </p>
-
-                                                    </div>
-
-
-
-                                                </div>
-
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
+                    <div class="pastSurgical_section">
+                        <div class="section_title">
+                            <h2>Past Surgical History</h2>
                         </div>
+                        <div class="appointments___list past_medical_history_ak">
+
+                            <ul>
+                                @if ($patient_past_surgical->isEmpty())
+                                <li><small style="font-size:10px;">----</small>.
+                                </li>
+                                @else
+                                @foreach ($patient_past_surgical as $past_surgical)
+                                <li>
+
+                                    <div class="appoin_title">
+
+                                        <h6>{{ $past_surgical->diseases_name }}</h6>
+
+
+
+                                    </div>
+
+                                    <div class="appoin_date">
+
+                                        <div class="read-more-content">
+
+                                            <p>
+
+                                                {{ $past_surgical->describe }}
+                                            </p>
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                </li>
+                                @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
                     @endif
 
 
                     @if (isset($oldCurrentMeds) && !empty($oldCurrentMeds))
-                        <div class="oldCurrentMeds_section">
-                            <div class="section_title">
-                                <h2>Old/Current meds</h2>
-                            </div>
-                            <div class="drug">
-                                <ul>
-                                    @if ($patient_current_med->isEmpty())
-                                        <li><small style="font-size:10px;">----</small></li>
-                                    @else
-                                        @foreach ($patient_current_med as $patient_current)
-                                            <li>
-
-                                                <div class="appoin_title">
-
-                                                    <h6>{{ $patient_current->drug_name }}</h6>
-
-
-
-                                                </div>
-
-                                                <div class="appoin_date">
-
-                                                    <div class="read-more-content">
-
-                                                        <p>
-
-                                                            {{ $patient_current->frequency }}
-                                                        </p>
-
-                                                    </div>
-
-
-                                                </div>
-
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
+                    <div class="oldCurrentMeds_section">
+                        <div class="section_title">
+                            <h2>Old/Current meds</h2>
                         </div>
+                        <div class="drug">
+                            <ul>
+                                @if ($patient_current_med->isEmpty())
+                                <li><small style="font-size:10px;">----</small></li>
+                                @else
+                                @foreach ($patient_current_med as $patient_current)
+                                <li>
+
+                                    <div class="appoin_title">
+
+                                        <h6>{{ $patient_current->drug_name }}</h6>
+
+
+
+                                    </div>
+
+                                    <div class="appoin_date">
+
+                                        <div class="read-more-content">
+
+                                            <p>
+
+                                                {{ $patient_current->frequency }}
+                                            </p>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </li>
+                                @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
                     @endif
 
 
 
                     @if (isset($allergies) && !empty($allergies))
-                        <div class="allergies_section">
-                            <div class="section_title">
-                                <h2>Allergies</h2>
-                            </div>
-
-
-                            <ul class="symptoms">
-                                @php
-                                    $patient_allergies = App\Models\patient\Patient_allergy::where(
-                                        'patient_id',
-                                        decrypt(@$id),
-                                    )
-                                        ->orderBy('id', 'desc')
-                                        ->get();
-                                @endphp
-
-                                @if ($patient_allergies->isEmpty())
-                                    <li><small style="font-size:10px;">----</small>.</li>
-                                @else
-                                    @foreach ($patient_allergies as $patient_allergy)
-                                        <li>{{ $patient_allergy->allergy_name }}</li>
-                                    @endforeach
-                                @endif
-
-                            </ul>
-
+                    <div class="allergies_section">
+                        <div class="section_title">
+                            <h2>Allergies</h2>
                         </div>
+
+
+                        <ul class="symptoms">
+                            @php
+                            $patient_allergies = App\Models\patient\Patient_allergy::where(
+                            'patient_id',
+                            decrypt(@$id),
+                            )
+                            ->orderBy('id', 'desc')
+                            ->get();
+                            @endphp
+
+                            @if ($patient_allergies->isEmpty())
+                            <li><small style="font-size:10px;">----</small>.</li>
+                            @else
+                            @foreach ($patient_allergies as $patient_allergy)
+                            <li>{{ $patient_allergy->allergy_name }}</li>
+                            @endforeach
+                            @endif
+
+                        </ul>
+
+                    </div>
                     @endif
 
 
 
 
                     @if (isset($clinicalExam) && !empty($clinicalExam))
-                        <div class="ClinicalExam_section">
-                            <div class="section_title">
-                                <h2>Clinical Exam</h2>
-                            </div>
-                            <div class="appointments___list past_medical_history_ak diagnosis_data">
+                    <div class="ClinicalExam_section">
+                        <div class="section_title">
+                            <h2>Clinical Exam</h2>
+                        </div>
+                        <div class="appointments___list past_medical_history_ak diagnosis_data">
 
-                                <ul>
-                                    @forelse ($regionalpatientGeneralDiagnosis as $record)
-                                        <li>
-                                            <div class="appoin_date">
-                                                <div>
-                                                    <div class="diagnosis_show">
+                            <ul>
+                                @forelse ($regionalpatientGeneralDiagnosis as $record)
+                                <li>
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
 
-                                                        @if (isset($record->RegionalExam))
-                                                            <div class="ss_result_box">
-                                                                <div class="symp_title mb-1">
-                                                                    <h6><span class="point_dia"><i
-                                                                                class="fa-regular fa-circle-dot"></i></span>
-                                                                        Regional Exam
-                                                                    </h6>
-                                                                </div>
-                                                                <p class="ss_result">
-                                                                    <strong>{{ $record->RegionalExam }} -
-                                                                        {{ $record->RegionalExamNote }}</strong>
-                                                                </p>
-                                                            </div>
-                                                        @endif
-
+                                                @if (isset($record->RegionalExam))
+                                                <div class="ss_result_box">
+                                                    <div class="symp_title mb-1">
+                                                        <h6><span class="point_dia"><i
+                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                            Regional Exam
+                                                        </h6>
                                                     </div>
-
-
-
+                                                    <p class="ss_result">
+                                                        <strong>{{ $record->RegionalExam }} -
+                                                            {{ $record->RegionalExamNote }}</strong>
+                                                    </p>
                                                 </div>
+                                                @endif
 
                                             </div>
-                                        </li>
-                                    @empty
-                                    @endforelse
 
 
-                                </ul>
 
-                                <ul>
-                                    @forelse ($systemicpatientGeneralDiagnosis as $record)
-                                        <li>
-                                            <div class="appoin_date">
-                                                <div>
-                                                    <div class="diagnosis_show">
+                                        </div>
+
+                                    </div>
+                                </li>
+                                @empty
+                                @endforelse
 
 
-                                                        @if (isset($record->SystemicExam))
-                                                            <div class="ss_result_box">
-                                                                <div class="symp_title mb-1">
-                                                                    <h6><span class="point_dia"><i
-                                                                                class="fa-regular fa-circle-dot"></i></span>
-                                                                        Systemic Exam</h6>
-                                                                </div>
-                                                                <p class="ss_result">
-                                                                    <strong>{{ $record->SystemicExam }} -
-                                                                        {{ $record->SystemicExamNote }}</strong>
-                                                                </p>
-                                                            </div>
-                                                        @endif
+                            </ul>
+
+                            <ul>
+                                @forelse ($systemicpatientGeneralDiagnosis as $record)
+                                <li>
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
+
+
+                                                @if (isset($record->SystemicExam))
+                                                <div class="ss_result_box">
+                                                    <div class="symp_title mb-1">
+                                                        <h6><span class="point_dia"><i
+                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                            Systemic Exam</h6>
                                                     </div>
-
+                                                    <p class="ss_result">
+                                                        <strong>{{ $record->SystemicExam }} -
+                                                            {{ $record->SystemicExamNote }}</strong>
+                                                    </p>
                                                 </div>
-
+                                                @endif
                                             </div>
-                                        </li>
-                                    @empty
-                                    @endforelse
+
+                                        </div>
+
+                                    </div>
+                                </li>
+                                @empty
+                                @endforelse
 
 
 
 
-                                    @if (isset($ClinicalExam_db))
-                                        @forelse ($ClinicalExam_db as $record)
-                                            <li>
+                                @if (isset($ClinicalExam_db))
+                                @forelse ($ClinicalExam_db as $record)
+                                <li>
 
-                                                <div class="appoin_date">
-                                                    <div class="read-more-content sypm_tom_cnt" style="">
-                                                        <div class="diagnosis_show">
+                                    <div class="appoin_date">
+                                        <div class="read-more-content sypm_tom_cnt" style="">
+                                            <div class="diagnosis_show">
 
-                                                            @php
-                                                                $ClinicalExam = json_decode($record->data_value, true);
-                                                                // echo "<pre>";
-                                                                //     echo $ClinicalExam['RegionalExam'][0];
-                                                                //     die;
-                                                            @endphp
+                                                @php
+                                                    $ClinicalExam = json_decode($record->data_value, true);
+                                                @endphp
 
 
                                                             @if (isset($ClinicalExam['RegionalExam']) && $ClinicalExam['RegionalExam'][0] == 'Abnormal')
@@ -643,14 +652,6 @@
                                                                             $pathology_price_list = DB::table(
                                                                                 'pathology_price_list',
                                                                             )->where('id', $Patient_order_lab->task)->where('price_type',$Patient_order_lab->test_type)->first();
-
-                                                                            // if ($Patient_order_lab->test_type) {
-                                                                                // $pathology_price_list = $pathology_price_list;
-                                                                            // } else {
-                                                                            //     $pathology_price_list = $pathology_price_list->where('price_type','Radiology');
-                                                                            // }
-                                                                            // $pathology_price_list = $pathology_price_list
-
                                                                         @endphp
 
                                                                         <td>{{ $pathology_price_list->test_name ?? '' }}
@@ -703,46 +704,7 @@
                                                                 <td colspan="4" class="text-center">No record found
                                                                 </td>
                                                             @endforelse
-                                                            {{-- <tr>
-                                                            <td>17 Hydroxyprogesterone</td>
-                                                            <td>2 week</td>
-                                                            <td><button
-                                                                    class="confirmed-badge">Complete</button>
-                                                            </td>
-                                                            <td>
-                                                                <a href="images/new-images/dummy.pdf"
-                                                                    download=""
-                                                                    class="download_rp_btn"><i
-                                                                        class="fa-solid fa-file-arrow-down"></i>
-                                                                    Download Report</a>
-                                                            </td>
-
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>5 HIAA</td>
-                                                            <td>1 day</td>
-                                                            <td><button
-                                                                    class="pending-badge">Pending</button>
-                                                            </td>
-                                                            <td>
-
-                                                            </td>
-
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>6-TGN</td>
-                                                            <td>1 day</td>
-                                                            <td><button
-                                                                    class="pending-badge">Pending</button>
-                                                            </td>
-                                                            <td>
-
-                                                            </td>
-
-
-                                                        </tr> --}}
+                                                            
                                                         </tbody>
                                                     </table>
 
@@ -1531,6 +1493,7 @@
                     <b class="tm_primary_color">Signature:</b>
                     </div> -->
                 <div class="row">
+                   
                 
                     <div class="col-lg-6" style="padding-left:0;">
                     <div class="tm_invoice_footer tm_type1">
@@ -1541,7 +1504,9 @@
                                     <div id="signature-pad" class="signature-pad">
                                         <canvas></canvas>
                                     </div>
+                                    <img id="imgSrc" hidden />
                                     <button id="clear-signature" type="button">Clear</button>
+                                    <button id="save-signature" class="btn btn-success btn-sm" type="button">Save</button>
                                     </div>
                                 </div>
                               
@@ -1550,12 +1515,25 @@
                     <div class="col-lg-6">
                         <div class="InputBox">
                             <div class="formGroup">
-                                <label for="">Name</label>
-                                <input type="text" class="form-control" placeholder="Name">
+                                <label for="">Doctor Name</label>
+                                <input type="text" id="dname" class="form-control" placeholder="Name">
                             </div>
                             <div class="formGroup">
                                 <label for="">Date</label>
-                                <input type="text" class="form-control" placeholder="Date" id="basicDate">
+                                <input type="text"  class="form-control" placeholder="Date" id="basicDate">
+                            </div>
+                           
+                            
+
+                        </div>
+                        <div class="InputBoxLabel" style="display: none;">
+                            <div class="formGroup" style="width: 50%;">
+                                <label for="">Doctor Name</label>
+                                <b id="dnamelabel"> </b>
+                            </div>
+                            <div class="formGroup" style="width: 50%;">
+                                <label for="">Date</label>
+                                <b id="ddatelabel"> </b>
                             </div>
                            
                             
@@ -1676,7 +1654,7 @@
       function resizeCanvas() {
         var ratio = Math.max(window.devicePixelRatio || 1, 1);
         canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
+        canvas.height = (canvas.offsetHeight * ratio)*2;
         canvas.getContext("2d").scale(ratio, ratio);
         signaturePad.clear(); // otherwise isEmpty() might return incorrect value
       }
@@ -1691,14 +1669,34 @@
   
       // Save signature (you can modify this to save the signature as per your requirement)
       // Example: Saving the signature data URL in localStorage
-      // document.getElementById('save-signature').addEventListener('click', function () {
-      //   if (!signaturePad.isEmpty()) {
-      //     var dataURL = signaturePad.toDataURL();
-      //     localStorage.setItem('signature', dataURL);
-      //   } else {
-      //     alert("Please provide a signature first.");
-      //   }
-      // });
+      document.getElementById('save-signature').addEventListener('click', function () {
+
+        let dname = $("#dname").val();
+        let ddate = $("#basicDate").val();
+
+        if(dname == ''){
+            alert('Please Fill Name Field.');
+        }else if(ddate == ''){
+            alert('Please Fill Date Field.');
+        }else if (!signaturePad.isEmpty()) {
+          var dataURL = signaturePad.toDataURL();
+          $("#imgSrc").attr('src',dataURL);
+          $("#imgSrc").removeAttr('hidden');
+          $(".signature-pad").prop('hidden',true);
+          $("#save-signature").prop('hidden',true);
+          $("#clear-signature").prop('hidden',true);
+          $(".InputBox").css('display','none');
+          $(".InputBoxLabel").css('display','flex');
+
+
+          $("#ddatelabel").text(ddate);
+          $("#dnamelabel").text(dname);
+
+          localStorage.setItem('signature', dataURL);
+        } else {
+          alert("Please provide a signature first.");
+        }
+      });
     });
   </script>
        
