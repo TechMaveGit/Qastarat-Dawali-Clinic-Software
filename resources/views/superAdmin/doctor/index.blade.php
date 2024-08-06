@@ -74,7 +74,50 @@
         <section class="content">
 
         <div class="row">
+        <div class="col-lg-12" id="filterBox">
+            <div class="box">
+                <div class="box-header with-border">
+                <div class="top_area">
 
+                    <h3 class="box-title">Filter By</h3>
+
+                   
+
+                    </div>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                  <div class="col-lg-4">
+                        <div class="form-group">
+                             <label class="form-label">Dr. Name</label>
+                           <input type="text" class="form-control" placeholder="search here">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                             <label class="form-label">Status</label>
+                               <select class="form-control select2" name="title" style="width: 100%;">
+                                <option value="active">Active</option>
+                                <option value="active">Inactive</option>
+                               </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    <div class="form-group">
+                                        <label class="form-label">Select Branch</label>
+                                        <select multiple="" class="form-control testselect2" style="width: 100%;">
+                                            <option value="">Oman</option>
+                                            <option value="">Dubai</option>
+                                            <option value="">Saudi</option>
+                                            <option value="">Bahrain</option>
+
+                                        </select>
+                                    </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
         <div class="col-12">
 
 
@@ -87,7 +130,11 @@
 
     <h3 class="box-title">All Doctors</h3>
 
+    <div class="filterBntBox">
+        <a href="#" class="filterbtn" id="FilterBtn"><iconify-icon icon="mi:filter"></iconify-icon> Filter</a>
     <a href="{{ route('doctors.create') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add Doctor</a>
+    </div>
+   
 
     </div>
 
@@ -243,4 +290,17 @@
             $("#deleteRecordModal").modal('show');
         }
     </script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>     
+  <script>
+    $(document).ready(function(){
+
+        $('#filterBox').hide();
+        $('#FilterBtn').click(function(){
+            $('#filterBox').toggle ();
+        });
+
+});
+   
+  </script>
 @endsection

@@ -13,6 +13,34 @@
     <!-- Site Title -->
     <title>Print Medical Record</title>
     <link rel="stylesheet" href="{{ asset('/assets/report-genrate/css/style.css') }}">
+    <style>
+      .form-control {
+	padding: 10px 10px;
+	width: 100%;
+	border: 1px solid #dedede;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+        .signature-pad canvas {
+	border: 1px solid #ececec;
+	width: 100%;
+}
+.InputBox {
+	display: flex;
+	gap: 10px;
+}
+#clear-signature {
+	padding: 4px 7px;
+	color: #fff;
+	background: #78ade6;
+	border: 1px solid #78ade6;
+	border-radius: 5px;
+}
+.formGroup label {
+	display: block;
+	margin-bottom: 5px;
+}
+    </style>
 </head>
 
 <style>
@@ -69,6 +97,7 @@
     .mb-4 {
         margin-bottom: 20px;
     }
+    
 </style>
 
 <body>
@@ -1505,9 +1534,47 @@
                         </div>
                     @endif
 
+              <div class="signatureBox">
+              <!-- <div class="col-lg-12" style="width:100%;">
+                    <b class="tm_primary_color">Signature:</b>
+                    </div> -->
+                <div class="row">
+                
+                    <div class="col-lg-6" style="padding-left:0;">
+                    <div class="tm_invoice_footer tm_type1">
+                                <div class="tm_left_footer">
+                                    <!-- Signature Pad Container -->
+                                    <div class="formGroup">
+                                    <label for="">Signature</label>
+                                    <div id="signature-pad" class="signature-pad">
+                                        <canvas></canvas>
+                                    </div>
+                                    <button id="clear-signature" type="button">Clear</button>
+                                    </div>
+                                </div>
+                              
+                                </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="InputBox">
+                            <div class="formGroup">
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="formGroup">
+                                <label for="">Date</label>
+                                <input type="text" class="form-control" placeholder="Date" id="basicDate">
+                            </div>
+                           
+                            
 
+                        </div>
+                    </div>
+                </div>
+              </div>
                 </div>
 
+                
 
                 <div class="footer_section">
                     <div class="MainBox">
@@ -1597,7 +1664,53 @@
     <script src="{{ asset('/assets/report-genrate/js/jspdf.min.js') }}"></script>
     <script src="{{ asset('/assets/report-genrate/js/html2canvas.min.js') }}"></script>
     <script src="{{ asset('/assets/report-genrate/js/main.js') }}"></script>
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js')}}"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+  <!--  Flatpickr  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+  <script>
+    $("#basicDate").flatpickr({
+    enableTime: false,
+    dateFormat: "F, d Y"
+});
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var canvas = document.querySelector("#signature-pad canvas");
+      var signaturePad = new SignaturePad(canvas);
+  
+      // Adjust canvas size
+      function resizeCanvas() {
+        var ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear(); // otherwise isEmpty() might return incorrect value
+      }
+  
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+  
+      // Clear signature
+      document.getElementById('clear-signature').addEventListener('click', function () {
+        signaturePad.clear();
+      });
+  
+      // Save signature (you can modify this to save the signature as per your requirement)
+      // Example: Saving the signature data URL in localStorage
+      // document.getElementById('save-signature').addEventListener('click', function () {
+      //   if (!signaturePad.isEmpty()) {
+      //     var dataURL = signaturePad.toDataURL();
+      //     localStorage.setItem('signature', dataURL);
+      //   } else {
+      //     alert("Please provide a signature first.");
+      //   }
+      // });
+    });
+  </script>
+       
+
 </body>
 
 </html>
