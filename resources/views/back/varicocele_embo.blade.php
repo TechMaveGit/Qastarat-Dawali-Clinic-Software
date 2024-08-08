@@ -2883,7 +2883,7 @@
                 </div>
                 <div class="action_btns">
             
-            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE DRAFT</button>
+            {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE DRAFT</button> --}}
             <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE FINAL</button>
           </div>
             </div>

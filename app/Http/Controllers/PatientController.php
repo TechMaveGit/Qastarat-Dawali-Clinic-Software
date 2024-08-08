@@ -687,7 +687,7 @@ class PatientController extends Controller
 
         //  return $request->all();
         $doctor_id = auth()->guard('doctor')->id();
-        $id = decrypt($request->patient_id);
+        $id = $request->patient_id;
 
         GeneralDiagnosis::where(['title_name' => 'diagnosis_general', 'patient_id' => $id])->delete();
         GeneralDiagnosis::where(['title_name' => 'diagnosis_cid', 'patient_id' => $id])->delete();

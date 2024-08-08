@@ -3085,8 +3085,8 @@
                     </div>
 
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                             <div id="loader" style="display: none;">
                                 <!-- Loader HTML (e.g., spinner or loading message) -->
                                 {{-- <p>Loading...</p> --}}

@@ -3777,8 +3777,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 text-end">
-                                    <a href="javascript:void(0)" class="diseases_name" id="addNewSymptoms">+ Add
+                                <div class="col-lg-12 mb-3 text-end">
+                                    <a href="javascript:void(0)" class="diseases_name btn r-04 btn--theme hover--tra-black add_patient" id="addNewSymptoms">+ Add
                                     </a>
                                 </div>
 
@@ -4322,16 +4322,19 @@
                     general: [],
                     icd: []
                 };
+                
 
                 $('.select_diagnosis').change(function() {
                     var diagnosisType = $(this).val();
                     $('.add-category').attr('data-diagnosis-type', diagnosisType);
                     $('.category-container .category-input').val('');
                 });
+                $('.select_diagnosis').change();
 
                 $('.add-category').click(function() {
                     var diagnosisType = $(this).attr('data-diagnosis-type');
                     var category = $('.category-container .category-input').val().trim();
+                    console.log("Adsasas",diagnosisData,diagnosisType,category);
 
                     if (category !== '') {
                         //  console.log("first");
@@ -4457,7 +4460,7 @@
                                         title: 'Success',
                                         text: 'Diagnosis Deleted Successfully!',
                                         icon: 'success',
-                                        timer: 2000, // Auto close alert after 2 seconds
+                                        timer: 4000, // Auto close alert after 2 seconds
                                         showConfirmButton: false // Hide the "OK" button
                                     }).then(function() {
                                         // Reload the page after the alert is closed
@@ -4468,7 +4471,7 @@
                                         title: 'Success',
                                         text: 'Diagnosis  Added Successfully!',
                                         icon: 'success',
-                                        timer: 2000, // Auto close alert after 2 seconds
+                                        timer: 4000, // Auto close alert after 2 seconds
                                         showConfirmButton: false // Hide the "OK" button
                                     }).then(function() {
                                         // Reload the page after the alert is closed
@@ -4481,7 +4484,7 @@
                                     title: 'Success',
                                     text: 'Diagnosis Deleted Successfully!',
                                     icon: 'success',
-                                    timer: 2000, // Auto close alert after 2 seconds
+                                    timer: 4000, // Auto close alert after 2 seconds
                                     showConfirmButton: false // Hide the "OK" button
                                 }).then(function() {
                                     // Reload the page after the alert is closed
@@ -4495,7 +4498,7 @@
                                 title: 'Success',
                                 text: 'Diagnosis Deleted Successfully!',
                                 icon: 'success',
-                                timer: 2000, // Auto close alert after 2 seconds
+                                timer: 4000, // Auto close alert after 2 seconds
                                 showConfirmButton: false // Hide the "OK" button
                             }).then(function() {
                                 // Reload the page after the alert is closed
