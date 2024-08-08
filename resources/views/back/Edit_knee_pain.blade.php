@@ -1329,7 +1329,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                             <option value="">Duration Type</option>
                                                             @foreach (['Days', 'Weeks', 'Months', 'Years'] as $durationType)
                                                             <option value="{{ $durationType }}"
-                                                                {{ isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms6['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
+                                                                {{ $disfiguringSymptoms7 && isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms6['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
                                                                 {{ $durationType }}
                                                             </option>
                                                         @endforeach
@@ -2408,9 +2408,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                   
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -2496,7 +2498,9 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                       
                                       <div class="col-lg-12">
@@ -2798,7 +2802,6 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                  
                                     <div class="col-lg-12">
                                         <h6 class="section_title__">Image Annotation</h6>  
-                                        {{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}
                                         <div class="title_head">
                                             <h4>Annotate Leg Veins findings</h4>
                                         </div>
@@ -2835,7 +2838,9 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                 @endphp
 
 <div class="col-lg-12">
-    <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+    <h6 class="section_title__">Lab 
+        {{-- <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+    </h6>
   </div>
   <div class="col-lg-12">
     <div class="title_head">
@@ -3120,10 +3125,12 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
     
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="javascript:void(0)"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>REQNERVECON110</h4>
                                         </div>
@@ -3281,7 +3288,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
@@ -3895,9 +3902,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                             target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
 
                                     @php
@@ -4359,7 +4368,9 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     @endphp
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Prescription <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Prescription 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                         <div class="title_head">
                                               <h4>ADD A DRUG </h4>
                                           </div>
@@ -4455,9 +4466,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -4548,8 +4561,8 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                     </div>
 
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
                             FINAL</button>
                     </div>
@@ -4579,12 +4592,12 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
+    imageObj.src = '{{  $VaricoceleEmboForm->AnnotateimageData ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/knee.jpg') }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 500,
+            width: 800,
             height: 600,
         });
     

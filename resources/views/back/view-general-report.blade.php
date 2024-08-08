@@ -1307,7 +1307,7 @@
                                                                         <h6><span class="trshDoc"><a
                                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                         icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                            <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                            <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                                 target="_blank"><iconify-icon
                                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                         </h6>
@@ -1444,7 +1444,7 @@
                                                                         <h6><span class="trshDoc"><a
                                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                         icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                            <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                            <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                                 target="_blank"><iconify-icon
                                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                         </h6>
@@ -1592,7 +1592,7 @@
                                                                 @forelse ($document_file as $alldocument_file)
                                                                 @if (in_array($alldocument_file->form_section_type, ['severity']))
                                                                     <p class="diagnosis_date">
-                                                                        <a href="{{ url('public/uploads/'. $alldocument_file->upload_file) }}" target="_blank">
+                                                                        <a href="{{ asset('/uploads/'. $alldocument_file->upload_file) }}" target="_blank">
                                                                             <i class="fa-solid fa-edit"></i>
                                                                         </a>
                                                                     </p>
@@ -1625,7 +1625,7 @@
                                                         @if (in_array($alldocument_file->form_section_type, ['severity']))
                                                        
                                                         <div class="document_view">
-                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                         </div> 
                                                         @endif
                                                         @empty
@@ -1852,7 +1852,7 @@
                                                                     <h6><span class="trshDoc"><a
                                                                                 href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                     icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                        <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                        <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                             target="_blank"><iconify-icon
                                                                                 icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                     </h6>
@@ -2072,7 +2072,7 @@
                                                                                 <h6><span class="trshDoc"><a
                                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                                         target="_blank"><iconify-icon
                                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                                 </h6>
@@ -2461,7 +2461,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -2672,7 +2672,7 @@
                                                         <h6><span class="trshDoc"><a
                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                         icon="ph:trash-bold"></iconify-icon></a></span> <a
-                                                                href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                 target="_blank"><iconify-icon
                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                         </h6>
@@ -2731,6 +2731,7 @@
 
                         <div id="collapseleft18" class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample18">
+                            {{-- @dd($MDTs_db) --}}
                             @if (count($MDTs_db) > 0)
                                 <div class="accordion-body">
                                     <div class="appointments___list past_medical_history_ak diagnosis_data">
@@ -2812,6 +2813,7 @@
                                                                     @endif
                                                                     @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['TE']) || !isset($MDT['TTA']))
                                                                         <div class="ss_result_box">
+                                                                            {{-- @dump($MDT) --}}
                                                                             @foreach ($MDT as $key => $value)
                                                                                 <div class="symp_title mb-1">
                                                                                     <h6><span class="point_dia"><i
@@ -2850,7 +2852,7 @@
                                                         <h6><span class="trshDoc"><a
                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                         icon="ph:trash-bold"></iconify-icon></a></span> <a
-                                                                href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                 target="_blank"><iconify-icon
                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                         </h6>
@@ -3033,7 +3035,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -3171,7 +3173,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -3312,7 +3314,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -3429,7 +3431,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -3562,7 +3564,7 @@
                                                 <h6><span class="trshDoc"><a
                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                 icon="ph:trash-bold"></iconify-icon></a></span> <a
-                                                        href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                        href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                         target="_blank"><iconify-icon
                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                 </h6>

@@ -597,12 +597,12 @@
                                                                         </div>
 
                                                                         
-                                                                            @if (strlen($past_history->describe) >= 50)
+                                                                            {{-- @if (strlen($past_history->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
                                                                         
 
@@ -703,12 +703,12 @@
                                                                                 </p>
                                                                                 
 
-                                                                            @if (strlen($past_surgical->describe) >= 50)
+                                                                            {{-- @if (strlen($past_surgical->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
 
                                                                         </div>
@@ -871,12 +871,12 @@
                                                                     </div>
 
 
-                                                                        @if (strlen($procedure->summary) >= 50)
+                                                                        {{-- @if (strlen($procedure->summary) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1068,12 +1068,12 @@
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($visit->voice_recognition) >= 50)
+                                                                        {{-- @if (strlen($visit->voice_recognition) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1142,12 +1142,12 @@
 
                                                                         <p>{{ \Carbon\Carbon::parse($prescription->created_at)->format('D, d M Y') }}</p>
 
-                                                                        @if (strlen($prescription->prescription) >= 50)
+                                                                        {{-- @if (strlen($prescription->prescription) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1295,9 +1295,9 @@
 
                                                                         </div>
                                                                         
-                                                                        @if ($loop->last)
+                                                                        {{-- @if ($loop->last)
                                                                         <button   class="btn btn_read read-more-btn past_history_readmorebtn" onclick="toggleReadMore(this)">Read More</button>
-                                                                      @endif   
+                                                                      @endif    --}}
                                                                               
                                                                     
                                                                     </div>
@@ -1357,12 +1357,12 @@
 
 
                                                                         </div>
-                                                                        @if ($loop->last)
+                                                                        {{-- @if ($loop->last)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
                                                                     </div>
                                                                 @empty
                                                                     No Data Found
@@ -1378,7 +1378,7 @@
                                                             @if (in_array($alldocument_file->form_section_type, ['diagnosis']))
                                                             
                                                                 <div class="document_view">
-                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                                 </div> 
                                                                 @endif
                                                             @empty    
@@ -1486,12 +1486,12 @@
                                                                             </div>
 
                                                                         </div>
-                                                                        @if ($loop->last)
+                                                                        {{-- @if ($loop->last)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
                                                                     </div>
                                                                 </li>
                                                             @empty
@@ -1503,7 +1503,7 @@
                                                             @if (in_array($alldocument_file->form_section_type, ['symptoms']))
                                                         
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                             </div> 
                                                             @endif
                                                             @empty
@@ -1688,9 +1688,9 @@
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
                                                             </div>
                                                         </li>
 
@@ -1702,7 +1702,7 @@
                                                             @if (in_array($alldocument_file->form_section_type, ['severity_symptoms_scale']))
                                                         
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                             </div> 
                                                             @endif
                                                             @empty
@@ -1840,9 +1840,9 @@
                                                                              @endif
                                                                         </div>
                                                                     </div>
-                                                                    <button
+                                                                    {{-- <button
                                                                         class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                                 </div>
                                                             </li>
                                                             @empty
@@ -1856,7 +1856,7 @@
                                                             @if (in_array($alldocument_file->form_section_type, ['clinical_exam']))
                                                         
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                             </div> 
                                                             @endif
                                                             @empty
@@ -2024,7 +2024,7 @@
                                                                                 @if (in_array($alldocument_file->form_section_type, ['order_imaging_exam']))
                                                                             
                                                                                 <div class="document_view">
-                                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                                                 </div> 
                                                                                 @endif
                                                                                 @empty
@@ -2268,9 +2268,9 @@
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
                                                             </div>
 
                                                         </li>
@@ -2478,7 +2478,7 @@
                                                                 @if (in_array($alldocument_file->form_section_type, ['order_lab_test']))
                                                             
                                                                 <div class="document_view">
-                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                                 </div> 
                                                                 @endif
                                                                 @empty
@@ -2659,9 +2659,9 @@
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
                                                             </div>
                                                         </li>
                                                     @empty
@@ -2723,33 +2723,49 @@
                                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                              
                                                 <ul>
-                                                    
                                                             <li>
+                                                               
                                                                 @if (isset($SpecialInvestigations_db))
                                                                 @forelse ($SpecialInvestigations_db as $record)
-                                                                <div class="appoin_date">
-                                                                    <div>
-                                                                      <div class="diagnosis_show">
-                                                                     
-                                                                      <p class="diagnosis_text">{{ $record->Title }} </p>
-                                                                      <p class="diagnosis_text">{{ $record->SubTitle }} </p>
-                                                                      <p class="diagnosis_text">{{ $record->Invistigation }} </p>
-                                                                        @if(isset($record) && isset($record->created_at))
-                                                                        <p class="diagnosis_date">
-                                                                            <span class="enter_span_hivj"> Entered By | {{ optional(optional($record)->doctor)->name ?? '' }}</span> 
-                                                                            <span class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}</span>
-                                                                        </p>
-                                                                        @endif
-                                                                      </div>
-                                                               
-                                                                  </div>
-                                                              
-                                                                  </div>
-                                                            
-                                                        @empty
-                                                            <small style="font-size:10px;">No Data Found</small>
-                                                        @endforelse
-                                                    @endif
+                                                                    <div class="appoin_date">
+                                                                        <div class="diagnosis_show">
+                                                                            
+                                                                                    @php
+                                                                                    $specialInvestigations = json_decode($record->data_value, true);
+                                                                                   
+                                                                                    // echo "<pre>";
+                                                                                    //     print_r($specialInvestigations);
+                                                                                    //     die;
+                                                                                @endphp
+                                                                              
+                                                                            @if (isset($specialInvestigations['PAPSmear']) && $specialInvestigations['PAPSmear'][0]=='Abnormal')
+                    
+                    
+                                                                            <div class="ss_result_box">
+                                                                                <div class="symp_title mb-1">
+                                                                                    <h6><span class="point_dia"><i
+                                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                        REQVCFUNEVAL5</h6>
+                                                                                    <h6 class="ss_result">Vocal cord function
+                                                                                        endoscopic evaluation</h6>
+                                                                                </div>
+                                                                                <p class="ss_result"><strong>Abnormal</strong>- {{ $specialInvestigations['PAPSmearNote'][0] ?? '' }}</p>
+                                                                            </div>
+                                                                            @endif
+                                                                            
+                                                                        </div>
+                                                                        <p class="diagnosis_date "><span
+                                                                            class="enter_span_hivj"> {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                            </span> <span
+                                                                            class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                            </span></p>
+                    
+                                                                    </div>
+                    
+                                                                @empty
+                                                                    <small style="font-size:10px;">----</small>
+                                                                @endforelse
+                                                            @endif
                                                 </li>
             
             
@@ -2757,7 +2773,7 @@
                                                             @if (in_array($alldocument_file->form_section_type, ['order_special_investigation']))
                                                            
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                             </div> 
                                                             @endif
                                                             @empty
@@ -2889,7 +2905,7 @@
                                                                             </div>
                                                                         @endif
 
-                                                                        @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['Medical']) || !isset($MDT['UFE']))
+                                                                        @if (!isset($MDT['OtherOptions']) && !isset($MDT['Surgical']) && !isset($MDT['MedicalNote']) && !isset($MDT['UFENote']))
                                                                             <div class="ss_result_box">
                                                                                 @foreach ($MDT as $key => $value)
                                                                                     <div class="symp_title mb-1">
@@ -2905,9 +2921,9 @@
                                                                     </div>
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
 
                                                                     <div class="Bottom_btn">
                                                                         <span class="removeMbtReview" data-id="{{ $record->id }}">
@@ -2928,7 +2944,7 @@
                                                                 @if (in_array($alldocument_file->form_section_type, ['mbt_review']))
                                                             
                                                                 <div class="document_view">
-                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                                 </div> 
                                                                 @endif
                                                                 @empty
@@ -3080,9 +3096,9 @@
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
 
                                                                     <div class="Bottom_btn">
                                                                         <span class="removeEligibilityStatus" data-id="{{ $record->id }}">
@@ -3103,7 +3119,7 @@
                                                                 @if (in_array($alldocument_file->form_section_type, ['eligibility_status']))
                                                             
                                                                 <div class="document_view">
-                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                                 </div> 
                                                                 @endif
                                                                 @empty
@@ -3211,8 +3227,8 @@
 
                                                     </div>
 
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                    onclick="toggleReadMore(this)">Read More</button> --}}
 
 
                                                     <p class="diagnosis_date "><span class="enter_span_hivj">
@@ -3233,7 +3249,7 @@
                                                 @if (in_array($alldocument_file->form_section_type, ['procedure']))
                                             
                                                 <div class="document_view">
-                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                 </div> 
                                                 @endif
                                                 @empty
@@ -3345,8 +3361,8 @@
 
                                                     </div>
 
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                        onclick="toggleReadMore(this)">Read More</button> --}}
 
 
                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
@@ -3374,7 +3390,7 @@
                                                 @if (in_array($alldocument_file->form_section_type, ['supportive_treatment']))
                                             
                                                 <div class="document_view">
-                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                 </div> 
                                                 @endif
                                                 @empty
@@ -3469,8 +3485,8 @@
 
 
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                         
                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
                                                                 {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
@@ -3487,7 +3503,7 @@
                                                 @if (in_array($alldocument_file->form_section_type, ['plan_recomandation']))
                                             
                                                 <div class="document_view">
-                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                 </div> 
                                                 @endif
                                                 @empty
@@ -3602,8 +3618,8 @@
 
 
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                        onclick="toggleReadMore(this)">Read More</button> --}}
 
                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
                                                             {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
@@ -3626,7 +3642,7 @@
                                 @if (in_array($alldocument_file->form_section_type, ['progress_notes']))
                             
                                 <div class="document_view">
-                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                 </div> 
                                 @endif
                                 @empty

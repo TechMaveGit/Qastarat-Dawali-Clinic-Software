@@ -56,7 +56,7 @@ Order Medical report  | QASTARAT & DAWALI CLINICS
 										
 									
                                             <div class="imgages_">
-                                                <img src="images/new-images/Picture6.png" alt="">
+                                                <img src="{{ asset('/assets/images/new-images/Picture6.png')}}" alt="">
                                             </div>
 										</div> 
                                       

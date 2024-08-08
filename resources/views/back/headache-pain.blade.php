@@ -1432,9 +1432,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                     </div>
                                     
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn order-now_btn_alt ">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1503,9 +1505,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                     
                         <div class="col-lg-12">
                             
-                            <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                            <h6 class="section_title__">Imaging 
+                                {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                 class="order-now_btn order-now_btn_alt">Order Now <i
-                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                </h6>
                           </div>
                           
                           <div class="col-lg-12">
@@ -1703,9 +1707,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
 
                                     <div class="col-lg-12">
                                         
-                                        <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Lab 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                             class="order-now_btn order-now_btn_alt">Order Now <i
-                                                class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                            </h6>
                                       </div>
                                         <div class="col-lg-12">
                                           <div class="title_head">
@@ -1835,7 +1841,9 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                                        
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn ">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn ">Reffer <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                         <div class="title_head">
                                               <h4>REQPNSENTEVALUATION190</h4>
                                           </div>
@@ -1960,7 +1968,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
@@ -2354,9 +2362,10 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                             </div>
                                         </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
-                                                target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Order Now <i
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     
 
@@ -2547,7 +2556,9 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Prescription <a href="view-medical-record.php" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Prescription 
+                                            {{-- <a href="view-medical-record.php" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                         <div class="title_head">
                                               <h4>ADD A DRUG </h4>
                                           </div>
@@ -2616,9 +2627,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                 </div>
                                 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn ">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -3879,7 +3892,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
             imageObj.onload = function() {
                 const image = new Konva.Image({
                     image: imageObj,
-                    width: 500,
+                    width: 800,
                     height: 600,
                 });
 

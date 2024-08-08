@@ -784,7 +784,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                             <option value="">Duration Type</option>
                                                             @foreach (['Days', 'Weeks', 'Months', 'Years'] as $durationType)
                                                             <option value="{{ $durationType }}"
-                                                                {{ isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
+                                                                {{ $disfiguringSymptoms7 && isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
                                                                 {{ $durationType }}
                                                             </option>
                                                         @endforeach
@@ -1750,9 +1750,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1838,7 +1840,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                       
                                       <div class="col-lg-12">
@@ -2308,7 +2312,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
 
 
 <div class="col-lg-12">
-    <h6 class="section_title__">Lab <a  target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+    <h6 class="section_title__">Lab 
+        {{-- <a  target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+    </h6>
   </div>
     <div class="col-lg-12">
       <div class="title_head">
@@ -2392,10 +2398,12 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>REQVCFUNEVAL5</h4>
                                         </div>
@@ -2543,7 +2551,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
@@ -2612,9 +2620,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
-                                            target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
 
                                     @php
@@ -2810,9 +2819,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -2889,8 +2900,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                     </div>
 
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
                             FINAL</button>
                     </div>
@@ -2931,7 +2942,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 500,
+            width: 800,
             height: 600,
         });
     
@@ -3046,13 +3057,13 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
 
         <script>
             $(document).ready(function() {
-                @if (isset($MDTs['PVVENote'][0]))
+                @if (isset($MDTs['PVVE'][0]) && $MDTs['PVVE'][0] == 'PVVE')
                 $("#textarea_84").show();
                 @else
 
                 $("#textarea_84").hide();
                 @endif
-                @if (isset($MDTs['MedicalNote'][0]))
+                @if (isset($MDTs['Medical'][0]) && $MDTs['Medical'][0] == 'Medical')
                 $("#textarea_85").show();
                     @else
                     $("#textarea_85").hide();

@@ -49,7 +49,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
-                    <input type="hidden" name="form_type" value="thyroid_form" />
+                    <input type="hidden" name="form_type" value="prostate_form" />
 
                     <h3 class="form_title">Prostate Artery Embolization <span>Eligibility</span></h3>
 
@@ -962,7 +962,7 @@
                                                             <option value="">Duration Type</option>
                                                             @foreach (['Days', 'Weeks', 'Months', 'Years'] as $durationType)
                                                             <option value="{{ $durationType }}"
-                                                                {{ isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
+                                                                {{ $disfiguringSymptoms7 && isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
                                                                 {{ $durationType }}
                                                             </option>
                                                         @endforeach
@@ -2680,7 +2680,7 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
@@ -3090,7 +3090,7 @@
                             <div id="loader" style="display: none;">
                                 <!-- Loader HTML (e.g., spinner or loading message) -->
                                 {{-- <p>Loading...</p> --}}
-                                <img src="{{ asset('public/index.svg') }}" alt="Index Image">
+                                <img src="{{ asset('/index.svg') }}" alt="Index Image">
 
                             </div>
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
@@ -3392,12 +3392,11 @@ let annotationMode = false;
 let lastLine;
 
 const imageObj = new Image();
-imageObj.src = '{{ (isset($postStateFormsImage->AnnotateimageData) && $postStateFormsImage->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $postStateFormsImage->AnnotateimageData) : '' }}';
-
+imageObj.src = '{{ (isset($postStateFormsImage->AnnotateimageData) && $postStateFormsImage->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $postStateFormsImage->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/prostate.jpg') }}';
 imageObj.onload = function() {
     const image = new Konva.Image({
         image: imageObj,
-        width: 500,
+        width: 800,
         height: 600,
     });
 

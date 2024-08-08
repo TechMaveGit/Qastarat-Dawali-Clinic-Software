@@ -1018,15 +1018,17 @@
                                         ->where('patient_id', $doctorData->id)
                                         ->get();
                                     $branchs = [];
+                                    // dump();
+                                    $doctorBranches = $useBranch ? $useBranch->unique('add_branch')->pluck('add_branch')->toArray() : [];
 
-                                    foreach ($useBranch as $alluseBranch) {
-                                        $branch = DB::table('branchs')
-                                            ->where('id', $alluseBranch->add_branch)
-                                            ->first();
-                                        if ($branch) {
-                                            $branchs[] = $branch;
-                                        }
-                                    }
+                                    // foreach ($useBranch as $alluseBranch) {
+                                        $branchs = DB::table('branchs')
+                                            ->whereIn('id', $doctorBranches)
+                                            ->get();
+                                        // if ($branch) {
+                                        //     $branchs[] = $branch;
+                                        // }
+                                    // }
                                 @endphp
 
                                 @if (!empty($branchs))
@@ -5122,7 +5124,7 @@
                                     $MSKPain_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select(
                                         'patient_id',
                                     )
-                                        ->where(['patient_id' => $patient->id, 'form_type' => 'MSKPain'])
+                                        ->where(['patient_id' => $patient->id, 'form_type' => 'msk_pain_report'])
                                         ->first();
 
                                     if ($MSKPain_Eligibility_Forms !== null) {
@@ -5139,7 +5141,7 @@
                                             <input type="radio" name="EligibilityForm"
                                                 class="card-input-element"
                                                 id="ProstateArteryEmbolizationEligibilityMSKPain"
-                                                value="MSKPain" />
+                                                value="msk_pain_report" />
 
                                             <div class="form_box card-input">
 
