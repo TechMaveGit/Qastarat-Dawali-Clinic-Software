@@ -1700,6 +1700,7 @@
                                                 ])
                                                 ->orderBy('id', 'desc')
                                                 ->get();
+
                                         @endphp
 
 
@@ -6195,7 +6196,6 @@
             $(document).ready(function() {
                 let patient_id1 = $('input[name="patient_id"]').val();
                 $(".drug_add").on('click', function() {
-                    // console.log("ok");
                     fetchAndDisplayPatientDrugList(patient_id1);
 
                 });
@@ -6414,7 +6414,7 @@
                         success: function(data) {
                             if (data) {
 
-                                console.log(data.RegionalExam);
+                                // console.log(data.RegionalExam);
 
                                 if (data.RegionalExam !== "Normal") {
                                     $(`input[name="RegionalExamRadio"][value="${data.RegionalExam}"]`)
@@ -6425,7 +6425,7 @@
                                     $('#RegionalExamNote').val(data.RegionalExamNote);
                                 }
 
-                                console.log(data.SystemicExam);
+                                // console.log(data.SystemicExam);
 
                                 if (data.SystemicExam !== "Normal") {
                                     $(`input[name="SystemicExamRadio"][value="${data.SystemicExam}"]`)

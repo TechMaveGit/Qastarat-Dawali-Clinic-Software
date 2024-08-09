@@ -1010,13 +1010,13 @@ class PatientController extends Controller
         $SystemicExamRadio = $request->input('SystemicExamRadio');
         $SystemicExamRadioNote = $request->input('SystemicExamRadioNote');
 
-        $clinicalExam = DB::table('patient_general_diagnosis')->where('patient_id', $patient_id)
-            ->where('form_type', $formType)
-            ->first();
+        $clinicalExam = DB::table('patient_general_diagnosis')->where(['title_name' => 'ClinicalExam', 'patient_id' => $patient_id,'form_type' => $formType])->first();
+
+            // dd($formType,$clinicalExam,$patient_id,$request->all());
 
         if ($clinicalExam) {
 
-            DB::table('patient_general_diagnosis')->where(['title_name' => 'ClinicalExam', 'patient_id' => $patient_id])->update([
+            DB::table('patient_general_diagnosis')->where(['title_name' => 'ClinicalExam', 'patient_id' => $patient_id,'form_type' => $formType])->update([
                 'RegionalExam' => $RegionalExamRadio,
                 'RegionalExamNote' => $RegionalExamNote,
                 'SystemicExam' => $SystemicExamRadio,
@@ -1639,7 +1639,7 @@ class PatientController extends Controller
     public function drug_item_list(Request $request)
     {
 
-        $patient_id = decrypt($request->patient_id);
+        $patient_id = $request->patient_id;
         $Patient_order_labs = Patient_current_med::where('patient_id', $patient_id)->orderBy('id', 'desc')->get();
         return response()->json(['patient_current_med' => $Patient_order_labs]);
     }

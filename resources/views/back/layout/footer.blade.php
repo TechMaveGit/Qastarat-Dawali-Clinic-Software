@@ -2821,7 +2821,7 @@
             </form>
         </div>
 
-        <div class="add_data_diagnosis">
+        <div class="drug_table_diagnosis">
 
             <table class="table table-striped table-bordered">
 
