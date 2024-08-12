@@ -1874,7 +1874,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         
                                         <div id="image-container">
-                                            <img src="{{ asset('/images/new-images/nodules.png') }}" alt="Your Image" id="image">
+                                            {{-- <img src="{{ asset('/images/new-images/nodules.png') }}" alt="Your Image" id="image"> --}}
                                         </div>
                                         <div class="button_images">
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
@@ -2110,9 +2110,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2204,9 +2206,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>ElegibilitySTATUS
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2824,9 +2828,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {
@@ -4392,7 +4398,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
+    imageObj.src = '{{ ($VaricoceleEmboForm && $VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/headache.jpg') }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({

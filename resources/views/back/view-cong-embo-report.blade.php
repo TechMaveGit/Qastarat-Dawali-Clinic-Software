@@ -2177,7 +2177,7 @@
                                         
 
                                         <div id="collapseleft21" class="accordion-collapse collapse" data-bs-parent="#accordionExample21">
-                                            @if (count($supportiveTreatments) > 0)
+                                            @if (count($supportiveTreatments) > 0 || count($document_file)>0)
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul class="allergiesdtl">

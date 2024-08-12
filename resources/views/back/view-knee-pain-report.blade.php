@@ -1075,7 +1075,7 @@
                                         <div id="collapseleft24" class="accordion-collapse collapse show"
                                             data-bs-parent="#accordionExample24">
 
-                                            @if (count($diagnosis_generals) > 0 || count($diagnosis_cids) > 0 )
+                                            @if (count($diagnosis_generals) > 0 || count($diagnosis_cids) > 0  || count($document_file)>0)
 
                                             <div class="accordion-body ">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
@@ -1272,7 +1272,7 @@
                                         </h2>
                                         <div id="collapseleft16" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample16">
-                                            @if (count($symptoms_db)>0)
+                                            @if (count($symptoms_db)>0 || count($document_file)>0)
                                              <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
@@ -1398,7 +1398,7 @@
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
-                                                        @if (isset($symptoms_scores_db) || isset($ClinicalIndicator_db))
+                                                        @if (isset($symptoms_scores_db) || isset($ClinicalIndicator_db)  || count($document_file)>0)
                                                             <li>
 
                                                                 <div class="appoin_date">
@@ -3407,7 +3407,7 @@
                     </h2>
 
                     <div id="collapseleft20" class="accordion-collapse collapse" data-bs-parent="#accordionExample20">
-                        @if (count($procedures) > 0)
+                        @if (count($procedures) > 0  || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                
@@ -3531,7 +3531,7 @@
                     </h2>
 
                     <div id="collapseleft21" class="accordion-collapse collapse" data-bs-parent="#accordionExample21">
-                        @if (count($supportiveTreatments) > 0)
+                        @if (count($supportiveTreatments) > 0  || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                 <ul class="allergiesdtl">
@@ -3668,7 +3668,7 @@
                         </button>
                     </h2>
                     <div id="collapseleft9" class="accordion-collapse collapse" data-bs-parent="#accordionExample9">
-                        @if (count($patient_future_plans) > 0)
+                        @if (count($patient_future_plans) > 0  || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list">
 
@@ -3793,7 +3793,7 @@
                     </h2>
 
                     <div id="collapseleft14" class="accordion-collapse collapse" data-bs-parent="#accordionExample14">
-                        @if (count($Patient_progress_notes) > 0)
+                        @if (count($Patient_progress_notes) > 0  || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list">
 

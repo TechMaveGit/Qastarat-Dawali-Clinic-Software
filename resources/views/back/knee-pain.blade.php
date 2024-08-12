@@ -2927,9 +2927,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                           </div>
                                           
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a href="javascript:void(0)"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -3003,9 +3005,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -3772,9 +3776,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     </div>
                                     
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="row">

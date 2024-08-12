@@ -262,7 +262,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                             $existingData = [
                                                 'M219' => ['M21.9 Acquired deformity of limb, unspecified Deformity shoulder (joint) (acquired)'],
                                                 'M242' => ['M24.2 Disorder of ligament Instability secondary to old ligament injury'],
-                                                'M244' => ['M24.4 Recurrent dislocation and subluxation of ioint'],
+                                                'M244' => ['M24.4 Recurrent dislocation and subluxation of joint'],
                                                 'M249' => ['M24.9 Joint derangement, unspecified Derangement|shoulder (internal)'],
                                                 'M255' => ['M25.5 Pain in joint'],
                                                 'M256' => ['M25.6 Stiffness of joint, not elsewhere classified Stiffness, joint|shoulder'],
@@ -331,10 +331,10 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[M244][]"
-                                                id="formRadiosRight10" value="M24.4 Recurrent dislocation and subluxation of ioint"
-                                                {{ isset($diagnosis_cids['M244']) && in_array('M24.4 Recurrent dislocation and subluxation of ioint', $diagnosis_cids['M244']) ? 'checked' : '' }}>
+                                                id="formRadiosRight10" value="M24.4 Recurrent dislocation and subluxation of joint"
+                                                {{ isset($diagnosis_cids['M244']) && in_array('M24.4 Recurrent dislocation and subluxation of joint', $diagnosis_cids['M244']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight10">
-                                                M24.4 Recurrent dislocation and subluxation of ioint
+                                                M24.4 Recurrent dislocation and subluxation of joint
                                             </label>
                                         </div>
                                     </div>
@@ -2595,9 +2595,11 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewShoulderPainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewShoulderPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2689,9 +2691,11 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewShoulderPainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewShoulderPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>ElegibilitySTATUS
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -3543,9 +3547,11 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
 </div>
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewShoulderPainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewShoulderPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {
