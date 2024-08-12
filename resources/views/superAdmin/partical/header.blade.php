@@ -75,6 +75,15 @@
     max-width: 800px;
     margin: 1.75rem auto;
 }
+.content-header nav{
+                    right: 3%;
+                    position: absolute;
+                }
+
+				.detail_box ul li {
+					margin-bottom: 13px;
+					border-bottom: 1px dotted gray;
+				}
 
 			</style>
     @stack('custom-css')
@@ -400,7 +409,7 @@
 
 
 
-				<li>
+				<li class="{{ Route::is('branch.management.index') ? 'active' : '' }}">
                     <a href="{{ route('branch.management.index') }}">
 					<i data-feather="map-pin"></i>
 					<span>Location Management </span>
@@ -409,7 +418,7 @@
 				</li>
 
 
-				<li>
+				<li class="{{ Route::is('snippets','add.snippets','edit.snippets') ? 'active' : '' }}">
                     <a href="{{ route('snippets') }}">
 					<i data-feather="map-pin"></i>
 					<span>Snippet</span>

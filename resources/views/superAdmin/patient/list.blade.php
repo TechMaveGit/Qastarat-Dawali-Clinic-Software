@@ -48,7 +48,7 @@
                    <td>
                    <div class="patent_detail__">
                     <div class="patient_profile">
-                        <img src="images/newimages/avtar.jpg" alt="">
+                        <img src="{{ asset('/assets/images/newimages/avtar.jpg')}}" alt="">
                     </div>
                     <div class="patient_name__dt_">
                         <h6>MOHAMMED ALI AL BADI</h6>
@@ -76,7 +76,7 @@
                    <td>
                    <div class="patent_detail__">
                     <div class="patient_profile">
-                        <img src="images/newimages/avtar.jpg" alt="">
+                        <img src="{{ asset('/assets/images/newimages/avtar.jpg')}}" alt="">
                     </div>
                     <div class="patient_name__dt_">
                         <h6>Sammer Zubair</h6>
@@ -103,7 +103,7 @@
                    <td>
                    <div class="patent_detail__">
                     <div class="patient_profile">
-                        <img src="images/newimages/avtar.jpg" alt="">
+                        <img src="{{ asset('/assets/images/newimages/avtar.jpg')}}" alt="">
                     </div>
                     <div class="patient_name__dt_">
                         <h6>Rihan Abdula</h6>
@@ -130,7 +130,7 @@
                    <td>
                    <div class="patent_detail__">
                     <div class="patient_profile">
-                        <img src="images/newimages/avtar.jpg" alt="">
+                        <img src="{{ asset('/assets/images/newimages/avtar.jpg')}}" alt="">
                     </div>
                     <div class="patient_name__dt_">
                         <h6>Safi Khan</h6>
@@ -157,7 +157,7 @@
                    <td>
                    <div class="patent_detail__">
                     <div class="patient_profile">
-                        <img src="images/newimages/avtar.jpg" alt="">
+                        <img src="{{ asset('/assets/images/newimages/avtar.jpg')}}" alt="">
                     </div>
                     <div class="patient_name__dt_">
                         <h6>Jannat</h6>
@@ -184,7 +184,7 @@
                    <td>
                    <div class="patent_detail__">
                     <div class="patient_profile">
-                        <img src="images/newimages/avtar.jpg" alt="">
+                        <img src="{{ asset('/assets/images/newimages/avtar.jpg')}}" alt="">
                     </div>
                     <div class="patient_name__dt_">
                         <h6>Jhon</h6>
@@ -211,7 +211,7 @@
                    <td>
                    <div class="patent_detail__">
                     <div class="patient_profile">
-                        <img src="images/newimages/avtar.jpg" alt="">
+                        <img src="{{ asset('/assets/images/newimages/avtar.jpg')}}" alt="">
                     </div>
                     <div class="patient_name__dt_">
                         <h6>Zahir Khan</h6>

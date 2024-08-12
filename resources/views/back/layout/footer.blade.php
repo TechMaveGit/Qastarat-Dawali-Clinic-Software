@@ -1018,15 +1018,17 @@
                                         ->where('patient_id', $doctorData->id)
                                         ->get();
                                     $branchs = [];
+                                    // dump();
+                                    $doctorBranches = $useBranch ? $useBranch->unique('add_branch')->pluck('add_branch')->toArray() : [];
 
-                                    foreach ($useBranch as $alluseBranch) {
-                                        $branch = DB::table('branchs')
-                                            ->where('id', $alluseBranch->add_branch)
-                                            ->first();
-                                        if ($branch) {
-                                            $branchs[] = $branch;
-                                        }
-                                    }
+                                    // foreach ($useBranch as $alluseBranch) {
+                                        $branchs = DB::table('branchs')
+                                            ->whereIn('id', $doctorBranches)
+                                            ->get();
+                                        // if ($branch) {
+                                        //     $branchs[] = $branch;
+                                        // }
+                                    // }
                                 @endphp
 
                                 @if (!empty($branchs))
@@ -2819,7 +2821,7 @@
             </form>
         </div>
 
-        <div class="add_data_diagnosis">
+        <div class="drug_table_diagnosis">
 
             <table class="table table-striped table-bordered">
 
@@ -5122,7 +5124,7 @@
                                     $MSKPain_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select(
                                         'patient_id',
                                     )
-                                        ->where(['patient_id' => $patient->id, 'form_type' => 'MSKPain'])
+                                        ->where(['patient_id' => $patient->id, 'form_type' => 'msk_pain_report'])
                                         ->first();
 
                                     if ($MSKPain_Eligibility_Forms !== null) {
@@ -5139,7 +5141,7 @@
                                             <input type="radio" name="EligibilityForm"
                                                 class="card-input-element"
                                                 id="ProstateArteryEmbolizationEligibilityMSKPain"
-                                                value="MSKPain" />
+                                                value="msk_pain_report" />
 
                                             <div class="form_box card-input">
 
@@ -10284,7 +10286,7 @@
                     message = 'CIVIL ID must be exactly 9 digits';
                     break;
                 case 'EID':
-                    maxLength = 18;
+                    maxLength = 15;
                     message = 'EID must be exactly 15 digits';
                     break;
                 case 'PERSONAL NUMBER':
@@ -10302,7 +10304,8 @@
                 $(`#${valpoint}`).val(idNumber.slice(0, maxLength));
             }
             // console.log(idNumber.length,maxLength,message);
-
+            $(`#${valpoint}`).attr('maxlength',maxLength);
+            $(`#${valpoint}`).attr('minlength',maxLength);
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
                 $(`#${vmsg}`).text(message);
             } else {

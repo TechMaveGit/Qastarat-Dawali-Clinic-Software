@@ -15,12 +15,12 @@
   <div class="content-header">
       <div class="d-flex">
       <h4 class="page-title">Snippets Management</h4>
-      {{-- <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Snippets</li>
               </ol>
-          </nav> --}}
+          </nav>
       </div>
 
       </div>

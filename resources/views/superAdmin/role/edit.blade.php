@@ -8,8 +8,8 @@
         <h4 class="page-title">Edit Role & Permission</h4>
         <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">User Permission</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Role</li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ route('permissions.index') }}">User Permission</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Role & Permission</li>
                 </ol>
             </nav>
         </div>

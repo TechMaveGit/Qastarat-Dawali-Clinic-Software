@@ -1,6 +1,6 @@
 @extends('superAdmin.partical.main')
 @push('title')
-<title>All Nurses | Super Admin</title>
+<title>All Appointments & Services | Super Admin</title>
 @endpush
 @section('content')
 

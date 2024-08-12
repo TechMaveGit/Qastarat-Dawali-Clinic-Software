@@ -214,7 +214,7 @@
 
 
 
-                                <a href="#" class="action_btn_tooltip" onclick="genrate_report('headache_pain_report')">
+                                <a href="#" class="action_btn_tooltip" onclick="genrate_report('HeadachePain')">
                                     <iconify-icon icon="carbon:report" width="22"></iconify-icon>
                                     <span class="toolTip">Generate Report</span>
                                 </a>
@@ -558,12 +558,12 @@
                                                                         </div>
 
                                                                         
-                                                                            @if (strlen($past_history->describe) >= 50)
+                                                                            {{-- @if (strlen($past_history->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
                                                                         
 
@@ -664,12 +664,12 @@
                                                                                 </p>
                                                                                 
 
-                                                                            @if (strlen($past_surgical->describe) >= 50)
+                                                                            {{-- @if (strlen($past_surgical->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
 
                                                                         </div>
@@ -833,12 +833,12 @@
                                                                     </div>
 
 
-                                                                        @if (strlen($procedure->summary) >= 50)
+                                                                        {{-- @if (strlen($procedure->summary) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1027,12 +1027,12 @@
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($visit->voice_recognition) >= 50)
+                                                                        {{-- @if (strlen($visit->voice_recognition) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1101,12 +1101,12 @@
 
                                                                         <p>{{ \Carbon\Carbon::parse($prescription->created_at)->format('D, d M Y') }}</p>
 
-                                                                        @if (strlen($prescription->prescription) >= 50)
+                                                                        {{-- @if (strlen($prescription->prescription) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1178,7 +1178,7 @@
                                                                     </div>
                                                                     <div class="dropdown-content">
                                                                         
-                                                                        <a onclick="viewDocument('headache_pain_report','diagnosis')" class="bottom_btn extract_btn"
+                                                                        <a onclick="viewDocument('HeadachePain','diagnosis')" class="bottom_btn extract_btn"
                                                                         >
                                                                          <i class="fa-solid fa-paperclip"></i> Attach
                                                                        </a>
@@ -1248,12 +1248,12 @@
 
                                                                         </div>
 
-                                                                        @if ($loop->last)
+                                                                        {{-- @if ($loop->last)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
                                                                     @empty
                                                                         <small style="font-size:10px;">No Data
                                                                             Found</small>
@@ -1318,12 +1318,12 @@
 
                                                                         </div>
 
-                                                                        @if ($loop->last)
+                                                                        {{-- @if ($loop->last)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
                                                                     @empty
                                                                         <small style="font-size:10px;">No Data
                                                                             Found</small>
@@ -1346,7 +1346,7 @@
                                                         @if (in_array($alldocument_file->form_section_type, ['diagnosis']))
                                                        
                                                         <div class="document_view">
-                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                         </div> 
                                                         @endif
                                                         @empty
@@ -1384,7 +1384,7 @@
                                                                     </div>
                                                                     <div class="dropdown-content">
                                                                         
-                                                                        <a onclick="viewDocument('headache_pain_report','symptoms')" class="bottom_btn extract_btn"
+                                                                        <a onclick="viewDocument('HeadachePain','symptoms')" class="bottom_btn extract_btn"
                                                                         >
                                                                          <i class="fa-solid fa-paperclip"></i> Attach
                                                                        </a>
@@ -1451,10 +1451,10 @@
 
                                                                     </div>
 
-                                                                    <button
+                                                                    {{-- <button
                                                                         class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                         onclick="toggleReadMore(this)">Read
-                                                                        More</button>
+                                                                        More</button> --}}
 
                                                                 </div>
                                                             </li>
@@ -1466,7 +1466,7 @@
                                                         @if (in_array($alldocument_file->form_section_type, ['symptoms']))
                                                        
                                                         <div class="document_view">
-                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                         </div> 
                                                         @endif
                                                         @empty
@@ -1509,7 +1509,7 @@
                                                                     </div>
                                                                     <div class="dropdown-content">
                                                                         
-                                                                        <a onclick="viewDocument('headache_pain_report','severity_symptoms_scale')" class="bottom_btn extract_btn"
+                                                                        <a onclick="viewDocument('HeadachePain','severity_symptoms_scale')" class="bottom_btn extract_btn"
                                                                         >
                                                                          <i class="fa-solid fa-paperclip"></i> Attach
                                                                        </a>
@@ -1613,9 +1613,9 @@
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
                                                 </div>
                                                 </li>
 
@@ -1626,7 +1626,7 @@
                                                         @if (in_array($alldocument_file->form_section_type, ['severity_symptoms_scale']))
                                                        
                                                         <div class="document_view">
-                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                         </div> 
                                                         @endif
                                                         @empty
@@ -1665,7 +1665,7 @@
                                                                 </div>
                                                                 <div class="dropdown-content">
                                                                    
-                                                                    <a onclick="viewDocument('headache_pain_report','clinical_exam')" class="bottom_btn extract_btn"
+                                                                    <a onclick="viewDocument('HeadachePain','clinical_exam')" class="bottom_btn extract_btn"
                                                                         >
                                                                          <i class="fa-solid fa-paperclip"></i> Attach
                                                                        </a>
@@ -1765,9 +1765,9 @@
 
 
                                                                     </div>
-                                                                    <button
+                                                                    {{-- <button
                                                                         class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                                 </div>
                                                             </li>
                                                         @empty
@@ -1780,7 +1780,7 @@
                                                         @if (in_array($alldocument_file->form_section_type, ['clinical_exam']))
                                                        
                                                         <div class="document_view">
-                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                         </div> 
                                                         @endif
                                                         @empty
@@ -1816,7 +1816,7 @@
                                                                 </div>
                                                                 <div class="dropdown-content">
                                                                    
-                                                                    <a onclick="viewDocument('headache_pain_report','order_imaging_exam')" class="bottom_btn extract_btn"
+                                                                    <a onclick="viewDocument('HeadachePain','order_imaging_exam')" class="bottom_btn extract_btn"
                                                                         >
                                                                          <i class="fa-solid fa-paperclip"></i> Attach
                                                                        </a>
@@ -2139,9 +2139,9 @@
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
                                                             </div>
 
                                                         </li>
@@ -2156,7 +2156,7 @@
                                                         @if (in_array($alldocument_file->form_section_type, ['order_imaging_exam']))
                                                        
                                                         <div class="document_view">
-                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                         </div> 
                                                         @endif
                                                         @empty
@@ -2196,7 +2196,7 @@
                                                                 </div>
                                                                 <div class="dropdown-content">
                                                                    
-                                                                    <a onclick="viewDocument('headache_pain_report','order_lab_test')" class="bottom_btn extract_btn"
+                                                                    <a onclick="viewDocument('HeadachePain','order_lab_test')" class="bottom_btn extract_btn"
                                                                         >
                                                                          <i class="fa-solid fa-paperclip"></i> Attach
                                                                        </a>
@@ -2465,9 +2465,9 @@
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
                                                             </div>
                                                         </li>
                                                     @empty
@@ -2477,7 +2477,7 @@
                                                     @if (in_array($alldocument_file->form_section_type, ['order_lab_test']))
                                                    
                                                     <div class="document_view">
-                                                        <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                        <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                     </div> 
                                                     @endif
                                                     @empty
@@ -2517,7 +2517,7 @@
                                                                 </div>
                                                                 <div class="dropdown-content">
                                                                    
-                                                                    <a onclick="viewDocument('headache_pain_report','special_investigation')" class="bottom_btn extract_btn"
+                                                                    <a onclick="viewDocument('HeadachePain','special_investigation')" class="bottom_btn extract_btn"
                                                                         >
                                                                          <i class="fa-solid fa-paperclip"></i> Attach
                                                                        </a>
@@ -2608,9 +2608,9 @@
 
 
                                                                     </div>
-                                                                    <button
+                                                                    {{-- <button
                                                                         class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                                 </div>
                                                             </li>
                                                         @empty
@@ -2622,7 +2622,7 @@
                                                     @if (in_array($alldocument_file->form_section_type, ['special_investigation']))
                                                    
                                                     <div class="document_view">
-                                                        <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                        <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                     </div> 
                                                     @endif
                                                     @empty
@@ -2695,34 +2695,32 @@
             
             
                                                                             @php
-            
                                                                                 $MDT = json_decode($record->data_value, true);
-                                                                              
                                                                             @endphp  
             
-                                                                            @if (isset($MDT['TTA']) && $MDT['TTA'][0] == 'TTA')
+                                                                            @if (isset($MDT['IRprocedure']) && $MDT['IRprocedure'][0] == 'IR procedure')
                                                                                 <div class="ss_result_box">
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            TTA</h6>
+                                                                                                    IR procedure</h6>
             
                                                                                     </div>
                                                                                     <p class="ss_result">
-                                                                                        {{ $MDT['TTANote'][0] ?? '' }}.
+                                                                                        {{ $MDT['IRprocedureNote'][0] ?? '' }}.
                                                                                     </p>
                                                                                 </div>
                                                                             @endif
-                                                                            @if (isset($MDT['TE']) && $MDT['TE'][0] == 'TE')
+                                                                            @if (isset($MDT['Medical']) && $MDT['Medical'][0] == 'Medical')
                                                                                 <div class="ss_result_box">
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            TE</h6>
+                                                                                                    Medical</h6>
             
                                                                                     </div>
                                                                                     <p class="ss_result">
-                                                                                        {{ $MDT['TENote'][0] ?? '' }}.
+                                                                                        {{ $MDT['MedicalNote'][0] ?? '' }}.
                                                                                     </p>
                                                                                 </div>
                                                                             @endif
@@ -2738,7 +2736,7 @@
                                                                                         {{ $MDT['SurgicalNote'][0] ?? '' }}.</p>
                                                                                 </div>
                                                                             @endif
-                                                                            @if (isset($MDT['OtherOptions']) && $MDT['OtherOptions'][0] == 'Other options')
+                                                                            @if (isset($MDT['options']) && $MDT['options'][0] == 'options')
                                                                                 <div class="ss_result_box">
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
@@ -2747,10 +2745,10 @@
             
                                                                                     </div>
                                                                                     <p class="ss_result">
-                                                                                        {{ $MDT['OtherOptionsNote'][0] ?? '' }}.</p>
+                                                                                        {{ $MDT['optionsNote'][0] ?? '' }}.</p>
                                                                                 </div>
                                                                             @endif
-                                                                            @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['TE']) || !isset($MDT['TTA']))
+                                                                            @if (!isset($MDT['options']) && !isset($MDT['Surgical']) && !isset($MDT['Medical']) && !isset($MDT['IRprocedure']))
                                                                                 <div class="ss_result_box">
                                                                                     @foreach ($MDT as $key => $value)
                                                                                         <div class="symp_title mb-1">
@@ -2767,8 +2765,8 @@
                                                                     </div>
             
             
-                                                                       <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                                       {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                                   
                                                                         <p class="diagnosis_date "><span
                                                                             class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
@@ -2790,7 +2788,7 @@
                                                             @if (in_array($alldocument_file->form_section_type, ['mbt_review']))
                                                            
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                             </div> 
                                                             @endif
                                                             @empty
@@ -2872,83 +2870,327 @@
                                                                                
                                                                             @endphp
             
-                                                                            @if (isset($ElegibilitySTATUS['TTA']) && $ElegibilitySTATUS['TTA'][0] == 'THYROID THERMAL ABLATION (TTA)')
-                                                                                <div class="ss_result_box">
-                                                                                    <div class="symp_title mb-1">
-                                                                                        <h6><span class="point_dia"><i
-                                                                                                    class="fa-regular fa-circle-dot"></i></span>
-                                                                                            THYROID THERMAL ABLATION (TTA)</h6>
-            
-                                                                                    </div>
-                                                                                    <p class="ss_result">
-                                                                                        {{ $ElegibilitySTATUS['TTANote'][0] ?? '' }}
+                                                                            @if (isset($ElegibilitySTATUS['TopicalRiparil']) && !empty($ElegibilitySTATUS['TopicalRiparil'][0]))
+                                                                            <div class="ss_result_box">
+                                                                                <div class="symp_title mb-1">
+                                                                                    <h6><span class="point_dia"><i
+                                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                                conservative - Topical Riparil  </h6>
+
+                                                                                </div>
+
+                                                                                @if (isset($ElegibilitySTATUS['TopicalRiparil']) && $ElegibilitySTATUS['TopicalRiparil'][0] == 'Eligibile')
+                                                                                                                <p class="ss_result">
+                                                                                        {{ $ElegibilitySTATUS['TopicalRiparil'][0] ?? '' }}
                                                                                     </p>
-                                                                                </div>
-                                                                            @endif
-                                                                            @if (isset($ElegibilitySTATUS['PTTA']) && $ElegibilitySTATUS['PTTA'][0] == 'PARATHYROID THERMAL ABLATION PTTA')
-                                                                                <div class="ss_result_box">
-                                                                                    <div class="symp_title mb-1">
-                                                                                        <h6><span class="point_dia"><i
-                                                                                                    class="fa-regular fa-circle-dot"></i></span>
-                                                                                            PARATHYROID THERMAL ABLATION PTTA</h6>
-            
-                                                                                    </div>
                                                                                     <p class="ss_result">
-                                                                                        {{ $ElegibilitySTATUS['PTTANote'][0] ?? '' }}
+                                                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalRiparilNote'][0] ?? '' }}
                                                                                     </p>
-                                                                                </div>
-                                                                            @endif
-                                                                            @if (isset($ElegibilitySTATUS['TE']) && $ElegibilitySTATUS['TE'][0] == 'THYROID EMBOLIZATION TE')
-                                                                                <div class="ss_result_box">
-                                                                                    <div class="symp_title mb-1">
-                                                                                        <h6><span class="point_dia"><i
-                                                                                                    class="fa-regular fa-circle-dot"></i></span>
-                                                                                            THYROID EMBOLIZATION TE</h6>
-            
-                                                                                    </div>
+                                                                                @else
                                                                                     <p class="ss_result">
-                                                                                        {{ $ElegibilitySTATUS['TENote'][0] ?? '' }}</p>
-                                                                                </div>
-                                                                            @endif
-                                                                            @if (isset($ElegibilitySTATUS['OTHERS']) && $ElegibilitySTATUS['OTHERS'][0] == 'OTHERS')
-                                                                                <div class="ss_result_box">
-                                                                                    <div class="symp_title mb-1">
-                                                                                        <h6><span class="point_dia"><i
-                                                                                                    class="fa-regular fa-circle-dot"></i></span>
-                                                                                            Other options</h6>
-            
-                                                                                    </div>
-                                                                                    <p class="ss_result">
-                                                                                        {{ $ElegibilitySTATUS['OTHERSNote'][0] ?? '' }}
+                                                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalRiparil'][0] ?? '' }}
                                                                                     </p>
+                                                                                @endif
+                                                                            </div>
+                                                                        @endif
+                                                                            @if (isset($ElegibilitySTATUS['TopicalAnalgesics']) && !empty($ElegibilitySTATUS['TopicalAnalgesics'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                            conservative - Topical
+                                                                                            Analgesics </h6>
+
+                                                                                    </div>
+                                                                                    @if (isset($ElegibilitySTATUS['TopicalAnalgesics']) && $ElegibilitySTATUS['TopicalAnalgesics'][0] == 'Eligibile')
+                                                                                        
+                                                                                        <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['TopicalAnalgesics'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalAnalgesicsNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalAnalgesics'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
                                                                                 </div>
                                                                             @endif
             
-                                                                            @if (
-                                                                                !isset($ElegibilitySTATUS['OTHERS']) ||
-                                                                                    !isset($ElegibilitySTATUS['TE']) ||
-                                                                                    !isset($ElegibilitySTATUS['PTTA']) ||
-                                                                                    !isset($ElegibilitySTATUS['TTA']))
-                                                                                <div class="ss_result_box">
-                                                                                    @foreach ($ElegibilitySTATUS as $key => $value)
+                                                                            @if (isset($ElegibilitySTATUS['POAnalgesics']) && !empty($ElegibilitySTATUS['POAnalgesics'][0]))
+                                                                                    <div class="ss_result_box">
                                                                                         <div class="symp_title mb-1">
                                                                                             <h6><span class="point_dia"><i
                                                                                                         class="fa-regular fa-circle-dot"></i></span>
-                                                                                                {{ $key }}</h6>
+                                                                                                conservative - PO Analgesics
+                                                                                            </h6>
+
                                                                                         </div>
-                                                                                        <p class="ss_result">{{ $value['asd'] ?? '' }}
+                                                                                        @if (isset($ElegibilitySTATUS['POAnalgesics']) && $ElegibilitySTATUS['POAnalgesics'][0] == 'Eligibile')
+                                                                                            
+                                                                                            <p class="ss_result">
+                                                                                                {{ $ElegibilitySTATUS['POAnalgesics'][0] ?? '' }}
+                                                                                            </p>
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['POAnalgesicsNote'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @else
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['POAnalgesics'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endif
+                                                                                @if (isset($ElegibilitySTATUS['Chondroitin']) && !empty($ElegibilitySTATUS['Chondroitin'][0]))
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                conservative - PO
+                                                                                                Glucasamine / Chondroitin
+                                                                                            </h6>
+
+                                                                                        </div>
+                                                                                        @if (isset($ElegibilitySTATUS['Chondroitin']) && $ElegibilitySTATUS['Chondroitin'][0] == 'Eligibile')
+                                                                                            
+                                                                                            <p class="ss_result">
+                                                                                                {{ $ElegibilitySTATUS['Chondroitin'][0] ?? '' }}
+                                                                                            </p>
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['ChondroitinNote'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @else
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['Chondroitin'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endif
+                                                                                @if (isset($ElegibilitySTATUS['POCollagen']) && !empty($ElegibilitySTATUS['POCollagen'][0]))
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                conservative - PO Collagen
+                                                                                            </h6>
+
+                                                                                        </div>
+                                                                                        @if (isset($ElegibilitySTATUS['POCollagen']) && $ElegibilitySTATUS['POCollagen'][0] == 'Eligibile')
+                                                                                            
+                                                                                            <p class="ss_result">
+                                                                                                {{ $ElegibilitySTATUS['POCollagen'][0] ?? '' }}
+                                                                                            </p>
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['POCollagenNote'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @else
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['POCollagen'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endif
+                                                                                @if (isset($ElegibilitySTATUS['conservativeVitamines']) && !empty($ElegibilitySTATUS['conservativeVitamines'][0]))
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                conservative - IV Vitamines
+                                                                                            </h6>
+
+                                                                                        </div>
+                                                                                        @if (isset($ElegibilitySTATUS['conservativeVitamines']) && $ElegibilitySTATUS['conservativeVitamines'][0] == 'Eligibile')
+                                                                                            
+                                                                                            <p class="ss_result">
+                                                                                                {{ $ElegibilitySTATUS['conservativeVitamines'][0] ?? '' }}
+                                                                                            </p>
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeVitaminesNote'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @else
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeVitamines'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endif
+                                                                                @if (isset($ElegibilitySTATUS['conservativeIMNurobion']) && !empty($ElegibilitySTATUS['conservativeIMNurobion'][0]))
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                conservative - IM Nurobion
+                                                                                            </h6>
+
+                                                                                        </div>
+                                                                                        @if (isset($ElegibilitySTATUS['conservativeIMNurobion']) &&
+                                                                                                $ElegibilitySTATUS['conservativeIMNurobion'][0] == 'Eligibile')
+                                                                                            
+                                                                                            <p class="ss_result">
+                                                                                                {{ $ElegibilitySTATUS['conservativeIMNurobion'][0] ?? '' }}
+                                                                                            </p>
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMNurobionNote'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @else
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMNurobion'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endif
+                                                                                @if (isset($ElegibilitySTATUS['conservativeIMCollagen']) && !empty($ElegibilitySTATUS['conservativeIMCollagen'][0]))
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                conservative - IM Collagen
+                                                                                            </h6>
+
+                                                                                        </div>
+                                                                                        @if (isset($ElegibilitySTATUS['conservativeIMCollagen']) &&
+                                                                                                $ElegibilitySTATUS['conservativeIMCollagen'][0] == 'Eligibile')
+                                                                                            
+                                                                                            <p class="ss_result">
+                                                                                                {{ $ElegibilitySTATUS['conservativeIMCollagen'][0] ?? '' }}
+                                                                                            </p>
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMCollagenNote'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @else
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMCollagen'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endif
+                                                                                @if (isset($ElegibilitySTATUS['Triggerpointinjection']) && !empty($ElegibilitySTATUS['Triggerpointinjection'][0]))
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                        Trigger point injection
+                                                                                            </h6>
+
+                                                                                        </div>
+                                                                                        @if (isset($ElegibilitySTATUS['Triggerpointinjection']) &&
+                                                                                                $ElegibilitySTATUS['Triggerpointinjection'][0] == 'Eligibile')
+                                                                                            
+                                                                                            <p class="ss_result">
+                                                                                                {{ $ElegibilitySTATUS['Triggerpointinjection'][0] ?? '' }}
+                                                                                            </p>
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['TriggerpointinjectionNote'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @else
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['Triggerpointinjection'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endif
+
+                                                                                @if (isset($ElegibilitySTATUS['PRPinjection']) && !empty($ElegibilitySTATUS['PRPinjection'][0]))
+                                                                                    <div class="ss_result_box">
+                                                                                        <div class="symp_title mb-1">
+                                                                                            <h6><span class="point_dia"><i
+                                                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                                                PRP injection</h6>
+
+                                                                                        </div>
+                                                                                        @if (isset($ElegibilitySTATUS['PRPinjection']) && $ElegibilitySTATUS['PRPinjection'][0] == 'Eligibile')
+                                                                                            
+                                                                                            <p class="ss_result">
+                                                                                                {{ $ElegibilitySTATUS['PRPinjection'][0] ?? '' }}
+                                                                                            </p>
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['PRPinjectionNote'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @else
+                                                                                            <p class="ss_result">
+                                                                                                &nbsp;&nbsp;{{ $ElegibilitySTATUS['PRPinjection'][0] ?? '' }}
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endif
+                                                                                @if (isset($ElegibilitySTATUS['NerveBlockinjection']) && !empty($ElegibilitySTATUS['NerveBlockinjection'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Nerve Block injection</h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['NerveBlockinjection']) && $ElegibilitySTATUS['NerveBlockinjection'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['NerveBlockinjection'][0] ?? '' }}
                                                                                         </p>
-                                                                                    @endforeach
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveBlockinjectionNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveBlockinjection'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
                                                                                 </div>
                                                                             @endif
+                                                                            @if (isset($ElegibilitySTATUS['NerveRFTherapy']) && !empty($ElegibilitySTATUS['NerveRFTherapy'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Nerve RF Therapy</h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['NerveRFTherapy']) && $ElegibilitySTATUS['NerveRFTherapy'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['NerveRFTherapy'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveRFTherapyNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveRFTherapy'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['Others']) && !empty($ElegibilitySTATUS['Others'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        Others</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['Others']) && $ElegibilitySTATUS['Others'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['Others'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['OthersNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['Others'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
             
                                                                         </div>
             
             
             
                                                                     </div>
-                                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                        onclick="toggleReadMore(this)">Read More</button> --}}
             
                                                                         <p class="diagnosis_date "><span class="enter_span_hivj"> {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
                                                                         </span> <span class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
@@ -2964,7 +3206,7 @@
                                                                         @if (in_array($alldocument_file->form_section_type, ['eligibility_status']))
                                                                     
                                                                         <div class="document_view">
-                                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                                         </div> 
                                                                         @endif
                                                                         @empty
@@ -3081,8 +3323,8 @@
 
                                                     </div>
 
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                    onclick="toggleReadMore(this)">Read More</button> --}}
 
 
                                                     <p class="diagnosis_date "><span class="enter_span_hivj">
@@ -3103,7 +3345,7 @@
                                                 @if (in_array($alldocument_file->form_section_type, ['procedure']))
                                             
                                                 <div class="document_view">
-                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                 </div> 
                                                 @endif
                                                 @empty
@@ -3215,8 +3457,8 @@
 
                                                     </div>
 
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                        onclick="toggleReadMore(this)">Read More</button> --}}
 
 
                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
@@ -3244,7 +3486,7 @@
                                                 @if (in_array($alldocument_file->form_section_type, ['supportive_treatment']))
                                             
                                                 <div class="document_view">
-                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                 </div> 
                                                 @endif
                                                 @empty
@@ -3339,8 +3581,8 @@
 
 
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                         
                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
                                                                 {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
@@ -3357,7 +3599,7 @@
                                                 @if (in_array($alldocument_file->form_section_type, ['plan_recomandation']))
                                             
                                                 <div class="document_view">
-                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                 </div> 
                                                 @endif
                                                 @empty
@@ -3472,8 +3714,8 @@
 
 
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                        onclick="toggleReadMore(this)">Read More</button> --}}
 
                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
                                                             {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
@@ -3496,7 +3738,7 @@
                                 @if (in_array($alldocument_file->form_section_type, ['progress_notes']))
                             
                                 <div class="document_view">
-                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                 </div> 
                                 @endif
                                 @empty

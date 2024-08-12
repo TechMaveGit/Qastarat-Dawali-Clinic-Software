@@ -1307,7 +1307,7 @@
                                                                         <h6><span class="trshDoc"><a
                                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                         icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                            <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                            <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                                 target="_blank"><iconify-icon
                                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                         </h6>
@@ -1444,7 +1444,7 @@
                                                                         <h6><span class="trshDoc"><a
                                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                         icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                            <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                            <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                                 target="_blank"><iconify-icon
                                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                         </h6>
@@ -1592,7 +1592,7 @@
                                                                 @forelse ($document_file as $alldocument_file)
                                                                 @if (in_array($alldocument_file->form_section_type, ['severity']))
                                                                     <p class="diagnosis_date">
-                                                                        <a href="{{ url('public/uploads/'. $alldocument_file->upload_file) }}" target="_blank">
+                                                                        <a href="{{ asset('/uploads/'. $alldocument_file->upload_file) }}" target="_blank">
                                                                             <i class="fa-solid fa-edit"></i>
                                                                         </a>
                                                                     </p>
@@ -1625,7 +1625,7 @@
                                                         @if (in_array($alldocument_file->form_section_type, ['severity']))
                                                        
                                                         <div class="document_view">
-                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                         </div> 
                                                         @endif
                                                         @empty
@@ -1700,6 +1700,7 @@
                                                 ])
                                                 ->orderBy('id', 'desc')
                                                 ->get();
+
                                         @endphp
 
 
@@ -1852,7 +1853,7 @@
                                                                     <h6><span class="trshDoc"><a
                                                                                 href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                     icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                        <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                        <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                             target="_blank"><iconify-icon
                                                                                 icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                     </h6>
@@ -2072,7 +2073,7 @@
                                                                                 <h6><span class="trshDoc"><a
                                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                                         target="_blank"><iconify-icon
                                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                                 </h6>
@@ -2461,7 +2462,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -2672,7 +2673,7 @@
                                                         <h6><span class="trshDoc"><a
                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                         icon="ph:trash-bold"></iconify-icon></a></span> <a
-                                                                href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                 target="_blank"><iconify-icon
                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                         </h6>
@@ -2731,6 +2732,7 @@
 
                         <div id="collapseleft18" class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample18">
+                            {{-- @dd($MDTs_db) --}}
                             @if (count($MDTs_db) > 0)
                                 <div class="accordion-body">
                                     <div class="appointments___list past_medical_history_ak diagnosis_data">
@@ -2812,6 +2814,7 @@
                                                                     @endif
                                                                     @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['TE']) || !isset($MDT['TTA']))
                                                                         <div class="ss_result_box">
+                                                                            {{-- @dump($MDT) --}}
                                                                             @foreach ($MDT as $key => $value)
                                                                                 <div class="symp_title mb-1">
                                                                                     <h6><span class="point_dia"><i
@@ -2850,7 +2853,7 @@
                                                         <h6><span class="trshDoc"><a
                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                         icon="ph:trash-bold"></iconify-icon></a></span> <a
-                                                                href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                 target="_blank"><iconify-icon
                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                         </h6>
@@ -3033,7 +3036,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -3171,7 +3174,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -3312,7 +3315,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -3429,7 +3432,7 @@
                                                                 <h6><span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
-                                                                    <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                                 </h6>
@@ -3562,7 +3565,7 @@
                                                 <h6><span class="trshDoc"><a
                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                 icon="ph:trash-bold"></iconify-icon></a></span> <a
-                                                        href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}"
+                                                        href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                         target="_blank"><iconify-icon
                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                 </h6>
@@ -3775,8 +3778,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 text-end">
-                                    <a href="javascript:void(0)" class="diseases_name" id="addNewSymptoms">+ Add
+                                <div class="col-lg-12 mb-3 text-end">
+                                    <a href="javascript:void(0)" class="diseases_name btn r-04 btn--theme hover--tra-black add_patient" id="addNewSymptoms">+ Add
                                     </a>
                                 </div>
 
@@ -4320,16 +4323,19 @@
                     general: [],
                     icd: []
                 };
+                
 
                 $('.select_diagnosis').change(function() {
                     var diagnosisType = $(this).val();
                     $('.add-category').attr('data-diagnosis-type', diagnosisType);
                     $('.category-container .category-input').val('');
                 });
+                $('.select_diagnosis').change();
 
                 $('.add-category').click(function() {
                     var diagnosisType = $(this).attr('data-diagnosis-type');
                     var category = $('.category-container .category-input').val().trim();
+                    console.log("Adsasas",diagnosisData,diagnosisType,category);
 
                     if (category !== '') {
                         //  console.log("first");
@@ -4455,7 +4461,7 @@
                                         title: 'Success',
                                         text: 'Diagnosis Deleted Successfully!',
                                         icon: 'success',
-                                        timer: 2000, // Auto close alert after 2 seconds
+                                        timer: 4000, // Auto close alert after 2 seconds
                                         showConfirmButton: false // Hide the "OK" button
                                     }).then(function() {
                                         // Reload the page after the alert is closed
@@ -4466,7 +4472,7 @@
                                         title: 'Success',
                                         text: 'Diagnosis  Added Successfully!',
                                         icon: 'success',
-                                        timer: 2000, // Auto close alert after 2 seconds
+                                        timer: 4000, // Auto close alert after 2 seconds
                                         showConfirmButton: false // Hide the "OK" button
                                     }).then(function() {
                                         // Reload the page after the alert is closed
@@ -4479,7 +4485,7 @@
                                     title: 'Success',
                                     text: 'Diagnosis Deleted Successfully!',
                                     icon: 'success',
-                                    timer: 2000, // Auto close alert after 2 seconds
+                                    timer: 4000, // Auto close alert after 2 seconds
                                     showConfirmButton: false // Hide the "OK" button
                                 }).then(function() {
                                     // Reload the page after the alert is closed
@@ -4493,7 +4499,7 @@
                                 title: 'Success',
                                 text: 'Diagnosis Deleted Successfully!',
                                 icon: 'success',
-                                timer: 2000, // Auto close alert after 2 seconds
+                                timer: 4000, // Auto close alert after 2 seconds
                                 showConfirmButton: false // Hide the "OK" button
                             }).then(function() {
                                 // Reload the page after the alert is closed
@@ -6190,7 +6196,6 @@
             $(document).ready(function() {
                 let patient_id1 = $('input[name="patient_id"]').val();
                 $(".drug_add").on('click', function() {
-                    // console.log("ok");
                     fetchAndDisplayPatientDrugList(patient_id1);
 
                 });
@@ -6409,7 +6414,7 @@
                         success: function(data) {
                             if (data) {
 
-                                console.log(data.RegionalExam);
+                                // console.log(data.RegionalExam);
 
                                 if (data.RegionalExam !== "Normal") {
                                     $(`input[name="RegionalExamRadio"][value="${data.RegionalExam}"]`)
@@ -6420,7 +6425,7 @@
                                     $('#RegionalExamNote').val(data.RegionalExamNote);
                                 }
 
-                                console.log(data.SystemicExam);
+                                // console.log(data.SystemicExam);
 
                                 if (data.SystemicExam !== "Normal") {
                                     $(`input[name="SystemicExamRadio"][value="${data.SystemicExam}"]`)

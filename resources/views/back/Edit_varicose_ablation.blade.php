@@ -451,6 +451,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                        
                                                         $disfiguringSymptoms18 = [];
                                                             foreach ($symptoms_flat as $symptom) {
+                                                                if(isset($symptom['SymptomType'])){
                                                                 if ($symptom['SymptomType'] === 'Dilated leg veins') {
                                                                    
                                                                     $disfiguringSymptoms1 = $symptom;
@@ -488,6 +489,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                                 }else {
                                                                     $disfiguringSymptomsNotExist[] = $symptom;
                                                                 }
+                                                            }
                                                             }
                                                 // echo "<pre>";
                                                 //     print_r($disfiguringSymptomsNotExist);
@@ -878,7 +880,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                             <option value="">Duration Type</option>
                                                             @foreach (['Days', 'Weeks', 'Months', 'Years'] as $durationType)
                                                             <option value="{{ $durationType }}"
-                                                                {{ isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
+                                                                {{ $disfiguringSymptoms7 && isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
                                                                 {{ $durationType }}
                                                             </option>
                                                         @endforeach
@@ -2029,9 +2031,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -2117,7 +2121,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                       
                                       <div class="col-lg-12">
@@ -2850,6 +2856,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
                                                 id="download-image" type="button">Download</button>
                                         </div>
+                                        <input type="hidden" name="canvasImage" id="canvasImage">
 
 
                                     </div>
@@ -2864,7 +2871,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                 @endphp
 
 <div class="col-lg-12">
-    <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+    <h6 class="section_title__">Lab 
+        {{-- <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+    </h6>
   </div>
     <div class="col-lg-12">
       <div class="title_head">
@@ -2919,10 +2928,12 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#"
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>REQNERVECON5</h4>
                                         </div>
@@ -3080,7 +3091,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
@@ -3169,9 +3180,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                             target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
 
                                     @php
@@ -3462,6 +3475,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 @endif
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="checkbox"
@@ -3496,9 +3510,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -3575,8 +3591,8 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                     </div>
 
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
                             FINAL</button>
                     </div>
@@ -3616,23 +3632,23 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
         <script>
             $(document).ready(function() {
-                @if (isset($MDTs['VVANote'][0]))
+                @if (isset($MDTs['VVA'][0]) && $MDTs['VVA'][0] == 'Thermal VVA')
                 $("#textarea_84").show();
                 @else
 
                 $("#textarea_84").hide();
                 @endif
-                @if (isset($MDTs['AblationNote'][0]))
+                @if (isset($MDTs['Ablation'][0]) && $MDTs['Ablation'][0] == 'NTNT VVA Ablation')
                 $("#textarea_85").show();
                     @else
                     $("#textarea_85").hide();
                 @endif
-                @if (isset($MDTs['SurgicalNote'][0]))
+                @if (isset($MDTs['Surgical'][0]) && $MDTs['Surgical'][0] == 'Surgical')
                 $("#textarea_86").show();
                     @else
                     $("#textarea_86").hide();
                 @endif
-              @if (isset($MDTs['optionsNote'][0]))
+              @if (isset($MDTs['options'][0]) && $MDTs['options'][0] == 'options')
               $("#textarea_87").show();
                   @else
                   $("#textarea_87").hide();
@@ -4562,26 +4578,22 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     let lastLine;
     
     const imageObj = new Image();
-const annotateImageData = '{{ $VaricoceleEmboForm->AnnotateimageData ?? '' }}';
 
-if (annotateImageData) {
+imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
     // Set the image source only if annotateImageData is not empty
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/') }}' + annotateImageData;
+    // imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/') }}' + annotateImageData;
 
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 500,
+            width: 800,
             height: 600,
         });
 
         layer.add(image);
         stage.draw();
     };
-} else {
-    console.error('AnnotateimageData is empty or undefined');
-    // Handle the case when AnnotateimageData is empty or undefined (e.g., show error message)
-}
+
 
 
 
@@ -4705,6 +4717,7 @@ if (annotateImageData) {
                             processData: false,
                             contentType: false,
                             success: function(response) {
+                                console.log(response);
                                 var patientId = response.patient_id;
                                 if(response!=''){
             

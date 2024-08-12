@@ -33,7 +33,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
-                    <input type="hidden" name="form_type" value="MSKPain" />
+                    <input type="hidden" name="form_type" value="msk_pain_report" />
 
                     <h3 class="form_title">Msk Pain</h3>
 
@@ -1151,7 +1151,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                                             <option value="">Duration Type</option>
                                                             @foreach (['Days', 'Weeks', 'Months', 'Years'] as $durationType)
                                                             <option value="{{ $durationType }}"
-                                                                {{ isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms6['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
+                                                                {{ $disfiguringSymptoms7 && isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms6['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
                                                                 {{ $durationType }}
                                                             </option>
                                                         @endforeach
@@ -1773,9 +1773,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                                                   
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1861,7 +1863,9 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                       
                                       <div class="col-lg-12">
@@ -2068,7 +2072,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                                                                   <img src="images/new-images/nodules.png" alt="">
                                                                               </div> -->
                                         <div id="image-container">
-                                            <img src="{{ asset('public/images/new-images/nodules.png') }}" alt="Your Image" id="image">
+                                            {{-- <img src="{{ asset('/assets/images/new-images/nodules.png') }}" alt="Your Image" id="image"> --}}
                                         </div>
                                         <div class="button_images">
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
@@ -2078,6 +2082,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
                                                 id="download-image" type="button">Download</button>
                                         </div>
+                                        <input type="hidden" name="canvasImage" id="canvasImage">
                                     </div>
                                     @php
                                     if (isset($Labs) && !empty($Labs)) {
@@ -2090,7 +2095,9 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                 @endphp
 
 <div class="col-lg-12">
-    <h6 class="section_title__">Lab <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+    <h6 class="section_title__">Lab 
+        {{-- <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+    </h6>
   </div>
   <div class="col-lg-12">
     <div class="title_head">
@@ -2310,10 +2317,12 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
     
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#"
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>REQNERVECON5</h4>
                                         </div>
@@ -2471,7 +2480,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
                                     </div>
@@ -2989,9 +2998,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                                 target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
 
                                     @php
@@ -3313,7 +3324,9 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     @endphp
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Prescription <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Prescription 
+                                            {{-- <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                         <div class="title_head">
                                               <h4>ADD A DRUG </h4>
                                           </div>
@@ -3398,9 +3411,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -3490,9 +3505,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                         </div>
                     </div>
 
+
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- @dd($VaricoceleEmboForm->AnnotateimageData) --}}
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
                             FINAL</button>
                     </div>
@@ -3509,6 +3526,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
 
 
     @push('custom-js')
+   
         <script>
             $(document).ready(function() {
                 $("#abnormal_a74").hide();
@@ -4717,6 +4735,119 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
             return true; 
         }
 
+
+
+
+
+    // Start Image    
+    const stage = new Konva.Stage({
+        container: 'image-container',
+        width: 800,
+        height: 600,
+    });
+    
+    const layer = new Konva.Layer();
+    stage.add(layer);
+    
+    let isDrawing = false;
+    let annotationMode = false;
+    let lastLine;
+    
+    const imageObj = new Image();
+    imageObj.src = '{{ $VaricoceleEmboForm->AnnotateimageData ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/ShoulderPain.jpg') }}';
+    
+    imageObj.onload = function() {
+        const image = new Konva.Image({
+            image: imageObj,
+            width: 800,
+            height: 600,
+        });
+    
+        layer.add(image);
+        stage.draw();
+    };
+    
+    stage.on('mousedown touchstart', function(e) {
+        if (annotationMode) {
+            const text = prompt('Enter annotation text:');
+            if (text) {
+                const pos = stage.getPointerPosition();
+                const annotation = new Konva.Label({
+                    x: pos.x,
+                    y: pos.y,
+                });
+    
+                annotation.add(
+                    new Konva.Tag({
+                        fill: 'transparent',
+                    })
+                );
+    
+                annotation.add(
+                    new Konva.Text({
+                        text: text,
+                        fontSize: 18,
+                        width:500,
+                        fontStyle: 'bold',
+                        fontFamily: 'Arial',
+                        fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
+                    })
+                );
+    
+                layer.add(annotation);
+                stage.draw();
+            }
+        } else {
+            isDrawing = true;
+            const pos = stage.getPointerPosition();
+            lastLine = new Konva.Line({
+                stroke: '#2760a4',
+                strokeWidth: 3,
+                globalCompositeOperation: 'source-over',
+                points: [pos.x, pos.y],
+            });
+            layer.add(lastLine);
+        }
+    });
+    
+    stage.on('mousemove touchmove', function() {
+        if (!isDrawing) {
+            return;
+        }
+    
+        const pos = stage.getPointerPosition();
+        const newPoints = lastLine.points().concat([pos.x, pos.y]);
+        lastLine.points(newPoints);
+        layer.batchDraw();
+    });
+    
+    stage.on('mouseup touchend', function() {
+        isDrawing = false;
+        lastLine = null;
+    });
+    
+    document.getElementById('draw-mode').addEventListener('click', function() {
+        annotationMode = false;
+    });
+    
+    document.getElementById('annotate-mode').addEventListener('click', function() {
+        annotationMode = true;
+    });
+    
+    
+    document.getElementById('download-image').addEventListener('click', function() {
+        const dataURL = stage.toDataURL({
+            mimeType: 'image/png'
+        });
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'msk-pain.png';
+        link.click();
+    });
+
+
         function isFormDataValid(formData) {
             for (let [key, value] of formData.entries()) {
                 if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
@@ -4731,17 +4862,24 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
         $("#updateMSKPainEligibilityForms").submit(function(event) {
             
             event.preventDefault();
+            const dataURL = stage.toDataURL({
+                        mimeType: 'image/png'
+                    });
+
+            document.getElementById('canvasImage').value = dataURL;
             let formData = new FormData(this);
+            
             if(isFormDataValid(formData)){
             if (!validateForm()) {
                 e.preventDefault(); 
             } 
             else {
                 if(validateForm()){
-
+                    
                 
+                    // console.log(document.getElementById('canvasImage').value);
                 
-                $.ajax({
+                        $.ajax({
                                 url: '{{ route("user.updateMSKPainEligibilityForms") }}',
                                 type: 'POST',
                                 data: formData,

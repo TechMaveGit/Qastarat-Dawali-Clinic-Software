@@ -11,10 +11,11 @@
       <div class="d-flex">
       <h4 class="page-title">Edit Doctor</h4>
       <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Doctor</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Edit Doctor</li>
-              </ol>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{route('price.radiologyPriceList')}}">Appointments & Services</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Appointments & services</li>
+
+        </ol>
           </nav>
       </div>
 

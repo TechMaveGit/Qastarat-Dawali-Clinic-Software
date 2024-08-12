@@ -28,19 +28,13 @@ use App\Models\patient\Prescription;
 use App\Models\patient\Invistigation;
 use App\Models\patient\Procedure;
 use App\Models\Task;
-use App\Models\VideoCall;
 use App\Models\patient\SupportiveTreatment;
 use App\Models\patient\Patient_progress_note;
 use App\Models\patient\Diagnosis;
 use App\Models\patient\ThyroidDiagnosis;
 use App\Models\patient\GeneralDiagnosis;
-use App\Models\patient\UterineEmboDiagnosis;
-use App\Models\patient\VaricoceleEmboDiagnosis;
-use App\Models\patient\PelvicCongEmbo_diagnosis;
-use App\Models\patient\VaricoseAblationDiagnosis;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Throwable;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
@@ -83,7 +77,7 @@ class PatientController extends Controller
         $template = $request->input('Titledescription');
         if ($template) {
             DB::table('patient_progress_note_details')->where('id', $id)->update(['describe' => $template]);
-            return redirect()->route('snippets')->with('success', 'Snippet Updated Successfully');
+            return redirect()->route('snippets')->with('message', 'Snippet Updated Successfully');
         }
         return view('superAdmin/snippets/edit', $data);
     }
@@ -197,7 +191,7 @@ class PatientController extends Controller
 
         $patient = User::findOrFail($id);
 
-        $Patient_order_labs = Task::where(['patient_id' => $id, 'form_type' => 'general_form'])->get();
+        $Patient_order_labs = Task::where(['patient_id' => $id, 'form_type' => $request->form_print_type??'general_form'])->get();
 
         $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->latest('id')->first();
         $Patient_insurer = Patient_insurer::where(['patient_id' => $id, 'status' => 'active'])->select('insurer_name', 'insurance_number')->orderBy('id', 'desc')->first();
@@ -279,6 +273,8 @@ class PatientController extends Controller
         }
 
 
+        // dd($request->input('form_print_type'));
+        // VaricoceleEmboForm
 
         if ($request->input('form_print_type') == 'general_form') {
             $diagnosis_cid = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
@@ -303,12 +299,13 @@ class PatientController extends Controller
         }
 
 
-
-        $symptoms = GeneralDiagnosis::with('doctor')->select('SymptomType', 'SymptomDurationValue', 'SymptomDurationType', 'SymptomDurationNote', 'created_at', 'doctor_id')->where(['title_name' => 'Symptom', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
-        $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->get();
+        $symptoms = GeneralDiagnosis::with('doctor')->select('SymptomType', 'SymptomDurationValue', 'SymptomDurationType', 'SymptomDurationNote', 'created_at', 'doctor_id')->where(['title_name' => 'Symptom', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ??'general_form'])->get();
+        $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->get();
         $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
-        $SpecialInvestigations = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id', 'Title', 'SubTitle', 'Invistigation')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'general_form'])->orderBy('id', 'desc')->get();
+        
+        $SpecialInvestigations = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id', 'Title', 'SubTitle', 'Invistigation')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ??'general_form'])->orderBy('id', 'desc')->get();
+        $SpecialInvestigations_db = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ??'general_form'])->orderBy('id', 'desc')->get();
 
         $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('id', 'data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
         $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
@@ -329,17 +326,19 @@ class PatientController extends Controller
         $CTCIR48 = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'CTCIR48', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
         $NmThyroidScan = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'NmThyroidScan', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
         $HistopathRightThyroidFNA = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'HistopathRightThyroidFNA', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
-        $document_file = AttachDocument::where(['form_type' => 'general_form', 'patient_id' => $id])->get();
+        $document_file = AttachDocument::where(['form_type' => $request->form_print_type??'general_form', 'patient_id' => $id])->get();
 
 
-        $generalDiagnosis =  GeneralDiagnosis::where(['form_type' => 'general_form', 'title_name' => 'Symptom', 'patient_id' => $id])->get();
+        $generalDiagnosis =  GeneralDiagnosis::where(['form_type' => $request->form_print_type??'general_form', 'title_name' => 'Symptom', 'patient_id' => $id])->get();
+        
 
-        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'general_form', 'patient_id' => $id])->get();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type' => $request->form_print_type??'general_form', 'patient_id' => $id])->get();
         $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => $request->input('form_type')])->latest('id')->first();
 
+        // SpinePain
+        // dd($MDTs, $request->input('form_print_type')); 
 
-        // dd($ClinicalExam);  clinicalExam  regionalpatientGeneralDiagnosis
-
+        
         $data = [
             'patient' => $patient,
             'id' => Crypt::encrypt($id),
@@ -358,6 +357,7 @@ class PatientController extends Controller
             'generalDiagnosis' => $generalDiagnosis,
             'supportives' => $supportives,
             'SpecialInvestigations_db' => $SpecialInvestigations,
+            'SpecialInvestigations_db1' => $SpecialInvestigations_db,
             'ElegibilitySTATUSDB' => $ElegibilitySTATUS,
             'Interventions' => $Interventions,
             'MDTs_db' => $MDTs,
@@ -382,7 +382,7 @@ class PatientController extends Controller
             'VaricoceleEmboForm' => $VaricoceleEmboForm,
             'document_file' => $document_file
         ];
-
+        // dd($data,$id);
 
 
         if ($request->input('print_form') == "print_form") {
@@ -409,6 +409,7 @@ class PatientController extends Controller
                 'form_type'               => $request->input('form_print_type')
             ];
 
+            // dd($checkPrint);
             DB::table('general_reports')->insert($checkPrint);
 
             return view('back/print-medical/print-medical-report', $data, $checkPrint, $patient);
@@ -686,7 +687,7 @@ class PatientController extends Controller
 
         //  return $request->all();
         $doctor_id = auth()->guard('doctor')->id();
-        $id = decrypt($request->patient_id);
+        $id = $request->patient_id;
 
         GeneralDiagnosis::where(['title_name' => 'diagnosis_general', 'patient_id' => $id])->delete();
         GeneralDiagnosis::where(['title_name' => 'diagnosis_cid', 'patient_id' => $id])->delete();
@@ -1009,13 +1010,13 @@ class PatientController extends Controller
         $SystemicExamRadio = $request->input('SystemicExamRadio');
         $SystemicExamRadioNote = $request->input('SystemicExamRadioNote');
 
-        $clinicalExam = DB::table('patient_general_diagnosis')->where('patient_id', $patient_id)
-            ->where('form_type', $formType)
-            ->first();
+        $clinicalExam = DB::table('patient_general_diagnosis')->where(['title_name' => 'ClinicalExam', 'patient_id' => $patient_id,'form_type' => $formType])->first();
+
+            // dd($formType,$clinicalExam,$patient_id,$request->all());
 
         if ($clinicalExam) {
 
-            DB::table('patient_general_diagnosis')->where(['title_name' => 'ClinicalExam', 'patient_id' => $patient_id])->update([
+            DB::table('patient_general_diagnosis')->where(['title_name' => 'ClinicalExam', 'patient_id' => $patient_id,'form_type' => $formType])->update([
                 'RegionalExam' => $RegionalExamRadio,
                 'RegionalExamNote' => $RegionalExamNote,
                 'SystemicExam' => $SystemicExamRadio,
@@ -1638,7 +1639,7 @@ class PatientController extends Controller
     public function drug_item_list(Request $request)
     {
 
-        $patient_id = decrypt($request->patient_id);
+        $patient_id = $request->patient_id;
         $Patient_order_labs = Patient_current_med::where('patient_id', $patient_id)->orderBy('id', 'desc')->get();
         return response()->json(['patient_current_med' => $Patient_order_labs]);
     }
@@ -2463,7 +2464,7 @@ class PatientController extends Controller
             return redirect()->route('user.KneePainlizationEligibilityForms', ['patient_id' => $patient_id]);
         } elseif ($EligibilityForm == "SpinePain") {
             return redirect()->route('user.SpinePainlizationEligibilityForms', ['patient_id' => $patient_id]);
-        } elseif ($EligibilityForm == "MSKPain") {
+        } elseif ($EligibilityForm == "msk_pain_report") {
             return redirect()->route('user.MSKPainlizationEligibilityForms', ['patient_id' => $patient_id]);
         } elseif ($EligibilityForm == "ShoulderPain") {
             return redirect()->route('user.ShoulderPainlizationEligibilityForms', ['patient_id' => $patient_id]);
@@ -2580,6 +2581,7 @@ class PatientController extends Controller
 
 
         ];
+        
         return view('back/Edit_varicocele_embo', $data);
     }
 
@@ -2642,7 +2644,7 @@ class PatientController extends Controller
         $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
         $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'VaricoceleEmboForm'])->orderBy('id', 'desc')->get();
 
-        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'view_varicocele_embo_report', 'patient_id' => $id])->get();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'VaricoceleEmboForm', 'patient_id' => $id])->get();
         $document_file = AttachDocument::where(['form_type' => 'varicoceleEmbo_form', 'patient_id' => $id])->get();
 
 
@@ -2698,7 +2700,7 @@ class PatientController extends Controller
 
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 
@@ -3212,7 +3214,7 @@ class PatientController extends Controller
 
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 
@@ -3727,8 +3729,8 @@ class PatientController extends Controller
         $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'HeadachePain'])->orderBy('id', 'desc')->get();
 
 
-        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'headache_pain_report', 'patient_id' => $id])->get();
-        $document_file = AttachDocument::where(['form_type' => 'headache_pain_report', 'patient_id' => $id])->get();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'HeadachePain', 'patient_id' => $id])->get();
+        $document_file = AttachDocument::where(['form_type' => 'HeadachePain', 'patient_id' => $id])->get();
 
 
         $data = [
@@ -3848,7 +3850,7 @@ class PatientController extends Controller
 
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 
@@ -4360,8 +4362,8 @@ class PatientController extends Controller
         $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
         $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'ShoulderPain'])->orderBy('id', 'desc')->get();
 
-        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'view_shoulder_pain', 'patient_id' => $id])->get();
-        $document_file = AttachDocument::where(['form_type' => 'view_shoulder_pain', 'patient_id' => $id])->get();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'ShoulderPain', 'patient_id' => $id])->get();
+        $document_file = AttachDocument::where(['form_type' => 'ShoulderPain', 'patient_id' => $id])->get();
 
 
 
@@ -4404,33 +4406,34 @@ class PatientController extends Controller
 
 
 
-    // MSKPain form edit method
+    // msk_pain_report form edit method
     public function editMSKPainEligibilityForms(Request $request)
     {
         $id = decrypt($request->patient_id);
         // $id = decrypt();
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
 
-        $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'MSKPain'])->get();
-        $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'MSKPain'])->get();
+        $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->get();
+        $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->get();
+        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->whereNotNull('AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'msk_pain_report'])->latest('id')->first();
 
+        // dd($VaricoceleEmboForm);
+        $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->get();
+        $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->first();
+        $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
 
-        $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'MSKPain'])->get();
-        $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->first();
-        $symptoms_scores = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-
-        $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-        $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-        $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-        $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-        $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-        $Prescription = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Prescription', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+        $Referrals = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Referral', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
+        $supportives = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'supportive', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
+        $SpecialInvestigations = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
+        $ElegibilitySTATUS = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
+        $Interventions = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Intervention', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
+        $Prescription = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Prescription', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
         // dd($Prescription);
-        $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-        $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-        $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-        $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
-        $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'MSKPain'])->first();
+        $MDTs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
+        $Labs = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
+        $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
+        $ClinicalIndicator = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
+        $ClinicalExam = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->first();
 
         $data = [
             'patient_id' => Crypt::encrypt($id),
@@ -4448,6 +4451,7 @@ class PatientController extends Controller
             'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
             'clinical_indicators' => $ClinicalIndicator,
             'ClinicalExam' => $ClinicalExam,
+            'VaricoceleEmboForm'=>$VaricoceleEmboForm,
             'Imaging' => $Imaging,
             'Prescription' => $Prescription
 
@@ -4456,11 +4460,12 @@ class PatientController extends Controller
         return view('back/Edit_msk_pain', $data);
     }
 
-    // MSKPain form update method
+    // msk_pain_report form update method
     public function updateMSKPainEligibilityForms(Request $request)
     {
-        ThyroidDiagnosis::where(['form_type' => 'MSKPain', 'patient_id' => decrypt($request->patient_id)])->delete();
+        ThyroidDiagnosis::where(['form_type' => 'msk_pain_report', 'patient_id' => decrypt($request->patient_id)])->delete();
 
+        // dd($request->all());
         $this->storeMSKPainEligibilityForms($request);
         $patientId =  $request->patient_id;
 
@@ -4468,7 +4473,7 @@ class PatientController extends Controller
     }
 
 
-    // MSKPain form store method
+    // msk_pain_report form store method
     public function storeMSKPainEligibilityForms(Request $request)
     {
 
@@ -4477,6 +4482,19 @@ class PatientController extends Controller
         $id = decrypt($request->patient_id);
         $dataToInsert = [];
 
+        $newFileName = '';
+        $fileName = time();
+        if ($request->input('canvasImage')) {
+            $canvasImage = trim($request->input('canvasImage'));
+
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+            $newFileName = $fileName.'.png'; // You can change the file extension based on the image type
+
+            $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+            file_put_contents($filePath, $imageData);
+        }
 
         if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
@@ -4500,7 +4518,8 @@ class PatientController extends Controller
                     'title_name' => 'diagnosis_general',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4526,7 +4545,8 @@ class PatientController extends Controller
                     'title_name' => 'diagnosis_cid',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4567,7 +4587,8 @@ class PatientController extends Controller
                     'title_name' => 'symptoms',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4594,7 +4615,8 @@ class PatientController extends Controller
                     'title_name' => 'symptoms_score',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4622,7 +4644,8 @@ class PatientController extends Controller
                     'title_name' => 'Referral',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4649,7 +4672,8 @@ class PatientController extends Controller
                     'title_name' => 'Supportive',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4676,7 +4700,8 @@ class PatientController extends Controller
                     'title_name' => 'Prescription',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4703,7 +4728,8 @@ class PatientController extends Controller
                     'title_name' => 'SpecialInvestigation',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4730,7 +4756,8 @@ class PatientController extends Controller
                     'title_name' => 'ElegibilitySTATUS',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4758,7 +4785,8 @@ class PatientController extends Controller
                     'title_name' => 'Intervention',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4785,7 +4813,8 @@ class PatientController extends Controller
                     'title_name' => 'MDT',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4812,7 +4841,8 @@ class PatientController extends Controller
                     'title_name' => 'Lab',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4840,7 +4870,8 @@ class PatientController extends Controller
                     'title_name' => 'Imaging',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4869,7 +4900,8 @@ class PatientController extends Controller
                     'title_name' => 'ClinicalIndicator',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4896,7 +4928,8 @@ class PatientController extends Controller
                     'title_name' => 'ClinicalExam',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
-                    'form_type' => 'MSKPain'
+                    'AnnotateimageData' => $newFileName,
+                    'form_type' => 'msk_pain_report'
                 ];
             }
         }
@@ -4914,7 +4947,7 @@ class PatientController extends Controller
         return response()->json(['patient_id' => $patientId]);
     }
 
-    // MSKPain form view method Edit_varicose_ablation
+    // msk_pain_report form view method Edit_varicose_ablation
     public function viewMSKPainEligibilityForms(Request $request, $id)
     {
         $id = Crypt::decrypt($id);
@@ -4937,26 +4970,26 @@ class PatientController extends Controller
         // $Procedure = Procedure::select('id', 'procedure_name', 'summary', 'created_at', 'entry')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
-        $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
-        $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+        $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
+        $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
 
-        $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
-        $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
-        $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+        $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
+        $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
+        $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
 
-        $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+        $symptoms = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
         // dd($symptoms);
-        $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+        $symptoms_scores = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'symptoms_score', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
 
         $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
 
-        $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
-        $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+        $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
+        $ElegibilitySTATUS = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ElegibilitySTATUS', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
 
         $Interventions = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Intervention', 'patient_id' => $id])->orderBy('id', 'desc')->get();
-        $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
-        $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'MSKPain'])->orderBy('id', 'desc')->get();
+        $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
+        $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'msk_pain_report'])->orderBy('id', 'desc')->get();
 
         $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'msk_pain_report', 'patient_id' => $id])->get();
         $document_file = AttachDocument::where(['form_type' => 'msk_pain_report', 'patient_id' => $id])->get();
@@ -5011,7 +5044,7 @@ class PatientController extends Controller
 
         $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'SpinePain'])->get();
         $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'SpinePain'])->get();
-
+        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'SpinePain'])->latest('id')->first();
 
         $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'SpinePain'])->get();
         $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => 'SpinePain'])->orderBy('id', 'desc')->first();
@@ -5041,6 +5074,7 @@ class PatientController extends Controller
             'SpecialInvestigations' => $SpecialInvestigations,
             'ElegibilitySTATUS' => $ElegibilitySTATUS,
             'Interventions' => $Interventions,
+            'VaricoceleEmboForm'=>$VaricoceleEmboForm,
             'MDTs' => $MDTs,
             'Labs' => $Labs,
             'AntithyroidAntibodiesTests' => $AntithyroidAntibodiesTests,
@@ -5075,6 +5109,20 @@ class PatientController extends Controller
         $id = decrypt($request->patient_id);
         $dataToInsert = [];
 
+        if ($request->input('canvasImage')) {
+            $canvasImage = $request->input('canvasImage');
+
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
+
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
+
+            $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
+
+            file_put_contents($filePath, $imageData);
+        } else {
+            $newFileName = '';
+        }
+
 
         if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
@@ -5098,6 +5146,7 @@ class PatientController extends Controller
                     'title_name' => 'diagnosis_general',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5124,6 +5173,7 @@ class PatientController extends Controller
                     'title_name' => 'diagnosis_cid',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5165,6 +5215,7 @@ class PatientController extends Controller
                     'title_name' => 'symptoms',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5192,6 +5243,7 @@ class PatientController extends Controller
                     'title_name' => 'symptoms_score',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5220,6 +5272,7 @@ class PatientController extends Controller
                     'title_name' => 'Referral',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5247,6 +5300,7 @@ class PatientController extends Controller
                     'title_name' => 'Supportive',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5274,6 +5328,7 @@ class PatientController extends Controller
                     'title_name' => 'Prescription',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5301,6 +5356,7 @@ class PatientController extends Controller
                     'title_name' => 'SpecialInvestigation',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5328,6 +5384,7 @@ class PatientController extends Controller
                     'title_name' => 'ElegibilitySTATUS',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5356,6 +5413,7 @@ class PatientController extends Controller
                     'title_name' => 'Intervention',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5383,6 +5441,7 @@ class PatientController extends Controller
                     'title_name' => 'MDT',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5410,6 +5469,7 @@ class PatientController extends Controller
                     'title_name' => 'Lab',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5438,6 +5498,7 @@ class PatientController extends Controller
                     'title_name' => 'Imaging',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5467,6 +5528,7 @@ class PatientController extends Controller
                     'title_name' => 'ClinicalIndicator',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5494,6 +5556,7 @@ class PatientController extends Controller
                     'title_name' => 'ClinicalExam',
                     'data_value' =>  json_encode($filteredDiagnosisGeneral),
                     'doctor_id' => $doctor_id,
+                    'AnnotateimageData' => $newFileName,
                     'form_type' => 'SpinePain'
                 ];
             }
@@ -5607,7 +5670,7 @@ class PatientController extends Controller
 
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 
@@ -6121,8 +6184,8 @@ class PatientController extends Controller
         $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
         $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'KneePain'])->orderBy('id', 'desc')->get();
 
-        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'knee_pain_report', 'patient_id' => $id])->get();
-        $document_file = AttachDocument::where(['form_type' => 'knee_pain_report', 'patient_id' => $id])->get();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'KneePain', 'patient_id' => $id])->get();
+        $document_file = AttachDocument::where(['form_type' => 'KneePain', 'patient_id' => $id])->get();
 
 
         $data = [
@@ -6242,7 +6305,7 @@ class PatientController extends Controller
 
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 
@@ -6840,7 +6903,7 @@ class PatientController extends Controller
 
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 
@@ -6849,7 +6912,9 @@ class PatientController extends Controller
             $newFileName = '';
         }
 
+        
 
+        // dd($request->all());
 
         if (isset($request->diagnosis_general) && is_array($request->diagnosis_general) && !empty($request->diagnosis_general)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
@@ -7264,10 +7329,13 @@ class PatientController extends Controller
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
         }
-
+        
         $patientId =  $request->patient_id;
-
-
+        
+        if($newFileName){
+            ThyroidDiagnosis::where(['patient_id'=>$id,'doctor_id' => $doctor_id,'form_type' => 'VaricoseAblation'])->update(['AnnotateimageData' => $newFileName]);
+        }
+        // dd($dataToInsert);
 
         return response()->json(['patient_id' => $patientId]);
 
@@ -7286,8 +7354,7 @@ class PatientController extends Controller
         // $id = decrypt();
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
 
-        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->latest('id')->first();
-
+        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'VaricoseAblation'])->latest('id')->first();
         $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
         $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
 
@@ -7336,8 +7403,10 @@ class PatientController extends Controller
         ThyroidDiagnosis::where(['form_type' => 'VaricoseAblation', 'patient_id' => decrypt($request->patient_id)])->delete();
         $this->storeVaricoseAblationEligibilityForms($request);
         $patientId =  $request->patient_id;
+        // dd($request->all());
 
-        return redirect()->route('user.viewVaricoseAblationEligibilityForms', ['id' => $patientId])->with('updateVaricoseAblationEligibilityForms', 'Form updated successfully!');
+        return response()->json(['patient_id' => $patientId]);
+        // return redirect()->route('user.viewVaricoseAblationEligibilityForms', ['id' => $patientId])->with('updateVaricoseAblationEligibilityForms', 'Form updated successfully!');
     }
 
     // VaricoseAblation form view method Edit_varicose_ablation
@@ -7385,8 +7454,8 @@ class PatientController extends Controller
         $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
         $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->orderBy('id', 'desc')->get();
 
-        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'varicose_ablation', 'patient_id' => $id])->get();
-        $document_file = AttachDocument::where(['form_type' => 'varicose_ablation', 'patient_id' => $id])->get();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'VaricoseAblation', 'patient_id' => $id])->get();
+        $document_file = AttachDocument::where(['form_type' => 'VaricoseAblation', 'patient_id' => $id])->get();
 
         $data = [
             'patient' => $patient,
@@ -7440,7 +7509,7 @@ class PatientController extends Controller
 
             // return $imageData;
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 
@@ -7980,7 +8049,7 @@ class PatientController extends Controller
         $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
         $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'PelvicCongEmbo'])->orderBy('id', 'desc')->get();
 
-        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'view_pelvic_cong_embo', 'patient_id' => $id])->get();
+        $checkGenerateData = DB::table('general_reports')->where(['form_type' => 'PelvicCongEmbo', 'patient_id' => $id])->get();
         $document_file = AttachDocument::where(['form_type' => 'view_pelvic_cong', 'patient_id' => $id])->get();
 
         $data = [
@@ -8029,7 +8098,7 @@ class PatientController extends Controller
 
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 
@@ -8570,7 +8639,7 @@ class PatientController extends Controller
         $Referrals = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'Referral', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $supportives = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'supportive', 'patient_id' => $id])->orderBy('id', 'desc')->get();
 
-        $SpecialInvestigations = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id', 'Title', 'SubTitle', 'Invistigation')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
+        $SpecialInvestigations = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'SpecialInvestigation', 'patient_id' => $id, 'form_type' => 'uterine_embo'])->orderBy('id', 'desc')->get();
 
 
 
@@ -8631,7 +8700,7 @@ class PatientController extends Controller
 
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 
@@ -9377,7 +9446,7 @@ class PatientController extends Controller
 
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $canvasImage));
 
-            $newFileName = Str::random(20) . '.png'; // You can change the file extension based on the image type
+            $newFileName = time().'.png'; // You can change the file extension based on the image type
 
             $filePath = public_path('assets/thyroid-eligibility-form/') . $newFileName;
 

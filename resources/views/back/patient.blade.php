@@ -115,7 +115,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">MOHAMMED ALI AL BADI</h6>
@@ -131,7 +131,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Jacob Hunter</h6>
@@ -147,7 +147,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Ronald Taylor</h6>
@@ -163,7 +163,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Juan Mitchell</h6>
@@ -179,7 +179,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Jamal Burnett</h6>
@@ -195,7 +195,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Neal Matthews </h6>
@@ -211,7 +211,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Tiger Nixon</h6>
@@ -707,6 +707,7 @@
         </script>
         <!-- Function to fetch and populate patient data -->
         <script>
+            var assetUrl = "{{asset('/assets/')}}";
             function fetchAndDisplayPatients(searchInput) {
 
                 $('#loader').show();
@@ -737,7 +738,7 @@
                                                     '<td>' +
                                                     '<div class="patent_detail__">' +
                                                     '<div class="patient_profile">' +
-                                                    '<img src="images/new-images/avtar.jpg" alt="">' +
+                                                    '<img src="'+assetUrl+'images/new-images/avtar.jpg" alt="">' +
                                                     '</div>' +
                                                     '<div class="patient_name__dt_">' +
                                                     '<h6>' + patient.name + '</h6>' +
@@ -818,7 +819,7 @@
                                                     '<td>' +
                                                     '<div class="patent_detail__">' +
                                                     '<div class="patient_profile">' +
-                                                    '<img src="images/new-images/avtar.jpg" alt="">' +
+                                                    '<img src="'+assetUrl+'images/new-images/avtar.jpg" alt="">' +
                                                     '</div>' +
                                                     '<div class="patient_name__dt_">' +
                                                     '<h6>' + patient.name + '</h6>' +
@@ -901,7 +902,7 @@
                                                         '<td>' +
                                                         '<div class="patent_detail__">' +
                                                         '<div class="patient_profile">' +
-                                                        '<img src="images/new-images/avtar.jpg" alt="">' +
+                                                        '<img src="'+assetUrl+'images/new-images/avtar.jpg" alt="">' +
                                                         '</div>' +
                                                         '<div class="patient_name__dt_">' +
                                                         '<h6>' + patient.name + '</h6>' +

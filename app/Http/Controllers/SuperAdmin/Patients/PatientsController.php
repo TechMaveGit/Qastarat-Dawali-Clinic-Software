@@ -17,10 +17,28 @@ use Illuminate\Support\Facades\Validator;
 class PatientsController extends Controller
 {
 
-    public function index() 
+    public function index(Request $request) 
     {  
-        $data['users'] = User::with(['userBranch.userBranchName'])->orderBy('id', 'ASC')->select('id','status','doctor_id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
+        $patient = User::with(['userBranch.userBranchName']);
       //  dd($data['users']);
+        if(isset($request->paname) && $request->paname != '')
+        {
+            $patient->where('name','LIKE',"%{$request->paname}%");
+        }
+
+        if(isset($request->status) && $request->status != '')
+        {
+            $patient->where('status',$request->status);
+        }
+
+        if(isset($request->branch)){
+            $patient->whereHas('userBranch',function ($query) use($request) {
+                $query->whereIn('add_branch',$request->branch);
+            });
+        }
+
+        $data['users'] = $patient->orderBy('id', 'ASC')->select('id','status','doctor_id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
+        $data['branchs'] = DB::table('branchs')->get();
         return view('superAdmin.patient.index', $data);
     }
 

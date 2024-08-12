@@ -1389,7 +1389,7 @@ span.sub_tt__ {
 }
 .read-more-content {
   overflow: hidden;
-  max-height: 80px;
+  /* max-height: 80px; */
   transition: max-height 0.3s ease-out;
 }
 .btn_read {

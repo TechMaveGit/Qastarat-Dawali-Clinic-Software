@@ -9,12 +9,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">Edit Patient</h4>
-        {{-- <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ Route('patients.index') }}">Patients</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Patient</li>
                 </ol>
-            </nav> --}}
+            </nav>
         </div>
 
 		</div>
@@ -370,7 +370,7 @@
                     message = 'CIVIL ID must be exactly 9 digits';
                     break;
                 case 'EID':
-                    maxLength = 18;
+                    maxLength = 15;
                     message = 'EID must be exactly 15 digits';
                     break;
                 case 'PERSONAL NUMBER':
@@ -387,6 +387,8 @@
             if (maxLength !== Infinity && idNumber.length > maxLength) {
                 $("#enterIdNumber").val(idNumber.slice(0, maxLength));
             }
+            $("#enterIdNumber").attr('maxlength',maxLength);
+            $("#enterIdNumber").attr('minlength',maxLength);
 
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
                 $("#validationMessage").text(message);

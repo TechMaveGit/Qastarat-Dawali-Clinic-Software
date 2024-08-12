@@ -284,7 +284,7 @@
         @php
 
         $MSKPain_form_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select('patient_id')
-            ->where(['patient_id' => $patient->id, 'form_type' => 'MSKPain'])
+            ->where(['patient_id' => $patient->id, 'form_type' => 'msk_pain_report'])
             ->first();
 
         if ($MSKPain_form_Eligibility_Forms !== null) {

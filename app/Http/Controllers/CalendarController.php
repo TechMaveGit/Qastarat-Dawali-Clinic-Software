@@ -21,7 +21,7 @@ class CalendarController extends Controller
 
         $users=DB::table('users')->orderBy('id','desc')->get();
         $locations=DB::table('branchs')->orderBy('id','desc')->get();
-        $pathology_price_list = DB::table('pathology_price_list')->get();
+        $pathology_price_list = DB::table('pathology_price_list')->where('status','1')->get();
 
         $patho_types = $pathology_price_list ? $pathology_price_list->unique('price_type')->pluck('price_type') : [];
 
@@ -189,7 +189,7 @@ class CalendarController extends Controller
 
             foreach($events as $allevents)
             {
-                $allevents->colour_type=DB::table('pathology_price_list')->where('test_name',$allevents->title)->first()->colour_type??'#fffff';
+                $allevents->colour_type=DB::table('pathology_price_list')->where('status','1')->where('test_name',$allevents->title)->first()->colour_type??'#fffff';
             }
 
         return response()->json($events);

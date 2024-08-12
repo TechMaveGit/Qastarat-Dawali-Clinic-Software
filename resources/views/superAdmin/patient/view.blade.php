@@ -16,12 +16,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">Patient Details</h4>
-        <!-- <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Patient</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('patients.index') }}">All Patients</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Patient Details</li>
                 </ol>
-            </nav> -->
+            </nav>
         </div>
 
 		</div>

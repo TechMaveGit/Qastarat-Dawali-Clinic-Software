@@ -305,7 +305,13 @@
                {
                 position: absolute;
                }
-                
+                .content-header nav{
+                    right: 3%;
+                    position: absolute;
+                }
+                .sypm_tom_cnt {
+  max-height: 100% !important;
+}
     </style>
 
 
@@ -332,7 +338,6 @@
                 const elements = document.querySelectorAll('.action_btn_tooltip');
 
                 elements.forEach(element => {
-                    console.log(element, "+++++++++++++++++++++++++++++++++++++++++++++++");
 
                     // Get the value of data-bs-target
                     const targetId = element.getAttribute('data-bs-target');

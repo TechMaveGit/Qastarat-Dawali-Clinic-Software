@@ -13,6 +13,48 @@
     <!-- Site Title -->
     <title>Print Medical Record</title>
     <link rel="stylesheet" href="{{ asset('/assets/report-genrate/css/style.css') }}">
+    <style>
+        .form-control {
+            padding: 10px 10px;
+            width: 100%;
+            border: 1px solid #dedede;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .signature-pad canvas {
+            border: 1px solid #ececec;
+            width: 100%;
+        }
+
+        .InputBox {
+            display: flex;
+            gap: 10px;
+        }
+
+        #clear-signature {
+            padding: 4px 7px;
+            color: #fff;
+            background: #78ade6;
+            border: 1px solid #78ade6;
+            border-radius: 5px;
+        }
+
+        .formGroup label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+     <style>
+        #save-signature{
+            padding: 4px 7px;
+            color: #fff;
+            background: #78e68e;
+            border: 1px solid #81e678;
+            border-radius: 5px;
+            float: right;
+        }
+    </style>
 </head>
 
 <style>
@@ -77,8 +119,8 @@
             <div class="cs-invoice_in pdf_box" id="download_section">
                 <div class="cs-invoice_head logo_head cs-type1 cs-mb25">
                     <div class="cs-invoice_right cs-text_right">
-                        <div class="cs-logo cs-mb5"><img
-                                src="{{ asset('/assets/report-genrate/img/FullLogo-01.svg') }}" alt="Logo">
+                        <div class="cs-logo cs-mb5"><img src="{{ asset('/assets/report-genrate/img/FullLogo-01.svg') }}"
+                                alt="Logo">
                         </div>
                     </div>
 
@@ -153,108 +195,169 @@
 
                     @if (isset($generalDiagnosis_) && !empty($generalDiagnosis_))
 
-                        <div class="symptoms_section">
-                            <div class="section_title">
-                                <h2>Symptoms</h2>
-                            </div>
-                            <div class="appointments___list past_medical_history_ak diagnosis_data">
-
-                                <ul>
-                                    <li>
-                                        @forelse ($generalDiagnosis as $key =>$value)
-                                            <div class="appoin_date">
-                                                <div>
-                                                    <div class="diagnosis_show">
-
-                                                        <div class="symp_title">
-                                                            <h6><span class="point_dia"><i
-                                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                                {{ $value['SymptomType'] ?? '' }}<span
-                                                                    class="sym_duration">
-                                                                   </span>
-                                                            </h6>
-                                                            <p class="diagnosis_text">
-                                                                {{ $value['SymptomDurationNote'] ?? '' }}!</p>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                        @empty
-                                            <div class="appoin_date">
-                                                <div>
-                                                    <div class="diagnosis_show">
-
-
-                                                        <div class="ss_result_box">
-                                                            <div class="symp_title mb-1">
-                                                                <span style="font-size:10px;"> ---- </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforelse
-                                    </li>
-
-                                </ul>
-                            </div>
+                    <div class="symptoms_section">
+                        <div class="section_title">
+                            <h2>Symptoms</h2>
                         </div>
+                        <div class="appointments___list past_medical_history_ak diagnosis_data">
+
+                            <ul>
+                                {{-- @dump($symptoms_scores_db) --}}
+                                @if($generalDiagnosis && $generalDiagnosis->count()>0)
+                                <li>
+                                    @forelse ($generalDiagnosis as $key =>$value)
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
+
+                                                <div class="symp_title">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        {{ $value['SymptomType'] ?? '' }}<span class="sym_duration">
+                                                        </span>
+                                                    </h6>
+                                                    <p class="diagnosis_text">
+                                                        {{ $value['SymptomDurationNote'] ?? '' }}!</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    @empty
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
+
+
+                                                <div class="ss_result_box">
+                                                    <div class="symp_title mb-1">
+                                                        <span style="font-size:10px;"> ---- </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforelse
+
+                                </li>
+                                @elseif($symptoms_scores_db)
+                                <li>
+                                    @forelse ($symptoms_scores_db as $symptoms)
+                                                        @php
+
+                                                            $symptoms_data_value = json_decode($symptoms->data_value,true);
+                                                                                    
+                                                         @endphp
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
+
+                                                @forelse ($symptoms_data_value as $key =>$value)
+                                                            <div class="appoin_date">
+                                                              <div>
+                                                                <div class="diagnosis_show">
+                                                              
+                                                                 <div class="symp_title">
+                                                                  <h6><span class="point_dia"><i class="fa-regular fa-circle-dot"></i></span>  {{ $value['SymptomType'] ?? '' }}<span class="sym_duration">&nbsp;-{{ $value['SymptomDurationValue'] ?? '' }} &nbsp;{{ $value['SymptomDurationType'] ?? '' }}</span></h6>
+                                                                  <p class="diagnosis_text"> {{ $value['SymptomDurationNote'] ?? '' }}!</p>                 
+                                                                </div>
+                                                                {{-- @if($loop->last)
+                                                                <p class="diagnosis_date"><span class="enter_span_hivj"> Entered By |  {{  optional(optional($symptoms)->doctor)->name ?? '' }}</span> <span class="enter_span_hivj">{{ isset($symptoms) && isset($symptoms->created_at) ? $symptoms->created_at->format('D, d M Y, H:i A') : '' }}</span></p>
+                                                                @endif --}}
+                                                                
+
+                                                                </div>
+                                                             
+                                                            </div>
+                                                            </div>
+                                                    @empty
+                                                @endforelse
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    @empty
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
+
+
+                                                <div class="ss_result_box">
+                                                    <div class="symp_title mb-1">
+                                                        <span style="font-size:10px;"> ---- </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforelse
+                                </li>
+
+                                @endif
+
+                            </ul>
+                        </div>
+                    </div>
                     @endif
 
 
 
                     @if (isset($pastMedicalHistory) && !empty($pastMedicalHistory))
 
-                        <div class="pastMedical_section">
-                            <div class="section_title">
-                                <h2>Past Medical History</h2>
-                            </div>
-                            <div class="appointments___list past_medical_history_ak">
-
-
-
-                                <ul id="past_medical_histories">
-                                    @if ($patient_past_history->isEmpty())
-                                        <li><small style="font-size:10px;">----</small>.
-                                        </li>
-                                    @else
-                                        @foreach ($patient_past_history as $past_history)
-                                            <li>
-
-                                                <div class="appoin_title">
-
-                                                    <h6>{{ $past_history->diseases_name }}</h6>
-
-                                                    </p>
-
-                                                </div>
-
-                                                <div class="appoin_date">
-
-                                                    <div class="read-more-content">
-
-                                                        <p>
-
-                                                            {{ $past_history->describe }}
-                                                        </p>
-
-                                                    </div>
-
-
-                                                </div>
-
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
+                    <div class="pastMedical_section">
+                        <div class="section_title">
+                            <h2>Past Medical History</h2>
                         </div>
+                        <div class="appointments___list past_medical_history_ak">
+
+
+
+                            <ul id="past_medical_histories">
+                                @if ($patient_past_history->isEmpty())
+                                <li><small style="font-size:10px;">----</small>.
+                                </li>
+                                @else
+                                @foreach ($patient_past_history as $past_history)
+                                <li>
+
+                                    <div class="appoin_title">
+
+                                        <h6>{{ $past_history->diseases_name }}</h6>
+
+                                        </p>
+
+                                    </div>
+
+                                    <div class="appoin_date">
+
+                                        <div class="read-more-content">
+
+                                            <p>
+
+                                                {{ $past_history->describe }}
+                                            </p>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </li>
+                                @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
                     @endif
 
 
@@ -262,220 +365,218 @@
 
                     @if (isset($pastSurgicalHistory) && !empty($pastSurgicalHistory))
 
-                        <div class="pastSurgical_section">
-                            <div class="section_title">
-                                <h2>Past Surgical History</h2>
-                            </div>
-                            <div class="appointments___list past_medical_history_ak">
-
-                                <ul>
-                                    @if ($patient_past_surgical->isEmpty())
-                                        <li><small style="font-size:10px;">----</small>.
-                                        </li>
-                                    @else
-                                        @foreach ($patient_past_surgical as $past_surgical)
-                                            <li>
-
-                                                <div class="appoin_title">
-
-                                                    <h6>{{ $past_surgical->diseases_name }}</h6>
-
-
-
-                                                </div>
-
-                                                <div class="appoin_date">
-
-                                                    <div class="read-more-content">
-
-                                                        <p>
-
-                                                            {{ $past_surgical->describe }}
-                                                        </p>
-
-                                                    </div>
-
-
-
-                                                </div>
-
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
+                    <div class="pastSurgical_section">
+                        <div class="section_title">
+                            <h2>Past Surgical History</h2>
                         </div>
+                        <div class="appointments___list past_medical_history_ak">
+
+                            <ul>
+                                @if ($patient_past_surgical->isEmpty())
+                                <li><small style="font-size:10px;">----</small>.
+                                </li>
+                                @else
+                                @foreach ($patient_past_surgical as $past_surgical)
+                                <li>
+
+                                    <div class="appoin_title">
+
+                                        <h6>{{ $past_surgical->diseases_name }}</h6>
+
+
+
+                                    </div>
+
+                                    <div class="appoin_date">
+
+                                        <div class="read-more-content">
+
+                                            <p>
+
+                                                {{ $past_surgical->describe }}
+                                            </p>
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                </li>
+                                @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
                     @endif
 
 
                     @if (isset($oldCurrentMeds) && !empty($oldCurrentMeds))
-                        <div class="oldCurrentMeds_section">
-                            <div class="section_title">
-                                <h2>Old/Current meds</h2>
-                            </div>
-                            <div class="drug">
-                                <ul>
-                                    @if ($patient_current_med->isEmpty())
-                                        <li><small style="font-size:10px;">----</small></li>
-                                    @else
-                                        @foreach ($patient_current_med as $patient_current)
-                                            <li>
-
-                                                <div class="appoin_title">
-
-                                                    <h6>{{ $patient_current->drug_name }}</h6>
-
-
-
-                                                </div>
-
-                                                <div class="appoin_date">
-
-                                                    <div class="read-more-content">
-
-                                                        <p>
-
-                                                            {{ $patient_current->frequency }}
-                                                        </p>
-
-                                                    </div>
-
-
-                                                </div>
-
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
+                    <div class="oldCurrentMeds_section">
+                        <div class="section_title">
+                            <h2>Old/Current meds</h2>
                         </div>
+                        <div class="drug">
+                            <ul>
+                                @if ($patient_current_med->isEmpty())
+                                <li><small style="font-size:10px;">----</small></li>
+                                @else
+                                @foreach ($patient_current_med as $patient_current)
+                                <li>
+
+                                    <div class="appoin_title">
+
+                                        <h6>{{ $patient_current->drug_name }}</h6>
+
+
+
+                                    </div>
+
+                                    <div class="appoin_date">
+
+                                        <div class="read-more-content">
+
+                                            <p>
+
+                                                {{ $patient_current->frequency }}
+                                            </p>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </li>
+                                @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
                     @endif
 
 
 
                     @if (isset($allergies) && !empty($allergies))
-                        <div class="allergies_section">
-                            <div class="section_title">
-                                <h2>Allergies</h2>
-                            </div>
-
-
-                            <ul class="symptoms">
-                                @php
-                                    $patient_allergies = App\Models\patient\Patient_allergy::where(
-                                        'patient_id',
-                                        decrypt(@$id),
-                                    )
-                                        ->orderBy('id', 'desc')
-                                        ->get();
-                                @endphp
-
-                                @if ($patient_allergies->isEmpty())
-                                    <li><small style="font-size:10px;">----</small>.</li>
-                                @else
-                                    @foreach ($patient_allergies as $patient_allergy)
-                                        <li>{{ $patient_allergy->allergy_name }}</li>
-                                    @endforeach
-                                @endif
-
-                            </ul>
-
+                    <div class="allergies_section">
+                        <div class="section_title">
+                            <h2>Allergies</h2>
                         </div>
+
+
+                        <ul class="symptoms">
+                            @php
+                            $patient_allergies = App\Models\patient\Patient_allergy::where(
+                            'patient_id',
+                            decrypt(@$id),
+                            )
+                            ->orderBy('id', 'desc')
+                            ->get();
+                            @endphp
+
+                            @if ($patient_allergies->isEmpty())
+                            <li><small style="font-size:10px;">----</small>.</li>
+                            @else
+                            @foreach ($patient_allergies as $patient_allergy)
+                            <li>{{ $patient_allergy->allergy_name }}</li>
+                            @endforeach
+                            @endif
+
+                        </ul>
+
+                    </div>
                     @endif
 
 
 
 
                     @if (isset($clinicalExam) && !empty($clinicalExam))
-                        <div class="ClinicalExam_section">
-                            <div class="section_title">
-                                <h2>Clinical Exam</h2>
-                            </div>
-                            <div class="appointments___list past_medical_history_ak diagnosis_data">
+                    <div class="ClinicalExam_section">
+                        <div class="section_title">
+                            <h2>Clinical Exam</h2>
+                        </div>
+                        <div class="appointments___list past_medical_history_ak diagnosis_data">
 
-                                <ul>
-                                    @forelse ($regionalpatientGeneralDiagnosis as $record)
-                                        <li>
-                                            <div class="appoin_date">
-                                                <div>
-                                                    <div class="diagnosis_show">
+                            <ul>
+                                @forelse ($regionalpatientGeneralDiagnosis as $record)
+                                <li>
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
 
-                                                        @if (isset($record->RegionalExam))
-                                                            <div class="ss_result_box">
-                                                                <div class="symp_title mb-1">
-                                                                    <h6><span class="point_dia"><i
-                                                                                class="fa-regular fa-circle-dot"></i></span>
-                                                                        Regional Exam
-                                                                    </h6>
-                                                                </div>
-                                                                <p class="ss_result">
-                                                                    <strong>{{ $record->RegionalExam }} -
-                                                                        {{ $record->RegionalExamNote }}</strong>
-                                                                </p>
-                                                            </div>
-                                                        @endif
-
+                                                @if (isset($record->RegionalExam))
+                                                <div class="ss_result_box">
+                                                    <div class="symp_title mb-1">
+                                                        <h6><span class="point_dia"><i
+                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                            Regional Exam
+                                                        </h6>
                                                     </div>
-
-
-
+                                                    <p class="ss_result">
+                                                        <strong>{{ $record->RegionalExam }} -
+                                                            {{ $record->RegionalExamNote }}</strong>
+                                                    </p>
                                                 </div>
+                                               
+                                                @endif
 
                                             </div>
-                                        </li>
-                                    @empty
-                                    @endforelse
 
 
-                                </ul>
 
-                                <ul>
-                                    @forelse ($systemicpatientGeneralDiagnosis as $record)
-                                        <li>
-                                            <div class="appoin_date">
-                                                <div>
-                                                    <div class="diagnosis_show">
+                                        </div>
+
+                                    </div>
+                                </li>
+                                @empty
+                                @endforelse
 
 
-                                                        @if (isset($record->SystemicExam))
-                                                            <div class="ss_result_box">
-                                                                <div class="symp_title mb-1">
-                                                                    <h6><span class="point_dia"><i
-                                                                                class="fa-regular fa-circle-dot"></i></span>
-                                                                        Systemic Exam</h6>
-                                                                </div>
-                                                                <p class="ss_result">
-                                                                    <strong>{{ $record->SystemicExam }} -
-                                                                        {{ $record->SystemicExamNote }}</strong>
-                                                                </p>
-                                                            </div>
-                                                        @endif
+                            </ul>
+
+                            <ul>
+                                @forelse ($systemicpatientGeneralDiagnosis as $record)
+                                <li>
+                                    <div class="appoin_date">
+                                        <div>
+                                            <div class="diagnosis_show">
+
+
+                                                @if (isset($record->SystemicExam))
+                                                <div class="ss_result_box">
+                                                    <div class="symp_title mb-1">
+                                                        <h6><span class="point_dia"><i
+                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                            Systemic Exam</h6>
                                                     </div>
-
+                                                    <p class="ss_result">
+                                                        <strong>{{ $record->SystemicExam }} -
+                                                            {{ $record->SystemicExamNote }}</strong>
+                                                    </p>
                                                 </div>
-
+                                                @endif
                                             </div>
-                                        </li>
-                                    @empty
-                                    @endforelse
+
+                                        </div>
+
+                                    </div>
+                                </li>
+                                @empty
+                                @endforelse
 
 
 
 
-                                    @if (isset($ClinicalExam_db))
-                                        @forelse ($ClinicalExam_db as $record)
-                                            <li>
+                                @if (isset($ClinicalExam_db))
+                                @forelse ($ClinicalExam_db as $record)
+                                <li>
 
-                                                <div class="appoin_date">
-                                                    <div class="read-more-content sypm_tom_cnt" style="">
-                                                        <div class="diagnosis_show">
+                                    <div class="appoin_date">
+                                        <div class="read-more-content sypm_tom_cnt" style="">
+                                            <div class="diagnosis_show">
 
-                                                            @php
-                                                                $ClinicalExam = json_decode($record->data_value, true);
-                                                                // echo "<pre>";
-                                                                //     echo $ClinicalExam['RegionalExam'][0];
-                                                                //     die;
-                                                            @endphp
+                                                @php
+                                                    $ClinicalExam = json_decode($record->data_value, true);
+                                                @endphp
 
 
                                                             @if (isset($ClinicalExam['RegionalExam']) && $ClinicalExam['RegionalExam'][0] == 'Abnormal')
@@ -534,7 +635,11 @@
                                                             @endif
 
                                                         </div>
-
+                                                        {{-- <p class="diagnosis_date top_de"><span
+                                                            class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                            </span> <span
+                                                            class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                            </span></p> --}}
 
 
                                                     </div>
@@ -614,14 +719,6 @@
                                                                             $pathology_price_list = DB::table(
                                                                                 'pathology_price_list',
                                                                             )->where('id', $Patient_order_lab->task)->where('price_type',$Patient_order_lab->test_type)->first();
-
-                                                                            // if ($Patient_order_lab->test_type) {
-                                                                                // $pathology_price_list = $pathology_price_list;
-                                                                            // } else {
-                                                                            //     $pathology_price_list = $pathology_price_list->where('price_type','Radiology');
-                                                                            // }
-                                                                            // $pathology_price_list = $pathology_price_list
-
                                                                         @endphp
 
                                                                         <td>{{ $pathology_price_list->test_name ?? '' }}
@@ -674,46 +771,7 @@
                                                                 <td colspan="4" class="text-center">No record found
                                                                 </td>
                                                             @endforelse
-                                                            {{-- <tr>
-                                                            <td>17 Hydroxyprogesterone</td>
-                                                            <td>2 week</td>
-                                                            <td><button
-                                                                    class="confirmed-badge">Complete</button>
-                                                            </td>
-                                                            <td>
-                                                                <a href="images/new-images/dummy.pdf"
-                                                                    download=""
-                                                                    class="download_rp_btn"><i
-                                                                        class="fa-solid fa-file-arrow-down"></i>
-                                                                    Download Report</a>
-                                                            </td>
-
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>5 HIAA</td>
-                                                            <td>1 day</td>
-                                                            <td><button
-                                                                    class="pending-badge">Pending</button>
-                                                            </td>
-                                                            <td>
-
-                                                            </td>
-
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>6-TGN</td>
-                                                            <td>1 day</td>
-                                                            <td><button
-                                                                    class="pending-badge">Pending</button>
-                                                            </td>
-                                                            <td>
-
-                                                            </td>
-
-
-                                                        </tr> --}}
+                                                            
                                                         </tbody>
                                                     </table>
 
@@ -833,7 +891,7 @@
                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                 <ul>
                                     <li>
-                                        @if (isset($SpecialInvestigations_db))
+                                        @if ($SpecialInvestigations_db && $SpecialInvestigations_db->count() > 0)
                                             @forelse ($SpecialInvestigations_db as $record)
                                                 <div class="appoin_date">
                                                     <div>
@@ -847,6 +905,183 @@
                                                         </div>
 
                                                     </div>
+
+                                                </div>
+
+                                            @empty
+                                                <small style="font-size:10px;">----</small>
+                                            @endforelse
+                                            @elseif (isset($SpecialInvestigations_db1))
+                                            @forelse ($SpecialInvestigations_db1 as $record)
+                                                <div class="appoin_date">
+                                                    <div class="diagnosis_show">
+                                                        
+                                                                @php
+                                                                $specialInvestigations = json_decode($record->data_value, true);
+                                                               
+                                                                // echo "<pre>";
+                                                                //     print_r($specialInvestigations);
+                                                                //     die;
+                                                            @endphp
+                                                          @if (isset($specialInvestigations['evaluation']) && $specialInvestigations['evaluation'][0]=='Abnormal')
+
+
+                                                        <div class="ss_result_box">
+                                                            <div class="symp_title mb-1">
+                                                                <h6><span class="point_dia"><i
+                                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                                    REQVCFUNEVAL5</h6>
+                                                                <h6 class="ss_result">Vocal cord function
+                                                                    endoscopic evaluation</h6>
+                                                            </div>
+                                                            <p class="ss_result"><strong>Abnormal</strong>
+                                                                - {{ $specialInvestigations['evaluationNOTE'][0] ?? '' }}</p>
+                                                        </div>
+                                                        @endif
+                                                        @if (isset($specialInvestigations['PAPSmear']) && $specialInvestigations['PAPSmear'][0]=='Abnormal')
+
+
+                                                        <div class="ss_result_box">
+                                                            <div class="symp_title mb-1">
+                                                                <h6><span class="point_dia"><i
+                                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                                    REQVCFUNEVAL5</h6>
+                                                                <h6 class="ss_result">Vocal cord function
+                                                                    endoscopic evaluation</h6>
+                                                            </div>
+                                                            <p class="ss_result"><strong>Abnormal</strong>- {{ $specialInvestigations['PAPSmearNote'][0] ?? '' }}</p>
+                                                        </div>
+                                                        @endif
+                                                        @if (isset($specialInvestigations['evaluation']) && $specialInvestigations['evaluation'][0]=='Normal')
+                                                        <div class="ss_result_box">
+                                                            <div class="symp_title mb-1">
+                                                                <h6><span class="point_dia"><i
+                                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                                    REQVCFUNEVAL5</h6>
+                                                                <h6 class="ss_result">Vocal cord function
+                                                                    endoscopic evaluation</h6>
+                                                            </div>
+                                                            <p class="ss_result"><strong>Normal</strong>
+                                                                </p>
+                                                        </div>
+                                                       @endif
+                                                       @if (isset($specialInvestigations['PAPSmear']) && $specialInvestigations['PAPSmear'][0] == 'Abnormal')
+                                                       <div class="ss_result_box">
+                                                           <div class="symp_title mb-1">
+                                                               <h6><span class="point_dia"><i
+                                                                           class="fa-regular fa-circle-dot"></i></span>
+                                                                   REQPAPSMEAR5</h6>
+                                                               <h6 class="ss_result">PAP Smear of
+                                                                   cervix</h6>
+                                                           </div>
+                                                           <p class="ss_result">
+                                                               <strong>Abnormal</strong>
+                                                               -
+                                                               {{ $specialInvestigations['PAPSmearNote'][0] ?? '' }}
+                                                           </p>
+                                                       </div>
+                                                   @endif
+                                                   @if (isset($specialInvestigations['PAPSmear']) && $specialInvestigations['PAPSmear'][0] == 'Normal')
+                                                       <div class="ss_result_box">
+                                                           <div class="symp_title mb-1">
+                                                               <h6><span class="point_dia"><i
+                                                                           class="fa-regular fa-circle-dot"></i></span>
+                                                                   REQPAPSMEAR5</h6>
+                                                               <h6 class="ss_result">PAP Smear of
+                                                                   cervix</h6>
+                                                           </div>
+                                                           <p class="ss_result">
+                                                               <strong>Normal</strong>
+
+                                                           </p>
+                                                       </div>
+                                                   @endif
+
+                                                       @if (isset($specialInvestigations['title']) && $specialInvestigations['title'])
+                                                       <div class="ss_result_box">
+                                                           <div class="symp_title mb-1">
+                                                               <h6><span class="point_dia"><i
+                                                                           class="fa-regular fa-circle-dot"></i></span>
+                                                                   REQVCFUNEVAL5</h6>
+                                                               <h6 class="ss_result">{{ $specialInvestigations['title'] ?? '' }}</h6>
+                                                           </div>
+                                                           <p class="ss_result"><strong>{{ $specialInvestigations['subtile'] ?? '' }}</strong>
+                                                               -
+                                                               {{ $specialInvestigations['invistigation'] ?? '' }}
+                                                           </p>
+                                                       </div>
+                                                   @endif
+
+                                                   
+
+                                                   @if (isset($specialInvestigations['Peripheral']) && $specialInvestigations['Peripheral'])
+                                                       <div class="ss_result_box">
+                                                           <div class="symp_title mb-1">
+                                                            <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                    REQDNAFRAGTEST320 > DNA Fragmentation
+                                                                    test
+                                                                </h6>
+                                                              
+                                                           </div>
+                                                           <div class="symp_title mb-3">
+
+                                                            @if (isset($specialInvestigations['Peripheral']) && $specialInvestigations['Peripheral'][0] == 'Abnormal')
+                                                                <p class="ss_result">
+                                                                    {{ $specialInvestigations['Peripheral'][0] ?? '' }}
+                                                                </p>
+                                                                <p class="ss_result">
+                                                                    &nbsp;&nbsp;{{ $specialInvestigations['PeripheralNote'][0] ?? '' }}
+                                                                </p>
+                                                            @else
+                                                                <p class="ss_result">
+                                                                    &nbsp;&nbsp;{{ $specialInvestigations['Peripheral'][0] ?? '' }}
+                                                                </p>
+                                                            @endif
+
+
+
+
+                                                        </div>
+                                                       </div>
+                                                   @endif
+                                                   @if (isset($specialInvestigations['endoscopy']))
+                                                        <div class="ss_result_box">
+                                                            <div class="symp_title mb-1">
+                                                            <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                REQLGIENDOSCOPY5 > Lower GI
+                                                                endoscopy
+                                                                </h6>
+                                                            
+                                                            </div>
+                                                            <div class="symp_title mb-3">
+
+                                                                @if (isset($specialInvestigations['endoscopy']) && $specialInvestigations['endoscopy'][0] == 'Abnormal')
+                                                                <p class="ss_result">
+                                                                    {{ $specialInvestigations['endoscopy'][0] ?? '' }}
+                                                                </p>
+                                                                <p class="ss_result">
+                                                                    &nbsp;&nbsp;{{ $specialInvestigations['endoscopyNote'][0] ?? '' }}
+                                                                </p>
+                                                            @else
+                                                                <p class="ss_result">
+                                                                    &nbsp;&nbsp;{{ $specialInvestigations['endoscopy'][0] ?? '' }}
+                                                                </p>
+                                                            @endif
+
+
+
+
+                                                        </div>
+                                                        </div>
+                                                   @endif
+                                                    </div>
+                                                    {{-- <p class="diagnosis_date "><span
+                                                        class="enter_span_hivj"> {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                        </span> <span
+                                                        class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                        </span></p> --}}
 
                                                 </div>
 
@@ -885,9 +1120,7 @@
                                                         <div class="diagnosis_show">@php
 
                                                             $MDT = json_decode($record->data_value, true);
-                                                            // echo "<pre>";
-                                                            //     print_r($MDT);
-                                                            //     die;
+                                                            // dump($MDT);
                                                         @endphp
 
 
@@ -917,6 +1150,70 @@
                                                                     </p>
                                                                 </div>
                                                             @endif
+                                                            @if (isset($MDT['HE']) && $MDT['HE'][0] == 'HE')
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                    HE</h6>
+
+                                                                    </div>
+                                                                    <p class="ss_result">
+                                                                        {{ $MDT['HENote'][0] ?? '' }}.
+                                                                    </p>
+                                                                </div>
+                                                            @endif
+                                                            @if (isset($MDT['VVA']) && $MDT['VVA'][0] == 'Thermal VVA')
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                            Thermal VVA</h6>
+
+                                                                    </div>
+                                                                    <p class="ss_result">
+                                                                        {{ $MDT['VVANote'][0] ?? '' }}</p>
+                                                                </div>
+                                                            @endif
+                                                            @if (isset($MDT['Ablation']) && $MDT['Ablation'][0] == 'NTNT VVA Ablation')
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                            NTNT VVA Ablation</h6>
+
+                                                                    </div>
+                                                                    <p class="ss_result">
+                                                                        {{ $MDT['AblationNote'][0] ?? '' }}
+                                                                    </p>
+                                                                </div>
+                                                            @endif
+                                                            @if (isset($MDT['IRprocedure']) && $MDT['IRprocedure'][0] == 'IR procedure')
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                IR procedure</h6>
+
+                                                                    </div>
+                                                                    <p class="ss_result">
+                                                                        {{ $MDT['IRprocedureNote'][0] ?? '' }}
+                                                                    </p>
+                                                                </div>
+                                                            @endif
+                                                            
+                                                            @if (isset($MDT['UFE']) && $MDT['UFE'][0] == 'UFE')
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                    UFE</h6>
+
+                                                                    </div>
+                                                                    <p class="ss_result">
+                                                                        {{ $MDT['UFENote'][0] ?? '' }}.</p>
+                                                                </div>
+                                                            @endif
                                                             @if (isset($MDT['Surgical']) && $MDT['Surgical'][0] == 'Surgical')
                                                                 <div class="ss_result_box">
                                                                     <div class="symp_title mb-1">
@@ -929,6 +1226,19 @@
                                                                         {{ $MDT['SurgicalNote'][0] ?? '' }}.</p>
                                                                 </div>
                                                             @endif
+                                                            @if (isset($MDT['Medical']) && $MDT['Medical'][0] == 'Medical')
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                    Medical</h6>
+
+                                                                    </div>
+                                                                    <p class="ss_result">
+                                                                        {{ $MDT['MedicalNote'][0] ?? '' }}.</p>
+                                                                </div>
+                                                            @endif
+                                                            
                                                             @if (isset($MDT['OtherOptions']) && $MDT['OtherOptions'][0] == 'Other options')
                                                                 <div class="ss_result_box">
                                                                     <div class="symp_title mb-1">
@@ -941,7 +1251,21 @@
                                                                         {{ $MDT['OtherOptionsNote'][0] ?? '' }}.</p>
                                                                 </div>
                                                             @endif
-                                                            @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['TE']) || !isset($MDT['TTA']))
+                                                            @if (isset($MDT['options']) && $MDT['options'][0] == 'options')
+                                                                <div class="ss_result_box">
+                                                                    <div class="symp_title mb-1">
+                                                                        <h6><span class="point_dia"><i
+                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                            Other options</h6>
+
+                                                                    </div>
+                                                                    <p class="ss_result">
+                                                                        {{ $MDT['optionsNote'][0] ?? '' }}.</p>
+                                                                </div>
+                                                            @endif
+
+                                                            
+                                                            @if (!isset($MDT['OtherOptions']) && !isset($MDT['Surgical']) && !isset($MDT['TE']) && !isset($MDT['HE']) && !isset($MDT['TTA']) && !isset($MDT['TENote']) && !isset($MDT['IRprocedure']) && !isset($MDT['UFENote']) && !isset($MDT['MedicalNote']) && !isset($MDT['Ablation']) && !isset($MDT['VVA']))
                                                                 <div class="ss_result_box">
                                                                     @foreach ($MDT as $key => $value)
                                                                         <div class="symp_title mb-1">
@@ -955,6 +1279,13 @@
                                                                 </div>
                                                             @endif
                                                         </div>
+                                                        {{-- <p class="diagnosis_date "><span
+                                                            class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                </span> <span
+                                                                    class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
+                                                                </span>
+                                                                                                                        
+                                                        </p> --}}
 
 
 
@@ -977,7 +1308,136 @@
                     @endif
 
 
-                        @if ( (count($diagnosis_generals )>0) ||  count($diagnosis_cids) > 0)
+                        
+                 
+
+                    @if (!empty($diagnosis_generals->checkValData))
+                        @if (isset($diagnosis) && !empty($diagnosis))
+                            <div class="diagnosis_section">
+                                <div class="section_title">
+                                    <h2>Diagnosis</h2>
+                                </div>
+                                <div class="appointments___list past_medical_history_ak diagnosis_data">
+
+
+                                    <ul>
+                                        <li>
+                                            <div class="appoin_title">
+                                                <h6><span class="point_dia"><i
+                                                            class="fa-regular fa-circle-dot"></i></span> Provisional /
+                                                    Gernal diagnosis</h6>
+
+                                            </div>
+                                            <div class="appoin_date">
+                                                <div>
+                                                    <div class="diagnosis_show">
+
+
+                                                        <p class="diagnosis_text">
+                                                            @forelse ($diagnosis_generals as $diagnosis_general)
+                                                                <div class="diagnosis_show ">
+                                                                    
+                                                                    <p class="diagnosis_text">
+                                                                        @if (isset($diagnosis_general))
+                                                                            @php
+
+                                                                                $diagnosis_general_data_value = json_decode(
+                                                                                    $diagnosis_general->data_value,
+                                                                                    true,
+                                                                                );
+
+                                                                            @endphp
+                                                                            @forelse ($diagnosis_general_data_value as $key => $values)
+                                                                                @foreach ($values as $value)
+                                                                                    {{ $value }}
+
+                                                                                    {{-- <span class="separation">|</span> --}}
+                                                                                @endforeach
+                                                                                @if (!$loop->last)
+                                                                        <span class="separation">|</span>
+                                                                        @endif
+                                                                            @empty
+                                                                            @endforelse
+                                                                        @endif
+                                                                    </p>
+                                                                    {{-- <p class="diagnosis_date">
+                                                                        <span class="enter_span_hivj">Entered By |
+                                                                            &nbsp;{{ optional(optional($diagnosis_general)->doctor)->name ?? '' }}</span>
+
+
+                                                                        <span
+                                                                            class="enter_span_hivj">{{ isset($diagnosis_general) && isset($diagnosis_general->created_at) ? $diagnosis_general->created_at->format('D, d M Y, H:i A') : '' }}</span>
+                                                                    </p> --}}
+                                                                </div>
+
+
+                                                            @empty
+                                                                <small style="font-size:10px;">----</small>
+                                                            @endforelse
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="appoin_title">
+                                                <h6><span class="point_dia"><i
+                                                            class="fa-regular fa-circle-dot"></i></span> ICD 10</h6>
+
+                                            </div>
+                                            <div class="appoin_date">
+                                                @forelse ($diagnosis_cids as $diagnosis_cid)
+                                                    <div class="diagnosis_show ">
+                                                       
+                                                        <p class="diagnosis_text">
+                                                            @if (isset($diagnosis_cid))
+                                                                @php
+
+                                                                    $diagnosis_cid_data_value = json_decode(
+                                                                        $diagnosis_cid->data_value,
+                                                                        true,
+                                                                    );
+
+                                                                @endphp
+                                                                @forelse ($diagnosis_cid_data_value as $key => $values)
+                                                                    @foreach ($values as $value)
+                                                                        {{ $value }}
+                                                                        
+                                                                    @endforeach
+                                                                    @if (!$loop->last)
+                                                                        <span class="separation">|</span>
+                                                                        @endif
+                                                                @empty
+                                                                @endforelse
+                                                            @endif
+                                                        </p>
+                                                        {{-- <p class="diagnosis_date">
+                                                            <span class="enter_span_hivj">Entered By |
+                                                                &nbsp;{{ optional(optional($diagnosis_cid)->doctor)->name ?? '' }}</span>
+
+
+                                                            <span
+                                                                class="enter_span_hivj">{{ isset($diagnosis_cid) && isset($diagnosis_cid->created_at) ? $diagnosis_cid->created_at->format('D, d M Y, H:i A') : '' }}</span>
+                                                        </p> --}}
+                                                    </div>
+
+                                                @empty
+                                                    <small style="font-size:10px;">---</small>
+                                                @endforelse
+
+                                            </div>
+
+                                </div>
+                                </li>
+                                </ul>
+                            </div>
+
+                        @endif
+
+                        @elseif ( (count($diagnosis_generals)>0) ||  count($diagnosis_cids) > 0)
                             <div class="diagnosis_section">
                                 <div class="section_title">
                                     <h2>Diagnosis</h2>
@@ -1052,129 +1512,6 @@
                                 </div>
                             </div>
                         @endif
-                 
-
-                    @if (!empty($diagnosis_generals->checkValData))
-                        @if (isset($diagnosis) && !empty($diagnosis))
-                            <div class="diagnosis_section">
-                                <div class="section_title">
-                                    <h2>Diagnosis</h2>
-                                </div>
-                                <div class="appointments___list past_medical_history_ak diagnosis_data">
-
-
-                                    <ul>
-                                        <li>
-                                            <div class="appoin_title">
-                                                <h6><span class="point_dia"><i
-                                                            class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                    Gernal diagnosis</h6>
-
-                                            </div>
-                                            <div class="appoin_date">
-                                                <div>
-                                                    <div class="diagnosis_show">
-
-
-                                                        <p class="diagnosis_text">
-                                                            @forelse ($diagnosis_generals as $diagnosis_general)
-                                                                <div class="diagnosis_show ">
-                                                                    <p class="diagnosis_date">
-                                                                        <span class="enter_span_hivj">Entered By |
-                                                                            &nbsp;{{ optional(optional($diagnosis_general)->doctor)->name ?? '' }}</span>
-
-
-                                                                        <span
-                                                                            class="enter_span_hivj">{{ isset($diagnosis_general) && isset($diagnosis_general->created_at) ? $diagnosis_general->created_at->format('D, d M Y, H:i A') : '' }}</span>
-                                                                    </p>
-                                                                    <p class="diagnosis_text">
-                                                                        @if (isset($diagnosis_general))
-                                                                            @php
-
-                                                                                $diagnosis_general_data_value = json_decode(
-                                                                                    $diagnosis_general->data_value,
-                                                                                    true,
-                                                                                );
-
-                                                                            @endphp
-                                                                            @forelse ($diagnosis_general_data_value as $key => $values)
-                                                                                @foreach ($values as $value)
-                                                                                    {{ $value }}
-
-                                                                                    <span class="separation">|</span>
-                                                                                @endforeach
-                                                                            @empty
-                                                                            @endforelse
-                                                                        @endif
-                                                                    </p>
-
-                                                                </div>
-
-
-                                                            @empty
-                                                                <small style="font-size:10px;">----</small>
-                                                            @endforelse
-                                                        </p>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="appoin_title">
-                                                <h6><span class="point_dia"><i
-                                                            class="fa-regular fa-circle-dot"></i></span> ICD 10</h6>
-
-                                            </div>
-                                            <div class="appoin_date">
-                                                @forelse ($diagnosis_cids as $diagnosis_cid)
-                                                    <div class="diagnosis_show ">
-                                                        <p class="diagnosis_date">
-                                                            <span class="enter_span_hivj">Entered By |
-                                                                &nbsp;{{ optional(optional($diagnosis_cid)->doctor)->name ?? '' }}</span>
-
-
-                                                            <span
-                                                                class="enter_span_hivj">{{ isset($diagnosis_cid) && isset($diagnosis_cid->created_at) ? $diagnosis_cid->created_at->format('D, d M Y, H:i A') : '' }}</span>
-                                                        </p>
-                                                        <p class="diagnosis_text">
-                                                            @if (isset($diagnosis_cid))
-                                                                @php
-
-                                                                    $diagnosis_cid_data_value = json_decode(
-                                                                        $diagnosis_cid->data_value,
-                                                                        true,
-                                                                    );
-
-                                                                @endphp
-                                                                @forelse ($diagnosis_cid_data_value as $key => $values)
-                                                                    @foreach ($values as $value)
-                                                                        {{ $value }}
-
-                                                                        <span class="separation">|</span>
-                                                                    @endforeach
-                                                                @empty
-                                                                @endforelse
-                                                            @endif
-                                                        </p>
-
-                                                    </div>
-
-                                                @empty
-                                                    <small style="font-size:10px;">---</small>
-                                                @endforelse
-
-                                            </div>
-
-                                </div>
-                                </li>
-                                </ul>
-                            </div>
-
-                        @endif
-                    @endif
 
 
                     @if (isset($eligibility) && !empty($eligibility))
@@ -1242,6 +1579,675 @@
                                                                         {{ $ElegibilitySTATUS['TENote'][0] ?? '' }}</p>
                                                                 </div>
                                                             @endif
+                                                            @if (isset($ElegibilitySTATUS['VARICOCELEEMBOLIZATION']) && $ElegibilitySTATUS['VARICOCELEEMBOLIZATION'][0] == 'VARICOCELE EMBOLIZATION (VE)')
+                                                            <div class="ss_result_box">
+                                                                <div class="symp_title mb-1">
+                                                                    <h6><span class="point_dia"><i
+                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                VARICOCELE EMBOLIZATION (VE)</h6>
+
+                                                                </div>
+                                                                <p class="ss_result">
+                                                                    {{ $ElegibilitySTATUS['VARICOCELEEMBOLIZATIONNote'][0] ?? '' }}</p>
+                                                            </div>
+                                                        @endif
+                                                        @if (isset($ElegibilitySTATUS['Pelvic']) && $ElegibilitySTATUS['Pelvic'][0] == 'Pelvic')
+                                                        <div class="ss_result_box">
+                                                            <div class="symp_title mb-1">
+                                                                <h6><span class="point_dia"><i
+                                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                                    Pelvic</h6>
+
+                                                            </div>
+                                                            <p class="ss_result">
+                                                                {{ $ElegibilitySTATUS['PelvicNote'][0] ?? '' }}.
+                                                            </p>
+                                                        </div>
+                                                    @endif
+                                                    @if (isset($ElegibilitySTATUS['VVThermalAblation']) &&
+                                                        $ElegibilitySTATUS['VVThermalAblation'][0] == 'VV Thermal Ablation')
+                                                    <div class="ss_result_box">
+                                                        <div class="symp_title mb-1">
+                                                            <h6><span class="point_dia"><i
+                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                VV Thermal Ablation</h6>
+
+                                                        </div>
+                                                        <p class="ss_result">
+                                                            {{ $ElegibilitySTATUS['VVThermalAblationNote'][0] ?? '' }}
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                                @if (isset($ElegibilitySTATUS['VVNTNTAblation']) && $ElegibilitySTATUS['VVNTNTAblation'][0] == 'VV NTNT Ablation')
+                                                    <div class="ss_result_box">
+                                                        <div class="symp_title mb-1">
+                                                            <h6><span class="point_dia"><i
+                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                VV NTNT Ablation</h6>
+
+                                                        </div>
+                                                        <p class="ss_result">
+                                                            {{ $ElegibilitySTATUS['VVNTNTAblationNote'][0] ?? '' }}
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                                @if (isset($ElegibilitySTATUS['FoamSclerotherapy']) &&
+                                                        $ElegibilitySTATUS['FoamSclerotherapy'][0] == 'Foam Sclerotherapy')
+                                                    <div class="ss_result_box">
+                                                        <div class="symp_title mb-1">
+                                                            <h6><span class="point_dia"><i
+                                                                        class="fa-regular fa-circle-dot"></i></span>
+                                                                Foam Sclerotherapy</h6>
+
+                                                        </div>
+                                                        <p class="ss_result">
+                                                            {{ $ElegibilitySTATUS['FoamSclerotherapyNote'][0] ?? '' }}
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                                @if (isset($ElegibilitySTATUS['HEMARRHOIDSEMBOLIZATION']) && $ElegibilitySTATUS['HEMARRHOIDSEMBOLIZATION'][0] == 'HEMARRHOIDS EMBOLIZATION (HE)')
+                                                <div class="ss_result_box">
+                                                    <div class="symp_title mb-1">
+                                                        <h6><span class="point_dia"><i
+                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                    HEMARRHOIDS EMBOLIZATION (HE)</h6>
+
+                                                    </div>
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['HEMARRHOIDSEMBOLIZATIONNote'][0] ?? '' }}
+                                                    </p>
+                                                </div>
+                                            @endif
+                                            @if (isset($ElegibilitySTATUS['HistopathMSKBiopsy']) && !empty($ElegibilitySTATUS['HistopathMSKBiopsy'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        Histopath MSK Biopsy -
+                                                        Findings </h6>
+
+                                                </div>
+                   
+                                                @if (isset($ElegibilitySTATUS['HistopathMSKBiopsy']) && $ElegibilitySTATUS['HistopathMSKBiopsy'][0] == 'Eligibile')
+                                                                                 <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['HistopathMSKBiopsy'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['HistopathMSKBiopsyNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['HistopathMSKBiopsy'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['TopicalRiparil']) && !empty($ElegibilitySTATUS['TopicalRiparil'][0]))
+                                        <div class="ss_result_box">
+                                            <div class="symp_title mb-1">
+                                                <h6><span class="point_dia"><i
+                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                            conservative - Topical Riparil  </h6>
+
+                                            </div>
+
+                                            @if (isset($ElegibilitySTATUS['TopicalRiparil']) && $ElegibilitySTATUS['TopicalRiparil'][0] == 'Eligibile')
+                                                                            <p class="ss_result">
+                                                    {{ $ElegibilitySTATUS['TopicalRiparil'][0] ?? '' }}
+                                                </p>
+                                                <p class="ss_result">
+                                                    &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalRiparilNote'][0] ?? '' }}
+                                                </p>
+                                            @else
+                                                <p class="ss_result">
+                                                    &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalRiparil'][0] ?? '' }}
+                                                </p>
+                                            @endif
+                                        </div>
+                                    @endif
+                                        @if (isset($ElegibilitySTATUS['TopicalAnalgesics']) && !empty($ElegibilitySTATUS['TopicalAnalgesics'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        conservative - Topical
+                                                        Analgesics </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['TopicalAnalgesics']) && $ElegibilitySTATUS['TopicalAnalgesics'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['TopicalAnalgesics'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalAnalgesicsNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalAnalgesics'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        
+                                        @if (isset($ElegibilitySTATUS['POAnalgesics']) && !empty($ElegibilitySTATUS['POAnalgesics'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        conservative - PO Analgesics
+                                                    </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['POAnalgesics']) && $ElegibilitySTATUS['POAnalgesics'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['POAnalgesics'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['POAnalgesicsNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['POAnalgesics'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['Chondroitin']) && !empty($ElegibilitySTATUS['Chondroitin'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        conservative - PO
+                                                        Glucasamine / Chondroitin
+                                                    </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['Chondroitin']) && $ElegibilitySTATUS['Chondroitin'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['Chondroitin'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['ChondroitinNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['Chondroitin'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['POCollagen']) && !empty($ElegibilitySTATUS['POCollagen'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        conservative - PO Collagen
+                                                    </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['POCollagen']) && $ElegibilitySTATUS['POCollagen'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['POCollagen'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['POCollagenNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['POCollagen'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['conservativeVitamines']) && !empty($ElegibilitySTATUS['conservativeVitamines'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        conservative - IV Vitamines
+                                                    </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['conservativeVitamines']) && $ElegibilitySTATUS['conservativeVitamines'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['conservativeVitamines'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeVitaminesNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeVitamines'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['conservativeIMNurobion']) && !empty($ElegibilitySTATUS['conservativeIMNurobion'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        conservative - IM Nurobion
+                                                    </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['conservativeIMNurobion']) &&
+                                                        $ElegibilitySTATUS['conservativeIMNurobion'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['conservativeIMNurobion'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMNurobionNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMNurobion'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['conservativeIMCollagen']) && !empty($ElegibilitySTATUS['conservativeIMCollagen'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        conservative - IM Collagen
+                                                    </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['conservativeIMCollagen']) &&
+                                                        $ElegibilitySTATUS['conservativeIMCollagen'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['conservativeIMCollagen'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMCollagenNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMCollagen'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['Triggerpointinjection']) && !empty($ElegibilitySTATUS['Triggerpointinjection'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                Trigger point injection
+                                                    </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['Triggerpointinjection']) &&
+                                                        $ElegibilitySTATUS['Triggerpointinjection'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['Triggerpointinjection'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['TriggerpointinjectionNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['Triggerpointinjection'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['conservativekneeBrace']) && !empty($ElegibilitySTATUS['conservativekneeBrace'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        conservative - knee Brace
+                                                    </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['conservativekneeBrace']) && $ElegibilitySTATUS['conservativekneeBrace'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['conservativekneeBrace'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativekneeBraceNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativekneeBrace'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['Steroidsinjection']) && !empty($ElegibilitySTATUS['Steroidsinjection'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        Steroids injection</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['Steroidsinjection']) && $ElegibilitySTATUS['Steroidsinjection'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['Steroidsinjection'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['SteroidsinjectionNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['Steroidsinjection'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['HAinjection']) && !empty($ElegibilitySTATUS['HAinjection'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        HA injection</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['HAinjection']) && $ElegibilitySTATUS['HAinjection'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['HAinjection'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['HAinjectionNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['HAinjection'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['PRPinjection']) && !empty($ElegibilitySTATUS['PRPinjection'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        PRP injection</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['PRPinjection']) && $ElegibilitySTATUS['PRPinjection'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['PRPinjection'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['PRPinjectionNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['PRPinjection'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['Ozoneintradiscalinjection']) && !empty($ElegibilitySTATUS['Ozoneintradiscalinjection'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                Ozone intra-discal injection  </h6>
+
+                                                </div>
+
+                                                @if (isset($ElegibilitySTATUS['Ozoneintradiscalinjection']) && $ElegibilitySTATUS['Ozoneintradiscalinjection'][0] == 'Eligibile')
+                                                                                <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['Ozoneintradiscalinjection'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['OzoneintradiscalinjectionNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['Ozoneintradiscalinjection'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['OzoneIAinjection']) && !empty($ElegibilitySTATUS['OzoneIAinjection'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        Ozone IA injection</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['OzoneIAinjection']) && $ElegibilitySTATUS['OzoneIAinjection'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['OzoneIAinjection'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['OzoneIAinjectionNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['OzoneIAinjection'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['NeurolysisBlock']) && !empty($ElegibilitySTATUS['NeurolysisBlock'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        Neurolysis Block</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['NeurolysisBlock']) && $ElegibilitySTATUS['NeurolysisBlock'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['NeurolysisBlock'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['NeurolysisBlockNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['NeurolysisBlock'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['NerveRFAblation']) && !empty($ElegibilitySTATUS['NerveRFAblation'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        Nerve RF Ablation</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['NerveRFAblation']) && $ElegibilitySTATUS['NerveRFAblation'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['NerveRFAblation'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveRFAblationNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveRFAblation'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['NerveCooledRF']) && !empty($ElegibilitySTATUS['NerveCooledRF'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        Nerve Cooled RF</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['NerveCooledRF']) && $ElegibilitySTATUS['NerveCooledRF'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['NerveCooledRF'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveCooledRFNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveCooledRF'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['NerveCryotherapy']) && !empty($ElegibilitySTATUS['NerveCryotherapy'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        Nerve Cryotherapy</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['NerveCryotherapy']) && $ElegibilitySTATUS['NerveCryotherapy'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['NerveCryotherapy'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveCryotherapyNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveCryotherapy'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['ShoulderEmbolization']) && !empty($ElegibilitySTATUS['ShoulderEmbolization'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                Shoulder Embolization </h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['ShoulderEmbolization']) && $ElegibilitySTATUS['ShoulderEmbolization'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['ShoulderEmbolization'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['ShoulderEmbolizationNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['ShoulderEmbolization'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if (isset($ElegibilitySTATUS['NerveBlockinjection']) && !empty($ElegibilitySTATUS['NerveBlockinjection'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Nerve Block injection</h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['NerveBlockinjection']) && $ElegibilitySTATUS['NerveBlockinjection'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['NerveBlockinjection'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveBlockinjectionNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveBlockinjection'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['NerveRFTherapy']) && !empty($ElegibilitySTATUS['NerveRFTherapy'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Nerve RF Therapy</h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['NerveRFTherapy']) && $ElegibilitySTATUS['NerveRFTherapy'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['NerveRFTherapy'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveRFTherapyNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveRFTherapy'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['STE']) && !empty($ElegibilitySTATUS['STE'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Soft tissue Embolization (STE)</h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['STE']) && $ElegibilitySTATUS['STE'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['STE'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['STENote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['STE'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                        @if (isset($ElegibilitySTATUS['Others']) && !empty($ElegibilitySTATUS['Others'][0]))
+                                            <div class="ss_result_box">
+                                                <div class="symp_title mb-1">
+                                                    <h6><span class="point_dia"><i
+                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                        Others</h6>
+
+                                                </div>
+                                                @if (isset($ElegibilitySTATUS['Others']) && $ElegibilitySTATUS['Others'][0] == 'Eligibile')
+                                                    
+                                                    <p class="ss_result">
+                                                        {{ $ElegibilitySTATUS['Others'][0] ?? '' }}
+                                                    </p>
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['OthersNote'][0] ?? '' }}
+                                                    </p>
+                                                @else
+                                                    <p class="ss_result">
+                                                        &nbsp;&nbsp;{{ $ElegibilitySTATUS['Others'][0] ?? '' }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
                                                             @if (isset($ElegibilitySTATUS['OTHERS']) && $ElegibilitySTATUS['OTHERS'][0] == 'OTHERS')
                                                                 <div class="ss_result_box">
                                                                     <div class="symp_title mb-1">
@@ -1257,10 +2263,31 @@
                                                             @endif
 
                                                             @if (
-                                                                !isset($ElegibilitySTATUS['OTHERS']) ||
-                                                                    !isset($ElegibilitySTATUS['TE']) ||
-                                                                    !isset($ElegibilitySTATUS['PTTA']) ||
-                                                                    !isset($ElegibilitySTATUS['TTA']))
+                                                                !isset($ElegibilitySTATUS['OTHERS']) &&
+                                                                    !isset($ElegibilitySTATUS['TE']) &&
+                                                                    !isset($ElegibilitySTATUS['PTTA']) && !isset($ElegibilitySTATUS['HEMARRHOIDSEMBOLIZATION']) && !isset($ElegibilitySTATUS['Pelvic']) &&
+                                                                    !isset($ElegibilitySTATUS['TTA']) && !isset($ElegibilitySTATUS['VARICOCELEEMBOLIZATIONNote']) &&
+                                                                                    !isset($ElegibilitySTATUS['FoamSclerotherapy']) &&
+                                                                                    !isset($ElegibilitySTATUS['VVNTNTAblation']) &&
+                                                                                    !isset($ElegibilitySTATUS['VVThermalAblation']) && !isset($ElegibilitySTATUS['Others']) &&
+                                                                                    !isset($ElegibilitySTATUS['NerveCryotherapy']) &&
+                                                                                    !isset($ElegibilitySTATUS['NerveCryotherapy']) &&
+                                                                                    !isset($ElegibilitySTATUS['NerveRFAblation']) &&
+                                                                                    !isset($ElegibilitySTATUS['NeurolysisBlock']) &&
+                                                                                    !isset($ElegibilitySTATUS['OzoneIAinjection']) &&
+                                                                                    !isset($ElegibilitySTATUS['PRPinjection']) &&
+                                                                                    !isset($ElegibilitySTATUS['HAinjection']) &&
+                                                                                    !isset($ElegibilitySTATUS['Steroidsinjection']) &&
+                                                                                    !isset($ElegibilitySTATUS['conservativekneeBrace']) &&
+                                                                                    !isset($ElegibilitySTATUS['conservativeIMCollagen']) &&
+                                                                                    !isset($ElegibilitySTATUS['conservativeIMNurobion']) &&
+                                                                                    !isset($ElegibilitySTATUS['conservativeVitamines']) &&
+                                                                                    !isset($ElegibilitySTATUS['POCollagen']) &&
+                                                                                    !isset($ElegibilitySTATUS['Chondroitin']) &&
+                                                                                    !isset($ElegibilitySTATUS['POAnalgesics']) &&
+                                                                                    !isset($ElegibilitySTATUS['TopicalAnalgesics']) &&
+                                                                                    !isset($ElegibilitySTATUS['HistopathMSKBiopsy']) &&
+                                                                                    !isset($ElegibilitySTATUS['HistopathMSKBiopsy']))
                                                                 <div class="ss_result_box">
                                                                     @foreach ($ElegibilitySTATUS as $key => $value)
                                                                         <div class="symp_title mb-1">
@@ -1497,9 +2524,63 @@
                         </div>
                     @endif
 
+              <div class="signatureBox">
+              <!-- <div class="col-lg-12" style="width:100%;">
+                    <b class="tm_primary_color">Signature:</b>
+                    </div> -->
+                <div class="row">
+                   
+                
+                    <div class="col-lg-6" style="padding-left:0;">
+                    <div class="tm_invoice_footer tm_type1">
+                                <div class="tm_left_footer">
+                                    <!-- Signature Pad Container -->
+                                    <div class="formGroup">
+                                    <label for="">Signature</label>
+                                    <div id="signature-pad" class="signature-pad">
+                                        <canvas></canvas>
+                                    </div>
+                                    <img id="imgSrc" hidden />
+                                    <button id="clear-signature" type="button">Clear</button>
+                                    <button id="save-signature" class="btn btn-success btn-sm" type="button">Save</button>
+                                    </div>
+                                </div>
+                              
+                                </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="InputBox">
+                            <div class="formGroup">
+                                <label for="">Doctor Name</label>
+                                <input type="text" id="dname" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="formGroup">
+                                <label for="">Date</label>
+                                <input type="text"  class="form-control" placeholder="Date" id="basicDate">
+                            </div>
+                           
+                            
 
+                        </div>
+                        <div class="InputBoxLabel" style="display: none;">
+                            <div class="formGroup" style="width: 50%;">
+                                <label for="">Doctor Name</label>
+                                <b id="dnamelabel"> </b>
+                            </div>
+                            <div class="formGroup" style="width: 50%;">
+                                <label for="">Date</label>
+                                <b id="ddatelabel"> </b>
+                            </div>
+                           
+                            
+
+                        </div>
+                    </div>
+                </div>
+              </div>
                 </div>
 
+                
 
                 <div class="footer_section">
                     <div class="MainBox">
@@ -1589,7 +2670,73 @@
     <script src="{{ asset('/assets/report-genrate/js/jspdf.min.js') }}"></script>
     <script src="{{ asset('/assets/report-genrate/js/html2canvas.min.js') }}"></script>
     <script src="{{ asset('/assets/report-genrate/js/main.js') }}"></script>
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js')}}"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+  <!--  Flatpickr  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+  <script>
+    $("#basicDate").flatpickr({
+    enableTime: false,
+    dateFormat: "F, d Y"
+});
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var canvas = document.querySelector("#signature-pad canvas");
+      var signaturePad = new SignaturePad(canvas);
+  
+      // Adjust canvas size
+      function resizeCanvas() {
+        var ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = (canvas.offsetHeight * ratio)*2;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear(); // otherwise isEmpty() might return incorrect value
+      }
+  
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+  
+      // Clear signature
+      document.getElementById('clear-signature').addEventListener('click', function () {
+        signaturePad.clear();
+      });
+  
+      // Save signature (you can modify this to save the signature as per your requirement)
+      // Example: Saving the signature data URL in localStorage
+      document.getElementById('save-signature').addEventListener('click', function () {
+
+        let dname = $("#dname").val();
+        let ddate = $("#basicDate").val();
+
+        if(dname == ''){
+            alert('Please Fill Name Field.');
+        }else if(ddate == ''){
+            alert('Please Fill Date Field.');
+        }else if (!signaturePad.isEmpty()) {
+          var dataURL = signaturePad.toDataURL();
+          $("#imgSrc").attr('src',dataURL);
+          $("#imgSrc").removeAttr('hidden');
+          $(".signature-pad").prop('hidden',true);
+          $("#save-signature").prop('hidden',true);
+          $("#clear-signature").prop('hidden',true);
+          $(".InputBox").css('display','none');
+          $(".InputBoxLabel").css('display','flex');
+
+
+          $("#ddatelabel").text(ddate);
+          $("#dnamelabel").text(dname);
+
+          localStorage.setItem('signature', dataURL);
+        } else {
+          alert("Please provide a signature first.");
+        }
+      });
+    });
+  </script>
+       
+
 </body>
 
 </html>
