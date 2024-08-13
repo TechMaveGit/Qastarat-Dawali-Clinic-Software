@@ -176,7 +176,7 @@ class PatientController extends Controller
         $paymentMethod = $request->input('paymentMethod');
 
         DB::table('tasks')->where('id', $invoiceName)->update(['paidStatus' => '1', 'paymentNote' => $request->input('paymentNote'), 'payAmount' => 'full payment', 'datePaid' => $datePaid, 'paymentMethod' => $paymentMethod]);
-
+        DB::table('invoices')->where('id', $invoiceName)->update(['paidStatus' => '1']);
         return redirect()->back();
     }
 
