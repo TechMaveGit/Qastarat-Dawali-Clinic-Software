@@ -998,9 +998,9 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[4][0]" id="sym_a5" value="Restricted knee flextion">
+                                                        name="symptoms[4][0]" id="sym_a5" value="Restricted knee flexion">
                                                     <label class="form-check-label" for="sym_a5">
-                                                        Restricted knee flextion
+                                                        Restricted knee flexion
                                                     </label>
                                                 </div>
                                             </div>
@@ -1899,7 +1899,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                 </tr>
 
                                                 <tr>
-                                                    <td>Restricted knee flextion</td>
+                                                    <td>Restricted knee flexion</td>
                                                     <td>
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input symtoms_scrore_checkbox"
@@ -2962,12 +2962,12 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                     <div class="form-check form-check-right mb-3">
                                                         <input class="form-check-input" type="checkbox" name="MDT[Medical][]" value="Medical"  id="formRadiosRight85">
                                                         <label class="form-check-label" for="formRadiosRight85">
-                                                            Medical / conservative
+                                                            Medical / Conservative
                                                         </label>
                                                     </div>
                                                     <div  id="textarea_85">
                                                     <div class="form-check form-check-right mb-3">
-                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
+                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / Conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -3050,7 +3050,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - Topical Analgesics &nbsp;</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - Topical Analgesics &nbsp;</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3079,7 +3079,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Analgesics</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Analgesics</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3108,7 +3108,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Glucasamine / Chondroitin</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Glucasamine / Chondroitin</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3137,7 +3137,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3166,7 +3166,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IV Vitamines</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IV Vitamines</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3195,7 +3195,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Nurobion</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Nurobion</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3224,7 +3224,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3253,7 +3253,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - knee Brace</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - knee Brace</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -5012,7 +5012,7 @@ var isChecked_sym_a4 = $("#sym_a4").is(":checked");
 
 
 
-// Restricted knee flextion start
+// Restricted knee flexion start
 var isChecked_sym_a5 = $("#sym_a5").is(":checked");
            
            var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
@@ -5027,7 +5027,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
                    Swal.fire({
                            icon: 'error',
                            title: 'Oops...',
-                           text: 'Please fill out Restricted knee flextion fields in Symptoms.',
+                           text: 'Please fill out Restricted knee flexion fields in Symptoms.',
                            confirmButtonText: 'OK'
                        }).then(function () {
                            setTimeout(function() {
@@ -5043,7 +5043,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
 
 
        }
-// Restricted knee flextion end 
+// Restricted knee flexion end 
 
 
 

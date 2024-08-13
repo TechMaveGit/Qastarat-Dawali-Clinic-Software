@@ -5024,7 +5024,7 @@
                                                         alt="">
                                                 </div>
                                                 <div class="form_dt">
-                                                    <h6>Haemorrhoids Embo (HE)</h6>
+                                                    <h6>Hemorrhoids Embo (HE)</h6>
                                                 </div>
 
                                             </div>

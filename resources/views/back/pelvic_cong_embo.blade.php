@@ -1598,12 +1598,12 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row align-items-center">
                                             <div class="col-lg-4">
-                                                <h6 class="mb-3 lut_title">Heamarrhoids</h6>
+                                                <h6 class="mb-3 lut_title">Hemorrhoids</h6>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
-                                                        name="clinical_indicator[Heamarrhoids][]" id="formRadiosRight42"
+                                                        name="clinical_indicator[Hemorrhoids][]" id="formRadiosRight42"
                                                         value="YES">
                                                     <label class="form-check-label" for="formRadiosRight42">
                                                         YES
@@ -1613,7 +1613,7 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
-                                                        name="clinical_indicator[Heamarrhoids][]" id="formRadiosRight43"
+                                                        name="clinical_indicator[Hemorrhoids][]" id="formRadiosRight43"
                                                         value="No">
                                                     <label class="form-check-label" for="formRadiosRight43">
                                                         No
@@ -2145,9 +2145,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                           </div>
                                           <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Lab[URINANALYSISResults][]" value="Positive  (PCE Unfaverable)" id="formRadiosRight76">
+                                                  <input class="form-check-input"type="radio" name="Lab[URINANALYSISResults][]" value="Positive  (PCE unfavorable)" id="formRadiosRight76">
                                                   <label class="form-check-label" for="formRadiosRight76">
-                                                  Positive  (PCE Unfaverable)
+                                                  Positive  (PCE unfavorable)
                                                   </label>
                                               </div>
                                           </div>
@@ -2181,9 +2181,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                               </div>
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input" type="radio" name="Lab[HistopathResults][]" value="Positive  (PCE Unfaverable)" id="formRadiosRight65">
+                                                      <input class="form-check-input" type="radio" name="Lab[HistopathResults][]" value="Positive  (PCE unfavorable)" id="formRadiosRight65">
                                                       <label class="form-check-label" for="formRadiosRight65">
-                                                      Positive  (PCE Unfaverable)
+                                                      Positive  (PCE unfavorable)
                                                       </label>
                                                   </div>
                                               </div>

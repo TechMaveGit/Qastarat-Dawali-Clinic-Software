@@ -63,10 +63,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 'MultiFibroidUterus' => ['Multi-Fibroid Uterus'],
                                                 'Adenomyosis' => ['Adenomyosis'],
                                                 'UterineBleed' => ['Uterine Bleed'],
-                                                'Dysmenprrhea' => ['Dysmenprrhea'],
+                                                'Dysmenorrhea' => ['Dysmenorrhea'],
                                                 'Abdominalmass' => ['Abdominal mass'],
                                                 'Anemia' => ['Anemia'],
-                                                'EndomertialCA' => ['Endomertial CA'],
+                                                'EndomertialCA' => ['Endometrial CA'],
                                                 'PelvicPain' => ['Pelvic Pain'],
                                                 
                                             ];
@@ -122,11 +122,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Dysmenprrhea][]" id="formRadiosRight5"
-                                                {{ isset($diagnosis_generals['Dysmenprrhea']) && in_array('Dysmenprrhea', $diagnosis_generals['Dysmenprrhea']) ? 'checked' : '' }}
-                                                value="Dysmenprrhea">
+                                                name="diagnosis_general[Dysmenorrhea][]" id="formRadiosRight5"
+                                                {{ isset($diagnosis_generals['Dysmenorrhea']) && in_array('Dysmenorrhea', $diagnosis_generals['Dysmenorrhea']) ? 'checked' : '' }}
+                                                value="Dysmenorrhea">
                                             <label class="form-check-label" for="formRadiosRight5">
-                                                Dysmenprrhea
+                                                Dysmenorrhea
                                             </label>
                                         </div>
                                     </div>
@@ -145,10 +145,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[EndomertialCA][]" id="formRadiosRight6"
-                                                {{ isset($diagnosis_generals['EndomertialCA']) && in_array('Endomertial CA', $diagnosis_generals['EndomertialCA']) ? 'checked' : '' }}
-                                                value="Endomertial CA">
+                                                {{ isset($diagnosis_generals['EndomertialCA']) && in_array('Endometrial CA', $diagnosis_generals['EndomertialCA']) ? 'checked' : '' }}
+                                                value="Endometrial CA">
                                             <label class="form-check-label" for="formRadiosRight6">
-                                                Endomertial CA
+                                                Endometrial CA
                                             </label>
                                         </div>
                                     </div>
@@ -234,7 +234,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                             }
                                             $existingData = [
                                                 'D250' => ['D25.0 Submucous leiomyoma of uterus'],
-                                                'D251' => ['D25.1 Intramural leiomvoma of uterus'],
+                                                'D251' => ['D25.1 Intramural leiomyoma of uterus'],
                                                 'D252' => ['D25.2 Subserosal leiomyoma of uterus'],
                                                 'D259' => ['D25.9 Leiomyoma of uterus, unspecified'],
                                                 'N710' => ['N71.0 Acute inflammatory disease of uterus'],
@@ -272,10 +272,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[D251][]"
-                                                id="formRadiosRight9" value="D25.1 Intramural leiomvoma of uterus"
-                                                {{ isset($diagnosis_cids['D251']) && in_array('D25.1 Intramural leiomvoma of uterus', $diagnosis_cids['D251']) ? 'checked' : '' }}>
+                                                id="formRadiosRight9" value="D25.1 Intramural leiomyoma of uterus"
+                                                {{ isset($diagnosis_cids['D251']) && in_array('D25.1 Intramural leiomyoma of uterus', $diagnosis_cids['D251']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight9">
-                                                D25.1 Intramural leiomvoma of uterus
+                                                D25.1 Intramural leiomyoma of uterus
                                             </label>
                                         </div>
                                     </div>

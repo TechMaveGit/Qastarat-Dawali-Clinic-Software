@@ -1428,15 +1428,15 @@
                                                                                 @endphp
 
 
-                                                                                @if (isset($jsonData) && is_array($jsonData) && array_key_exists('Heamarrhoids', $jsonData))
+                                                                                @if (isset($jsonData) && is_array($jsonData) && array_key_exists('Hemorrhoids', $jsonData))
                                                                                     <div class="ss_result_box">
                                                                                         <div class="symp_title mb-1">
                                                                                             <h6><span class="point_dia"><i
                                                                                                         class="fa-regular fa-circle-dot"></i></span>
-                                                                                                Heamarrhoids</h6>
+                                                                                                Hemorrhoids</h6>
                                                                                         </div>
                                                                                         <p class="ss_result">
-                                                                                            {{ $jsonData['Heamarrhoids'][0] ?? '' }}
+                                                                                            {{ $jsonData['Hemorrhoids'][0] ?? '' }}
                                                                                         </p>
                                                                                     </div>
                                                                                 @endif
@@ -2374,7 +2374,7 @@
                                                                                     Results</h6>
                                                                             </div>
 
-                                                                            @if (isset($jsonData['URINANALYSISResults'][0]) && $jsonData['URINANALYSISResults'][0] == 'Positive  (PCE Unfaverable)')
+                                                                            @if (isset($jsonData['URINANALYSISResults'][0]) && $jsonData['URINANALYSISResults'][0] == 'Positive  (PCE unfavorable)')
                                                                                 <div class="symp_title mb-3">
                                                                                     <p class="ss_result">
                                                                                         {{ $jsonData['URINANALYSISResults'][0] ?? '' }}
@@ -2407,7 +2407,7 @@
                                                                                     LABPAPSMEAR000 / Histopath Results</h6>
                                                                             </div>
 
-                                                                            @if (isset($jsonData['HistopathResults'][0]) && $jsonData['HistopathResults'][0] == 'Positive  (PCE Unfaverable)')
+                                                                            @if (isset($jsonData['HistopathResults'][0]) && $jsonData['HistopathResults'][0] == 'Positive  (PCE unfavorable)')
                                                                                 <div class="symp_title mb-3">
                                                                                     <p class="ss_result">
                                                                                         {{ $jsonData['HistopathResults'][0] ?? '' }}

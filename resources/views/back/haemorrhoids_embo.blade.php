@@ -1,6 +1,6 @@
 @extends('back.layout.main_view')
 @push('title')
-Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
+Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
 @endpush
 @push('custom-css')
     <style>
@@ -35,7 +35,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
                     <input type="hidden" name="form_type" value="HaemorrhoidsEmbo"/>
 
-                    <h3 class="form_title">Haemorrhoids Embo (HE)</h3>
+                    <h3 class="form_title">Hemorrhoids Embo (HE)</h3>
 
                     <div class="form_data">
                         <h6 class="section_title__">Diagnosis</h6>
@@ -52,10 +52,10 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Haemorrhoids][]" id="formRadiosRight1"
-                                                value="Haemorrhoids">
+                                                name="diagnosis_general[Hemorrhoids][]" id="formRadiosRight1"
+                                                value="Hemorrhoids">
                                             <label class="form-check-label" for="formRadiosRight1">
-                                                Haemorrhoids
+                                                Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
@@ -172,45 +172,45 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K64][]"
-                                                id="formRadiosRight9" value="K64 Haemorrhoids and perianal venous thrombosis">
+                                                id="formRadiosRight9" value="K64 Hemorrhoids and perianal venous thrombosis">
                                             <label class="form-check-label" for="formRadiosRight9">
-                                                K64 Haemorrhoids and perianal venous thrombosis
+                                                K64 Hemorrhoids and perianal venous thrombosis
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K640][]"
-                                                id="formRadiosRight10" value="K64.0 First degree haemorrhoids">
+                                                id="formRadiosRight10" value="K64.0 First degree Hemorrhoids">
                                             <label class="form-check-label" for="formRadiosRight10">
-                                                K64.0 First degree haemorrhoids
+                                                K64.0 First degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K641][]"
-                                                id="formRadiosRight11" value="K64.1 Second degree haemorrhoids">
+                                                id="formRadiosRight11" value="K64.1 Second degree Hemorrhoids">
                                             <label class="form-check-label" for="formRadiosRight11">
-                                                K64.1 Second degree haemorrhoids
+                                                K64.1 Second degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K642][]"
-                                                id="formRadiosRight12" value="K64.2 Third degree haemorrhoids">
+                                                id="formRadiosRight12" value="K64.2 Third degree Hemorrhoids">
                                             <label class="form-check-label" for="formRadiosRight12">
-                                                K64.2 Third degree haemorrhoids
+                                                K64.2 Third degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K643][]"
-                                                id="formRadiosRight13" value="K64.3 Fourth degree haemorrhoids">
+                                                id="formRadiosRight13" value="K64.3 Fourth degree Hemorrhoids">
                                             <label class="form-check-label" for="formRadiosRight13">
-                                                K64.3 Fourth degree haemorrhoids
+                                                K64.3 Fourth degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
@@ -226,18 +226,18 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K648][]"
-                                                id="formRadiosRight15" value="K64.8 Other specified haemorrhoids">
+                                                id="formRadiosRight15" value="K64.8 Other specified Hemorrhoids">
                                             <label class="form-check-label" for="formRadiosRight15">
-                                                K64.8 Other specified haemorrhoids
+                                                K64.8 Other specified Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K649][]"
-                                                id="formRadiosRight16" value="K64.9 Haemorrhoids, unspecified">
+                                                id="formRadiosRight16" value="K64.9 Hemorrhoids, unspecified">
                                             <label class="form-check-label" for="formRadiosRight16">
-                                                K64.9 Haemorrhoids, unspecified
+                                                K64.9 Hemorrhoids, unspecified
                                             </label>
                                         </div>
                                     </div>
@@ -253,9 +253,9 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[a0224][]"
-                                                id="formRadiosRight18" value="022.4 Haemorrhoids in pregnancy">
+                                                id="formRadiosRight18" value="022.4 Hemorrhoids in pregnancy">
                                             <label class="form-check-label" for="formRadiosRight18">
-                                                022.4 Haemorrhoids in pregnancy
+                                                022.4 Hemorrhoids in pregnancy
                                             </label>
                                         </div>
                                     </div>
@@ -272,9 +272,9 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" id="Postpartum_thyroiditis">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[a0872][]"
-                                                id="formRadiosRight19" value="087.2 Haemorrhoids in the puerperium">
+                                                id="formRadiosRight19" value="087.2 Hemorrhoids in the puerperium">
                                             <label class="form-check-label" for="formRadiosRight19">
-                                                087.2 Haemorrhoids in the puerperium
+                                                087.2 Hemorrhoids in the puerperium
                                             </label>
                                         </div>
                                     </div>
@@ -1244,7 +1244,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="row align-items-center">
                                             <div class="col-lg-4">
-                                                <h6 class="mb-3 lut_title">Fistula in ano</h6>
+                                                <h6 class="mb-3 lut_title">Fistula in anal</h6>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -1982,7 +1982,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">Fistula in ano</h6>
+                                          <h6 class="mb-3 lut_title">Fistula in anal</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2090,12 +2090,12 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                     <div class="form-check form-check-right mb-3">
                                                         <input class="form-check-input" type="checkbox" name="MDT[Medical][]" value="Medical"  id="formRadiosRight85">
                                                         <label class="form-check-label" for="formRadiosRight85">
-                                                            Medical / conservative
+                                                            Medical / Conservative
                                                         </label>
                                                     </div>
                                                     <div  id="textarea_85">
                                                     <div class="form-check form-check-right mb-3">
-                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
+                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / Conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -3249,7 +3249,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     let lastLine;
 
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/Haemorrhoids Embo.jpg') }}';
+    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/Hemorrhoids Embo.jpg') }}';
 
     imageObj.onload = function() {
         const image = new Konva.Image({
@@ -3390,7 +3390,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
 
                                         Swal.fire({
                                                         title: 'Success',
-                                                        text: 'Haemorrhoids Embo form saved successfully!',
+                                                        text: 'Hemorrhoids Embo form saved successfully!',
                                                         icon: 'success',
                                                         timer: 2000, // Display for 2 seconds
                                                         timerProgressBar: true, // Show progress bar

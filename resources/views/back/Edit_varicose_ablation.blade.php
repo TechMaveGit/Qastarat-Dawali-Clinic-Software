@@ -64,7 +64,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 'Venousinsufficiency' => ['Venous insufficiency'],
                                                 'Reticular' => ['Reticular/ spider veins'],
                                                 'Pedaledema' => ['Pedal edema'],
-                                                'Venousuicer' => ['Venous uicer'],     
+                                                'Venousuicer' => ['Venous ulcer'],     
                                                 'Lipidema' => ['Lipidema'],     
                                                 'Deep' => ['Deep Vein Thrombosis'],     
                                                 
@@ -133,10 +133,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[Venousuicer][]" id="formRadiosRight4Venousuicer"
-                                                {{ isset($diagnosis_generals['Venousuicer']) && in_array('Venous uicer', $diagnosis_generals['Venousuicer']) ? 'checked' : '' }}
-                                                value="Venous uicer">
+                                                {{ isset($diagnosis_generals['Venousuicer']) && in_array('Venous ulcer', $diagnosis_generals['Venousuicer']) ? 'checked' : '' }}
+                                                value="Venous ulcer">
                                             <label class="form-check-label" for="formRadiosRight4Venousuicer">
-                                                Venous uicer
+                                                Venous ulcer
                                             </label>
                                         </div>
                                     </div>

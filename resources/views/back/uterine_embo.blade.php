@@ -92,10 +92,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Dysmenprrhea][]" id="formRadiosRight5"
-                                                value="Dysmenprrhea">
+                                                name="diagnosis_general[Dysmenorrhea][]" id="formRadiosRight5"
+                                                value="Dysmenorrhea">
                                             <label class="form-check-label" for="formRadiosRight5">
-                                                Dysmenprrhea
+                                                Dysmenorrhea
                                             </label>
                                         </div>
                                     </div>
@@ -123,9 +123,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[EndomertialCA][]" id="formRadiosRight6"
-                                                value="Endomertial CA">
+                                                value="Endometrial CA">
                                             <label class="form-check-label" for="formRadiosRight6">
-                                                Endomertial CA
+                                                Endometrial CA
                                             </label>
                                         </div>
                                     </div>
@@ -193,9 +193,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[D251][]"
-                                                id="formRadiosRight9" value="D25.1 Intramural leiomvoma of uterus">
+                                                id="formRadiosRight9" value="D25.1 Intramural leiomyoma of uterus">
                                             <label class="form-check-label" for="formRadiosRight9">
-                                                D25.1 Intramural leiomvoma of uterus
+                                                D25.1 Intramural leiomyoma of uterus
                                             </label>
                                         </div>
                                     </div>

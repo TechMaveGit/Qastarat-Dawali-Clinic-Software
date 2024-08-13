@@ -123,9 +123,9 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[CervicalSpndylolysis][]" id="formRadiosRight7CervicalSpndylolysis"
-                                                value="Cervical - Spndylolysis">
+                                                value="Cervical - Spondylolysis">
                                             <label class="form-check-label" for="formRadiosRight7CervicalSpndylolysis">
-                                                Cervical - Spndylolysis
+                                                Cervical - Spondylolysis
                                             </label>
                                         </div>
                                     </div>
@@ -133,9 +133,9 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[CervicalSpndylolylisthesis][]" id="formRadiosRight7CervicalSpndylolylisthesis"
-                                                value="Cervical - Spndylolylisthesis">
+                                                value="Cervical - Spondylolylisthesis">
                                             <label class="form-check-label" for="formRadiosRight7CervicalSpndylolylisthesis">
-                                                Cervical - Spndylolylisthesis
+                                                Cervical - Spondylolylisthesis
                                             </label>
                                         </div>
                                     </div>
@@ -203,9 +203,9 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[LumbarSpndylolysis][]" id="formRadiosRight7LumbarSpndylolysis"
-                                                value="Lumbar - Spndylolysis">
+                                                value="Lumbar - Spondylolysis">
                                             <label class="form-check-label" for="formRadiosRight7LumbarSpndylolysis">
-                                                Lumbar - Spndylolysis
+                                                Lumbar - Spondylolysis
                                             </label>
                                         </div>
                                     </div>
@@ -314,9 +314,9 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[ThoracicSpndylolysis][]" id="formRadiosRight7ThoracicSpndylolysis"
-                                                value="Thoracic - Spndylolysis">
+                                                value="Thoracic - Spondylolysis">
                                             <label class="form-check-label" for="formRadiosRight7ThoracicSpndylolysis">
-                                                Thoracic - Spndylolysis
+                                                Thoracic - Spondylolysis
                                             </label>
                                         </div>
                                     </div>
@@ -326,7 +326,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                                 name="diagnosis_general[ThoracicSpndylolylisthesis][]" id="formRadiosRight7ThoracicSpndylolylisthesis"
                                                 value="Thoracic - Spndylolylisthe">
                                             <label class="form-check-label" for="formRadiosRight7ThoracicSpndylolylisthesis">
-                                                Thoracic - Spndylolylisthesis
+                                                Thoracic - Spondylolylisthesis
                                             </label>
                                         </div>
                                     </div>
@@ -1122,9 +1122,9 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[4][0]" id="sym_a5" value="feet burning at night / rest">
+                                                        name="symptoms[4][0]" id="sym_a5" value="Feet burning at night / rest">
                                                     <label class="form-check-label" for="sym_a5">
-                                                        feet burning at night / rest
+                                                        Feet burning at night / rest
                                                     </label>
                                                 </div>
                                             </div>
@@ -1946,7 +1946,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                                 </tr>
 
                                                 <tr>
-                                                    <td>feet burning at night / rest</td>
+                                                    <td>Feet burning at night / rest</td>
                                                     <td>
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input symtoms_scrore_checkbox"
@@ -2490,7 +2490,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                         <div class="col-lg-12">
                             <div class="row">
                             <div class="col-lg-3">
-                          <h6 class="mb-3 lut_title">Thooracic - Inter-costal nerves </h6>
+                          <h6 class="mb-3 lut_title">Thoracic - Inter-costal nerves </h6>
                         </div>
                         <div class="col-lg-3">
                                     <div class="form-check form-check-right mb-3">
@@ -2902,12 +2902,12 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                                     <div class="form-check form-check-right mb-3">
                                                         <input class="form-check-input" type="checkbox" name="MDT[Medical][]" value="Medical"  id="formRadiosRight85">
                                                         <label class="form-check-label" for="formRadiosRight85">
-                                                            Medical / conservative
+                                                            Medical / Conservative
                                                         </label>
                                                     </div>
                                                     <div  id="textarea_85">
                                                     <div class="form-check form-check-right mb-3">
-                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
+                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / Conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -2961,7 +2961,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - Topical Riparil&nbsp;</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - Topical Riparil&nbsp;</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2990,7 +2990,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - Topical Analgesics&nbsp;</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - Topical Analgesics&nbsp;</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3019,7 +3019,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Analgesics</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Analgesics</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3048,7 +3048,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Glucasamine / Chondroitin</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Glucasamine / Chondroitin</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3077,7 +3077,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3106,7 +3106,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IV Vitamines</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IV Vitamines</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3135,7 +3135,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Nurobion</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Nurobion</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3164,7 +3164,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3193,7 +3193,7 @@ Patient | Spine Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - knee Brace</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - knee Brace</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -4904,7 +4904,7 @@ var isChecked_sym_a4 = $("#sym_a4").is(":checked");
 
 
 
-// feet burning at night / rest start
+// Feet burning at night / rest start
 var isChecked_sym_a5 = $("#sym_a5").is(":checked");
            
            var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
@@ -4919,7 +4919,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
                    Swal.fire({
                            icon: 'error',
                            title: 'Oops...',
-                           text: 'Please fill out feet burning at night / rest fields in Symptoms.',
+                           text: 'Please fill out Feet burning at night / rest fields in Symptoms.',
                            confirmButtonText: 'OK'
                        }).then(function () {
                            setTimeout(function() {
@@ -4935,7 +4935,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
 
 
        }
-// feet burning at night / rest end 
+// Feet burning at night / rest end 
 
 
 

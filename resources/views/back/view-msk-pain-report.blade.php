@@ -2747,7 +2747,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                                    conservative - Topical Riparil  </h6>
+                                                                                                    Conservative - Topical Riparil  </h6>
 
                                                                                     </div>
 
@@ -2770,7 +2770,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                                    conservative - Topical Analgesics  </h6>
+                                                                                                    Conservative - Topical Analgesics  </h6>
 
                                                                                     </div>
 
@@ -2793,7 +2793,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                                    conservative - PO Analgesics  </h6>
+                                                                                                    Conservative - PO Analgesics  </h6>
 
                                                                                     </div>
 
@@ -2816,7 +2816,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                                    conservative - PO Glucasamine / Chondroitin  </h6>
+                                                                                                    Conservative - PO Glucasamine / Chondroitin  </h6>
 
                                                                                     </div>
 
@@ -2839,7 +2839,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                                    conservative - PO Collagen  </h6>
+                                                                                                    Conservative - PO Collagen  </h6>
 
                                                                                     </div>
 
@@ -2862,7 +2862,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                                    conservative - IV Vitamines  </h6>
+                                                                                                    Conservative - IV Vitamines  </h6>
 
                                                                                     </div>
 
@@ -2885,7 +2885,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                                    conservative - IM Nurobion  </h6>
+                                                                                                    Conservative - IM Nurobion  </h6>
 
                                                                                     </div>
 
@@ -2908,7 +2908,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                                    conservative - IM Collagen  </h6>
+                                                                                                    Conservative - IM Collagen  </h6>
 
                                                                                     </div>
 
@@ -2931,7 +2931,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                                    conservative - knee Brace  </h6>
+                                                                                                    Conservative - knee Brace  </h6>
 
                                                                                     </div>
 

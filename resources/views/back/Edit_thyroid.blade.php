@@ -71,14 +71,14 @@
                                             
 
                                             $existingData = [
-                                                'Euothyroid' => ['Euothyroid'],
+                                                'Euthyroid' => ['Euthyroid'],
                                                 'ThyroidCyst' => ['Thyroid Cyst'],
                                                 'GraveDisease' => ['Grave’s Disease'],
                                                 'Thyroidnodule' => ['Thyroid nodule'],
                                                 'Hypothyroidism' => ['Hypothyroidism'],
                                                 'Thyrotoxicosis' => ['Thyrotoxicosis'],
                                                 'ThyroidCarcinoma' => ['Thyroid Carcinoma'],
-                                                'MultiNodularGoitre' => ['Multi-Nodular Goitre'],
+                                                'MultiNodularGoitre' => ['Multi nodular goiter'],
                                                 'LymphocyticThyroiditis' => ['Lymphocytic Thyroiditis'],
                                             ];
                                             $filteredData = array_diff_key($diagnosis_generals, $existingData);
@@ -101,10 +101,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[MultiNodularGoitre][]" id="formRadiosRight2"
-                                                {{ isset($diagnosis_generals['MultiNodularGoitre']) && in_array('Multi-Nodular Goitre', $diagnosis_generals['MultiNodularGoitre']) ? 'checked' : '' }}
-                                                value="Multi-Nodular Goitre">
+                                                {{ isset($diagnosis_generals['MultiNodularGoitre']) && in_array('Multi nodular goiter', $diagnosis_generals['MultiNodularGoitre']) ? 'checked' : '' }}
+                                                value="Multi nodular goiter">
                                             <label class="form-check-label" for="formRadiosRight2">
-                                                Multi-Nodular Goitre
+                                                Multi nodular goiter
                                             </label>
                                         </div>
                                     </div>
@@ -122,11 +122,11 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Euothyroid][]" id="formRadiosRight4"
-                                                {{ isset($diagnosis_generals['Euothyroid']) && in_array('Euothyroid', $diagnosis_generals['Euothyroid']) ? 'checked' : '' }}
-                                                value="Euothyroid">
+                                                name="diagnosis_general[Euthyroid][]" id="formRadiosRight4"
+                                                {{ isset($diagnosis_generals['Euthyroid']) && in_array('Euthyroid', $diagnosis_generals['Euthyroid']) ? 'checked' : '' }}
+                                                value="Euthyroid">
                                             <label class="form-check-label" for="formRadiosRight4">
-                                                Euothyroid
+                                                Euthyroid
                                             </label>
                                         </div>
                                     </div>
@@ -2290,7 +2290,7 @@
                                                         {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'YES' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES (TA unfaverable unless ATN)
+                                                        YES (TA unfavorable unless ATN)
                                                     </label>
                                                 </div>
                                             </div>
@@ -2318,7 +2318,7 @@
                                                         value="YES"
                                                         {{ isset($clinical_indicators['Carbimazole'][0]) && $clinical_indicators['Carbimazole'][0] == 'YES' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES (TA unfaverable unless ATN)
+                                                        YES (TA unfavorable unless ATN)
                                                     </label>
                                                 </div>
                                             </div>
@@ -2556,7 +2556,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>DMixed Cystic / solid </td>
+                                                    <td>Mixed Cystic / solid </td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
@@ -2589,7 +2589,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <th colspan="2">Echogenisity</th>
+                                                    <th colspan="2">Echogenesity</th>
                                                 </tr>
 
                                                 <tr>
@@ -2597,9 +2597,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta29" value="0"
-                                                                {{ isset($rightLobeScore['Echogenisity'][0]) && $rightLobeScore['Echogenisity'][0] == 0 ? 'checked' : '' }}>
+                                                                {{ isset($rightLobeScore['Echogenesity'][0]) && $rightLobeScore['Echogenesity'][0] == 0 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta29">
                                                                 0 pts
                                                             </label>
@@ -2611,9 +2611,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta30" value="1"
-                                                                {{ isset($rightLobeScore['Echogenisity'][0]) && $rightLobeScore['Echogenisity'][0] == 1 ? 'checked' : '' }}>
+                                                                {{ isset($rightLobeScore['Echogenesity'][0]) && $rightLobeScore['Echogenesity'][0] == 1 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta30">
                                                                 1 pts
                                                             </label>
@@ -2625,9 +2625,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta31" value="2"
-                                                                {{ isset($rightLobeScore['Echogenisity'][0]) && $rightLobeScore['Echogenisity'][0] == 2 ? 'checked' : '' }}>
+                                                                {{ isset($rightLobeScore['Echogenesity'][0]) && $rightLobeScore['Echogenesity'][0] == 2 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta31">
                                                                 2 pts
                                                             </label>
@@ -2639,9 +2639,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta32" value="2"
-                                                                {{ isset($rightLobeScore['Echogenisity'][0]) && $rightLobeScore['Echogenisity'][0] == 2 ? 'checked' : '' }}>
+                                                                {{ isset($rightLobeScore['Echogenesity'][0]) && $rightLobeScore['Echogenesity'][0] == 2 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta32">
                                                                 2 pts
                                                             </label>
@@ -2653,7 +2653,7 @@
                                                     <th colspan="2">Shape</th>
                                                 </tr>
                                                 <tr>
-                                                    <td>Eider-than-taller</td>
+                                                    <td>Wider-than-taller</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
@@ -2713,7 +2713,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>lobulated / irrigular</td>
+                                                    <td>lobulated / irregular</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
@@ -2910,7 +2910,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>DMixed Cystic / solid </td>
+                                                    <td>Mixed Cystic / solid </td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
@@ -2943,7 +2943,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <th colspan="2">Echogenisity</th>
+                                                    <th colspan="2">Echogenesity</th>
                                                 </tr>
 
                                                 <tr>
@@ -2951,9 +2951,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta43" value="0"
-                                                                {{ isset($leftLobeScore['Echogenisity'][0]) && $leftLobeScore['Echogenisity'][0] == 0 ? 'checked' : '' }}>
+                                                                {{ isset($leftLobeScore['Echogenesity'][0]) && $leftLobeScore['Echogenesity'][0] == 0 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta43">
                                                                 0 pts
                                                             </label>
@@ -2965,8 +2965,8 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
-                                                                {{ isset($leftLobeScore['Echogenisity'][0]) && $leftLobeScore['Echogenisity'][0] == 1 ? 'checked' : '' }}
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
+                                                                {{ isset($leftLobeScore['Echogenesity'][0]) && $leftLobeScore['Echogenesity'][0] == 1 ? 'checked' : '' }}
                                                                 id="formRadiosRighta44" value="1">
                                                             <label class="form-check-label" for="formRadiosRighta44">
                                                                 1 pts
@@ -2979,8 +2979,8 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
-                                                                {{ isset($leftLobeScore['Echogenisity'][0]) && $leftLobeScore['Echogenisity'][0] == 2 ? 'checked' : '' }}
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
+                                                                {{ isset($leftLobeScore['Echogenesity'][0]) && $leftLobeScore['Echogenesity'][0] == 2 ? 'checked' : '' }}
                                                                 id="formRadiosRighta45" value="2">
                                                             <label class="form-check-label" for="formRadiosRighta45">
                                                                 2 pts
@@ -2993,8 +2993,8 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
-                                                                {{ isset($leftLobeScore['Echogenisity'][0]) && $leftLobeScore['Echogenisity'][0] == 2 ? 'checked' : '' }}
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
+                                                                {{ isset($leftLobeScore['Echogenesity'][0]) && $leftLobeScore['Echogenesity'][0] == 2 ? 'checked' : '' }}
                                                                 id="formRadiosRighta46" value="2">
                                                             <label class="form-check-label" for="formRadiosRighta46">
                                                                 2 pts
@@ -3007,7 +3007,7 @@
                                                     <th colspan="2">Shape</th>
                                                 </tr>
                                                 <tr>
-                                                    <td>Eider-than-taller</td>
+                                                    <td>Wider-than-taller</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
@@ -3067,7 +3067,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>lobulated / irrigular</td>
+                                                    <td>lobulated / irregular</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
@@ -3263,7 +3263,7 @@
                                                         {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'YES' ? 'checked' : '' }}
                                                         id="formRadiosRighta65" value="YES">
                                                     <label class="form-check-label" for="formRadiosRighta65">
-                                                        YES (TA unfaverable)
+                                                        YES (TA unfavorable)
                                                     </label>
                                                 </div>
                                             </div>
@@ -3510,7 +3510,7 @@
 
                                     @endphp
                                     <div class="col-lg-4">
-                                        <h6 class="mb-3 lut_title">Toxic Parathyroid Adenoma - RIGHTupper</h6>
+                                        <h6 class="mb-3 lut_title">Toxic Parathyroid Adenoma - RIGHT upper</h6>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">

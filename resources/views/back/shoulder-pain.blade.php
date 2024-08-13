@@ -2307,12 +2307,12 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                     <div class="form-check form-check-right mb-3">
                                                         <input class="form-check-input" type="checkbox" name="MDT[Medical][]" value="Medical"  id="formRadiosRight85">
                                                         <label class="form-check-label" for="formRadiosRight85">
-                                                            Medical / conservative
+                                                            Medical / Conservative
                                                         </label>
                                                     </div>
                                                     <div  id="textarea_85">
                                                     <div class="form-check form-check-right mb-3">
-                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
+                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / Conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -2366,7 +2366,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - Topical Riparil&nbsp;</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - Topical Riparil&nbsp;</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2395,7 +2395,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - Topical Analgesics&nbsp;</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - Topical Analgesics&nbsp;</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2424,7 +2424,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Analgesics</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Analgesics</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2453,7 +2453,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Glucasamine / Chondroitin</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Glucasamine / Chondroitin</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2482,7 +2482,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2511,7 +2511,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IV Vitamines</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IV Vitamines</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2540,7 +2540,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Nurobion</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Nurobion</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2569,7 +2569,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">

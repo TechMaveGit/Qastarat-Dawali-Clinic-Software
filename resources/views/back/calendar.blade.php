@@ -459,7 +459,7 @@
                                         <div class="inner_element">
                                             <div class="form-group">
                                                 <select class="form-control select2_modalapponiment"
-                                                    name="appointment_type" id="patient_id" required>
+                                                    name="appointment_type" id="appointment_type" required>
                                                     <option value=""> --Select Appoinment Type-- </option>
                                                     @foreach ($pathology_price_list as $allpathology_price_list)
                                                         @if (!empty($allpathology_price_list))
@@ -2097,14 +2097,14 @@ if($(this).val() == "Other"){
                                 text: 'Priority field is required.',
                                 icon: 'warning',
                             });
-                        }else if(!$('#patientId').val() || $('#patientId').val()==""){
+                        }else if(!$('#patient_id').val() || $('#patient_id').val()==""){
                             Swal.fire({
                                 title: 'Warning',
                                 text: 'Patient field is required.',
                                 icon: 'warning',
                             });
                             
-                        }else if(!$('#patient_id').val() || $('#patient_id').val()==""){
+                        }else if(!$('#appointment_type').val() || $('#appointment_type').val()==""){
                             Swal.fire({
                                 title: 'Warning',
                                 text: 'Appoinment type field is required.',
@@ -2118,12 +2118,6 @@ if($(this).val() == "Other"){
                                 icon: 'warning',
                             });
                             
-                        }else if(!$('#event_id').val() || $('#event_id').val()==""){
-                            Swal.fire({
-                                title: 'Warning',
-                                text: 'Event field is required.',
-                                icon: 'warning',
-                            });
                         }else if(!$('#start_time').val() || $('#start_time').val()==""){
                             Swal.fire({
                                 title: 'Warning',

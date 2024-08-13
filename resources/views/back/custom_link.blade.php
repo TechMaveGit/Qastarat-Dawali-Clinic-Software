@@ -205,7 +205,7 @@
             <div class="customdotdropdown fill_forms_icon">
           <div class="buttondrop_dot action_btn_tooltip form7_bg">
             <iconify-icon icon="healthicons:health-worker-form-outline" width="22"></iconify-icon>
-            <span class="toolTip">Haemorrhoids Embo (HE)</span>
+            <span class="toolTip">Hemorrhoids Embo (HE)</span>
           </div>
           <div class="dropdown-content">
             <a href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms', ['id' => @$id]) }}"

@@ -1619,7 +1619,7 @@
                                                                                         <div class="symp_title mb-1">
                                                                                             <h6><span class="point_dia"><i
                                                                                                         class="fa-regular fa-circle-dot"></i></span>
-                                                                                                Fistula in ano</h6>
+                                                                                                Fistula in anal</h6>
                                                                                         </div>
                                                                                         <p class="ss_result">
                                                                                             {{ $jsonData['Fistulainano'][0] ?? '' }}
@@ -2588,7 +2588,7 @@
 
                                                                             </div>
                                                                             <div class="symp_title ">
-                                                                                <p class="ss_result">Fistula in ano
+                                                                                <p class="ss_result">Fistula in anal
                                                                                 <p>
                                                                                 <p class="ss_result">
                                                                                     &nbsp;&nbsp;{{ $jsonData['Fistula'][0] ?? '' }}

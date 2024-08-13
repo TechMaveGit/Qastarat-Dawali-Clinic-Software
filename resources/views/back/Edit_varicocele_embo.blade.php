@@ -1968,11 +1968,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="YES (VE Unfaverable)" id="formRadiosRightd38"
-                                                {{ isset($Imaging['LEFTTesticularSize'][0]) && $Imaging['LEFTTesticularSize'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="YES (VE unfavorable)" id="formRadiosRightd38"
+                                                {{ isset($Imaging['LEFTTesticularSize'][0]) && $Imaging['LEFTTesticularSize'][0] == "YES (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd38">
-                                                YES (VE Unfaverable)
+                                                YES (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
@@ -2026,11 +2026,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="YES (VE Unfaverable)" id="formRadiosRightd39"
-                                                {{ isset($Imaging['LEFTTesticularCalcification'][0]) && $Imaging['LEFTTesticularCalcification'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="YES (VE unfavorable)" id="formRadiosRightd39"
+                                                {{ isset($Imaging['LEFTTesticularCalcification'][0]) && $Imaging['LEFTTesticularCalcification'][0] == "YES (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd39">
-                                                YES (VE Unfaverable)
+                                                YES (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
@@ -2054,11 +2054,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="YES (VE Unfaverable)" id="formRadiosRightd41"
-                                                {{ isset($Imaging['LEFTEpididemisAbnormality'][0]) && $Imaging['LEFTEpididemisAbnormality'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="YES (VE unfavorable)" id="formRadiosRightd41"
+                                                {{ isset($Imaging['LEFTEpididemisAbnormality'][0]) && $Imaging['LEFTEpididemisAbnormality'][0] == "YES (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd41">
-                                                YES (VE Unfaverable)
+                                                YES (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
@@ -2082,11 +2082,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="YES (VE Unfaverable)" id="formRadiosRightd43"
-                                                {{ isset($Imaging['LEFTHydrocele'][0]) && $Imaging['LEFTHydrocele'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="YES (VE unfavorable)" id="formRadiosRightd43"
+                                                {{ isset($Imaging['LEFTHydrocele'][0]) && $Imaging['LEFTHydrocele'][0] == "YES (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd43">
-                                                YES (VE Unfaverable)
+                                                YES (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
@@ -2146,11 +2146,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="YES (VE Unfaverable)" id="formRadiosRightd16"
-                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="YES (VE unfavorable)" id="formRadiosRightd16"
+                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "YES (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd16">
-                                                YES (VE Unfaverable)
+                                                YES (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
@@ -2202,11 +2202,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="YES (VE Unfaverable)" id="formRadiosRightd20"
-                                                {{ isset($Imaging['RIGHTTesticularCalcification'][0]) && $Imaging['RIGHTTesticularCalcification'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="YES (VE unfavorable)" id="formRadiosRightd20"
+                                                {{ isset($Imaging['RIGHTTesticularCalcification'][0]) && $Imaging['RIGHTTesticularCalcification'][0] == "YES (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd20">
-                                                YES (VE Unfaverable)
+                                                YES (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
@@ -2230,11 +2230,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="YES (VE Unfaverable)" id="formRadiosRightd22"
-                                                {{ isset($Imaging['RIGHTEpididemisAbnormality'][0]) && $Imaging['RIGHTEpididemisAbnormality'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="YES (VE unfavorable)" id="formRadiosRightd22"
+                                                {{ isset($Imaging['RIGHTEpididemisAbnormality'][0]) && $Imaging['RIGHTEpididemisAbnormality'][0] == "YES (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd22">
-                                                YES (VE Unfaverable)
+                                                YES (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
@@ -2258,12 +2258,12 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="YES (VE Unfaverable)" id="formRadiosRightd24"
-                                                {{ isset($Imaging['RIGHTHydrocele'][0]) && $Imaging['RIGHTHydrocele'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="YES (VE unfavorable)" id="formRadiosRightd24"
+                                                {{ isset($Imaging['RIGHTHydrocele'][0]) && $Imaging['RIGHTHydrocele'][0] == "YES (VE unfavorable)" ? 'checked' : '' }}
                                                 
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd24">
-                                                YES (VE Unfaverable)
+                                                YES (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
@@ -4106,7 +4106,7 @@ $("#textarea_76").show();
         
         function validateForm() {
 
-            // focal headache start  
+            // Focal headache start  
             var isChecked_sym_a1 = $("#sym_a1").is(":checked");
            
             var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
@@ -4137,10 +4137,10 @@ $("#textarea_76").show();
 
 
         }
-// focal headache end  
+// Focal headache end  
 
 
-// numbness/ pain to neck or shoulder or arm start
+// Numbness/ pain to neck or shoulder or arm start
 var isChecked_sym_a2 = $("#sym_a2").is(":checked");
            
            var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
@@ -4171,11 +4171,11 @@ var isChecked_sym_a2 = $("#sym_a2").is(":checked");
 
 
        }
-// numbness/ pain to neck or shoulder or arm end 
+// Numbness/ pain to neck or shoulder or arm end 
 
 
 
-// associated with nausea or vomiting start
+// Associated with nausea or vomiting start
 var isChecked_sym_a3 = $("#sym_a3").is(":checked");
            
            var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
@@ -4206,10 +4206,10 @@ var isChecked_sym_a3 = $("#sym_a3").is(":checked");
 
 
        }
-// associated with nausea or vomiting end 
+// Associated with nausea or vomiting end 
 
 
-//  associated with vertigo or drawziness start
+//  Associated with vertigo and drowsiness start
 var isChecked_sym_a4 = $("#sym_a4").is(":checked");
            
            var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
@@ -4240,11 +4240,11 @@ var isChecked_sym_a4 = $("#sym_a4").is(":checked");
 
 
        }
-//  associated with vertigo or drawziness end 
+//  Associated with vertigo and drowsiness end 
 
 
 
-//  associated with blurring / visual disturbances start
+//  Associated with blurring / visual disturbances start
 var isChecked_sym_a5 = $("#sym_a5").is(":checked");
            
            var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
@@ -4275,7 +4275,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
 
 
        }
-//  associated with blurring / visual disturbances end 
+//  Associated with blurring / visual disturbances end 
 
 
 

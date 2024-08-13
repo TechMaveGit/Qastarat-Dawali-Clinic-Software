@@ -103,9 +103,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[Venousuicer][]" id="formRadiosRight6"
-                                                value="Venous uicer">
+                                                value="Venous ulcer">
                                             <label class="form-check-label" for="formRadiosRight6">
-                                                Venous uicer
+                                                Venous ulcer
                                             </label>
                                         </div>
                                     </div>

@@ -1,6 +1,6 @@
 @extends('back.layout.main_view')
 @push('title')
-Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
+Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
 @endpush
 @push('custom-css')
     <style>
@@ -35,7 +35,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
                     <input type="hidden" name="form_type" value="HaemorrhoidsEmbo" />
 
-                    <h3 class="form_title">Haemorrhoids Embo (HE)</h3>
+                    <h3 class="form_title">Hemorrhoids Embo (HE)</h3>
 
                     <div class="form_data">
                         <h6 class="section_title__">Diagnosis</h6>
@@ -59,7 +59,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                             
 
                                             $existingData = [
-                                                'Haemorrhoids' => ['Haemorrhoids'],
+                                                'Hemorrhoids' => ['Hemorrhoids'],
                                                 'Analpain' => ['Anal pain'],
                                                 'LowerGIBleed' => ['Lower GI Bleed'],
                                                 'Perinealvaricosities' => ['Perineal varicosities'],
@@ -77,11 +77,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Haemorrhoids][]" id="formRadiosRight1"
-                                                {{ isset($diagnosis_generals['Haemorrhoids']) && in_array('Haemorrhoids', $diagnosis_generals['Haemorrhoids']) ? 'checked' : '' }}
-                                                value="Haemorrhoids">
+                                                name="diagnosis_general[Hemorrhoids][]" id="formRadiosRight1"
+                                                {{ isset($diagnosis_generals['Hemorrhoids']) && in_array('Hemorrhoids', $diagnosis_generals['Hemorrhoids']) ? 'checked' : '' }}
+                                                value="Hemorrhoids">
                                             <label class="form-check-label" for="formRadiosRight1">
-                                                Haemorrhoids
+                                                Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
@@ -221,18 +221,18 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                             }
                                             $existingData = [
                                                 'D129' => ['D12.9 Benign neoplasm: Anus and anal canal'],
-                                                'K64' => ['K64 Haemorrhoids and perianal venous thrombosis'],
-                                                'K640' => ['K64.0 First degree haemorrhoids'],
-                                                'K641' => ['K64.1 Second degree haemorrhoids'],
-                                                'K642' => ['K64.2 Third degree haemorrhoids'],
-                                                'K643' => ['K64.3 Fourth degree haemorrhoids'],
+                                                'K64' => ['K64 Hemorrhoids and perianal venous thrombosis'],
+                                                'K640' => ['K64.0 First degree Hemorrhoids'],
+                                                'K641' => ['K64.1 Second degree Hemorrhoids'],
+                                                'K642' => ['K64.2 Third degree Hemorrhoids'],
+                                                'K643' => ['K64.3 Fourth degree Hemorrhoids'],
                                                 'K644' => ['K64.4 Residual haemorrhoidal skin tags'],
-                                                'K648' => ['K64.8 Other specified haemorrhoids'],
-                                                'K649' => ['K64.9 Haemorrhoids, unspecified'],
+                                                'K648' => ['K64.8 Other specified Hemorrhoids'],
+                                                'K649' => ['K64.9 Hemorrhoids, unspecified'],
                                                 'a022' => ['022 Venous complications and hemorrhoids in pregnancy'],
-                                                'a0224' => ['022.4 Haemorrhoids in pregnancy'],
+                                                'a0224' => ['022.4 Hemorrhoids in pregnancy'],
                                                 'a087' => ['087 Venous complications and hemorrhoids in the puerperium'],
-                                                'a0872' => ['087.2 Haemorrhoids in the puerperium']
+                                                'a0872' => ['087.2 Hemorrhoids in the puerperium']
                                                 
                                                
                                             ];
@@ -253,50 +253,50 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K64][]"
-                                                id="formRadiosRight9" value="K64 Haemorrhoids and perianal venous thrombosis"
-                                                {{ isset($diagnosis_cids['K64']) && in_array('K64 Haemorrhoids and perianal venous thrombosis', $diagnosis_cids['K64']) ? 'checked' : '' }}>
+                                                id="formRadiosRight9" value="K64 Hemorrhoids and perianal venous thrombosis"
+                                                {{ isset($diagnosis_cids['K64']) && in_array('K64 Hemorrhoids and perianal venous thrombosis', $diagnosis_cids['K64']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight9">
-                                                K64 Haemorrhoids and perianal venous thrombosis
+                                                K64 Hemorrhoids and perianal venous thrombosis
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K640][]"
-                                                id="formRadiosRight10" value="K64.0 First degree haemorrhoids"
-                                                {{ isset($diagnosis_cids['K640']) && in_array('K64.0 First degree haemorrhoids', $diagnosis_cids['K640']) ? 'checked' : '' }}>
+                                                id="formRadiosRight10" value="K64.0 First degree Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K640']) && in_array('K64.0 First degree Hemorrhoids', $diagnosis_cids['K640']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight10">
-                                                K64.0 First degree haemorrhoids
+                                                K64.0 First degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K641][]"
-                                                id="formRadiosRight11K641" value="K64.1 Second degree haemorrhoids"
-                                                {{ isset($diagnosis_cids['K641']) && in_array('K64.1 Second degree haemorrhoids', $diagnosis_cids['K641']) ? 'checked' : '' }}>
+                                                id="formRadiosRight11K641" value="K64.1 Second degree Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K641']) && in_array('K64.1 Second degree Hemorrhoids', $diagnosis_cids['K641']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight11K641">
-                                                K64.1 Second degree haemorrhoids
+                                                K64.1 Second degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K642][]"
-                                                id="formRadiosRight12K642" value="K64.2 Third degree haemorrhoids"
-                                                {{ isset($diagnosis_cids['K642']) && in_array('K64.2 Third degree haemorrhoids', $diagnosis_cids['K642']) ? 'checked' : '' }}>
+                                                id="formRadiosRight12K642" value="K64.2 Third degree Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K642']) && in_array('K64.2 Third degree Hemorrhoids', $diagnosis_cids['K642']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight12K642">
-                                                K64.2 Third degree haemorrhoids
+                                                K64.2 Third degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K643][]"
-                                                id="formRadiosRight13K643" value="K64.3 Fourth degree haemorrhoids"
-                                                {{ isset($diagnosis_cids['K643']) && in_array('K64.3 Fourth degree haemorrhoids', $diagnosis_cids['K643']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13K643" value="K64.3 Fourth degree Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K643']) && in_array('K64.3 Fourth degree Hemorrhoids', $diagnosis_cids['K643']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13K643">
-                                                K64.3 Fourth degree haemorrhoids
+                                                K64.3 Fourth degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
@@ -313,20 +313,20 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K648][]"
-                                                id="formRadiosRight13K648" value="K64.8 Other specified haemorrhoids"
-                                                {{ isset($diagnosis_cids['K648']) && in_array('K64.8 Other specified haemorrhoids', $diagnosis_cids['K648']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13K648" value="K64.8 Other specified Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K648']) && in_array('K64.8 Other specified Hemorrhoids', $diagnosis_cids['K648']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13K648">
-                                                K64.8 Other specified haemorrhoids
+                                                K64.8 Other specified Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K649][]"
-                                                id="formRadiosRight13K649" value="K64.9 Haemorrhoids, unspecified"
-                                                {{ isset($diagnosis_cids['K649']) && in_array('K64.9 Haemorrhoids, unspecified', $diagnosis_cids['K649']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13K649" value="K64.9 Hemorrhoids, unspecified"
+                                                {{ isset($diagnosis_cids['K649']) && in_array('K64.9 Hemorrhoids, unspecified', $diagnosis_cids['K649']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13K649">
-                                                K64.9 Haemorrhoids, unspecified
+                                                K64.9 Hemorrhoids, unspecified
                                             </label>
                                         </div>
                                     </div>
@@ -343,10 +343,10 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[a0224][]"
-                                                id="formRadiosRight13a0224" value="022.4 Haemorrhoids in pregnancy"
-                                                {{ isset($diagnosis_cids['a0224']) && in_array('022.4 Haemorrhoids in pregnancy', $diagnosis_cids['a0224']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13a0224" value="022.4 Hemorrhoids in pregnancy"
+                                                {{ isset($diagnosis_cids['a0224']) && in_array('022.4 Hemorrhoids in pregnancy', $diagnosis_cids['a0224']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13a0224">
-                                                022.4 Haemorrhoids in pregnancy
+                                                022.4 Hemorrhoids in pregnancy
                                             </label>
                                         </div>
                                     </div>
@@ -363,10 +363,10 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" id="Postpartum_thyroiditis">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[a0872][]"
-                                                id="formRadiosRight13a0872" value="087.2 Haemorrhoids in the puerperium"
-                                                {{ isset($diagnosis_cids['a0872']) && in_array('087.2 Haemorrhoids in the puerperium', $diagnosis_cids['a0872']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13a0872" value="087.2 Hemorrhoids in the puerperium"
+                                                {{ isset($diagnosis_cids['a0872']) && in_array('087.2 Hemorrhoids in the puerperium', $diagnosis_cids['a0872']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13a0872">
-                                                087.2 Haemorrhoids in the puerperium
+                                                087.2 Hemorrhoids in the puerperium
                                             </label>
                                         </div>
                                     </div>
@@ -1414,7 +1414,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
 
                                         <div class="row align-items-center">
                                             <div class="col-lg-4">
-                                                <h6 class="mb-3 lut_title">Fistula in ano</h6>
+                                                <h6 class="mb-3 lut_title">Fistula in anal</h6>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2271,7 +2271,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">Fistula in ano</h6>
+                                          <h6 class="mb-3 lut_title">Fistula in anal</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -3673,7 +3673,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{  ($VaricoceleEmboForm && $VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/Haemorrhoids Embo.jpg') }}';
+    imageObj.src = '{{  ($VaricoceleEmboForm && $VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/Hemorrhoids Embo.jpg') }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({
@@ -3813,7 +3813,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                                     {
                                        Swal.fire({
                                                 title: 'Success',
-                                                text: 'Haemorrhoids Embo form updated successfully!!',
+                                                text: 'Hemorrhoids Embo form updated successfully!!',
                                                 icon: 'success',
                                                 timer: 2000, // Display for 2 seconds
                                                 timerProgressBar: true, // Show progress bar

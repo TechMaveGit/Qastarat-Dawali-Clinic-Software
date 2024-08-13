@@ -2327,7 +2327,7 @@
                                 <div class="symp_title mb-3">
                                     <h6><span class="point_dia"><i
                                                 class="fa-regular fa-circle-dot"></i></span>
-                                                USBIOPSYPROSTETE690 / Prostate AdenoCarcinoma</h6>
+                                                USBIOPSYPROSTETE690 / Prostate Adeno Carcinoma</h6>
                                 </div>
                                     
                                         <div class="symp_title mb-3">
@@ -2341,7 +2341,7 @@
                                     
 
                             </div>
-                            <!-- USBIOPSYPROSTETE690 / Prostate AdenoCarcinoma  end -->
+                            <!-- USBIOPSYPROSTETE690 / Prostate Adeno Carcinoma  end -->
                                                                     </div>
 
 
