@@ -363,8 +363,7 @@
                                                         <ul class="scroll_list allergiesdtl">
 
                                                             @if ($checkGenerateData->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                             @else
                                                                 @foreach ($checkGenerateData as $key => $report)
                                                                     <li>
@@ -458,7 +457,7 @@
 
 
                                                         @if ($patient_allergies->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
                                                                 <li>{{ $patient_allergy->allergy_name }}
@@ -535,8 +534,7 @@
                                                         <ul id="past_medical_histories"
                                                             class="allergiesdtl scroll_list allergiesdtl">
                                                             @if ($patient_past_history->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>.
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                             @else
                                                                 @foreach ($patient_past_history as $past_history)
                                                                     <li>
@@ -637,8 +635,7 @@
 
                                                         <ul class="scroll_list allergiesdtl">
                                                             @if ($patient_past_surgical->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>.
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                             @else
                                                                 @foreach ($patient_past_surgical as $past_surgical)
                                                                     <li>
@@ -732,8 +729,7 @@
 
                                                         <ul class="scroll_list">
                                                             @if ($patient_current_med->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                             @else
                                                                 @foreach ($patient_current_med as $patient_current)
                                                                     <li>
@@ -805,8 +801,7 @@
                                                     <div class="appointments___list past_medical_history_ak">
                                                         <ul class="scroll_list">
                                                             @if ($procedures->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                             @else
                                                                 @foreach ($procedures as $procedure)
                                                                     <li>
@@ -1012,8 +1007,7 @@
                                                                     ->get();
                                                             @endphp
                                                             @if ($visit_notes->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>.
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                             @else
                                                                 @foreach ($visit_notes as $visit)
                                                                     <li>
@@ -1078,8 +1072,7 @@
 
                                                         <ul class="allergiesdtl scroll_list">
                                                             @if ($prescriptions->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                             @else
                                                                 @foreach ($prescriptions as $prescription)
                                                                     <li>
@@ -1764,7 +1757,7 @@
                                                                                     <div class="ss_result_box">
                                                                                         <div class="symp_title mb-1">
                                                                                             <span style="font-size:10px;">
-                                                                                                No Data Found </span>
+                                                                                                {{-- No Data Found </span> --}}
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>

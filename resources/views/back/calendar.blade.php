@@ -402,7 +402,7 @@
                 </div>
 
                 <div class="modal-body p-4">
-                    <form class="needs-validation" name="event-form" id="form-event" novalidate method="POST">
+                    <form class="needs-validation" novalidate name="event-form" id="form-event"  method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-lg-12" id="appoinment_book_bx">
@@ -411,8 +411,8 @@
 
 
                                     <div class="col-12 mb-3">
-                                        <select class="form-control select2_modal_fir" id="priority" name="priority">
-                                            <option selected> --Select Priority-- </option>
+                                        <select class="form-control select2_modal_fir" id="priority" required name="priority">
+                                            <option > --Select Priority-- </option>
                                             <option value="bg-danger">High</option>
                                             <option value="bg-success">Medium</option>   
                                             <option value="bg-primary">Low</option>
@@ -433,7 +433,7 @@
                                                                 value="{{ $_GET['patientId'] }}" id="patientId" />
                                                         @else
                                                             <label class="form-label">Patient</label>
-                                                            <select class="form-control select2_modal" name="patintValue"
+                                                            <select class="form-control select2_modal" required name="patintValue"
                                                                 id="patient_id">
                                                                 <option value=""> --Select-- </option>
                                                                 @forelse ($patients as $patient)
@@ -475,7 +475,7 @@
                                     <div class="col-lg-6">
                                         <div class="inner_element">
                                             <div class="form-group">
-                                                <select class="form-control select2_modal" name="location"id="location">
+                                                <select class="form-control select2_modal" name="location" id="location" required>
                                                     @forelse ($locations as $alllocations)
                                                         <option value="{{ $alllocations->branch_name }}">{{ $alllocations->branch_name }}</option>
                                                     @empty
@@ -488,7 +488,7 @@
                                         <div class="inner_element">
                                             <div class="form-group">
                                                 <input type="hidden" id="event_id" name="event_id" value="">
-                                                <input type="text" class="form-control datepickerInput"
+                                                <input type="text" required class="form-control datepickerInput"
                                                     placeholder="Y-m-d" name="start_date">
                                             </div>
                                         </div>
@@ -496,7 +496,7 @@
                                     <div class="col-lg-3">
                                         <div class="inner_element">
                                             <div class="form-group">
-                                                <input type="time" class="form-control" placeholder="12:00"
+                                                <input type="time" required class="form-control" id="start_time" placeholder="12:00"
                                                     name="start_time">
                                             </div>
                                         </div>
@@ -504,7 +504,7 @@
                                     <div class="col-lg-3">
                                         <div class="inner_element">
                                             <div class="form-group">
-                                                <input type="time" class="form-control" placeholder="12:00"
+                                                <input type="time" id="end_time" required class="form-control" placeholder="12:00"
                                                     name="end_time">
                                             </div>
                                         </div>
@@ -512,7 +512,7 @@
                                     <div class="col-lg-4">
                                         <div class="inner_element">
                                             <div class="form-group">
-                                                <select class="form-control select2_modal" name="doctor_id"
+                                                <select class="form-control select2_modal" required name="doctor_id"
                                                     id="clinician_id">
                                                     <option value="">Select Clinician</option>
                                                     @forelse ($doctors as $doctor)
@@ -772,7 +772,7 @@
                             <div class="col-6 text-end d-flex justify-content-end">
                                 <button type="button" id="closebtn" class="btn btn_calender_cus btn-light me-1"
                                     data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="savebtn" class="btn btn_calender_cus btn-success"
+                                <button type="submit"  class="btn btn_calender_cus btn-success"
                                     id="btn-save-event">Save</button>
                             </div>
                         </div>
@@ -1949,7 +1949,6 @@ if($(this).val() == "Other"){
 
                         eventClick: function(info) {
 
-
                             modal.find('.modal-title').text('Edit Appointment');
                             form[0].reset();
                             form.find('#btn-save-event').text('Update');
@@ -1988,6 +1987,16 @@ if($(this).val() == "Other"){
 
                                 return year + '-' + month + '-' + day;
                             }
+
+
+                            function compareTwoDates(d2) {
+                                const date1 = new Date();
+                                const date2 = new Date(d2);
+                                return date1 - date2;
+                            }
+
+                            
+
                             if (info.event.end) {
                                 var formatendDate = new Date(info.event.end);
                                 var formattedEndDate = formatDate(formatendDate);
@@ -1999,6 +2008,16 @@ if($(this).val() == "Other"){
                                 var formattedStartDate = formatDate(startDate);
                                 form.find('input[name="start_date"]').val(formattedStartDate);
                             }
+
+                            
+
+                            let datesComparisonResult = compareTwoDates(formattedStartDate);
+                            $("#btn-delete-event").css("display","block");
+                            $("#btn-save-event").css("display","block");
+                            if (datesComparisonResult > 0) { 
+                                $("#btn-delete-event").css("display","none");
+                                $("#btn-save-event").css("display","none");
+                            } 
 
 
                             form.find('input[name="start_time"]').val(info.event.extendedProps.start_time)
@@ -2072,36 +2091,81 @@ if($(this).val() == "Other"){
 
                         e.preventDefault();
 
-                        if (!$('#priority').val()) {
-                            $('#priorityError').text('priority is required');
-                            isValid = false;
-                        }
-
-
-                        var formData = $(this).serialize();
-                        $.ajax({
-                            url: '{{ route('user.calendar.event') }}',
-                            type: 'POST',
-                            data: formData,
-                            success: function(response) {
-
-                                if (response.message) {
-                                    Swal.fire({
-                                        title: 'Success',
-                                        text: response.message,
-                                        icon: 'success',
-                                        showConfirmButton: false, // Hide the default "OK" button
-                                        timer: 2000 // Display the message for 2 seconds
-                                    }).then(function() {
-                                        window.location.reload();
-                                    });
+                        if (!$('#priority').val() || $('#priority').val()=="") {
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Priority field is required.',
+                                icon: 'warning',
+                            });
+                        }else if(!$('#patientId').val() || $('#patientId').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Patient field is required.',
+                                icon: 'warning',
+                            });
+                            
+                        }else if(!$('#patient_id').val() || $('#patient_id').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Appoinment type field is required.',
+                                icon: 'warning',
+                            });
+                            
+                        }else if(!$('#location').val() || $('#location').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Location field is required.',
+                                icon: 'warning',
+                            });
+                            
+                        }else if(!$('#event_id').val() || $('#event_id').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Event field is required.',
+                                icon: 'warning',
+                            });
+                        }else if(!$('#start_time').val() || $('#start_time').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Start time field is required.',
+                                icon: 'warning',
+                            });
+                        }else if(!$('#end_time').val() || $('#end_time').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'End time field is required.',
+                                icon: 'warning',
+                            });
+                        }else if(!$('#clinician_id').val() || $('#clinician_id').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Clinician field is required.',
+                                icon: 'warning',
+                            });
+                        }else{
+                            var formData = $(this).serialize();
+                            $.ajax({
+                                url: '{{ route('user.calendar.event') }}',
+                                type: 'POST',
+                                data: formData,
+                                success: function(response) {
+                                    if (response.message) {
+                                        Swal.fire({
+                                            title: 'Success',
+                                            text: response.message,
+                                            icon: 'success',
+                                            showConfirmButton: false, // Hide the default "OK" button
+                                            timer: 2000 // Display the message for 2 seconds
+                                        }).then(function() {
+                                            window.location.reload();
+                                        });
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error(error);
                                 }
-
-                            },
-                            error: function(xhr, status, error) {
-                                console.error(error);
-                            }
-                        });
+                            });
+                        }
                     });
 
                     deleteButton.on('click', function() {
@@ -2511,7 +2575,7 @@ if($(this).val() == "Other"){
 
                     var closeButton = document.getElementById('closebtn');
                     // Find the save button by ID
-                    var saveButton = document.getElementById('savebtn');
+                    var saveButton = document.getElementById('btn-save-event');
 
                     // Hide the close button
                     if (closeButton) {
@@ -2531,7 +2595,7 @@ if($(this).val() == "Other"){
 
                     var closeButton = document.getElementById('closebtn');
                     // Find the save button by ID
-                    var saveButton = document.getElementById('savebtn');
+                    var saveButton = document.getElementById('btn-save-event');
 
                     // Show the close button if it exists
                     if (closeButton) {

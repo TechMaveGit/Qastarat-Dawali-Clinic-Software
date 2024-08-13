@@ -624,7 +624,7 @@ foreach($D as $v)
 						if (result.error==200) {
 							swal.fire(
 								'Success',
-								'Task Assigend Successfully!',
+								'Task Assigned Successfully!',
 								'success'
 							).then(function() {
                                         window.location.reload();

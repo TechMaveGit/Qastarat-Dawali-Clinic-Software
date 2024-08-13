@@ -272,7 +272,7 @@
                                                 <div class="appointments___list past_medical_history_ak">
                                                     <ul class="scroll_list" >
                                                         @if ($checkGenerateData->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
 
                                                             @foreach ($checkGenerateData as $key => $report)
@@ -355,7 +355,7 @@
                                                       
 
                                                         @if ($patient_allergies->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
                                                                 <li>{{ $patient_allergy->allergy_name }}
@@ -417,7 +417,7 @@
                                                     
                                                         <ul id="past_medical_histories" class="allergiesdtl scroll_list allergiesdtl">
                                                             @if ($patient_past_history->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                             @else
                                                                 @foreach ($patient_past_history as $past_history)
                                                                     <li>
@@ -512,7 +512,7 @@
                                                   
                                                         <ul class="scroll_list allergiesdtl">
                                                             @if ($patient_past_surgical->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                             @else
                                                                 @foreach ($patient_past_surgical as $past_surgical)
                                                                     <li>
@@ -604,7 +604,7 @@
 
                                                     <ul class="scroll_list">
                                                         @if ($patient_current_med->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                         @else
                                                             @foreach ($patient_current_med as $patient_current)
                                                                 <li>
@@ -671,7 +671,7 @@
                                                 <div class="appointments___list past_medical_history_ak">
                                                     <ul class="scroll_list">
                                                         @if ($procedures->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                         @else
                                                             @foreach ($procedures as $procedure)
                                                                 <li>
@@ -818,7 +818,7 @@
    
                                                        @empty
                                                        <li>
-                                                           <p>No Data Found</p>
+                                                           {{-- <p>No Data Found</p> --}}
                                                        </li>
                                                            
                                                        @endforelse
@@ -864,7 +864,7 @@
                                                     <ul>
                                                         
                                                         @if ($visit_notes->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                         @else
                                                             @foreach ($visit_notes as $visit)
                                                                 <li>
@@ -935,7 +935,7 @@
 
                                                     <ul>
                                                         @if ($prescriptions->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                         @else
                                                             @foreach ($prescriptions as $prescription)
                                                                 <li>
@@ -1091,7 +1091,7 @@
                                                                     <span class="separation">|</span>
                                                                     @endif
                                                                       @empty
-                                                                      <small style="font-size:10px;">No Data Found</small>
+                                                                      {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                                     @endforelse
                                                                     </p>
                                                                     @if(isset($diagnosis_general) && isset($diagnosis_general->created_at))
@@ -1142,7 +1142,7 @@
                                                                     <span class="separation">|</span>
                                                                     @endif
                                                                       @empty
-                                                                      <small style="font-size:10px;">No Data Found</small>
+                                                                      {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                                     @endforelse
                                                                     </p>
                                                                     @if(isset($diagnosis_cid) && isset($diagnosis_cid->created_at))
@@ -1258,7 +1258,7 @@
                                                           </li>
                                                          
                                                           @empty
-                                                          <small style="font-size:10px;">No Data Found</small>
+                                                          {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                       @endforelse
 
                                                       @forelse ($document_file as $alldocument_file)
@@ -1567,7 +1567,7 @@
                                                             </div>
                                                         </li>
                                                         @empty
-                                                            <small style="font-size:10px;">No Data Found</small>
+                                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                         @endforelse
 
                                                         @endif
@@ -1851,7 +1851,7 @@
 
                                                                             </div>
                                                                             @empty
-                                                                            <small style="font-size:10px;">No Data Found</small>
+                                                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                                             @endforelse
                                                                             @forelse ($leftLobeScores as $record)
                                                                             <div class="symp_title mb-3">
@@ -2343,7 +2343,7 @@
                                                             </div>
                                                         </li>
                                                         @empty
-                                                        <small style="font-size:10px;">No Data Found</small>
+                                                        {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                         @endforelse
                                                         @endif
 
@@ -2516,7 +2516,7 @@
                                                         </li>
                                                         
                                                         @empty
-                                                        <small style="font-size:10px;">No Data Found</small>
+                                                        {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                         @endforelse
                                                         @endif
                                                     </ul>
@@ -2842,7 +2842,7 @@
                                                                     </div>
                                                                 </li>
                                                             @empty
-                                                                <small style="font-size:10px;">No Data Found</small>
+                                                                {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                             @endforelse
 
 
@@ -2953,7 +2953,7 @@
                                                                     </div>
                                                                 </li>
                                                             @empty
-                                                                <small style="font-size:10px;">No Data Found</small>
+                                                                {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                             @endforelse
                                                         @endif
 
@@ -3083,7 +3083,7 @@
                 
                                                             </li>
                                                             @empty
-                                                                <small style="font-size:10px;">No Data Found</small>
+                                                                {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                             @endforelse
                                                         @endif
 
@@ -3217,7 +3217,7 @@
                 
                                                             </li>
                                                             @empty
-                                                                <small style="font-size:10px;">No Data Found</small>
+                                                                {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                             @endforelse
                                                         @endif
 

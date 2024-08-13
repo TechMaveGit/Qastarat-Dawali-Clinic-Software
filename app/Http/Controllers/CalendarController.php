@@ -17,11 +17,14 @@ class CalendarController extends Controller
         $doctors=Doctor::select('id','name')->where('role_id','1')->orderBy('id','desc')->get();
         $patients=User::select('id','name')->orderBy('id','desc')->get();
 
-        $book_appointments= DB::table('book_appointments')->select('appointment_type')->distinct()->get();
-
+        
         $users=DB::table('users')->orderBy('id','desc')->get();
         $locations=DB::table('branchs')->orderBy('id','desc')->get();
         $pathology_price_list = DB::table('pathology_price_list')->where('status','1')->get();
+        $book_appointments= null;
+        if($pathology_price_list){
+            $book_appointments= DB::table('book_appointments')->select('appointment_type')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->distinct()->get();
+        }
 
         $patho_types = $pathology_price_list ? $pathology_price_list->unique('price_type')->pluck('price_type') : [];
 

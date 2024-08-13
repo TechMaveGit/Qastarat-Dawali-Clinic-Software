@@ -322,7 +322,7 @@
                                                         @endphp
 
                                                         @if ($patient_allergies->isEmpty())
-                                                            <li>No Data Found.</li>
+                                                            {{-- <li>No Data Found.</li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
                                                                 <li>{{ $patient_allergy->allergy_name }}
@@ -1057,7 +1057,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
                                                 </div>
@@ -1092,7 +1092,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
 
@@ -1176,7 +1176,7 @@
 
 
                                                         @empty
-                                                            <p>No Data Found</p>
+                                                            {{-- <p>No Data Found</p> --}}
                                                         @endforelse
                                                     </ul>
                                                 </div>
@@ -1294,7 +1294,7 @@
                                                                 }}
 
                                                             @empty
-                                                                <p>No Data Found</p>
+                                                                {{-- <p>No Data Found</p> --}}
                                                         @endforelse
 
                                                     </ul>
@@ -1386,7 +1386,7 @@
                                                         @endforeach
                                                     @endforeach
                                                 @else
-                                                    <p>No Data Found</p>
+                                                    {{-- <p>No Data Found</p> --}}
                                                 @endif
 
 
@@ -1475,7 +1475,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
                                                 </div>
@@ -1567,7 +1567,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
                                                 </div>
@@ -1656,7 +1656,7 @@
                                                         @endforeach
                                                     @endforeach
                                                 @else
-                                                    <p>No Data Found</p>
+                                                    {{-- <p>No Data Found</p> --}}
                                                 @endif
                                             </div>
                                         </div>
@@ -1741,7 +1741,7 @@
                                                         @endforeach
                                                     @endforeach
                                                 @else
-                                                    <p>No Data Found</p>
+                                                    {{-- <p>No Data Found</p> --}}
                                                 @endif
                                             </div>
                                         </div>
@@ -1825,7 +1825,7 @@
                                                         @endforeach
                                                     @endforeach
                                                 @else
-                                                    <p>No Data Found</p>
+                                                    {{-- <p>No Data Found</p> --}}
                                                 @endif
                                             </div>
                                         </div>
