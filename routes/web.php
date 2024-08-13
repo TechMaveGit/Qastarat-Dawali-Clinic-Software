@@ -366,7 +366,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::get('view-VaricoceleEmbo-Form/{id}', [PatientController::class, 'viewVaricoceleEmboEligibilityForms'])->name('user.viewVaricoceleEmboEligibilityForms');
     // end
 
-    // Haemorrhoids Embo (HE) Form start
+    // Hemorrhoids Embo (HE) Form start
     Route::get('haemorrhoidsembo-eligibility-form/{patient_id}', [PatientController::class, 'HaemorrhoidsEmboEmbolizationEligibilityForms'])->name('user.HaemorrhoidsEmbolizationEligibilityForms');
     Route::post('store-haemorrhoidsembo-eligibilityForms', [PatientController::class, 'storeHaemorrhoidsEmboEligibilityForms'])->name('user.storeHaemorrhoidsEmboEligibilityForms');
     Route::get('haemorrhoidsembo-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editHaemorrhoidsEmboEligibilityForms'])->name('user.editHaemorrhoidsEmboEligibilityForms');

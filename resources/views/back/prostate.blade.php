@@ -72,10 +72,10 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Prostaitis][]" id="formRadiosRight3"
-                                                value="Prostaitis">
+                                                name="diagnosis_general[Prostatitis][]" id="formRadiosRight3"
+                                                value="Prostatitis">
                                             <label class="form-check-label" for="formRadiosRight3">
-                                                Prostaitis
+                                                Prostatitis
                                             </label>
                                         </div>
                                     </div>
@@ -103,9 +103,9 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[PostateCarcinoma][]" id="formRadiosRight6"
-                                                value="Postate Carcinoma">
+                                                value="Prostate Carcinoma">
                                             <label class="form-check-label" for="formRadiosRight6">
-                                                Postate Carcinoma
+                                                Prostate Carcinoma
                                             </label>
                                         </div>
                                     </div>
@@ -174,9 +174,9 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[D075][]"
-                                                id="formRadiosRight9" value="D07.5 Carcinoma in situ: Prostate">
+                                                id="formRadiosRight9" value="D07.5 Carcinoma in site: Prostate">
                                             <label class="form-check-label" for="formRadiosRight9">
-                                                D07.5 Carcinoma in situ: Prostate
+                                                D07.5 Carcinoma in site: Prostate
                                             </label>
                                         </div>
                                     </div>
@@ -1706,9 +1706,9 @@
                                     </div> 
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL703][]" value="TPV > 40 cc (PAE FAVERABLE)" id="formRadiosRight50">
+                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL703][]" value="TPV > 40 cc (PAE favorable)" id="formRadiosRight50">
                                             <label class="form-check-label" for="formRadiosRight50">
-                                            TPV > 40 cc (PAE FAVERABLE)
+                                            TPV > 40 cc (PAE favorable)
                                             </label>
                                         </div>
                                     </div> 
@@ -1774,9 +1774,9 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR486][]" value="TPV > 40 cc (PAE FAVERABLE)" id="formRadiosRight57">
+                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR486][]" value="TPV > 40 cc (PAE favorable)" id="formRadiosRight57">
                                             <label class="form-check-label" for="formRadiosRight57">
-                                            TPV > 40 cc (PAE FAVERABLE)
+                                            TPV > 40 cc (PAE favorable)
                                             </label>
                                         </div>
                                     </div>
@@ -1802,9 +1802,9 @@
                                       </div> 
                                       <div class="col-lg-6">
                                           <div class="form-check form-check-right mb-3">
-                                              <input class="form-check-input" type="radio" name="Imaging[BPHtype][]" value="AdBPH (PAE FAVERABLE)" id="formRadiosRight60">
+                                              <input class="form-check-input" type="radio" name="Imaging[BPHtype][]" value="AdBPH (PAE favorable)" id="formRadiosRight60">
                                               <label class="form-check-label" for="formRadiosRight60">
-                                              AdBPH (PAE FAVERABLE)
+                                              AdBPH (PAE favorable)
                                               </label>
                                           </div>
                                       </div>
@@ -1985,7 +1985,7 @@
        
                                    <div class="row align-items-center">
                                    <div class="col-lg-4">
-                                           <h6 class="mb-3 lut_title">Prostate AdenoCarcinoma</h6>
+                                           <h6 class="mb-3 lut_title">Prostate Adeno Carcinoma</h6>
                                        </div>
                                            <div class="col-lg-4">
                                            <div class="form-check form-check-right mb-3">
@@ -2158,9 +2158,9 @@
                                               </div>
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[QMax][]" value="10ml/s (BOO) (PAE FAVERABLE)" id="formRadiosRight79">
+                                                      <input class="form-check-input"type="radio" name="Lab[QMax][]" value="10ml/s (BOO) (PAE favorable)" id="formRadiosRight79">
                                                       <label class="form-check-label" for="formRadiosRight79">
-                                                      &#60;10ml/s (BOO) (PAE FAVERABLE)
+                                                      &#60;10ml/s (BOO) (PAE favorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2180,9 +2180,9 @@
                                               </div>
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[PVR][]" value="> 200cc (BOO) (PAE FAVERABLE)" id="formRadiosRight81">
+                                                      <input class="form-check-input"type="radio" name="Lab[PVR][]" value="> 200cc (BOO) (PAE favorable)" id="formRadiosRight81">
                                                       <label class="form-check-label" for="formRadiosRight81">
-                                                      > 200cc (BOO) (PAE FAVERABLE)
+                                                      > 200cc (BOO) (PAE favorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2317,9 +2317,11 @@
             
                                       </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a href="javascript:void(0)"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2397,9 +2399,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2534,9 +2538,11 @@
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="row">

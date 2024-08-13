@@ -9,6 +9,10 @@
         .imageSize {
             width: 100px;
         }
+
+        .detail_ans{
+		width: 35% !important;
+	}
     </style>
 
     <div class="content-wrapper">

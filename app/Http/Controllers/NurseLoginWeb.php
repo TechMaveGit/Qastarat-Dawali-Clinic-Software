@@ -19,28 +19,28 @@ class NurseLoginWeb extends Controller
         $user=DB::table('doctors')->select('id','role_id','user_type')->where('id',$user_id)->first();
 
         if($user->role_id =="1"){ 
-            $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->get();
+            $nurse_tasks=DB::table('tasks')->where('test_type','!=','other')->orderBy('created_at', 'DESC')->get();
             return view('back/doctor_task', compact('nurse_tasks'));   
         }     
 
         elseif($user->role_id =="10" || $user->role_id =="11"){
-            $nurse_tasks = DB::table('tasks')->orderBy('created_at', 'DESC')->get();
+            $nurse_tasks = DB::table('tasks')->where('test_type','!=','other')->orderBy('created_at', 'DESC')->get();
             return view('back/receptionist_task', compact('nurse_tasks'));
         }
 
         elseif($user->role_id =="2"){
-            $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->where('assigned','!=','9')->where('assignTo',$user->id)->get();
+            $nurse_tasks=DB::table('tasks')->where('test_type','!=','other')->orderBy('created_at', 'DESC')->where('assigned','!=','9')->where('assignTo',$user->id)->get();
          //   dd($nurse_tasks);
             return view('back/nurse_task', compact('nurse_tasks'));
         }
 
         elseif($user->user_type =="pathology" || $user->user_type =="radiology"){
           
-             $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->where('assignToLabPerson',$user->id)->whereNotNull('assignToLab')->where('assignToLab','1')->get();
+             $nurse_tasks=DB::table('tasks')->where('test_type','!=','other')->orderBy('created_at', 'DESC')->where('assignToLabPerson',$user->id)->whereNotNull('assignToLab')->where('assignToLab','1')->get();
             return view('back/lab_task', compact('nurse_tasks'));
         }
 
-      $nurse_tasks= DB::table('nurse_tasks')->where('nurse_id',$user_id)->get();
+      $nurse_tasks= DB::table('nurse_tasks')->where('test_type','!=','other')->where('nurse_id',$user_id)->get();
       
 
     }

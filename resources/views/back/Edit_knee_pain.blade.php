@@ -912,7 +912,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                     $disfiguringSymptoms3 = $symptom;
                                                                 }elseif ($symptom['SymptomType'] === 'Knee swellimg') {
                                                                     $disfiguringSymptoms4 = $symptom;
-                                                                }elseif ($symptom['SymptomType'] === 'Restricted knee flextion') {
+                                                                }elseif ($symptom['SymptomType'] === 'Restricted knee flexion') {
                                                                     $disfiguringSymptoms5 = $symptom;
                                                                 }elseif ($symptom['SymptomType'] === 'Restricted Walking / running') {
                                                                     $disfiguringSymptoms6 = $symptom;
@@ -1180,11 +1180,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[4][0]" id="sym_a5" value="Restricted knee flextion"
-                                                        {{ isset($disfiguringSymptoms5['SymptomType']) && $disfiguringSymptoms5['SymptomType'] == 'Restricted knee flextion' ? 'checked' : '' }}
+                                                        name="symptoms[4][0]" id="sym_a5" value="Restricted knee flexion"
+                                                        {{ isset($disfiguringSymptoms5['SymptomType']) && $disfiguringSymptoms5['SymptomType'] == 'Restricted knee flexion' ? 'checked' : '' }}
                                                         >
                                                     <label class="form-check-label" for="sym_a5">
-                                                        Restricted knee flextion
+                                                        Restricted knee flexion
                                                     </label>
                                                 </div>
                                             </div>
@@ -2000,7 +2000,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                 </tr>
 
                                                 <tr>
-                                                    <td>Restricted knee flextion</td>
+                                                    <td>Restricted knee flexion</td>
                                                     <td>
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input symtoms_scrore_checkbox"
@@ -3194,9 +3194,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -3288,9 +3290,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>ElegibilitySTATUS
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -3343,7 +3347,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - Topical Analgesics &nbsp;</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - Topical Analgesics &nbsp;</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -3376,7 +3380,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - PO Analgesics</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - PO Analgesics</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -3409,7 +3413,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - PO Glucasamine / Chondroitin</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - PO Glucasamine / Chondroitin</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -3442,7 +3446,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - PO Collagen</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - PO Collagen</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -3475,7 +3479,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - IV Vitamines</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - IV Vitamines</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -3508,7 +3512,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - IM Nurobion</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - IM Nurobion</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -3541,7 +3545,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - IM Collagen</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - IM Collagen</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -3574,7 +3578,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - knee Brace</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - knee Brace</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -4189,9 +4193,11 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewKneePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {
@@ -5705,7 +5711,7 @@ var isChecked_sym_a4 = $("#sym_a4").is(":checked");
 
 
 
-// Restricted knee flextion start
+// Restricted knee flexion start
 var isChecked_sym_a5 = $("#sym_a5").is(":checked");
            
            var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
@@ -5720,7 +5726,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
                    Swal.fire({
                            icon: 'error',
                            title: 'Oops...',
-                           text: 'Please fill out Restricted knee flextion fields in Symptoms.',
+                           text: 'Please fill out Restricted knee flexion fields in Symptoms.',
                            confirmButtonText: 'OK'
                        }).then(function () {
                            setTimeout(function() {
@@ -5736,7 +5742,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
 
 
        }
-// Restricted knee flextion end 
+// Restricted knee flexion end 
 
 
 

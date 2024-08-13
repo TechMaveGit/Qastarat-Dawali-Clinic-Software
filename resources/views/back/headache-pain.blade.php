@@ -103,9 +103,9 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[GRAEATOCCIPITALNEURALGIA][]" id="formRadiosRight6"
-                                                value="GRAEAT OCCIPITAL NEURALGIA">
+                                                value="GREAT OCCIPITAL NEURALGIA">
                                             <label class="form-check-label" for="formRadiosRight6">
-                                                GRAEAT OCCIPITAL NEURALGIA
+                                                GREAT OCCIPITAL NEURALGIA
                                             </label>
                                         </div>
                                     </div>
@@ -331,9 +331,9 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox" id="sym_a1"
                                                         name="symptoms[0][0]"
-                                                        value="focal headache">
+                                                        value="Focal headache">
                                                     <label class="form-check-label" for="sym_a1">
-                                                        focal headache
+                                                        Focal headache
                                                     </label>
                                                 </div>
                                             </div>
@@ -410,9 +410,9 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[1][0]" id="sym_a2" value="numbness/ pain to neck or shoulder or arm">
+                                                        name="symptoms[1][0]" id="sym_a2" value="Numbness/ pain to neck or shoulder or arm">
                                                     <label class="form-check-label" for="sym_a2">
-                                                        numbness/ pain to neck or shoulder or arm
+                                                        Numbness/ pain to neck or shoulder or arm
                                                     </label>
                                                 </div>
                                             </div>
@@ -489,9 +489,9 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox" id="sym_a3"
-                                                        name="symptoms[2][0]" value="associated with nausea or vomiting">
+                                                        name="symptoms[2][0]" value="Associated with nausea or vomiting">
                                                     <label class="form-check-label" for="sym_a3">
-                                                        associated with nausea or vomiting
+                                                        Associated with nausea or vomiting
                                                     </label>
                                                 </div>
                                             </div>
@@ -568,9 +568,9 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox" id="sym_a4"
                                                         name="symptoms[3][0]"
-                                                        value="associated with vertigo or drawziness">
+                                                        value="Associated with vertigo and drowsiness">
                                                     <label class="form-check-label" for="sym_a4">
-                                                        associated with vertigo or drawziness
+                                                        Associated with vertigo and drowsiness
                                                     </label>
                                                 </div>
                                             </div>
@@ -647,9 +647,9 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[4][0]" id="sym_a5" value="associated with blurring / visual disturbances">
+                                                        name="symptoms[4][0]" id="sym_a5" value="Associated with blurring / visual disturbances">
                                                     <label class="form-check-label" for="sym_a5">
-                                                        associated with blurring / visual disturbances
+                                                        Associated with blurring / visual disturbances
                                                     </label>
                                                 </div>
                                             </div>
@@ -1060,7 +1060,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>focal headache</td>
+                                                    <td>Focal headache</td>
                                                     <td>
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input symtoms_scrore_checkbox"
@@ -1103,7 +1103,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>numbness/ pain to neck or shoulder or arm</td>
+                                                    <td>Numbness/ pain to neck or shoulder or arm</td>
                                                     <td>
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input symtoms_scrore_checkbox"
@@ -1146,7 +1146,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>associated with nausea or vomiting</td>
+                                                    <td>Associated with nausea or vomiting</td>
                                                     <td>
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input symtoms_scrore_checkbox"
@@ -1191,7 +1191,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                                 </tr>
 
                                                 <tr>
-                                                    <td>associated with vertigo or drawziness</td>
+                                                    <td>Associated with vertigo and drowsiness</td>
                                                     <td>
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input symtoms_scrore_checkbox"
@@ -1240,7 +1240,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                                 </tr>
 
                                                 <tr>
-                                                    <td>associated with blurring / visual disturbances</td>
+                                                    <td>Associated with blurring / visual disturbances</td>
                                                     <td>
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input symtoms_scrore_checkbox"
@@ -1892,9 +1892,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                           </div>
                                           
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -1925,12 +1927,12 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                                     <div class="form-check form-check-right mb-3">
                                                         <input class="form-check-input" type="checkbox" name="MDT[Medical][]" value="Medical"  id="formRadiosRight85">
                                                         <label class="form-check-label" for="formRadiosRight85">
-                                                            Medical / conservative
+                                                            Medical / Conservative
                                                         </label>
                                                     </div>
                                                     <div  id="textarea_85">
                                                     <div class="form-check form-check-right mb-3">
-                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
+                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / Conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -1968,9 +1970,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -1982,7 +1986,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - Topical Riparil&nbsp;</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - Topical Riparil&nbsp;</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2011,7 +2015,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - Topical Analgesics&nbsp;</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - Topical Analgesics&nbsp;</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2040,7 +2044,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Analgesics</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Analgesics</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2069,7 +2073,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Glucasamine / Chondroitin</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Glucasamine / Chondroitin</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2098,7 +2102,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2127,7 +2131,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IV Vitamines</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IV Vitamines</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2156,7 +2160,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Nurobion</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Nurobion</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2185,7 +2189,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2470,9 +2474,11 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                     
                                     
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="row">
@@ -3559,7 +3565,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
         
         function validateForm() {
 
-            // focal headache start  
+            // Focal headache start  
             var isChecked_sym_a1 = $("#sym_a1").is(":checked");
            
             var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
@@ -3574,7 +3580,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                     Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Please fill out focal headache fields in Symptoms.',
+                            text: 'Please fill out Focal headache fields in Symptoms.',
                             confirmButtonText: 'OK'
                         }).then(function () {
                             setTimeout(function() {
@@ -3590,10 +3596,10 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
 
 
         }
-// focal headache end  
+// Focal headache end  
 
 
-// numbness/ pain to neck or shoulder or arm start
+// Numbness/ pain to neck or shoulder or arm start
 var isChecked_sym_a2 = $("#sym_a2").is(":checked");
            
            var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
@@ -3624,11 +3630,11 @@ var isChecked_sym_a2 = $("#sym_a2").is(":checked");
 
 
        }
-// numbness/ pain to neck or shoulder or arm end 
+// Numbness/ pain to neck or shoulder or arm end 
 
 
 
-// associated with nausea or vomiting start
+// Associated with nausea or vomiting start
 var isChecked_sym_a3 = $("#sym_a3").is(":checked");
            
            var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
@@ -3659,10 +3665,10 @@ var isChecked_sym_a3 = $("#sym_a3").is(":checked");
 
 
        }
-// associated with nausea or vomiting end 
+// Associated with nausea or vomiting end 
 
 
-//  associated with vertigo or drawziness start
+//  Associated with vertigo and drowsiness start
 var isChecked_sym_a4 = $("#sym_a4").is(":checked");
            
            var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
@@ -3693,11 +3699,11 @@ var isChecked_sym_a4 = $("#sym_a4").is(":checked");
 
 
        }
-//  associated with vertigo or drawziness end 
+//  Associated with vertigo and drowsiness end 
 
 
 
-//  associated with blurring / visual disturbances start
+//  Associated with blurring / visual disturbances start
 var isChecked_sym_a5 = $("#sym_a5").is(":checked");
            
            var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
@@ -3728,7 +3734,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
 
 
        }
-//  associated with blurring / visual disturbances end 
+//  Associated with blurring / visual disturbances end 
 
 
 

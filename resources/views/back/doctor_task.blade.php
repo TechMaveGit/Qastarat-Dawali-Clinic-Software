@@ -144,6 +144,7 @@ foreach($D as $v)
 
 
                                 <tbody>
+                                    {{-- @dump($nurse_tasks) --}}
                                     @forelse ($nurse_tasks as $nurse_task)
                                     @php
                                         $approveBy = App\Models\superAdmin\Doctor::where(

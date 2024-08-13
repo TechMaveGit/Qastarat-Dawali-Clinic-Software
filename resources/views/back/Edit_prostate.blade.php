@@ -77,10 +77,10 @@
                                             $existingData = [
                                                 'BPH' => ['BPH'],
                                                 'BOO' => ['BOO'],
-                                                'Prostaitis' => ['Prostaitis'],
+                                                'Prostatitis' => ['Prostatitis'],
                                                 'Cystitis' => ['Cystitis'],
                                                 'OABBladder' => ['OAB Bladder'],
-                                                'PostateCarcinoma' => ['Postate Carcinoma'],
+                                                'PostateCarcinoma' => ['Prostate Carcinoma'],
                                                 'AcuteUrinaryRetention' => ['Acute Urinary Retention'],
                                                 
                                             ];
@@ -114,11 +114,11 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Prostaitis][]" id="formRadiosRight3"
-                                                {{ isset($diagnosis_generals['Prostaitis']) && in_array('Prostaitis', $diagnosis_generals['Prostaitis']) ? 'checked' : '' }}
-                                                value="Prostaitis">
+                                                name="diagnosis_general[Prostatitis][]" id="formRadiosRight3"
+                                                {{ isset($diagnosis_generals['Prostatitis']) && in_array('Prostatitis', $diagnosis_generals['Prostatitis']) ? 'checked' : '' }}
+                                                value="Prostatitis">
                                             <label class="form-check-label" for="formRadiosRight3">
-                                                Prostaitis
+                                                Prostatitis
                                             </label>
                                         </div>
                                     </div>
@@ -148,10 +148,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[PostateCarcinoma][]" id="formRadiosRight6"
-                                                {{ isset($diagnosis_generals['PostateCarcinoma']) && in_array('Postate Carcinoma', $diagnosis_generals['PostateCarcinoma']) ? 'checked' : '' }}
-                                                value="Postate Carcinoma">
+                                                {{ isset($diagnosis_generals['PostateCarcinoma']) && in_array('Prostate Carcinoma', $diagnosis_generals['PostateCarcinoma']) ? 'checked' : '' }}
+                                                value="Prostate Carcinoma">
                                             <label class="form-check-label" for="formRadiosRight6">
-                                                Postate Carcinoma
+                                                Prostate Carcinoma
                                             </label>
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@
                                             }
                                             $existingData = [
                                                 'C61' => ['C61 Malignant neoplasm of prostate'],
-                                                'D075' => ['D07.5 Carcinoma in situ: Prostate'],
+                                                'D075' => ['D07.5 Carcinoma in site: Prostate'],
                                                 'D291' => ['D29.1 Benign neoplasm: Prostate'],
                                                 'D400' => ['D40.0 Neoplasm of uncertain or unknown behaviour: Prostate'],
                                                 'N320' => ['N32.0 Bladder-neck obstruction'],
@@ -273,10 +273,10 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[D075][]"
-                                                id="formRadiosRight9" value="D07.5 Carcinoma in situ: Prostate"
-                                                {{ isset($diagnosis_cids['D075']) && in_array('D07.5 Carcinoma in situ: Prostate', $diagnosis_cids['D075']) ? 'checked' : '' }}>
+                                                id="formRadiosRight9" value="D07.5 Carcinoma in site: Prostate"
+                                                {{ isset($diagnosis_cids['D075']) && in_array('D07.5 Carcinoma in site: Prostate', $diagnosis_cids['D075']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight9">
-                                                D07.5 Carcinoma in situ: Prostate
+                                                D07.5 Carcinoma in site: Prostate
                                             </label>
                                         </div>
                                     </div>
@@ -1663,7 +1663,7 @@
                                                         value="YES"
                                                         {{ isset($clinical_indicators['Erectile'][0]) && $clinical_indicators['Erectile'][0] == 'YES' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES (TA unfaverable unless ATN)
+                                                        YES (TA unfavorable unless ATN)
                                                     </label>
                                                 </div>
                                             </div>
@@ -1846,11 +1846,11 @@
                                     </div> 
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL703][]" value="TPV > 40 cc (PAE FAVERABLE)" id="formRadiosRight50"
-                                            {{ isset($Imaging['USGENERAL703'][0]) && $Imaging['USGENERAL703'][0] == "TPV > 40 cc (PAE FAVERABLE)" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL703][]" value="TPV > 40 cc (PAE favorable)" id="formRadiosRight50"
+                                            {{ isset($Imaging['USGENERAL703'][0]) && $Imaging['USGENERAL703'][0] == "TPV > 40 cc (PAE favorable)" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRight50">
-                                            TPV > 40 cc (PAE FAVERABLE)
+                                            TPV > 40 cc (PAE favorable)
                                             </label>
                                         </div>
                                     </div> 
@@ -1927,11 +1927,11 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR486][]" value="TPV > 40 cc (PAE FAVERABLE)" id="formRadiosRight57"
-                                            {{ isset($Imaging['MRCIR486'][0]) && $Imaging['MRCIR486'][0]  == "TPV > 40 cc (PAE FAVERABLE)" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR486][]" value="TPV > 40 cc (PAE favorable)" id="formRadiosRight57"
+                                            {{ isset($Imaging['MRCIR486'][0]) && $Imaging['MRCIR486'][0]  == "TPV > 40 cc (PAE favorable)" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRight57">
-                                                TPV > 40 cc (PAE FAVERABLE)
+                                                TPV > 40 cc (PAE favorable)
                                             </label>
                                         </div>
                                     </div>
@@ -1960,11 +1960,11 @@
                                       </div> 
                                       <div class="col-lg-6">
                                           <div class="form-check form-check-right mb-3">
-                                              <input class="form-check-input" type="radio" name="Imaging[BPHtype][]" value="AdBPH (PAE FAVERABLE)" id="formRadiosRight60"
-                                              {{ isset($Imaging['BPHtype'][0]) && $Imaging['BPHtype'][0] == "AdBPH (PAE FAVERABLE)" ? 'checked' : '' }}
+                                              <input class="form-check-input" type="radio" name="Imaging[BPHtype][]" value="AdBPH (PAE favorable)" id="formRadiosRight60"
+                                              {{ isset($Imaging['BPHtype'][0]) && $Imaging['BPHtype'][0] == "AdBPH (PAE favorable)" ? 'checked' : '' }}
                                               >
                                               <label class="form-check-label" for="formRadiosRight60">
-                                              AdBPH (PAE FAVERABLE)
+                                              AdBPH (PAE favorable)
                                               </label>
                                           </div>
                                       </div>
@@ -2184,7 +2184,7 @@
        
                                    <div class="row align-items-center">
                                    <div class="col-lg-4">
-                                           <h6 class="mb-3 lut_title">Prostate AdenoCarcinoma</h6>
+                                           <h6 class="mb-3 lut_title">Prostate Adeno Carcinoma</h6>
                                        </div>
                                            <div class="col-lg-4">
                                            <div class="form-check form-check-right mb-3">
@@ -2387,11 +2387,11 @@
                                               </div>
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[QMax][]" value="10ml/s (BOO) (PAE FAVERABLE)" id="formRadiosRight79"
-                                                      {{ isset($Lab['QMax'][0]) && $Lab['QMax'][0] == "10ml/s (BOO) (PAE FAVERABLE)" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Lab[QMax][]" value="10ml/s (BOO) (PAE favorable)" id="formRadiosRight79"
+                                                      {{ isset($Lab['QMax'][0]) && $Lab['QMax'][0] == "10ml/s (BOO) (PAE favorable)" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRight79">
-                                                      &#60;10ml/s (BOO) (PAE FAVERABLE)
+                                                      &#60;10ml/s (BOO) (PAE favorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2413,11 +2413,11 @@
                                               </div>
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[PVR][]" value="> 200cc (BOO) (PAE FAVERABLE)" id="formRadiosRight81"
-                                                      {{ isset($Lab['PVR'][0]) && $Lab['PVR'][0] == "> 200cc (BOO) (PAE FAVERABLE)" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Lab[PVR][]" value="> 200cc (BOO) (PAE favorable)" id="formRadiosRight81"
+                                                      {{ isset($Lab['PVR'][0]) && $Lab['PVR'][0] == "> 200cc (BOO) (PAE favorable)" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRight81">
-                                                      > 200cc (BOO) (PAE FAVERABLE)
+                                                      > 200cc (BOO) (PAE favorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2580,9 +2580,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2680,9 +2682,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>ElegibilitySTATUS
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2860,9 +2864,11 @@
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {

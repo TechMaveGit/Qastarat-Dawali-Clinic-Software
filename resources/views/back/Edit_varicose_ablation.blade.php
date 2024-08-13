@@ -64,7 +64,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 'Venousinsufficiency' => ['Venous insufficiency'],
                                                 'Reticular' => ['Reticular/ spider veins'],
                                                 'Pedaledema' => ['Pedal edema'],
-                                                'Venousuicer' => ['Venous uicer'],     
+                                                'Venousuicer' => ['Venous ulcer'],     
                                                 'Lipidema' => ['Lipidema'],     
                                                 'Deep' => ['Deep Vein Thrombosis'],     
                                                 
@@ -133,10 +133,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[Venousuicer][]" id="formRadiosRight4Venousuicer"
-                                                {{ isset($diagnosis_generals['Venousuicer']) && in_array('Venous uicer', $diagnosis_generals['Venousuicer']) ? 'checked' : '' }}
-                                                value="Venous uicer">
+                                                {{ isset($diagnosis_generals['Venousuicer']) && in_array('Venous ulcer', $diagnosis_generals['Venousuicer']) ? 'checked' : '' }}
+                                                value="Venous ulcer">
                                             <label class="form-check-label" for="formRadiosRight4Venousuicer">
-                                                Venous uicer
+                                                Venous ulcer
                                             </label>
                                         </div>
                                     </div>
@@ -2997,9 +2997,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -3091,9 +3093,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -3396,9 +3400,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoseAblationEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {

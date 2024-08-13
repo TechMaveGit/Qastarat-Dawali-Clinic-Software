@@ -19,7 +19,7 @@ class NurseController extends Controller
     {
         $data['doctor'] = Doctor::with(['staffBranch.userBranchName'])->whereId($id)->first();
         $currentDate = now();
-        $data['tasks'] = DB::table('tasks')->where('assignTo', $id)->get();
+        $data['tasks'] = DB::table('tasks')->where('test_type','!=','other')->where('assignTo', $id)->get();
         
         return view('superAdmin.nurse.view', $data);
     }

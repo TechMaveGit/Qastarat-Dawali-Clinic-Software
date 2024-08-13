@@ -176,7 +176,7 @@ class PatientController extends Controller
         $paymentMethod = $request->input('paymentMethod');
 
         DB::table('tasks')->where('id', $invoiceName)->update(['paidStatus' => '1', 'paymentNote' => $request->input('paymentNote'), 'payAmount' => 'full payment', 'datePaid' => $datePaid, 'paymentMethod' => $paymentMethod]);
-
+        DB::table('invoices')->where('id', $invoiceName)->update(['paidStatus' => '1']);
         return redirect()->back();
     }
 
@@ -3124,7 +3124,7 @@ class PatientController extends Controller
             ThyroidDiagnosis::insert($dataToInsert);
         }
 
-
+        if($newFileName) ThyroidDiagnosis::where(['patient_id' => $id,'form_type' => 'VaricoceleEmboForm','doctor_id' => $doctor_id])->update(['AnnotateimageData' => $newFileName]);
         $patientId =  $request->patient_id;
 
         return response()->json(['patient_id' => $patientId]);
@@ -3671,6 +3671,7 @@ class PatientController extends Controller
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
         }
+        if($newFileName) ThyroidDiagnosis::where(['patient_id' => $id,'form_type' => 'HeadachePain','doctor_id' => $doctor_id])->update(['AnnotateimageData' => $newFileName]);
 
         $patientId =  $request->patient_id;
 
@@ -4309,6 +4310,7 @@ class PatientController extends Controller
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
         }
+        if($newFileName) ThyroidDiagnosis::where(['patient_id' => $id,'form_type' => 'ShoulderPain','doctor_id' => $doctor_id])->update(['AnnotateimageData' => $newFileName]);
 
 
         $patientId =  $request->patient_id;
@@ -4940,7 +4942,7 @@ class PatientController extends Controller
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
         }
-
+        if($newFileName) ThyroidDiagnosis::where(['patient_id' => $id,'form_type' => 'msk_pain_report','doctor_id' => $doctor_id])->update(['AnnotateimageData' => $newFileName]);
 
         $patientId =  $request->patient_id;
 
@@ -5569,6 +5571,8 @@ class PatientController extends Controller
             ThyroidDiagnosis::insert($dataToInsert);
         }
 
+        if($newFileName) ThyroidDiagnosis::where(['patient_id' => $id,'form_type' => 'SpinePain','doctor_id' => $doctor_id])->update(['AnnotateimageData' => $newFileName]);
+
 
         $patientId =  $request->patient_id;
 
@@ -6130,6 +6134,7 @@ class PatientController extends Controller
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
         }
+        if($newFileName) ThyroidDiagnosis::where(['patient_id' => $id,'form_type' => 'KneePain','doctor_id' => $doctor_id])->update(['AnnotateimageData' => $newFileName]);
 
 
         $patientId =  $request->patient_id;
@@ -6730,6 +6735,7 @@ class PatientController extends Controller
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
         }
+        if($newFileName) ThyroidDiagnosis::where(['patient_id' => $id,'form_type' => 'HaemorrhoidsEmbo','doctor_id' => $doctor_id])->update(['AnnotateimageData' => $newFileName]);
 
 
         $patientId =  $request->patient_id;
@@ -7329,6 +7335,7 @@ class PatientController extends Controller
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
         }
+        
         
         $patientId =  $request->patient_id;
         
@@ -7935,7 +7942,10 @@ class PatientController extends Controller
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
         }
-
+        if($newFileName){
+            ThyroidDiagnosis::where(['patient_id'=>$id,'doctor_id' => $doctor_id,'form_type' => 'PelvicCongEmbo'])->update(['AnnotateimageData' => $newFileName]);
+        }
+        
 
         $patientId =  $request->patient_id;
 
@@ -8525,7 +8535,9 @@ class PatientController extends Controller
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
         }
-
+        if($newFileName){
+            ThyroidDiagnosis::where(['patient_id'=>$id,'doctor_id' => $doctor_id,'form_type' => 'uterine_embo'])->update(['AnnotateimageData' => $newFileName]);
+        }
 
         $patientId =  $request->patient_id;
 
@@ -9130,6 +9142,9 @@ class PatientController extends Controller
 
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
+        }
+        if($newFileName){
+            ThyroidDiagnosis::where(['patient_id'=>$id,'doctor_id' => $doctor_id,'form_type' => 'prostate_form'])->update(['AnnotateimageData' => $newFileName]);
         }
 
         $patientId =  $request->patient_id;
@@ -10197,6 +10212,9 @@ class PatientController extends Controller
 
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);
+        }
+        if($newFileName){
+            ThyroidDiagnosis::where(['patient_id'=>$id,'doctor_id' => $doctor_id,'form_type' => 'thyroid_form'])->update(['AnnotateimageData' => $newFileName]);
         }
 
 

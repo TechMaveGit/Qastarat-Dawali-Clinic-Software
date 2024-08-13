@@ -473,7 +473,7 @@
                                 <span class="branchcls">
                                 @forelse($patient->userBranch as $getbranchName)
                                         <h6 id="data_pt_kin">
-                                            {{ $getbranchName->userBranchName->branch_name }}
+                                            {{ $getbranchName->userBranchName->branch_name??'' }}
                                             @if(!$loop->last)
                                                 ,
                                             @endif

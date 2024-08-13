@@ -1689,14 +1689,14 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row align-items-center">
                                             <div class="col-lg-4">
-                                                <h6 class="mb-3 lut_title">Heamarrhoids</h6>
+                                                <h6 class="mb-3 lut_title">Hemorrhoids</h6>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
-                                                        name="clinical_indicator[Heamarrhoids][]" id="formRadiosRight42"
+                                                        name="clinical_indicator[Hemorrhoids][]" id="formRadiosRight42"
                                                         value="YES"
-                                                        {{ isset($clinical_indicators['Heamarrhoids'][0]) && $clinical_indicators['Heamarrhoids'][0] == 'YES' ? 'checked' : '' }}>
+                                                        {{ isset($clinical_indicators['Hemorrhoids'][0]) && $clinical_indicators['Hemorrhoids'][0] == 'YES' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
                                                         YES
@@ -1706,9 +1706,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
-                                                        name="clinical_indicator[Heamarrhoids][]" id="formRadiosRight43"
+                                                        name="clinical_indicator[Hemorrhoids][]" id="formRadiosRight43"
                                                         value="No"
-                                                        {{ isset($clinical_indicators['Heamarrhoids'][0]) && $clinical_indicators['Heamarrhoids'][0] == 'No' ? 'checked' : '' }}>
+                                                        {{ isset($clinical_indicators['Hemorrhoids'][0]) && $clinical_indicators['Hemorrhoids'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
                                                         No
                                                     </label>
@@ -2339,11 +2339,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
       </div>
       <div class="col-lg-4">
           <div class="form-check form-check-right mb-3">
-              <input class="form-check-input"type="radio" name="Lab[URINANALYSISResults][]" value="Positive  (PCE Unfaverable)" id="formRadiosRight76"
-              {{ isset($Lab['URINANALYSISResults'][0]) && $Lab['URINANALYSISResults'][0] == "Positive  (PCE Unfaverable)" ? 'checked' : '' }}
+              <input class="form-check-input"type="radio" name="Lab[URINANALYSISResults][]" value="Positive  (PCE unfavorable)" id="formRadiosRight76"
+              {{ isset($Lab['URINANALYSISResults'][0]) && $Lab['URINANALYSISResults'][0] == "Positive  (PCE unfavorable)" ? 'checked' : '' }}
               >
               <label class="form-check-label" for="formRadiosRight76">
-              Positive  (PCE Unfaverable)
+              Positive  (PCE unfavorable)
               </label>
           </div>
       </div>
@@ -2379,11 +2379,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
           </div>
           <div class="col-lg-4">
               <div class="form-check form-check-right mb-3">
-                  <input class="form-check-input" type="radio" name="Lab[HistopathResults][]" value="Positive  (PCE Unfaverable)" id="formRadiosRight65"
-                  {{ isset($Lab['HistopathResults'][0]) && $Lab['HistopathResults'][0] == "Positive  (PCE Unfaverable)" ? 'checked' : '' }}
+                  <input class="form-check-input" type="radio" name="Lab[HistopathResults][]" value="Positive  (PCE unfavorable)" id="formRadiosRight65"
+                  {{ isset($Lab['HistopathResults'][0]) && $Lab['HistopathResults'][0] == "Positive  (PCE unfavorable)" ? 'checked' : '' }}
                   >
                   <label class="form-check-label" for="formRadiosRight65">
-                  Positive  (PCE Unfaverable)
+                  Positive  (PCE unfavorable)
                   </label>
               </div>
           </div>
@@ -2467,9 +2467,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2551,9 +2553,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>ElegibilitySTATUS
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2695,9 +2699,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {

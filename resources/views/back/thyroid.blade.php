@@ -63,9 +63,9 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[MultiNodularGoitre][]" id="formRadiosRight2"
-                                                value="Multi-Nodular Goitre">
+                                                value="Multi nodular goiter">
                                             <label class="form-check-label" for="formRadiosRight2">
-                                                Multi-Nodular Goitre
+                                                Multi nodular goiter
                                             </label>
                                         </div>
                                     </div>
@@ -82,10 +82,10 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Euothyroid][]" id="formRadiosRight4"
-                                                value="Euothyroid">
+                                                name="diagnosis_general[Euthyroid][]" id="formRadiosRight4"
+                                                value="Euthyroid">
                                             <label class="form-check-label" for="formRadiosRight4">
-                                                Euothyroid
+                                                Euthyroid
                                             </label>
                                         </div>
                                     </div>
@@ -2268,7 +2268,7 @@
                                                         name="clinical_indicator[Palpitations][]" id="formRadiosRight42"
                                                         value="YES">
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES (TA unfaverable unless ATN)
+                                                        YES (TA unfavorable unless ATN)
                                                     </label>
                                                 </div>
                                             </div>
@@ -2294,7 +2294,7 @@
                                                         name="clinical_indicator[Carbimazole][]" id="formRadiosRight44"
                                                         value="YES">
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES (TA unfaverable unless ATN)
+                                                        YES (TA unfavorable unless ATN)
                                                     </label>
                                                 </div>
                                             </div>
@@ -2488,7 +2488,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>DMixed Cystic / solid </td>
+                                                    <td>Mixed Cystic / solid </td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
@@ -2519,7 +2519,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <th colspan="2">Echogenisity</th>
+                                                    <th colspan="2">Echogenesity</th>
                                                 </tr>
 
                                                 <tr>
@@ -2527,7 +2527,7 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta29" value="0">
                                                             <label class="form-check-label" for="formRadiosRighta29">
                                                                 0 pts
@@ -2540,7 +2540,7 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta30" value="1">
                                                             <label class="form-check-label" for="formRadiosRighta30">
                                                                 1 pts
@@ -2553,7 +2553,7 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta31" value="2">
                                                             <label class="form-check-label" for="formRadiosRighta31">
                                                                 2 pts
@@ -2566,7 +2566,7 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta32" value="2">
                                                             <label class="form-check-label" for="formRadiosRighta32">
                                                                 2 pts
@@ -2579,7 +2579,7 @@
                                                     <th colspan="2">Shape</th>
                                                 </tr>
                                                 <tr>
-                                                    <td>Eider-than-taller</td>
+                                                    <td>Wider-than-taller</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
@@ -2635,7 +2635,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>lobulated / irrigular</td>
+                                                    <td>lobulated / irregular</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
@@ -2783,7 +2783,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>DMixed Cystic / solid </td>
+                                                    <td>Mixed Cystic / solid </td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
@@ -2814,7 +2814,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <th colspan="2">Echogenisity</th>
+                                                    <th colspan="2">Echogenesity</th>
                                                 </tr>
 
                                                 <tr>
@@ -2822,7 +2822,7 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta43" value="0">
                                                             <label class="form-check-label" for="formRadiosRighta43">
                                                                 0 pts
@@ -2835,7 +2835,7 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta44" value="1">
                                                             <label class="form-check-label" for="formRadiosRighta44">
                                                                 1 pts
@@ -2848,7 +2848,7 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta45" value="2">
                                                             <label class="form-check-label" for="formRadiosRighta45">
                                                                 2 pts
@@ -2861,7 +2861,7 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta46" value="2">
                                                             <label class="form-check-label" for="formRadiosRighta46">
                                                                 2 pts
@@ -2874,7 +2874,7 @@
                                                     <th colspan="2">Shape</th>
                                                 </tr>
                                                 <tr>
-                                                    <td>Eider-than-taller</td>
+                                                    <td>Wider-than-taller</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
@@ -2930,7 +2930,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>lobulated / irrigular</td>
+                                                    <td>lobulated / irregular</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
@@ -3072,7 +3072,7 @@
                                                         name="EnlargedLymphnodes[nodes][]" id="formRadiosRighta65"
                                                         value="YES">
                                                     <label class="form-check-label" for="formRadiosRighta65">
-                                                        YES (TA unfaverable)
+                                                        YES (TA unfavorable)
                                                     </label>
                                                 </div>
                                             </div>
@@ -3261,7 +3261,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <h6 class="mb-3 lut_title">Toxic Parathyroid Adenoma - RIGHTupper</h6>
+                                        <h6 class="mb-3 lut_title">Toxic Parathyroid Adenoma - RIGHT upper</h6>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
@@ -3764,9 +3764,11 @@
                                           </div>
                                       </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a href="javascript:void(0)"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -3844,9 +3846,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Eligibility STATUS <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -4015,9 +4019,11 @@
                                     
                                     
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="row">
@@ -5422,6 +5428,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
             
             event.preventDefault();
             let formData = new FormData(this);
+            console.log(dataURL,formData);
             if(isFormDataValid(formData)){
                 if (!validateForm()) {
                     e.preventDefault(); 

@@ -210,7 +210,7 @@
                                                 <div class="appointments___list past_medical_history_ak">
                                                     <ul class="scroll_list" >
                                                         @if ($checkGenerateData->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
 
                                                             @foreach ($checkGenerateData as $key => $report)
@@ -288,7 +288,7 @@
                                                         @endphp
 
                                                         @if ($patient_allergies->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
                                                                 <li>{{ $patient_allergy->allergy_name }}
@@ -360,8 +360,8 @@
                                                    
                                                         <ul id="past_medical_histories" class="allergiesdtl scroll_list allergiesdtl">
                                                             @if ($patient_past_history->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>.
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small>.
+                                                                </li> --}}
                                                             @else
                                                                 @foreach ($patient_past_history as $past_history)
                                                                     <li>
@@ -465,8 +465,8 @@
                                                    
                                                         <ul class="scroll_list allergiesdtl">
                                                             @if ($patient_past_surgical->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>.
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small>.
+                                                                </li> --}}
                                                             @else
                                                                 @foreach ($patient_past_surgical as $past_surgical)
                                                                     <li>
@@ -563,7 +563,7 @@
 
                                                     <ul class="scroll_list">
                                                         @if ($patient_current_med->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($patient_current_med as $patient_current)
                                                                 <li>
@@ -632,7 +632,7 @@
                                                 <div class="appointments___list past_medical_history_ak">
                                                     <ul class="scroll_list">
                                                         @if ($procedures->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($procedures as $procedure)
                                                                 <li>
@@ -836,7 +836,7 @@
                                                                 ->get();
                                                         @endphp
                                                         @if ($visit_notes->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                         @else
                                                             @foreach ($visit_notes as $visit)
                                                                 <li>
@@ -906,7 +906,7 @@
 
                                                     <ul class="allergiesdtl scroll_list">
                                                         @if ($prescriptions->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($prescriptions as $prescription)
                                                                 <li>
@@ -1032,7 +1032,7 @@
                                         </h2>
                                         <div id="collapseleft24" class="accordion-collapse collapse show"
                                             data-bs-parent="#accordionExample24">
-                                            @if (count($diagnosis_generals) > 0 || count($diagnosis_cids) > 0 )
+                                            @if (count($diagnosis_generals) > 0 || count($diagnosis_cids) > 0  || count($document_file)>0)
                                             <div class="accordion-body ">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
@@ -1235,7 +1235,7 @@
                                         </h2>
                                         <div id="collapseleft16" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample16">
-                                            @if (count($symptoms_db)>0)
+                                            @if (count($symptoms_db)>0 || count($document_file)>0)
                                              <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
@@ -1294,7 +1294,7 @@
                                                                 </div>
                                                             </li>
                                                         @empty
-                                                            <small style="font-size:10px;">No Data Found</small>
+                                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                         @endforelse
 
 
@@ -1358,7 +1358,7 @@
 
                                         <div id="collapseleft2" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample2">
-                                            @if (count($symptoms_scores_db)>0)
+                                            @if (count($symptoms_scores_db)>0 || count($document_file)>0)
                                              <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul>
@@ -1543,7 +1543,7 @@
 
                                     <div id="collapseleft5" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample5">
-                                        @if (count($ClinicalExam_db)>0)
+                                        @if (count($ClinicalExam_db)>0 || count($document_file)>0)
                                          <div class="accordion-body">
                                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                 <ul>
@@ -1634,7 +1634,7 @@
                                                                 </div>
                                                             </li>
                                                         @empty
-                                                            <small style="font-size:10px;">No Data Found</small>
+                                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                         @endforelse
                                                     @endif
 
@@ -1703,7 +1703,7 @@
 
                                     <div id="collapseleft15" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample15">
-                                        @if (count($Patient_order_labs)>0)
+                                        @if (count($Patient_order_labs)>0 || count($document_file)>0)
                                         <div class="accordion-body">
                                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                 <ul>
@@ -2097,7 +2097,7 @@
                                     </h2>
                                     <div id="collapseleft17" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample17">
-                                        @if (count($Patient_order_labs)>0)
+                                        @if (count($Patient_order_labs)>0 || count($document_file)>0)
                                         <div class="accordion-body">
                                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                 <ul>
@@ -2482,7 +2482,7 @@
 
                                     <div id="collapseleft12" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample12">
-                                        @if (count($SpecialInvestigations_db)>0)
+                                        @if (count($SpecialInvestigations_db)>0 || count($document_file)>0)
                                          <div class="accordion-body">
                                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                 <ul>
@@ -2564,7 +2564,7 @@
                                                                 </div>
                                                             </li>
                                                         @empty
-                                                            <small style="font-size:10px;">No Data Found</small>
+                                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                         @endforelse
                                                     @endif
 
@@ -2628,7 +2628,7 @@
             
                                     <div id="collapseleft18" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample18">
-                                        @if (count($MDTs_db) > 0)
+                                        @if (count($MDTs_db) > 0 || count($document_file)>0)
                                         <div class="accordion-body">
                                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                 <ul class="symptoms allergiesdtl scroll_list">
@@ -2794,7 +2794,7 @@
             
                                     <div id="collapseleft19" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample19">
-                                        @if (count($ElegibilitySTATUSDB)>0)
+                                        @if (count($ElegibilitySTATUSDB)>0 || count($document_file)>0)
                                         <div class="accordion-body">
                                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                 <ul>
@@ -2829,7 +2829,7 @@
                                                                                 <div class="symp_title mb-1">
                                                                                     <h6><span class="point_dia"><i
                                                                                                 class="fa-regular fa-circle-dot"></i></span>
-                                                                                                conservative - Topical Riparil  </h6>
+                                                                                                Conservative - Topical Riparil  </h6>
 
                                                                                 </div>
 
@@ -2852,7 +2852,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            conservative - Topical
+                                                                                            Conservative - Topical
                                                                                             Analgesics </h6>
 
                                                                                     </div>
@@ -2877,7 +2877,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            conservative - PO Analgesics
+                                                                                            Conservative - PO Analgesics
                                                                                         </h6>
 
                                                                                     </div>
@@ -2901,7 +2901,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            conservative - PO
+                                                                                            Conservative - PO
                                                                                             Glucasamine / Chondroitin
                                                                                         </h6>
 
@@ -2926,7 +2926,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            conservative - PO Collagen
+                                                                                            Conservative - PO Collagen
                                                                                         </h6>
 
                                                                                     </div>
@@ -2950,7 +2950,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            conservative - IV Vitamines
+                                                                                            Conservative - IV Vitamines
                                                                                         </h6>
 
                                                                                     </div>
@@ -2974,7 +2974,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            conservative - IM Nurobion
+                                                                                            Conservative - IM Nurobion
                                                                                         </h6>
 
                                                                                     </div>
@@ -2999,7 +2999,7 @@
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            conservative - IM Collagen
+                                                                                            Conservative - IM Collagen
                                                                                         </h6>
 
                                                                                     </div>
@@ -3341,7 +3341,7 @@
                     </h2>
 
                     <div id="collapseleft20" class="accordion-collapse collapse" data-bs-parent="#accordionExample20">
-                        @if (count($procedures) > 0)
+                        @if (count($procedures) > 0 || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                
@@ -3423,7 +3423,7 @@
 
                                             </li>
                                         @empty
-                                            <small style="font-size:10px;">No Data Found</small>
+                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                         @endforelse
                                     @endif
                                 </ul>
@@ -3465,7 +3465,7 @@
                     </h2>
 
                     <div id="collapseleft21" class="accordion-collapse collapse" data-bs-parent="#accordionExample21">
-                        @if (count($supportiveTreatments) > 0)
+                        @if (count($supportiveTreatments) > 0 || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                 <ul class="allergiesdtl">
@@ -3562,7 +3562,7 @@
                                             @endforelse
                                             </li>
                                         @empty
-                                            <small style="font-size:10px;">No Data Found</small>
+                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                         @endforelse
                                     @endif
                                 </ul>
@@ -3602,7 +3602,7 @@
                         </button>
                     </h2>
                     <div id="collapseleft9" class="accordion-collapse collapse" data-bs-parent="#accordionExample9">
-                        @if (count($patient_future_plans) > 0)
+                        @if (count($patient_future_plans) > 0 || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list">
 
@@ -3677,7 +3677,7 @@
 
                                             </li>
                                         @empty
-                                            <small style="font-size:10px;">No Data Found</small>
+                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                         @endforelse
                                     @endif
                                 </ul>
@@ -3727,7 +3727,7 @@
                     </h2>
 
                     <div id="collapseleft14" class="accordion-collapse collapse" data-bs-parent="#accordionExample14">
-                        @if (count($Patient_progress_notes) > 0)
+                        @if (count($Patient_progress_notes) > 0 || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list">
 
@@ -3797,7 +3797,7 @@
 
                                             </li>
                                         @empty
-                                            <small style="font-size:10px;">No Data Found</small>
+                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                         @endforelse
                                     @endif
                                 </ul>

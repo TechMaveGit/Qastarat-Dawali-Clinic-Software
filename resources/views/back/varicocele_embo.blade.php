@@ -1715,9 +1715,9 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="YES (VE Unfaverable)" id="formRadiosRightd38">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="YES (VE unfavorable)" id="formRadiosRightd38">
                                         <label class="form-check-label" for="formRadiosRightd38">
-                                        YES (VE Unfaverable)
+                                        YES (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -1765,9 +1765,9 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="YES (VE Unfaverable)" id="formRadiosRightd39">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="YES (VE unfavorable)" id="formRadiosRightd39">
                                         <label class="form-check-label" for="formRadiosRightd39">
-                                        YES (VE Unfaverable)
+                                        YES (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -1789,9 +1789,9 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="YES (VE Unfaverable)" id="formRadiosRightd41">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="YES (VE unfavorable)" id="formRadiosRightd41">
                                         <label class="form-check-label" for="formRadiosRightd41">
-                                        YES (VE Unfaverable)
+                                        YES (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -1813,9 +1813,9 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="YES (VE Unfaverable)" id="formRadiosRightd43">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="YES (VE unfavorable)" id="formRadiosRightd43">
                                         <label class="form-check-label" for="formRadiosRightd43">
-                                        YES (VE Unfaverable)
+                                        YES (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -1869,9 +1869,9 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="YES (VE Unfaverable)" id="formRadiosRightd16">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="YES (VE unfavorable)" id="formRadiosRightd16">
                                         <label class="form-check-label" for="formRadiosRightd16">
-                                        YES (VE Unfaverable)
+                                        YES (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -1917,9 +1917,9 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="YES (VE Unfaverable)" id="formRadiosRightd20">
+                                        <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="YES (VE unfavorable)" id="formRadiosRightd20">
                                         <label class="form-check-label" for="formRadiosRightd20">
-                                        YES (VE Unfaverable)
+                                        YES (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -1941,9 +1941,9 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="YES (VE Unfaverable)" id="formRadiosRightd22">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="YES (VE unfavorable)" id="formRadiosRightd22">
                                         <label class="form-check-label" for="formRadiosRightd22">
-                                        YES (VE Unfaverable)
+                                        YES (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -1965,9 +1965,9 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="YES (VE Unfaverable)" id="formRadiosRightd24">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="YES (VE unfavorable)" id="formRadiosRightd24">
                                         <label class="form-check-label" for="formRadiosRightd24">
-                                        YES (VE Unfaverable)
+                                        YES (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -2496,7 +2496,9 @@
                        
 
                         <div class="col-lg-12">
-                            <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Medical Record <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">MDT 
+                                {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Medical Record <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                            </h6>
                           </div>
                           <div class="col-lg-12">
                             <div class="title_head">
@@ -2532,7 +2534,7 @@
                                         </div>
                                         <div  id="textarea_85">
                                         <div class="form-check form-check-right mb-3">
-                                          <textarea class="form-control" placeholder="Enter Elaborate Medical / conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
+                                          <textarea class="form-control" placeholder="Enter Elaborate Medical / Conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
                                         </div>
                                     </div>
                                     </div>
@@ -2570,9 +2572,11 @@
                             </div>
 
                         <div class="col-lg-12">
-                            <h6 class="section_title__">Eligibility STATUS <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                            <h6 class="section_title__">Eligibility STATUS 
+                                {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                     class="order-now_btn order-now_btn_alt">Medical Record <i
-                                        class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                        class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                    </h6>
                         </div>
                         <div class="col-lg-12">
                             <div class="title_head">
@@ -2695,9 +2699,11 @@
                         
 
                         <div class="col-lg-12 mb-3">
-                            <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                            <h6 class="section_title__">Supportive 
+                                {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                     class="order-now_btn order-now_btn_alt">Medical Record <i
-                                        class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                    </h6>
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
@@ -3315,7 +3321,7 @@
         
         function validateForm() {
 
-            // focal headache start  
+            // Focal headache start  
             var isChecked_sym_a1 = $("#sym_a1").is(":checked");
            
             var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
@@ -3346,10 +3352,10 @@
 
 
         }
-// focal headache end  
+// Focal headache end  
 
 
-// numbness/ pain to neck or shoulder or arm start
+// Numbness/ pain to neck or shoulder or arm start
 var isChecked_sym_a2 = $("#sym_a2").is(":checked");
            
            var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
@@ -3380,11 +3386,11 @@ var isChecked_sym_a2 = $("#sym_a2").is(":checked");
 
 
        }
-// numbness/ pain to neck or shoulder or arm end 
+// Numbness/ pain to neck or shoulder or arm end 
 
 
 
-// associated with nausea or vomiting start
+// Associated with nausea or vomiting start
 var isChecked_sym_a3 = $("#sym_a3").is(":checked");
            
            var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
@@ -3415,10 +3421,10 @@ var isChecked_sym_a3 = $("#sym_a3").is(":checked");
 
 
        }
-// associated with nausea or vomiting end 
+// Associated with nausea or vomiting end 
 
 
-//  associated with vertigo or drawziness start
+//  Associated with vertigo and drowsiness start
 var isChecked_sym_a4 = $("#sym_a4").is(":checked");
            
            var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
@@ -3449,11 +3455,11 @@ var isChecked_sym_a4 = $("#sym_a4").is(":checked");
 
 
        }
-//  associated with vertigo or drawziness end 
+//  Associated with vertigo and drowsiness end 
 
 
 
-//  associated with blurring / visual disturbances start
+//  Associated with blurring / visual disturbances start
 var isChecked_sym_a5 = $("#sym_a5").is(":checked");
            
            var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
@@ -3484,7 +3490,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
 
 
        }
-//  associated with blurring / visual disturbances end 
+//  Associated with blurring / visual disturbances end 
 
 
 

@@ -17,11 +17,14 @@ class CalendarController extends Controller
         $doctors=Doctor::select('id','name')->where('role_id','1')->orderBy('id','desc')->get();
         $patients=User::select('id','name')->orderBy('id','desc')->get();
 
-        $book_appointments= DB::table('book_appointments')->select('appointment_type')->distinct()->get();
-
+        
         $users=DB::table('users')->orderBy('id','desc')->get();
         $locations=DB::table('branchs')->orderBy('id','desc')->get();
         $pathology_price_list = DB::table('pathology_price_list')->where('status','1')->get();
+        $book_appointments= null;
+        if($pathology_price_list){
+            $book_appointments= DB::table('book_appointments')->select('appointment_type')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->distinct()->get();
+        }
 
         $patho_types = $pathology_price_list ? $pathology_price_list->unique('price_type')->pluck('price_type') : [];
 
@@ -87,7 +90,7 @@ class CalendarController extends Controller
 
     public function createOrUpdateEvent(Request $request)
     {
-      //  return $request->all();
+    //    return $request->all();
 
         $eventId = $request->input('event_id');
         $eventData = [
@@ -118,6 +121,28 @@ class CalendarController extends Controller
             $event = BookAppointment::create($eventData);
             $message = 'Appointment added successfully';
         }
+
+        $task= DB::table('pathology_price_list')->where('test_name',$request->input('appointment_type'))->first()??'';
+
+        // dd($task);
+
+        $test_type = 'other';
+        if($task && trim($task->price_type) =='Radiology'){
+            $test_type = 'radiology';
+        }else if($task && trim($task->price_type) =='Pathology'){
+            $test_type = 'pathology';
+        }
+
+        $ltsId = DB::table('tasks')->latest()->value('id');
+        DB::table('tasks')->insert([
+            'invoiceNumber'  => sprintf("%06d", rand(0, 999999)) . $ltsId,
+            'patient_id'      => $request->input('patintValue'),
+            'doctor_id'       => $request->input('doctor_id'),
+            'task'            => $task->id??null,
+            'form_type'       => 'general_form',
+            'test_type'       => $test_type,
+            'order_summary'   => ''
+        ]);
 
         return response()->json(['message' => $message, 'event' => $event], 200);
     }

@@ -320,7 +320,7 @@ class DoctorAuthController extends Controller
     public function myLabResult()
     {
         $patientId = auth('web')->user();
-        $totalTask = DB::table('tasks')->where('patient_id', $patientId->id)->get();
+        $totalTask = DB::table('tasks')->where('test_type','!=','other')->where('patient_id', $patientId->id)->get();
 
         return view('back/myLabResult', compact('totalTask'));
     }
