@@ -721,7 +721,7 @@
 
 
                     @if (isset($imagingExam) && !empty($imagingExam))
-                    @if ($VaricoceleEmboForm)
+                    @if ($VaricoceleEmboForm && isset($VaricoceleEmboForm->AnnotateimageData) && $VaricoceleEmboForm->AnnotateimageData)
                     <div class="ClinicalExam_section">
                         <img src="{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData ?? '') }}" style="width: 700px;" />
                     </div>
