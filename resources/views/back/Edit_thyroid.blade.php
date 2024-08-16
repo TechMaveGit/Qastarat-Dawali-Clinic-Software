@@ -72,7 +72,7 @@
 
                                             $existingData = [
                                                 'Euthyroid' => ['Euthyroid'],
-                                                'ThyroidCyst' => ['Thyroid Cyst'],
+                                                'ThyroidCyst' => ['Thyroid cystic'],
                                                 'GraveDisease' => ['Grave’s Disease'],
                                                 'Thyroidnodule' => ['Thyroid nodule'],
                                                 'Hypothyroidism' => ['Hypothyroidism'],
@@ -112,10 +112,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[ThyroidCyst][]" id="formRadiosRight3"
-                                                {{ isset($diagnosis_generals['ThyroidCyst']) && in_array('Thyroid Cyst', $diagnosis_generals['ThyroidCyst']) ? 'checked' : '' }}
-                                                value="Thyroid Cyst">
+                                                {{ isset($diagnosis_generals['ThyroidCyst']) && in_array('Thyroid cystic', $diagnosis_generals['ThyroidCyst']) ? 'checked' : '' }}
+                                                value="Thyroid cystic">
                                             <label class="form-check-label" for="formRadiosRight3">
-                                                Thyroid Cyst
+                                                Thyroid cystic
                                             </label>
                                         </div>
                                     </div>
@@ -4289,7 +4289,7 @@
                                             {{-- <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a> --}}
-                                                </h6>ElegibilitySTATUS
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -5946,7 +5946,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
         imageObj.onload = function() {
             const image = new Konva.Image({
                 image: imageObj,
-                width: 600,
+                width: 800,
                 height: 600,
             });
 

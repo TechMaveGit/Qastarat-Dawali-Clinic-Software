@@ -1983,60 +1983,60 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
 
                                 @endphp
 
-<div class="col-lg-12">
-    <h6 class="section_title__">Lab 
-        {{-- <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
-    </h6>
-  </div>
-    <div class="col-lg-12">
-      <div class="title_head">
-          <h4>LABCRCMARKERS000 &gt; <span class="sub_tt__">FERTILITY HORMONES Results</span></h4>
-      </div>
-    </div>
-    <div class="col-lg-12 mb-3">
-       <div class="row">
-          <div class="col-lg-3">
-          <h6 class="mb-3 lut_title">CEA</h6>
-          </div>  
-          <div class="col-lg-6">
-              <div class="lab_test_value">
-                  <select  class="tshRange" name="Lab[ESR][]">
-                  <option value=""></option>
-                  <option value="normal"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
-                  <option value="low"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                  <option value="high"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                  </select>
-                  <div class="result result_value {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }} ">
-                      <!-- Display low, high, and normal values here -->
-                      {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }}
-                  </div>
-              </div>
-          </div>
-          </div>
-       </div>
-       <div class="col-lg-12 mb-3">
-       <div class="row">
-          <div class="col-lg-3">
-          <h6 class="mb-3 lut_title">CA-125</h6>
-          </div>  
-          <div class="col-lg-6">
-              <div class="lab_test_value">
-                  <select  class="tshRange" name="Lab[CRP][]">
-                  <option value=""></option>
-                  <option value="normal" 
-                  {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'normal' ? 'selected' : '' }}
-                  >(0.4 - 5.49 mIU/L)</option>
-                  <option value="low" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                  <option value="high" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                  </select>
-                  <div class="result result_value {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}">
-                    {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}
-                      <!-- Display low, high, and normal values here -->
-                  </div>
-              </div>
-          </div>
-          </div>
-       </div>
+                                            <div class="col-lg-12">
+                                                <h6 class="section_title__">Lab 
+                                                    {{-- <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
+                                            </div>
+                                                <div class="col-lg-12">
+                                                <div class="title_head">
+                                                    <h4>LABCRCMARKERS000 &gt; <span class="sub_tt__">FERTILITY HORMONES Results</span></h4>
+                                                </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-3">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                    <h6 class="mb-3 lut_title">CEA</h6>
+                                                    </div>  
+                                                    <div class="col-lg-6">
+                                                        <div class="lab_test_value">
+                                                            <select  class="tshRange" name="Lab[ESR][]">
+                                                            <option value=""></option>
+                                                            <option value="normal"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
+                                                            <option value="low"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                            <option value="high"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                            </select>
+                                                            <div class="result result_value {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }} ">
+                                                                <!-- Display low, high, and normal values here -->
+                                                                {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-3">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                    <h6 class="mb-3 lut_title">CA-125</h6>
+                                                    </div>  
+                                                    <div class="col-lg-6">
+                                                        <div class="lab_test_value">
+                                                            <select  class="tshRange" name="Lab[CRP][]">
+                                                            <option value=""></option>
+                                                            <option value="normal" 
+                                                            {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'normal' ? 'selected' : '' }}
+                                                            >(0.4 - 5.49 mIU/L)</option>
+                                                            <option value="low" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                            <option value="high" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                            </select>
+                                                            <div class="result result_value {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}">
+                                                                {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}
+                                                                <!-- Display low, high, and normal values here -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
 
                                             <div class="col-lg-12">
                                             <div class="title_head">
@@ -2468,7 +2468,7 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                             {{-- <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a> --}}
-                                                </h6>ElegibilitySTATUS
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -3673,12 +3673,12 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{  ($VaricoceleEmboForm && $VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/Hemorrhoids Embo.jpg') }}';
+    imageObj.src = '{{  ($VaricoceleEmboForm && $VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/HaemorrhoidsEmbo.jpg') }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 600,
+            width: 800,
             height: 600,
         });
     

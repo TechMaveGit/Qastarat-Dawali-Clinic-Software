@@ -2210,7 +2210,7 @@ Patient | Headache Pain | QASTARAT & DAWALI CLINICS
                                             {{-- <a target="_blank"  href="{{ route('user.viewHeadachePainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a> --}}
-                                                </h6>ElegibilitySTATUS
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">

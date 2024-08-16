@@ -1296,10 +1296,6 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     @php
                                         if (isset($symptoms_scores) && !empty($symptoms_scores)) {
                                             $symptoms_scores = json_decode($symptoms_scores->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($symptoms_scores);
-                                            //     die;
-
                                             $sum = 0;
 
                                             foreach ($symptoms_scores as $symptom => $values) {
@@ -2486,7 +2482,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                             {{-- <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a> --}}
-                                                </h6>ElegibilitySTATUS
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">

@@ -995,11 +995,7 @@
                                                         <ul>
                                                             @php
                                                                 $patient_id = decrypt(@$id);
-                                                                $visit_notes = App\Models\patient\Patient_progress_note::select(
-                                                                    'created_at',
-                                                                    'voice_recognition',
-                                                                )
-                                                                    ->where([
+                                                                $visit_notes = App\Models\patient\Patient_progress_note::where([
                                                                         // 'progress_note_canned_text_id' => 6,
                                                                         'patient_id' => @$patient_id
                                                                     ])
@@ -1023,10 +1019,8 @@
 
                                                                             <div class="read-more-content">
 
-                                                                                <p>
-
-                                                                                    {!! $visit->voice_recognition !!}
-                                                                                </p>
+                                                                                <p>{{ $visit->day??'0' }} {{ $visit->date??'days' }}</p>
+                                                                                <p>{{$visit->details}}</p>
 
                                                                             </div>
                                                                           
@@ -2149,42 +2143,43 @@
 
                                                                                 </div>
                                                                             @empty
-                                                        @endforelse
-                                                        @forelse ($leftLobeScores as $record)
-                                                            <div class="symp_title mb-3">
+                                                                            @endforelse
 
-                                                                <h6 class="ss_result">Calculate TI-RARDS -
-                                                                    LEFT LOBE score</h6>
-                                                                @php
-                                                                    $sum = 0;
+                                                                            @forelse ($leftLobeScores as $record)
+                                                                                <div class="symp_title mb-3">
 
-                                                                    $jsonData = json_decode($record->data_value, true);
-                                                                    // echo "<pre>";
-                                                                    //     print_r($jsonData);
-                                                                    //     die;
+                                                                                    <h6 class="ss_result">Calculate TI-RARDS -
+                                                                                        LEFT LOBE score</h6>
+                                                                                    @php
+                                                                                        $sum = 0;
 
-                                                                    if (is_array($jsonData) && !empty($jsonData)) {
-                                                                        foreach ($jsonData as $key => $value) {
-                                                                            $sum += (int) $value[0];
-                                                                        }
-                                                                    }
+                                                                                        $jsonData = json_decode($record->data_value, true);
+                                                                                        // echo "<pre>";
+                                                                                        //     print_r($jsonData);
+                                                                                        //     die;
 
-                                                                @endphp
-                                                                @if (isset($sum) && ($sum >= 0 && $sum <= 1))
-                                                                    <p class="ss_result">TR1 (0 pts- Benign)</p>
-                                                                @elseif (isset($sum) && ($sum >= 2 && $sum <= 2))
-                                                                    <p class="ss_result">TR2 (2 pts- Not Suspicious)</p>
-                                                                @elseif (isset($sum) && ($sum >= 3 && $sum <= 3))
-                                                                    <p class="ss_result">TR3 (3 pts- Mildly Suspicious)</p>
-                                                                @elseif (isset($sum) && ($sum >= 4 && $sum <= 6))
-                                                                    <p class="ss_result">TR4 (4-6 pts- Moderately
-                                                                        Suspicious)
-                                                                    </p>
-                                                                @elseif (isset($sum) && ($sum >= 7 && $sum <= 6000))
-                                                                    <p class="ss_result">TR5 (7+ pts- Highly Suspicious)
-                                                                    </p>
-                                                                @endif
-                                                            </div>
+                                                                                        if (is_array($jsonData) && !empty($jsonData)) {
+                                                                                            foreach ($jsonData as $key => $value) {
+                                                                                                $sum += (int) $value[0];
+                                                                                            }
+                                                                                        }
+
+                                                                                    @endphp
+                                                                                    @if (isset($sum) && ($sum >= 0 && $sum <= 1))
+                                                                                        <p class="ss_result">TR1 (0 pts- Benign)</p>
+                                                                                    @elseif (isset($sum) && ($sum >= 2 && $sum <= 2))
+                                                                                        <p class="ss_result">TR2 (2 pts- Not Suspicious)</p>
+                                                                                    @elseif (isset($sum) && ($sum >= 3 && $sum <= 3))
+                                                                                        <p class="ss_result">TR3 (3 pts- Mildly Suspicious)</p>
+                                                                                    @elseif (isset($sum) && ($sum >= 4 && $sum <= 6))
+                                                                                        <p class="ss_result">TR4 (4-6 pts- Moderately
+                                                                                            Suspicious)
+                                                                                        </p>
+                                                                                    @elseif (isset($sum) && ($sum >= 7 && $sum <= 6000))
+                                                                                        <p class="ss_result">TR5 (7+ pts- Highly Suspicious)
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
 
 
 
@@ -2499,13 +2494,16 @@
                                                                 //     die;
                                                             @endphp
                                                             <div class="ss_result_box">
+                                                                @if(isset($jsonData['TSH'][0]) || isset($jsonData['T4'][0]))
                                                                 <div class="symp_title mb-1">
                                                                     <h6><span class="point_dia"><i
                                                                                 class="fa-regular fa-circle-dot"></i></span>
                                                                         LABTFT39 > TFT Results</h6>
 
                                                                 </div>
+                                                                
 
+                                                                @if(isset($jsonData['TSH'][0]))
                                                                 <p class="ss_result"><strong>TSH</strong> -
 
                                                                     @if ($jsonData['TSH'][0] == 'normal')
@@ -2516,11 +2514,11 @@
                                                                     @elseif ($jsonData['TSH'][0] == 'high')
                                                                         (> 5.49 mIU/L)<span>High</span>
                                                                     @endif
-
-
                                                                 </p>
-                                                                <p class="ss_result"><strong>T4</strong>
+                                                                @endif
 
+                                                                @if(isset($jsonData['T4'][0]))
+                                                                <p class="ss_result"><strong>T4</strong>
                                                                     @if ($jsonData['T4'][0] == 'normal')
                                                                         0.9 to 2.3 ng/dL <span>Normal</span>
                                                                     @elseif ($jsonData['T4'][0] == 'low')
@@ -2528,10 +2526,13 @@
                                                                     @elseif ($jsonData['T4'][0] == 'high')
                                                                         Above 2.3 ng/dL&nbsp;<span>High</span>
                                                                     @endif
-
-
                                                                 </p>
+                                                                @endif
+
                                                             </div>
+                                                            @endif
+
+                                                            @if(isset($jsonData['PTH'][0]) || isset($jsonData['Ca'][0]))
                                                             <div class="ss_result_box">
                                                                 <div class="symp_title mb-1">
                                                                     <h6><span class="point_dia"><i
@@ -2539,8 +2540,9 @@
                                                                         LABPTFT39 > PTFT Results</h6>
 
                                                                 </div>
-                                                                <p class="ss_result"><strong>PTH</strong> -
 
+                                                                @if(isset($jsonData['PTH'][0]))
+                                                                <p class="ss_result"><strong>PTH</strong> -
                                                                     @if ($jsonData['PTH'][0] == 'normal')
                                                                         (0.4 - 5.49 mIU/L) <span>Normal</span>
                                                                     @elseif ($jsonData['PTH'][0] == 'low')
@@ -2548,8 +2550,10 @@
                                                                     @elseif ($jsonData['PTH'][0] == 'high')
                                                                         5.5 mIU/L and above <span>High</span>
                                                                     @endif
-
                                                                 </p>
+                                                                @endif
+
+                                                                @if(isset($jsonData['Ca'][0]))
                                                                 <p class="ss_result"><strong>Ca+</strong> -
                                                                     @if ($jsonData['Ca'][0] == 'normal')
                                                                         (0.4 - 5.49 mIU/L) <span>Normal</span>
@@ -2558,10 +2562,11 @@
                                                                     @elseif ($jsonData['Ca'][0] == 'high')
                                                                         5.5 mIU/L and above <span>High</span>
                                                                     @endif
-
-
                                                                 </p>
+                                                                @endif
+
                                                             </div>
+                                                            @endif
 
                                                         </div>
 
@@ -2805,7 +2810,7 @@
                                                                             </p>
                                                                         </div>
                                                                     @endif
-                                                                    @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['TE']) || !isset($MDT['TTA']))
+                                                                    @if (!isset($MDT['OtherOptions']) && !isset($MDT['Surgical']) && !isset($MDT['TE']) && !isset($MDT['TTA']))
                                                                         <div class="ss_result_box">
                                                                             {{-- @dump($MDT) --}}
                                                                             @foreach ($MDT as $key => $value)
@@ -2986,9 +2991,9 @@
                                                                 @endif
 
                                                                 @if (
-                                                                    !isset($ElegibilitySTATUS['OTHERS']) ||
-                                                                        !isset($ElegibilitySTATUS['TE']) ||
-                                                                        !isset($ElegibilitySTATUS['PTTA']) ||
+                                                                    !isset($ElegibilitySTATUS['OTHERS']) &&
+                                                                        !isset($ElegibilitySTATUS['TE']) &&
+                                                                        !isset($ElegibilitySTATUS['PTTA']) &&
                                                                         !isset($ElegibilitySTATUS['TTA']))
                                                                     <div class="ss_result_box">
                                                                         @foreach ($ElegibilitySTATUS as $key => $value)
@@ -3252,7 +3257,7 @@
                                                                     <div class="symp_title mb-1">
 
                                                                         <p class="ss_result">
-                                                                            <strong>Sub Ttile</strong> &nbsp;&colon;
+                                                                            <strong>Sub Title</strong> &nbsp;&colon;
                                                                             {{ $record->sub_title ?? '' }}
                                                                         </p>
 

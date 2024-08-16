@@ -73,9 +73,9 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[ThyroidCyst][]" id="formRadiosRight3"
-                                                value="Thyroid Cyst">
+                                                value="Thyroid cystic">
                                             <label class="form-check-label" for="formRadiosRight3">
-                                                Thyroid Cyst
+                                                Thyroid cystic
                                             </label>
                                         </div>
                                     </div>
@@ -5316,7 +5316,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 500,
+            width: 800,
             height: 600,
         });
 

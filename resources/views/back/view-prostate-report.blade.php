@@ -864,45 +864,38 @@
                                                             {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($procedures as $procedure)
-                                                                <li>
+                                                            <li>
+
+                                                                <div class="appoin_title">
+
+                                                                    <h6>{{ $procedure->procedure_name }}</h6>
+
+                                                                    <p>
+                                                                        <span class="patientListOf"
+                                                                            data-id="{{ $procedure->id }}">
+                                                                            <i
+                                                                                class="fa-regular fa-trash-can trash_btn"></i>
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+
+                                                                <div class="appoin_date">
+
 
                                                                     <div class="appoin_title">
-
-                                                                        <h6>{{ $procedure->procedure_name }}</h6>
+                                                                        <h6> {{ $procedure->summary }}</h6>
 
                                                                         <p>
-                                                                            <span class="patientListOf" data-id="{{ $procedure->id }}">
-                                                                                <i class="fa-regular fa-trash-can trash_btn"></i>
-                                                                            </span>
+
+                                                                            {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
                                                                         </p>
 
                                                                     </div>
+                                                                </div>
 
-
-                                                                    <div class="appoin_date">
-
-
-                                                                        <div class="appoin_title">
-                                                                            <h6> {{ $procedure->summary }}</h6>
-
-                                                                            <p>
-                                                                               
-                                                                            {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
-                                                                            </p>
-
-                                                                    </div>
-
-
-                                                                        @if (strlen($procedure->summary) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
-
-                                                                    </div>
-
-                                                                </li>
+                                                            </li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -1055,53 +1048,42 @@
 
                                                     <ul>
                                                         @php
-                                                            $patient_id = decrypt(@$id);
-                                                            $visit_notes = App\Models\patient\Patient_progress_note::select(
-                                                                'created_at',
-                                                                'voice_recognition',
-                                                            )
-                                                                ->where([
-                                                                    'progress_note_canned_text_id' => 6,
-                                                                    'patient_id' => @$patient_id,
-                                                                ])
-                                                                ->orderBy('id', 'desc')
-                                                                ->get();
-                                                        @endphp
-                                                        @if ($visit_notes->isEmpty())
-                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
-                                                        @else
-                                                            @foreach ($visit_notes as $visit)
-                                                                <li>
-                                                                    <div class="appoin_title">
+                                                                $patient_id = decrypt(@$id);
+                                                                $visit_notes = App\Models\patient\Patient_progress_note::where([
+                                                                        // 'progress_note_canned_text_id' => 6,
+                                                                        'patient_id' => @$patient_id
+                                                                    ])
+                                                                    ->orderBy('id', 'desc')
+                                                                    ->get();
+                                                            @endphp
+                                                            @if ($visit_notes->isEmpty())
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
+                                                            @else
+                                                                @foreach ($visit_notes as $visit)
+                                                                    <li>
+                                                                        <div class="appoin_title">
 
-                                                                        <h6></h6>
+                                                                            <h6></h6>
 
-                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                        </p>
-
-                                                                    </div>
-                                                                    <div class="appoin_date">
-
-                                                                        <div class="read-more-content">
-
-                                                                            <p>
-
-                                                                                {!! $visit->voice_recognition !!}
+                                                                            <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($visit->voice_recognition) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
+                                                                        <div class="appoin_date">
 
-                                                                    </div>
+                                                                            <div class="read-more-content">
 
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
+                                                                                <p>{{ $visit->day??'0' }} {{ $visit->date??'days' }}</p>
+                                                                                <p>{{$visit->details}}</p>
+
+                                                                            </div>
+                                                                          
+
+                                                                        </div>
+
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
 
                                                     </ul>
                                                 </div>
@@ -2573,55 +2555,60 @@
                                                                         @endphp
                                                                         
                                                                          <!-- LABPSA24 / PSA -->
-                                                                    <div class="ss_result_box">
-                                                                        <div class="symp_title mb-3">
-                                                                            <h6><span class="point_dia"><i
-                                                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                                                        LABPSA24 / PSA</h6>
-                                                                        </div>
-                                                                            
+                                                                        @if(isset($jsonData['LABPSA24'][0]))
+                                                                            <div class="ss_result_box">
                                                                                 <div class="symp_title mb-3">
-
-                                                                                    <p class="ss_result">
-                                                                                    {{ $jsonData['LABPSA24'][0] ?? '' }}</p>
-                                                                                    
-                                                                                
+                                                                                    <h6><span class="point_dia"><i
+                                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                                LABPSA24 / PSA</h6>
                                                                                 </div>
-                                                                                
-                                                                            
+                                                                                    
+                                                                                        <div class="symp_title mb-3">
 
-                                                                    </div>
+                                                                                            <p class="ss_result">
+                                                                                            {{ $jsonData['LABPSA24'][0] ?? '' }}</p>
+                                                                                            
+                                                                                        
+                                                                                        </div>
+                                                                                        
+                                                                                    
+
+                                                                            </div>
+                                                                        @endif
                                                                     <!-- LABPSA24 / PSA  end -->
 
                                                                      <!-- LABRFT12 / Renal Function test (Creatinine | Na | K | urea) Results -->
-                                                                     <div class="ss_result_box">
-                                                                        <div class="symp_title mb-3">
-                                                                            <h6><span class="point_dia"><i
-                                                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                                                        LABRFT12 / Renal Function test (Creatinine | Na | K | urea) Results</h6>
-                                                                        </div>
-                                                                            
-                                                                                <div class="symp_title mb-3">
-                                                                                @if (isset($jsonData['LABRFT12']) && !empty($jsonData['LABRFT12'][0]))
-                                                                                    
-                                                                              
-                                                                                    <p class="ss_result">
-                                                                                    {{ $jsonData['LABRFT12'][0] =='Normal Renal profile' ?  $jsonData['LABRFT12'][0] :  '' }}</p>
-                                                                                    @elseif (isset($jsonData['LABRFT12NOTE']) && !empty($jsonData['LABRFT12NOTE'][0]))
-                                                                                    <p class="ss_result">{{ $jsonData['LABRFT12'][0] ?? '' }}</p>
-                                                                                    <p class="ss_result">
-                                                                                        &nbsp;&nbsp;{{ $jsonData['LABRFT12'][0] =='Abnormal Renal profile' ?  $jsonData['LABRFT12NOTE'][0] :  '' }}</p>
-                                                                                    
-                                                                                    @endif
-                                                                                </div>
+                                                                     @if(isset($jsonData['LABRFT12'][0]))
+                                                                        <div class="ss_result_box">
+                                                                            <div class="symp_title mb-3">
+                                                                                <h6><span class="point_dia"><i
+                                                                                            class="fa-regular fa-circle-dot"></i></span>
+                                                                                            LABRFT12 / Renal Function test (Creatinine | Na | K | urea) Results</h6>
+                                                                            </div>
                                                                                 
-                                                                            
+                                                                                    <div class="symp_title mb-3">
+                                                                                    @if (isset($jsonData['LABRFT12']) && !empty($jsonData['LABRFT12'][0]))
+                                                                                        
+                                                                                
+                                                                                        <p class="ss_result">
+                                                                                        {{ $jsonData['LABRFT12'][0] =='Normal Renal profile' ?  $jsonData['LABRFT12'][0] :  '' }}</p>
+                                                                                        @elseif (isset($jsonData['LABRFT12NOTE']) && !empty($jsonData['LABRFT12NOTE'][0]))
+                                                                                        <p class="ss_result">{{ $jsonData['LABRFT12'][0] ?? '' }}</p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $jsonData['LABRFT12'][0] =='Abnormal Renal profile' ?  $jsonData['LABRFT12NOTE'][0] :  '' }}</p>
+                                                                                        
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    
+                                                                                
 
-                                                                    </div>
+                                                                        </div>
+                                                                    @endif
                                                                     <!-- LABRFT12 / Renal Function test (Creatinine | Na | K | urea) Results  end -->
 
 
                                                                      <!--  LABUA29 / Urinalysis (Blood | Protein | WBC) Results -->
+                                                                     @if(isset($jsonData['LABUA29'][0]))
                                                                      <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2638,7 +2625,7 @@
                                                                                     @elseif (isset($jsonData['LABUA29NOTE']) && !empty($jsonData['LABUA29NOTE'][0]))
                                                                                     <p class="ss_result">{{ $jsonData['LABUA29'][0] }}</p>
                                                                                     <p class="ss_result">
-                                                                                        {{ $jsonData['LABUA29'][0] =='Abnormal Urinanalysis (PAE unfaverable)' ?  $jsonData['LABUA29NOTE'][0] :  '' }}</p>
+                                                                                        {{ $jsonData['LABUA29'][0] =='Abnormal Urinanalysis (PAE unfavorable)' ?  $jsonData['LABUA29NOTE'][0] :  '' }}</p>
                                                                                     
                                                                                     @endif
                                                                                 </div>
@@ -2646,8 +2633,10 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
                                                                     <!--  LABUA29 / Urinalysis (Blood | Protein | WBC) Results  end -->
                                                                     <!-- LABUROFLO82 / Uroflowmetery tests Results -->
+                                                                    @if(isset($jsonData['QMax'][0]))
                                                                     <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2666,8 +2655,10 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
                                                                     <!-- LABUROFLO82 / Uroflowmetery tests Results  end -->
                                                                     <!-- LABUROFLO82 / Uroflowmetery tests Results -->
+                                                                    @if(isset($jsonData['PVR'][0]))
                                                                     <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2686,9 +2677,11 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
                                                                     <!-- LABUROFLO82 / Uroflowmetery tests Results  end -->
 
                                                                      <!--   LABUROFLOINVASIVE752 /Filling-Voiding phase testing Results -->
+                                                                     @if(isset($jsonData['LABUROFLOINVASIVE752'][0]))
                                                                      <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2701,11 +2694,11 @@
                                                                                     
                                                                               
                                                                                     <p class="ss_result">
-                                                                                    {{ $jsonData['LABUROFLOINVASIVE752'][0] =='Normal results (PAE unfaverable)' ?  $jsonData['LABUROFLOINVASIVE752'][0] :  '' }}</p>
+                                                                                    {{ $jsonData['LABUROFLOINVASIVE752'][0] =='Normal results (PAE unfavorable)' ?  $jsonData['LABUROFLOINVASIVE752'][0] :  '' }}</p>
                                                                                     @elseif (isset($jsonData['LABUROFLOINVASIVE752NOTE']) && !empty($jsonData['LABUROFLOINVASIVE752NOTE'][0]))
                                                                                     <p class="ss_result">
                                                                                         <p class="ss_result">{{ $jsonData['LABUROFLOINVASIVE752'][0] ?? '' }}</p>
-                                                                                        {{ $jsonData['LABUROFLOINVASIVE752'][0] =='Abnormal Urinanalysis (PAE unfaverable)' ?  $jsonData['LABUROFLOINVASIVE752NOTE'][0] :  '' }}</p>
+                                                                                        {{ $jsonData['LABUROFLOINVASIVE752'][0] =='Abnormal Urinanalysis (PAE unfavorable)' ?  $jsonData['LABUROFLOINVASIVE752NOTE'][0] :  '' }}</p>
                                                                                     
                                                                                     @endif
                                                                                 </div>
@@ -2713,6 +2706,7 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
                                                                     <!--  LABUROFLOINVASIVE752 /Filling-Voiding phase testing Results  end -->
                                                                     </div>
 
@@ -2961,7 +2955,7 @@
                                                                                 </div>
                                                                             @endif
 
-                                                                            @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['Medical']) || !isset($MDT['PAE']))
+                                                                            @if (!isset($MDT['OtherOptions']) && !isset($MDT['Surgical']) && !isset($MDT['Medical']) && !isset($MDT['PAE']))
                                                                                 <div class="ss_result_box">
                                                                                     @foreach ($MDT as $key => $value)
                                                                                         <div class="symp_title mb-1">
@@ -3134,9 +3128,9 @@
                                                                                 </div>
                                                                             @endif
                                                                             @if (
-                                                                                !isset($ElegibilitySTATUS['OTHERS']) ||
-                                                                                    !isset($ElegibilitySTATUS['PAE']) ||
-                                                                                    !isset($ElegibilitySTATUS['Medical']) ||
+                                                                                !isset($ElegibilitySTATUS['OTHERS']) &&
+                                                                                    !isset($ElegibilitySTATUS['PAE']) &&
+                                                                                    !isset($ElegibilitySTATUS['Medical']) &&
                                                                                     !isset($ElegibilitySTATUS['Surgical']))
                                                                                 <div class="ss_result_box">
                                                                                     @foreach ($ElegibilitySTATUS as $key => $value)
@@ -3392,7 +3386,7 @@
                                                                 <div class="symp_title mb-1">
                                                                     
                                                                     <p class="ss_result">
-                                                                        <strong>Sub Ttile</strong> &nbsp;&colon;
+                                                                        <strong>Sub Title</strong> &nbsp;&colon;
                                                                         {{ $record->sub_title ?? '' }}
                                                                     </p>
 

@@ -660,39 +660,38 @@
                                                             <li>No data Found.</li>
                                                         @else
                                                             @foreach ($procedures as $procedure)
-                                                                <li>
+                                                            <li>
+
+                                                                <div class="appoin_title">
+
+                                                                    <h6>{{ $procedure->procedure_name }}</h6>
+
+                                                                    <p>
+                                                                        <span class="patientListOf"
+                                                                            data-id="{{ $procedure->id }}">
+                                                                            <i
+                                                                                class="fa-regular fa-trash-can trash_btn"></i>
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+
+                                                                <div class="appoin_date">
+
 
                                                                     <div class="appoin_title">
+                                                                        <h6> {{ $procedure->summary }}</h6>
 
-                                                                        <h6>{{ $procedure->procedure_name }}</h6>
+                                                                        <p>
 
-                                                                        <p class="text-align:right">
                                                                             {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
                                                                         </p>
 
                                                                     </div>
+                                                                </div>
 
-
-                                                                    <div class="appoin_date">
-
-                                                                        <div class="read-more-content">
-
-                                                                            <p>
-
-                                                                                {{ $procedure->summary }}
-                                                                            </p>
-
-                                                                        </div>
-                                                                        @if (strlen($procedure->summary) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
-
-                                                                    </div>
-
-                                                                </li>
+                                                            </li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -824,43 +823,42 @@
 
                                                     <ul class="symptoms">
                                                         @php
-                                                            $patient_id = decrypt(@$id);
-                                                            $visit_notes = App\Models\patient\Patient_progress_note::select('created_at', 'voice_recognition')
-                                                                ->where(['progress_note_canned_text_id' => 6, 'patient_id' => @$patient_id])
-                                                                ->orderBy('id', 'desc')
-                                                                ->get();
-                                                        @endphp
-                                                        @if ($visit_notes->isEmpty())
-                                                            <li>No data Found.</li>
-                                                        @else
-                                                            @foreach ($visit_notes as $visit)
-                                                                <li>
+                                                                $patient_id = decrypt(@$id);
+                                                                $visit_notes = App\Models\patient\Patient_progress_note::where([
+                                                                        // 'progress_note_canned_text_id' => 6,
+                                                                        'patient_id' => @$patient_id
+                                                                    ])
+                                                                    ->orderBy('id', 'desc')
+                                                                    ->get();
+                                                            @endphp
+                                                            @if ($visit_notes->isEmpty())
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
+                                                            @else
+                                                                @foreach ($visit_notes as $visit)
+                                                                    <li>
+                                                                        <div class="appoin_title">
 
-                                                                    <div class="appoin_date">
+                                                                            <h6></h6>
 
-                                                                        <div class="read-more-content">
-
-                                                                            <p>
-
-                                                                                {{ $visit->voice_recognition }}
+                                                                            <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($visit->voice_recognition) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
+                                                                        <div class="appoin_date">
 
-                                                                    </div>
-                                                                    <div class="appoin_date">
-                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                        </p>
-                                                                    </div>
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
+                                                                            <div class="read-more-content">
+
+                                                                                <p>{{ $visit->day??'0' }} {{ $visit->date??'days' }}</p>
+                                                                                <p>{{$visit->details}}</p>
+
+                                                                            </div>
+                                                                          
+
+                                                                        </div>
+
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
 
                                                     </ul>
                                                 </div>

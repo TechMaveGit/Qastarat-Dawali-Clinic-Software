@@ -1854,7 +1854,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                           <div class="col-lg-12">
                               <div class="row">
                               <div class="col-lg-4">
-                            <h6 class="mb-3 lut_title">Adnexal Mass / Complex Cyst</h6>
+                            <h6 class="mb-3 lut_title">Adnexal Mass / Complex cystic</h6>
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
@@ -2092,9 +2092,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                           </div>
                                               <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Lab[UrinalysisResults][]" value="Abnormal Urinanalysis (UAE unfaverable)" id="formRadiosRight76">
+                                                  <input class="form-check-input"type="radio" name="Lab[UrinalysisResults][]" value="Abnormal Urinanalysis (UAE unfavorable)" id="formRadiosRight76">
                                                   <label class="form-check-label" for="formRadiosRight76">
-                                                  Abnormal Urinanalysis (UAE unfaverable)
+                                                  Abnormal Urinanalysis (UAE unfavorable)
                                                   </label>
                                               </div>
                                           </div>
@@ -3461,7 +3461,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 500,
+            width: 800,
             height: 600,
         });
 

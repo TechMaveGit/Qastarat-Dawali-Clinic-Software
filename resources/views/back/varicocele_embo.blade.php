@@ -78,9 +78,9 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_general[Testicular][]" value="Testicular mass / cyst" id="formRadiosRight4">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_general[Testicular][]" value="Testicular mass / cystic" id="formRadiosRight4">
                             <label class="form-check-label" for="formRadiosRight4">
-                            Testicular mass / cyst
+                            Testicular mass / cystic
                             </label>
                         </div>
                      </div>
@@ -1447,9 +1447,9 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="clinical_indicator[testicles][]" value="YES  (VE unfaverable)" id="formRadiosRight42">
+                                        <input class="form-check-input"type="radio" name="clinical_indicator[testicles][]" value="YES  (VE unfavorable)" id="formRadiosRight42">
                                         <label class="form-check-label" for="formRadiosRight42">
-                                        YES  (VE unfaverable)
+                                        YES  (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -1469,9 +1469,9 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="clinical_indicator[Undecendedtesticles][]" value="YES  (VE unfaverable)" id="formRadiosRight44">
+                                        <input class="form-check-input"type="radio" name="clinical_indicator[Undecendedtesticles][]" value="YES  (VE unfavorable)" id="formRadiosRight44">
                                         <label class="form-check-label" for="formRadiosRight44">
-                                        YES  (VE unfaverable)
+                                        YES  (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -3724,7 +3724,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 600,
+            width: 800,
             height: 600,
         });
 

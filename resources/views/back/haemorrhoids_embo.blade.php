@@ -3249,12 +3249,12 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     let lastLine;
 
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/Hemorrhoids Embo.jpg') }}';
+    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/HaemorrhoidsEmbo.jpg') }}';
 
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 500,
+            width: 800,
             height: 600,
         });
 

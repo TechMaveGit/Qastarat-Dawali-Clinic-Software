@@ -184,7 +184,9 @@ class PatientController extends Controller
     public function patient_medical_detail(Request $request, $id)
     {
 
-        // dd($request->all());
+        // if($request->_token){
+        //     dd($request->all());
+        // }
         $id = Crypt::decrypt($id);
 
         $request->session()->put('id', $id);
@@ -208,60 +210,8 @@ class PatientController extends Controller
         $Patient_progress_note = Patient_progress_note::with(['doctor', 'progressNote'])->select('id', 'doctor_id', 'progress_note_canned_text_id', 'voice_recognition', 'created_at', 'summery')->where('patient_id', $id)->orderBy('id', 'desc')->get();
         $Prescription = Prescription::select('id', 'prescription', 'created_at')->where('patient_id', $id)->orderBy('id', 'desc')->get();
 
+        // dd($Prescription);
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
-
-
-
-        //     if($request->input('form_print_type')=='general_form')
-        //     {
-        //         $diagnosis_general = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id])->where('form_type','general_form')->get();
-        //         $diagnosis_general->checkValData='';
-        //     }
-        //     else
-        //     {
-        //         $diagnosis_general = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
-        //         $diagnosis_general->checkValData="netGeneral";
-        //     }
-
-
-        //     if($request->input('form_print_type')=='general_form')
-        //     {
-        //         $diagnosis_cid = GeneralDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'general_form'])->get();
-        //         $diagnosis_cid->checkValData='';
-        //     }
-        //     else
-        //     {   
-
-        //          $diagnosis_cid = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
-
-        //         $diagnosis_cid->checkValData="netGeneral";
-        //     }
-
-        //  //   return $request->all();
-
-
-
-        //     if($request->input('form_print_type')=='general_form')
-        //     {
-        //         $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' =>'general_form'])->orderBy('id', 'desc')->get();
-        //         $ClinicalExam->checkValData='';
-
-        //         $RegionalpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('RegionalExam')->where(['title_name'=>'ClinicalExam', 'patient_id' => $id, 'form_type' =>'general_form'])->orderBy('id', 'ASC')->get();
-        //         $SystemicpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('SystemicExam')->where(['title_name'=>'ClinicalExam',  'patient_id' => $id, 'form_type' =>'general_form'])->orderBy('id', 'desc')->get();
-
-
-
-        //     }
-        //     else
-        //     {     
-        //         $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' =>$request->input('form_print_type')])->orderBy('id', 'desc')->get();
-
-        //         $ClinicalExam->checkValData="netGeneral";
-
-        //         $RegionalpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('RegionalExam')->where(['title_name'=>'ClinicalExam', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'ASC')->get();
-        //         $SystemicpatientGeneralDiagnosis = GeneralDiagnosis::with('doctor')->whereNotNull('SystemicExam')->where(['title_name'=>'ClinicalExam',  'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
-
-        //     }
 
 
         if ($request->input('form_print_type') == 'general_form') {
@@ -333,12 +283,10 @@ class PatientController extends Controller
         
 
         $checkGenerateData = DB::table('general_reports')->where(['form_type' => $request->form_print_type??'general_form', 'patient_id' => $id])->get();
-        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => $request->input('form_type')])->latest('id')->first();
+        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => $request->input('form_print_type')])->first();
+        $Imaging = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Imaging', 'patient_id' => $id, 'form_type' => $request->input('form_print_type')])->orderBy('id', 'desc')->get();
 
-        // SpinePain
-        // dd($MDTs, $request->input('form_print_type')); 
-
-        
+        // dd($Imaging);
         $data = [
             'patient' => $patient,
             'id' => Crypt::encrypt($id),
@@ -380,13 +328,14 @@ class PatientController extends Controller
             'systemicpatientGeneralDiagnosis' => $SystemicpatientGeneralDiagnosis,
             'checkGenerateData' => $checkGenerateData,
             'VaricoceleEmboForm' => $VaricoceleEmboForm,
-            'document_file' => $document_file
+            'document_file' => $document_file,
+            'Imaging'=>$Imaging
         ];
         // dd($data,$id);
 
 
         if ($request->input('print_form') == "print_form") {
-            $request->all();
+            // dd($request->all(),$request->input('listOfPrescribed'),$data);
             $checkPrint = [
                 "generalDiagnosis_"              => $request->input('sympotms'),
                 "pastMedicalHistory"         => $request->input('pastMedicalHistory'),
@@ -402,11 +351,16 @@ class PatientController extends Controller
                 "eligibility"         => $request->input('Eligiblity'),
                 "list"         => $request->input('list'),
                 "supportiveTreatment"         => $request->input('supportiveTreatement'),
-                "listOfPrescribed"         => $request->input('listOfPrescribed'),
+                "ListOfPrescribed"         => $request->input('ListOfPrescribed'),
                 "planRecommendation"       => $request->input('planRecommandation'),
                 'VaricoceleEmboForm'       => $request->input('ImagingExam'),
                 'patient_id'              => $id,
-                'form_type'               => $request->input('form_print_type')
+                'form_type'               => $request->input('form_print_type'),
+                'procedure'=>$request->input('Procedure'),
+                'orderImagingExam'=>$request->input('OrderImagingExam'),
+                'lab'=>$request->input('LAB'),
+                'listofVisit'=>$request->input('ListofVisit'),
+                'progressNote'=>$request->input('ProgressNote')
             ];
 
             // dd($checkPrint);
@@ -418,6 +372,7 @@ class PatientController extends Controller
 
 
         if ($request->input('checkReport')) {
+            // dd("---");
             if ($checkGenerateData) {
                 $request->all();
                 $general_reports = DB::table('general_reports')->where('id', $request->input('checkReport'))->where('patient_id', $id)->first();

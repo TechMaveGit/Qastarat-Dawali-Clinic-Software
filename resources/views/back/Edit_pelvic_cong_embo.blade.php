@@ -1950,7 +1950,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                       <div class="col-lg-12">
                                           <div class="row">
                                           <div class="col-lg-4">
-                                        <h6 class="mb-3 lut_title">Suapicious Pelvic mass / complex cyst</h6>
+                                        <h6 class="mb-3 lut_title">Suapicious Pelvic mass / complex cystic</h6>
                                       </div>
                                       <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
@@ -2072,7 +2072,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                       <div class="col-lg-12">
                                           <div class="row">
                                           <div class="col-lg-4">
-                                        <h6 class="mb-3 lut_title">Suapicious Pelvic mass / complex cyst</h6>
+                                        <h6 class="mb-3 lut_title">Suapicious Pelvic mass / complex cystic</h6>
                                       </div>
                                       <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
@@ -2218,7 +2218,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">Suapicious Pelvicmass / complex cyst</h6>
+                                      <h6 class="mb-3 lut_title">Suspicious pelvic mass / Complex cystic</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2557,7 +2557,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                             {{-- <a target="_blank"  href="{{ route('user.viewPelvicCongEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
                                                     class="fa-solid fa-arrow-right-long"></i></a> --}}
-                                                </h6>ElegibilitySTATUS
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
