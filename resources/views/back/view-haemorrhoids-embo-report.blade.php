@@ -3321,7 +3321,7 @@
                                                                 <div class="symp_title mb-1">
                                                                     
                                                                     <p class="ss_result">
-                                                                        <strong>Sub Ttile</strong> &nbsp;&colon;
+                                                                        <strong>Sub Title</strong> &nbsp;&colon;
                                                                         {{ $record->sub_title ?? '' }}
                                                                     </p>
 

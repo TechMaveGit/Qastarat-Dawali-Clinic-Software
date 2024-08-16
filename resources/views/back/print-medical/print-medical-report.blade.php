@@ -2600,20 +2600,15 @@
                                                             </p>
                                                         </div>
                                                         @endif
-                                                        
+
+
                                                         <div class="symp_title mb-3">
                                                             <p class="ss_result">Suspicious Anal Mass
                                                             <p>
                                                             <p class="ss_result">
                                                                 &nbsp;&nbsp;{{ $jsonData['SuspiciousAnalMass'][0] ?? '' }}
                                                             </p>
-
-
-
                                                         </div>
-
-
-
                                                     </div>
                                                     <!--USVENOUSDOPPLER70  > Hemarrhoids endorectal US Protocol Findings end -->
 

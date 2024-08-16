@@ -1361,10 +1361,6 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                     @php
                                         if (isset($symptoms_scores) && !empty($symptoms_scores)) {
                                             $symptoms_scores = json_decode($symptoms_scores->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($symptoms_scores);
-                                            //     die;
-
                                             $sum = 0;
 
                                             foreach ($symptoms_scores as $symptom => $values) {
