@@ -2092,9 +2092,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                           </div>
                                               <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Lab[UrinalysisResults][]" value="Abnormal Urinanalysis (UAE unfaverable)" id="formRadiosRight76">
+                                                  <input class="form-check-input"type="radio" name="Lab[UrinalysisResults][]" value="Abnormal Urinanalysis (UAE unfavorable)" id="formRadiosRight76">
                                                   <label class="form-check-label" for="formRadiosRight76">
-                                                  Abnormal Urinanalysis (UAE unfaverable)
+                                                  Abnormal Urinanalysis (UAE unfavorable)
                                                   </label>
                                               </div>
                                           </div>

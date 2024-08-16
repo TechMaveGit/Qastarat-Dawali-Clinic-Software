@@ -607,11 +607,10 @@
 
 
                                     <!-- SIMPLE NAVIGATION LINK -->
-                                    @if (Auth::guard('doctor')->user()->user_type !== 'pathology' &&
-                                            Auth::guard('doctor')->user()->user_type !== 'radiology')
+                                    @if (!Auth::guard('doctor')->user())
                                         <li class="nl-simple {{ request()->routeIs('service') ? 'active' : '' }}"
                                             aria-haspopup="true"><a href="{{ route('service') }}"
-                                                class="h-link">Services</a></li>
+                                                class="h-link">Services--</a></li>
                                     @endif
 
                                 </ul>

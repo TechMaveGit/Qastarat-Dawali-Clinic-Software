@@ -478,7 +478,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                                 elseif ($symptom['SymptomType'] === 'Skin pigmentation') {
                                                                     $disfiguringSymptoms11 = $symptom;
                                                                 }
-                                                                elseif ($symptom['SymptomType'] === 'General malise') {
+                                                                elseif ($symptom['SymptomType'] === 'General malaise') {
                                                                     $disfiguringSymptoms12 = $symptom;
                                                                 }
                                                                 elseif ($symptom['SymptomType'] === 'Leg Ulcers') {
@@ -1077,11 +1077,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-3">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="symptoms[11][0]" id="sym_a923" value="General malise"
-                                                        {{ isset($disfiguringSymptoms12['SymptomType']) && $disfiguringSymptoms12['SymptomType'] == 'General malise' ? 'checked' : '' }}
+                                                        name="symptoms[11][0]" id="sym_a923" value="General malaise"
+                                                        {{ isset($disfiguringSymptoms12['SymptomType']) && $disfiguringSymptoms12['SymptomType'] == 'General malaise' ? 'checked' : '' }}
                                                         >
                                                     <label class="form-check-label" for="sym_a923">
-                                                        General malise
+                                                        General malaise
                                                     </label>
                                                 </div>
                                             </div>
@@ -1790,7 +1790,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
                                                 </tr>
                                                 <tr>
-                                                    <td>General malise</td>
+                                                    <td>General malaise</td>
                                                     <td>
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input symtoms_scrore_checkbox"
@@ -4461,7 +4461,7 @@ var isChecked_sym_a92 = $("#sym_a92").is(":checked");
 //  Skin pigmentation end 
 
 
-//  General malise start
+//  General malaise start
 var isChecked_sym_a923 = $("#sym_a923").is(":checked");
            
            var sym_a923_durationValue = $("select[name='symptoms[11][1]']").val();
@@ -4476,7 +4476,7 @@ var isChecked_sym_a923 = $("#sym_a923").is(":checked");
                    Swal.fire({
                            icon: 'error',
                            title: 'Oops...',
-                           text: 'Please fill out General malise fields in Symptoms.',
+                           text: 'Please fill out General malaise fields in Symptoms.',
                            confirmButtonText: 'OK'
                        }).then(function () {
                            setTimeout(function() {
@@ -4492,7 +4492,7 @@ var isChecked_sym_a923 = $("#sym_a923").is(":checked");
 
 
        }
-//  General malise end 
+//  General malaise end 
 //  Leg Ulcers start
 var isChecked_sym_a920 = $("#sym_a920").is(":checked");
            

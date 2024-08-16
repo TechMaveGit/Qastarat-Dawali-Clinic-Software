@@ -1447,9 +1447,9 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="clinical_indicator[testicles][]" value="YES  (VE unfaverable)" id="formRadiosRight42">
+                                        <input class="form-check-input"type="radio" name="clinical_indicator[testicles][]" value="YES  (VE unfavorable)" id="formRadiosRight42">
                                         <label class="form-check-label" for="formRadiosRight42">
-                                        YES  (VE unfaverable)
+                                        YES  (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
@@ -1469,9 +1469,9 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="clinical_indicator[Undecendedtesticles][]" value="YES  (VE unfaverable)" id="formRadiosRight44">
+                                        <input class="form-check-input"type="radio" name="clinical_indicator[Undecendedtesticles][]" value="YES  (VE unfavorable)" id="formRadiosRight44">
                                         <label class="form-check-label" for="formRadiosRight44">
-                                        YES  (VE unfaverable)
+                                        YES  (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>

@@ -2080,7 +2080,7 @@
                                                                             <div class="symp_title mb-3">
                                                                                 <h6><span class="point_dia"><i
                                                                                             class="fa-regular fa-circle-dot"></i></span>
-                                                                                    Suapicious Pelvicmass / complex cyst
+                                                                                    Suspicious pelvic mass / Complex cystic
                                                                                 </h6>
                                                                             </div>
 

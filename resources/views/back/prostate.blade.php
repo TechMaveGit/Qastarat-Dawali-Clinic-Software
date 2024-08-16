@@ -1606,9 +1606,11 @@
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1675,9 +1677,11 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>USGENERAL70 </h4>
                                         </div>
@@ -1689,18 +1693,18 @@
                                       </div>
                                       <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL701][]" value="Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)" id="formRadiosRight48">
+                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL701][]" value="Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)" id="formRadiosRight48">
                                             <label class="form-check-label" for="formRadiosRight48">
-                                              Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)
+                                              Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)
                                             </label>
                                         </div>
                                     </div>
     
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL702][]" value="PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)" id="formRadiosRight49">
+                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL702][]" value="PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)" id="formRadiosRight49">
                                             <label class="form-check-label" for="formRadiosRight49">
-                                            PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)
+                                            PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)
                                             </label>
                                         </div>
                                     </div> 
@@ -1766,9 +1770,9 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR485][]" value="Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)" id="formRadiosRight56">
+                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR485][]" value="Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)" id="formRadiosRight56">
                                             <label class="form-check-label" for="formRadiosRight56">
-                                            Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)
+                                            Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)
                                             </label>
                                         </div>
                                     </div>
@@ -1782,9 +1786,9 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR487][]" value="PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)" id="formRadiosRight58">
+                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR487][]" value="PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)" id="formRadiosRight58">
                                             <label class="form-check-label" for="formRadiosRight58">
-                                            PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)
+                                            PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)
                                             </label>
                                         </div>
                                     </div>
@@ -1823,7 +1827,7 @@
                                           <div class="form-check form-check-right mb-3">
                                               <input class="form-check-input" type="radio" name="Imaging[lobe][]" value="YES" id="formRadiosRight62">
                                               <label class="form-check-label" for="formRadiosRight62">
-                                              YES (PAE unfaverable)
+                                              YES (PAE unfavorable)
                                               </label>
                                           </div>
                                       </div>
@@ -2035,7 +2039,9 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Lab <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Lab 
+                                            {{-- <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                         <div class="col-lg-12">
                                           <div class="title_head">
@@ -2050,9 +2056,9 @@
                                         
                                                   <div class="col-lg-5">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input" type="radio" name="Lab[LABPSA24][]" value="PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfaverable)" id="formRadiosRight74">
+                                                      <input class="form-check-input" type="radio" name="Lab[LABPSA24][]" value="PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfavorable)" id="formRadiosRight74">
                                                       <label class="form-check-label" for="formRadiosRight74">
-                                                      PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfaverable)
+                                                      PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfavorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2114,9 +2120,9 @@
                                           </div>
                                               <div class="col-lg-6">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Lab[LABUA29][]"  value="Abnormal Urinanalysis (PAE unfaverable)" id="formRadiosRight76">
+                                                  <input class="form-check-input"type="radio" name="Lab[LABUA29][]"  value="Abnormal Urinanalysis (PAE unfavorable)" id="formRadiosRight76">
                                                   <label class="form-check-label" for="formRadiosRight76">
-                                                  Abnormal Urinanalysis (PAE unfaverable)
+                                                  Abnormal Urinanalysis (PAE unfavorable)
                                                   </label>
                                               </div>
                                           </div>
@@ -2150,9 +2156,9 @@
                                               </div>
                                                   <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[QMax][]" value=">10ml/s (PAE unfaverable)" id="formRadiosRight78">
+                                                      <input class="form-check-input"type="radio" name="Lab[QMax][]" value=">10ml/s (PAE unfavorable)" id="formRadiosRight78">
                                                       <label class="form-check-label" for="formRadiosRight78">
-                                                      >10ml/s (PAE unfaverable)
+                                                      >10ml/s (PAE unfavorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2172,9 +2178,9 @@
                                               </div>
                                                   <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[PVR][]" value="< 200cc (PAE unfaverable)" id="formRadiosRight80">
+                                                      <input class="form-check-input"type="radio" name="Lab[PVR][]" value="< 200cc (PAE unfavorable)" id="formRadiosRight80">
                                                       <label class="form-check-label" for="formRadiosRight80">
-                                                      < 200cc (PAE unfaverable)
+                                                      < 200cc (PAE unfavorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2202,9 +2208,9 @@
                                               </div>
                                                   <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[LABUROFLOINVASIVE752][]" value="Normal results (PAE unfaverable)" id="formRadiosRight82">
+                                                      <input class="form-check-input"type="radio" name="Lab[LABUROFLOINVASIVE752][]" value="Normal results (PAE unfavorable)" id="formRadiosRight82">
                                                       <label class="form-check-label" for="formRadiosRight82">
-                                                      Normal results (PAE unfaverable)
+                                                      Normal results (PAE unfavorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2224,7 +2230,9 @@
                                           </div>
                                       </div>
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                         <div class="title_head">
                                               <h4>REQUROFLONONI5</h4>
                                           </div>
@@ -2479,9 +2487,11 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                             href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="row">
@@ -2612,9 +2622,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>

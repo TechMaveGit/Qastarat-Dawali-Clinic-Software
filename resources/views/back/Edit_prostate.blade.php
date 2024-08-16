@@ -1710,9 +1710,11 @@
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1798,9 +1800,11 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                                     <div class="title_head">
                                                         <h4>USGENERAL70 </h4>
                                                     </div>
@@ -1824,23 +1828,23 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL701][]" value="Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)" id="formRadiosRight48"
-                                            {{ isset($Imaging['USGENERAL701'][0]) && $Imaging['USGENERAL701'][0] == "Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL701][]" value="Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)" id="formRadiosRight48"
+                                            {{ isset($Imaging['USGENERAL701'][0]) && $Imaging['USGENERAL701'][0] == "Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRight48">
-                                            Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)
+                                            Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)
                                             </label>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL702][]" value="PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)" id="formRadiosRight49"
-                                            {{ isset($Imaging['USGENERAL702'][0]) && $Imaging['USGENERAL702'][0]  == "PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="checkbox" name="Imaging[USGENERAL702][]" value="PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)" id="formRadiosRight49"
+                                            {{ isset($Imaging['USGENERAL702'][0]) && $Imaging['USGENERAL702'][0]  == "PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)" ? 'checked' : '' }}
 
                                             >
                                             <label class="form-check-label" for="formRadiosRight49">
-                                            PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)
+                                            PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)
                                             </label>
                                         </div>
                                     </div> 
@@ -1917,11 +1921,11 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR485][]"value="Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)" id="formRadiosRight56"
-                                            {{ isset($Imaging['MRCIR485'][0]) && $Imaging['MRCIR485'][0] == "Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR485][]"value="Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)" id="formRadiosRight56"
+                                            {{ isset($Imaging['MRCIR485'][0]) && $Imaging['MRCIR485'][0] == "Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRight56">
-                                                Total Prostate Volume (TPV) TPV < 40 cc (PAE unfaverable)
+                                                Total Prostate Volume (TPV) TPV < 40 cc (PAE unfavorable)
                                             </label>
                                         </div>
                                     </div>
@@ -1937,11 +1941,11 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR487][]" value="PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)" id="formRadiosRight58"
-                                            {{ isset($Imaging['MRCIR487'][0]) && $Imaging['MRCIR487'][0] == "PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="checkbox" name="Imaging[MRCIR487][]" value="PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)" id="formRadiosRight58"
+                                            {{ isset($Imaging['MRCIR487'][0]) && $Imaging['MRCIR487'][0] == "PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRight58">
-                                                PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfaverable)
+                                                PSA:TPV Ratio (PSA density)>0.15 ng/ml/cc (PAE unfavorable)
                                             </label>
                                         </div>
                                     </div>
@@ -1989,7 +1993,7 @@
                                               {{ isset($Imaging['lobe'][0]) && $Imaging['lobe'][0] == "YES" ? 'checked' : '' }}
                                               >
                                               <label class="form-check-label" for="formRadiosRight62">
-                                              YES (PAE unfaverable)
+                                              YES (PAE unfavorable)
                                               </label>
                                           </div>
                                       </div>
@@ -2250,7 +2254,9 @@
 
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Lab 
+                                            {{-- <a target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                         <div class="col-lg-12">
                                           <div class="title_head">
@@ -2265,11 +2271,11 @@
                                         
                                                   <div class="col-lg-5">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input" type="radio" name="Lab[LABPSA24][]" value="PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfaverable)" id="formRadiosRight74"
-                                                      {{ isset($Lab['LABPSA24'][0]) && $Lab['LABPSA24'][0] == "PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfaverable)" ? 'checked' : '' }}
+                                                      <input class="form-check-input" type="radio" name="Lab[LABPSA24][]" value="PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfavorable)" id="formRadiosRight74"
+                                                      {{ isset($Lab['LABPSA24'][0]) && $Lab['LABPSA24'][0] == "PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfavorable)" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRight74">
-                                                      PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfaverable)
+                                                      PSA > 4 gm/dl OR PSA > 4 ng/ml (PAE unfavorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2337,11 +2343,11 @@
                                           </div>
                                               <div class="col-lg-6">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Lab[LABUA29][]"  value="Abnormal Urinanalysis (PAE unfaverable)" id="formRadiosRight76"
-                                                  {{ isset($Lab['LABUA29'][0]) && $Lab['LABUA29'][0] == "Abnormal Urinanalysis (PAE unfaverable)" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Lab[LABUA29][]"  value="Abnormal Urinanalysis (PAE unfavorable)" id="formRadiosRight76"
+                                                  {{ isset($Lab['LABUA29'][0]) && $Lab['LABUA29'][0] == "Abnormal Urinanalysis (PAE unfavorable)" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRight76">
-                                                  Abnormal Urinanalysis (PAE unfaverable)
+                                                  Abnormal Urinanalysis (PAE unfavorable)
                                                   </label>
                                               </div>
                                           </div>
@@ -2377,11 +2383,11 @@
                                               </div>
                                                   <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[QMax][]" value=">10ml/s (PAE unfaverable)" id="formRadiosRight78"
-                                                      {{ isset($Lab['QMax'][0]) && $Lab['QMax'][0] == ">10ml/s (PAE unfaverable)" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Lab[QMax][]" value=">10ml/s (PAE unfavorable)" id="formRadiosRight78"
+                                                      {{ isset($Lab['QMax'][0]) && $Lab['QMax'][0] == ">10ml/s (PAE unfavorable)" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRight78">
-                                                      >10ml/s (PAE unfaverable)
+                                                      >10ml/s (PAE unfavorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2403,11 +2409,11 @@
                                               </div>
                                                   <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[PVR][]" value="< 200cc (PAE unfaverable)" id="formRadiosRight80"
-                                                      {{ isset($Lab['PVR'][0]) && $Lab['PVR'][0] == "< 200cc (PAE unfaverable)" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Lab[PVR][]" value="< 200cc (PAE unfavorable)" id="formRadiosRight80"
+                                                      {{ isset($Lab['PVR'][0]) && $Lab['PVR'][0] == "< 200cc (PAE unfavorable)" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRight80">
-                                                      < 200cc (PAE unfaverable)
+                                                      < 200cc (PAE unfavorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2437,11 +2443,11 @@
                                               </div>
                                                   <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Lab[LABUROFLOINVASIVE752][]" value="Normal results (PAE unfaverable)" id="formRadiosRight82"
-                                                      {{ isset($Lab['LABUROFLOINVASIVE752'][0]) && $Lab['LABUROFLOINVASIVE752'][0] == "Normal results (PAE unfaverable)" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Lab[LABUROFLOINVASIVE752][]" value="Normal results (PAE unfavorable)" id="formRadiosRight82"
+                                                      {{ isset($Lab['LABUROFLOINVASIVE752'][0]) && $Lab['LABUROFLOINVASIVE752'][0] == "Normal results (PAE unfavorable)" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRight82">
-                                                      Normal results (PAE unfaverable)
+                                                      Normal results (PAE unfavorable)
                                                       </label>
                                                   </div>
                                               </div>
@@ -2464,10 +2470,12 @@
                                       </div>
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#"
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>REQVCFUNEVAL5</h4>
                                         </div>
@@ -2790,9 +2798,11 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                                 target="_blank"  href="{{ route('user.ViewProstateEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
 
                                     @php
@@ -2977,9 +2987,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -3762,7 +3774,7 @@ document.getElementById('download-image').addEventListener('click', function() {
             $("#textarea_88").hide();
         });
 
-    @if (isset($Lab['LABUA29'][0]) && $Lab['LABUA29'][0] == "Abnormal Urinanalysis (PAE unfaverable)")
+    @if (isset($Lab['LABUA29'][0]) && $Lab['LABUA29'][0] == "Abnormal Urinanalysis (PAE unfavorable)")
     $("#textarea_76").show();
     @endif
         

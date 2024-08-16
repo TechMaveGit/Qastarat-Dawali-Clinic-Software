@@ -1622,7 +1622,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[testicles][]" id="formRadiosRight42"
-                                                        value="YES  (VE unfaverable)"
+                                                        value="YES  (VE unfavorable)"
                                                         {{ isset($clinical_indicators['testicles'][0]) && $clinical_indicators['testicles'][0] == 'YES' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
@@ -1651,7 +1651,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Undecendedtesticles][]" id="formRadiosRight44"
-                                                        value="YES  (VE unfaverable)"
+                                                        value="YES  (VE unfavorable)"
                                                         {{ isset($clinical_indicators['Undecendedtesticles'][0]) && $clinical_indicators['Undecendedtesticles'][0] == 'YES' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44">
                                                         YES 

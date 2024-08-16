@@ -2618,7 +2618,7 @@
                                                                                     @elseif (isset($jsonData['UrinalysisResultsNote']) && !empty($jsonData['UrinalysisResultsNote'][0]))
                                                                                     <p class="ss_result">{{ $jsonData['UrinalysisResults'] ?? '' }}</p>
                                                                                     <p class="ss_result">
-                                                                                        {{ $jsonData['UrinalysisResults'][0] =='Abnormal Urinanalysis (UAE unfaverable)' ?  $jsonData['UrinalysisResultsNote'][0] :  '' }}</p>
+                                                                                        {{ $jsonData['UrinalysisResults'][0] =='Abnormal Urinanalysis (UAE unfavorable)' ?  $jsonData['UrinalysisResultsNote'][0] :  '' }}</p>
                                                                                     
                                                                                     @endif
                                                                                 </div>
@@ -2644,7 +2644,7 @@
                                                                                     @elseif (isset($jsonData['PAPSMEARResultsNote']) && !empty($jsonData['PAPSMEARResultsNote'][0]))
                                                                                     <p class="ss_result">{{ $jsonData['PAPSMEARResults'][0] ?? '' }}</p>
                                                                                     <p class="ss_result">
-                                                                                        {{ $jsonData['PAPSMEARResults'][0] =='Abnormal Urinanalysis (UAE unfaverable)' ?  $jsonData['PAPSMEARResultsNote'][0] :  '' }}</p>
+                                                                                        {{ $jsonData['PAPSMEARResults'][0] =='Abnormal Urinanalysis (UAE unfavorable)' ?  $jsonData['PAPSMEARResultsNote'][0] :  '' }}</p>
                                                                                     
                                                                                     @endif
                                                                                 </div>

@@ -2638,7 +2638,7 @@
                                                                                     @elseif (isset($jsonData['LABUA29NOTE']) && !empty($jsonData['LABUA29NOTE'][0]))
                                                                                     <p class="ss_result">{{ $jsonData['LABUA29'][0] }}</p>
                                                                                     <p class="ss_result">
-                                                                                        {{ $jsonData['LABUA29'][0] =='Abnormal Urinanalysis (PAE unfaverable)' ?  $jsonData['LABUA29NOTE'][0] :  '' }}</p>
+                                                                                        {{ $jsonData['LABUA29'][0] =='Abnormal Urinanalysis (PAE unfavorable)' ?  $jsonData['LABUA29NOTE'][0] :  '' }}</p>
                                                                                     
                                                                                     @endif
                                                                                 </div>
@@ -2701,11 +2701,11 @@
                                                                                     
                                                                               
                                                                                     <p class="ss_result">
-                                                                                    {{ $jsonData['LABUROFLOINVASIVE752'][0] =='Normal results (PAE unfaverable)' ?  $jsonData['LABUROFLOINVASIVE752'][0] :  '' }}</p>
+                                                                                    {{ $jsonData['LABUROFLOINVASIVE752'][0] =='Normal results (PAE unfavorable)' ?  $jsonData['LABUROFLOINVASIVE752'][0] :  '' }}</p>
                                                                                     @elseif (isset($jsonData['LABUROFLOINVASIVE752NOTE']) && !empty($jsonData['LABUROFLOINVASIVE752NOTE'][0]))
                                                                                     <p class="ss_result">
                                                                                         <p class="ss_result">{{ $jsonData['LABUROFLOINVASIVE752'][0] ?? '' }}</p>
-                                                                                        {{ $jsonData['LABUROFLOINVASIVE752'][0] =='Abnormal Urinanalysis (PAE unfaverable)' ?  $jsonData['LABUROFLOINVASIVE752NOTE'][0] :  '' }}</p>
+                                                                                        {{ $jsonData['LABUROFLOINVASIVE752'][0] =='Abnormal Urinanalysis (PAE unfavorable)' ?  $jsonData['LABUROFLOINVASIVE752NOTE'][0] :  '' }}</p>
                                                                                     
                                                                                     @endif
                                                                                 </div>
