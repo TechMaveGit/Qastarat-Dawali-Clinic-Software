@@ -302,10 +302,6 @@
                                                     <label for="a7">Annotate Image</label>
                                                     <img src="" />
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="report_check_box">
                                                 <div class="form-group">
                                                     <input type="checkbox" name="specialInvestigatior"
                                                         value="SpecialInvestigatior" id="a9">
@@ -321,6 +317,12 @@
                                                         id="a11">
                                                     <label for="a11">Diagnosis</label>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="report_check_box">
+                                                
+                                                
                                                 <div class="form-group">
                                                     <input type="checkbox" name="Eligiblity"
                                                         value="EligiblityStatus" id="a12">
@@ -329,8 +331,14 @@
                                                 <div class="form-group">
                                                     <input type="checkbox" name="list" value="List"
                                                         id="a13">
-                                                    <label for="a13">List of procedures</label>
+                                                    <label for="a13">List Of Procedures</label>
                                                 </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="Procedure" value="Procedure"
+                                                        id="a22">
+                                                    <label for="a22">Procedure</label>
+                                                </div>
+                                                
                                                 <div class="form-group">
                                                     <input type="checkbox" name="supportiveTreatement"
                                                         value="SupportiveTreatement" id="a14">
@@ -339,12 +347,33 @@
                                                 <div class="form-group">
                                                     <input type="checkbox" name="ListOfPrescribed"
                                                         value="ListOfPrescribed" id="a15">
-                                                    <label for="a15">List of prescribed medication</label>
+                                                    <label for="a15">List Of Prescribed Medication</label>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="checkbox" name="planRecommandation"
                                                         value="PlanRecommandation" id="a16">
                                                     <label for="a16">Plans/Recommandation</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="OrderImagingExam"
+                                                        value="OrderImagingExam" id="a19">
+                                                    <label for="a19">Order Imaging Exam</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="LAB"
+                                                        value="LAB" id="a20">
+                                                    <label for="a20">Lab</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="ListofVisit"
+                                                        value="ListofVisit" id="a17">
+                                                    <label for="a17">List of Visit</label>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="ProgressNote"
+                                                        value="ProgressNote" id="a18">
+                                                    <label for="a18">Progress Note</label>
                                                 </div>
                                             </div>
                                         </div>

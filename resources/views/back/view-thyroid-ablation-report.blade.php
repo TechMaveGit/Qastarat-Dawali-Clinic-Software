@@ -674,44 +674,38 @@
                                                             {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                         @else
                                                             @foreach ($procedures as $procedure)
-                                                                <li>
+                                                            <li>
+
+                                                                <div class="appoin_title">
+
+                                                                    <h6>{{ $procedure->procedure_name }}</h6>
+
+                                                                    <p>
+                                                                        <span class="patientListOf"
+                                                                            data-id="{{ $procedure->id }}">
+                                                                            <i
+                                                                                class="fa-regular fa-trash-can trash_btn"></i>
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+
+                                                                <div class="appoin_date">
+
 
                                                                     <div class="appoin_title">
-
-                                                                        <h6>{{ $procedure->procedure_name }}</h6>
+                                                                        <h6> {{ $procedure->summary }}</h6>
 
                                                                         <p>
-                                                                            <span class="patientListOf" data-id="{{ $procedure->id }}">
-                                                                                <i class="fa-regular fa-trash-can trash_btn"></i>
-                                                                            </span>
+
+                                                                            {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
                                                                         </p>
-                                                                       
-
-
 
                                                                     </div>
+                                                                </div>
 
-
-                                                                    <div class="appoin_title">
-
-                                                                            <h6>
-                                                                                {{ $procedure->summary }}
-                                                                            </h6>
-
-                                                                            <p class="text-align:right">
-                                                                                {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
-                                                                            </p>
-
-                                                                        {{-- @if (strlen($procedure->summary) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif --}}
-
-                                                                    </div>
-
-                                                                </li>
+                                                            </li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -846,63 +840,58 @@
                                             </button>
                                         </h2>
 
-                                        @php
-                                                            $patient_id = decrypt(@$id);
-                                                            $visit_notes = App\Models\patient\Patient_progress_note::select('created_at', 'voice_recognition')
-                                                                ->where(['progress_note_canned_text_id' => 6, 'patient_id' => @$patient_id])
-                                                                ->orderBy('id', 'desc')
-                                                                ->get();
-                                                        @endphp
+                                        
 
                                         <div id="collapseleft8" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample8" style="">
-                                            @if (count($visit_notes)>0)
+                                            
                                         
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak">
 
                                                     <ul>
                                                         
-                                                        @if ($visit_notes->isEmpty())
-                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
-                                                        @else
-                                                            @foreach ($visit_notes as $visit)
-                                                                <li>
-                                                                    <div class="appoin_title">
+                                                        @php
+                                                                $patient_id = decrypt(@$id);
+                                                                $visit_notes = App\Models\patient\Patient_progress_note::where([
+                                                                        // 'progress_note_canned_text_id' => 6,
+                                                                        'patient_id' => @$patient_id
+                                                                    ])
+                                                                    ->orderBy('id', 'desc')
+                                                                    ->get();
+                                                            @endphp
+                                                            @if ($visit_notes->isEmpty())
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
+                                                            @else
+                                                                @foreach ($visit_notes as $visit)
+                                                                    <li>
+                                                                        <div class="appoin_title">
 
-                                                                        <h6></h6>
+                                                                            <h6></h6>
 
-                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                        </p>
-
-                                                                    </div>
-                                                                    <div class="appoin_date">
-
-                                                                        <div class="read-more-content">
-
-                                                                            <p>
-
-                                                                                {!! $visit->voice_recognition !!}
+                                                                            <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
                                                                             </p>
 
                                                                         </div>
-                                                                        {{-- @if (strlen($visit->voice_recognition) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif --}}
+                                                                        <div class="appoin_date">
 
-                                                                    </div>
-                                                                   
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
+                                                                            <div class="read-more-content">
+
+                                                                                <p>{{ $visit->day??'0' }} {{ $visit->date??'days' }}</p>
+                                                                                <p>{{$visit->details}}</p>
+
+                                                                            </div>
+                                                                          
+
+                                                                        </div>
+
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
 
                                                     </ul>
                                                 </div>
                                             </div>
-                                            @endif
                                         </div>
                                     </div>
 
@@ -2132,47 +2121,52 @@
                                                                                         //     die;
                                                                                     @endphp
                                                                             <div class="ss_result_box">
-                                                                            <div class="symp_title mb-1">
-                                                                                <h6><span class="point_dia"><i
-                                                                                            class="fa-regular fa-circle-dot"></i></span>
-                                                                                    LABTFT39 > TFT Results</h6>
+                                                                                @if(isset($jsonData['TSH'][0]) || isset($jsonData['T4'][0]))
+                                                                                <div class="symp_title mb-1">
+                                                                                    <h6><span class="point_dia"><i
+                                                                                                class="fa-regular fa-circle-dot"></i></span>
+                                                                                        LABTFT39 > TFT Results</h6>
 
-                                                                            </div>
-
-                                                                            <p class="ss_result"><strong>TSH</strong> -
-
-                                                                                @if (isset($jsonData['TSH'][0]) && $jsonData['TSH'][0]=='normal')
-                                                                                (0.4 - 5.49 mIU/L) <span>Normal</span>
-                                                                                @elseif (isset($jsonData['TSH'][0]) &&  $jsonData['TSH'][0]=='low')
-                                                                                (0.01 - 0.39 mIU/L)<span>Low</span>
-                                                                                @elseif (isset($jsonData['TSH'][0]) &&  $jsonData['TSH'][0]=='high')
-                                                                                (> 5.49 mIU/L)<span>High</span>
+                                                                                </div>
                                                                                 @endif
 
+                                                                                @if(isset($jsonData['TSH'][0]))
+                                                                                <p class="ss_result"><strong>TSH</strong> -
 
-                                                                            </p>
-                                                                            <p class="ss_result"><strong>T4</strong>
-
-                                                                                @if (isset($jsonData['T4'][0]) && $jsonData['T4'][0]=='normal')
-                                                                                0.9 to 2.3 ng/dL <span>Normal</span>
-                                                                                @elseif ( isset($jsonData['T4'][0]) &&  $jsonData['T4'][0]=='low')
-                                                                                Below 0.9 ng/dL<span>Low</span>
-                                                                                @elseif ( isset($jsonData['T4'][0]) &&  $jsonData['T4'][0]=='high')
-                                                                                Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                    @if (isset($jsonData['TSH'][0]) && $jsonData['TSH'][0]=='normal')
+                                                                                    (0.4 - 5.49 mIU/L) <span>Normal</span>
+                                                                                    @elseif (isset($jsonData['TSH'][0]) &&  $jsonData['TSH'][0]=='low')
+                                                                                    (0.01 - 0.39 mIU/L)<span>Low</span>
+                                                                                    @elseif (isset($jsonData['TSH'][0]) &&  $jsonData['TSH'][0]=='high')
+                                                                                    (> 5.49 mIU/L)<span>High</span>
+                                                                                    @endif
+                                                                                </p>
                                                                                 @endif
 
-
-                                                                            </p>
+                                                                                @if(isset($jsonData['T4'][0]))
+                                                                                <p class="ss_result"><strong>T4</strong>
+                                                                                    @if (isset($jsonData['T4'][0]) && $jsonData['T4'][0]=='normal')
+                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
+                                                                                    @elseif ( isset($jsonData['T4'][0]) &&  $jsonData['T4'][0]=='low')
+                                                                                    Below 0.9 ng/dL<span>Low</span>
+                                                                                    @elseif ( isset($jsonData['T4'][0]) &&  $jsonData['T4'][0]=='high')
+                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                    @endif
+                                                                                </p>
+                                                                                @endif
                                                                         </div>
                                                                         <div class="ss_result_box">
+                                                                            @if(isset($jsonData['PTH'][0]) || isset($jsonData['Ca'][0]))
                                                                             <div class="symp_title mb-1">
                                                                                 <h6><span class="point_dia"><i
                                                                                             class="fa-regular fa-circle-dot"></i></span>
                                                                                     LABPTFT39 > PTFT Results</h6>
 
                                                                             </div>
-                                                                            <p class="ss_result"><strong>PTH</strong> -
+                                                                            @endif
 
+                                                                            @if(isset($jsonData['PTH'][0]))
+                                                                            <p class="ss_result"><strong>PTH</strong> -
                                                                                 @if (isset($jsonData['PTH'][0]) &&  $jsonData['PTH'][0]=='normal')
                                                                                 (0.4 - 5.49 mIU/L) <span>Normal</span>
                                                                                 @elseif (isset($jsonData['PTH'][0]) && $jsonData['PTH'][0]=='low')
@@ -2180,8 +2174,10 @@
                                                                                 @elseif (isset($jsonData['PTH'][0]) && $jsonData['PTH'][0]=='high')
                                                                                 5.5 mIU/L and above <span>High</span>
                                                                                 @endif
-
                                                                             </p>
+                                                                            @endif
+                                                                            
+                                                                            @if(isset($jsonData['Ca'][0]))
                                                                             <p class="ss_result"><strong>Ca+</strong> -
                                                                                 @if (isset($jsonData['Ca'][0]) && $jsonData['Ca'][0]=='normal')
                                                                                 (0.4 - 5.49 mIU/L) <span>Normal</span>
@@ -2190,9 +2186,8 @@
                                                                                 @elseif (isset($jsonData['Ca'][0]) && $jsonData['Ca'][0]=='high')
                                                                                 5.5 mIU/L and above <span>High</span>
                                                                                 @endif
-
-
                                                                             </p>
+                                                                            @endif
                                                                         </div>
 
                                                                     </div>
@@ -2483,7 +2478,7 @@
                                                                                     {{ $MDT['OtherOptionsNote'][0] ?? '' }}.</p>
                                                                             </div>
                                                                         @endif
-                                                                        @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['TE']) || !isset($MDT['TTA']))
+                                                                        @if (!isset($MDT['OtherOptions']) && !isset($MDT['Surgical']) && !isset($MDT['TE']) && !isset($MDT['TTA']))
                                                                             <div class="ss_result_box">
                                                                                 @foreach ($MDT as $key => $value)
                                                                                     <div class="symp_title mb-1">
@@ -2666,9 +2661,9 @@
                                                                         @endif
         
                                                                         @if (
-                                                                            !isset($ElegibilitySTATUS['OTHERS']) ||
-                                                                                !isset($ElegibilitySTATUS['TE']) ||
-                                                                                !isset($ElegibilitySTATUS['PTTA']) ||
+                                                                            !isset($ElegibilitySTATUS['OTHERS']) &&
+                                                                                !isset($ElegibilitySTATUS['TE']) &&
+                                                                                !isset($ElegibilitySTATUS['PTTA']) &&
                                                                                 !isset($ElegibilitySTATUS['TTA']))
                                                                             <div class="ss_result_box">
                                                                                 @foreach ($ElegibilitySTATUS as $key => $value)

@@ -842,45 +842,38 @@
                                                             {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($procedures as $procedure)
-                                                                <li>
+                                                            <li>
+
+                                                                <div class="appoin_title">
+
+                                                                    <h6>{{ $procedure->procedure_name }}</h6>
+
+                                                                    <p>
+                                                                        <span class="patientListOf"
+                                                                            data-id="{{ $procedure->id }}">
+                                                                            <i
+                                                                                class="fa-regular fa-trash-can trash_btn"></i>
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+
+                                                                <div class="appoin_date">
+
 
                                                                     <div class="appoin_title">
-
-                                                                        <h6>{{ $procedure->procedure_name }}</h6>
+                                                                        <h6> {{ $procedure->summary }}</h6>
 
                                                                         <p>
-                                                                            <span class="patientListOf" data-id="{{ $procedure->id }}">
-                                                                                <i class="fa-regular fa-trash-can trash_btn"></i>
-                                                                            </span>
+
+                                                                            {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
                                                                         </p>
 
                                                                     </div>
+                                                                </div>
 
-
-                                                                    <div class="appoin_date">
-
-
-                                                                        <div class="appoin_title">
-                                                                            <h6> {{ $procedure->summary }}</h6>
-
-                                                                            <p>
-                                                                               
-                                                                            {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
-                                                                            </p>
-
-                                                                    </div>
-
-
-                                                                        {{-- @if (strlen($procedure->summary) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif --}}
-
-                                                                    </div>
-
-                                                                </li>
+                                                            </li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -1033,53 +1026,42 @@
 
                                                     <ul>
                                                         @php
-                                                            $patient_id = decrypt(@$id);
-                                                            $visit_notes = App\Models\patient\Patient_progress_note::select(
-                                                                'created_at',
-                                                                'voice_recognition',
-                                                            )
-                                                                ->where([
-                                                                    'progress_note_canned_text_id' => 6,
-                                                                    'patient_id' => @$patient_id,
-                                                                ])
-                                                                ->orderBy('id', 'desc')
-                                                                ->get();
-                                                        @endphp
-                                                        @if ($visit_notes->isEmpty())
-                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
-                                                        @else
-                                                            @foreach ($visit_notes as $visit)
-                                                                <li>
-                                                                    <div class="appoin_title">
+                                                                $patient_id = decrypt(@$id);
+                                                                $visit_notes = App\Models\patient\Patient_progress_note::where([
+                                                                        // 'progress_note_canned_text_id' => 6,
+                                                                        'patient_id' => @$patient_id
+                                                                    ])
+                                                                    ->orderBy('id', 'desc')
+                                                                    ->get();
+                                                            @endphp
+                                                            @if ($visit_notes->isEmpty())
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
+                                                            @else
+                                                                @foreach ($visit_notes as $visit)
+                                                                    <li>
+                                                                        <div class="appoin_title">
 
-                                                                        <h6></h6>
+                                                                            <h6></h6>
 
-                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                        </p>
-
-                                                                    </div>
-                                                                    <div class="appoin_date">
-
-                                                                        <div class="read-more-content">
-
-                                                                            <p>
-
-                                                                                {!! $visit->voice_recognition !!}
+                                                                            <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
                                                                             </p>
 
                                                                         </div>
-                                                                        {{-- @if (strlen($visit->voice_recognition) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif --}}
+                                                                        <div class="appoin_date">
 
-                                                                    </div>
+                                                                            <div class="read-more-content">
 
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
+                                                                                <p>{{ $visit->day??'0' }} {{ $visit->date??'days' }}</p>
+                                                                                <p>{{$visit->details}}</p>
+
+                                                                            </div>
+                                                                          
+
+                                                                        </div>
+
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
 
                                                     </ul>
                                                 </div>
@@ -2512,6 +2494,7 @@
                                                                         @endphp
                                                                         
                                                                          <!-- LABOVARIANHOTMONES78 / Ovarian Reserve Result start -->
+                                                                         @if(isset($jsonData['FSH'][0]))
                                                                     <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2530,8 +2513,11 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
+
                                                                     <!-- LABOVARIANHOTMONES78 / Ovarian Reserve Result  end -->
                                                                      <!-- LABOVARIANHOTMONES78 / LH start -->
+                                                                     @if(isset($jsonData['LH'][0]))
                                                                      <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2550,8 +2536,10 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
                                                                     <!-- LABOVARIANHOTMONES78 / LH  end -->
                                                                      <!-- LABOVARIANHOTMONES78 / AMH start -->
+                                                                     @if(isset($jsonData['AMH'][0]))
                                                                      <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2570,10 +2558,12 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
                                                                     <!-- LABOVARIANHOTMONES78 / AMH  end -->
                                                                     
 
                                                                      <!-- LABRFT12 / Renal Function test (Creatinine | Na | K | urea) Results -->
+                                                                     @if(isset($jsonData['RenalFunctiontest'][0]))
                                                                      <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2598,10 +2588,12 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
                                                                     <!-- LABRFT12 / Renal Function test (Creatinine | Na | K | urea) Results  end -->
 
 
                                                                      <!--  LABUA29 / Urinalysis (Blood | Protein | WBC) Results -->
+                                                                     @if(isset($jsonData['UrinalysisResults'][0]))
                                                                      <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2626,8 +2618,10 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
                                                                     <!--  LABUA29 / Urinalysis (Blood | Protein | WBC) Results  end -->
                                                                      <!--  LABPAPSMEAR185 / Urinalysis (Blood | Protein | WBC) Results -->
+                                                                     @if(isset($jsonData['PAPSMEARResults'][0]))
                                                                      <div class="ss_result_box">
                                                                         <div class="symp_title mb-3">
                                                                             <h6><span class="point_dia"><i
@@ -2652,6 +2646,7 @@
                                                                             
 
                                                                     </div>
+                                                                    @endif
                                                                     <!--  LABUA29 / Urinalysis (Blood | Protein | WBC) Results  end -->
                                                                    
                                                                     </div>
@@ -3075,9 +3070,9 @@
                                                                              </div>
                                                                          @endif
                                                                          @if (
-                                                                             !isset($ElegibilitySTATUS['OTHERS']) ||
-                                                                                 !isset($ElegibilitySTATUS['UFE']) ||
-                                                                                 !isset($ElegibilitySTATUS['Medical']) ||
+                                                                             !isset($ElegibilitySTATUS['OTHERS']) &&
+                                                                                 !isset($ElegibilitySTATUS['UFE']) &&
+                                                                                 !isset($ElegibilitySTATUS['Medical']) &&
                                                                                  !isset($ElegibilitySTATUS['Surgical']))
                                                                              <div class="ss_result_box">
                                                                                  @foreach ($ElegibilitySTATUS as $key => $value)
