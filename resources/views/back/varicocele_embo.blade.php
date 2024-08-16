@@ -78,9 +78,9 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_general[Testicular][]" value="Testicular mass / cyst" id="formRadiosRight4">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_general[Testicular][]" value="Testicular mass / cystic" id="formRadiosRight4">
                             <label class="form-check-label" for="formRadiosRight4">
-                            Testicular mass / cyst
+                            Testicular mass / cystic
                             </label>
                         </div>
                      </div>

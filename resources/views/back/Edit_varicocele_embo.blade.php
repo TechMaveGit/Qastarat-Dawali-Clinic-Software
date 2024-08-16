@@ -62,7 +62,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 'Varicocele' => ['Varicocele'],
                                                 'Testicularpain' => ['Testicular pain'],
                                                 'Testicularatrophy' => ['Testicular atrophy'],
-                                                'Testicular' => ['Testicular mass / cyst'],
+                                                'Testicular' => ['Testicular mass / cystic'],
                                                 'Hydrocele' => ['Hydrocele'],
                                                 'Epedidimalabnormality' => ['Epedidimal abnormality'],     
                                                 'Hormonalabnormalities' => ['Hormonal abnormalities'],     
@@ -113,10 +113,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[Testicular][]" id="formRadiosRight4"
-                                                {{ isset($diagnosis_generals['Testicular']) && in_array('Testicular mass / cyst', $diagnosis_generals['Testicular']) ? 'checked' : '' }}
-                                                value="Testicular mass / cyst">
+                                                {{ isset($diagnosis_generals['Testicular']) && in_array('Testicular mass / cystic', $diagnosis_generals['Testicular']) ? 'checked' : '' }}
+                                                value="Testicular mass / cystic">
                                             <label class="form-check-label" for="formRadiosRight4">
-                                                Testicular mass / cyst
+                                                Testicular mass / cystic
                                             </label>
                                         </div>
                                     </div>

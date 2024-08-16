@@ -2190,7 +2190,7 @@
                                                     <div class="symp_title mb-3">
                                                         <h6><span class="point_dia"><i
                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                     Adnexal Mass / Complex Cyst</h6>
+                                                                     Adnexal Mass / Complex cystic</h6>
                                                     </div>
     
                                                     <div class="symp_title mb-3">

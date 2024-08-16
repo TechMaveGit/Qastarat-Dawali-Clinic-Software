@@ -1854,7 +1854,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                           <div class="col-lg-12">
                               <div class="row">
                               <div class="col-lg-4">
-                            <h6 class="mb-3 lut_title">Adnexal Mass / Complex Cyst</h6>
+                            <h6 class="mb-3 lut_title">Adnexal Mass / Complex cystic</h6>
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
