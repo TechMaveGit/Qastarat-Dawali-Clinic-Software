@@ -3724,7 +3724,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 600,
+            width: 800,
             height: 600,
         });
 
