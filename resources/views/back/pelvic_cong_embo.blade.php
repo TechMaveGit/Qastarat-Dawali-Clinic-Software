@@ -1811,7 +1811,7 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           <div class="col-lg-12">
                               <div class="row">
                               <div class="col-lg-4">
-                            <h6 class="mb-3 lut_title">Suapicious Pelvic mass / complex cystic</h6>
+                            <h6 class="mb-3 lut_title">Suspicious pelvic mass / Complex cystic</h6>
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
@@ -1917,7 +1917,7 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           <div class="col-lg-12">
                               <div class="row">
                               <div class="col-lg-4">
-                            <h6 class="mb-3 lut_title">Suapicious Pelvic mass / complex cystic</h6>
+                            <h6 class="mb-3 lut_title">Suspicious pelvic mass / Complex cystic</h6>
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
@@ -2194,6 +2194,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                               </div>
                                           </div>
                                           </div>
+                                          <div class="col-lg-12 mb-4">
+                                            <div class="title_head">
+                                                <h4>Others</h4>
+                                            </div>
+                                            <div class="otherLabRow">
+                                                
+                                            </div>
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                            
+                                        </div>
                                           </div>
               
               
@@ -2285,12 +2297,12 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                             <div class="col-lg-6">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                        name="MDT[Medical][]" value="Medical" id="formRadiosRight84">
-                                                    <label class="form-check-label" for="formRadiosRight84">
+                                                        name="MDT[Medical][]" value="Medical" id="formRadiosRight85">
+                                                    <label class="form-check-label" for="formRadiosRight85">
                                                         Medical
                                                     </label>
                                                 </div>
-                                                <div class="col-lg-12" id="textarea_84">
+                                                <div class="col-lg-12" id="textarea_85">
                                                     <div class="form-check form-check-right mb-3">
                                                         <textarea class="form-control" placeholder="Enter Elaborate PAE / notes here***" style="height: 100px" name="MDT[PVVENote][]"></textarea>
                                                     </div>
@@ -2408,7 +2420,7 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3" id="InterventionSample">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="checkbox"
                                                         name="Intervention[IVSEDATION270][]" value="IVSEDATION270"
@@ -2418,7 +2430,41 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                                     </label>
                                                 </div>
                                             </div>
-                                            
+                                            <div class="col-lg-12">
+                                                <div id="dynamic_Intervention_checkbox_container" class="row">
+        
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input"type="checkbox"
+                                                        name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                                                    <label class="form-check-label" for="formRadiosRightbf1inter">
+                                                        + Add More
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" id="textarea_a852inter">
+                                                <div class="row addmore_diag">
+                                                    <div class="col-lg-10">
+                                                        <div class="inner_element">
+
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control"
+                                                                    id="InterventionValue" placeholder="Type  here.....">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="add_more_btn">
+                                                            <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                                                    class="fa-solid fa-plus"></i> Add More</a>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
                                             
                                             
                                            
@@ -2625,6 +2671,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                     $("#abnormal_a76").hide();
                 });
 
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
+                });
+
             })
         </script>
 
@@ -2746,6 +2804,16 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -3013,6 +3081,28 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                         $('#SpecialInvestigationValue').val('');
                     }
                 });
+
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                })
 
                 // Supportive
 
@@ -3526,7 +3616,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
 // Start Image
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
 
@@ -3543,7 +3633,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 800,
+            width: 500,
             height: 600,
         });
 

@@ -2005,11 +2005,20 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                             <option value="normal"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                                                             <option value="low"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                                                             <option value="high"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                            <option value="other" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                             </select>
-                                                            <div class="result result_value {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }} ">
-                                                                <!-- Display low, high, and normal values here -->
-                                                                {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }}
+
+                                                            <div @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }}">
+                                                                {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }} 
                                                             </div>
+            
+                                                            <select @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[ESR][otherLevel]">
+                                                                <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                                <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                                <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                            </select>
+                                                        
+                                                            <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') value="{{ isset($Lab['ESR']['other']) ? $Lab['ESR']['other'] : '' }}" @else hidden @endif name="Lab[ESR][other]" />
                                                         </div>
                                                     </div>
                                                     </div>
@@ -2023,16 +2032,23 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                         <div class="lab_test_value">
                                                             <select  class="tshRange" name="Lab[CRP][]">
                                                             <option value=""></option>
-                                                            <option value="normal" 
-                                                            {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'normal' ? 'selected' : '' }}
-                                                            >(0.4 - 5.49 mIU/L)</option>
+                                                            <option value="normal"  {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                                                             <option value="low" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                                                             <option value="high" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                            <option value="other" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                             </select>
-                                                            <div class="result result_value {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}">
-                                                                {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}
-                                                                <!-- Display low, high, and normal values here -->
+                                                            
+                                                            <div @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }}">
+                                                                {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }} 
                                                             </div>
+            
+                                                            <select @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[CRP][otherLevel]">
+                                                                <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                                <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                                <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                            </select>
+                                                        
+                                                            <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') value="{{ isset($Lab['CRP']['other']) ? $Lab['CRP']['other'] : '' }}" @else hidden @endif name="Lab[CRP][other]" />
                                                         </div>
                                                     </div>
                                                     </div>
@@ -2294,6 +2310,29 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                         </label>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-12 mb-4">
+                                                <div class="title_head">
+                                                    <h4>Others</h4>
+                                                </div>
+                                                <div class="otherLabRow">
+                                                    @if(isset($Lab['other']))
+                                                    @foreach($Lab['other'] as $kk=>$value)
+                                                    <div class="row my-3">
+                                                        <div class="col-lg-6">
+                                                            <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                    @endif
+                                                </div>
+                                                <div class="add_more_btn">
+                                                    <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                                </div>
+                                                
                                             </div>
                                         </div>
 
@@ -2669,14 +2708,25 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-       
-       
-      
-       
-        
-        
-        
-       
+    </div>
+    <div class="col-lg-12 mb-4">
+        <div class="otherOtherProcedureRx">
+            @if(isset($Interventions['other']))
+            @foreach($Interventions['other'] as $kk=>$value)
+            <div class="row my-3">
+                <div class="col-lg-6">
+                    <input class="form-control" name="Intervention[other][]" placeholder="Other Title" value="{{$value}}"> 
+                </div>
+                <div class="col-lg-6">
+                    <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes" value="{{$Interventions['otherNote'][$kk]}}"> 
+                </div>
+            </div>
+            @endforeach
+            @endif
+        </div>
+        <div class="add_more_btn">
+            <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherProcedureRx()"><i class="fa-solid fa-plus"></i> Add More</a>
+        </div>
         
     </div>
 </div>
@@ -3116,7 +3166,34 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                 minimumResultsForSearch: -1
             });
         </script>
+
+
+
+
+
+
         <script>
+
+                function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+                function addOtherProcedureRx(){
+                    $(".otherOtherProcedureRx").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -3129,6 +3206,15 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+                    if($(select).val() == 'other'){
+                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                    } else {
+                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                    }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 

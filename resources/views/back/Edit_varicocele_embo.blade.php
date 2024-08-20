@@ -2405,11 +2405,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                    <option value="normal" {{ isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                    <option value="low" {{ isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                    <option value="high" {{ isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                   </select>
-                   <div class="result result_value {{ isset($Lab['Prolactin'][0]) ? $Lab['Prolactin'][0] : '' }}">
-                       <!-- Display low, high, and normal values here -->
-                       {{ isset($Lab['Prolactin'][0]) ? $Lab['Prolactin'][0] : '' }}
-                   </div>
+                   <option value="other" {{ isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                    </select>
+                    
+                    <div @if(isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Prolactin'][0])  && $Lab['Prolactin'][0] != 'other' ? $Lab['Prolactin'][0] : 'normal' }}">
+                        {{ isset($Lab['Prolactin'][0])  && $Lab['Prolactin'][0] != 'other' ? $Lab['Prolactin'][0] : 'normal' }} 
+                    </div>
+
+                    <select @if(isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[Prolactin][otherLevel]">
+                        <option {{ isset($Lab['Prolactin']['otherLevel']) && $Lab['Prolactin']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                        <option {{ isset($Lab['Prolactin']['otherLevel']) && $Lab['Prolactin']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                        <option {{ isset($Lab['Prolactin']['otherLevel']) && $Lab['Prolactin']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                    </select>
+                    
+                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'other') value="{{$Lab['Prolactin']['other']??''}}" @else hidden @endif name="Lab[Prolactin][other]" >
                </div>
            </div>
            </div>
@@ -2426,11 +2435,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                    <option value="normal" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                    <option value="low" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                    <option value="high" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                   </select>
-                   <div class="result result_value {{ isset($Lab['TSH'][0]) ? $Lab['TSH'][0] : '' }}">
-                       <!-- Display low, high, and normal values here -->
-                       {{ isset($Lab['TSH'][0]) ? $Lab['TSH'][0] : '' }}
-                   </div>
+                   <option value="other" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                </select>
+                
+                <div @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['TSH'][0])  && $Lab['TSH'][0] != 'other' ? $Lab['TSH'][0] : 'normal' }}">
+                    {{ isset($Lab['TSH'][0])  && $Lab['TSH'][0] != 'other' ? $Lab['TSH'][0] : 'normal' }} 
+                </div>
+
+                <select @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[TSH][otherLevel]">
+                    <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                    <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                    <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                </select>
+                
+                <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') value="{{$Lab['TSH']['other']??''}}" @else hidden @endif name="Lab[TSH][other]" >
                </div>
            </div>
            </div>
@@ -2447,11 +2465,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     <option value="normal" {{ isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                     <option value="low" {{ isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                     <option value="high" {{ isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                    <option value="other" {{ isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'other' ? 'selected' : '' }}>Other</option>
                     </select>
-                    <div class="result result_value {{ isset($Lab['FSH'][0]) ? $Lab['FSH'][0] : '' }}">
-                        <!-- Display low, high, and normal values here -->
-                        {{ isset($Lab['FSH'][0]) ? $Lab['FSH'][0] : '' }}
+                    
+                    <div @if(isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['FSH'][0])  && $Lab['FSH'][0] != 'other' ? $Lab['FSH'][0] : 'normal' }}">
+                        {{ isset($Lab['FSH'][0])  && $Lab['FSH'][0] != 'other' ? $Lab['FSH'][0] : 'normal' }} 
                     </div>
+
+                    <select @if(isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[FSH][otherLevel]">
+                        <option {{ isset($Lab['FSH']['otherLevel']) && $Lab['FSH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                        <option {{ isset($Lab['FSH']['otherLevel']) && $Lab['FSH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                        <option {{ isset($Lab['FSH']['otherLevel']) && $Lab['FSH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                    </select>
+                    
+                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'other') value="{{$Lab['FSH']['other']??''}}" @else hidden @endif name="Lab[FSH][other]" >
                 </div>
             </div>
             </div>
@@ -2468,11 +2495,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                         <option value="normal" {{ isset($Lab['LH'][0]) && $Lab['LH'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                         <option value="low" {{ isset($Lab['LH'][0]) && $Lab['LH'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                         <option value="high" {{ isset($Lab['LH'][0]) && $Lab['LH'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                        <option value="other" {{ isset($Lab['LH'][0]) && $Lab['LH'][0] == 'other' ? 'selected' : '' }}>Other</option>
                         </select>
-                        <div class="result result_value {{ isset($Lab['LH'][0]) ? $Lab['LH'][0] : '' }}">
-                            <!-- Display low, high, and normal values here -->
-                            {{ isset($Lab['LH'][0]) ? $Lab['LH'][0] : '' }}
+                        
+                        <div @if(isset($Lab['LH'][0]) && $Lab['LH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['LH'][0])  && $Lab['LH'][0] != 'other' ? $Lab['LH'][0] : 'normal' }}">
+                            {{ isset($Lab['LH'][0])  && $Lab['LH'][0] != 'other' ? $Lab['LH'][0] : 'normal' }} 
                         </div>
+
+                        <select @if(isset($Lab['LH'][0]) && $Lab['LH'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[LH][otherLevel]">
+                            <option {{ isset($Lab['LH']['otherLevel']) && $Lab['LH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                            <option {{ isset($Lab['LH']['otherLevel']) && $Lab['LH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                            <option {{ isset($Lab['LH']['otherLevel']) && $Lab['LH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                        </select>
+                        
+                        <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['LH'][0]) && $Lab['LH'][0] == 'other') value="{{$Lab['LH']['other']??''}}" @else hidden @endif name="Lab[LH][other]" >
                     </div>
                 </div>
                 </div>
@@ -2489,11 +2525,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                             <option value="normal" {{ isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                             <option value="low" {{ isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                             <option value="high" {{ isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                            <option value="other" {{ isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'other' ? 'selected' : '' }}>Other</option>
                             </select>
-                            <div class="result result_value {{ isset($Lab['Testosterone'][0]) ? $Lab['Testosterone'][0] : '' }}">
-                                <!-- Display low, high, and normal values here -->
-                                {{ isset($Lab['Testosterone'][0]) ? $Lab['Testosterone'][0] : '' }}
+                            
+                            <div @if(isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Testosterone'][0])  && $Lab['Testosterone'][0] != 'other' ? $Lab['Testosterone'][0] : 'normal' }}">
+                                {{ isset($Lab['Testosterone'][0])  && $Lab['Testosterone'][0] != 'other' ? $Lab['Testosterone'][0] : 'normal' }} 
                             </div>
+
+                            <select @if(isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[Testosterone][otherLevel]">
+                                <option {{ isset($Lab['Testosterone']['otherLevel']) && $Lab['Testosterone']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                <option {{ isset($Lab['Testosterone']['otherLevel']) && $Lab['Testosterone']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                <option {{ isset($Lab['Testosterone']['otherLevel']) && $Lab['Testosterone']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                            </select>
+                            
+                            <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'other') value="{{$Lab['Testosterone']['other']??''}}" @else hidden @endif name="Lab[Testosterone][other]" >
                         </div>
                     </div>
                     </div>
@@ -2510,11 +2555,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 <option value="normal" {{ isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                                 <option value="low" {{ isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                                 <option value="high" {{ isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                <option value="other" {{ isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                 </select>
-                                <div class="result result_value {{ isset($Lab['EstrodiolD2'][0]) ? $Lab['EstrodiolD2'][0] : '' }}">
-                                    <!-- Display low, high, and normal values here -->
-                                    {{ isset($Lab['EstrodiolD2'][0]) ? $Lab['EstrodiolD2'][0] : '' }}
+                                
+                                <div @if(isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['EstrodiolD2'][0])  && $Lab['EstrodiolD2'][0] != 'other' ? $Lab['EstrodiolD2'][0] : 'normal' }}">
+                                    {{ isset($Lab['EstrodiolD2'][0])  && $Lab['EstrodiolD2'][0] != 'other' ? $Lab['EstrodiolD2'][0] : 'normal' }} 
                                 </div>
+
+                                <select @if(isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[EstrodiolD2][otherLevel]">
+                                    <option {{ isset($Lab['EstrodiolD2']['otherLevel']) && $Lab['EstrodiolD2']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                    <option {{ isset($Lab['EstrodiolD2']['otherLevel']) && $Lab['EstrodiolD2']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                    <option {{ isset($Lab['EstrodiolD2']['otherLevel']) && $Lab['EstrodiolD2']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                </select>
+                                
+                                <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'other') value="{{$Lab['EstrodiolD2']['other']??''}}" @else hidden @endif name="Lab[EstrodiolD2][other]" >
                             </div>
                         </div>
                         </div>
@@ -2795,6 +2849,29 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                             </div>
                            
                         </div>
+                        <div class="col-lg-12 mb-4">
+                            <div class="title_head">
+                                <h4>Others</h4>
+                            </div>
+                            <div class="otherLabRow">
+                                @if(isset($Lab['other']))
+                                @foreach($Lab['other'] as $kk=>$value)
+                                <div class="row my-3">
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                                    </div>
+                                </div>
+                                @endforeach
+                                @endif
+                            </div>
+                            <div class="add_more_btn">
+                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                            </div>
+                            
+                        </div>
                     </div>
                     
                    
@@ -3038,9 +3115,16 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                     @php
                                         if (isset($Interventions) && !empty($Interventions)) {
                                             $Interventions = json_decode($Interventions->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($Interventions);
-                                            //     die;
+                                           
+                                            $existingDataInter = [
+                                            'ANGIOVE1780' => ['ANGIOVE1780'],
+                                            'LABPREANGIO48' => ['LABPREANGIO48'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'IVSEDATION270' => ['IVSEDATION270'],
+                                            'USTTAUL2180' => ['USTTAUL2180'],
+                                            ];
+
+                                            $filteredDataIner = array_diff_key($Interventions, $existingDataInter);
                                         }
 
                                     @endphp
@@ -3084,7 +3168,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3" id="InterventionSample">
             <div class="form-check form-check-right mb-3">
                 <input class="form-check-input"type="checkbox"
                     name="Intervention[IVSEDATION270][]" value="IVSEDATION270"
@@ -3097,7 +3181,59 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
             </div>
         </div>
         
-       
+        <div class="col-lg-12" >
+            <div id="dynamic_Intervention_checkbox_container" class="row">
+                @if (isset($filteredDataIner) && !empty($filteredDataIner))
+                @forelse ($filteredDataIner as $key => $value)
+                    <div class="col-lg-3">
+                        <div class="form-check form-check-right mb-3">
+                            <input class="form-check-input" type="checkbox"
+                                name="Intervention[{{ $key }}][]"
+                                id="formRadiosRight{{ $key }}"
+                                {{ isset($Interventions[$key]) && in_array($value[0], $Interventions[$key]) ? 'checked' : '' }}
+                                value="{{ $value[0] }}">
+                            <label class="form-check-label"
+                                for="formRadiosRight{{ $key }}">
+                                {{ $value[0] }}
+                            </label>
+                        </div>
+                    </div>
+                @empty
+                    <!-- Code to be executed if $filteredData is empty -->
+                @endforelse
+            @endif
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check form-check-right mb-3">
+                <input class="form-check-input"type="checkbox"
+                    name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                <label class="form-check-label" for="formRadiosRightbf1inter">
+                    + Add More
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-12" id="textarea_a852inter">
+            <div class="row addmore_diag">
+                <div class="col-lg-10">
+                    <div class="inner_element">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                                id="InterventionValue" placeholder="Type  here.....">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="add_more_btn">
+                        <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                class="fa-solid fa-plus"></i> Add More</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
         
     </div>
 </div>
@@ -3402,7 +3538,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
     // Start Image    
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
     
@@ -3414,12 +3550,12 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
+    imageObj.src = '{{ isset($VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/varicose.jpg') }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 800,
+            width: 500,
             height: 600,
         });
     
@@ -3532,6 +3668,18 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     $("#abnormal_a76").hide();
                 });
 
+
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
+                });
             })
         </script>
 
@@ -3730,6 +3878,16 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -3742,6 +3900,15 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+                    if($(select).val() == 'other'){
+                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                    } else {
+                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                    }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -3909,6 +4076,27 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     }
                 });
 
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                })
                 // Supportive
 
                 $('.SupportiveAddMore').click(function(e) {
@@ -4532,7 +4720,9 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
                                                 showConfirmButton: false, // Hide the default "OK" button
                                                 timer: 2000 // Display the message for 2 seconds
                                             }).then(() => {
-                                                location.reload(); // Refresh the page after the timer ends
+                                                var redirectUrl = "{{ route('user.viewVaricoceleEmboEligibilityForms', ['id' => ':id']) }}";
+                                                redirectUrl = redirectUrl.replace(':id', patientId);
+                                                window.location.href = redirectUrl;
                                             });
                                     
                                     }

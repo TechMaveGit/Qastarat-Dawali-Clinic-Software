@@ -3531,10 +3531,19 @@
                                                         <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                         <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                         <option value="high">(> 5.49 mIU/L)</option>
+                                                        <option value="other" >Other</option>
                                                     </select>
                                                     <div class="result result_value">
                                                         <!-- Display low, high, and normal values here -->
                                                     </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[TSH][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[TSH][other]" />
                                                 </div>
                                             </div>
                                         </div>
@@ -3552,10 +3561,19 @@
                                                         <option value="normal">0.9 to 2.3 ng/dL </option>
                                                         <option value="low">Below 0.9 ng/dL</option>
                                                         <option value="high">Above 2.3 ng/dL</option>
+                                                        <option value="other" >Other</option>
                                                     </select>
                                                     <div class="result result_value">
                                                         <!-- Display low, high, and normal values here -->
                                                     </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[T4][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[T4][other]" />
                                                 </div>
                                             </div>
                                         </div>
@@ -3578,10 +3596,19 @@
                                                         <option value="normal"> (0.4 - 5.49 mIU/L)</option>
                                                         <option value="low">(0.4 mIU/L)</option>
                                                         <option value="high">(5.49 mIU/L)</option>
+                                                        <option value="other" >Other</option>
                                                     </select>
                                                     <div class="result result_value">
                                                         <!-- Display low, high, and normal values here -->
                                                     </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[PTH][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[PTH][other]" />
                                                 </div>
                                             </div>
                                         </div>
@@ -3599,10 +3626,19 @@
                                                         <option value="normal"> 0.4 to 5.49 mIU/L</option>
                                                         <option value="low">Below 0.4 mIU/L</option>
                                                         <option value="high">5.5 mIU/L and above</option>
+                                                        <option value="other" >Other</option>
                                                     </select>
                                                     <div class="result result_value">
                                                         <!-- Display low, high, and normal values here -->
                                                     </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[Ca][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[Ca][other]" />
                                                 </div>
                                             </div>
                                         </div>
@@ -3625,10 +3661,19 @@
                                                         <option value="normal"> 0.4 to 5.49 mIU/L</option>
                                                         <option value="low">Below 0.4 mIU/L</option>
                                                         <option value="high">5.5 mIU/L and above</option>
+                                                        <option value="other" >Other</option>
                                                     </select>
                                                     <div class="result result_value">
                                                         <!-- Display low, high, and normal values here -->
                                                     </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="AntithyroidAntibodiesTests[HashimotosThyroditisTPOAb][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="AntithyroidAntibodiesTests[HashimotosThyroditisTPOAb][other]" />
                                                 </div>
                                             </div>
                                         </div>
@@ -3645,10 +3690,19 @@
                                                         <option value="normal"> 0.4 to 5.49 mIU/L</option>
                                                         <option value="low">Below 0.4 mIU/L</option>
                                                         <option value="high">5.5 mIU/L and above</option>
+                                                        <option value="other" >Other</option>
                                                     </select>
                                                     <div class="result result_value">
                                                         <!-- Display low, high, and normal values here -->
                                                     </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="AntithyroidAntibodiesTests[GravesDiseaseTSAb][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="AntithyroidAntibodiesTests[GravesDiseaseTSAb][other]" />
                                                 </div>
                                             </div>
                                         </div>
@@ -3665,10 +3719,19 @@
                                                         <option value="normal"> 0.4 to 5.49 mIU/L</option>
                                                         <option value="low">Below 0.4 mIU/L</option>
                                                         <option value="high">5.5 mIU/L and above</option>
+                                                        <option value="other" >Other</option>
                                                     </select>
                                                     <div class="result result_value">
                                                         <!-- Display low, high, and normal values here -->
                                                     </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name=AntithyroidAntibodiesTests[GravesDiseaseTPOAb][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name=AntithyroidAntibodiesTests[GravesDiseaseTPOAb][other]" />
                                                 </div>
                                             </div>
                                         </div>
@@ -3685,10 +3748,19 @@
                                                         <option value="normal"> 0.4 to 5.49 mIU/L</option>
                                                         <option value="low">Below 0.4 mIU/L</option>
                                                         <option value="high">5.5 mIU/L and above</option>
+                                                        <option value="other" >Other</option>
                                                     </select>
                                                     <div class="result result_value">
                                                         <!-- Display low, high, and normal values here -->
                                                     </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="AntithyroidAntibodiesTests[GravesDiseaseTBAb][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="AntithyroidAntibodiesTests[GravesDiseaseTBAb][other]" />
                                                 </div>
                                             </div>
                                         </div>
@@ -3705,12 +3777,33 @@
                                                         <option value="normal"> 0.4 to 5.49 mIU/L</option>
                                                         <option value="low">Below 0.4 mIU/L</option>
                                                         <option value="high">5.5 mIU/L and above</option>
+                                                        <option value="other" >Other</option>
                                                     </select>
                                                     <div class="result result_value">
                                                         <!-- Display low, high, and normal values here -->
                                                     </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="AntithyroidAntibodiesTests[AtrophicThyroditisTBAb][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="AntithyroidAntibodiesTests[AtrophicThyroditisTBAb][other]" />
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-4">
+                                            <div class="title_head">
+                                                <h4>Others</h4>
+                                            </div>
+                                            <div class="otherLabRow">
+                                                
+                                            </div>
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                            
                                         </div>
                                     </div>
 
@@ -3762,6 +3855,7 @@
                                                </div>
               
                                           </div>
+                                          
                                       </div>
                                     <div class="col-lg-12">
                                         <h6 class="section_title__">MDT 
@@ -4004,7 +4098,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3" id="InterventionSample">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="checkbox"
                                                         name="Intervention[IVSEDATION270][]" value="IVSEDATION270"
@@ -4012,6 +4106,41 @@
                                                     <label class="form-check-label" for="formRadiosRightb44">
                                                         IVSEDATION270
                                                     </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div id="dynamic_Intervention_checkbox_container" class="row">
+        
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input"type="checkbox"
+                                                        name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                                                    <label class="form-check-label" for="formRadiosRightbf1inter">
+                                                        + Add More
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" id="textarea_a852inter">
+                                                <div class="row addmore_diag">
+                                                    <div class="col-lg-10">
+                                                        <div class="inner_element">
+
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control"
+                                                                    id="InterventionValue" placeholder="Type  here.....">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="add_more_btn">
+                                                            <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                                                    class="fa-solid fa-plus"></i> Add More</a>
+                                                        </div>
+                                                    </div>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -4341,6 +4470,16 @@
             });
         </script>
         <script>
+
+                function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -4353,6 +4492,15 @@
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+                    if($(select).val() == 'other'){
+                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                    } else {
+                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                    }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -4390,6 +4538,18 @@
                 });
                 $("#formRadiosRightbf7").click(function() {
                     $("#textarea_a789").toggle();
+                });
+
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
                 });
             });
         </script>
@@ -4608,6 +4768,28 @@
                         $('#SpecialInvestigationValue').val('');
                     }
                 });
+
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                })
 
                 // Supportive
 
@@ -5299,7 +5481,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
 // Start Image
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
 
@@ -5316,7 +5498,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 800,
+            width: 500,
             height: 600,
         });
 
