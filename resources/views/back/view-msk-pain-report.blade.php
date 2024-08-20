@@ -2182,12 +2182,13 @@
                                                                             @if(isset($jsonData['CBC'][0]))
                                                                             <p class="ss_result"><strong>CBC</strong> -
                                                                                 @if (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'normal')
-                                                                                    (0.4 - 5.49 mIU/L)
-                                                                                    <span>Normal</span>
+                                                                                    (0.4 - 5.49 mIU/L) <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                                                 @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'low')
-                                                                                    (0.01 - 0.39 mIU/L)<span>Low</span>
+                                                                                    (0.01 - 0.39 mIU/L) <span style="text-transform: capitalize;padding:5px;">Low</span>
                                                                                 @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'high')
-                                                                                    (> 5.49 mIU/L)<span>High</span>
+                                                                                    (> 5.49 mIU/L) <span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'other')
+                                                                                {{$jsonData['CBC']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CBC']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2195,11 +2196,13 @@
                                                                             @if(isset($jsonData['CRP'][0]))
                                                                             <p class="ss_result"><strong>CRP</strong>
                                                                                 @if (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                                                 @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
                                                                                 @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'other')
+                                                                                    {{$jsonData['CRP']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CRP']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2207,11 +2210,13 @@
                                                                             @if(isset($jsonData['ESR'][0]))
                                                                             <p class="ss_result"><strong>ESR</strong>
                                                                                 @if (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                                                 @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
                                                                                 @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'other')
+                                                                                    {{$jsonData['ESR']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['ESR']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2219,11 +2224,13 @@
                                                                             @if(isset($jsonData['CKMP'][0]))
                                                                             <p class="ss_result"><strong>CKMP</strong>
                                                                                 @if (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                                                 @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
                                                                                 @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'other')
+                                                                                    {{$jsonData['CKMP']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CKMP']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2231,11 +2238,13 @@
                                                                             @if(isset($jsonData['UricAcid'][0]))
                                                                             <p class="ss_result"><strong>Uric Acid</strong>
                                                                                 @if (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                                                 @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
                                                                                 @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'other')
+                                                                                    {{$jsonData['UricAcid']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['UricAcid']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2243,11 +2252,13 @@
                                                                             @if(isset($jsonData['RF'][0]))
                                                                             <p class="ss_result"><strong>RF</strong>
                                                                                 @if (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                                                 @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
                                                                                 @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'other')
+                                                                                    {{$jsonData['RF']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['RF']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2324,6 +2335,20 @@
                                                                         @endif
                                                                         <!--HCLGIENDOSCOPY000  > LGI Endoscopy Findings end -->
 
+                                                                        @if(isset($jsonData['other']))
+                                                                        <!--LABJFA15  > LGI Endoscopy Findings start -->
+                                                                        <div class="ss_result_box">
+                                                                            <div class="symp_title ">
+                                                                                <h6><span class="point_dia"><i
+                                                                                            class="fa-regular fa-circle-dot"></i></span>Others</h6>
+                                                                            </div>
+                                                                            @foreach($jsonData['other'] as $kk=>$value)
+                                                                                <p class="ss_result">
+                                                                                   <strong>{{$value??''}} - </strong> {{$jsonData['otherNote'][$kk]??''}}
+                                                                                </p>
+                                                                            @endforeach
+                                                                        </div>
+                                                                        @endif
                                                                     </div>
 
 
