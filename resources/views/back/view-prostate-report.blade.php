@@ -2713,9 +2713,20 @@
 
 
                                                                 </div>
-                                                                <button
-                                                                    class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                @if(isset($jsonData['other']))
+                                                                        <!--LABJFA15  > LGI Endoscopy Findings start -->
+                                                                        <div class="ss_result_box">
+                                                                            <div class="symp_title ">
+                                                                                <h6><span class="point_dia"><i
+                                                                                            class="fa-regular fa-circle-dot"></i></span>Others</h6>
+                                                                            </div>
+                                                                            @foreach($jsonData['other'] as $kk=>$value)
+                                                                                <p class="ss_result">
+                                                                                   <strong>{{$value??''}} - </strong> {{$jsonData['otherNote'][$kk]??''}}
+                                                                                </p>
+                                                                            @endforeach
+                                                                        </div>
+                                                                        @endif
                                                             </div>
                                                         </li>
                                                     @empty

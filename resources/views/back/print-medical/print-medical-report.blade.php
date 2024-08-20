@@ -465,7 +465,7 @@
                     @if (isset($oldCurrentMeds) && !empty($oldCurrentMeds))
                     <div class="oldCurrentMeds_section">
                         <div class="section_title">
-                            <h2>Old/Current meds</h2>
+                            <h2>Drugs / Current meds</h2>
                         </div>
                         <div class="drug">
                             <ul>
@@ -2456,7 +2456,7 @@
                 @if (isset($ListOfPrescribed) && $prescriptions && $prescriptions->count()>0)
                     <div class="PrescribedMedication_section">
                         <div class="section_title">
-                            <h2>List Of Prescribed Medication</h2>
+                            <h2>List Of Prescribed Medicines</h2>
                         </div>
                         <div class="appointments___list past_medical_history_ak diagnosis_data">
 
@@ -2585,13 +2585,10 @@
                                                             <p class="ss_result">
                                                                 &nbsp;&nbsp;{{ $jsonData['ExternalHemarrhoids'][0] ?? '' }}
                                                             </p>
-
-
-
                                                         </div>
                                                         @endif
 
-                                                        @if(issrt($jsonData['InternalHemarrhoids'][0]))
+                                                        @if(isset($jsonData['InternalHemarrhoids'][0]))
                                                         <div class="symp_title mb-3">
                                                             <p class="ss_result">Internal Hemarrhoids
                                                             <p>
@@ -2787,11 +2784,13 @@
 
                                                             @if ($jsonData['TSH'][0] == 'normal')
                                                                 (0.4 - 5.49 mIU/L)
-                                                                <span>Normal</span>
+                                                                <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                             @elseif ($jsonData['TSH'][0] == 'low')
-                                                                (0.01 - 0.39 mIU/L)<span>Low</span>
+                                                                (0.01 - 0.39 mIU/L)<span style="text-transform: capitalize;padding:5px;">Low</span>
                                                             @elseif ($jsonData['TSH'][0] == 'high')
-                                                                (> 5.49 mIU/L)<span>High</span>
+                                                                (> 5.49 mIU/L)<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                            @elseif (isset($jsonData['TSH'][0]) && $jsonData['TSH'][0] == 'other')
+                                                                {{$jsonData['TSH']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['TSH']['otherLevel']}}</span>
                                                             @endif
                                                         </p>
                                                         @endif
@@ -2799,11 +2798,13 @@
                                                         @if(isset($jsonData['T4'][0]))
                                                         <p class="ss_result"><strong>T4</strong>
                                                             @if ($jsonData['T4'][0] == 'normal')
-                                                                0.9 to 2.3 ng/dL <span>Normal</span>
+                                                                0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                             @elseif ($jsonData['T4'][0] == 'low')
-                                                                Below 0.9 ng/dL<span>Low</span>
+                                                                Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
                                                             @elseif ($jsonData['T4'][0] == 'high')
-                                                                Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                            @elseif (isset($jsonData['T4'][0]) && $jsonData['T4'][0] == 'other')
+                                                                {{$jsonData['T4']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['T4']['otherLevel']}}</span>
                                                             @endif
                                                         </p>
                                                         @endif
@@ -2823,11 +2824,13 @@
                                                     @if(isset($jsonData['PTH'][0]))
                                                     <p class="ss_result"><strong>PTH</strong> -
                                                         @if ($jsonData['PTH'][0] == 'normal')
-                                                            (0.4 - 5.49 mIU/L) <span>Normal</span>
+                                                            (0.4 - 5.49 mIU/L) <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                         @elseif ($jsonData['PTH'][0] == 'low')
-                                                            Below 0.4 mIU/L <span>Low</span>
+                                                            Below 0.4 mIU/L <span style="text-transform: capitalize;padding:5px;">Low</span>
                                                         @elseif ($jsonData['PTH'][0] == 'high')
-                                                            5.5 mIU/L and above <span>High</span>
+                                                            5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
+                                                        @elseif (isset($jsonData['PTH'][0]) && $jsonData['PTH'][0] == 'other')
+                                                            {{$jsonData['PTH']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['PTH']['otherLevel']}}</span>
                                                         @endif
                                                     </p>
                                                     @endif
@@ -2835,17 +2838,112 @@
                                                     @if(isset($jsonData['Ca'][0]))
                                                     <p class="ss_result"><strong>Ca+</strong> -
                                                         @if ($jsonData['Ca'][0] == 'normal')
-                                                            (0.4 - 5.49 mIU/L) <span>Normal</span>
+                                                            (0.4 - 5.49 mIU/L) <span style="text-transform: capitalize;padding:5px;">Normal</span>
                                                         @elseif ($jsonData['Ca'][0] == 'low')
-                                                            Below 0.4 mIU/L <span>Low</span>
+                                                            Below 0.4 mIU/L <span style="text-transform: capitalize;padding:5px;">Low</span>
                                                         @elseif ($jsonData['Ca'][0] == 'high')
-                                                            5.5 mIU/L and above <span>High</span>
+                                                            5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
+                                                        @elseif (isset($jsonData['Ca'][0]) && $jsonData['Ca'][0] == 'other')
+                                                            {{$jsonData['Ca']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Ca']['otherLevel']}}</span>
                                                         @endif
+                                                        
                                                     </p>
                                                     @endif
 
                                                 </div>
                                                 @endif
+
+                                                @php
+                                                    if (isset($AntithyroidAntibodiesTests) && !empty($AntithyroidAntibodiesTests) && isset($AntithyroidAntibodiesTests[0]) && isset($AntithyroidAntibodiesTests[0]->data_value)) {
+                                                        $AntithyroidAntibodiesTests = json_decode($AntithyroidAntibodiesTests[0]->data_value, true);
+                                                    }
+
+                                                @endphp
+                                                <div class="ss_result_box">
+                                                    @if(isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) || 
+                                                    isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) || 
+                                                    isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) || 
+                                                    isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) || 
+                                                    isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]))
+                                                    <div class="symp_title mb-1">
+                                                        <h6><span class="point_dia"><i
+                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                    LABTHYROIDANTIBODY390 &gt; <span class="sub_tt__">Anti-thyroid antibodies
+                                                                        tests results</span></h6>
+
+                                                    </div>
+                                                    @endif
+
+                                                    @if(isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]))
+                                                    <p class="ss_result"><strong>Hashimotos thyroditis (TPOAb)</strong> -
+                                                        @if (isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) &&  $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]=='normal')
+                                                        0.4 to 5.49 mIU/L <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]=='low')
+                                                        Below 0.4 mIU/L <span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]=='high')
+                                                        5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other')
+                                                            {{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']}}</span>
+                                                        @endif
+                                                    </p>
+                                                    @endif
+                                                    
+                                                    @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]))
+                                                    <p class="ss_result"><strong>Graves disease (TSAb)</strong> -
+                                                        @if (isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) &&  $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]=='normal')
+                                                        0.4 to 5.49 mIU/L <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]=='low')
+                                                        Below 0.4 mIU/L <span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]=='high')
+                                                        5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other')
+                                                            {{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']}}</span>
+                                                        @endif
+                                                    </p>
+                                                    @endif
+
+                                                    @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]))
+                                                    <p class="ss_result"><strong>Graves disease (TPOAb)</strong> -
+                                                        @if (isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) &&  $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]=='normal')
+                                                        0.4 to 5.49 mIU/L <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]=='low')
+                                                        Below 0.4 mIU/L <span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]=='high')
+                                                        5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other')
+                                                            {{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']}}</span>
+                                                        @endif
+                                                    </p>
+                                                    @endif
+
+                                                    @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]))
+                                                    <p class="ss_result"><strong>Graves disease (TBAb)</strong> -
+                                                        @if (isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) &&  $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]=='normal')
+                                                        0.4 to 5.49 mIU/L <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]=='low')
+                                                        Below 0.4 mIU/L <span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]=='high')
+                                                        5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other')
+                                                            {{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']}}</span>
+                                                        @endif
+                                                    </p>
+                                                    @endif
+
+                                                    @if(isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]))
+                                                    <p class="ss_result"><strong>Atrophic thyroditis (TBAb)</strong> -
+                                                        @if (isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) &&  $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]=='normal')
+                                                        0.4 to 5.49 mIU/L <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]=='low')
+                                                        Below 0.4 mIU/L <span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]=='high')
+                                                        5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
+                                                        @elseif (isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other')
+                                                            {{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']}}</span>
+                                                        @endif
+                                                    </p>
+                                                    @endif
+                                                </div>
 
                                                     <!--HCLGIENDOSCOPY000  > LGI Endoscopy Findings start -->
                                                 @if(isset($jsonData['Externalhemorrhoids'][0]) || 

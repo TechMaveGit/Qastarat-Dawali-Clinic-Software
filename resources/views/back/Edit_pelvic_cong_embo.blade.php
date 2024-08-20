@@ -2394,6 +2394,30 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
           </div>
       </div>
       </div>
+
+      <div class="col-lg-12 mb-4">
+        <div class="title_head">
+            <h4>Others</h4>
+        </div>
+        <div class="otherLabRow">
+            @if(isset($Lab['other']))
+            @foreach($Lab['other'] as $kk=>$value)
+            <div class="row my-3">
+                <div class="col-lg-6">
+                    <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                </div>
+                <div class="col-lg-6">
+                    <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                </div>
+            </div>
+            @endforeach
+            @endif
+        </div>
+        <div class="add_more_btn">
+            <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+        </div>
+        
+    </div>
       </div>
 
 
@@ -2633,9 +2657,15 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     @php
                                         if (isset($Interventions) && !empty($Interventions)) {
                                             $Interventions = json_decode($Interventions->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($Interventions);
-                                            //     die;
+                                           
+                                            $existingDataInter = [
+                                            'ANGIOVE1780' => ['ANGIOVE1780'],
+                                            'LABPREANGIO48' => ['LABPREANGIO48'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'IVSEDATION270' => ['IVSEDATION270'],
+                                            ];
+
+                                            $filteredDataIner = array_diff_key($Interventions, $existingDataInter);
                                         }
 
                                     @endphp
@@ -2675,7 +2705,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3" id="InterventionSample">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="checkbox"
                                                         name="Intervention[IVSEDATION270][]"
@@ -2687,7 +2717,59 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 </div>
                                             </div>
                                            
-                                           
+                                            <div class="col-lg-12" >
+                                                <div id="dynamic_Intervention_checkbox_container" class="row">
+                                                    @if (isset($filteredDataIner) && !empty($filteredDataIner))
+                                                    @forelse ($filteredDataIner as $key => $value)
+                                                        <div class="col-lg-4">
+                                                            <div class="form-check form-check-right mb-3">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="Intervention[{{ $key }}][]"
+                                                                    id="formRadiosRight{{ $key }}"
+                                                                    {{ isset($Interventions[$key]) && in_array($value[0], $Interventions[$key]) ? 'checked' : '' }}
+                                                                    value="{{ $value[0] }}">
+                                                                <label class="form-check-label"
+                                                                    for="formRadiosRight{{ $key }}">
+                                                                    {{ $value[0] }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    @empty
+                                                        <!-- Code to be executed if $filteredData is empty -->
+                                                    @endforelse
+                                                @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input"type="checkbox"
+                                                        name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                                                    <label class="form-check-label" for="formRadiosRightbf1inter">
+                                                        + Add More
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" id="textarea_a852inter">
+                                                <div class="row addmore_diag">
+                                                    <div class="col-lg-10">
+                                                        <div class="inner_element">
+
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control"
+                                                                    id="InterventionValue" placeholder="Type  here.....">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="add_more_btn">
+                                                            <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                                                    class="fa-solid fa-plus"></i> Add More</a>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
                                             
                                             
                                         </div>
@@ -2931,7 +3013,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
     // Start Image    
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
     
@@ -2948,7 +3030,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 800,
+            width: 500,
             height: 600,
         });
     
@@ -3056,6 +3138,18 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                 });
                 $("#formRadiosRighta75").click(function() {
                     $("#abnormal_a76").hide();
+                });
+
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
                 });
 
             })
@@ -3234,6 +3328,16 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -3412,6 +3516,28 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                         $('#SpecialInvestigationValue').val('');
                     }
                 });
+
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                })
 
                 // Supportive
 

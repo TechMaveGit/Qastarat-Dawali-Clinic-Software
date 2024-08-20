@@ -263,8 +263,10 @@ class PatientController extends Controller
         $MDTs = ThyroidDiagnosis::with('doctor')->select('id', 'data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
 
         $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
-        $AntithyroidAntibodiesTests = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
+        $AntithyroidAntibodiesTests = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
         $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
+
+        // dd($AntithyroidAntibodiesTests);
 
 
         $rightLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => $request->input('form_print_type') ?? 'general_form'])->orderBy('id', 'desc')->get();
@@ -456,7 +458,7 @@ class PatientController extends Controller
         $MDTs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'MDT', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
         $Labs = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'Lab', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
 
-        $AntithyroidAntibodiesTests = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id])->orderBy('id', 'desc')->get();
+        // $AntithyroidAntibodiesTests = $ThyroidDiagnosis->with('doctor')->select('data_value', 'created_at')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id])->orderBy('id', 'desc')->get();
         $ClinicalIndicator = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalIndicator', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
         $ClinicalExam = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'ClinicalExam', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
         $rightLobeScore = ThyroidDiagnosis::with('doctor')->select('data_value', 'created_at', 'doctor_id')->where(['title_name' => 'rightLobeScore', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->orderBy('id', 'desc')->get();
@@ -478,7 +480,8 @@ class PatientController extends Controller
 
 
         $document_file = AttachDocument::where(['form_type' => 'thyroid_ablation', 'patient_id' => $id])->get();
-
+        $AntithyroidAntibodiesTests = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'AntithyroidAntibodiesTests', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        // dd($AntithyroidAntibodiesTests);
         $data = [
             'patient' => $patient,
             'id' => Crypt::encrypt($id),
@@ -2545,6 +2548,7 @@ class PatientController extends Controller
     {
         ThyroidDiagnosis::where(['form_type' => 'VaricoceleEmboForm', 'patient_id' => decrypt($request->patient_id)])->delete();
 
+        // dd($request->all());
         $this->storeVaricoceleEmboEligibilityForms($request);
         $patientId =  $request->patient_id;
 
@@ -2805,7 +2809,7 @@ class PatientController extends Controller
                     break;
                 }
             }
-
+            // Intervention
             if ($nonEmptyArraysExist) {
                 $filteredDiagnosisGeneral = array_filter($filteredDiagnosisGeneral);
                 $dataToInsert[] = [
@@ -2910,6 +2914,7 @@ class PatientController extends Controller
                 });
             }, $request->Intervention);
 
+            
             // Check if there's any non-empty array in $filteredDiagnosisGeneral
             $nonEmptyArraysExist = false;
             foreach ($filteredDiagnosisGeneral as $subarray) {
@@ -2930,7 +2935,12 @@ class PatientController extends Controller
                     'form_type' => 'VaricoceleEmboForm'
                 ];
             }
+
+            // dd('---');
         }
+
+
+        
         if (isset($request->MDT) && is_array($request->MDT) && !empty($request->MDT)) {
             $filteredDiagnosisGeneral = array_map(function ($subarray) {
                 return array_filter($subarray, function ($value) {
@@ -8512,7 +8522,7 @@ class PatientController extends Controller
 
 
 
-        $postStateFormsImage = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'uterine_embo'])->latest('id')->first();
+        $postStateFormsImage = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->whereNotNull('AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'uterine_embo'])->latest('id')->first();
 
 
 
@@ -9114,7 +9124,7 @@ class PatientController extends Controller
         // $id = decrypt();
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
 
-        $postStateFormsImage = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'prostate_form'])->latest('id')->first();
+        $postStateFormsImage = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->whereNotNull('AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'prostate_form'])->latest('id')->first();
 
         $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'prostate_form'])->get();
         $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'prostate_form'])->get();
@@ -9333,7 +9343,7 @@ class PatientController extends Controller
 
         $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->get();
 
-        $thyroidEligibilityFormsImage = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
+        $thyroidEligibilityFormsImage = ThyroidDiagnosis::select('id', 'AnnotateimageData')->whereNotNull('AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'thyroid_form'])->first();
 
         $symptoms = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'symptoms', 'patient_id' => $id, 'form_type' => 'thyroid_form'])->get();
 
@@ -10163,7 +10173,7 @@ class PatientController extends Controller
                 ];
             }
         }
-        //  return $dataToInsert;
+        //  dd($dataToInsert);
 
         if (!empty($dataToInsert)) {
             ThyroidDiagnosis::insert($dataToInsert);

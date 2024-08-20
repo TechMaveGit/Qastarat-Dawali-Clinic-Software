@@ -283,7 +283,7 @@
                                                 <div class="form-group">
                                                     <input type="checkbox" name="oldCurrentMeds"
                                                         value="Old Current Meds" id="a4">
-                                                    <label for="a4">Old / Current meds</label>
+                                                    <label for="a4">Drugs / Current meds</label>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="checkbox" name="allergies" value="Allergies"
@@ -305,7 +305,7 @@
                                                 <div class="form-group">
                                                     <input type="checkbox" name="specialInvestigatior"
                                                         value="SpecialInvestigatior" id="a9">
-                                                    <label for="a9">Special Investigatior</label>
+                                                    <label for="a9">Special Investigation</label>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="checkbox" name="mdtReview" value="MdtReview"
@@ -347,7 +347,7 @@
                                                 <div class="form-group">
                                                     <input type="checkbox" name="ListOfPrescribed"
                                                         value="ListOfPrescribed" id="a15">
-                                                    <label for="a15">List Of Prescribed Medication</label>
+                                                    <label for="a15">List Of Prescribed Medicines</label>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="checkbox" name="planRecommandation"

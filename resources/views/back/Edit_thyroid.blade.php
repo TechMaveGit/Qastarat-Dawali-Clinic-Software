@@ -3787,14 +3787,9 @@
                                         </div>
                                         <!-- <h6 class="mb-3 lut_title">Calculate TI-RARDS - RIGHT LOBE score</h6> -->
                                     </div>
-                                    <div class="col-lg-12">
-
-                                           
-                                            <div id="image-container">
-
-
-                                           
-                                              </div>
+                                    <div class="col-lg-12">                                           
+                                        <div id="image-container">
+                                        </div>
 
                                         <div class="button_images">
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
@@ -3849,12 +3844,20 @@
                                                         <option value="high"
                                                             {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'high' ? 'selected' : '' }}>
                                                             (> 5.49 mIU/L)</option>
+                                                        <option value="other" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($Lab['TSH'][0]) ? $Lab['TSH'][0] : '' }}">
-                                                        {{ isset($Lab['TSH'][0]) ? $Lab['TSH'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+                                                    
+                                                    <div @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['TSH'][0])  && $Lab['TSH'][0] != 'other' ? $Lab['TSH'][0] : 'normal' }}">
+                                                        {{ isset($Lab['TSH'][0])  && $Lab['TSH'][0] != 'other' ? $Lab['TSH'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[TSH][otherLevel]">
+                                                        <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') value="{{$Lab['TSH']['other']??''}}" @else hidden @endif name="Lab[TSH][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -3878,12 +3881,21 @@
                                                         <option value="high"
                                                             {{ isset($Lab['T4'][0]) && $Lab['T4'][0] == 'high' ? 'selected' : '' }}>
                                                             Above 2.3 ng/dL</option>
+                                                        <option value="other" {{ isset($Lab['T4'][0]) && $Lab['T4'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($Lab['T4'][0]) ? $Lab['T4'][0] : '' }}">
-                                                        {{ isset($Lab['T4'][0]) ? $Lab['T4'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+                                                    
+                                                    
+                                                    <div @if(isset($Lab['T4'][0]) && $Lab['T4'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['T4'][0])  && $Lab['T4'][0] != 'other' ? $Lab['T4'][0] : 'normal' }}">
+                                                        {{ isset($Lab['T4'][0])  && $Lab['T4'][0] != 'other' ? $Lab['T4'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($Lab['T4'][0]) && $Lab['T4'][0] == 'other') @else hidden @endif class="T4RangeOther form-select" name="Lab[T4][otherLevel]">
+                                                        <option {{ isset($Lab['T4']['otherLevel']) && $Lab['T4']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['T4']['otherLevel']) && $Lab['T4']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['T4']['otherLevel']) && $Lab['T4']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['T4'][0]) && $Lab['T4'][0] == 'other') value="{{$Lab['T4']['other']??''}}" @else hidden @endif name="Lab[T4][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -3912,12 +3924,20 @@
                                                         <option value="high"
                                                             {{ isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'high' ? 'selected' : '' }}>
                                                             (5.49 mIU/L)</option>
+                                                        <option value="other" {{ isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($Lab['PTH'][0]) ? $Lab['PTH'][0] : '' }}">
-                                                        {{ isset($Lab['PTH'][0]) ? $Lab['PTH'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+                                                    <div @if(isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['PTH'][0])  && $Lab['PTH'][0] != 'other' ? $Lab['PTH'][0] : 'normal' }}">
+                                                        {{ isset($Lab['PTH'][0])  && $Lab['PTH'][0] != 'other' ? $Lab['PTH'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'other') @else hidden @endif class="PTHRangeOther form-select" name="Lab[PTH][otherLevel]">
+                                                        <option {{ isset($Lab['PTH']['otherLevel']) && $Lab['PTH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['PTH']['otherLevel']) && $Lab['PTH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['PTH']['otherLevel']) && $Lab['PTH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'other') value="{{$Lab['PTH']['other']??''}}" @else hidden @endif name="Lab[PTH][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -3941,12 +3961,21 @@
                                                         <option value="high"
                                                             {{ isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($Lab['Ca'][0]) ? $Lab['Ca'][0] : '' }}">
-                                                        {{ isset($Lab['Ca'][0]) ? $Lab['Ca'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+                                                    
+                                                    <div @if(isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Ca'][0])  && $Lab['Ca'][0] != 'other' ? $Lab['Ca'][0] : 'normal' }}">
+                                                        {{ isset($Lab['Ca'][0])  && $Lab['Ca'][0] != 'other' ? $Lab['Ca'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="Lab[Ca][otherLevel]">
+                                                        <option {{ isset($Lab['Ca']['otherLevel']) && $Lab['Ca']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['Ca']['otherLevel']) && $Lab['Ca']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['Ca']['otherLevel']) && $Lab['Ca']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'other') value="{{$Lab['Ca']['other']??''}}" @else hidden @endif name="Lab[Ca][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -3986,12 +4015,21 @@
                                                         <option value="high"
                                                             {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) ? $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) ? $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0])  && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] != 'other' ? $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0])  && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] != 'other' ? $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[HashimotosThyroditisTPOAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[HashimotosThyroditisTPOAb][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -4015,12 +4053,20 @@
                                                         <option
                                                             value="high {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'high' ? 'selected' : '' }}">
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[GravesDiseaseTSAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[GravesDiseaseTSAb][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -4044,12 +4090,21 @@
                                                         <option value="high"
                                                             {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[GravesDiseaseTPOAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[GravesDiseaseTPOAb][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -4073,12 +4128,21 @@
                                                         <option value="high"
                                                             {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[GravesDiseaseTBAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[GravesDiseaseTBAb][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -4102,14 +4166,47 @@
                                                         <option value="high"
                                                             {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) ? $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) ? $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0])  && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] != 'other' ? $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0])  && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] != 'other' ? $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[AtrophicThyroditisTBAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[AtrophicThyroditisTBAb][other]" >
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-4">
+                                            <div class="title_head">
+                                                <h4>Others</h4>
+                                            </div>
+                                            <div class="otherLabRow">
+                                                @if(isset($Lab['other']))
+                                                @foreach($Lab['other'] as $kk=>$value)
+                                                <div class="row my-3">
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                            
                                         </div>
                                     </div>
 
@@ -4402,9 +4499,19 @@
                                     @php
                                         if (isset($Interventions) && !empty($Interventions)) {
                                             $Interventions = json_decode($Interventions->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($Interventions);
-                                            //     die;
+                                        
+                                            $existingDataInter = [
+                                            'USTTAUL2180' => ['USTTAUL2180'],
+                                            'USTTABL2470' => ['USTTABL2470'],
+                                            'LABPREIRBASIC32' => ['LABPREIRBASIC32'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'ANGIOTE2910' => ['ANGIOTE2910'],
+                                            'LABPREANGIO48' => ['LABPREANGIO48'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'IVSEDATION270' => ['IVSEDATION270'],
+                                            ];
+
+                                            $filteredDataIner = array_diff_key($Interventions, $existingDataInter);
                                         }
 
                                     @endphp
@@ -4488,7 +4595,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3" id="InterventionSample">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="checkbox"
                                                         name="Intervention[IVSEDATION270][]"
@@ -4497,6 +4604,59 @@
                                                     <label class="form-check-label" for="formRadiosRightb44">
                                                         IVSEDATION270
                                                     </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" >
+                                                <div id="dynamic_Intervention_checkbox_container" class="row">
+                                                    @if (isset($filteredDataIner) && !empty($filteredDataIner))
+                                                    @forelse ($filteredDataIner as $key => $value)
+                                                        <div class="col-lg-4">
+                                                            <div class="form-check form-check-right mb-3">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="Intervention[{{ $key }}][]"
+                                                                    id="formRadiosRight{{ $key }}"
+                                                                    {{ isset($Interventions[$key]) && in_array($value[0], $Interventions[$key]) ? 'checked' : '' }}
+                                                                    value="{{ $value[0] }}">
+                                                                <label class="form-check-label"
+                                                                    for="formRadiosRight{{ $key }}">
+                                                                    {{ $value[0] }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    @empty
+                                                        <!-- Code to be executed if $filteredData is empty -->
+                                                    @endforelse
+                                                @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input"type="checkbox"
+                                                        name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                                                    <label class="form-check-label" for="formRadiosRightbf1inter">
+                                                        + Add More
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" id="textarea_a852inter">
+                                                <div class="row addmore_diag">
+                                                    <div class="col-lg-10">
+                                                        <div class="inner_element">
+
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control"
+                                                                    id="InterventionValue" placeholder="Type  here.....">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="add_more_btn">
+                                                            <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                                                    class="fa-solid fa-plus"></i> Add More</a>
+                                                        </div>
+                                                    </div>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -4982,6 +5142,18 @@
             });
         </script>
         <script>
+
+
+            function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -4994,6 +5166,15 @@
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+                    if($(select).val() == 'other'){
+                            $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                            $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                            $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                        } else {
+                            $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                            $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                            $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                        }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -5041,6 +5222,18 @@
                 });
                 $("#formRadiosRightbf7").click(function() {
                     $("#textarea_a789").toggle();
+                });
+
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
                 });
             });
         </script>
@@ -5269,6 +5462,29 @@
                         $('#SpecialInvestigationValue').val('');
                     }
                 });
+
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                })
+
 
                 // Supportive
 
@@ -5924,7 +6140,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
 // Start Image    
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
 
@@ -5938,6 +6154,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     const imageObj = new Image();
 
         @php
+        
         $imageSrc = ($thyroidEligibilityFormsImage && $thyroidEligibilityFormsImage->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $thyroidEligibilityFormsImage->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/thyroid-eligibility.jpg');
         @endphp
 
@@ -5946,7 +6163,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
         imageObj.onload = function() {
             const image = new Konva.Image({
                 image: imageObj,
-                width: 800,
+                width: 500,
                 height: 600,
             });
 
