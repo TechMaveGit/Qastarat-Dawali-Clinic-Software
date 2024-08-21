@@ -1667,7 +1667,7 @@
 
 
                                         @php
-                                            $regionalpatientGeneralDiagnosis = DB::table('patient_general_diagnosis')
+                                            $regionalpatientGeneralDiagnosis =App\Models\patient\GeneralDiagnosis::with('doctor')
                                                 ->whereNotNull('RegionalExam')
                                                 ->where([
                                                     'title_name' => 'ClinicalExam',
@@ -1676,9 +1676,8 @@
                                                 ])
                                                 ->orderBy('id', 'desc')
                                                 ->get();
-                                            // ->toArray();
 
-                                            $systemicpatientGeneralDiagnosis = DB::table('patient_general_diagnosis')
+                                            $systemicpatientGeneralDiagnosis = App\Models\patient\GeneralDiagnosis::with('doctor')
                                                 ->whereNotNull('SystemicExam')
                                                 ->where([
                                                     'title_name' => 'ClinicalExam',
@@ -1699,16 +1698,23 @@
                                                 <div class="accordion-body">
                                                     <div
                                                         class="appointments___list past_medical_history_ak diagnosis_data">
+                                                        
 
                                                         @if (count($regionalpatientGeneralDiagnosis) > 0)
+                                                        
                                                             <ul>
                                                                 @forelse ($regionalpatientGeneralDiagnosis as $record)
                                                                     @if ($loop->last)
                                                                         <li>
                                                                             <div class="appoin_date">
                                                                                 <div>
+                                                                                    
                                                                                     <div class="diagnosis_show">
-
+                                                                                        <p class="diagnosis_date top_de"><span
+                                                                                            class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                                        </span> <span
+                                                                                            class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ?  date('D, d M Y, h:i A',strtotime($record->created_at)) : '' }}
+                                                                                        </span></p>
                                                                                         @if (isset($record->RegionalExam))
                                                                                             <div class="ss_result_box">
                                                                                                 <div
@@ -1772,7 +1778,11 @@
                                                                                 <div>
                                                                                     <div class="diagnosis_show">
 
-
+                                                                                        <p class="diagnosis_date top_de"><span
+                                                                                            class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
+                                                                                        </span> <span
+                                                                                            class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ?  date('D, d M Y, h:i A',strtotime($record->created_at)) : '' }}
+                                                                                        </span></p>
                                                                                         @if (isset($record->SystemicExam))
                                                                                             <div class="ss_result_box">
                                                                                                 <div
@@ -5046,28 +5056,28 @@
         </script>
         <!-- End Add  Eligibility Status form data into database-->
         <script>
-            function toggleReadMore(button) {
-                console.log(button);
+            // function toggleReadMore(button) {
+            //     console.log(button);
 
-                var content = button.previousElementSibling; // Assumes the content is always before the button
+            //     var content = button.previousElementSibling; // Assumes the content is always before the button
 
 
 
-                if (content.style.maxHeight) {
+            //     if (content.style.maxHeight) {
 
-                    content.style.maxHeight = null;
+            //         content.style.maxHeight = null;
 
-                    button.innerHTML = 'Read More';
+            //         button.innerHTML = 'Read More';
 
-                } else {
+            //     } else {
 
-                    content.style.maxHeight = content.scrollHeight + 'px';
+            //         content.style.maxHeight = content.scrollHeight + 'px';
 
-                    button.innerHTML = 'Read Less';
+            //         button.innerHTML = 'Read Less';
 
-                }
+            //     }
 
-            }
+            // }
         </script>
 
 
