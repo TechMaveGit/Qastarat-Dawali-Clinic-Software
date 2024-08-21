@@ -2292,11 +2292,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                 <option value="normal" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                 <option value="low" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                 <option value="high" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                </select>
-                <div class="result result_value {{ isset($Lab['CBC'][0]) ? $Lab['CBC'][0] : '' }}">
-                    <!-- Display low, high, and normal values here -->
-                    {{ isset($Lab['CBC'][0]) ? $Lab['CBC'][0] : '' }}
-                </div>
+                <option value="other" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['CBC'][0])  && $Lab['CBC'][0] != 'other' ? $Lab['CBC'][0] : 'normal' }}">
+                                                        {{ isset($Lab['CBC'][0])  && $Lab['CBC'][0] != 'other' ? $Lab['CBC'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[CBC][otherLevel]">
+                                                        <option {{ isset($Lab['CBC']['otherLevel']) && $Lab['CBC']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['CBC']['otherLevel']) && $Lab['CBC']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['CBC']['otherLevel']) && $Lab['CBC']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other') value="{{$Lab['CBC']['other']??''}}" @else hidden @endif name="Lab[CBC][other]" >
             </div>
         </div>
         </div>
@@ -2313,11 +2322,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                 <option value="normal" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                 <option value="low" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                 <option value="high" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                </select>
-                <div class="result result_value {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0] : '' }}">
-                    <!-- Display low, high, and normal values here -->
-                    {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0] : '' }}
-                </div>
+                <option value="other" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }}">
+                                                        {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[CRP][otherLevel]">
+                                                        <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') value="{{$Lab['CRP']['other']??''}}" @else hidden @endif name="Lab[CRP][other]" >
             </div>
         </div>
         </div>
@@ -2334,11 +2352,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                  <option value="normal" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                  <option value="low" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                  <option value="high" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                 </select>
-                 <div class="result result_value {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }}">
-                     <!-- Display low, high, and normal values here -->
-                     {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }}
-                 </div>
+                 <option value="other" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }}">
+                                                        {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[ESR][otherLevel]">
+                                                        <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') value="{{$Lab['ESR']['other']??''}}" @else hidden @endif name="Lab[ESR][other]" >
              </div>
          </div>
          </div>
@@ -2355,11 +2382,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                      <option value="normal" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                      <option value="low" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                      <option value="high" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                     </select>
-                     <div class="result result_value {{ isset($Lab['CKMP'][0]) ? $Lab['CKMP'][0] : '' }}">
-                         <!-- Display low, high, and normal values here -->
-                         {{ isset($Lab['CKMP'][0]) ? $Lab['CKMP'][0] : '' }}
-                     </div>
+                     <option value="other" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['CKMP'][0])  && $Lab['CKMP'][0] != 'other' ? $Lab['CKMP'][0] : 'normal' }}">
+                                                        {{ isset($Lab['CKMP'][0])  && $Lab['CKMP'][0] != 'other' ? $Lab['CKMP'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[CKMP][otherLevel]">
+                                                        <option {{ isset($Lab['CKMP']['otherLevel']) && $Lab['CKMP']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['CKMP']['otherLevel']) && $Lab['CKMP']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['CKMP']['otherLevel']) && $Lab['CKMP']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'other') value="{{$Lab['CKMP']['other']??''}}" @else hidden @endif name="Lab[CKMP][other]" >
                  </div>
              </div>
              </div>
@@ -2376,11 +2412,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                          <option value="normal" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                          <option value="low" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                          <option value="high" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                         </select>
-                         <div class="result result_value {{ isset($Lab['UricAcid'][0]) ? $Lab['UricAcid'][0] : '' }}">
-                             <!-- Display low, high, and normal values here -->
-                             {{ isset($Lab['UricAcid'][0]) ? $Lab['UricAcid'][0] : '' }}
-                         </div>
+                         <option value="other" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['UricAcid'][0])  && $Lab['UricAcid'][0] != 'other' ? $Lab['UricAcid'][0] : 'normal' }}">
+                                                        {{ isset($Lab['UricAcid'][0])  && $Lab['UricAcid'][0] != 'other' ? $Lab['UricAcid'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[UricAcid][otherLevel]">
+                                                        <option {{ isset($Lab['UricAcid']['otherLevel']) && $Lab['UricAcid']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['UricAcid']['otherLevel']) && $Lab['UricAcid']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['UricAcid']['otherLevel']) && $Lab['UricAcid']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'other') value="{{$Lab['UricAcid']['other']??''}}" @else hidden @endif name="Lab[UricAcid][other]" >
                      </div>
                  </div>
                  </div>
@@ -2397,11 +2442,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                              <option value="normal" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                              <option value="low" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                              <option value="high" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                             </select>
-                             <div class="result result_value {{ isset($Lab['RF'][0]) ? $Lab['RF'][0] : '' }}">
-                                 <!-- Display low, high, and normal values here -->
-                                 {{ isset($Lab['RF'][0]) ? $Lab['RF'][0] : '' }}
-                             </div>
+                             <option value="other" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['RF'][0]) && $Lab['RF'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['RF'][0])  && $Lab['RF'][0] != 'other' ? $Lab['RF'][0] : 'normal' }}">
+                                                        {{ isset($Lab['RF'][0])  && $Lab['RF'][0] != 'other' ? $Lab['RF'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['RF'][0]) && $Lab['RF'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[RF][otherLevel]">
+                                                        <option {{ isset($Lab['RF']['otherLevel']) && $Lab['RF']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['RF']['otherLevel']) && $Lab['RF']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['RF']['otherLevel']) && $Lab['RF']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['RF'][0]) && $Lab['RF'][0] == 'other') value="{{$Lab['RF']['other']??''}}" @else hidden @endif name="Lab[RF][other]" >
                          </div>
                      </div>
                      </div>
@@ -2424,11 +2478,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                 <option value="normal" {{ isset($Lab['WBC'][0]) && $Lab['WBC'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                                 <option value="low" {{ isset($Lab['WBC'][0]) && $Lab['WBC'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                                 <option value="high" {{ isset($Lab['WBC'][0]) && $Lab['WBC'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                                </select>
-                                <div class="result result_value  {{ isset($Lab['WBC'][0]) ? $Lab['WBC'][0] : '' }}">
-                                    <!-- Display low, high, and normal values here -->
-                                    {{ isset($Lab['WBC'][0]) ? $Lab['WBC'][0] : '' }}
-                                </div>
+                                <option value="other" {{ isset($Lab['WBC'][0]) && $Lab['WBC'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['WBC'][0]) && $Lab['WBC'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['WBC'][0])  && $Lab['WBC'][0] != 'other' ? $Lab['WBC'][0] : 'normal' }}">
+                                                        {{ isset($Lab['WBC'][0])  && $Lab['WBC'][0] != 'other' ? $Lab['WBC'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['WBC'][0]) && $Lab['WBC'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[WBC][otherLevel]">
+                                                        <option {{ isset($Lab['WBC']['otherLevel']) && $Lab['WBC']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['WBC']['otherLevel']) && $Lab['WBC']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['WBC']['otherLevel']) && $Lab['WBC']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['WBC'][0]) && $Lab['WBC'][0] == 'other') value="{{$Lab['WBC']['other']??''}}" @else hidden @endif name="Lab[WBC][other]" >
                             </div>
                         </div>
                         </div>
@@ -2445,11 +2508,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                    <option value="normal" {{ isset($Lab['Proteins'][0]) && $Lab['Proteins'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                                    <option value="low" {{ isset($Lab['Proteins'][0]) && $Lab['Proteins'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                                    <option value="high" {{ isset($Lab['Proteins'][0]) && $Lab['Proteins'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                                   </select>
-                                   <div class="result result_value  {{ isset($Lab['Proteins'][0]) ? $Lab['Proteins'][0] : '' }}">
-                                       <!-- Display low, high, and normal values here -->
-                                       {{ isset($Lab['Proteins'][0]) ? $Lab['Proteins'][0] : '' }}
-                                   </div>
+                                   <option value="other" {{ isset($Lab['Proteins'][0]) && $Lab['Proteins'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['Proteins'][0]) && $Lab['Proteins'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Proteins'][0])  && $Lab['Proteins'][0] != 'other' ? $Lab['Proteins'][0] : 'normal' }}">
+                                                        {{ isset($Lab['Proteins'][0])  && $Lab['Proteins'][0] != 'other' ? $Lab['Proteins'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['Proteins'][0]) && $Lab['Proteins'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[Proteins][otherLevel]">
+                                                        <option {{ isset($Lab['Proteins']['otherLevel']) && $Lab['Proteins']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['Proteins']['otherLevel']) && $Lab['Proteins']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['Proteins']['otherLevel']) && $Lab['Proteins']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Proteins'][0]) && $Lab['Proteins'][0] == 'other') value="{{$Lab['Proteins']['other']??''}}" @else hidden @endif name="Lab[Proteins][other]" >
                                </div>
                            </div>
                            </div>
@@ -2466,11 +2538,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                        <option value="normal" {{ isset($Lab['Glucose'][0]) && $Lab['Glucose'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                                        <option value="low" {{ isset($Lab['Glucose'][0]) && $Lab['Glucose'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                                        <option value="high" {{ isset($Lab['Glucose'][0]) && $Lab['Glucose'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                                       </select>
-                                       <div class="result result_value  {{ isset($Lab['Glucose'][0]) ? $Lab['Glucose'][0] : '' }}">
-                                           <!-- Display low, high, and normal values here -->
-                                           {{ isset($Lab['Glucose'][0]) ? $Lab['Glucose'][0] : '' }}
-                                       </div>
+                                       <option value="other" {{ isset($Lab['Glucose'][0]) && $Lab['Glucose'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['Glucose'][0]) && $Lab['Glucose'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Glucose'][0])  && $Lab['Glucose'][0] != 'other' ? $Lab['Glucose'][0] : 'normal' }}">
+                                                        {{ isset($Lab['Glucose'][0])  && $Lab['Glucose'][0] != 'other' ? $Lab['Glucose'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['Glucose'][0]) && $Lab['Glucose'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[Glucose][otherLevel]">
+                                                        <option {{ isset($Lab['Glucose']['otherLevel']) && $Lab['Glucose']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['Glucose']['otherLevel']) && $Lab['Glucose']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['Glucose']['otherLevel']) && $Lab['Glucose']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Glucose'][0]) && $Lab['Glucose'][0] == 'other') value="{{$Lab['Glucose']['other']??''}}" @else hidden @endif name="Lab[Glucose][other]" >
                                    </div>
                                </div>
                                </div>
@@ -2487,11 +2568,20 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                            <option value="normal" {{ isset($Lab['Crystals'][0]) && $Lab['Crystals'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                                            <option value="low" {{ isset($Lab['Crystals'][0]) && $Lab['Crystals'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                                            <option value="high" {{ isset($Lab['Crystals'][0]) && $Lab['Crystals'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                                           </select>
-                                           <div class="result result_value {{ isset($Lab['Crystals'][0]) ? $Lab['Crystals'][0] : '' }}">
-                                               <!-- Display low, high, and normal values here -->
-                                               {{ isset($Lab['Crystals'][0]) ? $Lab['Crystals'][0] : '' }}
-                                           </div>
+                                           <option value="other" {{ isset($Lab['Crystals'][0]) && $Lab['Crystals'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['Crystals'][0]) && $Lab['Crystals'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Crystals'][0])  && $Lab['Crystals'][0] != 'other' ? $Lab['Crystals'][0] : 'normal' }}">
+                                                        {{ isset($Lab['Crystals'][0])  && $Lab['Crystals'][0] != 'other' ? $Lab['Crystals'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['Crystals'][0]) && $Lab['Crystals'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[Crystals][otherLevel]">
+                                                        <option {{ isset($Lab['Crystals']['otherLevel']) && $Lab['Crystals']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['Crystals']['otherLevel']) && $Lab['Crystals']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['Crystals']['otherLevel']) && $Lab['Crystals']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Crystals'][0]) && $Lab['Crystals'][0] == 'other') value="{{$Lab['Crystals']['other']??''}}" @else hidden @endif name="Lab[Crystals][other]" >
                                        </div>
                                    </div>
                                    </div>
@@ -2508,14 +2598,46 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                <option value="normal" {{ isset($Lab['Lactate'][0]) && $Lab['Lactate'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                                                <option value="low" {{ isset($Lab['Lactate'][0]) && $Lab['Lactate'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                                                <option value="high" {{ isset($Lab['Lactate'][0]) && $Lab['Lactate'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                                               </select>
-                                               <div class="result result_value {{ isset($Lab['Lactate'][0]) ? $Lab['Lactate'][0] : '' }}">
-                                                   <!-- Display low, high, and normal values here -->
-                                                   {{ isset($Lab['Lactate'][0]) ? $Lab['Lactate'][0] : '' }}
-                                               </div>
+                                               <option value="other" {{ isset($Lab['Lactate'][0]) && $Lab['Lactate'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['Lactate'][0]) && $Lab['Lactate'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Lactate'][0])  && $Lab['Lactate'][0] != 'other' ? $Lab['Lactate'][0] : 'normal' }}">
+                                                        {{ isset($Lab['Lactate'][0])  && $Lab['Lactate'][0] != 'other' ? $Lab['Lactate'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['Lactate'][0]) && $Lab['Lactate'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[Lactate][otherLevel]">
+                                                        <option {{ isset($Lab['Lactate']['otherLevel']) && $Lab['Lactate']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['Lactate']['otherLevel']) && $Lab['Lactate']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['Lactate']['otherLevel']) && $Lab['Lactate']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Lactate'][0]) && $Lab['Lactate'][0] == 'other') value="{{$Lab['Lactate']['other']??''}}" @else hidden @endif name="Lab[Lactate][other]" >
                                            </div>
                                        </div>
                                        </div>
+                                       <div class="col-lg-12 mb-4">
+                                        <div class="title_head">
+                                            <h4>Others</h4>
+                                        </div>
+                                        <div class="otherLabRow">
+                                            @if(isset($Lab['other']))
+                                            @foreach($Lab['other'] as $kk=>$value)
+                                            <div class="row my-3">
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                            @endif
+                                        </div>
+                                        <div class="add_more_btn">
+                                            <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                        </div>
+                                        
+                                    </div>
                                     </div>
                                   
                                    
@@ -3538,7 +3660,26 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        
+        <div class="col-lg-12 mb-4">
+            <div class="otherOtherProcedureRx">
+                @if(isset($Interventions['other']))
+                @foreach($Interventions['other'] as $kk=>$value)
+                <div class="row my-3">
+                    <div class="col-lg-6">
+                        <input class="form-control" name="Intervention[other][]" placeholder="Other Title" value="{{$value}}"> 
+                    </div>
+                    <div class="col-lg-6">
+                        <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes" value="{{$Interventions['otherNote'][$kk]}}"> 
+                    </div>
+                </div>
+                @endforeach
+                @endif
+            </div>
+            <div class="add_more_btn">
+                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherProcedureRx()"><i class="fa-solid fa-plus"></i> Add More</a>
+            </div>
+            
+        </div>
     </div>
 </div>
 
@@ -4104,6 +4245,26 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+
+                function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+                function addOtherProcedureRx(){
+                    $(".otherOtherProcedureRx").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -4116,6 +4277,16 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+
+                    if($(select).val() == 'other'){
+                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                    } else {
+                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                    }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -5133,7 +5304,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     // Start Image    
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
     
@@ -5150,7 +5321,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 800,
+            width: 500,
             height: 600,
         });
     
@@ -5178,7 +5349,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
-                        width:500,
+                        width:300,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',

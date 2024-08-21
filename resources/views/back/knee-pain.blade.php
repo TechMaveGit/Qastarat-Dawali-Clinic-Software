@@ -2625,10 +2625,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                       <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                       <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                       <option value="high">(> 5.49 mIU/L)</option>
-                                                      </select>
-                                                      <div class="result result_value">
-                                                          <!-- Display low, high, and normal values here -->
-                                                      </div>
+                                                      <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[CBC][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[CBC][other]" />
                                                   </div>
                                               </div>
                                               </div>
@@ -2645,10 +2654,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                       <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                       <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                       <option value="high">(> 5.49 mIU/L)</option>
-                                                      </select>
-                                                      <div class="result result_value">
-                                                          <!-- Display low, high, and normal values here -->
-                                                      </div>
+                                                      <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[CRP][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[CRP][other]" />
                                                   </div>
                                               </div>
                                               </div>
@@ -2665,10 +2683,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                        <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                        <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                        <option value="high">(> 5.49 mIU/L)</option>
-                                                       </select>
-                                                       <div class="result result_value">
-                                                           <!-- Display low, high, and normal values here -->
-                                                       </div>
+                                                       <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[ESR][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[ESR][other]" />
                                                    </div>
                                                </div>
                                                </div>
@@ -2685,10 +2712,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                            <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                            <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                            <option value="high">(> 5.49 mIU/L)</option>
-                                                           </select>
-                                                           <div class="result result_value">
-                                                               <!-- Display low, high, and normal values here -->
-                                                           </div>
+                                                           <option value="other" >Other</option>
+                                                        </select>
+                                                        <div class="result result_value">
+                                                            <!-- Display low, high, and normal values here -->
+                                                        </div>
+      
+                                                      <select  hidden class="tshRangeOther form-select" name="Lab[CKMP][otherLevel]">
+                                                          <option value="low">Low</option>
+                                                          <option value="normal">Normal</option>
+                                                          <option value="high">High</option>
+                                                      </select>
+                                                  
+                                                      <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[CKMP][other]" />
                                                        </div>
                                                    </div>
                                                    </div>
@@ -2705,10 +2741,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                                <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                                <option value="high">(> 5.49 mIU/L)</option>
-                                                               </select>
-                                                               <div class="result result_value">
-                                                                   <!-- Display low, high, and normal values here -->
-                                                               </div>
+                                                               <option value="other" >Other</option>
+                                                            </select>
+                                                            <div class="result result_value">
+                                                                <!-- Display low, high, and normal values here -->
+                                                            </div>
+          
+                                                          <select  hidden class="tshRangeOther form-select" name="Lab[UricAcid][otherLevel]">
+                                                              <option value="low">Low</option>
+                                                              <option value="normal">Normal</option>
+                                                              <option value="high">High</option>
+                                                          </select>
+                                                      
+                                                          <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[UricAcid][other]" />
                                                            </div>
                                                        </div>
                                                        </div>
@@ -2725,10 +2770,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                    <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                                    <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                                    <option value="high">(> 5.49 mIU/L)</option>
-                                                                   </select>
-                                                                   <div class="result result_value">
-                                                                       <!-- Display low, high, and normal values here -->
-                                                                   </div>
+                                                                   <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[RF][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[RF][other]" />
                                                                </div>
                                                            </div>
                                                            </div>
@@ -2751,10 +2805,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                         <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                                         <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                                         <option value="high">(> 5.49 mIU/L)</option>
-                                                                        </select>
-                                                                        <div class="result result_value">
-                                                                            <!-- Display low, high, and normal values here -->
-                                                                        </div>
+                                                                        <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[WBC][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[WBC][other]" />
                                                                     </div>
                                                                 </div>
                                                                 </div>
@@ -2771,10 +2834,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                            <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                                            <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                                            <option value="high">(> 5.49 mIU/L)</option>
-                                                                           </select>
-                                                                           <div class="result result_value">
-                                                                               <!-- Display low, high, and normal values here -->
-                                                                           </div>
+                                                                           <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[Proteins][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[Proteins][other]" />
                                                                        </div>
                                                                    </div>
                                                                    </div>
@@ -2791,10 +2863,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                                <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                                                <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                                                <option value="high">(> 5.49 mIU/L)</option>
-                                                                               </select>
-                                                                               <div class="result result_value">
-                                                                                   <!-- Display low, high, and normal values here -->
-                                                                               </div>
+                                                                               <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[Glucose][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[Glucose][other]" />
                                                                            </div>
                                                                        </div>
                                                                        </div>
@@ -2811,10 +2892,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                                    <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                                                    <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                                                    <option value="high">(> 5.49 mIU/L)</option>
-                                                                                   </select>
-                                                                                   <div class="result result_value">
-                                                                                       <!-- Display low, high, and normal values here -->
-                                                                                   </div>
+                                                                                   <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[Crystals][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[Crystals][other]" />
                                                                                </div>
                                                                            </div>
                                                                            </div>
@@ -2831,10 +2921,19 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                                        <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                                                        <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                                                        <option value="high">(> 5.49 mIU/L)</option>
-                                                                                       </select>
-                                                                                       <div class="result result_value">
-                                                                                           <!-- Display low, high, and normal values here -->
-                                                                                       </div>
+                                                                                       <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[Lactate][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[Lactate][other]" />
                                                                                    </div>
                                                                                </div>
                                                                                </div>
@@ -2871,6 +2970,18 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                                                     <textarea class="form-control" placeholder="Enter Elaborate  / notes here***" style="height: 100px" name="Lab[USSTBIOPSYMSK452Note][]"></textarea>
                                                                                     </div>
                                                                                 </div>
+                                                                                </div>
+                                                                                <div class="col-lg-12 mb-4">
+                                                                                    <div class="title_head">
+                                                                                        <h4>Others</h4>
+                                                                                    </div>
+                                                                                    <div class="otherLabRow">
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="add_more_btn">
+                                                                                        <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                                                                    </div>
+                                                                                    
                                                                                 </div>
                                                                             </div>
                                         
@@ -3773,6 +3884,14 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-12 mb-4">
+                                            <div class="otherOtherProcedureRx">
+                                                
+                                            </div>
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherProcedureRx()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     
                                     <div class="col-lg-12 mb-3">
@@ -4220,6 +4339,25 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+                function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+                function addOtherProcedureRx(){
+                    $(".otherOtherProcedureRx").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -4232,6 +4370,16 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+
+                    if($(select).val() == 'other'){
+                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                    } else {
+                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                    }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -5324,7 +5472,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
 // Start Image
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
 
@@ -5342,7 +5490,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 800,
+            width: 500,
             height: 600,
         });
 
@@ -5370,7 +5518,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
-                        width:500,
+                        width:300,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',

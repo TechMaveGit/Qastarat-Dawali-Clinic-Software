@@ -2188,7 +2188,7 @@
                                                                                 @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'high')
                                                                                     (> 5.49 mIU/L) <span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'other')
-                                                                                {{$jsonData['CBC']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CBC']['otherLevel']}}</span>
+                                                                                {{$jsonData['CBC']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CBC']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2202,7 +2202,7 @@
                                                                                 @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'other')
-                                                                                    {{$jsonData['CRP']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CRP']['otherLevel']}}</span>
+                                                                                    {{$jsonData['CRP']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CRP']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2216,7 +2216,7 @@
                                                                                 @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'other')
-                                                                                    {{$jsonData['ESR']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['ESR']['otherLevel']}}</span>
+                                                                                    {{$jsonData['ESR']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['ESR']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2230,7 +2230,7 @@
                                                                                 @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'other')
-                                                                                    {{$jsonData['CKMP']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CKMP']['otherLevel']}}</span>
+                                                                                    {{$jsonData['CKMP']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CKMP']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2244,7 +2244,7 @@
                                                                                 @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'other')
-                                                                                    {{$jsonData['UricAcid']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['UricAcid']['otherLevel']}}</span>
+                                                                                    {{$jsonData['UricAcid']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['UricAcid']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2258,7 +2258,7 @@
                                                                                 @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'other')
-                                                                                    {{$jsonData['RF']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['RF']['otherLevel']}}</span>
+                                                                                    {{$jsonData['RF']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['RF']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif

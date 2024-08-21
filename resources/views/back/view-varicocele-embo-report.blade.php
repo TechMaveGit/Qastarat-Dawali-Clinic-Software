@@ -2310,7 +2310,7 @@
                                                                                 @elseif (isset($jsonData['Prolactin'][0]) && $jsonData['Prolactin'][0] == 'high')
                                                                                     (> 5.49 mIU/L)<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($jsonData['Prolactin'][0]) && $jsonData['Prolactin'][0] == 'other')
-                                                                                    {{$jsonData['Prolactin']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Prolactin']['otherLevel']}}</span>
+                                                                                    {{$jsonData['Prolactin']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Prolactin']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2324,7 +2324,7 @@
                                                                                 @elseif (isset($jsonData['TSH'][0]) && $jsonData['TSH'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                     @elseif (isset($jsonData['TSH'][0]) && $jsonData['TSH'][0] == 'other')
-                                                                                    {{$jsonData['TSH']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['TSH']['otherLevel']}}</span>
+                                                                                    {{$jsonData['TSH']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['TSH']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2338,7 +2338,7 @@
                                                                                 @elseif (isset($jsonData['FSH'][0]) && $jsonData['FSH'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                     @elseif (isset($jsonData['FSH'][0]) && $jsonData['FSH'][0] == 'other')
-                                                                                    {{$jsonData['FSH']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['FSH']['otherLevel']}}</span>
+                                                                                    {{$jsonData['FSH']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['FSH']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2352,7 +2352,7 @@
                                                                                 @elseif (isset($jsonData['LH'][0]) && $jsonData['LH'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                     @elseif (isset($jsonData['LH'][0]) && $jsonData['LH'][0] == 'other')
-                                                                                    {{$jsonData['LH']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['LH']['otherLevel']}}</span>
+                                                                                    {{$jsonData['LH']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['LH']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2368,7 +2368,7 @@
                                                                                 @elseif (isset($jsonData['Testosterone'][0]) && $jsonData['Testosterone'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                     @elseif (isset($jsonData['Testosterone'][0]) && $jsonData['Testosterone'][0] == 'other')
-                                                                                    {{$jsonData['Testosterone']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Testosterone']['otherLevel']}}</span>
+                                                                                    {{$jsonData['Testosterone']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Testosterone']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2382,7 +2382,7 @@
                                                                                 @elseif (isset($jsonData['EstrodiolD2'][0]) && $jsonData['EstrodiolD2'][0] == 'high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                     @elseif (isset($jsonData['EstrodiolD2'][0]) && $jsonData['EstrodiolD2'][0] == 'other')
-                                                                                    {{$jsonData['EstrodiolD2']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['EstrodiolD2']['otherLevel']}}</span>
+                                                                                    {{$jsonData['EstrodiolD2']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['EstrodiolD2']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
