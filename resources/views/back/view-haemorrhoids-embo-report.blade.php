@@ -4937,27 +4937,27 @@
         </script>
         <!-- End Add  Eligibility Status form data into database-->
         <script>
-            function toggleReadMore(button) {
+            // function toggleReadMore(button) {
 
-                var content = button.previousElementSibling; // Assumes the content is always before the button
+            //     var content = button.previousElementSibling; // Assumes the content is always before the button
 
 
 
-                if (content.style.maxHeight) {
+            //     if (content.style.maxHeight) {
 
-                    content.style.maxHeight = null;
+            //         content.style.maxHeight = null;
 
-                    button.innerHTML = 'Read More';
+            //         button.innerHTML = 'Read More';
 
-                } else {
+            //     } else {
 
-                    content.style.maxHeight = content.scrollHeight + 'px';
+            //         content.style.maxHeight = content.scrollHeight + 'px';
 
-                    button.innerHTML = 'Read Less';
+            //         button.innerHTML = 'Read Less';
 
-                }
+            //     }
 
-            }
+            // }
         </script>
 
 

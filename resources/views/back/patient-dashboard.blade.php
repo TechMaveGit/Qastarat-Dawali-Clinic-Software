@@ -6512,12 +6512,13 @@
 
                                     <div class="col-lg-12 text-end">
 
-                                        <a href="#" class="diseases_name add_diseases_btn">+ Add More</a>
+                                        
                                         <span><a href="#" id="remove_disease"><i
                                                     class="fa-regular fa-trash-can"></i></a></span>
                                     </div>
 
                                 </div>
+                                <a href="#" class="diseases_name add_diseases_btn">+ Add More</a>
 
 
 

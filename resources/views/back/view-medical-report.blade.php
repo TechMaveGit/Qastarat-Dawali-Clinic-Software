@@ -416,12 +416,12 @@
                                                                                 </p>
 
                                                                             </div>
-                                                                            @if (strlen($past_history->describe) >= 50)
+                                                                            {{-- @if (strlen($past_history->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
                                                                         </div>
 
@@ -526,12 +526,12 @@
                                                                                 </p>
 
                                                                             </div>
-                                                                            @if (strlen($past_surgical->describe) >= 50)
+                                                                            {{-- @if (strlen($past_surgical->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
 
                                                                         </div>
@@ -918,12 +918,12 @@
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($prescription->prescription) >= 50)
+                                                                        {{-- @if (strlen($prescription->prescription) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1904,12 +1904,12 @@
                                                                         </p>
 
                                                                     </div>
-                                                                    @if (strlen($procedure->entry) >= 50)
+                                                                    {{-- @if (strlen($procedure->entry) >= 50)
                                                                         <button
                                                                             class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                             onclick="toggleReadMore(this)">Read
                                                                             More</button>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                 </div>
 
@@ -1923,12 +1923,12 @@
                                                                         </p>
 
                                                                     </div>
-                                                                    @if (strlen($procedure->summary) >= 50)
+                                                                    {{-- @if (strlen($procedure->summary) >= 50)
                                                                         <button
                                                                             class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                             onclick="toggleReadMore(this)">Read
                                                                             More</button>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                 </div>
 
@@ -2142,12 +2142,12 @@
                                                                         </p>
 
                                                                     </div>
-                                                                    @if (strlen($procedure2->voice_recognition) >= 50)
+                                                                    {{-- @if (strlen($procedure2->voice_recognition) >= 50)
                                                                         <button
                                                                             class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                             onclick="toggleReadMore(this)">Read
                                                                             More</button>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                 </div>
 
@@ -2193,27 +2193,27 @@
 
     @push('custom-js')
         <script>
-            function toggleReadMore(button) {
+            // function toggleReadMore(button) {
 
-                var content = button.previousElementSibling; // Assumes the content is always before the button
+            //     var content = button.previousElementSibling; // Assumes the content is always before the button
 
 
 
-                if (content.style.maxHeight) {
+            //     if (content.style.maxHeight) {
 
-                    content.style.maxHeight = null;
+            //         content.style.maxHeight = null;
 
-                    button.innerHTML = 'Read More';
+            //         button.innerHTML = 'Read More';
 
-                } else {
+            //     } else {
 
-                    content.style.maxHeight = content.scrollHeight + 'px';
+            //         content.style.maxHeight = content.scrollHeight + 'px';
 
-                    button.innerHTML = 'Read Less';
+            //         button.innerHTML = 'Read Less';
 
-                }
+            //     }
 
-            }
+            // }
         </script>
 
 

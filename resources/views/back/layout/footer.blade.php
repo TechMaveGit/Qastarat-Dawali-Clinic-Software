@@ -6007,18 +6007,20 @@
 
                                 <div class="col-lg-12 text-end">
 
-                                    <a href="#" class="diseases_name add_diseases_btn">+ Add More</a>
+                                    
                                     <span><a href="#" id="remove_disease"><i
                                                 class="fa-regular fa-trash-can"></i></a></span>
                                 </div>
 
                             </div>
-
+                            
 
 
                             <div id="dynamic-sections">
                                 <!-- Initially empty; will contain dynamically added sections -->
                             </div>
+
+                            <a href="#" class="diseases_name add_diseases_btn">+ Add More</a>
 
                         </div>
 
@@ -8149,7 +8151,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title" id="exampleModalLabel">supportive Treatment</h1>
+                <h1 class="modal-title" id="exampleModalLabel">Supportive Treatment</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                         class="fa-solid fa-xmark"></i></button>
             </div>
