@@ -2140,7 +2140,7 @@
                                                                                     @elseif (isset($jsonData['TSH'][0]) &&  $jsonData['TSH'][0]=='high')
                                                                                     (> 5.49 mIU/L)<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                     @elseif (isset($jsonData['TSH'][0]) && $jsonData['TSH'][0] == 'other')
-                                                                                        {{$jsonData['TSH']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['TSH']['otherLevel']}}</span>
+                                                                                        {{$jsonData['TSH']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['TSH']['otherLevel']}}</span>
                                                                                     @endif
                                                                                 </p>
                                                                                 @endif
@@ -2154,7 +2154,7 @@
                                                                                     @elseif ( isset($jsonData['T4'][0]) &&  $jsonData['T4'][0]=='high')
                                                                                     Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                     @elseif (isset($jsonData['T4'][0]) && $jsonData['T4'][0] == 'other')
-                                                                                        {{$jsonData['T4']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['T4']['otherLevel']}}</span>
+                                                                                        {{$jsonData['T4']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['T4']['otherLevel']}}</span>
                                                                                     @endif
                                                                                 </p>
                                                                                 @endif
@@ -2178,7 +2178,7 @@
                                                                                 @elseif (isset($jsonData['PTH'][0]) && $jsonData['PTH'][0]=='high')
                                                                                 5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($jsonData['PTH'][0]) && $jsonData['PTH'][0] == 'other')
-                                                                                    {{$jsonData['PTH']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['PTH']['otherLevel']}}</span>
+                                                                                    {{$jsonData['PTH']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['PTH']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2192,7 +2192,7 @@
                                                                                 @elseif (isset($jsonData['Ca'][0]) && $jsonData['Ca'][0]=='high')
                                                                                 5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($jsonData['Ca'][0]) && $jsonData['Ca'][0] == 'other')
-                                                                                    {{$jsonData['Ca']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Ca']['otherLevel']}}</span>
+                                                                                    {{$jsonData['Ca']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Ca']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2227,7 +2227,7 @@
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]=='high')
                                                                                 5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other')
-                                                                                    {{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']}}</span>
+                                                                                    {{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2241,7 +2241,7 @@
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]=='high')
                                                                                 5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other')
-                                                                                    {{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']}}</span>
+                                                                                    {{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2255,7 +2255,7 @@
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]=='high')
                                                                                 5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other')
-                                                                                    {{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']}}</span>
+                                                                                    {{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2269,7 +2269,7 @@
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]=='high')
                                                                                 5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other')
-                                                                                    {{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']}}</span>
+                                                                                    {{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif
@@ -2283,7 +2283,7 @@
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]=='high')
                                                                                 5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                                                                 @elseif (isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other')
-                                                                                    {{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']}}</span>
+                                                                                    {{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']}}</span>
                                                                                 @endif
                                                                             </p>
                                                                             @endif

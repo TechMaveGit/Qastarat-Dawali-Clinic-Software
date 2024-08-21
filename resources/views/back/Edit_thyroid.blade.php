@@ -5483,7 +5483,7 @@
 
                         $('#InterventionValue').val('');
                     }
-                })
+                });
 
 
                 // Supportive

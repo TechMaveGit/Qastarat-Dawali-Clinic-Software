@@ -2123,7 +2123,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                                     <option {{ isset($Lab['CBC']['otherLevel']) && $Lab['CBC']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
                                                 </select>
                                                 
-                                                <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other') value="{{$Lab['CBC']['other']}}" @else hidden @endif name="Lab[CBC][other]" >
+                                                <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other') value="{{$Lab['CBC']['other']??''}}" @else hidden @endif name="Lab[CBC][other]" >
                                             </div>
                                         </div>
                                         </div>
@@ -3968,13 +3968,6 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                     }
                 });
                 // end here sysmtoms scrore calculation
-
-              
-
-                
-
-
-
             });
         </script>
 

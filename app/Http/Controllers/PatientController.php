@@ -6862,7 +6862,6 @@ class PatientController extends Controller
 
     public function storeVaricoseAblationEligibilityForms(Request $request)
     {
-
         $doctor_id = auth()->guard('doctor')->id();
 
         $id = decrypt($request->patient_id);
@@ -6880,7 +6879,7 @@ class PatientController extends Controller
 
             file_put_contents($filePath, $imageData);
         } else {
-            $newFileName = '';
+            $newFileName = null;
         }
 
         
@@ -7326,7 +7325,7 @@ class PatientController extends Controller
         // $id = decrypt();
         $ThyroidDiagnosis = ThyroidDiagnosis::query();
 
-        $VaricoceleEmboForm = DB::table('patient_thyroid_diagnosis')->select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'VaricoseAblation'])->latest('id')->first();
+        $VaricoceleEmboForm = ThyroidDiagnosis::select('id', 'AnnotateimageData')->where(['patient_id' => $id, 'form_type' => 'VaricoseAblation'])->whereNotNull('AnnotateimageData')->first();
         $diagnosis_general = $ThyroidDiagnosis->select('data_value')->where(['title_name' => 'diagnosis_general', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
         $diagnosis_cid = ThyroidDiagnosis::select('data_value')->where(['title_name' => 'diagnosis_cid', 'patient_id' => $id, 'form_type' => 'VaricoseAblation'])->get();
 

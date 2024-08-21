@@ -2892,11 +2892,20 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                   <option value="normal"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                   <option value="low"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                   <option value="high"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                  </select>
-                  <div class="result result_value {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }} ">
-                      <!-- Display low, high, and normal values here -->
-                      {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }}
-                  </div>
+                  <option value="other" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }}">
+                                                        {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[ESR][otherLevel]">
+                                                        <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') value="{{$Lab['ESR']['other']??''}}" @else hidden @endif name="Lab[ESR][other]" >
               </div>
           </div>
           </div>
@@ -2915,14 +2924,47 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                   >(0.4 - 5.49 mIU/L)</option>
                   <option value="low" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                   <option value="high" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                  </select>
-                  <div class="result result_value {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}">
-                    {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}
-                      <!-- Display low, high, and normal values here -->
-                  </div>
+                  <option value="other" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+                                                    
+                                                    <div @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }}">
+                                                        {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }} 
+                                                    </div>
+
+                                                    <select @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[CRP][otherLevel]">
+                                                        <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') value="{{$Lab['CRP']['other']??''}}" @else hidden @endif name="Lab[CRP][other]" >
               </div>
           </div>
           </div>
+          <div class="col-lg-12 mb-4">
+            <div class="title_head">
+                <h4>Others</h4>
+            </div>
+            <div class="otherLabRow">
+                @if(isset($Lab['other']))
+                @foreach($Lab['other'] as $kk=>$value)
+                <div class="row my-3">
+                    <div class="col-lg-6">
+                        <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                    </div>
+                    <div class="col-lg-6">
+                        <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                    </div>
+                </div>
+                @endforeach
+                @endif
+            </div>
+            <div class="add_more_btn">
+                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+            </div>
+            
+        </div>
+
        </div>
 
 
@@ -3194,9 +3236,25 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                     @php
                                         if (isset($Interventions) && !empty($Interventions)) {
                                             $Interventions = json_decode($Interventions->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($Interventions);
-                                            //     die;
+                                           
+                                            $existingDataInter = [
+                                            'ANGIOVE1780' => ['ANGIOVE1780'],
+                                            'USVVTABL1870' => ['USVVTABL1870'],
+                                            'LABPREIRBASIC32' => ['LABPREIRBASIC32'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'PRESSURESTOCKINGS34' => ['PRESSURESTOCKINGS34'],
+                                            'PRESSURESTOCKINGSFITDEVICE9' => ['PRESSURESTOCKINGSFITDEVICE9'],
+                                            'USVVNTNTAUL1490' => ['USVVNTNTAUL1490'],
+                                            'USVVNTNTABL2200' => ['USVVNTNTABL2200'],
+                                            'LABPREIRBASIC32' => ['LABPREIRBASIC32'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'PRESSURESTOCKINGS34' => ['PRESSURESTOCKINGS34'],
+                                            'PRESSURESTOCKINGSFITDEVICE9' => ['PRESSURESTOCKINGSFITDEVICE9'],
+                                            'LABPREIRBASIC32' => ['LABPREIRBASIC32'],
+                                            'LABPREIRBASIC32' => ['LABPREIRBASIC32'],
+                                            ];
+
+                                            $filteredDataIner = array_diff_key($Interventions, $existingDataInter);
                                         }
 
                                     @endphp
@@ -3266,18 +3324,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[PRESSURESTOCKINGSFITDEVICE9][]" value="PRESSURESTOCKINGSFITDEVICE9"
-                    id="formRadiosRightb40PRESSURESTOCKINGSFITDEVICE9"
-                    {{ isset($Interventions['PRESSURESTOCKINGSFITDEVICE9'][0]) && $Interventions['PRESSURESTOCKINGSFITDEVICE9'][0] == 'PRESSURESTOCKINGSFITDEVICE9' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40PRESSURESTOCKINGSFITDEVICE9">
-                    PRESSURESTOCKINGSFITDEVICE9
-                </label>
-            </div>
-        </div>
+        
         <div class="col-lg-3">
             <div class="form-check form-check-right mb-3">
                 <input class="form-check-input"type="checkbox"
@@ -3302,54 +3349,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[LABPREIRBASIC32][]" value="LABPREIRBASIC32"
-                    id="formRadiosRightb40LABPREIRBASIC32"
-                    {{ isset($Interventions['LABPREIRBASIC32'][0]) && $Interventions['LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40LABPREIRBASIC32">
-                    LABPREIRBASIC32
-                </label>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[LABPREIRSAFETY17][]" value="LABPREIRSAFETY17"
-                    id="formRadiosRightb40LABPREIRSAFETY17"
-                    {{ isset($Interventions['LABPREIRSAFETY17'][0]) && $Interventions['LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40LABPREIRSAFETY17">
-                    LABPREIRSAFETY17
-                </label>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[PRESSURESTOCKINGS34][]" value="PRESSURESTOCKINGS34"
-                    id="formRadiosRightb40PRESSURESTOCKINGS34"
-                    {{ isset($Interventions['PRESSURESTOCKINGS34'][0]) && $Interventions['PRESSURESTOCKINGS34'][0] == 'PRESSURESTOCKINGS34' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40PRESSURESTOCKINGS34">
-                    PRESSURESTOCKINGS34
-                </label>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[PRESSURESTOCKINGSFITDEVICE9][]" value="PRESSURESTOCKINGSFITDEVICE9"
-                    id="formRadiosRightb40PRESSURESTOCKINGSFITDEVICE9"
-                    {{ isset($Interventions['PRESSURESTOCKINGSFITDEVICE9'][0]) && $Interventions['PRESSURESTOCKINGSFITDEVICE9'][0] == 'PRESSURESTOCKINGSFITDEVICE9' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40PRESSURESTOCKINGSFITDEVICE9">
-                    PRESSURESTOCKINGSFITDEVICE9
-                </label>
-            </div>
-        </div>
+       
         <div class="col-lg-3">
             <div class="form-check form-check-right mb-3">
                 <input class="form-check-input"type="checkbox"
@@ -3362,19 +3362,7 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[PRESSURESTOCKINGS34][]" value="PRESSURESTOCKINGS34"
-                    id="formRadiosRightb40PRESSURESTOCKINGS34"
-                    {{ isset($Interventions['PRESSURESTOCKINGS34'][0]) && $Interventions['PRESSURESTOCKINGS34'][0] == 'PRESSURESTOCKINGS34' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40PRESSURESTOCKINGS34">
-                    PRESSURESTOCKINGS34
-                </label>
-            </div>
-        </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3" id="InterventionSample">
             <div class="form-check form-check-right mb-3">
                 <input class="form-check-input"type="checkbox"
                     name="Intervention[PRESSURESTOCKINGSFITDEVICE9][]" value="PRESSURESTOCKINGSFITDEVICE9"
@@ -3388,6 +3376,59 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
         </div>
         
         
+        <div class="col-lg-12" >
+            <div id="dynamic_Intervention_checkbox_container" class="row">
+                @if (isset($filteredDataIner) && !empty($filteredDataIner))
+                @forelse ($filteredDataIner as $key => $value)
+                    <div class="col-lg-3">
+                        <div class="form-check form-check-right mb-3">
+                            <input class="form-check-input" type="checkbox"
+                                name="Intervention[{{ $key }}][]"
+                                id="formRadiosRight{{ $key }}"
+                                {{ isset($Interventions[$key]) && in_array($value[0], $Interventions[$key]) ? 'checked' : '' }}
+                                value="{{ $value[0] }}">
+                            <label class="form-check-label"
+                                for="formRadiosRight{{ $key }}">
+                                {{ $value[0] }}
+                            </label>
+                        </div>
+                    </div>
+                @empty
+                    <!-- Code to be executed if $filteredData is empty -->
+                @endforelse
+            @endif
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check form-check-right mb-3">
+                <input class="form-check-input"type="checkbox"
+                    name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                <label class="form-check-label" for="formRadiosRightbf1inter">
+                    + Add More
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-12" id="textarea_a852inter">
+            <div class="row addmore_diag">
+                <div class="col-lg-10">
+                    <div class="inner_element">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                                id="InterventionValue" placeholder="Type  here.....">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="add_more_btn">
+                        <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                class="fa-solid fa-plus"></i> Add More</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
         
        
         
@@ -3633,6 +3674,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                     $("#abnormal_a76").hide();
                 });
 
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
+                });
+
             })
         </script>
 
@@ -3819,6 +3872,17 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+                function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -3831,6 +3895,16 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+
+                    if($(select).val() == 'other'){
+                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                    } else {
+                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                    }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -3995,6 +4069,28 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         $('#dynamic_checkbox_SpecialInvestigationd').append(clonedDiv);
 
                         $('#SpecialInvestigationValue').val('');
+                    }
+                });
+
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
                     }
                 });
 
@@ -4572,7 +4668,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     // Start Image    
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
     
@@ -4585,14 +4681,14 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     
     const imageObj = new Image();
 
-imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
+    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
     // Set the image source only if annotateImageData is not empty
     // imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/') }}' + annotateImageData;
 
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 800,
+            width: 500,
             height: 600,
         });
 
@@ -4624,7 +4720,7 @@ imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboFo
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
-                        width:500,
+                        width:300,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',

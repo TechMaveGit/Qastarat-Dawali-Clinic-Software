@@ -2576,9 +2576,19 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     @php
                                         if (isset($Interventions) && !empty($Interventions)) {
                                             $Interventions = json_decode($Interventions->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($Interventions);
-                                            //     die;
+                                           
+
+                                            $existingDataInter = [
+                                            'ANGIOHE2910' => ['ANGIOHE2910'],
+                                            'LABPREANGIO48' => ['LABPREANGIO48'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'IVSEDATION270' => ['IVSEDATION270'],
+                                            'USHSCLERO490' => ['USHSCLERO490'],
+                                            'LABPREIRBASIC32' => ['LABPREIRBASIC32'],
+                                            'USVVNTNTABL2200' => ['USVVNTNTABL2200'],
+                                            ];
+
+                                            $filteredDataIner = array_diff_key($Interventions, $existingDataInter);
                                         }
 
                                     @endphp
@@ -2660,19 +2670,8 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[LABPREIRSAFETY17][]" value="LABPREIRSAFETY17"
-                    id="formRadiosRightb40LABPREIRSAFETY17"
-                    {{ isset($Interventions['LABPREIRSAFETY17'][0]) && $Interventions['LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40LABPREIRSAFETY17">
-                    LABPREIRSAFETY17
-                </label>
-            </div>
-        </div>
-        <div class="col-lg-3">
+        
+        <div class="col-lg-3" id="InterventionSample">
             <div class="form-check form-check-right mb-3">
                 <input class="form-check-input"type="checkbox"
                     name="Intervention[USVVNTNTABL2200][]" value="USVVNTNTABL2200"
@@ -2684,51 +2683,64 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[LABPREIRBASIC32][]" value="LABPREIRBASIC32"
-                    id="formRadiosRightb40LABPREIRBASIC32"
-                    {{ isset($Interventions['LABPREIRBASIC32'][0]) && $Interventions['LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40LABPREIRBASIC32">
-                    LABPREIRBASIC32
-                </label>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[LABPREIRSAFETY17][]" value="LABPREIRSAFETY17"
-                    id="formRadiosRightb40LABPREIRSAFETY17"
-                    {{ isset($Interventions['LABPREIRSAFETY17'][0]) && $Interventions['LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40LABPREIRSAFETY17">
-                    LABPREIRSAFETY17
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-12 mb-4">
-        <div class="otherOtherProcedureRx">
-            @if(isset($Interventions['other']))
-            @foreach($Interventions['other'] as $kk=>$value)
-            <div class="row my-3">
-                <div class="col-lg-6">
-                    <input class="form-control" name="Intervention[other][]" placeholder="Other Title" value="{{$value}}"> 
-                </div>
-                <div class="col-lg-6">
-                    <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes" value="{{$Interventions['otherNote'][$kk]}}"> 
-                </div>
-            </div>
-            @endforeach
+        
+
+        <div class="col-lg-12" >
+            <div id="dynamic_Intervention_checkbox_container" class="row">
+                @if (isset($filteredDataIner) && !empty($filteredDataIner))
+                @forelse ($filteredDataIner as $key => $value)
+                    <div class="col-lg-4">
+                        <div class="form-check form-check-right mb-3">
+                            <input class="form-check-input" type="checkbox"
+                                name="Intervention[{{ $key }}][]"
+                                id="formRadiosRight{{ $key }}"
+                                {{ isset($Interventions[$key]) && in_array($value[0], $Interventions[$key]) ? 'checked' : '' }}
+                                value="{{ $value[0] }}">
+                            <label class="form-check-label"
+                                for="formRadiosRight{{ $key }}">
+                                {{ $value[0] }}
+                            </label>
+                        </div>
+                    </div>
+                @empty
+                    <!-- Code to be executed if $filteredData is empty -->
+                @endforelse
             @endif
+            </div>
         </div>
-        <div class="add_more_btn">
-            <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherProcedureRx()"><i class="fa-solid fa-plus"></i> Add More</a>
+        <div class="col-lg-3">
+            <div class="form-check form-check-right mb-3">
+                <input class="form-check-input"type="checkbox"
+                    name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                <label class="form-check-label" for="formRadiosRightbf1inter">
+                    + Add More
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-12" id="textarea_a852inter">
+            <div class="row addmore_diag">
+                <div class="col-lg-10">
+                    <div class="inner_element">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                                id="InterventionValue" placeholder="Type  here.....">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="add_more_btn">
+                        <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                class="fa-solid fa-plus"></i> Add More</a>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
         
     </div>
+   
 </div>
 
 
@@ -2981,6 +2993,17 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                     $("#abnormal_a76").hide();
                 });
 
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
+                });
             })
         </script>
 
@@ -3183,15 +3206,6 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                             </div></div>`);
                 }
 
-                function addOtherProcedureRx(){
-                    $(".otherOtherProcedureRx").append(`<div class="row my-3"><div class="col-lg-6">
-                                                <input class="form-control" name="Intervention[other][]" placeholder="Other Title"> 
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes"> 
-                                            </div></div>`);
-                }
-
 
 
             $(document).ready(function() {
@@ -3207,14 +3221,14 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
                     if($(select).val() == 'other'){
-                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
-                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
-                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
-                    } else {
-                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
-                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
-                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
-                    }
+                            $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                            $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                            $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                        } else {
+                            $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                            $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                            $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                        }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -3381,6 +3395,28 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                         $('#SpecialInvestigationValue').val('');
                     }
                 });
+
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                })
 
                 // Supportive
 
@@ -3747,7 +3783,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     // Start Image    
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
     
@@ -3764,7 +3800,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     imageObj.onload = function() {
         const image = new Konva.Image({
             image: imageObj,
-            width: 800,
+            width: 500,
             height: 600,
         });
     
@@ -3792,7 +3828,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
-                        width:500,
+                        width:300,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',

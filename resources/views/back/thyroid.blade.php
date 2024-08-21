@@ -4789,7 +4789,7 @@
 
                         $('#InterventionValue').val('');
                     }
-                })
+                });
 
                 // Supportive
 
