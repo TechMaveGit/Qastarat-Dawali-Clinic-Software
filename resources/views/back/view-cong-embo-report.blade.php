@@ -1261,7 +1261,7 @@
                                                 <div class="diagnosis_type">
                                                     <h6><span class="point_dia"><i
                                                                 class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                        Gernal diagnosis</h6>
+                                                        General Diagnosis</h6>
                                                         @php
                                                         $diagnosis_general_data = App\Models\patient\ThyroidDiagnosis::where(['title_name' => 'diagnosis_general', 'patient_id' => decrypt(@$id)])
                                                             ->get()

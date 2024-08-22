@@ -264,7 +264,7 @@
 
                                                     <h6><span class="point_dia"><i
                                                                 class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                        Gernal diagnosis</h6>
+                                                        General Diagnosis</h6>
 
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                                         eiusmod</p>
@@ -325,7 +325,7 @@
                                                             {{-- <li>No Data Found.</li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
-                                                                <li>{{ $patient_allergy->allergy_name }}
+                                                                <li>{{ $patient_allergy->allergy_name }} <small>{{ \Carbon\Carbon::parse($patient_allergy->created_at)->format('D, d M Y') }}</small>
 
                                                                     <span class="alergyDelete" data-id="{{ $patient_allergy->id }}">
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
@@ -1028,7 +1028,7 @@
                                                 <div class="diagnosis_type">
                                                     <h6><span class="point_dia"><i
                                                                 class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                        Gernal diagnosis</h6>
+                                                        General Diagnosis</h6>
                                                     @php
                                                         $diagnosis_general_data = App\Models\patient\Diagnosis::where(['title_name' => 'diagnosis_general', 'patient_id' => decrypt(@$id)])
                                                             ->get()

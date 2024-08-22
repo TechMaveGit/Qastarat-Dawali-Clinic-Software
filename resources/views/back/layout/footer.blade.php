@@ -4261,7 +4261,7 @@
                                                 </div>
                                                 <div class="mt-2 form-group">
 
-                                                    <textarea class="form-control" id="summerynote" placeholder="Type your summery here" style="height:100px"
+                                                    <textarea class="form-control" id="summerynote" placeholder="Type your summary here" style="height:100px"
                                                         name="summerynote"></textarea>
                                                     <span id="summerynoteError"
                                                         style="color: red; font-size:small"></span>
@@ -9148,7 +9148,7 @@
         .catch(function(error) {
             console.error(error);
         });
-    // summery fields
+    // summary fields
     CKEDITOR.replace('summerynote')
         .catch(function(error) {
             console.error(error);

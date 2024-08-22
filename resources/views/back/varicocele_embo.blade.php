@@ -3864,7 +3864,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     let lastLine;
 
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/varicose.jpg') }}';
+    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/varicose-viens.jpg') }}';
 
     imageObj.onload = function() {
         const image = new Konva.Image({

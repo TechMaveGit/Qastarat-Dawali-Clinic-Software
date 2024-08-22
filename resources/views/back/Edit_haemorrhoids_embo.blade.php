@@ -65,7 +65,7 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 'Perinealvaricosities' => ['Perineal varicosities'],
                                                 'Chronicconstipation' => ['Chronic constipation'],
                                                 'Analfissure' => ['Anal fissure'],     
-                                                'Proctitis' => ['Proctitis'],     
+                                                'Prostatitis' => ['Prostatitis'],     
                                                 
                                                 
                                             ];
@@ -144,11 +144,11 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" id="diagnosis_general_checkbox">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Proctitis][]" id="formRadiosRight4Proctitis"
-                                                {{ isset($diagnosis_generals['Proctitis']) && in_array('Proctitis', $diagnosis_generals['Proctitis']) ? 'checked' : '' }}
-                                                value="Proctitis">
+                                                name="diagnosis_general[Prostatitis][]" id="formRadiosRight4Proctitis"
+                                                {{ isset($diagnosis_generals['Prostatitis']) && in_array('Prostatitis', $diagnosis_generals['Prostatitis']) ? 'checked' : '' }}
+                                                value="Prostatitis">
                                             <label class="form-check-label" for="formRadiosRight4Proctitis">
-                                                Proctitis
+                                                Prostatitis
                                             </label>
                                         </div>
                                     </div>

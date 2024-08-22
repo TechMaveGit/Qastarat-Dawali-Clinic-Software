@@ -477,7 +477,7 @@
                                                             {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
-                                                                <li>{{ $patient_allergy->allergy_name }}
+                                                                <li>{{ $patient_allergy->allergy_name }} <small>{{ \Carbon\Carbon::parse($patient_allergy->created_at)->format('D, d M Y') }}</small>
                                                                 
                                                                     <span class="alergyDelete" data-id="{{ $patient_allergy->id }}">
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
@@ -1196,7 +1196,7 @@
                                                             <div class="appoin_title">
                                                                 <h6><span class="point_dia"><i
                                                                             class="fa-regular fa-circle-dot"></i></span>
-                                                                    Provisional / Gernal diagnosis</h6>
+                                                                    Provisional / General Diagnosis</h6>
 
                                                             </div>
 
@@ -3711,7 +3711,7 @@
                                             <label for="validationCustom01" class="form-label">Diagnosis Type</label>
                                             <select class="form-control select_diagnosis" id="diagnosis_type">
                                                 <option value="">Choose Diagnosis Type</option>
-                                                <option value="general">Provisional / Gernal diagnosis</option>
+                                                <option value="general">Provisional / General Diagnosis</option>
                                                 <option value="icd">ICD 10 diagnosis</option>
 
                                             </select>

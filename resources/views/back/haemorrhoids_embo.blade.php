@@ -112,10 +112,10 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" id="diagnosis_general_checkbox" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Proctitis][]" id="formRadiosRight7"
-                                                value="Proctitis">
+                                                name="diagnosis_general[Prostatitis][]" id="formRadiosRight7"
+                                                value="Prostatitis">
                                             <label class="form-check-label" for="formRadiosRight7">
-                                                Proctitis
+                                                Prostatitis
                                             </label>
                                         </div>
                                     </div>
