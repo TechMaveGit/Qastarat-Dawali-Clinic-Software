@@ -262,7 +262,16 @@
                                                 <form action="{{route('user.getPatientsData')}}" method="get">@csrf
                                                 <div class="row justify-content-end">
                                                     @php
-                                                    $allBranch=  DB::table('branchs')->get();   
+                                                    $dtype = 'doctor';
+                                                    if(Auth::guard('doctor')->user()->user_type == "Nurse"){
+                                                        $dtype = 'Nurse';
+                                                    }else if(Auth::guard('doctor')->user()->user_type == "Receptionist"){
+                                                        $dtype = 'receptionist';
+                                                    }else if(Auth::guard('doctor')->user()->user_type == "Coordinator"){
+                                                        $dtype = 'coordinator';
+                                                    }
+                                                    $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
+                                                    $allBranch=  DB::table('branchs')->whereIn('id',$doctorBranch)->get();
                                                   @endphp
                                                     <div class="col-lg-3">
                                                         

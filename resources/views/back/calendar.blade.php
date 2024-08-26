@@ -322,7 +322,7 @@
                                         @foreach ($locations as $alllocation)
                                             @if (isset($_GET['location']))
                                                 @if ($alllocation->branch_name == $_GET['location'])
-                                                    <li class="checkFont" data-location_type="CLINIC"
+                                                    <li class="checkFont" data-location_type=""
                                                         style="background-color: #c1c1c1;">
                                                         <iconify-icon
                                                             icon="simple-line-icons:location-pin"></iconify-icon>{{ $alllocation->branch_name }}
@@ -572,7 +572,7 @@
                                                         <span id="nameError" style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-4">
                                                         <label class="form-label">Date of Birth</label>
                                                         <div class="input-group" id="datepicker1">
@@ -583,7 +583,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3 form-group">
                                                         <label class="form-label">Gender</label>
                                                         <select class="form-control select2_modal" name="gender">
@@ -596,6 +596,24 @@
                                                             style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-4">
+                                                        <div class="mb-3 form-group">
+                                                            <label for="validationCustom01"
+                                                                class="form-label">Select Branch</label>
+                                                            <select class="form-control select2_modal" name="selectBranch">
+                                                                <option value="">Select</option>
+                                                                @forelse ($locations as $alllocations)
+                                                                    <option value="{{ $alllocations->id }}">
+                                                                        {{ $alllocations->branch_name }}</option>
+
+                                                                @empty
+                                                                @endforelse
+
+                                                            </select>
+                                                            <span id="branchError"
+                                                            style="color: red;font-size:smaller"></span>
+                                                        </div>
+                                                    </div>
                                             </div>
                                         </div>
 
@@ -2348,6 +2366,7 @@ if($(this).val() == "Other"){
                         formData.append('name', $('input[name="name"]').val());
                         formData.append('birth_date', $('input[name="birth_date"]').val());
                         formData.append('gender', $('select[name="gender"]').val());
+                        formData.append('selectBranch', $('select[name="selectBranch"]').val());
                         formData.append('post_code', $('input[name="post_code"]').val());
                         formData.append('street', $('input[name="street"]').val());
                         formData.append('town', $('input[name="town"]').val());
@@ -2462,6 +2481,14 @@ if($(this).val() == "Other"){
 
                         $('#genderError').text('Please select a gender');
                         $('select[name="gender"]').addClass('error');
+                    }
+
+                    let pbranch = $('select[name="selectBranch"]').val();
+                    if (pbranch == '' || pbranch == 'Select') {
+                        isValid = false;
+
+                        $('#branchError').text('Please select a branch');
+                        $('select[name="selectBranch"]').addClass('error');
                     }
 
                     // Validate Email Address

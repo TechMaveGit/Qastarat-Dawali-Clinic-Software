@@ -84,6 +84,23 @@
       height: 2.5cm;
     }
 
+
+@page {
+    size: auto;
+    margin: 0;
+}
+
+@print {
+    @page :footer {
+        display: none
+    }
+ 
+    @page :header {
+        display: none
+    }
+}
+
+
     @media print {
 
       td,
@@ -115,6 +132,11 @@
       .no-print {
         display: none
       }
+
+      @page {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
     }
 
     </style>
@@ -289,7 +311,7 @@
           <tr>
             <td style="padding-bottom: 10px;">
               <div class="section_title">
-                <h2>Symptons</h2>
+                <h2>Symptoms</h2>
               </div>
             </td>
           </tr>
@@ -418,7 +440,7 @@
           <tr>
             <td style="padding-bottom: 10px;">
               <div class="section_title">
-                <h2>Old/Current meds</h2>
+                <h2>Drugs / Current meds</h2>
               </div>
             </td>
           </tr>
@@ -1063,15 +1085,17 @@
                                                     @php
                                                         $diagnosis_general_data_value = json_decode($diagnosis_general->data_value,true);
                                                     @endphp
-                                                        @forelse ($diagnosis_general_data_value as $key => $values)
+                                                        @if($diagnosis_general_data_value)
+                                                        @foreach ($diagnosis_general_data_value as $key => $values)
                                                             @foreach ($values as $value)
                                                                 {{ $value }}
                                                             @endforeach
                                                             @if (!$loop->last)
                                                                 <span class="separation">|</span>
                                                             @endif
-                                                        @empty
-                                                        @endforelse
+                                                        
+                                                        @endforeach
+                                                        @endif
                                                     @endif
                                                 </p>
                                             </div>
@@ -1106,16 +1130,16 @@
                                         );
 
                                         @endphp
-                                        @forelse ($diagnosis_cid_data_value as $key => $values)
-                                        @foreach ($values as $value)
-                                        {{ $value }}
+                                        @if($diagnosis_cid_data_value)
+                                        @foreach ($diagnosis_cid_data_value as $key => $values)
+                                            @foreach ($values as $value)
+                                                {{ $value }}
 
+                                                <span
+                                                    class="separation">|</span>
+                                            @endforeach
                                         @endforeach
-                                        @if (!$loop->last)
-                                        <span class="separation">|</span>
                                         @endif
-                                        @empty
-                                        @endforelse
                                         @endif
                                     </p>
                                     {{-- <p class="diagnosis_date">
@@ -2113,7 +2137,7 @@
             <tr>
             <td style="padding-bottom: 10px;">
                 <div class="section_title">
-                    <h2>Plans/Recommandation</h2>
+                    <h2>Future Plans / Recommendations</h2>
                 </div>
             </td>
             </tr>

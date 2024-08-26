@@ -2297,7 +2297,7 @@
                                                 <div class="top_title_mm_box">
                                                     <h6 class="action_flex_ghi">
                                                         <div class="enterd_by">
-                                                            <span>Plans/Recommandation | <span class="enter_span_hivj">
+                                                            <span>Future Plans / Recommendations | <span class="enter_span_hivj">
                                                                     Entered By | SAIF ALZAABI</span> </span>
                                                             <div class="right_side_hjkl">
                                                                 <span class="date_time_fgu">Sat 21st Oct, 2023, 1:39

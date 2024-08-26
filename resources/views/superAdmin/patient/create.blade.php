@@ -140,39 +140,45 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label">Add Branch</label>
+                                            <label class="form-label">Add Branch <span class="clr"> * </span></label>
 
-                                            <select class="form-control select2 form-select" name="selectBranch[]"
-                                                style="width: 100%;" multiple required>
+                                            <select class="form-control select2 form-select selectBranch" required name="selectBranch[]"
+                                                style="width: 100%;" multiple >
 
                                                 {{-- <select class="form-control select2" name="doctorName" style="width: 100%;" required> --}}
                                                 <option value="">Select Any One</option>
                                                 @forelse($branchs as $allbranchs)
                                                     <option value="{{ $allbranchs->id }}"
-                                                        {{ old('doctorName') == $allbranchs->id ? 'selected' : '' }}>
+                                                        {{ old('selectBranch') && in_array($allbranchs->id,old('selectBranch'))  ? 'selected' : '' }}>
                                                         {{ $allbranchs->branch_name }}</option>
                                                 @empty
 
                                                 @endforelse
                                             </select>
+                                            @error('selectBranch')
+                                                <span class="error text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <!-- /.form-group -->
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label">Add Doctor</label>
-                                            <select class="form-control select2" name="doctorName" style="width: 100%;"
-                                                required>
+                                            <label class="form-label">Add Doctor <span class="clr"> * </span></label>
+                                            <select class="form-control select2 selectDoctor" required name="doctorName" style="width: 100%;"
+                                                >
                                                 <option value="">Select Any One</option>
-                                                @forelse($doctors as $alldoctors)
+                                                {{-- @forelse($doctors as $alldoctors)
                                                     <option value="{{ $alldoctors->id }}"
                                                         {{ old('doctorName') == $alldoctors->id ? 'selected' : '' }}>
                                                         {{ $alldoctors->name }} - {{ $alldoctors->email }}</option>
                                                 @empty
 
-                                                @endforelse
+                                                @endforelse --}}
                                             </select>
+                                            @error('doctorName')
+                                                <span class="error text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <!-- /.form-group -->
                                     </div>
@@ -393,6 +399,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         
+        
 
         $("#document_type").change(function(){
             $("#enterIdNumber").val('');
@@ -438,7 +445,46 @@
                 $("#validationMessage").text('');
             }
         }
+
+        $('.selectBranch').change(function() {
+
+            var selectedNurseId = $(this).val();
+            
+            if(selectedNurseId && selectedNurseId != ''){
+            $.ajax({
+                    url: '{{ route('doctors.getStaff') }}', // Specify the URL for your AJAX request
+                    type: 'post', // Use GET method (or 'POST' if needed)
+                    data: {
+                        nurse_id: selectedNurseId,
+                        _token: $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+                    },
+                    success: function(response) {
+                        $('.selectDoctor').empty();
+
+                        if (response.doctorData && response.doctorData.length > 0) {
+                            $.each(response.doctorData, function(index, doctor) {
+                                let addressHtml =
+                                    `<option value="${doctor.id}">${doctor.name}</option>`;
+                                $(".selectDoctor").append(addressHtml);
+
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error); 
+                    }
+                });
+            }else{
+                $('.selectDoctor').empty();
+            }
+        });
+
+        $('.selectBranch').trigger('change');
     });
+</script>
+
+<script>
+            
 </script>
 
 @endsection

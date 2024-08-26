@@ -1215,15 +1215,17 @@
                                                                                         $diagnosis_general_data_value = json_decode($diagnosis_general->data_value, true);
 
                                                                                     @endphp
-                                                                                    @forelse ($diagnosis_general_data_value as $key => $values)
+                                                                                    @if($diagnosis_general_data_value)
+                                                                                    @foreach ($diagnosis_general_data_value as $key => $values)
                                                                                         @foreach ($values as $value)
                                                                                             {{ $value }}
 
                                                                                             <span
                                                                                                 class="separation">|</span>
                                                                                         @endforeach
-                                                                                    @empty
-                                                                                    @endforelse
+                                                                                    
+                                                                                    @endforeach
+                                                                                @endif
                                                                                 @endif
                                                                             </p>
 
@@ -1285,15 +1287,16 @@
                                                                                         $diagnosis_cid_data_value = json_decode($diagnosis_cid->data_value, true);
 
                                                                                     @endphp
-                                                                                    @forelse ($diagnosis_cid_data_value as $key => $values)
+                                                                                    @if($diagnosis_cid_data_value)
+                                                                                    @foreach ($diagnosis_cid_data_value as $key => $values)
                                                                                         @foreach ($values as $value)
                                                                                             {{ $value }}
 
                                                                                             <span
                                                                                                 class="separation">|</span>
                                                                                         @endforeach
-                                                                                    @empty
-                                                                                    @endforelse
+                                                                                    @endforeach
+                                                                                    @endif
                                                                                 @endif
                                                                             </p>
 
@@ -3524,7 +3527,7 @@
                             <div class="top_title_mm_box">
                                 <h6 class="action_flex_ghi">
                                     <div class="enterd_by">
-                                        <span>Plans/Recommandation </span>
+                                        <span>Future Plans / Recommendations </span>
                                         <div class="right_side_hjkl">
 
                                             <div class="customdotdropdown">

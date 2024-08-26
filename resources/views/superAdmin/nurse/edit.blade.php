@@ -107,7 +107,9 @@
                                   <option value="{{ $addRoleData->id }}" {{ $addRoleData->id  == $nurse->role_id ? 'selected' : '' }}>{{ $addRoleData->name}}</option>
                                   @endforeach
                               </select>
-
+                              @error('role_id')
+                              <span class="error text-danger">{{ $message }}</span>
+                          @enderror
                           </div>
                       </div>
 
@@ -119,7 +121,7 @@
                             <div class="form-group">
                                 <label class="form-label">Add Branch
                                 </label>
-                                <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple required>
+                                <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple >
                                     <option value="">Select Any One</option>
                                     @forelse ($branchs as $branch)
                                         <option value="{{ $branch->id }}" {{ in_array($branch->id, $user_branchs) ? 'selected' : '' }}>
@@ -129,6 +131,9 @@
                                         <!-- Handle case where no branches are available -->
                                     @endforelse
                                 </select>
+                                @error('selectBranch')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
                             </div>
                         </div>
 
@@ -238,7 +243,7 @@
                             <div class="form-group">
                                 <label class="form-label">Country</label>
                                 <select class="form-control select2" name="country" style="width: 100%;"
-                                    required>
+                                    >
                                     <option value="">Select Any One</option>
 
                                     @forelse ($allcountries as $countries)

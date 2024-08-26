@@ -671,6 +671,15 @@ if (!empty($patient->birth_date ?? '')) {
                         $('select[name="patient_gendar"]').addClass('error');
                     }
 
+
+                    let patient_branch = $('select[name="patient_branch"]').val();
+                    if (patient_branch === '' || patient_branch === 'Select Any One') {
+                        isValid = false;
+
+                        $('#patient_branchError').text('Please select a branch');
+                        $('select[name="patient_branch"]').addClass('error');
+                    }
+
                     // Validate patient_post_code
                     // let patient_post_code = $('input[name="patient_post_code"]').val();
                     // if (patient_post_code === '') {
@@ -854,6 +863,7 @@ if (!empty($patient->birth_date ?? '')) {
                             let additional_info = data.patient_info.additional_info ? data.patient_info
                                 .additional_info : '';
                             let policy_no = data.patient_info.policy_no ? data.patient_info.policy_no : '';
+                            let add_branch = data.patient_info.add_branch ? data.patient_info.add_branch : '';
                             //   let document_type = data.patient_info.document_type ? data.patient_info.document_type : '';
                             let enterIdNumber = data.patient_info.enterIdNumber ? data.patient_info.enterIdNumber :
                                 '';
@@ -872,6 +882,14 @@ if (!empty($patient->birth_date ?? '')) {
                                 }
                             });
                             $('#patient_gendar').val(selectedGendar).trigger('change.select2');
+
+                            $('#patient_branch option').each(function() {
+                                if ($(this).val() === add_branch) {
+                                    $(this).prop('selected', true);
+                                }
+                            });
+                            $('#patient_branch').val(add_branch);
+
                             $("#patient_post_code").val(post_code);
                             $("#patient_street").val(street);
                             $("#patient_town").val(town);

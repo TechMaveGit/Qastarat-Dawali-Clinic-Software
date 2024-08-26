@@ -3351,7 +3351,7 @@
                             <div class="top_title_mm_box">
                                 <h6 class="action_flex_ghi">
                                     <div class="enterd_by">
-                                        <span>Plans/Recommandation </span>
+                                        <span>Future Plans / Recommendations </span>
                                         <div class="right_side_hjkl">
 
                                             <div class="customdotdropdown">
@@ -6804,7 +6804,6 @@
             $(document).ready(function() {
                 let patient_id = $('input[name="patient_id"]').val();
                 $('#edit_insurer_form').submit(function(e) {
-
                     e.preventDefault();
 
                     let isValid = validateFormEditInsurer();

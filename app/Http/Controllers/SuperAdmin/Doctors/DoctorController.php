@@ -248,7 +248,18 @@ class DoctorController extends Controller
             ->whereIn('id', $nurseId)
             ->get();
 
-        return response()->json(['data' => $branchData, 'nurseData' => $nurseData]);
+
+        $doctorId = DB::table('user_branchs')
+            ->where('branch_type', 'doctor')
+            ->whereIn('add_branch', $btanchId)
+            ->pluck('patient_id')
+            ->toArray();
+
+        $doctorData = DB::table('doctors')->select('id', 'name')
+            ->whereIn('id', $doctorId)
+            ->get();
+
+        return response()->json(['data' => $branchData, 'nurseData' => $nurseData,'doctorData'=>$doctorData]);
     }
 
 

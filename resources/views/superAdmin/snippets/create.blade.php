@@ -1,122 +1,89 @@
-
 @extends('superAdmin.superAdminLayout.main')
 <!-- Content Wrapper. Contains page content -->
 @push('title')
-    <title>Add Snippets</title>
+<title>Add Snippets</title>
 @endpush
 @section('content')
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <div class="container-full">
-  <!-- Content Header (Page header) -->
-  <div class="content-header">
-      <div class="d-flex">
-      <h4 class="page-title lab_name">Add Snippet</h4>
-      <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('snippets')}}">All Snippets</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Add Snippet</li>
-               
-              </ol>
-          </nav>
-      </div>
-        
-      </div>
-      <section class="content">
-      <div class="row">
-      
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="d-flex">
+                <h4 class="page-title lab_name">Add Snippet</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('snippets')}}">All Snippets</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Snippet</li>
 
-          <div class="col-12">
-          <div class="box">
-              <div class="box-body">
-                  <div class="row">
-                  <div class="col-lg-12 mt-2">
-                          <div class="title_head">
-                              <h4>Add New Snippet</h4>
-                          </div>
-                      </div>
-          
-                     <div class="col-md-6">
-                      <div class="form-group">
-                          <label class="form-label">Type a new context</label>
-                          <input type="text" class="form-control" placeholder="">
-                      </div>
-                      </div>
-                      <div class="col-md-6">
-                      <div class="form-group">
-                          <label class="form-label">Give your Snippet Title</label>
-                          <input type="text" class="form-control" placeholder="">
-                      </div>
-                      </div>
-                  
-                 
-                      <div class="col-lg-12">
-                      <div class="form-group">
-                                <label class="form-label">Type or paste in your text snippet here..</label>
-                                <textarea rows="4" class="form-control" placeholder=""></textarea>
-                              </div>
-                      </div>
-                      <div class="col-lg-12">
-                          <div class="add_price_btn">
-                              <a href="#" id="add_test"><i data-feather="plus-circle"></i> Add Snippet</a>
-                          </div>
-                      </div>
-                      <div class="col-lg-12" id="test_list">
-                                  <table class="table lab_test table-striped table-hover" style="width:100%">
-                                          <thead>
-                                              <tr>
-                                                  {{-- <th>Context Title</th>
-                                                  <th>Snippet Title</th> --}}
-                                                  <th>Snippet Content</th>
-                                                 <th>Action</th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                          <tr>
-                                          {{-- <td>Notes</td>
-                                          <td>EVLT-GSV</td> --}}
-                                          <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum accusamus voluptates ab at consectetur suscipit in impedit excepturi cupiditate similique?</td>
-                                              <td>
-                                              <ul class="action_icons">
-                                                  <!-- <li >
-                                                      <a href="#" class="waves-effect waves-light btn btn-rounded btn-info-light "><i data-feather="eye"></i></a>
-                                                  </li> -->
-                                                  <!-- <li>
-                                                          <a href="role-edit.php" class="waves-effect waves-light btn btn-rounded btn-warning-light"><i data-feather="edit"></i></a>
-                                                      </li> -->
-                                                      <li>
-                                                          <a href="#" id="remove_test" class="waves-effect waves-light btn btn-rounded btn-danger-light"><i  data-feather="trash-2"></i></a>
-                                                      </li>
-                                                  </ul>
-                                              </td>
-                                          </tr>
-                                  
-                                      </tbody>
-                                      </table>
-                               </div>
-                     
-                     
-                      
+                    </ol>
+                </nav>
+            </div>
 
-                  </div>
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="submit_btn text-end">
-                              <a href="snippets.php"><button type="button" class="waves-effect waves-light btn btn-primary"><i class="fa-regular fa-floppy-disk"></i> Save</button></a>
-                          </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.box -->      
-          </div>
         </div>
-      </section>
-      
+        <section class="content">
+            <div class="row">
+
+
+                <div class="col-12">
+                    <div class="box">
+                        <form action="{{route('add.snippets')}}" method="POST">
+                            @csrf
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-12 mt-2">
+                                    <div class="title_head">
+                                        <h4>Add New Snippet</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Type a new context</label>
+                                        <input type="text" name="newContext" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Give your Snippet Title</label>
+                                        <input type="text" name="snippetText" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Type or paste in your text snippet here..</label>
+                                        <textarea rows="4" name="snippetDescription" class="form-control"
+                                            placeholder=""></textarea>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="submit_btn text-end">
+                                        <button type="submit" class="waves-effect waves-light btn btn-primary"><i
+                                                class="fa-regular fa-floppy-disk"></i> Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </section>
+
     </div>
 </div>
 
@@ -131,6 +98,6 @@
         })
         
     })
- </script>
- 
+</script>
+
 @endsection
