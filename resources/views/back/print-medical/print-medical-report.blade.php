@@ -2414,7 +2414,7 @@
                                         @elseif ($jsonData['TSH'][0] == 'high')
                                             (> 5.49 mIU/L)<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['TSH'][0]) && $jsonData['TSH'][0] == 'other')
-                                            {{$jsonData['TSH']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['TSH']['otherLevel']}}</span>
+                                            {{$jsonData['TSH']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['TSH']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2428,7 +2428,7 @@
                                         @elseif ($jsonData['T4'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['T4'][0]) && $jsonData['T4'][0] == 'other')
-                                            {{$jsonData['T4']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['T4']['otherLevel']}}</span>
+                                            {{$jsonData['T4']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['T4']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2454,7 +2454,7 @@
                                     @elseif ($jsonData['PTH'][0] == 'high')
                                         5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                     @elseif (isset($jsonData['PTH'][0]) && $jsonData['PTH'][0] == 'other')
-                                        {{$jsonData['PTH']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['PTH']['otherLevel']}}</span>
+                                        {{$jsonData['PTH']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['PTH']['otherLevel']??''}}</span>
                                     @endif
                                 </p>
                                 @endif
@@ -2468,7 +2468,7 @@
                                     @elseif ($jsonData['Ca'][0] == 'high')
                                         5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                     @elseif (isset($jsonData['Ca'][0]) && $jsonData['Ca'][0] == 'other')
-                                        {{$jsonData['Ca']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Ca']['otherLevel']}}</span>
+                                        {{$jsonData['Ca']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Ca']['otherLevel']??''}}</span>
                                     @endif
                                     
                                 </p>
@@ -2507,7 +2507,7 @@
                                     @elseif (isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]=='high')
                                     5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                     @elseif (isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other')
-                                        {{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']}}</span>
+                                        {{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']??''}}</span>
                                     @endif
                                 </p>
                                 @endif
@@ -2521,7 +2521,7 @@
                                     @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]=='high')
                                     5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                     @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other')
-                                        {{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']}}</span>
+                                        {{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']??''}}</span>
                                     @endif
                                 </p>
                                 @endif
@@ -2535,7 +2535,7 @@
                                     @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]=='high')
                                     5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                     @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other')
-                                        {{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']}}</span>
+                                        {{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']??''}}</span>
                                     @endif
                                 </p>
                                 @endif
@@ -2549,7 +2549,7 @@
                                     @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]=='high')
                                     5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                     @elseif (isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other')
-                                        {{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']}}</span>
+                                        {{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']??''}}</span>
                                     @endif
                                 </p>
                                 @endif
@@ -2563,7 +2563,7 @@
                                     @elseif (isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]=='high')
                                     5.5 mIU/L and above <span style="text-transform: capitalize;padding:5px;">High</span>
                                     @elseif (isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other')
-                                        {{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']}}</span>
+                                        {{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']??''}}</span>
                                     @endif
                                 </p>
                                 @endif
@@ -2707,7 +2707,7 @@
                                         @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'high')
                                             (> 5.49 mIU/L)<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'other')
-                                            {{$jsonData['CBC']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CBC']['otherLevel']}}</span>
+                                            {{$jsonData['CBC']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CBC']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2721,7 +2721,7 @@
                                         @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'other')
-                                            {{$jsonData['CRP']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CRP']['otherLevel']}}</span>
+                                            {{$jsonData['CRP']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CRP']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2735,7 +2735,7 @@
                                         @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'other')
-                                            {{$jsonData['ESR']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['ESR']['otherLevel']}}</span>
+                                            {{$jsonData['ESR']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['ESR']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2749,7 +2749,7 @@
                                         @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'other')
-                                            {{$jsonData['CKMP']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CKMP']['otherLevel']}}</span>
+                                            {{$jsonData['CKMP']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CKMP']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2763,7 +2763,7 @@
                                         @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'other')
-                                            {{$jsonData['UricAcid']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['UricAcid']['otherLevel']}}</span>
+                                            {{$jsonData['UricAcid']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['UricAcid']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2777,7 +2777,7 @@
                                         @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'other')
-                                            {{$jsonData['RF']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['RF']['otherLevel']}}</span>
+                                            {{$jsonData['RF']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['RF']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2808,7 +2808,7 @@
                                         @elseif (isset($jsonData['WBC'][0]) && $jsonData['WBC'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['WBC'][0]) && $jsonData['WBC'][0] == 'other')
-                                            {{$jsonData['WBC']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['WBC']['otherLevel']}}</span>
+                                            {{$jsonData['WBC']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['WBC']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2822,7 +2822,7 @@
                                         @elseif (isset($jsonData['Proteins'][0]) && $jsonData['Proteins'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['Proteins'][0]) && $jsonData['Proteins'][0] == 'other')
-                                            {{$jsonData['Proteins']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Proteins']['otherLevel']}}</span>
+                                            {{$jsonData['Proteins']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Proteins']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2836,7 +2836,7 @@
                                         @elseif (isset($jsonData['Glucose'][0]) && $jsonData['Glucose'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['Glucose'][0]) && $jsonData['Glucose'][0] == 'other')
-                                            {{$jsonData['Glucose']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Glucose']['otherLevel']}}</span>
+                                            {{$jsonData['Glucose']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Glucose']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2850,7 +2850,7 @@
                                         @elseif (isset($jsonData['Crystals'][0]) && $jsonData['Crystals'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['Crystals'][0]) && $jsonData['Crystals'][0] == 'other')
-                                            {{$jsonData['Crystals']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Crystals']['otherLevel']}}</span>
+                                            {{$jsonData['Crystals']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Crystals']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2864,7 +2864,7 @@
                                         @elseif (isset($jsonData['Lactate'][0]) && $jsonData['Lactate'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['Lactate'][0]) && $jsonData['Lactate'][0] == 'other')
-                                            {{$jsonData['Lactate']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Lactate']['otherLevel']}}</span>
+                                            {{$jsonData['Lactate']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Lactate']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2936,7 +2936,7 @@
                                         @elseif (isset($jsonData['Testosterone'][0]) && $jsonData['Testosterone'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['Testosterone'][0]) && $jsonData['Testosterone'][0] == 'other')
-                                            {{$jsonData['Testosterone']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Testosterone']['otherLevel']}}</span>
+                                            {{$jsonData['Testosterone']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['Testosterone']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
@@ -2950,7 +2950,7 @@
                                         @elseif (isset($jsonData['EstrodiolD2'][0]) && $jsonData['EstrodiolD2'][0] == 'high')
                                             Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
                                         @elseif (isset($jsonData['EstrodiolD2'][0]) && $jsonData['EstrodiolD2'][0] == 'other')
-                                            {{$jsonData['EstrodiolD2']['other']}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['EstrodiolD2']['otherLevel']}}</span>
+                                            {{$jsonData['EstrodiolD2']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['EstrodiolD2']['otherLevel']??''}}</span>
                                         @endif
                                     </p>
                                     @endif
