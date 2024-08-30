@@ -2008,7 +2008,7 @@
                                 <div class="diagnosis_show">
                                     <div class="Bottom_btn">
                                         <span class="orderProcedure"
-                                            data-id="{{ $record->id }}">
+                                            data-id="{{ $procedure->id }}">
                                             <i class="fa-regular fa-trash-can trash_btn"></i>
                                         </span>
                                     </div>
@@ -2016,17 +2016,17 @@
                                         <div class="symp_title mb-1">
                                             <h6><span class="point_dia"><i
                                                         class="fa-regular fa-circle-dot"></i></span>
-                                                {{ $record->procedure_name ?? '' }}</h6>
+                                                {{ $procedure->procedure_name ?? '' }}</h6>
 
                                         </div>
                                         <p class="ss_result">
                                             <strong>Entry</strong> &nbsp;&colon;
-                                            {{ $record->entry ?? '' }}
+                                            {{ $procedure->entry ?? '' }}
                                         </p>
 
                                         <p class="ss_result">
                                             <strong>Summary</strong> &nbsp;&colon;
-                                            {{ $record->summary ?? '' }}
+                                            {{ $procedure->summary ?? '' }}
                                         </p>
                                     </div>
                                 </div>
