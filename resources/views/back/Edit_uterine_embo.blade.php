@@ -3073,7 +3073,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{ $postStateFormsImage && $postStateFormsImage->AnnotateimageData ? asset('/assets/thyroid-eligibility-form/' . $postStateFormsImage->AnnotateimageData) }} : {{ asset('/assets/thyroid-eligibility-form/add/uterine-embo.jpg') }}';
+    imageObj.src = '{{ $postStateFormsImage && $postStateFormsImage->AnnotateimageData ? asset('/assets/thyroid-eligibility-form/' . $postStateFormsImage->AnnotateimageData) :  asset('/assets/thyroid-eligibility-form/add/uterine-embo.jpg') }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({
