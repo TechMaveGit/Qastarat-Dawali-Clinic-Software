@@ -32,7 +32,7 @@
  <div class="box-header with-border">
   <div class="top_area">
   <h3 class="box-title">All Snippets</h3>
-  {{-- <a href="{{ route('add.snippets') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add New Snippet</a> --}}
+  <a href="{{ route('add.snippets') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add New Snippet</a>
   </div>
 
  </div>

@@ -65,9 +65,36 @@ class PatientController extends Controller
     }
 
 
-    public function addSnippets()
+    public function addSnippets(Request $request)
     {
         // $data['snippets'] = DB::table('snippets')->get();
+        if($request->isMethod('POST')){
+            $progress_note_canned_text_id = null;
+            $progress_note_contents_id = null;
+            $describe = null;
+            
+
+            if($request->newContext){
+                $data_d = DB::table('progress_note_canned_text')->where('canned_name',$request->newContext)->first();
+                if($data_d){
+                    $progress_note_canned_text_id = $data_d->id;
+                }else{
+                    $progress_note_canned_text_id = DB::table('progress_note_canned_text')->insertGetId(['canned_name'=>$request->newContext]);
+                }
+            }
+
+            if($request->snippetText){
+                $data_d = DB::table('progress_note_contents')->where(['note_name'=>$request->snippetText,'progress_note_id'=>$progress_note_canned_text_id])->first();
+                if($data_d){
+                    $progress_note_contents_id = $data_d->id;
+                }else{
+                    $progress_note_contents_id = DB::table('progress_note_contents')->insertGetId(['note_name'=>$request->snippetText,'progress_note_id'=>$progress_note_canned_text_id]);
+                }
+            }
+
+            DB::table('patient_progress_note_details')->insert(['progress_note_canned_text_id'=>$progress_note_canned_text_id,'progress_note_contents_id'=>$progress_note_contents_id,'describe'=>$request->snippetDescription]);
+            return redirect()->route('snippets')->with('message', 'Snippet Added Successfully.');
+        }
         return view('superAdmin/snippets/create');
     }
 
@@ -86,6 +113,7 @@ class PatientController extends Controller
 
     public function index()
     {
+        // dd('--');
         return view('back/patient');
     }
 
@@ -2002,7 +2030,7 @@ class PatientController extends Controller
     public function insurer_list(Request $request)
     {
 
-        $patient_id = decrypt($request->patient_id);
+        $patient_id = $request->patient_id;
         $Patient_insurer = Patient_insurer::where(['patient_id' => $patient_id, 'status' => 'active'])->orderBy('id', 'desc')->first();
 
         return response()->json($Patient_insurer);
@@ -2012,7 +2040,7 @@ class PatientController extends Controller
 
         $patient_id = decrypt($request->patient_id);
 
-        $Patient_info = User::where('id', $patient_id)->orderBy('id', 'desc')->first();
+        $Patient_info = User::leftJoin('user_branchs','user_branchs.patient_id','users.id')->where('user_branchs.branch_type','patient')->where('users.id', $patient_id)->select('users.*','user_branchs.add_branch')->orderBy('users.id', 'desc')->first();
         $Patient_insurer = Patient_insurer::select('id', 'insurer_name', 'status')->where('patient_id', $patient_id)->orderBy('id', 'desc')->get();
 
         $data = [
@@ -2213,9 +2241,25 @@ class PatientController extends Controller
     public function getPatientsData(Request $request)
     {
 
-
         $getType = Auth::guard('doctor')->user();
-        $patient = User::query();
+
+        $dtype = 'doctor';
+        if($getType->user_type == "Nurse"){
+            $dtype = 'Nurse';
+        }else if($getType->user_type == "Receptionist"){
+            $dtype = 'receptionist';
+        }else if($getType->user_type == "Coordinator"){
+            $dtype = 'coordinator';
+        }
+
+        $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>$getType->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
+        $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$doctorBranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
+        $docterPatient = User::where('doctor_id',$getType->id)->get()->pluck('id')->toArray();
+
+        $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[]));
+
+        // return $getType;
+        $patient = User::whereIn('id',$allpatient);
         if ($request->input('dropdownBranchValue')) {
             // return $req = $request->input('dropdownBranchValue');
             $searchInput = $request->input('searchInput');

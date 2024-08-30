@@ -74,16 +74,17 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                    <label class="form-label">Date of Birth<span class="clr"> * </span></label>
+                                    <label class="form-label">Date of Birth <span class="clr"> * </span></label>
                                     <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" name="birth_date"  value="{{ old('birth_date') }}" class="form-control pull-right datepicker">
+                                    
+                                    </div>
                                     @error('birth_date')
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
-                                    </div>
                                     <!-- /.input group -->
                                 </div>
                         </div>
@@ -106,8 +107,8 @@
 
                           <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Select Role</label>
-                                <select class="form-control select2" name="role_id" style="width: 100%;" required>
+                                <label class="form-label">Select Role <span class="clr"> * </span></label>
+                                <select class="form-control select2" name="role_id" style="width: 100%;" >
                                     <option value="">Select any one</option>
                                     @forelse ($roles as $allrole)
 
@@ -118,16 +119,19 @@
                                     @endforelse
 
                                 </select>
+                                @error('role_id')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Add Branch</label>
-                                <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple required>
+                                <label class="form-label">Add Branch <span class="clr"> * </span></label>
+                                <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple >
 
-                                {{-- <select class="form-control select2" name="doctorName" style="width: 100%;" required> --}}
+                                {{-- <select class="form-control select2" name="doctorName" style="width: 100%;" > --}}
                                      <option value="">Select Any One</option>
                                     @forelse ($branchs as $allbranchs)
                                        <option value="{{$allbranchs->id}}" {{ old('doctorName') == $allbranchs->id ? 'selected' : '' }} >{{$allbranchs->branch_name}}</option>
@@ -135,6 +139,9 @@
 
                                     @endforelse
                                 </select>
+                                @error('selectBranch')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         <!-- /.form-group -->
                         </div>
@@ -235,7 +242,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Country</label>
                                     <select class="form-control select2" name="country" style="width: 100%;"
-                                        required>
+                                        >
                                         <option value="">Select Any One</option>
 
                                         @forelse ($allcountries as $countries)

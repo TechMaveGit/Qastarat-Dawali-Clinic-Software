@@ -110,6 +110,22 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Select Doctor</label>
+                                            <select multiple class="form-control testselect2" name="doctors[]"
+                                                style="width: 100%;">
+                                                <option value="0">All Doctor</option>
+                                                @if($doctors)
+                                                @foreach($doctors as $value)
+                                                <option {{ request()->get('doctors') &&
+                                                    in_array($value->id,request()->get('doctors')) ? 'selected' : '' }}
+                                                    value="{{$value->id}}">{{$value->name}}</option>
+                                                @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
 
                                         <div class="form-group">
                                             <label class="form-label">Status</label>

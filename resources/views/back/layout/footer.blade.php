@@ -1,3 +1,18 @@
+@php
+    
+    $dtype = 'doctor';
+    if(Auth::guard('doctor')->user()->user_type == "Nurse"){
+        $dtype = 'Nurse';
+    }else if(Auth::guard('doctor')->user()->user_type == "Receptionist"){
+        $dtype = 'receptionist';
+    }else if(Auth::guard('doctor')->user()->user_type == "Coordinator"){
+        $dtype = 'coordinator';
+    }
+    $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
+    $allBranch=  DB::table('branchs')->whereIn('id',$doctorBranch)->get();
+    
+@endphp
+
 <div class="modal fade " id="allergies_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog ">
@@ -352,7 +367,7 @@
                                                 <div class="form-group">
                                                     <input type="checkbox" name="planRecommandation"
                                                         value="PlanRecommandation" id="a16">
-                                                    <label for="a16">Plans/Recommandation</label>
+                                                    <label for="a16">Future Plans / Recommendations</label>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="checkbox" name="OrderImagingExam"
@@ -612,9 +627,12 @@
     }
 
 
-    function ViewSummary(formType, documentUrl, reply_summary, id) {
+    function ViewSummary(formType, reply_summary,documentUrl, id) {
         // console.log(id);
         $('#referalSummaryData').val(formType);
+        if(documentUrl == ''){
+            documentUrl = '#';
+        }
         $('#documentLink').attr('href', documentUrl);
         $('.appendReply').text(reply_summary);
         $('#referalId').val(id);
@@ -1041,34 +1059,17 @@
 
 
 
-                                @php
-                                    $doctorData = Auth::guard('doctor')->user();
-                                    $useBranch = DB::table('user_branchs')
-                                        ->where('patient_id', $doctorData->id)
-                                        ->get();
-                                    $branchs = [];
-                                    // dump();
-                                    $doctorBranches = $useBranch ? $useBranch->unique('add_branch')->pluck('add_branch')->toArray() : [];
+                                
 
-                                    // foreach ($useBranch as $alluseBranch) {
-                                        $branchs = DB::table('branchs')
-                                            ->whereIn('id', $doctorBranches)
-                                            ->get();
-                                        // if ($branch) {
-                                        //     $branchs[] = $branch;
-                                        // }
-                                    // }
-                                @endphp
-
-                                @if (!empty($branchs))
+                                @if (!empty($allBranch))
                                     <div class="col-lg-6">
                                         <div class="mb-3 form-group">
                                             <label for="validationCustom01" class="form-label">Select
-                                                Branch</label>
+                                                Branch </label>
                                             <select class="form-control select2_modal_" name="selectBranch"
                                                 required>
                                                 <option value="">Select Any One</option>
-                                                @forelse ($branchs as $allbranchs)
+                                                @forelse ($allBranch as $allbranchs)
                                                     <option value="{{ $allbranchs->id }}">
                                                         {{ $allbranchs->branch_name }}</option>
                                                 @empty
@@ -1535,7 +1536,7 @@
 
                                         </div>
 
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
 
                                             <div class="mb-4">
 
@@ -1557,7 +1558,7 @@
 
                                         </div>
 
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
 
                                             <div class="mb-3 form-group">
 
@@ -1580,6 +1581,25 @@
 
                                             </div>
 
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="mb-3 form-group">
+                                                <label for="validationCustom01" class="form-label">Select
+                                                    Branch <span>*</span></label>
+                                                <select class="form-control" id="patient_branch" name="selectBranch"
+                                                    required>
+                                                    <option value="">Select Any One</option>
+                                                    @forelse ($allBranch as $allbranchs)
+                                                        <option value="{{ $allbranchs->id }}">
+                                                            {{ $allbranchs->branch_name }}</option>
+                                                    @empty
+                                                        <option value="" disabled>No branches available</option>
+                                                    @endforelse
+                                                </select>
+                                                <span id="patient_branchError"
+                                                style="color: red;font-size:smaller"></span>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -2146,7 +2166,7 @@
 
             <div class="modal-header">
 
-                <h1 class="modal-title" id="exampleModalLabel">Add or Edit Insurer </h1>
+                <h1 class="modal-title" id="exampleModalLabel">Add or Edit Insurer</h1>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                         class="fa-solid fa-xmark"></i></button>
@@ -2210,9 +2230,12 @@
 
                     <div class="action text-end bottom_modal">
 
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+                        <button type="submit" class="btn r-04 btn--theme hover--tra-black " style="padding: 12px 15px !important;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;">
 
-                            <iconify-icon icon="bi:save"></iconify-icon> Save & Update
+                            <iconify-icon class="mx-2" icon="bi:save"></iconify-icon> Save & Update
 
                         </button>
 
@@ -4261,7 +4284,7 @@
                                                 </div>
                                                 <div class="mt-2 form-group">
 
-                                                    <textarea class="form-control" id="summerynote" placeholder="Type your summery here" style="height:100px"
+                                                    <textarea class="form-control" id="summerynote" placeholder="Type your summary here" style="height:100px"
                                                         name="summerynote"></textarea>
                                                     <span id="summerynoteError"
                                                         style="color: red; font-size:small"></span>
@@ -6219,7 +6242,7 @@
 
                                                 <input type="text" class="form-control datepickerInput"
                                                     placeholder="Click here to find availability"
-                                                    name="appointment_date">
+                                                    name="appointment_date" id="appointment_datenextpre">
                                                 {{-- <span id="appointment_dateError"
                                                  style="color: red;font-size:small"></span> --}}
                                             </div>
@@ -6309,9 +6332,6 @@
                                         <div class="inner_element">
 
                                             <div class="form-group">
-                                                @php
-                                                    $allBranch = DB::table('branchs')->where('status', '1')->get();
-                                                @endphp
 
                                                 <select class="form-control select2_appoin_ttype__"
                                                     name="location" id="location" required>
@@ -6378,8 +6398,8 @@
 
 
                                                 <input type="text"
-                                                    class="form-control datepickerInputDate start_date"
-                                                    placeholder="YYYY-MM-DD" name="start_date">
+                                                    class="form-control "
+                                                    placeholder="YYYY-MM-DD" name="start_date" readonly id="appo_start_date">
                                                 <span id="start_dateError"
                                                     style="color: red;font-size:small"></span>
                                             </div>
@@ -8528,6 +8548,11 @@
     profile.onclick = function() {
         menu.classList.toggle("active");
     };
+
+
+    $("#appointment_datenextpre").change(function(){
+        $("#appo_start_date").val($(this).val());
+    });
 </script>
 
 
@@ -9148,12 +9173,13 @@
         .catch(function(error) {
             console.error(error);
         });
-    // summery fields
+    // summary fields
     CKEDITOR.replace('summerynote')
         .catch(function(error) {
             console.error(error);
         });
 </script>
+
 <script>
     $(document).ready(function() {
 

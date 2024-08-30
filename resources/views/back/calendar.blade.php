@@ -109,8 +109,8 @@
         <input type="hidden" name="user_id" value="{{ $_GET['user_id'] }}" id="user_id" />
     @endif
 
-    @if (isset($_GET['appointment_type']))
-        <input type="hidden" name="appointment_type" value="{{ $_GET['appointment_type'] }}" id="appointment_type" />
+    @if (isset($_GET['ap_type']))
+        <input type="hidden" name="ap_type" value="{{ $_GET['ap_type'] }}" id="ap_type" />
     @endif
 
     @if (isset($_GET['location']))
@@ -196,7 +196,7 @@
                                     placeholder="Search clinicians...">
                                 <div class="clinician_common_listbox clinic_listactive">
                                     <ul>
-                                        @forelse ($doctors as $alldoctors)
+                                        @forelse ($allDoctor as $alldoctors)
                                             @if (isset($_GET['user_id']))
                                                 @if ($alldoctors->id == $_GET['user_id'])
                                                     <li class="checkFont active" data-user_id="{{ $alldoctors->id }}"
@@ -254,8 +254,8 @@
                                     <ul>
                                         @foreach ($book_appointments as $allbook_appointments)
                                             @if ($allbook_appointments)
-                                                @if (isset($_GET['appointment_type']))
-                                                    @if ($allbook_appointments->appointment_type == $_GET['appointment_type'])
+                                                @if (isset($_GET['ap_type']))
+                                                    @if ($allbook_appointments->appointment_type == $_GET['ap_type'])
                                                         <li class="checkFont active"
                                                             data-appointment_type="{{ $allbook_appointments->appointment_type }}"
                                                             style="background-color: #c1c1c1;">
@@ -319,10 +319,10 @@
                                 <div class="clinician_common_listbox Location_flt">
                                     <ul>
 
-                                        @foreach ($locations as $alllocation)
+                                        @foreach ($dlocations as $alllocation)
                                             @if (isset($_GET['location']))
                                                 @if ($alllocation->branch_name == $_GET['location'])
-                                                    <li class="checkFont" data-location_type="CLINIC"
+                                                    <li class="checkFont" data-location_type=""
                                                         style="background-color: #c1c1c1;">
                                                         <iconify-icon
                                                             icon="simple-line-icons:location-pin"></iconify-icon>{{ $alllocation->branch_name }}
@@ -398,7 +398,7 @@
             <div class="modal-content">
                 <div class="modal-header py-3 px-4">
                     <h5 class="modal-title" id="modal-title">Create Appointment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
                 </div>
 
                 <div class="modal-body p-4">
@@ -475,12 +475,13 @@
                                     <div class="col-lg-6">
                                         <div class="inner_element">
                                             <div class="form-group">
-                                                <select class="form-control select2_modal" name="location" id="location" required>
-                                                    @forelse ($locations as $alllocations)
+                                                <select class="form-control " name="location" id="location" required>
+                                                    @forelse ($dlocations as $alllocations)
                                                         <option value="{{ $alllocations->branch_name }}">{{ $alllocations->branch_name }}</option>
                                                     @empty
                                                     @endforelse
                                                 </select>
+
                                             </div>
                                         </div>
                                     </div>
@@ -572,7 +573,7 @@
                                                         <span id="nameError" style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-4">
                                                         <label class="form-label">Date of Birth</label>
                                                         <div class="input-group" id="datepicker1">
@@ -583,7 +584,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3 form-group">
                                                         <label class="form-label">Gender</label>
                                                         <select class="form-control select2_modal" name="gender">
@@ -596,6 +597,24 @@
                                                             style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-4">
+                                                        <div class="mb-3 form-group">
+                                                            <label for="validationCustom01"
+                                                                class="form-label">Select Branch</label>
+                                                            <select class="form-control select2_modal" name="selectBranch">
+                                                                <option value="">Select</option>
+                                                                @forelse ($locations as $alllocations)
+                                                                    <option value="{{ $alllocations->id }}">
+                                                                        {{ $alllocations->branch_name }}</option>
+
+                                                                @empty
+                                                                @endforelse
+
+                                                            </select>
+                                                            <span id="branchError"
+                                                            style="color: red;font-size:smaller"></span>
+                                                        </div>
+                                                    </div>
                                             </div>
                                         </div>
 
@@ -1781,11 +1800,11 @@
 
                 if (appointmentType) {
                     appointmentType_ = appointmentType.replace(/\+/g, ' ');
-                    queryParams.set('appointment_type', appointmentType_);
+                    queryParams.set('ap_type', appointmentType_);
                     const newUrl = `${baseUrl}?${queryParams.toString()}`;
                     window.location.href = newUrl;
                 } else {
-                    queryParams.delete('appointment_type');
+                    queryParams.delete('ap_type');
                 }
 
 
@@ -1882,7 +1901,12 @@ if($(this).val() == "Other"){
 
                 function initCalendar(events) {
                     //    console.log(events);
+                    
                     "use strict";
+
+                    var allowedPid = Object.values(events[events.length - 1]);
+                    // console.log(allowedPid);
+
                     var m = new FullCalendar.Calendar(document.getElementById("calendar"), {
                         plugins: ["bootstrap", "interaction", "dayGrid", "timeGrid"],
                         editable: false,
@@ -1948,11 +1972,13 @@ if($(this).val() == "Other"){
 
 
                         eventClick: function(info) {
-
+                            $('#form-event').find('input, textarea, select, button').removeAttr('disabled');
+                            $("#addNew_patientBtn").css('display','block');
                             modal.find('.modal-title').text('Edit Appointment');
                             form[0].reset();
                             form.find('#btn-save-event').text('Update');
                             deleteButton.show();
+
 
                             form.find('input[name="event_id"]').val(info.event.id);
                             form.find('select[name="patintValue"]').val(info.event.extendedProps.patient_id)
@@ -2009,11 +2035,10 @@ if($(this).val() == "Other"){
                                 form.find('input[name="start_date"]').val(formattedStartDate);
                             }
 
-                            
 
-                            let datesComparisonResult = compareTwoDates(formattedStartDate);
-                            $("#btn-delete-event").css("display","block");
-                            $("#btn-save-event").css("display","block");
+                            let datesComparisonResult;
+                            datesComparisonResult = compareTwoDates(formattedStartDate);
+                           
                             if (datesComparisonResult > 0) { 
                                 $("#btn-delete-event").css("display","none");
                                 $("#btn-save-event").css("display","none");
@@ -2030,6 +2055,23 @@ if($(this).val() == "Other"){
                                 .clinician_id).trigger('change');
                             form.find('input[name="confirmation"]').prop('checked', info.event.extendedProps
                                 .confirmation === 'yes');
+                                // console.log(allowedPid,info.event.extendedProps.patient_id);
+
+                            if(!allowedPid.includes(info.event.extendedProps.patient_id)){
+                                $("#btn-delete-event").css("display","none");
+                                $("#btn-save-event").css("display","none");
+                                $('#form-event').find('input, textarea, select, button').prop('disabled', true);
+                                $("#addNew_patientBtn").css('display','none');
+                                // $('#select2-appointment_type-container').text(info.event.title);
+                                // $("#location").css('display','none');
+                                // $("#showlocation").css('display','block');
+                                // $('#showlocation').append(new Option(info.event.extendedProps.location, info.event.extendedProps.location));
+
+                                $("#closebtn").removeAttr('disabled');
+                            }else{
+                                
+                            }
+                                
 
                             modal.modal('show');
                         },
@@ -2056,7 +2098,8 @@ if($(this).val() == "Other"){
                                 });
                                 return; // Exit the function
                             }
-
+                            // $("#btn-delete-event").css("display","block");
+                            $("#btn-save-event").css("display","block");
                             modal.find('.modal-title').text('Create Appointment');
                             form[0].reset();
                             form.find('#btn-save-event').text('Save');
@@ -2074,7 +2117,7 @@ if($(this).val() == "Other"){
                                 dateFormat: 'yy-mm-dd',
                                 minDate: info.dateStr // Set minDate to start_date initially
                             });
-
+                            $('#form-event').find('input, textarea, select, button').removeAttr('disabled');
 
 
                             modal.modal('show');
@@ -2198,7 +2241,7 @@ if($(this).val() == "Other"){
 
                 var patientValue = $('#patientId').val();
                 var user_id = $('#user_id').val();
-                var appointment_type = $('#appointment_type').val();
+                var appointment_type = $('#ap_type').val();
                 var location = $('#hiddenLocation').val();
 
                 $.ajax({
@@ -2212,7 +2255,7 @@ if($(this).val() == "Other"){
                         location: location
                     },
                     success: function(response) {
-                        // console.log(response);
+                        console.log(response);
                         initCalendar(response);
                     },
                     error: function(xhr, status, error) {
@@ -2348,6 +2391,7 @@ if($(this).val() == "Other"){
                         formData.append('name', $('input[name="name"]').val());
                         formData.append('birth_date', $('input[name="birth_date"]').val());
                         formData.append('gender', $('select[name="gender"]').val());
+                        formData.append('selectBranch', $('select[name="selectBranch"]').val());
                         formData.append('post_code', $('input[name="post_code"]').val());
                         formData.append('street', $('input[name="street"]').val());
                         formData.append('town', $('input[name="town"]').val());
@@ -2462,6 +2506,14 @@ if($(this).val() == "Other"){
 
                         $('#genderError').text('Please select a gender');
                         $('select[name="gender"]').addClass('error');
+                    }
+
+                    let pbranch = $('select[name="selectBranch"]').val();
+                    if (pbranch == '' || pbranch == 'Select') {
+                        isValid = false;
+
+                        $('#branchError').text('Please select a branch');
+                        $('select[name="selectBranch"]').addClass('error');
                     }
 
                     // Validate Email Address

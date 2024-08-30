@@ -62,6 +62,7 @@
 
 
 
+                    
 
 
     <div class="patient-detail">
@@ -189,8 +190,7 @@
                                 <div class="patient_dt_profile">
 
                                     <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} <a
-                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
-                                                icon="material-symbols:edit"></iconify-icon></a></h5>
+                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><i class="far fa-eye"></i></a></h5>
                                   
 
 
@@ -264,7 +264,7 @@
 
                                                     <h6><span class="point_dia"><i
                                                                 class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                        Gernal diagnosis</h6>
+                                                        General Diagnosis</h6>
 
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                                         eiusmod</p>
@@ -325,7 +325,7 @@
                                                             {{-- <li>No Data Found.</li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
-                                                                <li>{{ $patient_allergy->allergy_name }}
+                                                                <li>{{ $patient_allergy->allergy_name }} <small>{{ \Carbon\Carbon::parse($patient_allergy->created_at)->format('D, d M Y') }}</small>
 
                                                                     <span class="alergyDelete" data-id="{{ $patient_allergy->id }}">
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
@@ -728,14 +728,73 @@
 
                                             <div class="accordion-body">
 
-                                                <ul class="referrals_list scroll_list">
+                                                @php
+                                                    
+                                                    $patientId = decrypt($id);
+                                        $referaldoctors = DB::table('referal_patients')->where('patient_id',$patientId)->get();
+                                        $mainDoctorId= DB::table('users')->where('id',$patientId)->first()->doctor_id;
+                                        $mainDoctor= DB::table('doctors')->where('id',$mainDoctorId)->first();
+                                                @endphp
+                                                <ul class="referrals_list scroll_list" style="list-style:    decimal-leading-zero;color: #000;padding-left: 25px;">
                                                   
+
+                                                    @if($mainDoctor)
+                                                        <li style="position: relative;">
+
+                                                            <div class="booking_card_select">
+
+                                                                <label for="cbx1">
+
+                                                                    <div class="doctor_dt">
+
+                                                                        <div class="image_dr">
+
+                                                                            @if (isset($mainDoctor->profileImage))
+                                                                                <img src="{{  asset('/assets/profileImage/') . '/' . $mainDoctor->patient_profile_img }}"
+                                                                                    alt="">
+                                                                            @else
+                                                                                <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                    alt="">
+                                                                            @endif
+
+                                                                        </div>
+
+                                                                        <div class="dr_detail">
+
+                                                                            <h6 class="dr_name">
+                                                                                {{ $mainDoctor->name ?? '' }}
+                                                                                <span>{{ $mainDoctor->title ?? '' }}</span>
+                                                                            </h6>
+
+                                                                            <span class="text-align-right">
+
+                                                                                <p class="dr_email"><a
+                                                                                        href="mailto:{{ $mainDoctor->email ?? '' }}">{{ $mainDoctor->email ?? '' }}</a>
+                                                                                </p>
+
+                                                                                
+                                                                            </span>
+
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </label>
+
+                                                            </div>
+
+                                                           
+
+
+
+                                                        </li>
+                                                        @endif
 
                                                     @forelse ($referaldoctors as $allreferaldoctors)
 
                                                     @php
                                                      $doctorDetail = DB::table('doctors')->where('id',$allreferaldoctors->doctor_id)->first();
-                                                    
                                                     @endphp
                                                     
                                                     <li style="position: relative;">
@@ -1028,7 +1087,7 @@
                                                 <div class="diagnosis_type">
                                                     <h6><span class="point_dia"><i
                                                                 class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                        Gernal diagnosis</h6>
+                                                        General Diagnosis</h6>
                                                     @php
                                                         $diagnosis_general_data = App\Models\patient\Diagnosis::where(['title_name' => 'diagnosis_general', 'patient_id' => decrypt(@$id)])
                                                             ->get()
@@ -1995,7 +2054,7 @@
                                                 <div class="top_title_mm_box">
                                                     <h6 class="action_flex_ghi">
                                                         <div class="enterd_by">
-                                                            <span>Plans/Recommandation | <span class="enter_span_hivj">
+                                                            <span>Future Plans / Recommendations | <span class="enter_span_hivj">
                                                                     Entered By | SAIF ALZAABI</span> </span>
                                                             <div class="right_side_hjkl">
                                                                 <span class="date_time_fgu">Sat 21st Oct, 2023, 1:39

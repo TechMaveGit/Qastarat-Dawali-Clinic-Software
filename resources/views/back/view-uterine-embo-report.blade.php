@@ -340,8 +340,7 @@
                                 <div class="patient_dt_profile">
 
                                     <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} <a
-                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
-                                                icon="material-symbols:edit"></iconify-icon></a></h5>
+                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><i class="far fa-eye"></i></a></h5>
                                    
 
 
@@ -512,7 +511,7 @@
                                                             {{-- <li>No Data Found.</li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
-                                                                <li>{{ $patient_allergy->allergy_name }}</li>
+                                                                <li>{{ $patient_allergy->allergy_name }}  <small>{{ \Carbon\Carbon::parse($patient_allergy->created_at)->format('D, d M Y') }}</small></li>
                                                             @endforeach
                                                         @endif
 
@@ -910,7 +909,8 @@
                                       @php
                                         $patientId = decrypt($id);
                                         $referaldoctors = DB::table('referal_patients')->where('patient_id',$patientId)->get();
-                                     
+                                        $mainDoctorId= DB::table('users')->where('id',$patientId)->first()->doctor_id;
+                                        $mainDoctor= DB::table('doctors')->where('id',$mainDoctorId)->first();
                                       @endphp
 
 
@@ -921,9 +921,60 @@
                                            
                                             <div class="accordion-body">
 
-                                                <ul class="referrals_list scroll_list">
+                                                <ul class="referrals_list scroll_list" style="list-style:    decimal-leading-zero;color: #000;padding-left: 25px;">
                                                   
+                                                    @if($mainDoctor)
+                                                    <li style="position: relative;">
 
+                                                        <div class="booking_card_select">
+
+                                                            <label for="cbx1">
+
+                                                                <div class="doctor_dt">
+
+                                                                    <div class="image_dr">
+
+                                                                        @if (isset($mainDoctor->profileImage))
+                                                                            <img src="{{  asset('/assets/profileImage/') . '/' . $mainDoctor->patient_profile_img }}"
+                                                                                alt="">
+                                                                        @else
+                                                                            <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                alt="">
+                                                                        @endif
+
+                                                                    </div>
+
+                                                                    <div class="dr_detail">
+
+                                                                        <h6 class="dr_name">
+                                                                            {{ $mainDoctor->name ?? '' }}
+                                                                            <span>{{ $mainDoctor->title ?? '' }}</span>
+                                                                        </h6>
+
+                                                                        <span class="text-align-right">
+
+                                                                            <p class="dr_email"><a
+                                                                                    href="mailto:{{ $mainDoctor->email ?? '' }}">{{ $mainDoctor->email ?? '' }}</a>
+                                                                            </p>
+
+                                                                            
+                                                                        </span>
+
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </label>
+
+                                                        </div>
+
+                                                       
+
+
+
+                                                    </li>
+                                                    @endif
                                                     @forelse ($referaldoctors as $allreferaldoctors)
 
                                                     @php
@@ -966,7 +1017,7 @@
                                                                         </p>
 
                                                                         @php
-                                                                        $documentUrl = asset('/assets/referalDocument/' . $allreferaldoctors->upload_document);
+                                                                        $documentUrl = $allreferaldoctors->upload_document ? asset('/assets/referalDocument/' . $allreferaldoctors->upload_document) : '';
                                                                         @endphp
                                                                         <p onclick="ViewSummary(`{{ $allreferaldoctors->patient_summary}}`,`{{ $documentUrl }}`)"> View Summary</p></span>
 
@@ -1229,7 +1280,7 @@
                                                             <div class="appoin_title">
                                                                 <h6><span class="point_dia"><i
                                                                             class="fa-regular fa-circle-dot"></i></span>
-                                                                    Provisional / Gernal diagnosis</h6>
+                                                                    Provisional / General Diagnosis</h6>
 
                                                             </div>
                                                             
@@ -1254,7 +1305,8 @@
                                                                                             $count = 0;
 
                                                                                         @endphp
-                                                                                        @forelse ($diagnosis_general_data_value as $key => $values)
+                                                                                        @if($diagnosis_general_data_value)
+                                                                                        @foreach ($diagnosis_general_data_value as $key => $values)
                                                                                             @foreach ($values as $value)
                                                                                                 {{ $value }}
                                                                                                 {{-- @if (! $loop->last) --}}
@@ -1265,9 +1317,10 @@
                                                                                                     $count = $count + 1;
                                                                                                 @endphp
                                                                                             @endforeach
-                                                                                        @empty
+                                                                                        
                                                                                           
-                                                                                        @endforelse
+                                                                                        @endforeach
+                                                                                        @endif
                                                                                     @endif
                                                                                 </p>
 
@@ -1321,16 +1374,16 @@
                                                                                             
 
                                                                                         @endphp
-                                                                                        @forelse ($diagnosis_cid_data_value as $key => $values)
+                                                                                        @if($diagnosis_cid_data_value)
+                                                                                        @foreach ($diagnosis_cid_data_value as $key => $values)
                                                                                             @foreach ($values as $value)
                                                                                                 {{ $value }}
+    
                                                                                                 <span
                                                                                                     class="separation">|</span>
-                                                                                                
                                                                                             @endforeach
-                                                                                        @empty
-                                                                                            
-                                                                                        @endforelse
+                                                                                        @endforeach
+                                                                                        @endif
                                                                                     @endif
                                                                                 </p>
 
@@ -3421,7 +3474,7 @@
                             <div class="top_title_mm_box">
                                 <h6 class="action_flex_ghi">
                                     <div class="enterd_by">
-                                        <span>Plans/Recommandation </span>
+                                        <span>Future Plans / Recommendations </span>
                                         <div class="right_side_hjkl">
 
                                             <div class="customdotdropdown">
@@ -3708,7 +3761,7 @@
                                         <label for="validationCustom01" class="form-label">Diagnosis Type</label>
                                         <select class="form-control select_diagnosis" id="diagnosis_type">
                                             <option value="">Choose Diagnosis Type</option>
-                                            <option value="general">Provisional / Gernal diagnosis</option>
+                                            <option value="general">Provisional / General Diagnosis</option>
                                             <option value="icd">ICD 10 diagnosis</option>
 
                                         </select>

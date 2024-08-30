@@ -1397,7 +1397,7 @@
 
                                         <div class="mb-3 form-group">
 
-                                            <label for="validationCustom01" class="form-label">Paswword</label>
+                                            <label for="validationCustom01" class="form-label">Password</label>
 
                                             <input type="password" class="form-control" id=""
                                                 placeholder="password" name="password">

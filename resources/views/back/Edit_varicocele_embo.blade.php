@@ -3550,7 +3550,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{ isset($VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/varicose.jpg') }}';
+    imageObj.src = '{{ isset($VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/varicose-viens.jpg') }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({

@@ -102,6 +102,8 @@ class NurseController extends Controller
                 // 'birth_date' => 'required|date',
                 'name' => 'required',
                 'gendar' => 'required',
+                'role_id' => 'required',
+                'selectBranch' => 'required|array',
                 'title' => 'required'
             ], [
                 'email.required' => 'Email is required.',
@@ -119,6 +121,9 @@ class NurseController extends Controller
                 // 'birth_date.required' => 'Date of Birth  is required.',
                 // 'birth_date.date' => 'Please enter a valid date for the birth date.',
                 'name.required' => 'Name is required.',
+                'role_id.required' => 'Role  is required.',
+                'selectBranch.required' => 'Branch  is required.',
+                'selectBranch.array' => 'Branch  is required.',
                 'gendar.required' => 'Gender  is required.',
                 'title.required' => 'Title  is required.',
             ]);
@@ -262,6 +267,8 @@ class NurseController extends Controller
                 'birth_date' => 'required',
                 'landline' => 'nullable|numeric',
                 'password' => 'nullable|min:6',
+                'role_id' => 'required',
+                'selectBranch' => 'required|array',
                 'mobile_no' => [
                     'required',
                     'numeric',

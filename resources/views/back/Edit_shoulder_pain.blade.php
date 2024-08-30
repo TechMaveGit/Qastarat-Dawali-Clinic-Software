@@ -5316,7 +5316,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
+    imageObj.src = '{{ $VaricoceleEmboForm && $VaricoceleEmboForm->AnnotateimageData ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : {{ asset('/assets/thyroid-eligibility-form/add/ShoulderPain.jpg') }} }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({

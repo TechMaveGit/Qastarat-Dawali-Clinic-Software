@@ -120,7 +120,7 @@
                         <div class="form-group">
                             <label class="form-label">Add Branch
                             </label>
-                            <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple required>
+                            <select class="form-control select2 form-select selectBranch" name="selectBranch[]" style="width: 100%;" multiple >
                                 <option value="">Select Any One</option>
                                 @forelse ($branchs as $branch)
                                     <option value="{{ $branch->id }}" {{ in_array($branch->id, $user_branchs) ? 'selected' : '' }}>
@@ -130,6 +130,9 @@
                                     <!-- Handle case where no branches are available -->
                                 @endforelse
                             </select>
+                            @error('selectBranch')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -140,14 +143,17 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Add Doctor</label>
-                                <select class="form-control select2" name="doctorName" style="width: 100%;" required>
+                                <select class="form-control select2 selectDoctor" name="doctorName" style="width: 100%;" >
                                      <option value="">Select Any One</option>
-                                    @forelse ($doctors as $alldoctors)
+                                    {{-- @forelse ($doctors as $alldoctors)
                                        <option value="{{$alldoctors->id}}" {{ $alldoctors->id == $patientId->doctor_id ? 'selected' : '' }} >{{$alldoctors->name}}</option>
                                     @empty
 
-                                    @endforelse
+                                    @endforelse --}}
                                 </select>
+                                @error('doctorName')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         <!-- /.form-group -->
                         </div>
@@ -396,6 +402,42 @@
                 $("#validationMessage").text('');
             }
         }
+
+
+        $('.selectBranch').change(function() {
+
+            var selectedNurseId = $(this).val();
+
+            if(selectedNurseId && selectedNurseId != ''){
+            $.ajax({
+                    url: '{{ route('doctors.getStaff') }}', // Specify the URL for your AJAX request
+                    type: 'post', // Use GET method (or 'POST' if needed)
+                    data: {
+                        nurse_id: selectedNurseId,
+                        _token: $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+                    },
+                    success: function(response) {
+                        $('.selectDoctor').empty();
+
+                        if (response.doctorData && response.doctorData.length > 0) {
+                            $.each(response.doctorData, function(index, doctor) {
+                                let addressHtml =
+                                    `<option value="${doctor.id}">${doctor.name}</option>`;
+                                $(".selectDoctor").append(addressHtml);
+
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error); 
+                    }
+                });
+            }else{
+                $('.selectDoctor').empty();
+            }
+            });
+
+            $('.selectBranch').trigger('change');
     });
     </script>
 

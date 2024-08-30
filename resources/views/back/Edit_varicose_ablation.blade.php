@@ -4681,7 +4681,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     
     const imageObj = new Image();
 
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
+    imageObj.src = '{{ $VaricoceleEmboForm && $VaricoceleEmboForm->AnnotateimageData ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }} : {{ asset('/assets/thyroid-eligibility-form/add/varicose.jpg') }}';
     // Set the image source only if annotateImageData is not empty
     // imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/') }}' + annotateImageData;
 

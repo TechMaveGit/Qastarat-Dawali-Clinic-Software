@@ -20,7 +20,6 @@ class PatientsController extends Controller
     public function index(Request $request) 
     {  
         $patient = User::with(['userBranch.userBranchName']);
-      //  dd($data['users']);
         if(isset($request->paname) && $request->paname != '')
         {
             $patient->where('name','LIKE',"%{$request->paname}%");
@@ -31,18 +30,24 @@ class PatientsController extends Controller
             $patient->where('status',$request->status);
         }
 
-        if(isset($request->branch)){
+        if(isset($request->branch) && $request->branch && !in_array(0,$request->branch)){
             $patient->whereHas('userBranch',function ($query) use($request) {
                 $query->whereIn('add_branch',$request->branch);
             });
         }
 
-        $data['users'] = $patient->orderBy('id', 'ASC')->select('id','status','doctor_id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
+        if(isset($request->doctors) && $request->doctors && !in_array(0,$request->doctors)){
+            $patient->whereIn('doctor_id',$request->doctors);
+        }
+
+
+        $data['users'] = $patient->orderBy('id', 'DESC')->select('id','status','doctor_id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
         $data['branchs'] = DB::table('branchs')->get();
+        $data['doctors'] = DB::table('doctors')->where('user_type','doctor')->get();
         return view('superAdmin.patient.index', $data);
     }
 
-    public function create(Request $request)
+    public function create()
     {
         $data['doctors'] = DB::table('doctors')->where('status','active')->where('user_type','doctor')->get();
         $data['branchs'] = DB::table('branchs')->where('status','1')->get();
@@ -93,6 +98,8 @@ class PatientsController extends Controller
                 }
             },
         ],
+        'selectBranch'=>'required|array',
+        'doctorName'=>'required',
         // 'post_code' => 'nullable|digits_between:4,8',
         'landline' => 'nullable|numeric|digits_between:10,15',
         'mobile_no' => 'required|numeric|unique:users,mobile_no|regex:/^[0-9]{10,15}$/',
@@ -104,6 +111,9 @@ class PatientsController extends Controller
     ], [
         'email.required' => 'Email is required.',
         'email.email' => 'Please enter a valid email address.',
+        'selectBranch.required' => 'Branch is required.',
+        'selectBranch.array' => 'Branch is required.',
+        'doctorName.required' => 'Doctor is required.',
         // 'post_code.digits_between' => 'Post code must be between 4 and 8 digits.',
         'landline.numeric' => 'Landline must be a number.',
         'landline.digits_between' => 'Landline must be between 10 and 15 digits.',
@@ -255,6 +265,8 @@ class PatientsController extends Controller
                 'birth_date' => 'required|date', // Added date validation
                 'password' => 'nullable|min:6',
                 'landline' => 'nullable|numeric',
+                'selectBranch'=>'required|array',
+                'doctorName'=>'required',
                 'mobile_no' => [
                     'required',
                     'numeric',
