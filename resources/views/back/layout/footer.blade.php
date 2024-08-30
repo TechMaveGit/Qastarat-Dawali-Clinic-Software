@@ -7,7 +7,7 @@
         $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
         $doctors= null;
         if($nuDoctor){
-            $doctors= Doctor::select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+            $doctors= DB::table('doctors')->select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
         }
     }else if(Auth::guard('doctor')->user()->user_type == "Receptionist"){
         $dtype = 'receptionist';
@@ -15,7 +15,7 @@
         $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
         $doctors= null;
         if($nuDoctor){
-            $doctors= Doctor::select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+            $doctors= DB::table('doctors')->select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
         }
 
     }else if(Auth::guard('doctor')->user()->user_type == "Coordinator"){
@@ -24,14 +24,11 @@
         $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
         $doctors= null;
         if($nuDoctor){
-            $doctors= Doctor::select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+            $doctors= DB::table('doctors')->select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
         }
     }
     $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
     $allBranch=  DB::table('branchs')->whereIn('id',$doctorBranch)->get();
-
-    
-    
 @endphp
 
 <div class="modal fade " id="allergies_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -270,7 +267,7 @@
 
 
 
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="genrate_report" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -437,6 +434,7 @@
     </div>
 
 </div>
+@endif
 
 
 
@@ -2477,6 +2475,8 @@
 
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
+
 <!----------------------------
 
               Symptoms
@@ -2586,9 +2586,10 @@
     </div>
 
 </div>
+@endif
 
 
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
          clinical_exam
@@ -2687,9 +2688,11 @@
     </div>
 
 </div>
+@endif
 
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
              Drugs / Current Meds
@@ -2941,6 +2944,7 @@
 </div>
 
 </div>
+@endif
 
 <!----------------------------
 
@@ -2954,7 +2958,7 @@
 
 
 
-
+         @if(isset($isEditAllowed) && $isEditAllowed)
 
 <!----------------------------
 
@@ -3248,7 +3252,7 @@
     </div>
 
 </div>
-
+@endif
 <!-- <div class="modal-footer">
 
                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -3270,7 +3274,7 @@
               Future Plans
 
          ---------------------------->
-
+         @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="future_plans" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -3405,6 +3409,8 @@
     </div>
 
 </div>
+@endif
+
 
 
 
@@ -3795,6 +3801,7 @@
 
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
                Patient Refer
@@ -3984,7 +3991,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 
@@ -4120,8 +4127,7 @@
 
 
 
-
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
              Add New Notes
@@ -4626,9 +4632,11 @@
     </div>
 
 </div>
+@endif
 
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
             order imagenairy Exam
@@ -4733,7 +4741,7 @@
 
 </div>
 
-
+@endif
 
 <!----------------------------
 
@@ -4742,7 +4750,7 @@
 
             ---------------------------->
 
-
+            @if(isset($isEditAllowed) && $isEditAllowed)
 
 <div class="modal fade edit_patient__" id="consent_form" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -5352,6 +5360,7 @@
     </div>
 
 </div>
+@endif
 
 
 
@@ -5970,7 +5979,7 @@
 </div>
 
 
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
           Past Medical history
@@ -6098,9 +6107,9 @@
     </div>
 
 </div>
+@endif
 
-
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
           Past surgery history
@@ -6211,7 +6220,10 @@
     </div>
 
 </div>
+@endif
 
+
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
              Make an Appointment
@@ -6517,7 +6529,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------
@@ -6526,7 +6538,7 @@
 
          ---------------------------->
 
-
+         @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="video_meeting" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -6634,8 +6646,10 @@
     </div>
 
 </div>
+@endif
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
              Lab Test
@@ -6734,6 +6748,7 @@
     </div>
 
 </div>
+@endif
 
 <!----------------------------
 
@@ -7783,7 +7798,7 @@
 
 
 
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!---- prescription_day model ---->
 
 <div class="modal fade edit_patient__" id="prescription_day" tabindex="-1"
@@ -7843,8 +7858,10 @@
         </div>
     </div>
 </div>
+@endif
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!------Order Special Invistigation model ---->
 
 <div class="modal fade edit_patient__" id="order_supportive_surface" tabindex="-1"
@@ -7864,10 +7881,10 @@
                     <div class="inner_data">
                         <div class="row">
                             <!-- <div class="col-lg-12">
-   <div class="title_head">
-    <h4>Schedule Appointment</h4>
-   </div>
-  </div> -->
+                    <div class="title_head">
+                        <h4>Schedule Appointment</h4>
+                    </div>
+                    </div> -->
 
                             <div class="col-lg-12">
 
@@ -7904,10 +7921,10 @@
         </div>
     </div>
 </div>
+@endif
 
 
-
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!------Order Order Procedure model ---->
 <div class="modal fade edit_patient__" id="order_procedure" tabindex="-1"
     aria-labelledby="exampleModalLabel" style="display: none;" data-select2-id="order_procedure"
@@ -7990,7 +8007,7 @@
     </div>
 </div>
 
-
+@endif
 <!----------------------------
 
                invoice canvas modal #invoice page action to open canvas
@@ -8179,6 +8196,8 @@
 
 <!-- invoice canvas modal end -->
 
+
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
            supportive Treatment
          ---------------------------->
@@ -8255,7 +8274,7 @@
         </div>
     </div>
 </div>
-
+@endif
 <!----------------------------
   Symptoms
 ---------------------------->

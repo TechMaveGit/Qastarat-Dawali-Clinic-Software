@@ -165,12 +165,14 @@
                                 <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                                     alt="">
 
+                                    @if($isEditAllowed)
                                 <div class="insure_btn">
 
                                     <a href="#" class="outline_btn add_insurer" data-bs-toggle="modal"
                                         data-bs-target="#insure_add_edit">Add Insurer</a>
 
                                 </div>
+                                @endif
 
                                 <div class="patient_dt_profile">
 
@@ -290,10 +292,11 @@
                                                                             </button> --}}
                                                                             
                                                                             <h6>Thyroid Ablation {{ $key + 1 }}  <span class="text-align-right">
-
+                                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                                 <span class="reportDelete" data-id="{{ $report->id }}">
                                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
+                                                                                @endif
                                                                             </h6>
 
                                                                             <h6>
@@ -329,11 +332,11 @@
                                                 fdprocessedid="fwkd6">
                                                 <div class="top_title_mm_box">
                                                     <h6 class="allergies_hgjo"><span>Allergies</span>
-                                                      
+                                                        @if($isEditAllowed)
                                                             <a href="#" class="allergies_add_klt"
                                                                 data-bs-toggle="modal" data-bs-target="#allergies_add"><i
                                                                     class="fa-solid fa-circle-plus"></i></a>
-                                                      
+                                                      @endif
                                                     </h6>
                                                 </div>
                                             </button>
@@ -358,9 +361,11 @@
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
                                                                 <li>{{ $patient_allergy->allergy_name }} <small>{{ \Carbon\Carbon::parse($patient_allergy->created_at)->format('D, d M Y') }}</small>
-                                                                <span class="alergyDelete" data-id="{{ $patient_allergy->id }}">
-                                                                    <i class="fa-regular fa-trash-can trash_btn"></i>
-                                                                </span>
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                    <span class="alergyDelete" data-id="{{ $patient_allergy->id }}">
+                                                                        <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                    </span>
+                                                                    @endif
                                                             </li>
                                                             @endforeach
                                                         @endif
@@ -424,7 +429,7 @@
                                                                         <div class="appoin_title">
 
                                                                             <h6>{{ $past_history->diseases_name }}</h6>
-
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <p>
 
                                                                                 <span class="pastMedicalHistoryDelete" data-id="{{ $past_history->id }}">
@@ -432,7 +437,7 @@
                                                                                 </span>
 
                                                                             </p>
-
+                                                                            @endif
                                                                         </div>
 
                                                                         <div class="appoin_title">
@@ -521,11 +526,11 @@
                                                                             <h6>{{ $past_surgical->diseases_name }}</h6>
 
                                                                            
-
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                                 <span class="patientPastSurgical" data-id="{{ $past_surgical->id }}">
                                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
-
+                                                                                @endif
                                                                            
                                                                         </div>
 
@@ -611,12 +616,13 @@
                                                                     <div class="appoin_title">
 
                                                                         <h6>{{ $patient_current->drug_name }}</h6>
+                                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                                         <p>
                                                                             <span class="patientRemoveDrug" data-id="{{ $patient_current->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span>
                                                                         </p>
-
+                                                                        @endif
                                                                        
 
                                                                     </div>
@@ -678,7 +684,7 @@
                                                                 <div class="appoin_title">
 
                                                                     <h6>{{ $procedure->procedure_name }}</h6>
-
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
                                                                     <p>
                                                                         <span class="patientListOf"
                                                                             data-id="{{ $procedure->id }}">
@@ -686,7 +692,7 @@
                                                                                 class="fa-regular fa-trash-can trash_btn"></i>
                                                                         </span>
                                                                     </p>
-
+                                                                    @endif
                                                                 </div>
 
 
@@ -853,9 +859,11 @@
                                                            </div>
 
                                                            @if (!(auth()->guard('doctor')->id()==$allreferaldoctors->doctor_id))
+                                                           @if(isset($isEditAllowed) && $isEditAllowed)
                                                             <span class="removeReferalPatient" data-id="{{ $allreferaldoctors->id }}">
                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                             </span>
+                                                            @endif
                                                             @endif
 
 
@@ -983,13 +991,13 @@
                                                                     <div class="appoin_title">
 
                                                                         <h6>{{ $prescription->prescription }}</h6>
-
+                                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                                         <p>
                                                                             <span class="prescriptionsMedicines" data-id="{{ $prescription->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span>
                                                                         </p>
-
+                                                                        @endif
                                                                     </div>
 
                                                                     <div class="appoin_title">
@@ -1005,11 +1013,13 @@
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button> --}}
+                                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                                <div class="Bottom_btn">
                                                                                 <span class="prescriptionsMedicines" data-id="{{ $prescription->id }}">
                                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
                                                                                </div>
+                                                                               @endif
                                                                         @endif
 
 
@@ -2582,13 +2592,13 @@
                                                             <div class="appoin_date">
                                                                 <div class="read-more-content " style="">
                                                                     <div class="diagnosis_show">
-        
+                                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                                         <div class="Bottom_btn">
                                                                             <span class="removeMbtReview" data-id="{{ $record->id }}">
                                                                                                <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                        </span>
                                                                           </div>
-                                                                        
+                                                                        @endif
                                                                         
         
         
@@ -2760,13 +2770,13 @@
                                                                     <div class="diagnosis_show">
                                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
         
-                                                                               
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                           <div class="Bottom_btn">
                                                                             <span class="removeEligibilityStatus" data-id="{{ $record->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span>
                                                                           </div>
-        
+                                                                          @endif
         
         
                                                                         </p>
@@ -2962,13 +2972,13 @@
                                                                     <div class="appoin_date">
                                                                         <div class="read-more-content " style="">
                                                                             <div class="diagnosis_show">
-
+                                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                                 <div class="Bottom_btn">
                                                                                     <span class="removeEligibilityStatus" data-id="{{ $record->id }}">
                                                                                             <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                     </span>
                                                                                 </div>
-
+                                                                                @endif
                                                                               
                                                                               
                                                                                     <div class="ss_result_box">
@@ -3073,11 +3083,13 @@
                                                                     <div class="appoin_date">
                                                                         <div class="read-more-content " style="">
                                                                             <div class="diagnosis_show">
+                                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                                 <div class="Bottom_btn">
                                                                                     <span class="supportiveTrea" data-id="{{ $record->id }}">
                                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                     </span>
                                                                                 </div>
+                                                                                @endif
                                                                                 
                                                                                     <div class="ss_result_box">
                                                                                         <div class="symp_title mb-1">
@@ -3186,14 +3198,14 @@
                                                                     <div class="read-more-content " style="">
                                                                         <div class="diagnosis_show">
                 
-                
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <div class="Bottom_btn">
                                                                         
                                                                                 <span class="removeFuturePlan" data-id="{{ $record->id }}">
                                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
                                                                             </div>
-                                                                           
+                                                                            @endif
                 
                 
                 
@@ -3324,14 +3336,14 @@
                                                                 <div class="appoin_date">
                                                                     <div class="read-more-content " style="">
                                                                         <div class="diagnosis_show">
-                                                                            
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <div class="Bottom_btn">
                                                                         
                                                                                 <span class="removeNotes" data-id="{{ $record->id }}">
                                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
                                                                             </div>
-                                                                            
+                                                                            @endif
                                                                             <div class="ss_result_box">
                                                                                 <div class="symp_title mb-1">
                                                                                     <h6><span class="point_dia"><i
@@ -3430,7 +3442,7 @@
 
 
 
-
+    @if($isEditAllowed)
     <!----------------------------
      Add or Remove Diagnosis
     ---------------------------->
@@ -3501,8 +3513,11 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+
+    @if($isEditAllowed)
     <!----------------------------
          Symptoms
     ---------------------------->
@@ -3649,9 +3664,10 @@
             </div>
         </div>
     </div>
+    @endif
 
 
-
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
     clinical_exam
     ---------------------------->
@@ -3754,8 +3770,10 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
        order imagenairy Exam
     ---------------------------->
@@ -3823,7 +3841,10 @@
             </div>
         </div>
     </div>
+    @endif
 
+
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
         Lab Test
     ---------------------------->
@@ -3900,8 +3921,10 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
       Order Supportive Surface
     ---------------------------->
@@ -3978,7 +4001,10 @@
             </div>
         </div>
     </div>
+    @endif
 
+
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
       MDT Review
     ---------------------------->
@@ -4049,8 +4075,10 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
       Eligibility Status
     ---------------------------->
@@ -4132,111 +4160,112 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+    @if(isset($isEditAllowed) && $isEditAllowed)
 
-    
     <div class="modal fade " id="allergies_add" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
-    <div class="modal-dialog ">
+        <div class="modal-dialog ">
 
-        <div class="modal-content">
+            <div class="modal-content">
 
-            <div class="modal-header">
+                <div class="modal-header">
 
-                <h1 class="modal-title" id="exampleModalLabel">Add Allergy</h1>
+                    <h1 class="modal-title" id="exampleModalLabel">Add Allergy</h1>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                        class="fa-solid fa-xmark"></i></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa-solid fa-xmark"></i></button>
 
-            </div>
+                </div>
 
-            <div class="modal-body padding-0">
+                <div class="modal-body padding-0">
 
-                <div class="inner_data">
+                    <div class="inner_data">
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col-lg-12">
-                            <div class="add_categoryweb">
-                                <form id="allergy_form">
-                                    @csrf
-                                    <input type="hidden" name="patient_id" value="{{ @$id }}" />
-                                    <div class="row">
+                            <div class="col-lg-12">
+                                <div class="add_categoryweb">
+                                    <form id="allergy_form">
+                                        @csrf
+                                        <input type="hidden" name="patient_id" value="{{ @$id }}" />
+                                        <div class="row">
 
-                                        <div class="col-lg-12">
+                                            <div class="col-lg-12">
 
-                                            <label for="validationCustom01" class="form-label">Type Allergy</label>
+                                                <label for="validationCustom01" class="form-label">Type Allergy</label>
 
-                                            <div class="category-container" id="category-container-3">
+                                                <div class="category-container" id="category-container-3">
 
-                                                <input type="hidden" name="formType" value="view-thyroid"/>
+                                                    <input type="hidden" name="formType" value="view-thyroid"/>
 
-                                                <input type="text" name="allergy"
-                                                    class="form-control category-input"
-                                                    placeholder="Type Allergy here...">
-                                                <span id="allergy_nameError"
-                                                    style="color: red;font-size:small"></span>
+                                                    <input type="text" name="allergy"
+                                                        class="form-control category-input"
+                                                        placeholder="Type Allergy here...">
+                                                    <span id="allergy_nameError"
+                                                        style="color: red;font-size:small"></span>
 
-                                                <button type="submit"
-                                                    class="btn r-04 btn--theme hover--tra-black add_patient "><i
-                                                        class="fa-solid fa-plus"></i> Add</button>
+                                                    <button type="submit"
+                                                        class="btn r-04 btn--theme hover--tra-black add_patient "><i
+                                                            class="fa-solid fa-plus"></i> Add</button>
+
+                                                </div>
+
+                                                <!-- <div class="categories-list" id="categories-list-3">
+
+
+
+                                                </div> -->
 
                                             </div>
 
-                                            <!-- <div class="categories-list" id="categories-list-3">
-
-
-
-                                            </div> -->
-
                                         </div>
-
-                                    </div>
-                                </form>
+                                    </form>
 
 
+
+                                </div>
 
                             </div>
 
+
+
                         </div>
 
+                    </div>
 
+                    <div class="action text-end bottom_modal">
+
+                        <!-- <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+
+                                    Save</a> -->
+
+                        <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
+                            data-bs-dismiss="modal">
+
+                            Close</a>
 
                     </div>
 
                 </div>
 
-                <div class="action text-end bottom_modal">
+                <!-- <div class="modal-footer">
 
-                    <!-- <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                                Save</a> -->
+                                <button type="button" class="btn btn-primary">Save changes</button>
 
-                    <a href="#" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
-                        data-bs-dismiss="modal">
-
-                        Close</a>
-
-                </div>
+                            </div> -->
 
             </div>
-
-            <!-- <div class="modal-footer">
-
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                            <button type="button" class="btn btn-primary">Save changes</button>
-
-                        </div> -->
 
         </div>
 
     </div>
-
-</div>
-
+    @endif
 
 
 

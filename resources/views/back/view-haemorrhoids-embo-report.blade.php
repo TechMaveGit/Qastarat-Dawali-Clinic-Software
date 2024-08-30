@@ -290,12 +290,14 @@
                                 <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                                     alt="">
 
+                                    @if($isEditAllowed)
                                 <div class="insure_btn">
 
                                     <a href="#" class="outline_btn add_insurer" data-bs-toggle="modal"
                                         data-bs-target="#insure_add_edit">Add Insurer</a>
 
                                 </div>
+                                @endif
 
                                 <div class="patient_dt_profile">
 
@@ -409,11 +411,14 @@
                                                                         @csrf
 
 
-                                                                        <h6>Report {{ $key + 1 }}  <span class="text-align-right">
-
-                                                                            <span class="reportDelete" data-id="{{ $report->id }}">
-                                                                                <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                        <h6>Report {{ $key + 1 }}  
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                            <span class="text-align-right">
+                                                                                <span class="reportDelete" data-id="{{ $report->id }}">
+                                                                                    <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                </span>
                                                                             </span>
+                                                                            @endif
                                                                         </h6>
 
                                                                         <h6>
@@ -451,9 +456,11 @@
                                                 fdprocessedid="fwkd6">
                                                 <div class="top_title_mm_box">
                                                     <h6 class="allergies_hgjo"><span>Allergies</span>
-                                                            <a href="#" class="allergies_add_klt"
+                                                        @if($isEditAllowed)    
+                                                        <a href="#" class="allergies_add_klt"
                                                                 data-bs-toggle="modal" data-bs-target="#allergies_add"><i
                                                                     class="fa-solid fa-circle-plus"></i></a>
+                                                                    @endif
                                                       
                                                     </h6>
                                                 </div>
@@ -477,10 +484,11 @@
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
                                                                 <li>{{ $patient_allergy->allergy_name }} <small>{{ \Carbon\Carbon::parse($patient_allergy->created_at)->format('D, d M Y') }}</small>
-                                                                
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
                                                                     <span class="alergyDelete" data-id="{{ $patient_allergy->id }}">
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                     </span>
+                                                                    @endif
                                                                 
                                                                 </li>
                                                             @endforeach
@@ -547,11 +555,11 @@
                                                                         <div class="appoin_title">
 
                                                                             <h6>{{ $past_history->diseases_name }}</h6>
-
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <p><span class="pastMedicalHistoryDelete " data-id="{{ $past_history->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span></p>
-                                                                                
+                                                                                @endif
                                                                              
 
                                                                         </div>
@@ -651,7 +659,7 @@
                                                                         <div class="appoin_title">
 
                                                                             <h6>{{ $past_surgical->diseases_name }}</h6>
-
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <p>
 
                                                                                 <span class="patientPastSurgical" data-id="{{ $past_surgical->id }}">
@@ -659,6 +667,7 @@
                                                                                 </span>
 
                                                                             </p>
+                                                                            @endif
 
                                                                             
 
@@ -748,11 +757,13 @@
                                                                     <div class="appoin_title">
 
                                                                         <h6>{{ $patient_current->drug_name }}</h6>
+                                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                                         <p>
                                                                             <span class="patientRemoveDrug" data-id="{{ $patient_current->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span>
                                                                         </p>
+                                                                        @endif
 
                                                                        
 
@@ -817,6 +828,7 @@
 
                                                                     <h6>{{ $procedure->procedure_name }}</h6>
 
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
                                                                     <p>
                                                                         <span class="patientListOf"
                                                                             data-id="{{ $procedure->id }}">
@@ -824,6 +836,7 @@
                                                                                 class="fa-regular fa-trash-can trash_btn"></i>
                                                                         </span>
                                                                     </p>
+                                                                    @endif
 
                                                                 </div>
 
@@ -1000,9 +1013,11 @@
                                                         </div>
 
                                                         @if (!(auth()->guard('doctor')->id()==$allreferaldoctors->doctor_id))
+                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                         <span class="removeReferalPatient" data-id="{{ $allreferaldoctors->id }}">
                                                             <i class="fa-regular fa-trash-can trash_btn"></i>
                                                         </span>
+                                                        @endif
                                                         @endif
 
                                                         
@@ -1127,12 +1142,13 @@
 
                                                                         <h6>{{ $prescription->prescription }}</h6>
 
-                                                                       
+                                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                                          <p>
                                                                             <span class="prescriptionsMedicines" data-id="{{ $prescription->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span>
                                                                         </p>
+                                                                        @endif
 
                                                                        
 
@@ -2898,11 +2914,13 @@
                                                                     <div class="read-more-content " style="">
                                                                         <div class="diagnosis_show">
             
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <div class="Bottom_btn">
                                                                                 <span class="removeMbtReview" data-id="{{ $record->id }}">
                                                                                                    <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                            </span>
                                                                               </div>
+                                                                              @endif
                                                                             
                                                                             
             
@@ -3067,11 +3085,13 @@
                                                                             <p class="diagnosis_date "><span class="enter_span_hivj">
             
                                                                                    
+                                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                               <div class="Bottom_btn">
                                                                                 <span class="removeEligibilityStatus" data-id="{{ $record->id }}">
                                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
                                                                               </div>
+                                                                              @endif
             
             
             
@@ -3252,12 +3272,14 @@
                                                         <div class="diagnosis_show">
                                                            
 
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                             <div class="Bottom_btn">
                                                                 <span class="orderProcedure" data-id="{{ $record->id }}">
                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                 </span>
                                                             </div>
                                                          
+                                                            @endif
                                                          
 
                                                              
@@ -3373,12 +3395,15 @@
                                                 <div class="appoin_date">
                                                     <div class="read-more-content " style="">
                                                         <div class="diagnosis_show">
+
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                             <div class="Bottom_btn">
                                                         
                                                                 <span class="supportiveTrea" data-id="{{ $record->id }}">
                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                 </span>
                                                             </div>
+                                                            @endif
 
                                                             <div class="ss_result_box">
                                                                 <div class="symp_title mb-1">
@@ -3514,12 +3539,14 @@
                                                         <div class="diagnosis_show">
 
 
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                             <div class="Bottom_btn">
                                                         
                                                                 <span class="removeFuturePlan" data-id="{{ $record->id }}">
                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                 </span>
                                                             </div>
+                                                            @endif
                                                            
 
 
@@ -3638,12 +3665,14 @@
                                                     <div class="read-more-content " style="">
                                                         <div class="diagnosis_show">
                                                             
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                             <div class="Bottom_btn">
                                                         
                                                                 <span class="removeNotes" data-id="{{ $record->id }}">
                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                 </span>
                                                             </div>
+                                                            @endif
                                                             
                                                             <div class="ss_result_box">
                                                                 <div class="symp_title mb-1">
@@ -3740,7 +3769,7 @@
 
 
 
-
+    @if($isEditAllowed)
     <!----------------------------
          Add or Remove Diagnosis
         ---------------------------->
@@ -3810,8 +3839,10 @@
             </div>
         </div>
     </div>
+@endif
 
 
+@if($isEditAllowed)
     <!----------------------------
              Symptoms
         ---------------------------->
@@ -3960,9 +3991,10 @@
             </div>
         </div>
     </div>
+@endif
 
 
-
+@if($isEditAllowed)
     <!----------------------------
         clinical_exam
         ---------------------------->
@@ -4070,8 +4102,10 @@
             </div>
         </div>
     </div>
+@endif
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
            order imagenairy Exam
         ---------------------------->
@@ -4135,7 +4169,10 @@
             </div>
         </div>
     </div>
+    @endif
 
+
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
             Lab Test
         ---------------------------->
@@ -4216,8 +4253,11 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
           Order Supportive Surface
         ---------------------------->
@@ -4294,7 +4334,10 @@
             </div>
         </div>
     </div>
+    @endif
 
+
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
           MDT Review
         ---------------------------->
@@ -4366,8 +4409,11 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
           Eligibility Status
         ---------------------------->
@@ -4451,6 +4497,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     @push('custom-js')
         <script>

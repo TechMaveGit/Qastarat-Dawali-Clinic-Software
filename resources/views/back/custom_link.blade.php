@@ -53,10 +53,12 @@
                         <a href="{{ route('user.ViewThyroidAblationForm', ['id' => @$id]) }}"
                             class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
                         </a>
+                        @if($isEditAllowed)
                         <a target="_blank"
                             href="{{ route('user.editThyroidEligibilityForms', ['patient_id' => @$id]) }}"
                             class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
                         </a>
+                        @endif
 
                     </div>
                 </div>
@@ -83,10 +85,12 @@
                         <a href="{{ route('user.ViewProstateEligibilityForms', ['id' => @$id]) }}"
                             class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
                         </a>
+                        @if($isEditAllowed)
                         <a target="_blank"
                             href="{{ route('user.EditProstateEligibilityForms', ['patient_id' => @$id]) }}"
                             class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
                         </a>
+                        @endif
 
                     </div>
                 </div>
@@ -116,10 +120,12 @@
                         <a href="{{ route('user.viewUterineEmboEligibilityForms', ['id' => @$id]) }}"
                             class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
                         </a>
+                        @if($isEditAllowed)
                         <a target="_blank"
                             href="{{ route('user.editUterineEmboEligibilityForms', ['patient_id' => @$id]) }}"
                             class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
                         </a>
+                        @endif
 
                     </div>
                 </div>
@@ -149,9 +155,11 @@
           <div class="dropdown-content">
             <a href="{{ route('user.viewVaricoseAblationEligibilityForms', ['id' => @$id]) }}" class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
             </a>
+            @if($isEditAllowed)
             <a target="_blank"
             href="{{ route('user.editVaricoseAblationEligibilityForms', ['patient_id' => @$id]) }}" class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
               </a>
+              @endif
             
           </div>
         </div>
@@ -179,10 +187,12 @@
             <a href="{{ route('user.viewPelvicCongEmboEligibilityForms', ['id' => @$id]) }}"
                 class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
             </a>
+            @if($isEditAllowed)
             <a target="_blank"
                 href="{{ route('user.editPelvicCongEmboEligibilityForms', ['patient_id' => @$id]) }}"
                 class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
             </a>
+            @endif
             
           </div>
         </div>
@@ -211,10 +221,12 @@
             <a href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms', ['id' => @$id]) }}"
                 class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
             </a>
+            @if($isEditAllowed)
             <a target="_blank"
                 href="{{ route('user.editHaemorrhoidsEmboEligibilityForms', ['patient_id' => @$id]) }}"
                 class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
             </a>
+            @endif
             
           </div>
         </div>
@@ -242,10 +254,12 @@
             <a href="{{ route('user.viewKneePainEligibilityForms', ['id' => @$id]) }}"
                 class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
             </a>
+            @if($isEditAllowed)
             <a target="_blank"
                 href="{{ route('user.editKneePainEligibilityForms', ['patient_id' => @$id]) }}"
                 class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
             </a>
+            @endif
             
           </div>
         </div>
@@ -273,10 +287,12 @@
             <a href="{{ route('user.viewSpinePainEligibilityForms', ['id' => @$id]) }}"
                 class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
             </a>
+            @if($isEditAllowed)
             <a target="_blank"
                 href="{{ route('user.editSpinePainEligibilityForms', ['patient_id' => @$id]) }}"
                 class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
             </a>
+            @endif
             
           </div>
         </div>
@@ -303,10 +319,12 @@
         <a href="{{ route('user.viewMSKPainEligibilityForms', ['id' => @$id]) }}"
             class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
         </a>
+        @if($isEditAllowed)
         <a target="_blank"
             href="{{ route('user.editMSKPainEligibilityForms', ['patient_id' => @$id]) }}"
             class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
         </a>
+        @endif
         
       </div>
     </div>
@@ -335,10 +353,12 @@
     <a href="{{ route('user.viewShoulderPainEligibilityForms', ['id' => @$id]) }}"
         class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
     </a>
+    @if($isEditAllowed)
     <a target="_blank"
         href="{{ route('user.editShoulderPainEligibilityForms', ['patient_id' => @$id]) }}"
         class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
     </a>
+    @endif
     
   </div>
 </div>
@@ -368,10 +388,12 @@
     <a href="{{ route('user.viewVaricoceleEmboEligibilityForms', ['id' => @$id]) }}"
         class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
     </a>
+    @if($isEditAllowed)
     <a target="_blank"
         href="{{ route('user.editVaricoceleEmboEligibilityForms', ['patient_id' => @$id]) }}"
         class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
     </a>
+    @endif
     
   </div>
 </div>
@@ -399,10 +421,12 @@
     <a href="{{ route('user.viewHeadachePainEligibilityForms', ['id' => @$id]) }}"
         class="bottom_btn copy_btn"><i class="fa-regular fa-eye"></i> View
     </a>
+    @if($isEditAllowed)
     <a target="_blank"
         href="{{ route('user.editHeadachePainEligibilityForms', ['patient_id' => @$id]) }}"
         class="bottom_btn extract_btn"><i class="fa-regular fa-pen-to-square"></i> Edit
     </a>
+    @endif
     
   </div>
 </div>

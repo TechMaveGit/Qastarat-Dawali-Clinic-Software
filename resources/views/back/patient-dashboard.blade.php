@@ -4025,7 +4025,7 @@
     </div>
 
 
-
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
 
                   Patient Refer
@@ -4314,7 +4314,7 @@
         </div>
 
     </div>
-
+@endif
 
 
     <!----------------------------
@@ -4431,7 +4431,7 @@
                 Add New Notes
 
             ---------------------------->
-
+            @if($isEditAllowed)
     <div class="modal fade edit_patient__" id="add_new_note" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
 
@@ -4953,6 +4953,7 @@
         </div>
 
     </div>
+    @endif
 
 
 
@@ -8385,7 +8386,7 @@
 
 
 
-
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!---- prescription_day model ---->
 
     <div class="modal fade edit_patient__" id="prescription_day" tabindex="-1"
@@ -8445,6 +8446,7 @@
             </div>
         </div>
     </div>
+    @endif
 
 
     <!------Order Special Invistigation model ---->
