@@ -627,9 +627,12 @@
     }
 
 
-    function ViewSummary(formType, documentUrl, reply_summary, id) {
+    function ViewSummary(formType, reply_summary,documentUrl, id) {
         // console.log(id);
         $('#referalSummaryData').val(formType);
+        if(documentUrl == ''){
+            documentUrl = '#';
+        }
         $('#documentLink').attr('href', documentUrl);
         $('.appendReply').text(reply_summary);
         $('#referalId').val(id);

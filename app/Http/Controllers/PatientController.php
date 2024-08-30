@@ -2241,7 +2241,6 @@ class PatientController extends Controller
     public function getPatientsData(Request $request)
     {
 
-
         $getType = Auth::guard('doctor')->user();
 
         $dtype = 'doctor';
@@ -2255,8 +2254,12 @@ class PatientController extends Controller
 
         $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>$getType->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
         $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$doctorBranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
+        $docterPatient = User::where('doctor_id',$getType->id)->get()->pluck('id')->toArray();
+
+        $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[]));
+
         // return $getType;
-        $patient = User::whereIn('id',$allpatientBranch);
+        $patient = User::whereIn('id',$allpatient);
         if ($request->input('dropdownBranchValue')) {
             // return $req = $request->input('dropdownBranchValue');
             $searchInput = $request->input('searchInput');

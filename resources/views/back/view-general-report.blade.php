@@ -71,7 +71,7 @@
             ->get();
 
     @endphp
-
+{{-- @dump($isEditAllowed,'--------') --}}
 
     <!-- Modal -->
     <div class="modal fade edit_patient__" id="diagnosisModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -259,19 +259,20 @@
                                 <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                                     alt="">
 
+                                    @if(isset($isEditAllowed) && $isEditAllowed)
                                 <div class="insure_btn">
 
                                     <a href="#" class="outline_btn add_insurer" data-bs-toggle="modal"
                                         data-bs-target="#insure_add_edit">Add Insurer</a>
 
                                 </div>
+                                @endif
 
                                 @if (isset($patient))
                                     <div class="patient_dt_profile">
 
                                         <h5 class="patient_name__">{{ $patient->sirname ?? '' }} {{ $patient->name ?? '' }}
-                                            <a href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
-                                                    icon="material-symbols:edit"></iconify-icon></a>
+                                            <a href="{{ route('user.patient-detail', ['id' => @$id]) }}"><i class="far fa-eye"></i></a>
                                         </h5>
 
 
@@ -377,11 +378,13 @@
                                                                                 <h6>General {{ $key + 1 }} <span
                                                                                         class="text-align-right">
 
+                                                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                                                         <span class="reportDelete"
                                                                                             data-id="{{ $report->id }}">
                                                                                             <i
                                                                                                 class="fa-regular fa-trash-can trash_btn"></i>
                                                                                         </span>
+                                                                                        @endif
                                                                                 </h6>
 
                                                                                 <h6>
@@ -427,10 +430,12 @@
                                                 <div class="top_title_mm_box">
                                                     <h6 class="allergies_hgjo"><span>Allergies</span>
 
+                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                         <a href="#" class="allergies_add_klt"
                                                             data-bs-toggle="modal" data-bs-target="#allergies_add"><i
                                                                 class="fa-solid fa-circle-plus"></i></a>
 
+                                                                @endif
                                                     </h6>
                                                 </div>
                                             </button>
@@ -462,11 +467,12 @@
                                                             @foreach ($patient_allergies as $patient_allergy)
                                                                 <li>{{ $patient_allergy->allergy_name }} <small>{{ \Carbon\Carbon::parse($patient_allergy->created_at)->format('D, d M Y') }}</small>
 
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
                                                                     <span class="alergyDelete"
                                                                         data-id="{{ $patient_allergy->id }}">
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                     </span>
-
+                                                                    @endif
                                                                     
                                                                 </li>
                                                             @endforeach
@@ -544,11 +550,14 @@
 
                                                                             <h6>{{ $past_history->diseases_name }}</h6>
 
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <p><span class="pastMedicalHistoryDelete "
                                                                                     data-id="{{ $past_history->id }}">
+                                                                                    
                                                                                     <i
                                                                                         class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span></p>
+                                                                                @endif
 
 
 
@@ -645,6 +654,7 @@
 
                                                                             <h6>{{ $past_surgical->diseases_name }}</h6>
 
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <p>
 
                                                                                 <span class="patientPastSurgical"
@@ -654,6 +664,7 @@
                                                                                 </span>
 
                                                                             </p>
+                                                                            @endif
 
 
 
@@ -738,6 +749,7 @@
                                                                         <div class="appoin_title">
 
                                                                             <h6>{{ $patient_current->drug_name }}</h6>
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <p>
                                                                                 <span class="patientRemoveDrug"
                                                                                     data-id="{{ $patient_current->id }}">
@@ -746,6 +758,7 @@
                                                                                 </span>
                                                                             </p>
 
+                                                                            @endif
 
 
                                                                         </div>
@@ -810,7 +823,7 @@
                                                                         <div class="appoin_title">
 
                                                                             <h6>{{ $procedure->procedure_name }}</h6>
-
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <p>
                                                                                 <span class="patientListOf"
                                                                                     data-id="{{ $procedure->id }}">
@@ -818,6 +831,7 @@
                                                                                         class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
                                                                             </p>
+                                                                            @endif
 
                                                                         </div>
 
@@ -869,6 +883,8 @@
 
                                         @php
                                             $patientId = decrypt($id);
+                                            $mainDoctorId= DB::table('users')->where('id',$patientId)->first()->doctor_id;
+                                            $mainDoctor= DB::table('doctors')->where('id',$mainDoctorId)->first();
                                             $referaldoctors = DB::table('referal_patients')
                                                 ->where('patient_id', $patientId)
                                                 ->get();
@@ -881,8 +897,60 @@
                                             @if (count($referaldoctors) > 0)
                                                 <div class="accordion-body">
 
-                                                    <ul class="referrals_list scroll_list">
+                                                    <ul class="referrals_list scroll_list" style="list-style:    decimal-leading-zero;color: #000;padding-left: 25px;">
 
+                                                        @if($mainDoctor)
+                                                        <li style="position: relative;">
+
+                                                            <div class="booking_card_select">
+
+                                                                <label for="cbx1">
+
+                                                                    <div class="doctor_dt">
+
+                                                                        <div class="image_dr">
+
+                                                                            @if (isset($mainDoctor->profileImage))
+                                                                                <img src="{{  asset('/assets/profileImage/') . '/' . $mainDoctor->patient_profile_img }}"
+                                                                                    alt="">
+                                                                            @else
+                                                                                <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                    alt="">
+                                                                            @endif
+
+                                                                        </div>
+
+                                                                        <div class="dr_detail">
+
+                                                                            <h6 class="dr_name">
+                                                                                {{ $mainDoctor->name ?? '' }}
+                                                                                <span>{{ $mainDoctor->title ?? '' }}</span>
+                                                                            </h6>
+
+                                                                            <span class="text-align-right">
+
+                                                                                <p class="dr_email"><a
+                                                                                        href="mailto:{{ $mainDoctor->email ?? '' }}">{{ $mainDoctor->email ?? '' }}</a>
+                                                                                </p>
+
+                                                                                
+                                                                            </span>
+
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </label>
+
+                                                            </div>
+
+                                                           
+
+
+
+                                                        </li>
+                                                        @endif
 
                                                         @forelse ($referaldoctors as $allreferaldoctors)
                                                             @php
@@ -929,13 +997,13 @@
                                                                                     </p>
 
                                                                                     @php
-                                                                                        $documentUrl = asset(
+                                                                                        $documentUrl = $allreferaldoctors->upload_document ? asset(
                                                                                             '/assets/referalDocument/' .
                                                                                                 $allreferaldoctors->upload_document,
-                                                                                        );
+                                                                                        ) : '';
                                                                                     @endphp
                                                                                     <p
-                                                                                    onclick="ViewSummary(`{{ $allreferaldoctors->patient_summary }}`,`{{  $allreferaldoctors->upload_document }}`,`{{ $documentUrl }}`,`{{ $allreferaldoctors->reply_summary }}`,`{{ $allreferaldoctors->id}}`)">
+                                                                                    onclick="ViewSummary(`{{ $allreferaldoctors->patient_summary }}`,`{{  $allreferaldoctors->upload_document??'' }}`,`{{ $documentUrl }}`,`{{ $allreferaldoctors->reply_summary }}`,`{{ $allreferaldoctors->id}}`)">
                                                                                     View Summary</p>
                                                                                 </span>
 
@@ -949,10 +1017,12 @@
                                                                 </div>
 
                                                                 @if (!(auth()->guard('doctor')->id() == $allreferaldoctors->doctor_id))
+                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                     <span class="removeReferalPatient"
                                                                         data-id="{{ $allreferaldoctors->id }}">
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                     </span>
+                                                                    @endif
                                                                 @endif
 
 
@@ -1076,6 +1146,7 @@
 
                                                                             <h6>{{ $prescription->prescription }}</h6>
 
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
 
                                                                             <p>
                                                                                 <span class="prescriptionsMedicines"
@@ -1084,6 +1155,7 @@
                                                                                         class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
                                                                             </p>
+                                                                            @endif
 
 
 
@@ -1292,9 +1364,12 @@
                                                             @forelse ($document_file as $alldocument_file)
                                                                 @if (in_array($alldocument_file->form_section_type, ['diagnosis']))
                                                                     <div class="document_view">
-                                                                        <h6><span class="trshDoc"><a
+                                                                        <h6>
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                            <span class="trshDoc"><a
                                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                         icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                                        @endif
                                                                             <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                                 target="_blank"><iconify-icon
                                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
@@ -1429,9 +1504,12 @@
                                                             @forelse ($document_file as $alldocument_file)
                                                                 @if (in_array($alldocument_file->form_section_type, ['symptoms']))
                                                                     <div class="document_view">
-                                                                        <h6><span class="trshDoc"><a
+                                                                        <h6>
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                            <span class="trshDoc"><a
                                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                         icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                                        @endif
                                                                             <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                                 target="_blank"><iconify-icon
                                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
@@ -1848,9 +1926,12 @@
                                                         @forelse ($document_file as $alldocument_file)
                                                             @if (in_array($alldocument_file->form_section_type, ['clinical_exam']))
                                                                 <div class="document_view">
-                                                                    <h6><span class="trshDoc"><a
+                                                                    <h6>
+                                                                        @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                        <span class="trshDoc"><a
                                                                                 href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                     icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                                @endif
                                                                         <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                             target="_blank"><iconify-icon
                                                                                 icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
@@ -2068,9 +2149,12 @@
                                                                     @forelse ($document_file as $alldocument_file)
                                                                         @if (in_array($alldocument_file->form_section_type, ['order_imaging_exam']))
                                                                             <div class="document_view">
-                                                                                <h6><span class="trshDoc"><a
+                                                                                <h6>
+                                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                                    <span class="trshDoc"><a
                                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                                    @endif
                                                                                     <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                                         target="_blank"><iconify-icon
                                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
@@ -2458,9 +2542,12 @@
                                                     @forelse ($document_file as $alldocument_file)
                                                         @if (in_array($alldocument_file->form_section_type, ['order_lab_test']))
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a
+                                                                <h6>
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                    <span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    @endif
                                                                     <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
@@ -2679,10 +2766,13 @@
                                             @forelse ($document_file as $alldocument_file)
                                                 @if (in_array($alldocument_file->form_section_type, ['order_special_investigation']))
                                                     <div class="document_view">
-                                                        <h6><span class="trshDoc"><a
+                                                        <h6>
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
+                                                            <span class="trshDoc"><a
                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
-                                                                        icon="ph:trash-bold"></iconify-icon></a></span> <a
-                                                                href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
+                                                                        icon="ph:trash-bold"></iconify-icon></a></span>
+                                                             @endif
+                                                            <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                 target="_blank"><iconify-icon
                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                         </h6>
@@ -2753,6 +2843,7 @@
                                                             <div class="read-more-content " style="">
                                                                 <div class="diagnosis_show">
 
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
                                                                     <div class="Bottom_btn">
                                                                         <span class="removeMbtReview"
                                                                             data-id="{{ $record->id }}">
@@ -2760,6 +2851,7 @@
                                                                                 class="fa-regular fa-trash-can trash_btn"></i>
                                                                         </span>
                                                                     </div>
+                                                                    @endif
 
 
 
@@ -2859,10 +2951,13 @@
                                             @forelse ($document_file as $alldocument_file)
                                                 @if (in_array($alldocument_file->form_section_type, ['mbt_review']))
                                                     <div class="document_view">
-                                                        <h6><span class="trshDoc"><a
+                                                        <h6>
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
+                                                            <span class="trshDoc"><a
                                                                     href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
-                                                                        icon="ph:trash-bold"></iconify-icon></a></span> <a
-                                                                href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
+                                                                        icon="ph:trash-bold"></iconify-icon></a></span> 
+                                                            @endif
+                                                            <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                 target="_blank"><iconify-icon
                                                                     icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                         </h6>
@@ -2929,6 +3024,7 @@
                                                                 <p class="diagnosis_date "><span class="enter_span_hivj">
 
 
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
                                                                         <div class="Bottom_btn">
                                                                             <span class="removeEligibilityStatus"
                                                                                 data-id="{{ $record->id }}">
@@ -2936,7 +3032,7 @@
                                                                                     class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span>
                                                                         </div>
-
+@endif
 
 
                                                                 </p>
@@ -3042,9 +3138,12 @@
                                                     @forelse ($document_file as $alldocument_file)
                                                         @if (in_array($alldocument_file->form_section_type, ['eligibility_status']))
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a
+                                                                <h6>
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                    <span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    @endif
                                                                     <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
@@ -3122,13 +3221,14 @@
                                                         <div class="read-more-content " style="">
                                                             <div class="diagnosis_show">
 
-
+                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                 <div class="Bottom_btn">
                                                                     <span class="orderProcedure"
                                                                         data-id="{{ $record->id }}">
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                     </span>
                                                                 </div>
+                                                                @endif
 
 
 
@@ -3180,9 +3280,12 @@
                                                     @forelse ($document_file as $alldocument_file)
                                                         @if (in_array($alldocument_file->form_section_type, ['procedure']))
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a
+                                                                <h6>
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                    <span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    @endif
                                                                     <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
@@ -3247,6 +3350,7 @@
                                                     <div class="appoin_date">
                                                         <div class="read-more-content " style="">
                                                             <div class="diagnosis_show">
+                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                 <div class="Bottom_btn">
 
                                                                     <span class="supportiveTrea"
@@ -3254,6 +3358,7 @@
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                     </span>
                                                                 </div>
+                                                                @endif
 
                                                                 <div class="ss_result_box">
                                                                     <div class="symp_title mb-1">
@@ -3321,9 +3426,12 @@
                                                     @forelse ($document_file as $alldocument_file)
                                                         @if (in_array($alldocument_file->form_section_type, ['supportive_treatment']))
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a
+                                                                <h6>
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                    <span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    @endif
                                                                     <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
@@ -3387,7 +3495,7 @@
                                                         <div class="read-more-content " style="">
                                                             <div class="diagnosis_show">
 
-
+                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                 <div class="Bottom_btn">
 
                                                                     <span class="removeFuturePlan"
@@ -3395,6 +3503,7 @@
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                     </span>
                                                                 </div>
+                                                                @endif
 
 
 
@@ -3438,9 +3547,12 @@
                                                     @forelse ($document_file as $alldocument_file)
                                                         @if (in_array($alldocument_file->form_section_type, ['plan_recomandation']))
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a
+                                                                <h6>
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                    <span class="trshDoc"><a
                                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
                                                                                 icon="ph:trash-bold"></iconify-icon></a></span>
+                                                                    @endif
                                                                     <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                                         target="_blank"><iconify-icon
                                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
@@ -3516,6 +3628,7 @@
                                                         <div class="read-more-content " style="">
                                                             <div class="diagnosis_show">
 
+                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                 <div class="Bottom_btn">
 
                                                                     <span class="removeNotes"
@@ -3523,6 +3636,7 @@
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                     </span>
                                                                 </div>
+                                                                @endif
 
                                                                 <div class="ss_result_box">
                                                                     <div class="symp_title mb-1">
@@ -3571,10 +3685,13 @@
                                     @forelse ($document_file as $alldocument_file)
                                         @if (in_array($alldocument_file->form_section_type, ['progress_notes']))
                                             <div class="document_view">
-                                                <h6><span class="trshDoc"><a
+                                                <h6>
+                                                    @if(isset($isEditAllowed) && $isEditAllowed)
+                                                    <span class="trshDoc"><a
                                                             href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon
-                                                                icon="ph:trash-bold"></iconify-icon></a></span> <a
-                                                        href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
+                                                                icon="ph:trash-bold"></iconify-icon></a></span>
+                                                    @endif 
+                                                    <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}"
                                                         target="_blank"><iconify-icon
                                                             icon="basil:document-outline"></iconify-icon>{{ $alldocument_file->document_title }}</a>
                                                 </h6>
@@ -4209,8 +4326,10 @@
                                     <div class="col-lg-12 text-end">
                                         <a href="javascript:void(0)" class="diseases_name" id="add_mdt_diseases_btn">+
                                             Add More</a>
+                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                         <span><a href="javascript:void(0)" id="remove_MDTDecision"><i
                                                     class="fa-regular fa-trash-can"></i></a></span>
+                                                    @endif
                                     </div>
                                 </div>
                                 <div id="MDTDecision-dynamic-sections">

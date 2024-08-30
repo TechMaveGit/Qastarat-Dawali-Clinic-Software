@@ -175,8 +175,7 @@
                                 <div class="patient_dt_profile">
 
                                     <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} <a
-                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
-                                                icon="material-symbols:edit"></iconify-icon></a></h5>
+                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><i class="far fa-eye"></i></a></h5>
                                     
 
 
@@ -741,7 +740,8 @@
                                         @php
                                         $patientId = decrypt($id);
                                         $referaldoctors = DB::table('referal_patients')->where('patient_id',$patientId)->get();
-                            
+                                        $mainDoctorId= DB::table('users')->where('id',$patientId)->first()->doctor_id;
+                                        $mainDoctor= DB::table('doctors')->where('id',$mainDoctorId)->first();
                                         @endphp
 
 
@@ -749,8 +749,59 @@
                                             data-bs-parent="#accordionExample11">
                                             @if (count($referaldoctors)>0)
                                             <div class="accordion-body">
-                                                <ul class="referrals_list scroll_list">
-                                                 
+                                                <ul class="referrals_list scroll_list" style="list-style:decimal-leading-zero;color: #000;padding-left: 25px;">
+                                                    @if($mainDoctor)
+                                                    <li style="position: relative;">
+
+                                                        <div class="booking_card_select">
+
+                                                            <label for="cbx1">
+
+                                                                <div class="doctor_dt">
+
+                                                                    <div class="image_dr">
+
+                                                                        @if (isset($mainDoctor->profileImage))
+                                                                            <img src="{{  asset('/assets/profileImage/') . '/' . $mainDoctor->patient_profile_img }}"
+                                                                                alt="">
+                                                                        @else
+                                                                            <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                alt="">
+                                                                        @endif
+
+                                                                    </div>
+
+                                                                    <div class="dr_detail">
+
+                                                                        <h6 class="dr_name">
+                                                                            {{ $mainDoctor->name ?? '' }}
+                                                                            <span>{{ $mainDoctor->title ?? '' }}</span>
+                                                                        </h6>
+
+                                                                        <span class="text-align-right">
+
+                                                                            <p class="dr_email"><a
+                                                                                    href="mailto:{{ $mainDoctor->email ?? '' }}">{{ $mainDoctor->email ?? '' }}</a>
+                                                                            </p>
+
+                                                                            
+                                                                        </span>
+
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </label>
+
+                                                        </div>
+
+                                                       
+
+
+
+                                                    </li>
+                                                    @endif
                                                        @forelse ($referaldoctors as $allreferaldoctors)
    
                                                        @php

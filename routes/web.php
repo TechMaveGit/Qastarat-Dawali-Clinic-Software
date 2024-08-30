@@ -277,7 +277,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::get('patient-info-edit', [PatientController::class, 'patient_info_edit'])->name('user.patient-info-edit');
     Route::post('patient-info-update', [PatientController::class, 'patient_info_update'])->name('user.patient-info-update');
 
-    Route::get('patient-medical-detail/{id}', [PatientController::class, 'patient_medical_detail'])->name('user.patient_medical_detail');
+    Route::get('patient-medical-detail/{id}', [PatientController::class, 'patient_medical_detail'])->name('user.patient_medical_detail')->middleware('reff.permission');
 
     Route::delete('/patient-allergy/{id}', [PatientController::class, 'deletePatientAllergy'])->name('patient.allergy.delete');
 
@@ -322,7 +322,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('ThyroidEligibilityForms-store', [PatientController::class, 'storeThyroidEligibilityForms'])->name('user.storeThyroidEligibilityForms');
     Route::get('ThyroidEligibilityForms-edit/{patient_id}', [PatientController::class, 'editThyroidEligibilityForms'])->name('user.editThyroidEligibilityForms');
     Route::post('ThyroidEligibilityForms-update', [PatientController::class, 'UpdateThyroidEligibilityForms'])->name('user.UpdateThyroidEligibilityForms');
-    Route::get('view-thyroid-ablation-form/{id}', [PatientController::class, 'ViewThyroidAblationForm'])->name('user.ViewThyroidAblationForm');
+    Route::get('view-thyroid-ablation-form/{id}', [PatientController::class, 'ViewThyroidAblationForm'])->name('user.ViewThyroidAblationForm')->middleware('reff.permission');
     // end
 
     // ProstateEligibilityForms start

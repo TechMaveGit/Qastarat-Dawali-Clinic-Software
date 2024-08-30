@@ -25,7 +25,12 @@ class NurseLoginWeb extends Controller
             $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>$user_id,'branch_type'=>'doctor'])->get()->pluck('add_branch')->toArray();
             $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$doctorBranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
 
-            $nurse_tasks=DB::table('tasks')->where('test_type','!=','other')->whereIn('patient_id',$allpatientBranch)->orderBy('created_at', 'DESC')->get();
+            $selectedDoctor = DB::table('doctor_nurse')->where('nurse_id',$user_id)->get()->pluck('doctor_id')->toArray();
+            $docterPatient = User::whereIn('doctor_id',$selectedDoctor)->get()->pluck('id')->toArray();
+
+            $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[]));
+
+            $nurse_tasks=DB::table('tasks')->where('test_type','!=','other')->whereIn('patient_id',$allpatient)->orderBy('created_at', 'DESC')->get();
             return view('back/doctor_task', compact('nurse_tasks'));
         }     
 
@@ -40,8 +45,10 @@ class NurseLoginWeb extends Controller
             $nDoctorsBranch = DB::table('user_branchs')->whereIn('patient_id',$nDoctors)->where(['branch_type'=>$ndtyoe])->get()->pluck('add_branch')->toArray();
             $nMyBranch = DB::table('user_branchs')->where(['patient_id'=>$user_id,'branch_type'=>$ndtyoe])->get()->pluck('add_branch')->toArray();
 
+            $docterPatient = User::whereIn('doctor_id',$nDoctors)->get()->pluck('id')->toArray();
 
-            $allranch = array_merge($nDoctorsBranch,$nMyBranch);
+            $allranch = array_merge($nDoctorsBranch??[],$nMyBranch??[],$docterPatient??[]);
+
             $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$allranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
 
             $nurse_tasks = DB::table('tasks')->where('test_type','!=','other')->whereIn('patient_id',$allpatientBranch)->orderBy('created_at', 'DESC')->get();
@@ -175,7 +182,8 @@ class NurseLoginWeb extends Controller
                                             'patient_summary' => $request->input('patientSummary'),
                                             'doctor_id' => $doctorIds[$i],
                                             'referal_doctor' =>auth('doctor')->user()->id,
-                                            'upload_document' =>$upload_uplaodDocument
+                                            'upload_document' =>$upload_uplaodDocument,
+                                            'referal_status'=>$request->input('checkViewPatient')??'0'
                                         ]);
                     }
                     else{

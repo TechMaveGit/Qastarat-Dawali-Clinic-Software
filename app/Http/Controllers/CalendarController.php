@@ -14,11 +14,12 @@ class CalendarController extends Controller
     public function index(Request $request)
     {
 
-        
+
+        $allDoctor = Doctor::select('id','name')->where('role_id','1')->orderBy('id','desc')->get();
         
         $users=DB::table('users')->orderBy('id','desc')->get();
 
-        $doctors=[Auth::guard('doctor')->user()];
+        $doctors= Doctor::select('id','name')->get();
         $dtype = 'doctor';
         if(Auth::guard('doctor')->user()->user_type == "Nurse"){
             $dtype = 'Nurse';
@@ -46,17 +47,24 @@ class CalendarController extends Controller
                 $doctors= Doctor::select('id','name')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
             }
         }
+        
         $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
         $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$doctorBranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
+        
+        $docterPatient = User::where('doctor_id',Auth::guard('doctor')->user()->id)->get()->pluck('id')->toArray();
+
+        $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[]));
+        
         $locations=  DB::table('branchs')->whereIn('id',$doctorBranch)->get();
+        $dlocations=  DB::table('branchs')->get();
         // $locations=DB::table('branchs')->orderBy('id','desc')->get();
-        $patients = User::whereIn('id',$allpatientBranch)->orderBy('id','desc')->get();
+        $patients = User::orderBy('id','desc')->get();
 
 
         $pathology_price_list = DB::table('pathology_price_list')->where('status','1')->get();
         $book_appointments= null;
         if($pathology_price_list){
-            $book_appointments= DB::table('book_appointments')->whereIn('patient_id',$allpatientBranch)->select('appointment_type')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->distinct()->get();
+            $book_appointments= DB::table('book_appointments')->select('appointment_type')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->distinct()->get();
         }
 
         // dd($allpatientBranch,$book_appointments);
@@ -84,8 +92,6 @@ class CalendarController extends Controller
                     $appontment_availability = DB::table('appontment_availability');
                     if ($appointmentType) {
                         $appontment_availability->where('appointment_types', $appointmentType);
-                    }else{
-                        $appontment_availability->whereIn('appointment_types',$book_appointments);
                     }
                     
                     if ($location) {
@@ -119,7 +125,7 @@ class CalendarController extends Controller
 
         }
        
-        return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','pathology_price_list','appontment_availability','countData','patho_types'));
+        return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','dlocations','pathology_price_list','appontment_availability','countData','patho_types','allDoctor'));
     }
 
     
@@ -208,21 +214,17 @@ class CalendarController extends Controller
         $dtype = 'doctor';
         if(Auth::guard('doctor')->user()->user_type == "Nurse"){
             $dtype = 'Nurse';
-
-            
-            
         }else if(Auth::guard('doctor')->user()->user_type == "Receptionist"){
             $dtype = 'receptionist';
-
-            
         }else if(Auth::guard('doctor')->user()->user_type == "Coordinator"){
             $dtype = 'coordinator';
-            
-            
         }
+
         $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
         $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$doctorBranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
+        $docterPatient = User::where('doctor_id',Auth::guard('doctor')->user()->id)->get()->pluck('id')->toArray();
 
+        $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[]));
 
             $checkdoctor=Auth::guard('doctor')->user();
 
@@ -241,12 +243,12 @@ class CalendarController extends Controller
                                                 'code',
                                                 'clinician_id',
                                                 'confirmation'
-                                              )->whereIn('patient_id',$allpatientBranch);
+                                              );
 
 
 
             if ($checkdoctor->role_id=='1') {
-               $events=$events->where('doctor_id',$checkdoctor->id);
+            //    $events=$events->where('doctor_id',$checkdoctor->id);
             }
 
             $patientValue=$request->input('patientValue');
@@ -274,6 +276,7 @@ class CalendarController extends Controller
             {
                 $allevents->colour_type=DB::table('pathology_price_list')->where('status','1')->where('test_name',$allevents->title)->first()->colour_type??'#fffff';
             }
+            $events->push($allpatient);
 
         return response()->json($events);
     }
