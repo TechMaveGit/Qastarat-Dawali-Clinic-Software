@@ -1,15 +1,36 @@
 @php
     
     $dtype = 'doctor';
+    $doctors=[Auth::guard('doctor')->user()];
     if(Auth::guard('doctor')->user()->user_type == "Nurse"){
         $dtype = 'Nurse';
+        $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
+        $doctors= null;
+        if($nuDoctor){
+            $doctors= Doctor::select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+        }
     }else if(Auth::guard('doctor')->user()->user_type == "Receptionist"){
         $dtype = 'receptionist';
+
+        $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
+        $doctors= null;
+        if($nuDoctor){
+            $doctors= Doctor::select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+        }
+
     }else if(Auth::guard('doctor')->user()->user_type == "Coordinator"){
         $dtype = 'coordinator';
+
+        $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
+        $doctors= null;
+        if($nuDoctor){
+            $doctors= Doctor::select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+        }
     }
     $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
     $allBranch=  DB::table('branchs')->whereIn('id',$doctorBranch)->get();
+
+    
     
 @endphp
 
@@ -6359,18 +6380,13 @@
                                         <div class="inner_element">
 
                                             <div class="form-group">
-                                                @php
-                                                    $Clinician = DB::table('doctors')
-                                                        ->where('status', 'active')
-                                                        ->get();
-                                                @endphp
 
                                                 <select class="form-control select2_appoin_ttype__"
                                                     name="doctor_id" required>
                                                     <option value=""> --Select Clinician Type-- </option>
-                                                    @forelse ($Clinician as $allClinician)
+                                                    @forelse ($doctors as $allClinician)
                                                         <option value="{{ $allClinician->id }}">
-                                                            {{ $allClinician->name }}</option>
+                                                            {{ $allClinician->name }} ({{ $allClinician->email }})</option>
                                                     @empty
                                                     @endforelse
 
