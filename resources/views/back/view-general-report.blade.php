@@ -3721,7 +3721,7 @@
 
     </div>
 
-
+    @if($isEditAllowed)
 
     <!----------------------------
                          Add or Remove Diagnosis
@@ -3807,8 +3807,9 @@
             </div>
         </div>
     </div>
+@endif
 
-
+@if($isEditAllowed)
     <!----------------------------
                              Symptoms
                         ---------------------------->
@@ -3946,9 +3947,10 @@
             </div>
         </div>
     </div>
+@endif
 
 
-
+@if($isEditAllowed)
     <!----------------------------
                         clinical_exam
                         ---------------------------->
@@ -4059,8 +4061,10 @@
             </div>
         </div>
     </div>
+@endif
 
 
+@if($isEditAllowed)
     <!----------------------------
                            order imagenairy Exam
                         ---------------------------->
@@ -4125,10 +4129,10 @@
             </div>
         </div>
     </div>
+@endif
 
 
-
-
+@if($isEditAllowed)
     <!----------------------------
                             Lab Test
                         ---------------------------->
@@ -4210,11 +4214,11 @@
             </div>
         </div>
     </div>
+@endif
 
 
 
-
-
+@if($isEditAllowed)
     <!----------------------------
                           Order Supportive Surface
                         ---------------------------->
@@ -4286,7 +4290,10 @@
             </div>
         </div>
     </div>
+@endif
 
+
+@if($isEditAllowed)
     <!----------------------------
                           MDT Review
                         ---------------------------->
@@ -4353,8 +4360,10 @@
             </div>
         </div>
     </div>
+@endif
 
 
+@if($isEditAllowed)
     <!----------------------------
                           Eligibility Status
                         ---------------------------->
@@ -4426,7 +4435,7 @@
             </div>
         </div>
     </div>
-
+@endif
 
 
 

@@ -332,7 +332,7 @@
         }
     @endphp
 
-    @if ($showAlert)
+    @if ($showAlert && $isEditAllowed)
         <script>
             function appendRandomIDToDataBsToggle() {
                 const elements = document.querySelectorAll('.action_btn_tooltip');

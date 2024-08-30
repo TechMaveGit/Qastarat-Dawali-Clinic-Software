@@ -1591,7 +1591,7 @@
 
 
 
-
+@if($isEditAllowed)
 <!----------------------------
 
                  Symptoms
@@ -1706,7 +1706,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------
@@ -2560,7 +2560,7 @@
                  Future Plans
 
             ---------------------------->
-
+            @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="future_plans" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -2682,7 +2682,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------
@@ -3077,7 +3077,7 @@
                   Patient Refer
 
             ---------------------------->
-
+            @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="refer_patient" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -3357,7 +3357,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------
@@ -3465,7 +3465,7 @@
 
 
 
-
+@if($isEditAllowed)
 
 <!----------------------------
 
@@ -3960,7 +3960,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------

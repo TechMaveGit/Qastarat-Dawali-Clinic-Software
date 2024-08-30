@@ -40,6 +40,8 @@ class CheckUserDetails
                 $isEditAllowed = true;
             }
 
+            // dd($isEditAllowed);
+
             View::share('isEditAllowed', $isEditAllowed);
         }
 
