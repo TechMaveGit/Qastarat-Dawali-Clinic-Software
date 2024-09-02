@@ -55,7 +55,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="form-label">Type or paste in your text snippet here..</label>
-                                        <textarea rows="4" name="snippetDescription" class="form-control"
+                                        <textarea rows="4" id="summerynote" name="snippetDescription" class="form-control"
                                             placeholder=""></textarea>
                                     </div>
                                 </div>
@@ -86,7 +86,8 @@
 
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/tinymce@5.7.1/tinymce.min.js"></script>
 <script>
     $(document).ready(function(){
         $("#test_list").hide();
@@ -100,4 +101,12 @@
     })
 </script>
 
+
+
+
+ <script>
+         tinymce.init({
+             selector: 'textarea',
+     });
+ </script>
 @endsection

@@ -23,7 +23,7 @@
         <div class="col-12">
 
 
-            <form action="{{ route('patients.edit', ['id' => $patientId->id]) }}" method="post" enctype="multipart/form-data">@csrf
+            <form action="{{ route('patients.edit', ['id' => $patientId->id]) }}" id="patientadddataForm" method="post" enctype="multipart/form-data">@csrf
             <div class="box">
                 <div class="box-body">
                     <div class="row">
@@ -70,7 +70,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" name="birth_date" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" value="{{ $patientId->birth_date }}" class="form-control pull-right datepicker">
+                                    <input type="text" name="birth_date"  value="{{ $patientId->birth_date }}" class="form-control pull-right datepicker">
                                     @error('birth_date')
                                     <span class="error text-danger">{{ $message }}</span>
                                    @enderror
@@ -145,11 +145,11 @@
                                 <label class="form-label">Add Doctor</label>
                                 <select class="form-control select2 selectDoctor" name="doctorName" style="width: 100%;" >
                                      <option value="">Select Any One</option>
-                                    {{-- @forelse ($doctors as $alldoctors)
+                                    @forelse ($doctors as $alldoctors)
                                        <option value="{{$alldoctors->id}}" {{ $alldoctors->id == $patientId->doctor_id ? 'selected' : '' }} >{{$alldoctors->name}}</option>
                                     @empty
 
-                                    @endforelse --}}
+                                    @endforelse
                                 </select>
                                 @error('doctorName')
                                     <span class="error text-danger">{{ $message }}</span>
@@ -336,7 +336,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="submit_btn text-end">
-                               <button type="submit" class="waves-effect waves-light btn btn-primary"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+                               <button type="button" id="patientadddatabutton" class="waves-effect waves-light btn btn-primary"><i class="fa-regular fa-floppy-disk"></i> Save</button>
                             </div>
                         </div>
                     </div>
@@ -351,16 +351,29 @@
       </div>
  </div>
 
-
-
  <script>
+
+
+
+
     document.addEventListener('DOMContentLoaded', function () {
         
-
+        var validForm = false;
         $("#document_type").change(function(){
             $("#enterIdNumber").val('');
             $("#validationMessage").text('');
             validateInput();
+        })
+
+
+        $("#patientadddatabutton").click(function(){
+            validateInput();
+            if(!validForm){
+                setTimeout(() => {
+                    $("#patientadddataForm").submit();
+                }, 1000);
+                
+            }
         })
 
         function validateInput() {
@@ -381,8 +394,8 @@
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
-                    maxLength = 11;
-                    message = selectedType + ' must be exactly 11 digits';
+                    maxLength = 10;
+                    message = selectedType + ' must be exactly 10 digits';
                     break;
                 case 'PASSPORT, DRIVER\'s LICENSE, ETC':
                     maxLength = Infinity;
@@ -398,8 +411,10 @@
 
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
                 $("#validationMessage").text(message);
+                validForm = true;
             } else {
                 $("#validationMessage").text('');
+                validForm = false;
             }
         }
 
@@ -437,7 +452,7 @@
             }
             });
 
-            $('.selectBranch').trigger('change');
+            // $('.selectBranch').trigger('change');
     });
     </script>
 

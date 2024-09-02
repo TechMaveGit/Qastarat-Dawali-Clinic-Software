@@ -34,13 +34,14 @@ class CheckUserDetails
                 $doctorId = [$user->id];
             }
 
-            if(DB::table('users')->whereIn('doctor_id',$doctorId)->exists()){
+            if(DB::table('users')->where('id',$decryptedId)->whereIn('doctor_id',$doctorId)->exists()){
                 $isEditAllowed = true;
-            }else if(DB::table('referal_patients')->whereIn('doctor_id',$doctorId)->where(['patient_id'=>$decryptedId,'referal_status'=>'1'])->exists()){
+            }
+            if(DB::table('referal_patients')->whereIn('doctor_id',$doctorId)->where(['patient_id'=>$decryptedId,'referal_status'=>'1'])->exists()){
                 $isEditAllowed = true;
             }
 
-            // dd($isEditAllowed);
+            // dd($isEditAllowed,$doctorId);
 
             View::share('isEditAllowed', $isEditAllowed);
         }

@@ -346,8 +346,7 @@
 
                                     <div class="input-group" id="datepicker1">
 
-                                        <input type="text" class="form-control" placeholder="dd M, yyyy"
-                                            data-date-format="dd M, yyyy" data-date-container='#datepicker1'
+                                        <input type="text" class="form-control"  data-date-container='#datepicker1'
                                             data-provide="datepicker">
 
                                     </div>
@@ -726,8 +725,7 @@
 
                                             <div class="input-group" id="datepicker3">
 
-                                                <input type="text" class="form-control" placeholder="dd M, yyyy"
-                                                    data-date-format="dd M, yyyy" data-date-container='#datepicker3'
+                                                <input type="text" class="form-control"  data-date-container='#datepicker3'
                                                     data-provide="datepicker">
 
                                             </div>
@@ -1591,7 +1589,6 @@
 
 
 
-@if($isEditAllowed)
 <!----------------------------
 
                  Symptoms
@@ -1706,7 +1703,6 @@
     </div>
 
 </div>
-@endif
 
 
 <!----------------------------
@@ -3465,7 +3461,6 @@
 
 
 
-@if($isEditAllowed)
 
 <!----------------------------
 
@@ -3960,7 +3955,6 @@
     </div>
 
 </div>
-@endif
 
 
 <!----------------------------

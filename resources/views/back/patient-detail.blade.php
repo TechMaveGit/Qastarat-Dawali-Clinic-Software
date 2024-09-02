@@ -62,7 +62,8 @@
                                     <span class="toolTip">View Medical Record</span>
 
                                 </a>
-
+                                
+                                @if(isset($isEditAllowed) && $isEditAllowed)
                                 <a href="#" class="action_btn_tooltip patient_edit" data-bs-toggle="modal"
                                     data-bs-target="#edit_patient">
 
@@ -71,6 +72,7 @@
                                     <span class="toolTip">Edit Patient Info .</span>
 
                                 </a>
+                                @endif
 
                                 {{-- <a href="#" class="action_btn_tooltip" data-bs-toggle="modal" data-bs-target="#create_appointment">
 
@@ -802,8 +804,8 @@ if (!empty($patient->birth_date ?? '')) {
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
-                    maxLength = 11;
-                    message = selectedType + ' must be exactly 11 digits';
+                    maxLength = 10;
+                    message = selectedType + ' must be exactly 10 digits';
                     break;
                 case 'PASSPORT, DRIVER\'s LICENSE, ETC':     
                     maxLength = Infinity;

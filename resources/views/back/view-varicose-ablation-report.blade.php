@@ -993,7 +993,7 @@
 
                                                         </div>
 
-                                                        @if (!(auth()->guard('doctor')->id()==$allreferaldoctors->doctor_id))
+                                                        @if (isset(auth()->guard('doctor')->user()->user_type) && auth()->guard('doctor')->user()->user_type == 'doctor' && auth()->guard('doctor')->user()->id == $allreferaldoctors->referal_doctor)
                                                         @if(isset($isEditAllowed) && $isEditAllowed)
                                                         <span class="removeReferalPatient" data-id="{{ $allreferaldoctors->id }}">
                                                             <i class="fa-regular fa-trash-can trash_btn"></i>

@@ -93,7 +93,7 @@ Invoice | QASTARAT & DAWALI CLINICS
                       <tr>
                         <th class="tm_width_3 tm_semi_bold tm_primary_color tm_gray_bg">Date</th>
                         <th class="tm_width_4 tm_semi_bold tm_primary_color tm_gray_bg">Item</th>
-                        <th class="tm_width_2 tm_semi_bold tm_primary_color tm_gray_bg">Invoice</th>
+                        <th class="tm_width_2 tm_semi_bold tm_primary_color tm_gray_bg">Item No.</th>
                         <th class="tm_width_1 tm_semi_bold tm_primary_color tm_gray_bg">Discount </th>
                         <th class="tm_width_1 tm_semi_bold tm_primary_color tm_gray_bg">VAT </th>
                         <th class="tm_width_2 tm_semi_bold tm_primary_color tm_gray_bg tm_text_right">Cost</th>

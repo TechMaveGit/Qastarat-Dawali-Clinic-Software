@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-12">
 
-                    <form action="{{ route('patients.addCreate') }}" method="post"
+                    <form action="{{ route('patients.addCreate') }}" id="patientadddataForm" method="post"
                         enctype="multipart/form-data"> @csrf
                         <div class="box">
                             <div class="box-body">
@@ -378,7 +378,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="submit_btn text-end">
-                                            <button type="submit" class="waves-effect waves-light btn btn-primary"><i
+                                            <button id="patientadddatabutton" type="button" class="waves-effect waves-light btn btn-primary"><i
                                                     class="fa-regular fa-floppy-disk"></i> Save</button>
                                         </div>
                                     </div>
@@ -399,7 +399,17 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         
-        
+        var validForm = false;
+
+        $("#patientadddatabutton").click(function(){
+            validateInput();
+            if(!validForm){
+                setTimeout(() => {
+                    $("#patientadddataForm").submit();
+                }, 1000);
+                
+            }
+        })
 
         $("#document_type").change(function(){
             $("#enterIdNumber").val('');
@@ -407,10 +417,11 @@
             validateInput();
         })
 
+        
         function validateInput() {
             const selectedType = $("#document_type").val();
             const idNumber = $("#enterIdNumber").val();
-
+            
             let maxLength = 0;
             let message = '';
 
@@ -425,8 +436,8 @@
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
-                    maxLength = 11;
-                    message = selectedType + ' must be exactly 11 digits';
+                    maxLength = 10;
+                    message = selectedType + ' must be exactly 10 digits';
                     break;
                 case 'PASSPORT, DRIVER\'s LICENSE, ETC':
                     maxLength = Infinity;
@@ -441,8 +452,10 @@
             $("#enterIdNumber").attr('minlength',maxLength);
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
                 $("#validationMessage").text(message);
+                validForm = true;
             } else {
                 $("#validationMessage").text('');
+                validForm = false;
             }
         }
 

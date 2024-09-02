@@ -1016,7 +1016,7 @@
 
                                                                 </div>
 
-                                                                @if (!(auth()->guard('doctor')->id() == $allreferaldoctors->doctor_id))
+                                                                @if (isset(auth()->guard('doctor')->user()->user_type) && auth()->guard('doctor')->user()->user_type == 'doctor' && auth()->guard('doctor')->user()->id == $allreferaldoctors->referal_doctor)
                                                                 @if(isset($isEditAllowed) && $isEditAllowed)
                                                                     <span class="removeReferalPatient"
                                                                         data-id="{{ $allreferaldoctors->id }}">
@@ -1066,32 +1066,63 @@
                                                         <ul>
                                                             @php
                                                                 $patient_id = decrypt(@$id);
-                                                                $visit_notes = App\Models\patient\Patient_progress_note::where([
-                                                                        // 'progress_note_canned_text_id' => 6,
-                                                                        'patient_id' => @$patient_id
-                                                                    ])
-                                                                    ->orderBy('id', 'desc')
-                                                                    ->get();
+
+                                                                $Patient_appointments = DB::table('book_appointments')->where('patient_id', $patient_id)->orderBy('start_date', 'desc')->get();
+
+                                                                // $visit_notes = App\Models\patient\Patient_progress_note::where([
+                                                                //         // 'progress_note_canned_text_id' => 6,
+                                                                //         'patient_id' => @$patient_id
+                                                                //     ])
+                                                                //     ->orderBy('id', 'desc')
+                                                                //     ->get();
                                                             @endphp
-                                                            @if ($visit_notes->isEmpty())
-                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
+                                                            @if ($Patient_appointments->isEmpty())
+                                                                <li><small style="font-size:10px;">No Visit Found</small></li>
                                                             @else
-                                                                @foreach ($visit_notes as $visit)
+                                                                @foreach ($Patient_appointments as $Patient_appointment)
+
+                                                                        @php
+                                                                        $doctorName = DB::table('doctors')
+                                                                            ->where('id', $Patient_appointment->doctor_id)
+                                                                            ->first();
+                                                                    @endphp
                                                                     <li>
-                                                                        <div class="appoin_title">
+                                                                        <div class="" >
 
-                                                                            <h6></h6>
+                                                                            <h6 style="font-size: 14px;">{{ $Patient_appointment->appointment_type }}</h6>
 
-                                                                            <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                            </p>
+                                                                            <p style="font-size: 15px;"> <span
+                                                                                style="color: #082787; font-weight: bold;">{{ $doctorName->title ?? '' }}
+                                                                            </span> {{ $doctorName->name ?? '' }} ({{ $doctorName->email ?? '' }})</p>
+                                                                            @php
+                                                                                $doctorName = DB::table('doctors')
+                                                                                    ->where('id', $Patient_appointment->doctor_id)
+                                                                                    ->first();
+                                                                            @endphp
 
                                                                         </div>
                                                                         <div class="appoin_date">
 
                                                                             <div class="read-more-content">
 
-                                                                                <p>{{ $visit->day??'0' }} {{ $visit->date??'days' }}</p>
-                                                                                <p>{{$visit->details}}</p>
+                                                                                @php
+                                                                                    $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
+                                                                                    $startTime = \Carbon\Carbon::createFromFormat(
+                                                                                        'H:i',
+                                                                                        date('H:i',strtotime($Patient_appointment->start_time)),
+                                                                                    );
+                                                                                    $startDateTime = $startDate
+                                                                                        ->copy()
+                                                                                        ->setTime($startTime->hour, $startTime->minute);
+                                                                                    $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                                                    $startDate = $startDateTime->format('l, j F Y');
+                                                                                    $startTime = $startDateTime->format('H:i');
+
+                                                                                    $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
+                                                                                @endphp
+
+
+                                                                                <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
 
                                                                             </div>
                                                                           
@@ -4150,7 +4181,7 @@
                 <form id="order_lab_test_form" method="POST">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$id }}" />
-                    <input type="hidden" value="general_form" name="formType" />'
+                    <input type="hidden" value="general_form" name="formType" />
                     <input type="hidden" id="doctorValue" name="doctorId"
                         value="{{ auth()->guard('doctor')->user()->id }}" />
                     <div class="modal-body padding-0">

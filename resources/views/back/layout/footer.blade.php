@@ -29,6 +29,18 @@
     }
     $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
     $allBranch=  DB::table('branchs')->whereIn('id',$doctorBranch)->get();
+    $epatient_id = null;
+    // dump($doctors);
+    if(isset($id) && $id) $epatient_id = decrypt($id);
+
+    $dreffer = [];
+    if($epatient_id){
+        $patientDoctor = DB::table('users')->whereId($epatient_id)->first()->doctor_id ?? 0;
+        $dreffer = DB::table('referal_patients')->where('patient_id',$epatient_id)->get()->pluck('doctor_id')->toArray()??[];
+
+        array_push($dreffer,$patientDoctor);
+        // dump($dreffer);
+    }
 @endphp
 
 <div class="modal fade " id="allergies_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -223,7 +235,7 @@
 
                                             <div class="col-lg-12">
                                                 <div class="mt-2 form-group">
-                                                    <textarea class="form-control" name="snippetDescription" placeholder="Type or paste in your text snippet here.."
+                                                    <textarea class="form-control" name="snippetDescription" id="textareaSummary"  placeholder="Type or paste in your text snippet here.."
                                                         style="height:100px"></textarea>
                                                 </div>
 
@@ -666,6 +678,8 @@
 
 
 
+
+
 <footer id="footer-3" class="pt-100 footer ft-3-ntr">
 
     <div class="container">
@@ -1053,11 +1067,6 @@
 
                                     <div class="mb-3 form-group">
 
-                                        @php
-                                            $doctorName = DB::table('doctors')
-                                                ->where(['role_id' => '1', 'status' => 'active'])
-                                                ->get();
-                                        @endphp
 
                                         <label for="validationCustom01" class="form-label">Select Doctor</label>
 
@@ -1065,8 +1074,8 @@
 
                                             <option value="">Selct Any One</option>
 
-                                            @foreach ($doctorName as $doctorName)
-                                                <option value="{{ $doctorName->id }}">{{ $doctorName->name }}
+                                            @foreach ($doctors as $doctorName)
+                                                <option  value="{{ $doctorName->id }}">{{ $doctorName->name }}
                                                 </option>
                                             @endforeach
 
@@ -1103,8 +1112,7 @@
                                     <div class="mb-4">
                                         <label class="form-label">Date of Birth</label>
                                         <div class="input-group" id="datepicker1">
-                                            <input type="text" class="datepicker form-control "
-                                                placeholder="dd M, yyyy" data-date-format="dd M, yyyy"
+                                            <input type="text" class="datepicker form-control " 
                                                 data-date-container='#datepicker1' data-provide="datepicker"
                                                 name="birth_date" id="birth_date" data-date-end-date="0d">
                                             <span id="datepickerError"
@@ -1251,7 +1259,7 @@
 
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
 
                                     <div class="mb-3 form-group">
 
@@ -1267,7 +1275,23 @@
 
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
+                                    <div class="mb-3 form-group position-relative">
+                                        <label for="validationCustom01" class="form-label">Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="passwordField"
+                                                placeholder="Password" name="password">
+                                            <div class="input-group-append">
+                                                <span class="">
+                                                    <i class="toggle-password fa fa-eye-slash"
+                                                        onclick="togglePasswordVisibility()"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
 
                                     <div class="mb-3 form-group">
 
@@ -1287,23 +1311,28 @@
 
                                 </div>
 
+                                <div class="col-lg-6">
+
+                                    <div class="mb-3 form-group">
+
+                                        <label for="validationCustom01" class="form-label">Landline</label>
 
 
-                                <div class="col-lg-4">
-                                    <div class="mb-3 form-group position-relative">
-                                        <label for="validationCustom01" class="form-label">Password</label>
-                                        <div class="input-group">
-                                            <input type="password" class="form-control" id="passwordField"
-                                                placeholder="Password" name="password">
-                                            <div class="input-group-append">
-                                                <span class="">
-                                                    <i class="toggle-password fa fa-eye-slash"
-                                                        onclick="togglePasswordVisibility()"></i>
-                                                </span>
-                                            </div>
-                                        </div>
+                                        <input type="text"
+                                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                            minlength="0" maxlength="15"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            class="form-control" id="landline" placeholder="" minlength="0"
+                                            maxlength="15" name="landline" pattern="[0-9]{10,15}">
+
+                                        <span id="landlineError" style="color: red;font-size:smaller"></span>
                                     </div>
+
                                 </div>
+
+
+
+                                
                             </div>
                         </div>
 
@@ -1364,24 +1393,7 @@
                                 </div>
 
 
-                                <div class="col-lg-6">
-
-                                    <div class="mb-3 form-group">
-
-                                        <label for="validationCustom01" class="form-label">Landline</label>
-
-
-                                        <input type="text"
-                                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                            minlength="0" maxlength="15"
-                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                            class="form-control" id="landline" placeholder="" minlength="0"
-                                            maxlength="15" name="landline" pattern="[0-9]{10,15}">
-
-                                        <span id="landlineError" style="color: red;font-size:smaller"></span>
-                                    </div>
-
-                                </div>
+                                
 
                             </div>
 
@@ -3860,8 +3872,7 @@
 
 
                                             @php
-
-                                                $doctorList = DB::table('doctors')->where('role_id', '1');
+                                                $doctorList =  DB::table('doctors')->whereNotIn('id',$dreffer)->where('role_id', '1');
 
                                                 if (auth()->guard('doctor')->user()->role_id == '1') {
                                                     $doctorList = $doctorList->where(
@@ -3942,49 +3953,22 @@
 
                                 <div class="col-lg-12 px-4 mb-3">
                                     <div class="flxref" style="display: flex;">
-                                        <input type="checkbox" class="checkeditPt" name="checkViewPatient"
+                                        <input type="checkbox" id="toGiveEditPermission" class="checkeditPt" name="checkViewPatient"
                                             value="1">
-                                        <p class="" style="font-size: 16px; color: #707883;">To give edit
-                                            permission</p>
+                                        <p for="toGiveEditPermission" class="" style="font-size: 16px; color: #707883;">To give edit permission</p>
                                     </div>
                                 </div>
-
-
                             </div>
-
-
-
                         </div>
-
                     </div>
 
                     <div class="action text-end bottom_modal">
-
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient"
-                            data-bs-dismiss="modal">
-
-                            Save</button>
-
-                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
-                                 data-bs-dismiss="modal">
-
-                                 Close</button> --}}
-
-                        <button type="button" class="modalCloseBtn" data-bs-dismiss="modal"
-                            aria-label="Close">
-                            Close</button>
-
+                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">Save</button>
+                        <button type="button" class="modalCloseBtn" data-bs-dismiss="modal" aria-label="Close">Close</button>
                     </div>
 
                 </div>
                 <form>
-                    <!-- <div class="modal-footer">
-
-                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                                 <button type="button" class="btn btn-primary">Save changes</button>
-
-                             </div> -->
 
         </div>
 
@@ -4258,10 +4242,7 @@
 
                                                         <div class="voice_recognition">
 
-                                                            {{--
-                                                 <button  class="startRecognition" id="startRecognition">Start Voice Recognition</button> --}}
-
-
+                                                            
                                                             <p>
                                                                 <a href="javascript:void(0)" class="mic_btn"
                                                                     role="button"
@@ -4317,14 +4298,86 @@
                                                         style="color: red; font-size:small"></span>
 
                                                 </div>
-                                                <h6 class="recall">Recall <span>Follow-up on this episode. Patient
-                                                        will be notified a week before and clinic staff will be
-                                                        notified
-                                                        on due date. </span></h6>
 
                                             </div>
+                                            <div class="col-lg-12 mt-4">
+                                                <div class="appointments___list">
+                                                    @if(isset($epatient_id))
+                                                    @php
+                                                        $Patient_appointments = DB::table('book_appointments')->where('patient_id', $epatient_id)->orderBy('start_date', 'desc')->get();
+                                                    @endphp
+                                                    <h3 class="sub_title__">Appointments</h3>
+                            
+                                                    <ul style="max-height: 300px !important;overflow-y: auto;">
+                            
+                                                        @forelse ($Patient_appointments as $Patient_appointment)
+                                                            <li>
+                                                                @php
+                                                                    $doctorName = DB::table('doctors')
+                                                                        ->where('id', $Patient_appointment->doctor_id)
+                                                                        ->first();
+                                                                @endphp
+                            
+                                                                <div class="appoin_title">
+                            
+                                                                    <h6>{{ $Patient_appointment->appointment_type }}</h6>
+                                                                    <p style="font-size: 15px;"> <span
+                                                                            style="color: #082787; font-weight: bold;">{{ $doctorName->title ?? '' }}
+                                                                        </span> {{ $doctorName->name ?? '' }}</p>
+                                                                    @php
+                                                                        $doctorName = DB::table('doctors')
+                                                                            ->where('id', $Patient_appointment->doctor_id)
+                                                                            ->first();
+                                                                    @endphp
+                                                                    <p class="hover-primary text-fade mb-1 fs-14" style="font-size: 14px;">
+                                                                        {{ $doctorName->name ?? '' }} - {{ $doctorName->email ?? '' }}</p>
+                            
+                            
+                                                                </div>
+                            
+                            
+                            
+                                                                <div class="appoin_date">
+                            
+                                                                    @php
+                                                                        $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
+                                                                        $startTime = \Carbon\Carbon::createFromFormat(
+                                                                            'H:i',
+                                                                            date('H:i',strtotime($Patient_appointment->start_time)),
+                                                                        );
+                                                                        $startDateTime = $startDate
+                                                                            ->copy()
+                                                                            ->setTime($startTime->hour, $startTime->minute);
+                                                                        $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                                        $startDate = $startDateTime->format('l, j F Y');
+                                                                        $startTime = $startDateTime->format('H:i');
+                            
+                                                                        $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
+                                                                    @endphp
+                            
+                            
+                                                                    <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
+                            
+                                                                </div>
+                            
+                                                            </li>
+                            
+                                                        @empty
+                            
+                                                            <li>
+                            
+                                                                <p>Not found any appointments</p>
+                            
+                                                            </li>
+                                                        @endforelse
+                                                    </ul>
+                            
+                                                    @endif
+                                                </div>
+                            
+                                            </div>
 
-                                            <div class="col-lg-12">
+                                            {{-- <div class="col-lg-12">
 
                                                 <div class="row align-items-center mt-3">
 
@@ -4387,24 +4440,7 @@
 
                                                     </div>
 
-                                                    {{-- <div class="col-lg-3">
-
-                                                     <div class="form-check">
-
-                                                         <input class="form-check-input" type="checkbox"
-                                                             value="active" id="prog_recall_reminder"
-                                                             name="prog_recall_reminder">
-
-                                                         <label class="form-check-label"
-                                                             for="prog_recall_reminder">
-
-                                                             Save without a recall reminder
-
-                                                         </label>
-
-                                                     </div>
-
-                                                 </div> --}}
+                                                   
 
                                                 </div>
 
@@ -4464,121 +4500,11 @@
                                                         });
                                                     </script>
 
-                                                    {{-- <div class="col-lg-4">
-
-                                                     <div class="form-check">
-
-                                                         <input class="form-check-input" type="checkbox"
-                                                             value="active" id="flexCheckCheckeda2"
-                                                             id="prog_invoice_item" name="prog_invoice_item">
-
-                                                         <label class="form-check-label"
-                                                             for="flexCheckCheckeda2">
-
-                                                             Create an Invoice Item
-
-                                                         </label>
-                                                         <span id="prog_invoice_itemError"
-                                                             style="color: red; font-size:small"></span>
-
-                                                     </div>
-
-                                                 </div> --}}
-
-                                                    {{-- <div class="col-lg-12 mt-3" id="invoice_appoin">
-
-                                                     <div class="inner_element w-100">
-
-                                                         <div class="form-group">
-
-                                                             <select class="form-control select2_note"
-                                                                 name="prog_appointment_type">
-
-                                                                 <option value="">Appointment Type</option>
-
-                                                                 <option
-                                                                     value="CONSULTATION/Interventional Radiology">
-                                                                     CONSULTATION/Interventional Radiology استشارة
-                                                                     أشعة تداخلية</option>
-
-                                                                 <option
-                                                                     value="CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation">
-                                                                     CT / Fluro Guided joint / facet RFA
-                                                                     (Radio-Frequency) ablation علاج ألم المفاصل
-                                                                     بالتردد الحراري بتوجية الأشعة</option>
-
-                                                                 <option value="Follow up appointment">Follow up
-                                                                     appointment</option>
-
-                                                                 <option value="Hemorrhoids Embolization">
-                                                                     Hemorrhoids Embolization</option>
-
-                                                                 <option
-                                                                     value="Image guided MSK inflammation / pain injection - PRP">
-                                                                     Image guided MSK inflammation / pain injection -
-                                                                     PRP حقن إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما
-                                                                     QASTARAT & DAWALI CLINICS</option>
-
-                                                                 <option
-                                                                     value="Image guided MSK / pain injection - HA">
-                                                                     Image guided MSK / pain injection - HA حقن
-                                                                     إالتهاب/ألم المفاصل بتوجية الأشعة-حقن زيتية
-                                                                 </option>
-
-                                                                 <option
-                                                                     value="Image (Ultrasound) guided Occipital Headache nerve block">
-                                                                     Image (Ultrasound) guided Occipital Headache
-                                                                     nerve block</option>
-
-                                                                 <option value="INTRAVENOUS VITAMIN THERAPY">
-                                                                     INTRAVENOUS VITAMIN THERAPY</option>
-
-                                                                 <option
-                                                                     value="IV DRIP ASCORBIC ACID (Essential dose)">
-                                                                     IV DRIP ASCORBIC ACID (Essential dose) فيتامين
-                                                                     سي الجرعه الأساسية</option>
-
-                                                                 <option
-                                                                     value="IV DRIP DETOX MASTER (ESSENTIAL DOSE)">
-                                                                     IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل
-                                                                     السميات (الجرعة الأساسية)</option>
-
-                                                                 <option
-                                                                     value="IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE)">
-                                                                     IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE) معزز
-                                                                     الطاقة الجرعة الأساسية</option>
-
-                                                                 <option
-                                                                     value="IV DRIP FAT BURNER (ESSENTIAL DOSE)">IV
-                                                                     DRIP FAT BURNER (ESSENTIAL DOSE) مسرعات حرق
-                                                                     الدهون (الجرعة الأساسية)</option>
-
-                                                                 <option
-                                                                     value="IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C">
-                                                                     IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER
-                                                                     WITH VITAMIN C</option>
-
-                                                                 <option
-                                                                     value="IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS COMBINATION ">
-                                                                     IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI
-                                                                     HAIR LOSS COMBINATION </option>
-
-                                                                 <option
-                                                                     value="IV Vitamin - Multivatamins w/ Iron">IV
-                                                                     Vitamin - Multivatamins w/ Iron</option>
-
-
-                                                             </select>
-
-                                                         </div>
-
-                                                     </div>
-
-                                                 </div> --}}
+                                                    
 
                                                 </div>
 
-                                            </div>
+                                            </div> --}}
 
 
 
@@ -8354,7 +8280,12 @@
                  ============================================= -->
 
 <script src="{{ asset('/assets/js/jquery-3.7.0.min.js')}}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/tinymce@5.7.1/tinymce.min.js"></script>
+<script>
+        tinymce.init({
+            selector: 'textarea#textareaSummary',
+    });
+</script>
 
 
 <script src="{{ asset('/assets/js/bootstrap.min.js')}}"></script>
@@ -8709,6 +8640,8 @@
 <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 
 <!--  Flatpickr  -->
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
 <script>
@@ -9201,6 +9134,10 @@
 </script>
 <!-- add_surgical_btn end here -->
 
+
+
+
+
 <script>
     // Initialize CKEditor 4
     // voiceInput fields
@@ -9208,6 +9145,7 @@
         .catch(function(error) {
             console.error(error);
         });
+
     // summary fields
     CKEDITOR.replace('summerynote')
         .catch(function(error) {
@@ -10351,6 +10289,7 @@
 
 
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         $("#Edit_document_type").change(function(){
@@ -10383,8 +10322,8 @@
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
-                    maxLength = 11;
-                    message = selectedType + ' must be exactly 11 digits';
+                    maxLength = 10;
+                    message = selectedType + ' must be exactly 10 digits';
                     break;
                 case 'PASSPORT, DRIVER\'s LICENSE, ETC':
                     maxLength = Infinity;

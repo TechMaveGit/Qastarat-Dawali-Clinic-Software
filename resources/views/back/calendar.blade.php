@@ -578,7 +578,7 @@
                                                         <label class="form-label">Date of Birth</label>
                                                         <div class="input-group" id="datepicker1">
                                                             <input type="text" class="form-control"
-                                                                placeholder="dd M, yyyy" data-date-format="dd M, yyyy"
+                                                                
                                                                 data-date-container='#datepicker1' name="birth_date"
                                                                 data-provide="datepicker" data-date-end-date="0d">
                                                         </div>
@@ -840,8 +840,8 @@
                             break;
                         case 'PERSONAL NUMBER':
                         case 'RESIDENT ID':
-                            maxLength = 11;
-                            message = selectedType + ' must be exactly 11 digits';
+                            maxLength = 10;
+                            message = selectedType + ' must be exactly 10 digits';
                             break;
                         case 'PASSPORT, DRIVER\'s LICENSE, ETC':
                             maxLength = Infinity;
