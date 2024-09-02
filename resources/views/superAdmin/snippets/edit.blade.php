@@ -89,7 +89,14 @@
 
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"  crossorigin="anonymous"></script>
 
+ <script src="https://cdn.jsdelivr.net/npm/tinymce@5.7.1/tinymce.min.js"></script>
+ <script>
+         tinymce.init({
+             selector: 'textarea',
+     });
+ </script>
 <script>
     $(document).ready(function(){
         $("#test_list").hide();

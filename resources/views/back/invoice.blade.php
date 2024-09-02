@@ -867,7 +867,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">Item</th>
-                                                <th scope="col">Invoice</th>
+                                                <th scope="col">Item No.</th>
                                                 <th scope="col">Date</th>
                                                 <th scope="col">Cost</th>
                                                 <th scope="col">Action</th>

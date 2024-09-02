@@ -153,7 +153,7 @@ class PatientController extends Controller
 
             if (isset($doctor->patient_profile_img)) {
                 $filePath = public_path('assets/patient_profile/' . $doctor->patient_profile_img);
-                if (file_exists($filePath)) {
+                if (isset($filePath) && $doctor->patient_profile_img && file_exists($filePath)) {
                     unlink($filePath);
                 }
             }
@@ -2242,6 +2242,7 @@ class PatientController extends Controller
     {
 
         $getType = Auth::guard('doctor')->user();
+        $mainDId = [];
 
         $dtype = 'doctor';
         if($getType->user_type == "Nurse"){
@@ -2250,13 +2251,19 @@ class PatientController extends Controller
             $dtype = 'receptionist';
         }else if($getType->user_type == "Coordinator"){
             $dtype = 'coordinator';
+        }else{
+            $mainDId = [$getType->id];
         }
 
         $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>$getType->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
         $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$doctorBranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
         $docterPatient = User::where('doctor_id',$getType->id)->get()->pluck('id')->toArray();
 
-        $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[]));
+        $allDoctorId= array_merge($docterPatient??[],$mainDId);
+
+        $referal_patients = DB::table('referal_patients')->whereIn('doctor_id',$allDoctorId)->get()->pluck('patient_id')->toArray();
+
+        $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[],$referal_patients??[]));
 
         // return $getType;
         $patient = User::whereIn('id',$allpatient);

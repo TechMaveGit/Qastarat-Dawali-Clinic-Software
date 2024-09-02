@@ -273,7 +273,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::get('insurer-list', [PatientController::class, 'insurer_list'])->name('user.insurer_list');
     Route::get('getPatientsData', [PatientController::class, 'getPatientsData'])->name('user.getPatientsData');
     Route::post('patient-store', [PatientController::class, 'store'])->name('user.patient.store');
-    Route::get('patient-detail/{id}', [PatientController::class, 'patient_detail'])->name('user.patient-detail');
+    Route::get('patient-detail/{id}', [PatientController::class, 'patient_detail'])->name('user.patient-detail')->middleware('reff.permission');
     Route::get('patient-info-edit', [PatientController::class, 'patient_info_edit'])->name('user.patient-info-edit');
     Route::post('patient-info-update', [PatientController::class, 'patient_info_update'])->name('user.patient-info-update');
 

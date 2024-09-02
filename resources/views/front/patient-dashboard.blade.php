@@ -681,8 +681,7 @@
 
                                             <div class="input-group" id="datepicker1">
 
-                                                <input type="text" class="form-control" placeholder="dd M, yyyy"
-                                                    data-date-format="dd M, yyyy" data-date-container='#datepicker1'
+                                                <input type="text" class="form-control"  data-date-container='#datepicker1'
                                                     data-provide="datepicker" name="birth_date">
                                                 <span id="datepickerError"
                                                     style="color: red;font-size:smaller"></span>
@@ -1096,8 +1095,7 @@
 
                                                     <div class="input-group" id="datepicker3">
 
-                                                        <input type="text" class="form-control"
-                                                            placeholder="dd M, yyyy" data-date-format="dd M, yyyy"
+                                                        <input type="text" class="form-control" 
                                                             data-date-container='#datepicker3'
                                                             data-provide="datepicker" name="patient_birth"
                                                             id="patient_birth">
@@ -2065,7 +2063,6 @@
 
 
 
-@if($isEditAllowed)
 <!----------------------------
 
                  Symptoms
@@ -2173,7 +2170,7 @@
     </div>
 
 </div>
-@endif
+
 
 
 <!----------------------------
@@ -3911,7 +3908,6 @@
 
 
 
-@if($isEditAllowed)
 <!----------------------------
 
                 Add New Notes
@@ -4437,8 +4433,6 @@
     </div>
 
 </div>
-
-@endif
 
 <!----------------------------
 

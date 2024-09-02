@@ -1628,7 +1628,6 @@
                                                     <div class="input-group" id="datepicker3">
 
                                                         <input type="text" class="form-control"
-                                                            placeholder="dd M, yyyy" data-date-format="dd M, yyyy"
                                                             data-date-container='#datepicker3'
                                                             data-provide="datepicker" name="patient_birth"
                                                             id="patient_birth">
