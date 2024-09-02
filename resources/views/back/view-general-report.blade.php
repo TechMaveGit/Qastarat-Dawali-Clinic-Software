@@ -3675,16 +3675,16 @@
 
                                                                     </div>
 
-                                                                    @if ($record->voice_recognition)
+                                                                    {{-- @if ($record->voice_recognition)
                                                                         <p class="ss_result">
-                                                                            <strong>Summery 1</strong> &nbsp;&colon;
+                                                                            <strong>Summary 1</strong> &nbsp;&colon;
                                                                             {{ strip_tags($record->voice_recognition ?? '') }}
                                                                         </p>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                     @if ($record->summery)
                                                                         <p class="ss_result">
-                                                                            <strong>Summery 2</strong> &nbsp;&colon;
+                                                                            <strong>Summary</strong> &nbsp;&colon;
                                                                             {{ $record->summery ?? '' }}
                                                                         </p>
                                                                     @endif

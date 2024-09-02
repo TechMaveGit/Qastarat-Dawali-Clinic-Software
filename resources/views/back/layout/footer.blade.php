@@ -166,7 +166,7 @@
                                     <p class="note_created_snippet">You can store often used blocks of text to speed
                                         up data entry in medical records. </p>
 
-                                    <ul class="created_snippet_list">
+                                    <ul class="created_snippet_list" style="max-height: 200px;overflow-y: scroll;">
                                         @php
                                             $note_name = DB::table('progress_note_contents')
                                                 ->orderBy('id', 'DESC')
@@ -227,8 +227,8 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="mt-2 form-group">
-                                                    <textarea class="form-control" required name="snippetDescription" id="textareaSummary"  placeholder="Type or paste in your text snippet here.."
-                                                        style="height:100px"></textarea>
+                                                    <textarea class="form-control" required name="snippetDescription" id="snippetDescription"  placeholder="Type or paste in your text snippet here.."
+                                                        style="height:100px">Type or paste in your text snippet here..</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -8273,12 +8273,12 @@
                  ============================================= -->
 
 <script src="{{ asset('/assets/js/jquery-3.7.0.min.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/tinymce@5.7.1/tinymce.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/tinymce@5.7.1/tinymce.min.js"></script>
 <script>
         tinymce.init({
             selector: 'textarea#textareaSummary',
     });
-</script>
+</script> --}}
 
 
 <script src="{{ asset('/assets/js/bootstrap.min.js')}}"></script>
@@ -9134,6 +9134,9 @@
 <script>
     // Initialize CKEditor 4
     // voiceInput fields
+
+    CKEDITOR.replace('snippetDescription');
+
     CKEDITOR.replace('voiceInput')
         .catch(function(error) {
             console.error(error);
@@ -10128,7 +10131,7 @@
     $(document).ready(function() {
         $('#savePatientNote').submit(function(e) {
             e.preventDefault();
-
+            CKEDITOR.instances['snippetDescription'].updateElement();
             $.ajax({
                 url: '{{ route('user.save_patient_note') }}',
                 type: 'POST',
