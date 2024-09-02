@@ -41,7 +41,7 @@ class PatientsController extends Controller
         }
 
 
-        $data['users'] = $patient->orderBy('id', 'DESC')->select('id','status','doctor_id','patient_id','name','mobile_no','email','post_code','patient_profile_img')->get();
+        $data['users'] = $patient->orderBy('id', 'DESC')->select('id','status','doctor_id','patient_id','name','dial_code','mobile_no','email','post_code','patient_profile_img')->get();
         $data['branchs'] = DB::table('branchs')->get();
         $data['doctors'] = DB::table('doctors')->where('user_type','doctor')->get();
         return view('superAdmin.patient.index', $data);

@@ -288,7 +288,7 @@
                           <h6>Mobile No.</h6>
                         </div>
                         <div class="detail_ans">
-                          <h6>{{ $patient->mobile_no }}</h6>
+                          <h6>{{ $patient->dial_code }} {{ $patient->mobile_no }}</h6>
                         </div>
                       </li>
                       <li>
@@ -3753,9 +3753,9 @@
           stroke-linejoin="round" stroke-width="32" />
         <circle cx="392" cy="184" r="24" />
       </svg>
-      <span>Print</span>
+      <span>Print/Download</span>
     </a>
-    <button id="download_btn" onclick="downloadPDF()" class="cs-invoice_btn cs-color2">
+    {{-- <button hidden id="download_btn" onclick="downloadPDF()" class="cs-invoice_btn cs-color2">
       <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
         <title>Download</title>
         <path d="M336 176h40a40 40 0 0140 40v208a40 40 0 01-40 40H136a40 40 0 01-40-40V216a40 40 0 0140-40h40"
@@ -3764,7 +3764,7 @@
           d="M176 272l80 80 80-80M256 48v288" />
       </svg>
       <span>Download</span>
-    </button>
+    </button> --}}
   </div>
 
     <script src="{{ asset('/assets/report-genrate/js/jquery.min.js') }}"></script>

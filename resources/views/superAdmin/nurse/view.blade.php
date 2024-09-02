@@ -102,7 +102,7 @@
                                                         <h6>Mobile No </h6>
                                                     </div>
                                                     <div class="detail_ans">
-                                                        <h6>{{ $doctor->mobile_no }}</h6>
+                                                        <h6>{{ $doctor->dial_code }} {{ $doctor->mobile_no }}</h6>
                                                     </div>
                                                 </li>
 

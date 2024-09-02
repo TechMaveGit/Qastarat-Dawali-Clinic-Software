@@ -33,6 +33,7 @@ class User extends Model implements Authenticatable
         'landline',
         'birth_date',
         'post_code',
+        'dial_code',
         'mobile_no',
         'gendar',
         'doctor_id',

@@ -189,7 +189,7 @@
 								<h4>Phone & Email</h4>
 							</div>
 						</div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
                             <input type="text" value="{{ $patientId->email }}" name="email" class="form-control" placeholder="">
@@ -198,7 +198,7 @@
                         @enderror
                         </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Password <span class="clr"></span></label>
                                 <div class="wrap-input">
@@ -210,6 +210,16 @@
                                 @error('password')
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <div class="mb-3 form-group">
+                                <label for="dialCode" class="form-label">Dial Code</label>
+                                <select name="dial_code" class="form-select form-control" id="dialCode">
+                                    <option {{ $patientId->dial_code == "+968" ? 'selected' : '' }} value="+968">+968</option>
+                                    <option {{ $patientId->dial_code == "+973" ? 'selected' : '' }} value="+973">+973</option>
+                                    <option {{ $patientId->dial_code == "+966" ? 'selected' : '' }} value="+966">+966</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-3">

@@ -179,7 +179,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ $allnurse->mobile_no}}</td>
+                                            <td>{{ $allnurse->dial_code}} {{ $allnurse->mobile_no}}</td>
                                             <td>{{ $allnurse->email}}</td>
                                             @php
                                             $roleName = DB::table('roles')->where('id',$allnurse->role_id)->first();

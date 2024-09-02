@@ -44,7 +44,7 @@ class NurseController extends Controller
                 });
             }
     
-            $data['nurse'] = $qurStaff->select('id', 'role_id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status', 'post_code', 'mobile_no', 'user_type')
+            $data['nurse'] = $qurStaff->select('id', 'role_id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status', 'post_code', 'dial_code','mobile_no', 'user_type')
             ->whereNotIn('role_id', ['1'])
             ->whereNotIn('user_type', ['pathology', 'radiology'])
             ->orderBy('id', 'desc')

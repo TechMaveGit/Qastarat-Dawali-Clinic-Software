@@ -774,8 +774,8 @@
                                            
                                             <div class="accordion-body">
 
-                                                <ul class="referrals_list scroll_list" style="list-style:    decimal-leading-zero;color: #000;padding-left: 25px;">
-                                                    @if($mainDoctor)
+                                                <ul class="referrals_list scroll_list" >
+                                                    {{-- @if($mainDoctor)
                                                     <li style="position: relative;">
 
                                                         <div class="booking_card_select">
@@ -826,14 +826,16 @@
 
 
                                                     </li>
-                                                    @endif
+                                                    @endif --}}
 
                                                     @forelse ($referaldoctors as $allreferaldoctors)
 
                                                     @php
 
                                                      $doctorDetail = DB::table('doctors')->where('id',$allreferaldoctors->doctor_id)->first();
-                                                    
+                                                     $refferDoctorDetail = DB::table('doctors')
+                                                                    ->where('id', $allreferaldoctors->referal_doctor)
+                                                                    ->first();
                                                     @endphp
                                                     
                                                     <li style="position: relative;">
@@ -858,7 +860,10 @@
                                                                     </div>
 
                                                                     <div class="dr_detail">
-
+                                                                        <h6 class="dr_name" style="font-size: 12px;"> 
+                                                                            <span>Assigned By :</span> {{ $refferDoctorDetail->name ?? '' }}
+                                                                             <span>{{ $refferDoctorDetail->title ?? '' }}</span>
+                                                                         </h6>
                                                                         <h6 class="dr_name">{{ $doctorDetail->name??'' }}
                                                                             <span>{{ $doctorDetail->title??'' }}</span>
                                                                         </h6>
@@ -930,44 +935,68 @@
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak">
 
-                                                    <ul>
+                                                    <ul style="max-height: 300px !important;overflow-y: auto;">
                                                         @php
-                                                                $patient_id = decrypt(@$id);
-                                                                $visit_notes = App\Models\patient\Patient_progress_note::where([
-                                                                        // 'progress_note_canned_text_id' => 6,
-                                                                        'patient_id' => @$patient_id
-                                                                    ])
-                                                                    ->orderBy('id', 'desc')
-                                                                    ->get();
-                                                            @endphp
-                                                            @if ($visit_notes->isEmpty())
-                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
-                                                            @else
-                                                                @foreach ($visit_notes as $visit)
-                                                                    <li>
-                                                                        <div class="appoin_title">
+                                                            $patient_id = decrypt(@$id);
 
-                                                                            <h6></h6>
+                                                            $Patient_appointments = DB::table('book_appointments')->where('patient_id', $patient_id)->orderBy('start_date', 'desc')->get();
+                                                        @endphp
+                                                        @if ($Patient_appointments->isEmpty())
+                                                            <li><small style="font-size:10px;">No Visit Found</small></li>
+                                                        @else
+                                                            @foreach ($Patient_appointments as $Patient_appointment)
 
-                                                                            <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                            </p>
+                                                                    @php
+                                                                    $doctorName = DB::table('doctors')
+                                                                        ->where('id', $Patient_appointment->doctor_id)
+                                                                        ->first();
+                                                                @endphp
+                                                                <li>
+                                                                    <div class="" >
+
+                                                                        <h6 style="font-size: 14px;">{{ $Patient_appointment->appointment_type }}</h6>
+
+                                                                        <p style="font-size: 15px;"> <span
+                                                                            style="color: #082787; font-weight: bold;">{{ $doctorName->title ?? '' }}
+                                                                        </span> {{ $doctorName->name ?? '' }} ({{ $doctorName->email ?? '' }})</p>
+                                                                        @php
+                                                                            $doctorName = DB::table('doctors')
+                                                                                ->where('id', $Patient_appointment->doctor_id)
+                                                                                ->first();
+                                                                        @endphp
+
+                                                                    </div>
+                                                                    <div class="appoin_date">
+
+                                                                        <div class="read-more-content">
+
+                                                                            @php
+                                                                                $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
+                                                                                $startTime = \Carbon\Carbon::createFromFormat(
+                                                                                    'H:i',
+                                                                                    date('H:i',strtotime($Patient_appointment->start_time)),
+                                                                                );
+                                                                                $startDateTime = $startDate
+                                                                                    ->copy()
+                                                                                    ->setTime($startTime->hour, $startTime->minute);
+                                                                                $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                                                $startDate = $startDateTime->format('l, j F Y');
+                                                                                $startTime = $startDateTime->format('H:i');
+
+                                                                                $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
+                                                                            @endphp
+
+
+                                                                            <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
 
                                                                         </div>
-                                                                        <div class="appoin_date">
+                                                                      
 
-                                                                            <div class="read-more-content">
+                                                                    </div>
 
-                                                                                <p>{{ $visit->day??'0' }} {{ $visit->date??'days' }}</p>
-                                                                                <p>{{$visit->details}}</p>
-
-                                                                            </div>
-                                                                          
-
-                                                                        </div>
-
-                                                                    </li>
-                                                                @endforeach
-                                                            @endif
+                                                                </li>
+                                                            @endforeach
+                                                        @endif
 
                                                     </ul>
                                                 </div>

@@ -1291,7 +1291,17 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-2">
+                                    <div class="mb-3 form-group">
+                                        <label for="dialCode" class="form-label">Dial Code</label>
+                                        <select name="dial_code" class="form-select form-control" id="dialCode">
+                                            <option value="+968">+968</option>
+                                            <option value="+973">+973</option>
+                                            <option value="+966">+966</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
 
                                     <div class="mb-3 form-group">
 
@@ -1311,7 +1321,7 @@
 
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
 
                                     <div class="mb-3 form-group">
 

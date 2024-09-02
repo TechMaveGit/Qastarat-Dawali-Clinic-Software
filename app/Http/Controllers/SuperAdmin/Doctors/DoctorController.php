@@ -445,6 +445,7 @@ class DoctorController extends Controller
             $doctorData['birth_date'] = $carbonDate->format('d M, Y');
 
             $doctorData['mobile_no'] = $request->input('mobile_no');
+            $doctorData['dial_code'] = $request->input('dial_code','+968');
 
             Doctor::whereId($id)->update($doctorData);
 

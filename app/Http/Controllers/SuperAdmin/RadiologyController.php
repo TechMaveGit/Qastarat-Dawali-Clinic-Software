@@ -69,7 +69,7 @@ class RadiologyController extends Controller
             'lab_name.required' => 'Lab Name is required.',
 
         ]);
-        $doctor = $req->only(['mobile_no','email','post_code','lab_name','landline','status','street','town','country','password']);
+        $doctor = $req->only(['dial_code','mobile_no','email','post_code','lab_name','landline','status','street','town','country','password']);
         $doctor['user_type']='radiology';
         $doctor['doctor_id'] = "RA" . rand('00000', '99999' . '0');
         $doctor['password']=Hash::make($doctor['password']);

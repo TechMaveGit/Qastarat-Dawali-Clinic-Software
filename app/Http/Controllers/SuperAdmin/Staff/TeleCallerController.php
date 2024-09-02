@@ -13,7 +13,7 @@ class TelecallerController extends Controller
 {
     public function index()
     {
-        $data['tls']=Doctor::select('patient_profile_img', 'doctor_id', 'name', 'email', 'id', 'post_code', 'mobile_no')
+        $data['tls']=Doctor::select('patient_profile_img', 'doctor_id', 'name', 'email', 'id', 'post_code', 'dial_code','mobile_no')
                             ->where('user_type','telecaller')->orderBy('id','desc')->get();
         return view('superAdmin.telecaller.index')->with($data);
     }

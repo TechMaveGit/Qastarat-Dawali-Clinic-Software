@@ -754,7 +754,7 @@
                                                     '</div>' +
                                                     '</div>' +
                                                     '</td>' +
-                                                    '<td>' + patient.mobile_no + '</td>' +
+                                                    '<td> '+patient.dial_code+' '+ patient.mobile_no + '</td>' +
                                                     '<td>' + patient.email + '</td>' +
                                                     '<td>' + patient.post_code + '</td>' +
                                                     '<td>';
@@ -835,7 +835,7 @@
                                                     '</div>' +
                                                     '</div>' +
                                                     '</td>' +
-                                                    '<td>' + patient.mobile_no + '</td>' +
+                                                    '<td>'+patient.dial_code+' ' + patient.mobile_no + '</td>' +
                                                     '<td>' + patient.email + '</td>' +
                                                     '<td>' + patient.post_code + '</td>' +
                                                     '<td>';
@@ -918,7 +918,7 @@
                                                         '</div>' +
                                                         '</div>' +
                                                         '</td>' +
-                                                        '<td>' + patient.mobile_no + '</td>' +
+                                                        '<td>'+patient.dial_code+' ' + patient.mobile_no + '</td>' +
                                                         '<td>' + patient.email + '</td>' +
                                                         '<td>' + patient.post_code + '</td>' +
                                                         '<td>';

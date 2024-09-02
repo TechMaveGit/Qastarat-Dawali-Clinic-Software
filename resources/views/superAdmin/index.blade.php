@@ -243,7 +243,7 @@
                    </td>
                    <td>{{ $alldoctor->specialty }}</td>
 
-                   <td>{{ $alldoctor->mobile_no }}</td>
+                   <td>{{ $alldoctor->dial_code }} {{ $alldoctor->mobile_no }}</td>
 
                    <td>{{ $alldoctor->email }}</td>
 

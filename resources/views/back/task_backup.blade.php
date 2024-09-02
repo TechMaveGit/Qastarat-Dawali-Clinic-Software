@@ -114,7 +114,7 @@ foreach($D as $v)
                                                                             </li>
                                                                             <li>
                                                                                 <div class="tb_listTitle_label">Mobile No.</div>
-                                                                                <span>{{ $patient->mobile_no }}</span>
+                                                                                <span>{{ $patient->dial_code }} {{ $patient->mobile_no }}</span>
                                                                             </li>
                                                                             <li>
                                                                                 <div class="tb_listTitle_label">Date</div>

@@ -266,7 +266,7 @@
 
                                     <div class="data_pt">
 
-                                        <h6 id="data_pt_mobile">{{ @$patient->mobile_no }}</h6>
+                                        <h6 id="data_pt_mobile">{{ @$patient->dial_code }} {{ @$patient->mobile_no }}</h6>
 
                                     </div>
 

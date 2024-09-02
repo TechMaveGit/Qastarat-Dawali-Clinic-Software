@@ -17,7 +17,7 @@ class AccountantController extends Controller
 
     public function index()
     {
-        $data['accountant'] = Doctor::where('user_type','accountant')->select('patient_profile_img','doctor_id','name','email','id','post_code','mobile_no')->orderBy('id','desc')->get();
+        $data['accountant'] = Doctor::where('user_type','accountant')->select('patient_profile_img','doctor_id','name','email','id','post_code','dial_code','mobile_no')->orderBy('id','desc')->get();
         return view('superAdmin.accountant.index',$data);
     }
 
