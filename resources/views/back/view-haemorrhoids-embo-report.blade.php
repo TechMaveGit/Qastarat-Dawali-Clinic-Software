@@ -901,10 +901,10 @@
                                            
                                             <div class="accordion-body">
 
-                                                <ul class="referrals_list scroll_list " style="list-style:    decimal-leading-zero;color: #000;padding-left: 25px;">
+                                                <ul class="referrals_list scroll_list ">
                                                   
 
-                                                    @if($mainDoctor)
+                                                    {{-- @if($mainDoctor)
                                                         <li style="position: relative;">
 
                                                             <div class="booking_card_select">
@@ -955,13 +955,19 @@
 
 
                                                         </li>
-                                                        @endif
+                                                        @endif --}}
 
                                                     @forelse ($referaldoctors as $allreferaldoctors)
 
                                                     @php
 
-                                                     $doctorDetail = DB::table('doctors')->where('id',$allreferaldoctors->doctor_id)->first();
+                                                      $doctorDetail = DB::table('doctors')
+                                                                    ->where('id', $allreferaldoctors->doctor_id)
+                                                                    ->first();
+ 
+                                                                $refferDoctorDetail = DB::table('doctors')
+                                                                    ->where('id', $allreferaldoctors->referal_doctor)
+                                                                    ->first();
                                                     
                                                     @endphp
                                                     
@@ -976,32 +982,42 @@
                                                                     <div class="image_dr">
 
                                                                         @if (isset($doctorDetail->patient_profile_img))
-
-                                                                        <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
-
+                                                                            <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}"
+                                                                                alt="">
                                                                         @else
-                                                                        <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
-
+                                                                            <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                alt="">
                                                                         @endif
 
                                                                     </div>
 
                                                                     <div class="dr_detail">
-
-                                                                        <h6 class="dr_name">{{ $doctorDetail->name??'' }}
-                                                                            <span>{{ $doctorDetail->title??'' }}</span>
+                                                                        <h6 class="dr_name" style="font-size: 12px;"> 
+                                                                            <span>Assigned By :</span> {{ $refferDoctorDetail->name ?? '' }}
+                                                                             <span>{{ $refferDoctorDetail->title ?? '' }}</span>
+                                                                         </h6>
+                                                                        <h6 class="dr_name">
+                                                                            {{ $doctorDetail->name ?? '' }}
+                                                                            <span>{{ $doctorDetail->title ?? '' }}</span>
                                                                         </h6>
+                                                                        
 
                                                                         <span class="text-align-right">
-                                                                        
-                                                                        <p class="dr_email"><a
-                                                                                href="mailto:{{ $doctorDetail->email??'' }}">{{ $doctorDetail->email??'' }}</a>
-                                                                        </p>
 
-                                                                        @php
-                                                                        $documentUrl = $allreferaldoctors->upload_document ? asset('/assets/referalDocument/' . $allreferaldoctors->upload_document) : '';
-                                                                        @endphp
-                                                                        <p onclick="ViewSummary(`{{ $allreferaldoctors->patient_summary}}`,`{{ $documentUrl }}`)"> View Summary</p></span>
+                                                                            <p class="dr_email"><a
+                                                                                    href="mailto:{{ $doctorDetail->email ?? '' }}">{{ $doctorDetail->email ?? '' }}</a>
+                                                                            </p>
+
+                                                                            @php
+                                                                                $documentUrl = $allreferaldoctors->upload_document ? asset(
+                                                                                    '/assets/referalDocument/' .
+                                                                                        $allreferaldoctors->upload_document,
+                                                                                ) : '';
+                                                                            @endphp
+                                                                            <p
+                                                                            onclick="ViewSummary(`{{ $allreferaldoctors->patient_summary }}`,`{{  $allreferaldoctors->upload_document??'' }}`,`{{ $documentUrl }}`,`{{ $allreferaldoctors->reply_summary }}`,`{{ $allreferaldoctors->id}}`)">
+                                                                            View Summary</p>
+                                                                        </span>
 
 
                                                                     </div>
@@ -1014,13 +1030,14 @@
 
                                                         @if (isset(auth()->guard('doctor')->user()->user_type) && auth()->guard('doctor')->user()->user_type == 'doctor' && auth()->guard('doctor')->user()->id == $allreferaldoctors->referal_doctor)
                                                         @if(isset($isEditAllowed) && $isEditAllowed)
-                                                        <span class="removeReferalPatient" data-id="{{ $allreferaldoctors->id }}">
-                                                            <i class="fa-regular fa-trash-can trash_btn"></i>
-                                                        </span>
-                                                        @endif
+                                                            <span class="removeReferalPatient"
+                                                                data-id="{{ $allreferaldoctors->id }}">
+                                                                <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                            </span>
+                                                            @endif
                                                         @endif
 
-                                                        
+
 
                                                     </li>
 
@@ -1055,53 +1072,75 @@
 
                                         <div id="collapseleft8" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample8" style="">
-                                            @if (count($procedures) > 0)
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak">
 
-                                                    <ul>
+                                                    <ul style="max-height: 300px !important;overflow-y: auto;">
                                                         @php
-                                                                $patient_id = decrypt(@$id);
-                                                                $visit_notes = App\Models\patient\Patient_progress_note::where([
-                                                                        // 'progress_note_canned_text_id' => 6,
-                                                                        'patient_id' => @$patient_id
-                                                                    ])
-                                                                    ->orderBy('id', 'desc')
-                                                                    ->get();
-                                                            @endphp
-                                                            @if ($visit_notes->isEmpty())
-                                                                {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
-                                                            @else
-                                                                @foreach ($visit_notes as $visit)
-                                                                    <li>
-                                                                        <div class="appoin_title">
+                                                            $patient_id = decrypt(@$id);
 
-                                                                            <h6></h6>
+                                                            $Patient_appointments = DB::table('book_appointments')->where('patient_id', $patient_id)->orderBy('start_date', 'desc')->get();
+                                                        @endphp
+                                                        @if ($Patient_appointments->isEmpty())
+                                                            <li><small style="font-size:10px;">No Visit Found</small></li>
+                                                        @else
+                                                            @foreach ($Patient_appointments as $Patient_appointment)
 
-                                                                            <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                            </p>
+                                                                    @php
+                                                                    $doctorName = DB::table('doctors')
+                                                                        ->where('id', $Patient_appointment->doctor_id)
+                                                                        ->first();
+                                                                @endphp
+                                                                <li>
+                                                                    <div class="" >
+
+                                                                        <h6 style="font-size: 14px;">{{ $Patient_appointment->appointment_type }}</h6>
+
+                                                                        <p style="font-size: 15px;"> <span
+                                                                            style="color: #082787; font-weight: bold;">{{ $doctorName->title ?? '' }}
+                                                                        </span> {{ $doctorName->name ?? '' }} ({{ $doctorName->email ?? '' }})</p>
+                                                                        @php
+                                                                            $doctorName = DB::table('doctors')
+                                                                                ->where('id', $Patient_appointment->doctor_id)
+                                                                                ->first();
+                                                                        @endphp
+
+                                                                    </div>
+                                                                    <div class="appoin_date">
+
+                                                                        <div class="read-more-content">
+
+                                                                            @php
+                                                                                $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
+                                                                                $startTime = \Carbon\Carbon::createFromFormat(
+                                                                                    'H:i',
+                                                                                    date('H:i',strtotime($Patient_appointment->start_time)),
+                                                                                );
+                                                                                $startDateTime = $startDate
+                                                                                    ->copy()
+                                                                                    ->setTime($startTime->hour, $startTime->minute);
+                                                                                $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                                                $startDate = $startDateTime->format('l, j F Y');
+                                                                                $startTime = $startDateTime->format('H:i');
+
+                                                                                $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
+                                                                            @endphp
+
+
+                                                                            <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
 
                                                                         </div>
-                                                                        <div class="appoin_date">
+                                                                      
 
-                                                                            <div class="read-more-content">
+                                                                    </div>
 
-                                                                                <p>{{ $visit->day??'0' }} {{ $visit->date??'days' }}</p>
-                                                                                <p>{{$visit->details}}</p>
-
-                                                                            </div>
-                                                                          
-
-                                                                        </div>
-
-                                                                    </li>
-                                                                @endforeach
-                                                            @endif
+                                                                </li>
+                                                            @endforeach
+                                                        @endif
 
                                                     </ul>
                                                 </div>
                                             </div>
-                                            @endif
                                         </div>
                                     </div>
 

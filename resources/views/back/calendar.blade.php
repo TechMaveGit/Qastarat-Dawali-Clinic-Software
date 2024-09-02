@@ -678,7 +678,7 @@
                                         <div class="phnemailadd_pat">
                                             <div class="row">
 
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-6">
                                                     <div class="mb-3 form-group">
                                                         <label for="validationCustom01" class="form-label">Email
                                                             Address</label>
@@ -687,7 +687,41 @@
                                                         <span id="emailError" style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-6">
+
+                                                    <div class="mb-3 form-group">
+
+                                                        <label for="validationCustom01"
+                                                            class="form-label">Paswword</label>
+
+                                                        <input type="password" class="form-control" id=""
+                                                            placeholder="password" name="password">
+                                                        <span id="passwordError"
+                                                            style="color: red;font-size:smaller"></span>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3 form-group">
+                                                        <label for="dialCode" class="form-label">Dial Code</label>
+                                                        <select name="dial_code" class="form-select form-control" id="dialCode">
+                                                            <option value="+968">+968</option>
+                                                            <option value="+973">+973</option>
+                                                            <option value="+966">+966</option>
+                                                        </select>
+
+
+                                                        <span id="dialCodeError"
+                                                            style="color: red;font-size:smaller"></span>
+                                                        <!-- @error('dial_code')
+                                                                <span class="alert alert-danger">{{ $message }}</span>
+                                                            @enderror -->
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
                                                     <div class="mb-3 form-group">
                                                         <label for="validationCustom01" class="form-label">Mobile
                                                             Phone</label>
@@ -705,20 +739,7 @@
                                                 </div>
 
 
-                                                <div class="col-lg-4">
-
-                                                    <div class="mb-3 form-group">
-
-                                                        <label for="validationCustom01"
-                                                            class="form-label">Paswword</label>
-
-                                                        <input type="password" class="form-control" id=""
-                                                            placeholder="password" name="password">
-                                                        <span id="passwordError"
-                                                            style="color: red;font-size:smaller"></span>
-                                                    </div>
-
-                                                </div>
+                                                
 
 
                                                 <div class="col-md-6">
@@ -2397,6 +2418,7 @@ if($(this).val() == "Other"){
                         formData.append('town', $('input[name="town"]').val());
                         formData.append('country', $('select[name="country"]').val());
                         formData.append('email', $('input[name="email"]').val());
+                        formData.append('dial_code', $('input[name="dial_code"]').val());
                         formData.append('mobile_no', $('input[name="mobile_no"]').val());
                         formData.append('password', $('input[name="password"]').val());
                         formData.append('landline', $('input[name="landline"]').val());
@@ -2429,6 +2451,7 @@ if($(this).val() == "Other"){
                                 $('input[name="town"]').val('');
                                 $('select[name="country"]').val('');
                                 $('input[name="email"]').val('');
+                                $('input[name="dial_code"]').val('');
                                 $('input[name="mobile_no"]').val('');
                                 $('input[name="password"]').val('');
 

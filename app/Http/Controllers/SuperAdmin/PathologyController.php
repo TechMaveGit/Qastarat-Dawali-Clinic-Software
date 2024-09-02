@@ -81,7 +81,7 @@ class PathologyController extends Controller
 
         ]);
 
-        $doctor = $req->only(['mobile_no', 'email', 'post_code', 'lab_name', 'status','landline', 'street', 'town', 'country', 'password']);
+        $doctor = $req->only(['dial_code','mobile_no', 'email', 'post_code', 'lab_name', 'status','landline', 'street', 'town', 'country', 'password']);
         $doctor['user_type'] = 'pathology';
         $doctor['doctor_id'] = "PA" . rand('00000', '99999' . '0');
         $doctor['password'] = Hash::make($doctor['password']);

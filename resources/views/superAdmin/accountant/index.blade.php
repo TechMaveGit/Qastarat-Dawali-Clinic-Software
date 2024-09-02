@@ -98,7 +98,7 @@
                  </div>
                  </div>
                 </td>
-                <td>{{ $allaccountant->mobile_no}}</td>
+                <td>{{ $allaccountant->dial_code}} {{ $allaccountant->mobile_no}}</td>
                 <td>{{ $allaccountant->email}}</td>
                 <td>{{ $allaccountant->post_code}}</td>
                 <td>

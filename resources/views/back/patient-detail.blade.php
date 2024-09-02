@@ -237,7 +237,7 @@ if (!empty($patient->birth_date ?? '')) {
 
                                     <div class="data_pt">
 
-                                        <h6 id="data_pt_mobile">{{ @$patient->mobile_no }}</h6>
+                                        <h6 id="data_pt_mobile">{{ @$patient->dial_code }} {{ @$patient->mobile_no }}</h6>
 
                                     </div>
 
@@ -849,6 +849,7 @@ if (!empty($patient->birth_date ?? '')) {
                                 .patient_profile_img : '';
                             let role = data.patient_info.role ? data.patient_info.role : '';
                             let post_code = data.patient_info.post_code ? data.patient_info.post_code : '';
+                            let dial_code = data.patient_info.dial_code ? data.patient_info.dial_code : '';
                             let mobile_no = data.patient_info.mobile_no ? data.patient_info.mobile_no : '';
                             let birth_date = data.patient_info.birth_date ? data.patient_info.birth_date : '';
                             let selectedGendar = data.patient_info.gendar ? data.patient_info.gendar : '';
@@ -906,6 +907,7 @@ if (!empty($patient->birth_date ?? '')) {
 
                             $("#patient_email").val(email);
                             $("#patient_mobile_no").val(mobile_no);
+                            $("#patient_dialCode").val(dial_code);
                             $("#patient_landline").val(landline);
                             $("#patient_kin").val(kin);
                             $("#patient_policy_no").val(policy_no);
@@ -940,7 +942,7 @@ if (!empty($patient->birth_date ?? '')) {
                             $("#data_pt_dob").text(birth_date);
                             $("#data_pt_gendar").text(selectedGendar);
 
-                            $("#data_pt_mobile").text(mobile_no);
+                            $("#data_pt_mobile").text(dial_code+' '+mobile_no);
                             $("#data_pt_landline").text(landline);
                             $("#data_pt_street").text(street);
                             $("#data_pt_town").text(town);

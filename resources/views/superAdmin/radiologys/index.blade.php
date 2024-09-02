@@ -62,7 +62,7 @@
                                                             <td>{{ $key + 1 }}</td>
                                                             <td>{{ $allRadiologys->lab_name }}</td>
                                                             <td>{{ $allRadiologys->email }}</td>
-                                                            <td>{{ $allRadiologys->mobile_no }}</td>
+                                                            <td>{{ $allRadiologys->dial_code }} {{ $allRadiologys->mobile_no }}</td>
                                                             <td>{{ $allRadiologys->landline }}</td>
                                                             <td>{{ $allRadiologys->street }}</td>
 
@@ -77,7 +77,7 @@
                                                             <td>
                                                                 <ul class="action_icons">
                                                                     <li>
-                                                                        <a onclick="editForm('{{ $allRadiologys->id }}','{{ $allRadiologys->lab_name }}','{{ $allRadiologys->email }}','{{ $allRadiologys->mobile_no }}','{{ $allRadiologys->landline }}','{{ $allRadiologys->post_code }}','{{ $allRadiologys->street }}','{{ $allRadiologys->town }}','{{ $allRadiologys->status }}')"
+                                                                        <a onclick="editForm('{{ $allRadiologys->id }}','{{ $allRadiologys->lab_name }}','{{ $allRadiologys->email }}','{{$allRadiologys->dial_code}}','{{ $allRadiologys->mobile_no }}','{{ $allRadiologys->landline }}','{{ $allRadiologys->post_code }}','{{ $allRadiologys->street }}','{{ $allRadiologys->town }}','{{ $allRadiologys->status }}')"
                                                                             class="waves-effect waves-light btn btn-rounded btn-warning-light"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                                                     </li>
                                                                 </ul>
@@ -164,6 +164,31 @@
                             </div>
 
 
+                            
+    
+
+
+
+                            <div class="col-lg-6">
+                                <div class="mb-3 form-group">
+                                    <label for="dialCode" class="form-label">Dial Code</label>
+                                    <select name="dial_code" class="form-select form-control" id="dialCode">
+                                        <option value="+968">+968</option>
+                                        <option value="+973">+973</option>
+                                        <option value="+966">+966</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Mobile Phone</label>
+                                    <input type="text" name="mobile_no" id="mobile_no" class="form-control"
+                                        placeholder="">
+                                        @error('mobile_no')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Add Branch</label>    
@@ -179,21 +204,6 @@
                                     </select>
                                 </div>
                             <!-- /.form-group -->
-                            </div>
-    
-
-
-
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Mobile Phone</label>
-                                    <input type="text" name="mobile_no" id="mobile_no" class="form-control"
-                                        placeholder="">
-                                        @error('mobile_no')
-                                        <span class="error text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -351,7 +361,16 @@
 
 
 
-
+                            <div class="col-lg-6">
+                                <div class="mb-3 form-group">
+                                    <label for="dialCode" class="form-label">Dial Code</label>
+                                    <select name="dial_code" class="form-select form-control" id="dialCode1">
+                                        <option value="+968">+968</option>
+                                        <option value="+973">+973</option>
+                                        <option value="+966">+966</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Mobile Phone<span class="clr">*</span></label>
@@ -428,10 +447,11 @@
             $("#add_lab").modal('show');
         }
 
-        function editForm(id, lab_name, email, mobile_phone, landline, post_code, street, town,status) {
+        function editForm(id, lab_name, email,dial_code, mobile_phone, landline, post_code, street, town,status) {
             $('#id').val(id);
             $('#lab_name').val(lab_name);
             $('#email').val(email);
+            $('#dialCode').val(dial_code);
             $('#mobile_no').val(mobile_phone);
             $('#landline').val(landline);
             $('#post_code').val(post_code);

@@ -253,7 +253,7 @@
 
                                             </td>
 
-                                            <td>{{ $allUsers->mobile_no }}</td>
+                                            <td>{{ $allUsers->dial_code }} {{ $allUsers->mobile_no }}</td>
 
                                             <td>{{ $allUsers->email }}</td>
 

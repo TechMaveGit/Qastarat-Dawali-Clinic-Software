@@ -254,7 +254,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Email Address<span class="clr"> *
                                                     </span></label>
@@ -268,7 +268,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Password <span class="clr">*</span></label>
                                                 <div class="wrap-input">
@@ -284,7 +284,17 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3 form-group">
+                                                <label for="dialCode" class="form-label">Dial Code</label>
+                                                <select name="dial_code" class="form-select form-control" id="dialCode">
+                                                    <option  value="+968">+968</option>
+                                                    <option  value="+973">+973</option>
+                                                    <option value="+966">+966</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label class="form-label">Mobile Phone </label>
                                                 <input type="tel" name="mobile_no" value="{{ old('mobile_no') }}"
@@ -297,7 +307,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label class="form-label">Landline</label>
                                                 <input type="tel" name="landline" value="{{ old('landline') }}"

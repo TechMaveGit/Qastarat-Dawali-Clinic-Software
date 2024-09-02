@@ -2066,6 +2066,7 @@ class PatientController extends Controller
             ],
             'post_code' => 'numeric',
             'landline' => 'numeric',
+            'dial_code' => 'numeric',
             'mobile_no' => [
                 'numeric',
                 Rule::unique('users')->ignore($patientId),
@@ -2110,6 +2111,7 @@ class PatientController extends Controller
         $patient_info->post_code = $patient_post_code ?? '';
         $patient_info->street = $patient_street ?? '';
         $patient_info->town = $patient_town ?? '';
+        $patient_info->dial_code = $data['dial_code'] ?? '+968';
         if (!$userMobExists) {
             $patient_info->mobile_no = $patient_mobile_no ?? '';
         }
@@ -2203,6 +2205,7 @@ class PatientController extends Controller
             'password' => !empty($request->password) ? Hash::make($request->password) : null,
             'email' => !empty($request->email) ? $request->email : null,
             'mobile_no' => !empty($request->mobile_no) ? $request->mobile_no : null,
+            'dial_code' => !empty($request->dial_code) ? $request->dial_code : '+968',
             'gendar' =>  !empty($request->gender) ? $request->gender : null,
             'doctor_id' =>  !empty($request->doctor_id) ? $request->doctor_id : null,
             'landline' => !empty($request->landline) ? $request->landline : null,
@@ -2298,6 +2301,7 @@ class PatientController extends Controller
                         'street' => $patient->street,
                         'email' => $patient->email ?? '--',
                         'post_code' => $patient->post_code ?? '--',
+                        'dial_code' => $patient->dial_code,
                         'mobile_no' => $patient->mobile_no,
                         'patient_id' => $patient->patient_id,
                     ];
@@ -2341,6 +2345,7 @@ class PatientController extends Controller
                         'email' => $patient->email ?? '--',
                         'post_code' => $patient->post_code ?? '--',
                         'mobile_no' => $patient->mobile_no,
+                        'dial_code' => $patient->dial_code,
                         'patient_id' => $patient->patient_id,
                     ];
                 }
@@ -2386,6 +2391,7 @@ class PatientController extends Controller
                         'email' => $patient->email ?? '--',
                         'post_code' => $patient->post_code ?? '--',
                         'mobile_no' => $patient->mobile_no,
+                        'dial_code' => $patient->dial_code,
                         'patient_id' => $patient->patient_id,
                     ];
                 }

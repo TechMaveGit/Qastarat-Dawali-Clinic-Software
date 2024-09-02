@@ -2267,6 +2267,7 @@
                                             .patient_profile_img : '';
                                         let role = data.patient_info.role ? data.patient_info.role : '';
                                         let post_code = data.patient_info.post_code ? data.patient_info.post_code : '';
+                                        let dial_code = data.patient_info.dial_code ? data.patient_info.dial_code : '';
                                         let mobile_no = data.patient_info.mobile_no ? data.patient_info.mobile_no : '';
                                         let birth_date = data.patient_info.birth_date ? data.patient_info.birth_date : '';
                                         let selectedGendar = data.patient_info.gendar ? data.patient_info.gendar : '';
@@ -2308,6 +2309,7 @@
                                         });
                                         $('#patient_country').val(selectedCountry).trigger('change.select2');
                                         $("#patient_email").val(email);
+                                        $("#patient_dialCode").val(dial_code);
                                         $("#patient_mobile_no").val(mobile_no);
                                         $("#patient_landline").val(landline);
                                         $("#patient_kin").val(kin);
@@ -2337,7 +2339,7 @@
                                         $("#data_pt_dob").text(birth_date);
                                         $("#data_pt_gendar").text(selectedGendar);
                 
-                                        $("#data_pt_mobile").text(mobile_no);
+                                        $("#data_pt_mobile").text(dial_code+' '+mobile_no);
                                         $("#data_pt_landline").text(landline);
                                         $("#data_pt_street").text(street);
                                         $("#data_pt_town").text(town);

@@ -225,7 +225,7 @@
 
                             <div class="data_pt">
 
-                                <h6 id="data_pt_mobile">{{ @$patient->mobile_no }}</h6>
+                                <h6 id="data_pt_mobile">{{ @$patient->dial_code }} {{ @$patient->mobile_no }}</h6>
 
                             </div>
 
@@ -835,7 +835,7 @@
 
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
 
                                         <div class="mb-3 form-group">
 
@@ -847,8 +847,32 @@
                                         </div>
 
                                     </div>
+                                    <div class="col-lg-6">
 
-                                    <div class="col-lg-4">
+                                        <div class="mb-3 form-group">
+
+                                            <label for="validationCustom01" class="form-label">Paswword</label>
+
+                                            <input type="password" class="form-control" id=""
+                                                placeholder="password" name="password">
+                                            <span id="passwordError" style="color: red;font-size:smaller"></span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3 form-group">
+                                            <label for="dialCode" class="form-label">Dial Code</label>
+                                            <select name="dial_code" class="form-select form-control" id="dialCode">
+                                                <option value="+968">+968</option>
+                                                <option value="+973">+973</option>
+                                                <option value="+966">+966</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
 
                                         <div class="mb-3 form-group">
 
@@ -862,18 +886,7 @@
                                     </div>
 
 
-                                    <div class="col-lg-4">
-
-                                        <div class="mb-3 form-group">
-
-                                            <label for="validationCustom01" class="form-label">Paswword</label>
-
-                                            <input type="password" class="form-control" id=""
-                                                placeholder="password" name="password">
-                                            <span id="passwordError" style="color: red;font-size:smaller"></span>
-                                        </div>
-
-                                    </div>
+                                    
 
                                 </div>
 

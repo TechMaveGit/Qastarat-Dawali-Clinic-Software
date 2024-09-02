@@ -21,12 +21,12 @@ class NurseController extends Controller
   
     
         if ($userType->user_type == 'nurse') {
-            $thyroidDiagnosesData =User::select('id','patient_id','name','mobile_no','created_at')->with('thyroidDiagnoses')
+            $thyroidDiagnosesData =User::select('id','patient_id','name','dial_code','mobile_no','created_at')->with('thyroidDiagnoses')
                                         ->whereHas('thyroidDiagnoses', function ($query) use ($doctorIds) {
                                             $query->whereIn('doctor_id', $doctorIds);
                                         })
                                      ->get();
-      $usersWithThyroidDiagnoses = User::select('id', 'patient_id', 'name', 'mobile_no', 'created_at')
+      $usersWithThyroidDiagnoses = User::select('id', 'patient_id', 'name', 'dial_code','mobile_no', 'created_at')
                                      ->with(['thyroidDiagnoses' => function ($query) use ($doctorIds, $today) {
                                          $query->whereIn('doctor_id', $doctorIds)
                                              ->whereDate('created_at', $today);

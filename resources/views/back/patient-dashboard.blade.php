@@ -676,7 +676,7 @@
 
                                         <div class="data_pt">
 
-                                            <h6 id="data_pt_mobile">{{ @$patient->mobile_no }}</h6>
+                                            <h6 id="data_pt_mobile">{{ @$patient->dial_code??'+968' }} {{ @$patient->mobile_no }}</h6>
 
                                         </div>
 
@@ -1360,7 +1360,7 @@
 
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
 
                                         <div class="mb-3 form-group">
 
@@ -1375,8 +1375,32 @@
                                         </div>
 
                                     </div>
+                                    <div class="col-lg-6">
 
-                                    <div class="col-lg-4">
+                                        <div class="mb-3 form-group">
+
+                                            <label for="validationCustom01" class="form-label">Password</label>
+
+                                            <input type="password" class="form-control" id=""
+                                                placeholder="password" name="password">
+                                            <span id="passwordError" style="color: red;font-size:smaller"></span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3 form-group">
+                                            <label for="dialCode" class="form-label">Dial Code</label>
+                                            <select name="dial_code" class="form-select form-control" id="dialCode">
+                                                <option  value="+968">+968</option>
+                                                <option  value="+973">+973</option>
+                                                <option value="+966">+966</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
 
                                         <div class="mb-3 form-group">
 
@@ -1393,18 +1417,7 @@
                                     </div>
 
 
-                                    <div class="col-lg-4">
-
-                                        <div class="mb-3 form-group">
-
-                                            <label for="validationCustom01" class="form-label">Password</label>
-
-                                            <input type="password" class="form-control" id=""
-                                                placeholder="password" name="password">
-                                            <span id="passwordError" style="color: red;font-size:smaller"></span>
-                                        </div>
-
-                                    </div>
+                                    
 
                                 </div>
 
@@ -1810,6 +1823,18 @@
 
                                         </div>
 
+                                    </div>
+
+
+                                    <div class="col-lg-4">
+                                        <div class="mb-3 form-group">
+                                            <label for="dialCode" class="form-label">Dial Code</label>
+                                            <select name="dial_code" class="form-select form-control" id="patient_dialCode">
+                                                <option value="+968">+968</option>
+                                                <option value="+973">+973</option>
+                                                <option value="+966">+966</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="col-lg-4">
@@ -10184,6 +10209,7 @@
                             .patient_profile_img : '';
                         let role = data.patient_info.role ? data.patient_info.role : '';
                         let post_code = data.patient_info.post_code ? data.patient_info.post_code : '';
+                        let dial_code = data.patient_info.dial_code ? data.patient_info.dial_code : '';
                         let mobile_no = data.patient_info.mobile_no ? data.patient_info.mobile_no : '';
                         let birth_date = data.patient_info.birth_date ? data.patient_info.birth_date : '';
                         let selectedGendar = data.patient_info.gendar ? data.patient_info.gendar : '';
@@ -10226,6 +10252,7 @@
                         $('#patient_country').val(selectedCountry).trigger('change.select2');
                         $("#patient_email").val(email);
                         $("#patient_mobile_no").val(mobile_no);
+                        $("#patient_dialCode").val(dial_code);
                         $("#patient_landline").val(landline);
                         $("#patient_kin").val(kin);
                         $("#patient_policy_no").val(policy_no);
@@ -10254,7 +10281,7 @@
                         $("#data_pt_dob").text(birth_date);
                         $("#data_pt_gendar").text(selectedGendar);
 
-                        $("#data_pt_mobile").text(mobile_no);
+                        $("#data_pt_mobile").text(dial_code+' '+mobile_no);
                         $("#data_pt_landline").text(landline);
                         $("#data_pt_street").text(street);
                         $("#data_pt_town").text(town);

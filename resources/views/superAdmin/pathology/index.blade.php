@@ -64,7 +64,7 @@
                                                             <td>{{ $key + 1 }}</td>
                                                             <td>{{ $allpathologys->lab_name }}</td>
                                                             <td>{{ $allpathologys->email }}</td>
-                                                            <td>{{ $allpathologys->mobile_no }}</td>
+                                                            <td>{{ $allpathologys->dial_code }} {{ $allpathologys->mobile_no }}</td>
                                                             <td>{{ $allpathologys->landline }}</td>
                                                             <td>{{ $allpathologys->street }}</td>
                                                                 
@@ -93,6 +93,7 @@
                                                                             '{{ $allpathologys->id }}',
                                                                             `{{ $allpathologys->lab_name ?? '' }}`,
                                                                             `{{ $allpathologys->email ?? '' }}`,
+                                                                            `{{ $allpathologys->dial_code ?? '' }}`,
                                                                             `{{ $allpathologys->mobile_no ?? '' }}`,
                                                                             `{{ $allpathologys->landline ?? '' }}`,
                                                                             '{{ $allpathologys->post_code }}',
@@ -194,7 +195,7 @@
 
 
                         
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label class="form-label">Add Branch</label>    
 
@@ -210,9 +211,18 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-2">
+                            <div class="mb-3 form-group">
+                                <label for="dialCode" class="form-label">Dial Code</label>
+                                <select name="dial_code" class="form-select form-control" id="dialCode">
+                                    <option value="+968">+968</option>
+                                    <option value="+973">+973</option>
+                                    <option value="+966">+966</option>
+                                </select>
+                            </div>
+                        </div>
 
-
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label class="form-label">Mobile Phone <span class="clr">*</span></label>
                                 <input type="text" name="mobile_no" id="mobile_no" class="form-control"
@@ -222,7 +232,7 @@
                             @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Landline <span class="clr">*</span></label>
                                 <input type="text" name="landline" id="landline" class="form-control" placeholder="" required>
@@ -231,7 +241,7 @@
                             @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Country</label>
                                 <!-- <select class="" name="country" id="countries" style="width: 100%;"> -->
@@ -246,7 +256,7 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Post Code</label>
                                 <input type="text" name="post_code" id="post_code" class="form-control" placeholder="" minlength="4" maxlength="8">
@@ -303,7 +313,7 @@
 
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">   
                                     <label class="form-label">Lab Name<span class="clr">*</span></label>
                                     <input type="text" name="lab_name" id="lab_name1" class="form-control" placeholder="" required value="{{ old('lab_name') }}">
@@ -338,7 +348,18 @@
                             </div>
 
 
-                            <div class="col-md-6">
+                            <div class="col-lg-2">
+                                <div class="mb-3 form-group">
+                                    <label for="dialCode" class="form-label">Dial Code</label>
+                                    <select name="dial_code" class="form-select form-control" id="dialCode1">
+                                        <option value="+968">+968</option>
+                                        <option value="+973">+973</option>
+                                        <option value="+966">+966</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="form-label">Mobile Phone<span class="clr">*</span></label>
                                     <input type="text" name="mobile_no" id="mobile_no1" class="form-control" placeholder="" value="{{ old('mobile_no') }}" minlength="10" maxlength="15">
@@ -349,7 +370,7 @@
                             </div>
 
 
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="form-label">Add Branch</label>
     
@@ -450,13 +471,14 @@
             $("#add_lab").modal('show');
         }
 
-        function editForm(id, lab_name, email, mobile_phone, landline, post_code, street, town , status , branch) 
+        function editForm(id, lab_name, email, dial_code,mobile_phone, landline, post_code, street, town , status , branch) 
         {
              console.log(branch);
             $('#id').val(id);
             $('#lab_name').val(lab_name);
             $('#email').val(email);
             $('#mobile_no').val(mobile_phone);
+            $('#dialCode').val(dial_code);
             $('#landline').val(landline);
             $('#post_code').val(post_code);
             $('#street').val(street);
