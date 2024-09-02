@@ -16,19 +16,21 @@ class InvoiceController extends Controller
         $user = Auth::guard('web')->user();
         if ($user) {
             $user = $user->id;
-            $data['toInvocie'] = DB::table('tasks')->where('patient_id', $user)->where('deleteStaus', '1')->where('toInvoiceStatus', '0')->get();
+            $data['toInvocie'] = DB::table('tasks')->where('deleteStatus', '0')->where('patient_id', $user)->where('toInvoiceStatus', '0')->get();
         }
 
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $id = Crypt::decrypt($id);
-            $data['toInvocie'] = DB::table('tasks')->where('patient_id', $id)->where('deleteStaus', '1')->where('toInvoiceStatus', '0')->get();
+            $data['toInvocie'] = DB::table('tasks')->where('deleteStatus', '0')->where('patient_id', $id)->where('toInvoiceStatus', '0')->get();
         } else {
-            $data['toInvocie'] = DB::table('tasks')->where('deleteStaus', '1')->where('toInvoiceStatus', '0')->get();
+            $data['toInvocie'] = DB::table('tasks')->where('deleteStatus', '0')->where('toInvoiceStatus', '0')->get();
         }
 
+        $data['toInvocieDeleted'] = DB::table('tasks')->where('deleteStatus', '1')->where('toInvoiceStatus', '0')->get();
+
         $checkDoctor = Auth::guard('doctor')->user();
-        // $data['toInvocie'] = DB::table('tasks')->orderBy('id','DESC')->where('deleteStaus','1')->where('toInvoiceStatus','0');
+        // $data['toInvocie'] = DB::table('tasks')->orderBy('id','DESC')->where('toInvoiceStatus','0');
         // $data['toInvocie']=$data['toInvocie']->get();
 
 
@@ -37,7 +39,7 @@ class InvoiceController extends Controller
         $data['PaymentType'] = $request->input('PaymentType');
 
         $data['allInvoice'] = Invoice::with(['tasks' => function($query) {
-            $query->where('deleteStaus', '1')->where('toInvoiceStatus', '1');
+            $query->where('toInvoiceStatus', '1')->where('deleteStatus', '0');
         }]);
         
         if (isset($_GET['id'])) {
@@ -95,9 +97,8 @@ class InvoiceController extends Controller
 
     public function deleteInvoice(Request $request)
     {
-
         $id = $request->input('common');
-        DB::table('tasks')->where('id', $id)->delete();
+        DB::table('tasks')->where('id', $id)->update(['deleteStatus'=>'1']);
         return redirect()->route('user.invoice')->with('success', 'Invoice Deleted Successfully');
     }
 }

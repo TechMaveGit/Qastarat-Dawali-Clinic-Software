@@ -524,6 +524,12 @@
                                 <span class=" d-sm-block">Stats</span>
                             </a>
                         </li>
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link ft_buttonshoover" data-bs-toggle="tab" href="#archive-1" role="tab">
+                                <span class="d-block "><iconify-icon icon="material-symbols:delete"></iconify-icon></span>
+                                <span class=" d-sm-block">Archived</span>
+                            </a>
+                        </li>
                         <!-- <li class="nav-item waves-effect waves-light">
                                                    <a class="nav-link ft_buttonshoover" data-bs-toggle="tab" href="#settings-1" role="tab">
                                                    <span class="d-block"><iconify-icon icon="tabler:send-off"></iconify-icon></span>
@@ -1143,8 +1149,7 @@
                                             </select> 
                                             </div>
                                             <div class="col-lg-4">
-                                            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" style="border-color: #636674 !important;
-    background-color: #636674 !important;">
+                                            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" style="border-color: #636674 !important;background-color: #636674 !important;">
 
                                                 <iconify-icon icon="bi:save"></iconify-icon> Filter
 
@@ -1186,6 +1191,82 @@
                     </div>
                 </div>
 
+
+                <div class="tab-pane" id="archive-1" role="tabpanel">
+                    <div class="row">
+                        <div class="customblck_card bggredient">
+
+                            <div class="blcard_body">
+                                <div class="datatable-container allinvoice_table custom_table_area invoicing_table">
+                                    <table id="allinvoice_table" class="display">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Item</th>
+                                                <th scope="col">Item No.</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Cost</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @forelse ($toInvocieDeleted as $key=>$alltaskInvoice)
+                                                @php
+                                                    $pathology_price_list = DB::table('pathology_price_list')->where(
+                                                        'id',
+                                                        $alltaskInvoice->task,
+                                                    );
+                                                    $pathology_price_list = $pathology_price_list->first();
+                                                    $patient = DB::table('users')
+                                                        ->where('id', $alltaskInvoice->patient_id)
+                                                        ->first();
+
+                                                @endphp
+                                                <tr>
+                                                    <td data-title="Item">
+                                                        <div class="item_details_tb">
+                                                            <h2>{{ $pathology_price_list->test_name ?? 'Appointment' }}
+
+                                                            @if ($alltaskInvoice->appoinment_date)
+                                                            <span class="taskDate" style="color: #19276d;">{{$alltaskInvoice->appoinment_date}}</span>
+                                                                
+                                                            @endif
+                                                            </h2>
+                                                            <span>{{ $patient->name ?? '' }} | Email:
+                                                                <a
+                                                                    href="mailto:{{ $patient->email ?? '' }}">{{ $patient->email ?? '' }}</a>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>{{ $alltaskInvoice->invoiceNumber }}</td>
+
+                                                    <td data-title="Date">
+                                                        {{ \Carbon\Carbon::parse($alltaskInvoice->created_at)->format('M d, Y') }}
+
+                                                    </td>
+                                                    @php
+                                                        $amount = DB::table('pathology_price_list')
+                                                            ->whereId($alltaskInvoice->task)
+                                                            ->first();
+                                                    @endphp
+                                                    <td data-title="Cost">
+                                                        <div class="discount_inputvt">
+                                                            {{ $amount->price??'0' }}
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
