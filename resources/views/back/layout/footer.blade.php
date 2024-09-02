@@ -152,14 +152,13 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title" id="exampleModalLabel"><i class="fa-regular fa-square-plus"></i> Pre-prepared
-                    Text Snippets </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                        class="fa-solid fa-xmark"></i></button>
+                <h1 class="modal-title" id="exampleModalLabel"><i class="fa-regular fa-square-plus"></i> Pre-prepared Text Snippets </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body padding-0">
                 {{-- <form action="{{ route('user.save_patient_note') }}" method="post" /> @csrf --}}
-                <form id="savePatientNote" method="POST" enctype="multipart/form-data"> @csrf
+                <form id="savePatientNote" method="POST" enctype="multipart/form-data"> 
+                    @csrf
                     <div class="inner_data">
                         <div class="row">
                             <div class="col-lg-12">
@@ -208,48 +207,32 @@
                                                 <div class="d-flex">
                                                     <div class="inner_element w-100">
                                                         <div class="form-group">
-                                                            <input type="text" name="newContext"
+                                                            <input type="text" required name="newContext"
                                                                 class="form-control"
-                                                                placeholder="Type a new context">
+                                                                placeholder="Type a new context *">
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="d-flex">
                                                     <div class="inner_element w-100">
                                                         <div class="form-group">
-                                                            <input type="text" name="snippetText"
+                                                            <input type="text" required name="snippetText"
                                                                 class="form-control"
-                                                                placeholder="Give your Snippet Title">
+                                                                placeholder="Give your Snippet Title *">
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                             </div>
-
-
-
                                             <div class="col-lg-12">
                                                 <div class="mt-2 form-group">
-                                                    <textarea class="form-control" name="snippetDescription" id="textareaSummary"  placeholder="Type or paste in your text snippet here.."
+                                                    <textarea class="form-control" required name="snippetDescription" id="textareaSummary"  placeholder="Type or paste in your text snippet here.."
                                                         style="height:100px"></textarea>
                                                 </div>
-
-
                                             </div>
-
-
-
-
                                         </div>
                                     </div>
-
-
-
                                 </div>
 
                             </div>
@@ -4303,7 +4286,7 @@
                                                 <div class="mt-2 form-group">
 
                                                     <textarea class="form-control" id="summerynote" placeholder="Type your summary here" style="height:100px"
-                                                        name="summerynote"></textarea>
+                                                        name="summerynote1"></textarea>
                                                     <span id="summerynoteError"
                                                         style="color: red; font-size:small"></span>
 
