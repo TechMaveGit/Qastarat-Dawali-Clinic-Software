@@ -4286,7 +4286,7 @@
                                                 <div class="mt-2 form-group">
 
                                                     <textarea class="form-control" id="summerynote" placeholder="Type your summary here" style="height:100px"
-                                                        name="summerynote1"></textarea>
+                                                        name="summerynote"></textarea>
                                                     <span id="summerynoteError"
                                                         style="color: red; font-size:small"></span>
 
@@ -6259,7 +6259,7 @@
                                                 <select class="form-control select2_appoin_ttype__"
                                                     name="appointment_type" required>
 
-                                                    <option value=""> --Select Appoinment  ss Type-- </option>
+                                                    <option value=""> --Select Appoinment Type-- </option>
                                                     @foreach ($pathology_price_list as $allpathology_price_list)
                                                         @if (!empty($allpathology_price_list))
                                                             <option
