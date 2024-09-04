@@ -22,7 +22,7 @@
 </div>
 <!-- ./wrapper -->
 	
-	
+
 	
 	
 	<!-- Vendor JS -->
@@ -56,6 +56,7 @@
 	<script src="{{ asset('/superAdmin/js/pages/data-table.js')}}"></script>
 	<script src="{{ asset('/superAdmin/js/pages/data-table.js')}}"></script>
     <script src="{{ asset('/superAdmin/js/pages/advanced-form-element.js')}}"></script>
+    
        <!-- sumoselect -->
    <script src="{{ asset('/superAdmin/js/jquery.sumoselect.min.js')}}"></script>
   <script>
@@ -65,6 +66,7 @@
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js')}}"></script>
     <script>
       $('.dropify').dropify();
+      
     </script>
 
     <!-- county list select 2 -->
