@@ -50,9 +50,6 @@
              </tr>
          </thead>
          <tbody>
-
-
-
             @forelse ($snippets as $key=>$allsnippets)
             @php
               $allTemplate = DB::table('progress_note_canned_text')->where('id',$allsnippets->progress_note_canned_text_id)->first();
