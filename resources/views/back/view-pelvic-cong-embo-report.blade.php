@@ -1493,11 +1493,11 @@
                                                                                         
                                                                                         
                                                                                         @elseif (isset($sum) && ($sum >= 16 && $sum <= 35))
-                                                                                        <p class="ss_result">Moderate LUTS
+                                                                                        <p class="ss_result">Moderate 
                                                                                             (16-35 pts)</p>
                                                                                         
                                                                                             @elseif (isset($sum) && ($sum >= 36 && $sum <= 1009))
-                                                                                        <p class="ss_result">Severe LUTS
+                                                                                        <p class="ss_result">Severe 
                                                                                             (36-50 pts)</p>
                                                                                     @endif
 

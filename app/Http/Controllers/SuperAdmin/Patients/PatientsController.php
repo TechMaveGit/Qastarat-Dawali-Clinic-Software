@@ -44,6 +44,8 @@ class PatientsController extends Controller
         $data['users'] = $patient->orderBy('id', 'DESC')->select('id','status','doctor_id','patient_id','name','dial_code','mobile_no','email','post_code','patient_profile_img')->get();
         $data['branchs'] = DB::table('branchs')->get();
         $data['doctors'] = DB::table('doctors')->where('user_type','doctor')->get();
+
+        $data['countryCode'] = DB::table('dial_codes')->where('status', '1')->get();
         return view('superAdmin.patient.index', $data);
     }
 
@@ -51,6 +53,7 @@ class PatientsController extends Controller
     {
         $data['doctors'] = DB::table('doctors')->where('status','active')->where('user_type','doctor')->get();
         $data['branchs'] = DB::table('branchs')->where('status','1')->get();
+        $data['countryCode'] = DB::table('dial_codes')->where('status', '1')->get();
         return view('superAdmin.patient.create', $data);
     }
 
@@ -370,6 +373,7 @@ class PatientsController extends Controller
         }
 
         $data['doctors']=Doctor::where('user_type','doctor')->get();
+        $data['countryCode'] = DB::table('dial_codes')->where('status', '1')->get();
         return view('superAdmin.patient.edit', $data);
     }
 }

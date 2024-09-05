@@ -1363,11 +1363,11 @@
                                                                 // Determine the severity based on the score
                                                                 $severity = '';
                                                                 if ($score >= 0 && $score <= 7) {
-                                                                    $severity = 'Mild LUTS';
+                                                                    $severity = 'Mild ';
                                                                 } elseif ($score >= 8 && $score <= 19) {
-                                                                    $severity = 'Moderate LUTS (PAE FAVORABLE)';
+                                                                    $severity = 'Moderate  (PAE FAVORABLE)';
                                                                 } elseif ($score >= 20 && $score <= 35) {
-                                                                    $severity = 'Severe LUTS (PAE FAVORABLE)';
+                                                                    $severity = 'Severe  (PAE FAVORABLE)';
                                                                 }
 
                                                             @endphp

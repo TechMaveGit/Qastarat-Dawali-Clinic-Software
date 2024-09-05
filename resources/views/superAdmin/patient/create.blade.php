@@ -223,7 +223,7 @@
                                     </div>
 
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Password <span class="clr">*</span></label>
                                             <div class="wrap-input">
@@ -240,13 +240,15 @@
                                     </div>
 
 
-                                    <div class="col-lg-1">
+                                    <div class="col-lg-2">
                                         <div class="mb-3 form-group">
                                             <label for="dialCode" class="form-label">Dial Code</label>
-                                            <select name="dial_code" class="form-select form-control" id="dialCode">
-                                                <option value="+968">+968</option>
-                                                <option value="+973">+973</option>
-                                                <option value="+966">+966</option>
+                                            <select id="dialCode" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                                @foreach ($countryCode as $countryCodes)
+                                                    <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                                        {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -508,5 +510,6 @@
 <script>
             
 </script>
+
 
 @endsection
