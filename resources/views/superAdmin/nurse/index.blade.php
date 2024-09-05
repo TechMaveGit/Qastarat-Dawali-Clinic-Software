@@ -189,11 +189,14 @@
 
                                             <td>
                                                 <span class="branchcls" style="color: #74afe7;">
+                                                    
                                                     @forelse ($allnurse->staffBranch as $getbranchName)
 
                                                     @if ($getbranchName->branch_type!='patient')
+                                                    @if(strtolower($allnurse->user_type) == strtolower($getbranchName->branch_type))
                                                     <span>{{ $getbranchName->userBranchName->branch_name??'' }}</span>
 
+                                                    @endif
                                                     @endif
 
                                                     @empty

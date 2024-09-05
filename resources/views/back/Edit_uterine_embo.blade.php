@@ -1619,11 +1619,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Vaginal][]" id="formRadiosRight42"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Vaginal'][0]) && $clinical_indicators['Vaginal'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Vaginal'][0]) && $clinical_indicators['Vaginal'][0] == 'Yes' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1631,10 +1631,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Vaginal][]" id="formRadiosRight43"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['Vaginal'][0]) && $clinical_indicators['Vaginal'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['Vaginal'][0]) && $clinical_indicators['Vaginal'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1648,10 +1648,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Uterine][]" id="formRadiosRight44"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Uterine'][0]) && $clinical_indicators['Uterine'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Uterine'][0]) && $clinical_indicators['Uterine'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1659,10 +1659,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Uterine][]" id="formRadiosRight45"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['Uterine'][0]) && $clinical_indicators['Uterine'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['Uterine'][0]) && $clinical_indicators['Uterine'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1676,10 +1676,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Painfulintercorse][]" id="formRadiosRight46"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Painfulintercorse'][0]) && $clinical_indicators['Painfulintercorse'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Painfulintercorse'][0]) && $clinical_indicators['Painfulintercorse'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1687,10 +1687,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Painfulintercorse][]" id="formRadiosRight47"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['Painfulintercorse'][0]) && $clinical_indicators['Painfulintercorse'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['Painfulintercorse'][0]) && $clinical_indicators['Painfulintercorse'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1703,10 +1703,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Recurrentabortion][]" id="formRadiosRight46"
-                                                        {{ isset($clinical_indicators['Recurrentabortion'][0]) && $clinical_indicators['Recurrentabortion'][0] == 'YES' ? 'checked' : '' }}
-                                                        value="YES">
+                                                        {{ isset($clinical_indicators['Recurrentabortion'][0]) && $clinical_indicators['Recurrentabortion'][0] == 'Yes' ? 'checked' : '' }}
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1714,10 +1714,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Recurrentabortion][]" id="formRadiosRight47"
-                                                        {{ isset($clinical_indicators['Recurrentabortion'][0]) && $clinical_indicators['Recurrentabortion'][0] == 'NO' ? 'checked' : '' }}
-                                                        value="NO">
+                                                        {{ isset($clinical_indicators['Recurrentabortion'][0]) && $clinical_indicators['Recurrentabortion'][0] == 'No' ? 'checked' : '' }}
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1731,10 +1731,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[injections][]" id="formRadiosRight46"
-                                                        {{ isset($clinical_indicators['injections'][0]) && $clinical_indicators['injections'][0] == 'YES' ? 'checked' : '' }}
-                                                        value="YES">
+                                                        {{ isset($clinical_indicators['injections'][0]) && $clinical_indicators['injections'][0] == 'Yes' ? 'checked' : '' }}
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1742,10 +1742,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[injections][]" id="formRadiosRight47"
-                                                        {{ isset($clinical_indicators['injections'][0]) && $clinical_indicators['injections'][0] == 'NO' ? 'checked' : '' }}
-                                                        value="NO">
+                                                        {{ isset($clinical_indicators['injections'][0]) && $clinical_indicators['injections'][0] == 'No' ? 'checked' : '' }}
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1958,11 +1958,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                       </div>
                                       <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70PID][]" value="YES" id="formRadiosRightd14"
-                                                      {{ isset($Imaging['USGENERAL70PID'][0]) && $Imaging['USGENERAL70PID'][0] == "YES" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70PID][]" value="Yes" id="formRadiosRightd14"
+                                                      {{ isset($Imaging['USGENERAL70PID'][0]) && $Imaging['USGENERAL70PID'][0] == "Yes" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd14">
-                                                      YES 
+                                                      Yes 
                                                       
                                                       </label>
                                                   </div>
@@ -1970,11 +1970,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
               
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70PID][]" value="NO" id="formRadiosRightd15"
-                                                      {{ isset($Imaging['USGENERAL70PID'][0]) && $Imaging['USGENERAL70PID'][0] == "NO" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70PID][]" value="No" id="formRadiosRightd15"
+                                                      {{ isset($Imaging['USGENERAL70PID'][0]) && $Imaging['USGENERAL70PID'][0] == "No" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd15">
-                                                      NO 
+                                                      No 
                                                       </label>
                                                   </div>
                                               </div>
@@ -2023,11 +2023,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                       </div>
                                       <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48Ovaries][]" value="YES" id="formRadiosRightd18"
-                                                      {{ isset($Imaging['MRCIR48Ovaries'][0]) && $Imaging['MRCIR48Ovaries'][0] == "YES" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48Ovaries][]" value="Yes" id="formRadiosRightd18"
+                                                      {{ isset($Imaging['MRCIR48Ovaries'][0]) && $Imaging['MRCIR48Ovaries'][0] == "Yes" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd18">
-                                                      YES 
+                                                      Yes 
                                                       
                                                       </label>
                                                   </div>
@@ -2035,11 +2035,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
               
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48Ovaries][]" value="NO" id="formRadiosRightd19"
-                                                      {{ isset($Imaging['MRCIR48Ovaries'][0]) && $Imaging['MRCIR48Ovaries'][0] == "NO" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48Ovaries][]" value="No" id="formRadiosRightd19"
+                                                      {{ isset($Imaging['MRCIR48Ovaries'][0]) && $Imaging['MRCIR48Ovaries'][0] == "No" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd19">
-                                                      NO 
+                                                      No 
                                                       </label>
                                                   </div>
                                               </div>
@@ -2052,22 +2052,22 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                       </div>
                                       <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OAdnexalMass][]" value="YES" id="formRadiosRightd20"
-                                                      {{ isset($Imaging['MRCIR48OAdnexalMass'][0]) && $Imaging['MRCIR48OAdnexalMass'][0] == "YES" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OAdnexalMass][]" value="Yes" id="formRadiosRightd20"
+                                                      {{ isset($Imaging['MRCIR48OAdnexalMass'][0]) && $Imaging['MRCIR48OAdnexalMass'][0] == "Yes" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd20">
-                                                      YES 
+                                                      Yes 
                                                       </label>
                                                   </div>
                                               </div>
               
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OAdnexalMass][]" value="NO" id="formRadiosRightd21"
-                                                      {{ isset($Imaging['MRCIR48OAdnexalMass'][0]) && $Imaging['MRCIR48OAdnexalMass'][0] == "NO" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OAdnexalMass][]" value="No" id="formRadiosRightd21"
+                                                      {{ isset($Imaging['MRCIR48OAdnexalMass'][0]) && $Imaging['MRCIR48OAdnexalMass'][0] == "No" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd21">
-                                                      NO 
+                                                      No 
                                                       </label>
                                                   </div>
                                               </div>
@@ -2080,22 +2080,22 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                       </div>
                                       <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OFreeFluid][]" value="YES" id="formRadiosRightd22"
-                                                      {{ isset($Imaging['MRCIR48OFreeFluid'][0]) && $Imaging['MRCIR48OFreeFluid'][0] == "YES" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OFreeFluid][]" value="Yes" id="formRadiosRightd22"
+                                                      {{ isset($Imaging['MRCIR48OFreeFluid'][0]) && $Imaging['MRCIR48OFreeFluid'][0] == "Yes" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd22">
-                                                      YES 
+                                                      Yes 
                                                       </label>
                                                   </div>
                                               </div>
               
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OFreeFluid][]" value="NO" id="formRadiosRightd23"
-                                                      {{ isset($Imaging['MRCIR48OFreeFluid'][0]) && $Imaging['MRCIR48OFreeFluid'][0] == "NO" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OFreeFluid][]" value="No" id="formRadiosRightd23"
+                                                      {{ isset($Imaging['MRCIR48OFreeFluid'][0]) && $Imaging['MRCIR48OFreeFluid'][0] == "No" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd23">
-                                                      NO 
+                                                      No 
                                                       </label>
                                                   </div>
                                               </div>
@@ -2108,22 +2108,22 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                       </div>
                                       <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OPID][]" value="YES" id="formRadiosRightd24"
-                                                      {{ isset($Imaging['MRCIR48OPID'][0]) && $Imaging['MRCIR48OPID'][0] == "YES" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OPID][]" value="Yes" id="formRadiosRightd24"
+                                                      {{ isset($Imaging['MRCIR48OPID'][0]) && $Imaging['MRCIR48OPID'][0] == "Yes" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd24">
-                                                      YES 
+                                                      Yes 
                                                       </label>
                                                   </div>
                                               </div>
               
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OPID][]" value="NO" id="formRadiosRightd25"
-                                                      {{ isset($Imaging['MRCIR48OPID'][0]) && $Imaging['MRCIR48OPID'][0] == "NO" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[MRCIR48OPID][]" value="No" id="formRadiosRightd25"
+                                                      {{ isset($Imaging['MRCIR48OPID'][0]) && $Imaging['MRCIR48OPID'][0] == "No" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd25">
-                                                      NO 
+                                                      No 
                                                       </label>
                                                   </div>
                                               </div>

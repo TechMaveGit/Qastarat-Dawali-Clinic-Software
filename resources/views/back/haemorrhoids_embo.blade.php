@@ -1200,9 +1200,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[AnalFissure][]" id="formRadiosRight042"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight042">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1210,9 +1210,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[AnalFissure][]" id="formRadiosRight043"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight043">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1225,9 +1225,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[AnalDischarge][]" id="formRadiosRight044"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight044">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1235,9 +1235,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[AnalDischarge][]" id="formRadiosRight045"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight045">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1250,9 +1250,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Fistulainano][]" id="formRadiosRight144"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight144">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1260,9 +1260,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Fistulainano][]" id="formRadiosRight245"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight245">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1276,9 +1276,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Hemarrhoidectomy][]" id="formRadiosRight1414"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight1414">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1286,9 +1286,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Hemarrhoidectomy][]" id="formRadiosRight2415"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight2415">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1302,9 +1302,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Laser][]" id="formRadiosRight14141"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight14141">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1312,9 +1312,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Laser][]" id="formRadiosRight24151"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight24151">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1411,18 +1411,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[ExternalHemarrhoids][]" value="YES" id="formRadiosRight48Dilated">
+                                          <input class="form-check-input"type="radio" name="Imaging[ExternalHemarrhoids][]" value="Yes" id="formRadiosRight48Dilated">
                                           <label class="form-check-label" for="formRadiosRight48Dilated">
-                                          YES
+                                          Yes
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[ExternalHemarrhoids][]" value="NO" id="formRadiosRight492">
+                                          <input class="form-check-input"type="radio" name="Imaging[ExternalHemarrhoids][]" value="No" id="formRadiosRight492">
                                           <label class="form-check-label" for="formRadiosRight492">
-                                          NO
+                                          No
                                           </label>
                                       </div>
                                   </div>
@@ -1435,18 +1435,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[InternalHemarrhoids][]" value="YES" id="formRadiosRightd10Reflux">
+                                          <input class="form-check-input"type="radio" name="Imaging[InternalHemarrhoids][]" value="Yes" id="formRadiosRightd10Reflux">
                                           <label class="form-check-label" for="formRadiosRightd10Reflux">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[InternalHemarrhoids][]" value="NO" id="formRadiosRightd11Reflux2">
+                                          <input class="form-check-input"type="radio" name="Imaging[InternalHemarrhoids][]" value="No" id="formRadiosRightd11Reflux2">
                                           <label class="form-check-label" for="formRadiosRightd11Reflux2">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1460,18 +1460,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[SuspiciousAnalMass][]" value="YES" id="formRadiosRightd12Reflux12">
+                                          <input class="form-check-input"type="radio" name="Imaging[SuspiciousAnalMass][]" value="Yes" id="formRadiosRightd12Reflux12">
                                           <label class="form-check-label" for="formRadiosRightd12Reflux12">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[SuspiciousAnalMass][]" value="NO" id="formRadiosRightd13Reflux321">
+                                          <input class="form-check-input"type="radio" name="Imaging[SuspiciousAnalMass][]" value="No" id="formRadiosRightd13Reflux321">
                                           <label class="form-check-label" for="formRadiosRightd13Reflux321">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1497,18 +1497,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[ProminentSRAarteries][]" value="YES" id="formRadiosRight48DilatedSSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[ProminentSRAarteries][]" value="Yes" id="formRadiosRight48DilatedSSVLEFT">
                                         <label class="form-check-label" for="formRadiosRight48DilatedSSVLEFT">
-                                        YES
+                                        Yes
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[ProminentSRAarteries][]" value="NO" id="formRadiosRight492SSVLEFT1">
+                                        <input class="form-check-input"type="radio" name="Imaging[ProminentSRAarteries][]" value="No" id="formRadiosRight492SSVLEFT1">
                                         <label class="form-check-label" for="formRadiosRight492SSVLEFT1">
-                                        NO
+                                        No
                                         </label>
                                     </div>
                                 </div>
@@ -1521,18 +1521,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[Dilatedanalveins][]" value="YES" id="formRadiosRightd10RefluxSSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[Dilatedanalveins][]" value="Yes" id="formRadiosRightd10RefluxSSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd10RefluxSSVLEFT">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[Dilatedanalveins][]" value="NO" id="formRadiosRightd11Reflux2SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[Dilatedanalveins][]" value="No" id="formRadiosRightd11Reflux2SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd11Reflux2SSVLEFT">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1546,18 +1546,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[thrombosedhemorrhoids][]" value="YES" id="formRadiosRightd12Reflux12SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[thrombosedhemorrhoids][]" value="Yes" id="formRadiosRightd12Reflux12SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd12Reflux12SSVLEFT">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[thrombosedhemorrhoids][]" value="NO" id="formRadiosRightd13Reflux321SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[thrombosedhemorrhoids][]" value="No" id="formRadiosRightd13Reflux321SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd13Reflux321SSVLEFT">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1571,9 +1571,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[Congestedpelvicveins][]" value="YES" id="formRadiosRightd1499SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[Congestedpelvicveins][]" value="Yes" id="formRadiosRightd1499SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd1499SSVLEFT">
-                                        YES 
+                                        Yes 
                                         
                                         </label>
                                     </div>
@@ -1581,9 +1581,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[Congestedpelvicveins][]" value="NO" id="formRadiosRightd15Reflux00SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[Congestedpelvicveins][]" value="No" id="formRadiosRightd15Reflux00SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd15Reflux00SSVLEFT">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1597,9 +1597,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                       </div>
                       <div class="col-lg-4">
                                   <div class="form-check form-check-right mb-3">
-                                      <input class="form-check-input"type="radio" name="Imaging[Suspicious][]" value="YES" id="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT">
+                                      <input class="form-check-input"type="radio" name="Imaging[Suspicious][]" value="Yes" id="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT">
                                       <label class="form-check-label" for="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT">
-                                      YES 
+                                      Yes 
                                       
                                       </label>
                                   </div>
@@ -1607,9 +1607,9 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
 
                               <div class="col-lg-4">
                                   <div class="form-check form-check-right mb-3">
-                                      <input class="form-check-input"type="radio" name="Imaging[Suspicious][]" value="NO" id="formRadiosRightd15Reflux00OcclusiveSSVLEFT">
+                                      <input class="form-check-input"type="radio" name="Imaging[Suspicious][]" value="No" id="formRadiosRightd15Reflux00OcclusiveSSVLEFT">
                                       <label class="form-check-label" for="formRadiosRightd15Reflux00OcclusiveSSVLEFT">
-                                      NO 
+                                      No 
                                       </label>
                                   </div>
                               </div>
@@ -1812,18 +1812,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Externalhemorrhoids][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTExternalhemorrhoids">
+                                                        <input class="form-check-input"type="radio" name="Lab[Externalhemorrhoids][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTExternalhemorrhoids">
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTExternalhemorrhoids">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
                       
                                                 <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Externalhemorrhoids][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHTExternalhemorrhoids">
+                                                        <input class="form-check-input"type="radio" name="Lab[Externalhemorrhoids][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHTExternalhemorrhoids">
                                                         <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHTExternalhemorrhoids">
-                                                            NO
+                                                            No
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1836,18 +1836,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Internalhemorrhoids][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTInternalhemorrhoids">
+                                                        <input class="form-check-input"type="radio" name="Lab[Internalhemorrhoids][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTInternalhemorrhoids">
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTInternalhemorrhoids">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
                       
                                                 <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Internalhemorrhoids][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHTInternalhemorrhoids">
+                                                        <input class="form-check-input"type="radio" name="Lab[Internalhemorrhoids][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHTInternalhemorrhoids">
                                                         <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHTInternalhemorrhoids">
-                                                            NO
+                                                            No
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1860,18 +1860,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Thrombosedhemorrhoids][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTThrombosedhemorrhoids">
+                                                        <input class="form-check-input"type="radio" name="Lab[Thrombosedhemorrhoids][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTThrombosedhemorrhoids">
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTThrombosedhemorrhoids">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
                       
                                                 <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Thrombosedhemorrhoids][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHTThrombosedhemorrhoids">
+                                                        <input class="form-check-input"type="radio" name="Lab[Thrombosedhemorrhoids][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHTThrombosedhemorrhoids">
                                                         <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHTThrombosedhemorrhoids">
-                                                            NO
+                                                            No
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1884,18 +1884,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[BnignPolyp][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTBnignPolyp">
+                                                        <input class="form-check-input"type="radio" name="Lab[BnignPolyp][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTBnignPolyp">
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTBnignPolyp">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
                       
                                                 <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[BnignPolyp][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHTBnignPolyp">
+                                                        <input class="form-check-input"type="radio" name="Lab[BnignPolyp][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHTBnignPolyp">
                                                         <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHTBnignPolyp">
-                                                            NO
+                                                            No
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1908,18 +1908,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Polp][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTPolp">
+                                                        <input class="form-check-input"type="radio" name="Lab[Polp][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTPolp">
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTPolp">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
                       
                                                 <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Polp][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHTPolp">
+                                                        <input class="form-check-input"type="radio" name="Lab[Polp][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHTPolp">
                                                         <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHTPolp">
-                                                            NO
+                                                            No
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1932,18 +1932,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[tumor][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTtumor">
+                                                        <input class="form-check-input"type="radio" name="Lab[tumor][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTtumor">
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTtumor">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
                       
                                                 <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[tumor][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHTtumor">
+                                                        <input class="form-check-input"type="radio" name="Lab[tumor][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHTtumor">
                                                         <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHTtumor">
-                                                            NO
+                                                            No
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1956,18 +1956,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Ulcer][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTUlcer">
+                                                        <input class="form-check-input"type="radio" name="Lab[Ulcer][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTUlcer">
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTUlcer">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
                       
                                                 <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Ulcer][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHTUlcer">
+                                                        <input class="form-check-input"type="radio" name="Lab[Ulcer][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHTUlcer">
                                                         <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHTUlcer">
-                                                            NO
+                                                            No
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1980,18 +1980,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Analfissure][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTAnalfissure">
+                                                        <input class="form-check-input"type="radio" name="Lab[Analfissure][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTAnalfissure">
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTAnalfissure">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
                       
                                                 <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Analfissure][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHTAnalfissure">
+                                                        <input class="form-check-input"type="radio" name="Lab[Analfissure][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHTAnalfissure">
                                                         <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHTAnalfissure">
-                                                            NO
+                                                            No
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2004,18 +2004,18 @@ Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Fistula][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTFistula">
+                                                        <input class="form-check-input"type="radio" name="Lab[Fistula][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTFistula">
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTFistula">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
                       
                                                 <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Fistula][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHTFistula">
+                                                        <input class="form-check-input"type="radio" name="Lab[Fistula][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHTFistula">
                                                         <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHTFistula">
-                                                            NO
+                                                            No
                                                         </label>
                                                     </div>
                                                 </div>

@@ -1950,11 +1950,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityPhlepitis][]" id="formRadiosRight42"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['lowerextremityPhlepitis'][0]) && $clinical_indicators['lowerextremityPhlepitis'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['lowerextremityPhlepitis'][0]) && $clinical_indicators['lowerextremityPhlepitis'][0] == 'Yes' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1962,10 +1962,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityPhlepitis][]" id="formRadiosRight43"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['lowerextremityPhlepitis'][0]) && $clinical_indicators['lowerextremityPhlepitis'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['lowerextremityPhlepitis'][0]) && $clinical_indicators['lowerextremityPhlepitis'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1979,10 +1979,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityDVT][]" id="formRadiosRight44"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['lowerextremityDVT'][0]) && $clinical_indicators['lowerextremityDVT'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['lowerextremityDVT'][0]) && $clinical_indicators['lowerextremityDVT'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1990,10 +1990,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityDVT][]" id="formRadiosRight45"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['lowerextremityDVT'][0]) && $clinical_indicators['lowerextremityDVT'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['lowerextremityDVT'][0]) && $clinical_indicators['lowerextremityDVT'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2007,10 +2007,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityDVTCHRONIC][]" id="formRadiosRight44lowerextremityDVTCHRONIC"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['lowerextremityDVTCHRONIC'][0]) && $clinical_indicators['lowerextremityDVTCHRONIC'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['lowerextremityDVTCHRONIC'][0]) && $clinical_indicators['lowerextremityDVTCHRONIC'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44lowerextremityDVTCHRONIC">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -2018,10 +2018,10 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityDVTCHRONIC][]" id="formRadiosRight45lowerextremityDVTCHRONIC"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['lowerextremityDVTCHRONIC'][0]) && $clinical_indicators['lowerextremityDVTCHRONIC'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['lowerextremityDVTCHRONIC'][0]) && $clinical_indicators['lowerextremityDVTCHRONIC'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45lowerextremityDVTCHRONIC">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2149,22 +2149,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVLEFT][]" value="YES" id="formRadiosRight48Dilated"
-                                                    {{ isset($Imaging['USVENOUSDOPPLER70DilatedGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedGSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVLEFT][]" value="Yes" id="formRadiosRight48Dilated"
+                                                    {{ isset($Imaging['USVENOUSDOPPLER70DilatedGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedGSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRight48Dilated">
-                                                    YES
+                                                    Yes
                                                     </label>
                                                 </div>
                                             </div>
             
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVLEFT][]" value="NO" id="formRadiosRight492"
-                                                    {{ isset($Imaging['USVENOUSDOPPLER70DilatedGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedGSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVLEFT][]" value="No" id="formRadiosRight492"
+                                                    {{ isset($Imaging['USVENOUSDOPPLER70DilatedGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedGSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRight492">
-                                                    NO
+                                                    No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2177,22 +2177,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVLEFT][]" value="YES" id="formRadiosRightd10Reflux"
-                                                    {{ isset($Imaging['USVENOUSDOPPLER70RefluxGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxGSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVLEFT][]" value="Yes" id="formRadiosRightd10Reflux"
+                                                    {{ isset($Imaging['USVENOUSDOPPLER70RefluxGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxGSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRightd10Reflux">
-                                                    YES 
+                                                    Yes 
                                                     </label>
                                                 </div>
                                             </div>
             
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVLEFT][]" value="NO" id="formRadiosRightd11Reflux2"
-                                                    {{ isset($Imaging['USVENOUSDOPPLER70RefluxGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxGSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVLEFT][]" value="No" id="formRadiosRightd11Reflux2"
+                                                    {{ isset($Imaging['USVENOUSDOPPLER70RefluxGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxGSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRightd11Reflux2">
-                                                    NO 
+                                                    No 
                                                     </label>
                                                 </div>
                                             </div>
@@ -2206,22 +2206,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVLEFT][]" value="YES" id="formRadiosRightd12Reflux12"
-                                                    {{ isset($Imaging['USVENOUSDOPPLER70Reflux2GSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2GSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVLEFT][]" value="Yes" id="formRadiosRightd12Reflux12"
+                                                    {{ isset($Imaging['USVENOUSDOPPLER70Reflux2GSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2GSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRightd12Reflux12">
-                                                    YES 
+                                                    Yes 
                                                     </label>
                                                 </div>
                                             </div>
             
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVLEFT][]" value="NO" id="formRadiosRightd13Reflux321"
-                                                    {{ isset($Imaging['USVENOUSDOPPLER70Reflux2GSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2GSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVLEFT][]" value="No" id="formRadiosRightd13Reflux321"
+                                                    {{ isset($Imaging['USVENOUSDOPPLER70Reflux2GSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2GSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRightd13Reflux321">
-                                                    NO 
+                                                    No 
                                                     </label>
                                                 </div>
                                             </div>
@@ -2235,11 +2235,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVLEFT][]" value="YES" id="formRadiosRightd1499"
-                                                    {{ isset($Imaging['USVENOUSDOPPLER70Reflux3GSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3GSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVLEFT][]" value="Yes" id="formRadiosRightd1499"
+                                                    {{ isset($Imaging['USVENOUSDOPPLER70Reflux3GSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3GSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRightd1499">
-                                                    YES 
+                                                    Yes 
                                                     
                                                     </label>
                                                 </div>
@@ -2247,11 +2247,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
             
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVLEFT][]" value="NO" id="formRadiosRightd15Reflux00"
-                                                    {{ isset($Imaging['USVENOUSDOPPLER70Reflux3GSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3GSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVLEFT][]" value="No" id="formRadiosRightd15Reflux00"
+                                                    {{ isset($Imaging['USVENOUSDOPPLER70Reflux3GSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3GSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRightd15Reflux00">
-                                                    NO 
+                                                    No 
                                                     </label>
                                                 </div>
                                             </div>
@@ -2265,11 +2265,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                   </div>
                                   <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVLEFT][]" value="YES" id="formRadiosRightd1499Occlusive"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveGSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVLEFT][]" value="Yes" id="formRadiosRightd1499Occlusive"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveGSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd1499Occlusive">
-                                                  YES 
+                                                  Yes 
                                                   
                                                   </label>
                                               </div>
@@ -2277,11 +2277,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
           
                                           <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVLEFT][]" value="NO" id="formRadiosRightd15Reflux00Occlusive"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveGSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVLEFT][]" value="No" id="formRadiosRightd15Reflux00Occlusive"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveGSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveGSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd15Reflux00Occlusive">
-                                                  NO 
+                                                  No 
                                                   </label>
                                               </div>
                                           </div>
@@ -2303,22 +2303,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                   </div>
                                   <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVLEFT][]" value="YES" id="formRadiosRight48DilatedSSVLEFT"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70DilatedSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedSSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVLEFT][]" value="Yes" id="formRadiosRight48DilatedSSVLEFT"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70DilatedSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedSSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRight48DilatedSSVLEFT">
-                                                  YES
+                                                  Yes
                                                   </label>
                                               </div>
                                           </div>
           
                                           <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVLEFT][]" value="NO" id="formRadiosRight492SSVLEFT1"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70DilatedSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedSSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVLEFT][]" value="No" id="formRadiosRight492SSVLEFT1"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70DilatedSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedSSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRight492SSVLEFT1">
-                                                  NO
+                                                  No
                                                   </label>
                                               </div>
                                           </div>
@@ -2331,22 +2331,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                   </div>
                                   <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVLEFT][]" value="YES" id="formRadiosRightd10RefluxSSVLEFT"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70RefluxSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxSSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVLEFT][]" value="Yes" id="formRadiosRightd10RefluxSSVLEFT"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70RefluxSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxSSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd10RefluxSSVLEFT">
-                                                  YES 
+                                                  Yes 
                                                   </label>
                                               </div>
                                           </div>
           
                                           <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVLEFT][]" value="NO" id="formRadiosRightd11Reflux2SSVLEFT"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70RefluxSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxSSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVLEFT][]" value="No" id="formRadiosRightd11Reflux2SSVLEFT"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70RefluxSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxSSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd11Reflux2SSVLEFT">
-                                                  NO 
+                                                  No 
                                                   </label>
                                               </div>
                                           </div>
@@ -2360,22 +2360,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                   </div>
                                   <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVLEFT][]" value="YES" id="formRadiosRightd12Reflux12SSVLEFT"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70Reflux2SSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2SSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVLEFT][]" value="Yes" id="formRadiosRightd12Reflux12SSVLEFT"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70Reflux2SSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2SSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd12Reflux12SSVLEFT">
-                                                  YES 
+                                                  Yes 
                                                   </label>
                                               </div>
                                           </div>
           
                                           <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVLEFT][]" value="NO" id="formRadiosRightd13Reflux321SSVLEFT"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70Reflux2SSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2SSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVLEFT][]" value="No" id="formRadiosRightd13Reflux321SSVLEFT"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70Reflux2SSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2SSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd13Reflux321SSVLEFT">
-                                                  NO 
+                                                  No 
                                                   </label>
                                               </div>
                                           </div>
@@ -2389,11 +2389,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                   </div>
                                   <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVLEFT][]" value="YES" id="formRadiosRightd1499SSVLEFT"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70Reflux3SSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3SSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVLEFT][]" value="Yes" id="formRadiosRightd1499SSVLEFT"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70Reflux3SSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3SSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd1499SSVLEFT">
-                                                  YES 
+                                                  Yes 
                                                   
                                                   </label>
                                               </div>
@@ -2401,11 +2401,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
           
                                           <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVLEFT][]" value="NO" id="formRadiosRightd15Reflux00SSVLEFT"
-                                                  {{ isset($Imaging['USVENOUSDOPPLER70Reflux3SSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3SSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVLEFT][]" value="No" id="formRadiosRightd15Reflux00SSVLEFT"
+                                                  {{ isset($Imaging['USVENOUSDOPPLER70Reflux3SSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3SSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd15Reflux00SSVLEFT">
-                                                  NO 
+                                                  No 
                                                   </label>
                                               </div>
                                           </div>
@@ -2419,11 +2419,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT][]" value="YES" id="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT"
-                                                {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT'][0] == "YES" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT][]" value="Yes" id="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT"
+                                                {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT'][0] == "Yes" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT">
-                                                YES 
+                                                Yes 
                                                 
                                                 </label>
                                             </div>
@@ -2431,11 +2431,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
           
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT][]" value="NO" id="formRadiosRightd15Reflux00OcclusiveSSVLEFT"
-                                                {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT][]" value="No" id="formRadiosRightd15Reflux00OcclusiveSSVLEFT"
+                                                {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd15Reflux00OcclusiveSSVLEFT">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2457,22 +2457,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                             </div>
                             <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVRIGHT][]" value="YES" id="formRadiosRight48DilatedGSVRIGHT"
-                                            {{ isset($Imaging['USVENOUSDOPPLER70DilatedGSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedGSVRIGHT'][0] == "YES" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVRIGHT][]" value="Yes" id="formRadiosRight48DilatedGSVRIGHT"
+                                            {{ isset($Imaging['USVENOUSDOPPLER70DilatedGSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedGSVRIGHT'][0] == "Yes" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRight48DilatedGSVRIGHT">
-                                            YES
+                                            Yes
                                             </label>
                                         </div>
                                     </div>
           
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVRIGHT][]" value="NO" id="formRadiosRight492GSVRIGHT1"
-                                            {{ isset($Imaging['USVENOUSDOPPLER70DilatedGSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedGSVRIGHT'][0] == "NO" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVRIGHT][]" value="No" id="formRadiosRight492GSVRIGHT1"
+                                            {{ isset($Imaging['USVENOUSDOPPLER70DilatedGSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedGSVRIGHT'][0] == "No" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRight492GSVRIGHT1">
-                                            NO
+                                            No
                                             </label>
                                         </div>
                                     </div>
@@ -2485,22 +2485,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                             </div>
                             <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVRIGHT][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHT"
-                                            {{ isset($Imaging['USVENOUSDOPPLER70RefluxGSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxGSVRIGHT'][0] == "YES" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVRIGHT][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHT"
+                                            {{ isset($Imaging['USVENOUSDOPPLER70RefluxGSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxGSVRIGHT'][0] == "Yes" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHT">
-                                            YES 
+                                            Yes 
                                             </label>
                                         </div>
                                     </div>
           
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVRIGHT][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHT"
-                                            {{ isset($Imaging['USVENOUSDOPPLER70RefluxGSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxGSVRIGHT'][0] == "NO" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVRIGHT][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHT"
+                                            {{ isset($Imaging['USVENOUSDOPPLER70RefluxGSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxGSVRIGHT'][0] == "No" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHT">
-                                            NO 
+                                            No 
                                             </label>
                                         </div>
                                     </div>
@@ -2514,22 +2514,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                             </div>
                             <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVRIGHT][]" value="YES" id="formRadiosRightd12Reflux12GSVRIGHT"
-                                            {{ isset($Imaging['USVENOUSDOPPLER70Reflux2GSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2GSVRIGHT'][0] == "YES" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVRIGHT][]" value="Yes" id="formRadiosRightd12Reflux12GSVRIGHT"
+                                            {{ isset($Imaging['USVENOUSDOPPLER70Reflux2GSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2GSVRIGHT'][0] == "Yes" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRightd12Reflux12GSVRIGHT">
-                                            YES 
+                                            Yes 
                                             </label>
                                         </div>
                                     </div>
           
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVRIGHT][]" value="NO" id="formRadiosRightd13Reflux321GSVRIGHT"
-                                            {{ isset($Imaging['USVENOUSDOPPLER70Reflux2GSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2GSVRIGHT'][0] == "NO" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVRIGHT][]" value="No" id="formRadiosRightd13Reflux321GSVRIGHT"
+                                            {{ isset($Imaging['USVENOUSDOPPLER70Reflux2GSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2GSVRIGHT'][0] == "No" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRightd13Reflux321GSVRIGHT">
-                                            NO 
+                                            No 
                                             </label>
                                         </div>
                                     </div>
@@ -2543,11 +2543,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                             </div>
                             <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVRIGHT][]" value="YES" id="formRadiosRightd1499GSVRIGHT"
-                                            {{ isset($Imaging['USVENOUSDOPPLER70Reflux3GSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3GSVRIGHT'][0] == "YES" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVRIGHT][]" value="Yes" id="formRadiosRightd1499GSVRIGHT"
+                                            {{ isset($Imaging['USVENOUSDOPPLER70Reflux3GSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3GSVRIGHT'][0] == "Yes" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRightd1499GSVRIGHT">
-                                            YES 
+                                            Yes 
                                             
                                             </label>
                                         </div>
@@ -2555,11 +2555,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
           
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
-                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVRIGHT][]" value="NO" id="formRadiosRightd15Reflux00GSVRIGHT"
-                                            {{ isset($Imaging['USVENOUSDOPPLER70Reflux3GSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3GSVRIGHT'][0] == "NO" ? 'checked' : '' }}
+                                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVRIGHT][]" value="No" id="formRadiosRightd15Reflux00GSVRIGHT"
+                                            {{ isset($Imaging['USVENOUSDOPPLER70Reflux3GSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3GSVRIGHT'][0] == "No" ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label" for="formRadiosRightd15Reflux00GSVRIGHT">
-                                            NO 
+                                            No 
                                             </label>
                                         </div>
                                     </div>
@@ -2573,11 +2573,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVRIGH][]" value="YES" id="formRadiosRightd1499OcclusiveGSVRIGH"
-                                          {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveGSVRIGH'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveGSVRIGH'][0] == "YES" ? 'checked' : '' }}
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVRIGH][]" value="Yes" id="formRadiosRightd1499OcclusiveGSVRIGH"
+                                          {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveGSVRIGH'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveGSVRIGH'][0] == "Yes" ? 'checked' : '' }}
                                           >
                                           <label class="form-check-label" for="formRadiosRightd1499OcclusiveGSVRIGH">
-                                          YES 
+                                          Yes 
                                           
                                           </label>
                                       </div>
@@ -2585,11 +2585,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
           
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVRIGH][]" value="NO" id="formRadiosRightd15Reflux00OcclusiveSSVLEFTGSVRIGH"
-                                          {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveGSVRIGH'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveGSVRIGH'][0] == "NO" ? 'checked' : '' }}
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVRIGH][]" value="No" id="formRadiosRightd15Reflux00OcclusiveSSVLEFTGSVRIGH"
+                                          {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveGSVRIGH'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveGSVRIGH'][0] == "No" ? 'checked' : '' }}
                                           >
                                           <label class="form-check-label" for="formRadiosRightd15Reflux00OcclusiveSSVLEFTGSVRIGH">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -2611,22 +2611,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVRIGHT][]" value="YES" id="formRadiosRight48DilatedSSVRIGHT"
-                                        {{ isset($Imaging['USVENOUSDOPPLER70DilatedSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedSSVRIGHT'][0] == "YES" ? 'checked' : '' }}
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVRIGHT][]" value="Yes" id="formRadiosRight48DilatedSSVRIGHT"
+                                        {{ isset($Imaging['USVENOUSDOPPLER70DilatedSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedSSVRIGHT'][0] == "Yes" ? 'checked' : '' }}
                                         >
                                         <label class="form-check-label" for="formRadiosRight48DilatedSSVRIGHT">
-                                        YES
+                                        Yes
                                         </label>
                                     </div>
                                 </div>
           
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVRIGHT][]" value="NO" id="formRadiosRight492SSVRIGHT1"
-                                        {{ isset($Imaging['USVENOUSDOPPLER70DilatedSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedSSVRIGHT'][0] == "NO" ? 'checked' : '' }}
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVRIGHT][]" value="No" id="formRadiosRight492SSVRIGHT1"
+                                        {{ isset($Imaging['USVENOUSDOPPLER70DilatedSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70DilatedSSVRIGHT'][0] == "No" ? 'checked' : '' }}
                                         >
                                         <label class="form-check-label" for="formRadiosRight492SSVRIGHT1">
-                                        NO
+                                        No
                                         </label>
                                     </div>
                                 </div>
@@ -2639,22 +2639,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVRIGHT][]" value="YES" id="formRadiosRightd10RefluxSSVRIGHT"
-                                        {{ isset($Imaging['USVENOUSDOPPLER70RefluxSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxSSVRIGHT'][0] == "YES" ? 'checked' : '' }}
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVRIGHT][]" value="Yes" id="formRadiosRightd10RefluxSSVRIGHT"
+                                        {{ isset($Imaging['USVENOUSDOPPLER70RefluxSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxSSVRIGHT'][0] == "Yes" ? 'checked' : '' }}
                                         >
                                         <label class="form-check-label" for="formRadiosRightd10RefluxSSVRIGHT">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
           
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVRIGHT][]" value="NO" id="formRadiosRightd11Reflux2SSVRIGHT"
-                                        {{ isset($Imaging['USVENOUSDOPPLER70RefluxSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxSSVRIGHT'][0] == "NO" ? 'checked' : '' }}
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVRIGHT][]" value="No" id="formRadiosRightd11Reflux2SSVRIGHT"
+                                        {{ isset($Imaging['USVENOUSDOPPLER70RefluxSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70RefluxSSVRIGHT'][0] == "No" ? 'checked' : '' }}
                                         >
                                         <label class="form-check-label" for="formRadiosRightd11Reflux2SSVRIGHT">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2668,22 +2668,22 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVRIGHT][]" value="YES" id="formRadiosRightd12Reflux12SSVRIGHT"
-                                        {{ isset($Imaging['USVENOUSDOPPLER70Reflux2SSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2SSVRIGHT'][0] == "YES" ? 'checked' : '' }}
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVRIGHT][]" value="Yes" id="formRadiosRightd12Reflux12SSVRIGHT"
+                                        {{ isset($Imaging['USVENOUSDOPPLER70Reflux2SSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2SSVRIGHT'][0] == "Yes" ? 'checked' : '' }}
                                         >
                                         <label class="form-check-label" for="formRadiosRightd12Reflux12SSVRIGHT">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
           
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVRIGHT][]" value="NO" id="formRadiosRightd13Reflux321SSVRIGHT"
-                                        {{ isset($Imaging['USVENOUSDOPPLER70Reflux2SSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2SSVRIGHT'][0] == "NO" ? 'checked' : '' }}
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVRIGHT][]" value="No" id="formRadiosRightd13Reflux321SSVRIGHT"
+                                        {{ isset($Imaging['USVENOUSDOPPLER70Reflux2SSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux2SSVRIGHT'][0] == "No" ? 'checked' : '' }}
                                         >
                                         <label class="form-check-label" for="formRadiosRightd13Reflux321SSVRIGHT">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2697,11 +2697,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVRIGHT][]" value="YES" id="formRadiosRightd1499SSVRIGHT"
-                                        {{ isset($Imaging['USVENOUSDOPPLER70Reflux3SSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3SSVRIGHT'][0] == "YES" ? 'checked' : '' }}
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVRIGHT][]" value="Yes" id="formRadiosRightd1499SSVRIGHT"
+                                        {{ isset($Imaging['USVENOUSDOPPLER70Reflux3SSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3SSVRIGHT'][0] == "Yes" ? 'checked' : '' }}
                                         >
                                         <label class="form-check-label" for="formRadiosRightd1499SSVRIGHT">
-                                        YES 
+                                        Yes 
                                         
                                         </label>
                                     </div>
@@ -2709,11 +2709,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
           
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVRIGHT][]" value="NO" id="formRadiosRightd15Reflux00SSVRIGHT"
-                                        {{ isset($Imaging['USVENOUSDOPPLER70Reflux3SSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3SSVRIGHT'][0] == "NO" ? 'checked' : '' }}
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVRIGHT][]" value="No" id="formRadiosRightd15Reflux00SSVRIGHT"
+                                        {{ isset($Imaging['USVENOUSDOPPLER70Reflux3SSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70Reflux3SSVRIGHT'][0] == "No" ? 'checked' : '' }}
                                         >
                                         <label class="form-check-label" for="formRadiosRightd15Reflux00SSVRIGHT">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2727,11 +2727,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                       </div>
                       <div class="col-lg-4">
                                   <div class="form-check form-check-right mb-3">
-                                      <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVRIGHT][]" value="YES" id="formRadiosRightd1499OcclusiveSSVRIGHT"
-                                      {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveSSVRIGHT'][0] == "YES" ? 'checked' : '' }}
+                                      <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVRIGHT][]" value="Yes" id="formRadiosRightd1499OcclusiveSSVRIGHT"
+                                      {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveSSVRIGHT'][0] == "Yes" ? 'checked' : '' }}
                                       >
                                       <label class="form-check-label" for="formRadiosRightd1499OcclusiveSSVRIGHT">
-                                      YES 
+                                      Yes 
                                       
                                       </label>
                                   </div>
@@ -2739,11 +2739,11 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
           
                               <div class="col-lg-4">
                                   <div class="form-check form-check-right mb-3">
-                                      <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVRIGHT][]" value="NO" id="formRadiosRightd15Reflux00OcclusiveSSVRIGHT"
-                                      {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveSSVRIGHT'][0] == "NO" ? 'checked' : '' }}
+                                      <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVRIGHT][]" value="No" id="formRadiosRightd15Reflux00OcclusiveSSVRIGHT"
+                                      {{ isset($Imaging['USVENOUSDOPPLER70OcclusiveSSVRIGHT'][0]) && $Imaging['USVENOUSDOPPLER70OcclusiveSSVRIGHT'][0] == "No" ? 'checked' : '' }}
                                       >
                                       <label class="form-check-label" for="formRadiosRightd15Reflux00OcclusiveSSVRIGHT">
-                                      NO 
+                                      No 
                                       </label>
                                   </div>
                               </div>

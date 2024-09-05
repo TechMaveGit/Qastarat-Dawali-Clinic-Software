@@ -2314,11 +2314,11 @@
                                                         <div class="symp_title mb-3">
 
                                                             <p class="ss_result">
-                                                            {{ $jsonData['Abscess'][0] == 'NO' ?  $jsonData['Abscess'][0] :  '' }}</p>
+                                                            {{ $jsonData['Abscess'][0] == 'No' ?  $jsonData['Abscess'][0] :  '' }}</p>
                                                             @elseif (isset($jsonData['AbscessNOTE']) && !empty($jsonData['AbscessNOTE'][0]))
                                                             <p class="ss_result">
                                                                 <p class="ss_result">{{ $jsonData['Abscess'][0] ?? '' }}</p>
-                                                                &nbsp;&nbsp;{{ $jsonData['Abscess'][0] == 'YES' ?  $jsonData['AbscessNOTE'][0] :  '' }}</p>
+                                                                &nbsp;&nbsp;{{ $jsonData['Abscess'][0] == 'Yes' ?  $jsonData['AbscessNOTE'][0] :  '' }}</p>
                                                              
                                                            </div>
                                                         @endif
