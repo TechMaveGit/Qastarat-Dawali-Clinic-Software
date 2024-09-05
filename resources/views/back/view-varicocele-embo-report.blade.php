@@ -1452,15 +1452,15 @@
 
                                                                                     @endphp
                                                                                     @if (isset($sum) && ($sum >= 0 && $sum <= 5))
-                                                                                        <p class="ss_result">Mild LUTS (0-5
+                                                                                        <p class="ss_result">Mild  (0-5
                                                                                             pts)</p>
                                                                                         
                                                                                             @elseif (isset($sum) && ($sum >= 6 && $sum <= 15))
-                                                                                        <p class="ss_result">Moderate LUTS
+                                                                                        <p class="ss_result">Moderate 
                                                                                             (6-15 pts)</p>
                                                                                         
                                                                                             @elseif (isset($sum) && ($sum >= 16 && $sum <= 1009))
-                                                                                        <p class="ss_result">Severe LUTS
+                                                                                        <p class="ss_result">Severe 
                                                                                             (16-25 pts)</p>
                                                                                     @endif
 

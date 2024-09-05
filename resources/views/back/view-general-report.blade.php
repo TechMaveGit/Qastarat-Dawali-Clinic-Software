@@ -1631,11 +1631,11 @@
 
                                                               @endphp
                                                                  @if (isset($sum) && ($sum >= 0 && $sum <= 7))
-                                                                 <p class="ss_result">Mild LUTS (0-7 pts)</p>
+                                                                 <p class="ss_result">Mild  (0-7 pts)</p>
                                                              @elseif(isset($sum) && ($sum >= 8 && $sum <= 19))
-                                                                 <p class="ss_result">Moderate LUTS (8-19 pts)</p>
+                                                                 <p class="ss_result">Moderate  (8-19 pts)</p>
                                                              @elseif(isset($sum) && ($sum >= 20 && $sum <= 1009))
-                                                                 <p class="ss_result">Severe LUTS (20-35 pts)</p>
+                                                                 <p class="ss_result">Severe  (20-35 pts)</p>
                                                              @endif
                                                              @empty
                                                              <small style="font-size:10px;">No Data Found</small>
