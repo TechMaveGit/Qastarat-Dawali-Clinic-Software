@@ -706,7 +706,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3 form-group">
                                                         <label for="dialCode" class="form-label">Dial Code</label>
-                                                        <select id="dialCode" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                                        <select id="dialCode" class="form-control " name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
                                                             @foreach ($countryCode as $countryCodes)
                                                                 <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
                                                                     {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
@@ -728,7 +728,7 @@
                                                         <label for="validationCustom01" class="form-label">Mobile
                                                             Phone</label>
                                                         <input type="text" class="form-control" id="mobileNumber"
-                                                            placeholder="" minlength="0" maxlength="15"
+                                                            placeholder="" minlength="7" maxlength="13"
                                                             name="mobile_no">
 
                                                         <span id="mobile_noError"

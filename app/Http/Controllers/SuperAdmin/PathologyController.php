@@ -58,7 +58,7 @@ class PathologyController extends Controller
             ],
             'post_code' => 'nullable|between:4,8',
             'landline' => 'nullable|numeric|digits_between:10,15',
-            'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:10,15|regex:/^[0-9]{10,15}$/',
+            'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:7,13|regex:/^[0-9]{7,13}$/',
             'password' => 'required|min:6',
             'lab_name' => 'required',
 
@@ -72,7 +72,7 @@ class PathologyController extends Controller
             'mobile_no.required' => 'Mobile Phone is required.',
             'mobile_no.numeric' => 'Mobile Phone must be a number.',
             'mobile_no.unique' => 'This mobile Phone is already taken.',
-            'mobile_no.digits_between' => 'Mobile number must be between 10 and 15 digits.',
+            'mobile_no.digits_between' => 'Mobile number must be between 7 and 13 digits.',
             'password.required' => 'Password is required.',
             'password.min' => 'Password must be at least :min characters.',
             // 'birth_date.required' => 'Date of Birth  is required.',
@@ -144,7 +144,7 @@ class PathologyController extends Controller
             'password' => 'nullable|min:6',
             'mobile_no' => [
                 'required',
-                'regex:/^[0-9]{10,15}$/',
+                'regex:/^[0-9]{7,13}$/',
                 'numeric',
                 Rule::unique('doctors')->ignore($id),
             ],

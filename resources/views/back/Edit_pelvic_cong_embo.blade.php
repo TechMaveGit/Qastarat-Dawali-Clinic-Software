@@ -1635,36 +1635,36 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                     @if ($sum >= 0 && $sum <= 15)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild </th>
                                                             <th>(0-15 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 16 && $sum <= 35)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate </th>
                                                             <th>(16-35 pts) </th>
                                                         </tr>
                                                     @elseif ($sum >= 36 && $sum <= 1999)
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe </th>
                                                             <th>(36-50 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild </th>
                                                     <th>(0-15 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate </th>
                                                     <th>(16-35 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe </th>
                                                     <th>(36-50 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -1707,10 +1707,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Hemorrhoids][]" id="formRadiosRight43"
-                                                        value="No"
-                                                        {{ isset($clinical_indicators['Hemorrhoids'][0]) && $clinical_indicators['Hemorrhoids'][0] == 'No' ? 'checked' : '' }}>
+                                                        value="NO"
+                                                        {{ isset($clinical_indicators['Hemorrhoids'][0]) && $clinical_indicators['Hemorrhoids'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1735,8 +1735,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[VulvarVarices][]" id="formRadiosRight45"
-                                                        value="No"
-                                                        {{ isset($clinical_indicators['VulvarVarices'][0]) && $clinical_indicators['VulvarVarices'][0] == 'No' ? 'checked' : '' }}>
+                                                        value="NO"
+                                                        {{ isset($clinical_indicators['VulvarVarices'][0]) && $clinical_indicators['VulvarVarices'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45">
                                                         NO
                                                     </label>
@@ -1879,11 +1879,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
               
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70Dilatedpelvicvarices][]" value="No" id="formRadiosRight49"
-                                                      {{ isset($Imaging['USGENERAL70Dilatedpelvicvarices'][0]) && $Imaging['USGENERAL70Dilatedpelvicvarices'][0] == "No" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70Dilatedpelvicvarices][]" value="NO" id="formRadiosRight49"
+                                                      {{ isset($Imaging['USGENERAL70Dilatedpelvicvarices'][0]) && $Imaging['USGENERAL70Dilatedpelvicvarices'][0] == "NO" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRight49">
-                                                      No
+                                                      NO
                                                       </label>
                                                   </div>
                                               </div>
@@ -1907,11 +1907,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
               
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70VenousReflux][]" value="No" id="formRadiosRightd11"
-                                                      {{ isset($Imaging['USGENERAL70VenousReflux'][0]) && $Imaging['USGENERAL70VenousReflux'][0] == "No" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70VenousReflux][]" value="NO" id="formRadiosRightd11"
+                                                      {{ isset($Imaging['USGENERAL70VenousReflux'][0]) && $Imaging['USGENERAL70VenousReflux'][0] == "NO" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd11">
-                                                        No
+                                                        NO
                                                       </label>
                                                   </div>
                                               </div>
@@ -1936,11 +1936,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
               
                                               <div class="col-lg-4">
                                                   <div class="form-check form-check-right mb-3">
-                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70FreeFluid][]" value="No" id="formRadiosRightd13"
-                                                      {{ isset($Imaging['USGENERAL70FreeFluid'][0]) && $Imaging['USGENERAL70FreeFluid'][0] == "No" ? 'checked' : '' }}
+                                                      <input class="form-check-input"type="radio" name="Imaging[USGENERAL70FreeFluid][]" value="NO" id="formRadiosRightd13"
+                                                      {{ isset($Imaging['USGENERAL70FreeFluid'][0]) && $Imaging['USGENERAL70FreeFluid'][0] == "NO" ? 'checked' : '' }}
                                                       >
                                                       <label class="form-check-label" for="formRadiosRightd13">
-                                                      No 
+                                                      NO 
                                                       </label>
                                                   </div>
                                               </div>

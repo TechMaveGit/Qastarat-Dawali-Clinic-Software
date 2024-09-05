@@ -1943,7 +1943,7 @@
                                                                             //     print_r($jsonData);
                                                                             //     die;
                                                                         @endphp
-                                                                        <!--USVENOUSDOPPLER70  > Hemarrhoids endorectal US Protocol Findings start -->
+                                                                        <!--USVENOUSDOPPLER70  > Hemorrhoids endorectal US Protocol Findings start -->
                                                                         <div class="ss_result_box">
                                                                             <div class="symp_title mb-3">
                                                                                 <h6><span class="point_dia"><i
@@ -1995,7 +1995,7 @@
                                                                                 <p class="ss_result">Shoulder effusion
                                                                                 <p>
 
-                                                                                    @if (isset($jsonData['Shouldereffusion'][0]) && $jsonData['Shouldereffusion'][0] == 'Yes')
+                                                                                    @if (isset($jsonData['Shouldereffusion'][0]) && $jsonData['Shouldereffusion'][0] == 'YES')
                                                                                         <p class="ss_result">
                                                                                             {{ $jsonData['Shouldereffusion'][0] ?? '' }}
                                                                                         </p>
@@ -2014,7 +2014,7 @@
                                                                                     features
                                                                                 <p>
 
-                                                                                    @if (isset($jsonData['Osteoarthreticfeatures'][0]) && $jsonData['Osteoarthreticfeatures'][0] == 'Yes')
+                                                                                    @if (isset($jsonData['Osteoarthreticfeatures'][0]) && $jsonData['Osteoarthreticfeatures'][0] == 'YES')
                                                                                         <p class="ss_result">
                                                                                             {{ $jsonData['Osteoarthreticfeatures'][0] ?? '' }}
                                                                                         </p>
@@ -2031,10 +2031,10 @@
 
 
                                                                         </div>
-                                                                        <!--USVENOUSDOPPLER70  > Hemarrhoids endorectal US Protocol Findings end -->
+                                                                        <!--USVENOUSDOPPLER70  > Hemorrhoids endorectal US Protocol Findings end -->
 
 
-                                                                        <!-- MRCIR48 > Hemarrhoids MRI Protocol Findings start -->
+                                                                        <!-- MRCIR48 > Hemorrhoids MRI Protocol Findings start -->
                                                                         <div class="ss_result_box">
                                                                             <div class="symp_title mb-3">
                                                                                 <h6><span class="point_dia"><i
@@ -2056,7 +2056,7 @@
                                                                             @endif
 
                                                                         </div>
-                                                                        <!-- MRCIR48 > Hemarrhoids MRI Protocol Findings end -->
+                                                                        <!-- MRCIR48 > Hemorrhoids MRI Protocol Findings end -->
 
                                                                         <!--CTCIR48 > CTA - Pelvic Protocol - Findings start -->
                                                                         <div class="ss_result_box">

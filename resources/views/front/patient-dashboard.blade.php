@@ -135,7 +135,8 @@
                     <div class="patient_dt_profile">
 
                         <h5 class="patient_name__">
-                            {{ $patient->sirname??'' . ' ' . $patient->name??'' }}
+                            {{ $patient->sirname??''  }} {{$patient->name??''}}
+                            
                         </h5>
                         
 

@@ -179,7 +179,11 @@ class CalendarController extends Controller
         }
 
         $ltsId = DB::table('tasks')->latest()->value('id');
+        if(DB::table('tasks')->where('appointment_id',$eventId)->exists()){
+            DB::table('tasks')->where('appointment_id',$eventId)->delete();
+        }
         DB::table('tasks')->insert([
+            'appointment_id' => $eventId,
             'invoiceNumber'  => sprintf("%06d", rand(0, 999999)) . $ltsId,
             'patient_id'      => $request->input('patintValue'),
             'doctor_id'       => $request->input('doctor_id'),
@@ -195,7 +199,9 @@ class CalendarController extends Controller
     public function deleteEvent(Request $request)
     {
         $event = BookAppointment::find($request->id);
-
+        if(DB::table('tasks')->where('appointment_id',$request->id)->exists()){
+            DB::table('tasks')->where('appointment_id',$request->id)->delete();
+        }
         if (!$event) {
             return response()->json(['error' => 'Event not found'], 404);
         }

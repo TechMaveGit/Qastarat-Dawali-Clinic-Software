@@ -257,7 +257,7 @@
                                             <label class="form-label">Mobile Phone <span class="clr"> * </span></label>
                                             <input type="tel" name="mobile_no"
                                                 value="{{ old('mobile_no') }}" class="form-control"
-                                                placeholder="" minlength="10" maxlength="15">
+                                                placeholder="" minlength="7" maxlength="13">
 
                                             @error('mobile_no')
                                                 <p class="error text-danger">{{ $message }}</p>

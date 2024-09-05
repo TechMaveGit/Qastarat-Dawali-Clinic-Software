@@ -1498,9 +1498,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Vaginal][]" id="formRadiosRight43"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1524,9 +1524,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Uterine][]" id="formRadiosRight45"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1540,7 +1540,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Painfulintercorse][]" id="formRadiosRight46"
-                                                        value="Yes">
+                                                        value="YES">
                                                     <label class="form-check-label" for="formRadiosRight46">
                                                         YES
                                                     </label>
@@ -1550,9 +1550,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Painfulintercorse][]" id="formRadiosRight47"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1566,7 +1566,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Recurrentabortion][]" id="formRadiosRight46"
-                                                        value="Yes">
+                                                        value="YES">
                                                     <label class="form-check-label" for="formRadiosRight46">
                                                         YES
                                                     </label>
@@ -1576,9 +1576,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Recurrentabortion][]" id="formRadiosRight47"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1592,7 +1592,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[injections][]" id="formRadiosRight46"
-                                                        value="Yes">
+                                                        value="YES">
                                                     <label class="form-check-label" for="formRadiosRight46">
                                                         YES
                                                     </label>
@@ -1602,9 +1602,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[injections][]" id="formRadiosRight47"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>

@@ -44,7 +44,11 @@
 
     $countryCode = DB::table('dial_codes')->where('status', '1')->get();
 @endphp
-
+<style>
+    .dynamic-select .dynamic-select-header, .dynamic-select .dynamic-select-option {
+    height: 45px !important;
+    }
+</style>
 <div class="modal fade " id="allergies_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog ">
@@ -1276,10 +1280,10 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-2">
+                                <div class="col-lg-3">
                                     <div class="mb-3 form-group">
                                         <label for="dialCode" class="form-label">Dial Code</label>
-                                        <select id="dialCode" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                        <select id="dialCode" class="form-control form-select" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
                                             @foreach ($countryCode as $countryCodes)
                                                 <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
                                                     {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
@@ -1288,7 +1292,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-5">
+                                <div class="col-lg-4">
 
                                     <div class="mb-3 form-group">
 
@@ -1298,8 +1302,7 @@
                                             oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                             class="form-control" id="" placeholder=""
                                             onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                            minlength="0" maxlength="15" name="mobile_no"
-                                            pattern="[0-9]{10,15}">
+                                            minlength="7" maxlength="13" name="mobile_no">
                                         <span id="mobile_noError" style="color: red;font-size:smaller"></span>
                                         <!-- @error('mobile_no')
  <span class="alert alert-danger">{{ $message }}</span>
@@ -4105,8 +4108,6 @@
     </div>
 
 </div>
-
-
 
 @if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
@@ -8637,7 +8638,7 @@
 <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 
 <!--  Flatpickr  -->
-
+<script src="{{ asset('/assets/Common/js/CountrySelect.js')}}"></script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>

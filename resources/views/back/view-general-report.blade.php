@@ -170,8 +170,7 @@
                         <div class="middle_mm">
 
                             <div class="view_record_icon">
-                                <a href="#" class="action_btn_tooltip proress_notes" data-bs-toggle="modal"
-                                    data-bs-target="#add_new_note">
+                                <a href="#" class="action_btn_tooltip proress_notes" data-bs-toggle="modal" data-bs-target="#add_new_note">
 
                                     <iconify-icon icon="simple-line-icons:plus" width="20"></iconify-icon>
 
@@ -186,14 +185,13 @@
                                 <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
                                     data-bs-target="#supportive_treatment">
                                     <iconify-icon icon="icon-park-outline:order" width="24"></iconify-icon>
-                                    <span class="toolTip"> Supportive Treatment</span>
+                                    <span class="toolTip">Supportive Treatment</span>
                                 </a>
                                 <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
                                     data-bs-target="#prescription_day">
                                     <iconify-icon icon="majesticons:script-prescription-line" width="24"></iconify-icon>
                                     <span class="toolTip">Prescribe Drug</span>
                                 </a>
-
                                 <a href="#" class="action_btn_tooltip" data-bs-toggle="modal"
                                     data-bs-target="#refer_patient" aria-controls="offcanvasBottom">
 

@@ -185,7 +185,7 @@
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Mobile Phone</label>
-                            <input type="text" value="{{ $doctor->mobile_no }}" class="form-control" placeholder="" minlength="10" maxlength="15" readonly>
+                            <input type="text" value="{{ $doctor->mobile_no }}" class="form-control" placeholder="" minlength="7" maxlength="15" readonly>
                             @error('mobile_no')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror

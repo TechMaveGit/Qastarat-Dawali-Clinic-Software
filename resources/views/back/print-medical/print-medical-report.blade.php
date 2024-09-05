@@ -2196,18 +2196,18 @@
                                         @php
                                             $jsonData = json_decode($record->data_value, true);
                                         @endphp
-                                        <!--USVENOUSDOPPLER70  > Hemarrhoids endorectal US Protocol Findings start -->
+                                        <!--USVENOUSDOPPLER70  > Hemorrhoids endorectal US Protocol Findings start -->
                                         <div class="ss_result_box">
                                             <div class="symp_title mb-3">
                                                 <h6><span class="point_dia"><i
                                                             class="fa-regular fa-circle-dot"></i></span>
-                                                    USVENOUSDOPPLER70 > Hemarrhoids
+                                                    USVENOUSDOPPLER70 > Hemorrhoids
                                                     endorectal US Protocol Findings</h6>
                                             </div>
 
                                             @if(isset($jsonData['ExternalHemarrhoids'][0]))
                                             <div class="symp_title mb-3">
-                                                <p class="ss_result">External Hemarrhoids
+                                                <p class="ss_result">External Hemorrhoids
                                                 <p>
                                                 <p class="ss_result">
                                                     &nbsp;&nbsp;{{ $jsonData['ExternalHemarrhoids'][0] ?? '' }}
@@ -2217,7 +2217,7 @@
 
                                             @if(isset($jsonData['InternalHemarrhoids'][0]))
                                             <div class="symp_title mb-3">
-                                                <p class="ss_result">Internal Hemarrhoids
+                                                <p class="ss_result">Internal Hemorrhoids
                                                 <p>
                                                 <p class="ss_result">
                                                     &nbsp;&nbsp;{{ $jsonData['InternalHemarrhoids'][0] ?? '' }}
@@ -2234,15 +2234,15 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <!--USVENOUSDOPPLER70  > Hemarrhoids endorectal US Protocol Findings end -->
+                                        <!--USVENOUSDOPPLER70  > Hemorrhoids endorectal US Protocol Findings end -->
 
 
-                                        <!-- MRCIR48 > Hemarrhoids MRI Protocol Findings start -->
+                                        <!-- MRCIR48 > Hemorrhoids MRI Protocol Findings start -->
                                         <div class="ss_result_box">
                                             <div class="symp_title mb-3">
                                                 <h6><span class="point_dia"><i
                                                             class="fa-regular fa-circle-dot"></i></span>
-                                                    MRCIR48 > Hemarrhoids MRI Protocol
+                                                    MRCIR48 > Hemorrhoids MRI Protocol
                                                     Findings</h6>
                                             </div>
 
@@ -2298,7 +2298,7 @@
                                             </div>
 
                                         </div>
-                                        <!-- MRCIR48 > Hemarrhoids MRI Protocol Findings end -->
+                                        <!-- MRCIR48 > Hemorrhoids MRI Protocol Findings end -->
 
                                         <!--CTCIR48 > CTA - Pelvic Protocol - Findings start -->
                                         <div class="ss_result_box">

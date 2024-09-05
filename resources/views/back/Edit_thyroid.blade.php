@@ -2225,36 +2225,36 @@
                                                     @if ($sum >= 0 && $sum <= 7)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild  </th>
                                                             <th>(0-7 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 8 && $sum <= 19)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate  </th>
                                                             <th>(8-19 pts) </th>
                                                         </tr>
                                                     @else
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe  </th>
                                                             <th>(20-35 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(8-19 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(20-35 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -2298,7 +2298,7 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Palpitations][]" id="formRadiosRight43"
-                                                        value="No"
+                                                        value="NO"
                                                         {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
                                                         NO
@@ -3237,7 +3237,7 @@
                                                         {{ isset($Retrosternalextension['extension'][0]) && $Retrosternalextension['extension'][0] == 3 ? 'NO' : '' }}
                                                         id="formRadiosRighta64" value="NO">
                                                     <label class="form-check-label" for="formRadiosRighta64">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -3274,7 +3274,7 @@
                                                         {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'NO' ? 'checked' : '' }}
                                                         id="formRadiosRighta66" value="NO">
                                                     <label class="form-check-label" for="formRadiosRighta66">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -3312,7 +3312,7 @@
                                                         {{ isset($paralysis['antoy'][0]) && $paralysis['antoy'][0] == 'no' ? 'checked' : '' }}
                                                         id="formRadiosRighta68" value="no">
                                                     <label class="form-check-label" for="formRadiosRighta68">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -3427,20 +3427,20 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[ATN][]"
-                                                {{ isset($NmThyroidScan['ATN'][0]) && $NmThyroidScan['ATN'][0] == 'Yes' ? 'checked' : '' }}
-                                                id="formRadiosRighta77" value="Yes">
+                                                {{ isset($NmThyroidScan['ATN'][0]) && $NmThyroidScan['ATN'][0] == 'YES' ? 'checked' : '' }}
+                                                id="formRadiosRighta77" value="YES">
                                             <label class="form-check-label" for="formRadiosRighta77">
-                                                Yes
+                                                YES
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[ATN][]"
-                                                {{ isset($NmThyroidScan['ATN'][0]) && $NmThyroidScan['ATN'][0] == 'No' ? 'checked' : '' }}
-                                                id="formRadiosRighta78" value="No">
+                                                {{ isset($NmThyroidScan['ATN'][0]) && $NmThyroidScan['ATN'][0] == 'NO' ? 'checked' : '' }}
+                                                id="formRadiosRighta78" value="NO">
                                             <label class="form-check-label" for="formRadiosRighta78">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3462,10 +3462,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmThyroidScan[Hashimoto][]"
-                                                {{ isset($NmThyroidScan['Hashimoto'][0]) && $NmThyroidScan['Hashimoto'][0] == 'No' ? 'checked' : '' }}
-                                                id="formRadiosRighta80" value="No">
+                                                {{ isset($NmThyroidScan['Hashimoto'][0]) && $NmThyroidScan['Hashimoto'][0] == 'NO' ? 'checked' : '' }}
+                                                id="formRadiosRighta80" value="NO">
                                             <label class="form-check-label" for="formRadiosRighta80">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3489,7 +3489,7 @@
                                                 {{ isset($NmThyroidScan['disease'][0]) && $NmThyroidScan['disease'][0] == 'NO' ? 'checked' : '' }}
                                                 value="NO" id="formRadiosRighta82">
                                             <label class="form-check-label" for="formRadiosRighta82">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3530,7 +3530,7 @@
                                                 {{ isset($NmParaThyroidScan['RightUpper'][0]) && $NmParaThyroidScan['RightUpper'][0] == 'NO' ? 'checked' : '' }}
                                                 value="NO" id="formRadiosRighta84">
                                             <label class="form-check-label" for="formRadiosRighta84">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3555,7 +3555,7 @@
                                                 {{ isset($NmParaThyroidScan['RightLower'][0]) && $NmParaThyroidScan['RightLower'][0] == 'NO' ? 'checked' : '' }}
                                                 value="NO" id="formRadiosRighta86">
                                             <label class="form-check-label" for="formRadiosRighta86">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3580,7 +3580,7 @@
                                                 {{ isset($NmParaThyroidScan['LeftUpper'][0]) && $NmParaThyroidScan['LeftUpper'][0] == 'NO' ? 'checked' : '' }}
                                                 value="NO" id="formRadiosRighta88">
                                             <label class="form-check-label" for="formRadiosRighta88">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3605,7 +3605,7 @@
                                                 {{ isset($NmParaThyroidScan['LeftLower'][0]) && $NmParaThyroidScan['LeftLower'][0] == 'NO' ? 'checked' : '' }}
                                                 value="NO" id="formRadiosRighta90">
                                             <label class="form-check-label" for="formRadiosRighta90">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>

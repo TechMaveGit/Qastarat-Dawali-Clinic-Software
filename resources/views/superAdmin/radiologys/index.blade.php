@@ -383,7 +383,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Mobile Phone<span class="clr">*</span></label>
-                                    <input type="text" name="mobile_no" class="form-control" placeholder="" id="mobile_no1" value="{{ old('mobile_no') }}" minlength="10" maxlength="15">
+                                    <input type="text" name="mobile_no" class="form-control" placeholder="" id="mobile_no1" value="{{ old('mobile_no') }}" minlength="7" maxlength="13">
                                     @error('mobile_no')
                                         <span class="error text-danger">{{ $message }}</span>
                                     @enderror

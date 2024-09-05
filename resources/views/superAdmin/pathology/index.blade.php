@@ -230,7 +230,7 @@
                             <div class="form-group">
                                 <label class="form-label">Mobile Phone <span class="clr">*</span></label>
                                 <input type="text" name="mobile_no" id="mobile_no" class="form-control"
-                                    placeholder="" minlength="10" maxlength="15" required>
+                                    placeholder="" minlength="7" maxlength="13" required>
                                     @error('mobile_no')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
@@ -369,7 +369,7 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="form-label">Mobile Phone<span class="clr">*</span></label>
-                                    <input type="text" name="mobile_no" id="mobile_no1" class="form-control" placeholder="" value="{{ old('mobile_no') }}" minlength="10" maxlength="15">
+                                    <input type="text" name="mobile_no" id="mobile_no1" class="form-control" placeholder="" value="{{ old('mobile_no') }}" minlength="7" maxlength="13">
                                     @error('mobile_no')
                                         <span class="error text-danger">{{ $message }}</span>
                                     @enderror

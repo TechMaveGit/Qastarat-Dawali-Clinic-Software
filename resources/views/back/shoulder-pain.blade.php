@@ -1565,17 +1565,17 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                 
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-15 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">>
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(16-30 pts)</th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(31-50 pts)</th>
                                                 </tr>
                                             </tbody>
@@ -1608,9 +1608,9 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Softtissue][]" id="formRadiosRight043Softtissue"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight043Softtissue">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1633,9 +1633,9 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[ShoulderProsthesis][]" id="formRadiosRight043ShoulderProsthesis"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight043ShoulderProsthesis">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1658,9 +1658,9 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[seroma][]" id="formRadiosRight043seroma"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight043seroma">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1823,18 +1823,18 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="Imaging[Shouldereffusion][]" value="Yes" id="formRadiosRightd14">
+                                        <input class="form-check-input" type="radio" name="Imaging[Shouldereffusion][]" value="YES" id="formRadiosRightd14">
                                         <label class="form-check-label" for="formRadiosRightd14">
-                                        Yes
+                                        YES
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="Imaging[Shouldereffusion][]" value="No" id="formRadiosRightd15">
+                                        <input class="form-check-input" type="radio" name="Imaging[Shouldereffusion][]" value="NO" id="formRadiosRightd15">
                                         <label class="form-check-label" for="formRadiosRightd15">
-                                        No
+                                        NO
                                         </label>
                                     </div>
                                 </div>
@@ -1848,18 +1848,18 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="Imaging[Osteoarthreticfeatures][]" value="Yes" id="formRadiosRightd39">
+                                        <input class="form-check-input" type="radio" name="Imaging[Osteoarthreticfeatures][]" value="YES" id="formRadiosRightd39">
                                         <label class="form-check-label" for="formRadiosRightd39">
-                                        Yes
+                                        YES
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="Imaging[Osteoarthreticfeatures][]" value="No" id="formRadiosRightd40">
+                                        <input class="form-check-input" type="radio" name="Imaging[Osteoarthreticfeatures][]" value="NO" id="formRadiosRightd40">
                                         <label class="form-check-label" for="formRadiosRightd40">
-                                       No
+                                       NO
                                         </label>
                                     </div>
                                 </div>

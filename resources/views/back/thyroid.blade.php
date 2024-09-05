@@ -2232,17 +2232,17 @@
                                                 </tr>
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(8-19 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(20-35 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -2276,9 +2276,9 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Palpitations][]" id="formRadiosRight43"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -2302,9 +2302,9 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Carbimazole][]" id="formRadiosRight45"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -2319,7 +2319,7 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[lethargy][]" id="formRadiosRight46"
-                                                        value="Yes">
+                                                        value="YES">
                                                     <label class="form-check-label" for="formRadiosRight46">
                                                         YES
                                                     </label>
@@ -2329,9 +2329,9 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[lethargy][]" id="formRadiosRight47"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -2357,7 +2357,7 @@
                                                         name="clinical_indicator[Thyroxine][]" id="formRadiosRight47"
                                                         value="NO">
                                                     <label class="form-check-label" for="formRadiosRight49">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -3056,7 +3056,7 @@
                                                         name="Retrosternalextension[extension][]"
                                                         id="formRadiosRighta64" value="NO">
                                                     <label class="form-check-label" for="formRadiosRighta64">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -3082,7 +3082,7 @@
                                                         name="EnlargedLymphnodes[nodes][]" id="formRadiosRighta66"
                                                         value="NO">
                                                     <label class="form-check-label" for="formRadiosRighta66">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -3109,7 +3109,7 @@
                                                         name="paralysis[antoy][]" id="formRadiosRighta68"
                                                         value="NO">
                                                     <label class="form-check-label" for="formRadiosRighta68">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -3195,18 +3195,18 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[ATN][]"
-                                                id="formRadiosRighta77" value="Yes">
+                                                id="formRadiosRighta77" value="YES">
                                             <label class="form-check-label" for="formRadiosRighta77">
-                                                Yes
+                                                YES
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[ATN][]"
-                                                id="formRadiosRighta78" value="No">
+                                                id="formRadiosRighta78" value="NO">
                                             <label class="form-check-label" for="formRadiosRighta78">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3225,9 +3225,9 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[Hashimoto][]"
-                                                id="formRadiosRighta80" value="No">
+                                                id="formRadiosRighta80" value="NO">
                                             <label class="form-check-label" for="formRadiosRighta80">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3249,7 +3249,7 @@
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[disease][]"
                                                 value="NO" id="formRadiosRighta82">
                                             <label class="form-check-label" for="formRadiosRighta82">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3279,7 +3279,7 @@
                                                 name="NmParaThyroidScan[RightUpper][]" value="NO"
                                                 id="formRadiosRighta84">
                                             <label class="form-check-label" for="formRadiosRighta84">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3302,7 +3302,7 @@
                                                 name="NmParaThyroidScan[RightLower][]"  value="NO"
                                                 id="formRadiosRighta86">
                                             <label class="form-check-label" for="formRadiosRighta86">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3325,7 +3325,7 @@
                                                 name="NmParaThyroidScan[LeftUpper][]" value="NO"
                                                 id="formRadiosRighta88">
                                             <label class="form-check-label" for="formRadiosRighta88">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
@@ -3348,7 +3348,7 @@
                                                 name="NmParaThyroidScan[LeftLower][]" value="NO"
                                                 id="formRadiosRighta90">
                                             <label class="form-check-label" for="formRadiosRighta90">
-                                                No
+                                                NO
                                             </label>
                                         </div>
                                     </div>
