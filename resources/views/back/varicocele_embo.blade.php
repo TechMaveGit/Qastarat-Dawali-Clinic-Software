@@ -1457,7 +1457,7 @@
                                     <div class="form-check form-check-right mb-3">
                                         <input class="form-check-input"type="radio" name="clinical_indicator[testicles][]" value="NO" id="formRadiosRight43">
                                         <label class="form-check-label" for="formRadiosRight43">
-                                        No
+                                        NO
                                         </label>
                                     </div>
                                 </div>
@@ -1479,7 +1479,7 @@
                                     <div class="form-check form-check-right mb-3">
                                         <input class="form-check-input"type="radio" name="clinical_indicator[Undecendedtesticles][]" value="NO" id="formRadiosRight45">
                                         <label class="form-check-label" for="formRadiosRight45">
-                                        No
+                                        NO
                                         </label>
                                     </div>
                                 </div>
@@ -1501,7 +1501,7 @@
                                     <div class="form-check form-check-right mb-3">
                                         <input class="form-check-input" type="radio"  name="clinical_indicator[Erectiledysfunction][]" value="NO" id="formRadiosRight47">
                                         <label class="form-check-label" for="formRadiosRight47">
-                                        No
+                                        NO
                                         </label>
                                     </div>
                                 </div>
@@ -1522,7 +1522,7 @@
                                     <div class="form-check form-check-right mb-3">
                                         <input class="form-check-input" type="radio" name="clinical_indicator[ReducedEjaculate][]" value="NO" id="formRadiosRightd6">
                                         <label class="form-check-label" for="formRadiosRightd6">
-                                        No
+                                        NO
                                         </label>
                                     </div>
                                 </div>
@@ -1543,7 +1543,7 @@
                                     <div class="form-check form-check-right mb-3">
                                         <input class="form-check-input" type="radio" name="clinical_indicator[Primaryinfertility][]" value="NO" id="formRadiosRightd9">
                                         <label class="form-check-label" for="formRadiosRightd9">
-                                        No
+                                        NO
                                         </label>
                                     </div>
                                 </div>
@@ -1564,7 +1564,7 @@
                                     <div class="form-check form-check-right mb-3">
                                         <input class="form-check-input" type="radio" name="clinical_indicator[Secondaryinfertility][]" value="NO" id="formRadiosRightd37">
                                         <label class="form-check-label" for="formRadiosRightd37">
-                                        No
+                                        NO
                                         </label>
                                     </div>
                                 </div>
@@ -1880,7 +1880,7 @@
                                     <div class="form-check form-check-right mb-3">
                                         <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="NO" id="formRadiosRightd17">
                                         <label class="form-check-label" for="formRadiosRightd17">
-                                        No
+                                        NO
                                         </label>
                                     </div>
                                 </div>

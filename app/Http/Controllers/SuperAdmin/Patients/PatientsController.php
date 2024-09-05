@@ -105,7 +105,7 @@ class PatientsController extends Controller
         'doctorName'=>'required',
         // 'post_code' => 'nullable|digits_between:4,8',
         'landline' => 'nullable|numeric|digits_between:10,15',
-        'mobile_no' => 'required|numeric|unique:users,mobile_no|regex:/^[0-9]{10,15}$/',
+        'mobile_no' => 'required|numeric|unique:users,mobile_no|regex:/^[0-9]{7,13}$/',
         'password' => 'required|min:6',
         'name' => 'required',
         'gendar' => 'required',
@@ -123,7 +123,7 @@ class PatientsController extends Controller
         'mobile_no.required' => 'Mobile Phone is required.',
         'mobile_no.numeric' => 'Mobile Phone must be a number.',
         'mobile_no.unique' => 'This mobile Phone is already taken.',
-        'mobile_no.digits_between' => 'Mobile number must be between 10 and 15 digits.',
+        'mobile_no.digits_between' => 'Mobile number must be between 7 and 13 digits.',
         'password.required' => 'Password is required.',
         'password.min' => 'Password must be at least :min characters.',
         'name.required' => 'Name is required.',
@@ -273,7 +273,7 @@ class PatientsController extends Controller
                 'mobile_no' => [
                     'required',
                     'numeric',
-                    'regex:/^[0-9]{10,15}$/',
+                    'regex:/^[0-9]{7,13}$/',
                     Rule::unique('users')->ignore($id),
                 ],
             ]);

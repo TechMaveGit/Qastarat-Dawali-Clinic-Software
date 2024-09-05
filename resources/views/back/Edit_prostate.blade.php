@@ -1571,36 +1571,36 @@
                                                     @if ($sum >= 0 && $sum <= 7)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild  </th>
                                                             <th>(0-7 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 8 && $sum <= 19)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate  </th>
                                                             <th>(8-19 pts) </th>
                                                         </tr>
                                                     @else
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe  </th>
                                                             <th>(20-35 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(8-19 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(20-35 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -1625,7 +1625,7 @@
                                     <div class="col-lg-12">
                                         <div class="row align-items-center">
                                             <div class="col-lg-4">
-                                                <h6 class="mb-3 lut_title">LUTS Meds</h6>
+                                                <h6 class="mb-3 lut_title"> Meds</h6>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2202,11 +2202,11 @@
                                        </div>
                                        <div class="col-lg-4">
                                            <div class="form-check form-check-right mb-3">
-                                               <input class="form-check-input" type="radio" name="Imaging[ProstateAdenoCarcinoma][]" value="No" id="formRadiosRight73"
-                                               {{ isset($Imaging['ProstateAdenoCarcinoma'][0]) && $Imaging['ProstateAdenoCarcinoma'][0] == "No" ? 'checked' : '' }}
+                                               <input class="form-check-input" type="radio" name="Imaging[ProstateAdenoCarcinoma][]" value="NO" id="formRadiosRight73"
+                                               {{ isset($Imaging['ProstateAdenoCarcinoma'][0]) && $Imaging['ProstateAdenoCarcinoma'][0] == "NO" ? 'checked' : '' }}
                                                >
                                                <label class="form-check-label" for="formRadiosRight73">
-                                               No
+                                               NO
                                                </label>
                                            </div>
                                        </div>

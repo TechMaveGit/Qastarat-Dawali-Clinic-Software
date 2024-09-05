@@ -1559,36 +1559,36 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                     @if ($sum >= 0 && $sum <= 7)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild  </th>
                                                             <th>(0-7 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 8 && $sum <= 19)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate  </th>
                                                             <th>(8-19 pts) </th>
                                                         </tr>
                                                     @else
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe  </th>
                                                             <th>(20-35 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(8-19 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(20-35 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -1631,10 +1631,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Vaginal][]" id="formRadiosRight43"
-                                                        value="No"
-                                                        {{ isset($clinical_indicators['Vaginal'][0]) && $clinical_indicators['Vaginal'][0] == 'No' ? 'checked' : '' }}>
+                                                        value="NO"
+                                                        {{ isset($clinical_indicators['Vaginal'][0]) && $clinical_indicators['Vaginal'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1659,8 +1659,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Uterine][]" id="formRadiosRight45"
-                                                        value="No"
-                                                        {{ isset($clinical_indicators['Uterine'][0]) && $clinical_indicators['Uterine'][0] == 'No' ? 'checked' : '' }}>
+                                                        value="NO"
+                                                        {{ isset($clinical_indicators['Uterine'][0]) && $clinical_indicators['Uterine'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45">
                                                         NO
                                                     </label>
@@ -1676,10 +1676,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Painfulintercorse][]" id="formRadiosRight46"
-                                                        value="Yes"
-                                                        {{ isset($clinical_indicators['Painfulintercorse'][0]) && $clinical_indicators['Painfulintercorse'][0] == 'Yes' ? 'checked' : '' }}>
+                                                        value="YES"
+                                                        {{ isset($clinical_indicators['Painfulintercorse'][0]) && $clinical_indicators['Painfulintercorse'][0] == 'YES' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        Yes
+                                                        YES
                                                     </label>
                                                 </div>
                                             </div>
@@ -1703,8 +1703,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Recurrentabortion][]" id="formRadiosRight46"
-                                                        {{ isset($clinical_indicators['Recurrentabortion'][0]) && $clinical_indicators['Recurrentabortion'][0] == 'Yes' ? 'checked' : '' }}
-                                                        value="Yes">
+                                                        {{ isset($clinical_indicators['Recurrentabortion'][0]) && $clinical_indicators['Recurrentabortion'][0] == 'YES' ? 'checked' : '' }}
+                                                        value="YES">
                                                     <label class="form-check-label" for="formRadiosRight46">
                                                         YES
                                                     </label>
@@ -1714,10 +1714,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Recurrentabortion][]" id="formRadiosRight47"
-                                                        {{ isset($clinical_indicators['Recurrentabortion'][0]) && $clinical_indicators['Recurrentabortion'][0] == 'No' ? 'checked' : '' }}
-                                                        value="No">
+                                                        {{ isset($clinical_indicators['Recurrentabortion'][0]) && $clinical_indicators['Recurrentabortion'][0] == 'NO' ? 'checked' : '' }}
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1731,8 +1731,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[injections][]" id="formRadiosRight46"
-                                                        {{ isset($clinical_indicators['injections'][0]) && $clinical_indicators['injections'][0] == 'Yes' ? 'checked' : '' }}
-                                                        value="Yes">
+                                                        {{ isset($clinical_indicators['injections'][0]) && $clinical_indicators['injections'][0] == 'YES' ? 'checked' : '' }}
+                                                        value="YES">
                                                     <label class="form-check-label" for="formRadiosRight46">
                                                         YES
                                                     </label>
@@ -1742,10 +1742,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[injections][]" id="formRadiosRight47"
-                                                        {{ isset($clinical_indicators['injections'][0]) && $clinical_indicators['injections'][0] == 'No' ? 'checked' : '' }}
-                                                        value="No">
+                                                        {{ isset($clinical_indicators['injections'][0]) && $clinical_indicators['injections'][0] == 'NO' ? 'checked' : '' }}
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>

@@ -1562,36 +1562,36 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                     @if ($sum >= 0 && $sum <= 5)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild </th>
                                                             <th>(0-5 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 6 && $sum <= 15)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate </th>
                                                             <th>(6-15 pts) </th>
                                                         </tr>
                                                     @elseif ($sum >= 16 && $sum <= 1999)
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe </th>
                                                             <th>(16-25 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild </th>
                                                     <th>(0-5 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">>
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate </th>
                                                     <th>(6-15 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe </th>
                                                     <th>(16-25 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -1634,10 +1634,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[testicles][]" id="formRadiosRight43"
-                                                        value="No"
+                                                        value="NO"
                                                         {{ isset($clinical_indicators['testicles'][0]) && $clinical_indicators['testicles'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1690,7 +1690,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Erectiledysfunction][]" id="formRadiosRight45Erectiledysfunction"
-                                                        value="No"
+                                                        value="NO"
                                                         {{ isset($clinical_indicators['Erectiledysfunction'][0]) && $clinical_indicators['Erectiledysfunction'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45Erectiledysfunction">
                                                         NO
@@ -1718,7 +1718,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[ReducedEjaculate][]" id="formRadiosRight45ReducedEjaculate"
-                                                        value="No"
+                                                        value="NO"
                                                         {{ isset($clinical_indicators['ReducedEjaculate'][0]) && $clinical_indicators['ReducedEjaculate'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45ReducedEjaculate">
                                                         NO
@@ -1745,7 +1745,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Primaryinfertility][]" id="formRadiosRight45Primaryinfertility"
-                                                        value="No"
+                                                        value="NO"
                                                         {{ isset($clinical_indicators['Primaryinfertility'][0]) && $clinical_indicators['Primaryinfertility'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45Primaryinfertility">
                                                         NO
@@ -1772,7 +1772,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Secondaryinfertility][]" id="formRadiosRight45Secondaryinfertility"
-                                                        value="No"
+                                                        value="NO"
                                                         {{ isset($clinical_indicators['Secondaryinfertility'][0]) && $clinical_indicators['Secondaryinfertility'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45Secondaryinfertility">
                                                         NO
@@ -2161,7 +2161,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "NO" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd17">
-                                                No
+                                                NO
                                                 </label>
                                             </div>
                                         </div>

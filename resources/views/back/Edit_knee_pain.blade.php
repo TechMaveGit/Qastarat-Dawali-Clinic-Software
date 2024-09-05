@@ -2296,36 +2296,36 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                     @if ($sum >= 0 && $sum <= 15)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild  </th>
                                                             <th>(0-15 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 16 && $sum <= 30)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate  </th>
                                                             <th>(16-30 pts) </th>
                                                         </tr>
                                                     @elseif ($sum >= 31 && $sum <= 1999)
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe  </th>
                                                             <th>(31-50 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-15 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(16-30 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(31-50 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -2368,10 +2368,10 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[SepticKnee][]" id="formRadiosRight43"
-                                                        value="No"
-                                                        {{ isset($clinical_indicators['SepticKnee'][0]) && $clinical_indicators['SepticKnee'][0] == 'No' ? 'checked' : '' }}>
+                                                        value="NO"
+                                                        {{ isset($clinical_indicators['SepticKnee'][0]) && $clinical_indicators['SepticKnee'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -2396,8 +2396,8 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[KneeProsthesis][]" id="formRadiosRight45"
-                                                        value="No"
-                                                        {{ isset($clinical_indicators['KneeProsthesis'][0]) && $clinical_indicators['KneeProsthesis'][0] == 'No' ? 'checked' : '' }}>
+                                                        value="NO"
+                                                        {{ isset($clinical_indicators['KneeProsthesis'][0]) && $clinical_indicators['KneeProsthesis'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45">
                                                         NO
                                                     </label>
@@ -3335,7 +3335,7 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
-                                            <h4>MDTREVIEW00  &#62; <span class="sub_tt__"> Hemarrhoids MDT outcome</span></h4>
+                                            <h4>MDTREVIEW00  &#62; <span class="sub_tt__"> Hemorrhoids MDT outcome</span></h4>
                                         </div>
                                     </div>
                                     @php

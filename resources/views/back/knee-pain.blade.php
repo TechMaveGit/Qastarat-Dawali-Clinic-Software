@@ -2165,17 +2165,17 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                 </tr>
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-15 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(16-30 pts)</th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(31-50 pts)</th>
                                                 </tr>
                                             </tbody>
@@ -2208,9 +2208,9 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[SepticKnee][]" id="formRadiosRight043"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight043">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -2233,9 +2233,9 @@ Patient | Knee Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[KneeProsthesis][]" id="formRadiosRight045"
-                                                        value="No">
+                                                        value="NO">
                                                     <label class="form-check-label" for="formRadiosRight045">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>

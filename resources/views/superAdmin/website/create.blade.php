@@ -206,7 +206,7 @@
                             <div class="col-md-3">    
                                 <div class="form-group">   
                                     <label class="form-label">Mobile Phone<span class="clr"> * </span></label>
-                                    <input type="tel" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="" minlength="10" maxlength="15">
+                                    <input type="tel" name="mobile_no" value="{{ old('mobile_no') }}" class="form-control" placeholder="" minlength="7" maxlength="13">
 
                                     @error('mobile_no')
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>

@@ -1748,36 +1748,36 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                     @if ($sum >= 0 && $sum <= 15)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild  </th>
                                                             <th>(0-15 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 16 && $sum <= 30)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate  </th>
                                                             <th>(16-30 pts) </th>
                                                         </tr>
                                                     @elseif ($sum >= 31 && $sum <= 1999)
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe  </th>
                                                             <th>(31-50 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-15 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">>
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(16-30 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(31-50 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -1820,10 +1820,10 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Softtissue][]" id="formRadiosRight43"
-                                                        value="No"
-                                                        {{ isset($clinical_indicators['Softtissue'][0]) && $clinical_indicators['Softtissue'][0] == 'No' ? 'checked' : '' }}>
+                                                        value="NO"
+                                                        {{ isset($clinical_indicators['Softtissue'][0]) && $clinical_indicators['Softtissue'][0] == 'NO' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1848,11 +1848,11 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[ShoulderProsthesis][]" id="formRadiosRight043ShoulderProsthesis"
-                                                        value="No"
-                                                        {{ isset($clinical_indicators['ShoulderProsthesis'][0]) && $clinical_indicators['ShoulderProsthesis'][0] == 'No' ? 'checked' : '' }}
+                                                        value="NO"
+                                                        {{ isset($clinical_indicators['ShoulderProsthesis'][0]) && $clinical_indicators['ShoulderProsthesis'][0] == 'NO' ? 'checked' : '' }}
                                                         >
                                                     <label class="form-check-label" for="formRadiosRight043ShoulderProsthesis">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -1878,11 +1878,11 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[seroma][]" id="formRadiosRight043seroma"
-                                                        value="No"
-                                                        {{ isset($clinical_indicators['seroma'][0]) && $clinical_indicators['seroma'][0] == 'No' ? 'checked' : '' }}
+                                                        value="NO"
+                                                        {{ isset($clinical_indicators['seroma'][0]) && $clinical_indicators['seroma'][0] == 'NO' ? 'checked' : '' }}
                                                         >
                                                     <label class="form-check-label" for="formRadiosRight043seroma">
-                                                        No
+                                                        NO
                                                     </label>
                                                 </div>
                                             </div>
@@ -2087,22 +2087,22 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                     </div>
                     <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3">
-                                    <input class="form-check-input" type="radio" name="Imaging[Shouldereffusion][]" value="Yes" id="formRadiosRightd14"
-                                    {{ isset($Imaging['Shouldereffusion'][0]) && $Imaging['Shouldereffusion'][0] == "Yes" ? 'checked' : '' }}
+                                    <input class="form-check-input" type="radio" name="Imaging[Shouldereffusion][]" value="YES" id="formRadiosRightd14"
+                                    {{ isset($Imaging['Shouldereffusion'][0]) && $Imaging['Shouldereffusion'][0] == "YES" ? 'checked' : '' }}
                                     >
                                     <label class="form-check-label" for="formRadiosRightd14">
-                                    Yes
+                                    YES
                                     </label>
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3">
-                                    <input class="form-check-input" type="radio" name="Imaging[Shouldereffusion][]" value="No" id="formRadiosRightd15"
-                                    {{ isset($Imaging['Shouldereffusion'][0]) && $Imaging['Shouldereffusion'][0] == "No" ? 'checked' : '' }}
+                                    <input class="form-check-input" type="radio" name="Imaging[Shouldereffusion][]" value="NO" id="formRadiosRightd15"
+                                    {{ isset($Imaging['Shouldereffusion'][0]) && $Imaging['Shouldereffusion'][0] == "NO" ? 'checked' : '' }}
                                     >
                                     <label class="form-check-label" for="formRadiosRightd15">
-                                    No
+                                    NO
                                     </label>
                                 </div>
                             </div>
@@ -2116,22 +2116,22 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                     </div>
                     <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3">
-                                    <input class="form-check-input" type="radio" name="Imaging[Osteoarthreticfeatures][]" value="Yes" id="formRadiosRightd39"
-                                    {{ isset($Imaging['Osteoarthreticfeatures'][0]) && $Imaging['Osteoarthreticfeatures'][0] == "Yes" ? 'checked' : '' }}
+                                    <input class="form-check-input" type="radio" name="Imaging[Osteoarthreticfeatures][]" value="YES" id="formRadiosRightd39"
+                                    {{ isset($Imaging['Osteoarthreticfeatures'][0]) && $Imaging['Osteoarthreticfeatures'][0] == "YES" ? 'checked' : '' }}
                                     >
                                     <label class="form-check-label" for="formRadiosRightd39">
-                                    Yes
+                                    YES
                                     </label>
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="form-check form-check-right mb-3">
-                                    <input class="form-check-input" type="radio" name="Imaging[Osteoarthreticfeatures][]" value="No" id="formRadiosRightd40"
-                                    {{ isset($Imaging['Osteoarthreticfeatures'][0]) && $Imaging['Osteoarthreticfeatures'][0] == "No" ? 'checked' : '' }}
+                                    <input class="form-check-input" type="radio" name="Imaging[Osteoarthreticfeatures][]" value="NO" id="formRadiosRightd40"
+                                    {{ isset($Imaging['Osteoarthreticfeatures'][0]) && $Imaging['Osteoarthreticfeatures'][0] == "NO" ? 'checked' : '' }}
                                     >
                                     <label class="form-check-label" for="formRadiosRightd40">
-                                   No
+                                   NO
                                     </label>
                                 </div>
                             </div>
@@ -2721,7 +2721,7 @@ Patient | Shoulder Pain | QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
-                                            <h4>MDTREVIEW00  &#62; <span class="sub_tt__"> Hemarrhoids MDT outcome</span></h4>
+                                            <h4>MDTREVIEW00  &#62; <span class="sub_tt__"> Hemorrhoids MDT outcome</span></h4>
                                         </div>
                                     </div>
                                     @php

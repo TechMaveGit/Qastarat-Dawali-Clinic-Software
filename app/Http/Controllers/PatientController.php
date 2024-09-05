@@ -1444,6 +1444,8 @@ class PatientController extends Controller
         $taskPrice = $request->input('taskPrice');
         $taskIdCount = count($taskId);
 
+        //dd($request->all());
+
         $invoice_data = [];
         $task_data = [];
         if ($taskIdCount > 0) {

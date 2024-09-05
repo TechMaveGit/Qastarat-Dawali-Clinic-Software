@@ -451,6 +451,24 @@ if (!empty($patient->birth_date ?? '')) {
                                     </div>
 
                                 </li>
+                                <li class="mb-4">
+                                    <div class="title___">
+
+                                        <h6>Assign Doctor</h6>
+
+                                    </div>
+
+                                
+        
+                                    <div class="data_pt">
+                                        @php
+                                            $doctor = DB::table('doctors')->whereId(@$patient->doctor_id)->first();
+                                        @endphp
+                                        <h6 id="data_pt_kin">{{ $doctor->title??'' }} {{ $doctor->name??'' }} </h6>
+        
+                                    </div>
+        
+                                </li>
 
 
 

@@ -94,7 +94,7 @@ class AccountantController extends Controller
                 'birth_date'=>'required',
                 'password' => 'required|min:6',
                 'landline' => 'nullable|numeric|digits_between:10,15',
-                'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:10,15|regex:/^[0-9]{10,15}$/',
+                'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:7,13|regex:/^[0-9]{7,13}$/',
                 // 'birth_date' => 'required|date',
                 'name' => 'required',
                 'gendar'=>'required',
@@ -110,7 +110,7 @@ class AccountantController extends Controller
                 'mobile_no.required' => 'Mobile Phone is required.',
                 'mobile_no.numeric' => 'Mobile Phone must be a number.',
                 'mobile_no.unique' => 'This mobile Phone is already taken.',
-                'mobile_no.digits_between' => 'Mobile number must be between 10 and 15 digits.',
+                'mobile_no.digits_between' => 'Mobile number must be between 7 and 13 digits.',
                 'password.required' => 'Password is required.',
                 'password.min' => 'Password must be at least :min characters.',
                 // 'birth_date.required' => 'Date of Birth  is required.',
@@ -191,7 +191,7 @@ class AccountantController extends Controller
                 'mobile_no' => [
                     'required',
                     'numeric',
-                    'regex:/^[0-9]{10,15}$/',
+                    'regex:/^[0-9]{7,13}$/',
                     Rule::unique('doctors')->ignore($id),
                 ],
             ]);

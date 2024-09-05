@@ -57,17 +57,17 @@ class InvoiceController extends Controller
         
 
 
-        $data['unpaidStatus'] = DB::table('tasks')->where('toInvoiceStatus', '1')->where('paidStatus', '0')->count();
+        $data['unpaidStatus'] = DB::table('invoices')->where('paidStatus', '0')->count();
 
         $data['totalPatient'] = DB::table('users')->count();
 
-        $data['paidStatus'] = DB::table('tasks')->where('toInvoiceStatus', '1')->where('paidStatus', '1')->count();
+        $data['paidStatus'] = DB::table('invoices')->where('paidStatus', '1')->count();
 
 
 
-        $data['totalRased'] = DB::table('tasks')->where('toInvoiceStatus', '1')->sum('finalAmount');
-        $data['unpaidfinalAmount'] = DB::table('tasks')->where('paidStatus', '0')->sum('finalAmount');
-        $data['paidfinalAmount'] = DB::table('tasks')->where('paidStatus', '1')->sum('finalAmount');
+        $data['totalRased'] = DB::table('invoices')->sum('finalAmount');
+        $data['unpaidfinalAmount'] = DB::table('invoices')->where('paidStatus', '0')->sum('finalAmount');
+        $data['paidfinalAmount'] = DB::table('invoices')->where('paidStatus', '1')->sum('finalAmount');
 
 
         //  invoices
@@ -80,7 +80,7 @@ class InvoiceController extends Controller
 
         $year = $request->input('yearName') ?? date('Y');
         for ($i = 1; $i <= 12; $i++) {
-            $checkInvoice[]    = DB::table('tasks')->where('toInvoiceStatus', '1')->whereYear('created_at', $year)->whereMonth('created_at', $i)->count();
+            $checkInvoice[]    = DB::table('invoices')->whereYear('created_at', $year)->whereMonth('created_at', $i)->count();
         }
         $currentYear = date('Y');
         $startYear = 2023;
