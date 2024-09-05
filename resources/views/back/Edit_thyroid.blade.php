@@ -2286,11 +2286,11 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Palpitations][]" id="formRadiosRight42"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'Yes' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES (TA unfavorable unless ATN)
+                                                        Yes (TA unfavorable unless ATN)
                                                     </label>
                                                 </div>
                                             </div>
@@ -2298,10 +2298,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Palpitations][]" id="formRadiosRight43"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2315,10 +2315,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Carbimazole][]" id="formRadiosRight44"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Carbimazole'][0]) && $clinical_indicators['Carbimazole'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Carbimazole'][0]) && $clinical_indicators['Carbimazole'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES (TA unfavorable unless ATN)
+                                                        Yes (TA unfavorable unless ATN)
                                                     </label>
                                                 </div>
                                             </div>
@@ -2326,10 +2326,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Carbimazole][]" id="formRadiosRight45"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['Carbimazole'][0]) && $clinical_indicators['Carbimazole'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['Carbimazole'][0]) && $clinical_indicators['Carbimazole'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2344,10 +2344,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[lethargy][]" id="formRadiosRight46"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['lethargy'][0]) && $clinical_indicators['lethargy'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['lethargy'][0]) && $clinical_indicators['lethargy'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -2355,10 +2355,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[lethargy][]" id="formRadiosRight47"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['lethargy'][0]) && $clinical_indicators['lethargy'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['lethargy'][0]) && $clinical_indicators['lethargy'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2372,10 +2372,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Thyroxine][]" id="formRadiosRight46"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Thyroxine'][0]) && $clinical_indicators['Thyroxine'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Thyroxine'][0]) && $clinical_indicators['Thyroxine'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight48">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -2383,10 +2383,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Thyroxine][]" id="formRadiosRight47"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['Thyroxine'][0]) && $clinical_indicators['Thyroxine'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['Thyroxine'][0]) && $clinical_indicators['Thyroxine'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight49">
-                                                       NO
+                                                       No
                                                     </label>
                                                 </div>
                                             </div>
@@ -3223,10 +3223,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="Retrosternalextension[extension][]"
-                                                        {{ isset($Retrosternalextension['extension'][0]) && $Retrosternalextension['extension'][0] == 'YES' ? 'checked' : '' }}
-                                                        id="formRadiosRighta63" value="YES">
+                                                        {{ isset($Retrosternalextension['extension'][0]) && $Retrosternalextension['extension'][0] == 'Yes' ? 'checked' : '' }}
+                                                        id="formRadiosRighta63" value="Yes">
                                                     <label class="form-check-label" for="formRadiosRighta63">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -3234,10 +3234,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="Retrosternalextension[extension][]"
-                                                        {{ isset($Retrosternalextension['extension'][0]) && $Retrosternalextension['extension'][0] == 3 ? 'NO' : '' }}
-                                                        id="formRadiosRighta64" value="NO">
+                                                        {{ isset($Retrosternalextension['extension'][0]) && $Retrosternalextension['extension'][0] == 3 ? 'No' : '' }}
+                                                        id="formRadiosRighta64" value="No">
                                                     <label class="form-check-label" for="formRadiosRighta64">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -3260,10 +3260,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="EnlargedLymphnodes[nodes][]"
-                                                        {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'YES' ? 'checked' : '' }}
-                                                        id="formRadiosRighta65" value="YES">
+                                                        {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'Yes' ? 'checked' : '' }}
+                                                        id="formRadiosRighta65" value="Yes">
                                                     <label class="form-check-label" for="formRadiosRighta65">
-                                                        YES (TA unfavorable)
+                                                        Yes (TA unfavorable)
                                                     </label>
                                                 </div>
                                             </div>
@@ -3271,10 +3271,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="EnlargedLymphnodes[nodes][]"
-                                                        {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'NO' ? 'checked' : '' }}
-                                                        id="formRadiosRighta66" value="NO">
+                                                        {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'No' ? 'checked' : '' }}
+                                                        id="formRadiosRighta66" value="No">
                                                     <label class="form-check-label" for="formRadiosRighta66">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -3301,7 +3301,7 @@
                                                         {{ isset($paralysis['antoy'][0]) && $paralysis['antoy'][0] == 'yes' ? 'checked' : '' }}
                                                         id="formRadiosRighta67" value="yes">
                                                     <label class="form-check-label" for="formRadiosRighta67">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -3312,7 +3312,7 @@
                                                         {{ isset($paralysis['antoy'][0]) && $paralysis['antoy'][0] == 'no' ? 'checked' : '' }}
                                                         id="formRadiosRighta68" value="no">
                                                     <label class="form-check-label" for="formRadiosRighta68">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -3427,20 +3427,20 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[ATN][]"
-                                                {{ isset($NmThyroidScan['ATN'][0]) && $NmThyroidScan['ATN'][0] == 'YES' ? 'checked' : '' }}
-                                                id="formRadiosRighta77" value="YES">
+                                                {{ isset($NmThyroidScan['ATN'][0]) && $NmThyroidScan['ATN'][0] == 'Yes' ? 'checked' : '' }}
+                                                id="formRadiosRighta77" value="Yes">
                                             <label class="form-check-label" for="formRadiosRighta77">
-                                                YES
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[ATN][]"
-                                                {{ isset($NmThyroidScan['ATN'][0]) && $NmThyroidScan['ATN'][0] == 'NO' ? 'checked' : '' }}
-                                                id="formRadiosRighta78" value="NO">
+                                                {{ isset($NmThyroidScan['ATN'][0]) && $NmThyroidScan['ATN'][0] == 'No' ? 'checked' : '' }}
+                                                id="formRadiosRighta78" value="No">
                                             <label class="form-check-label" for="formRadiosRighta78">
-                                                NO
+                                                No
                                             </label>
                                         </div>
                                     </div>
@@ -3451,10 +3451,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmThyroidScan[Hashimoto][]"
-                                                {{ isset($NmThyroidScan['Hashimoto'][0]) && $NmThyroidScan['Hashimoto'][0] == 'YES' ? 'checked' : '' }}
-                                                id="formRadiosRighta79" value="YES">
+                                                {{ isset($NmThyroidScan['Hashimoto'][0]) && $NmThyroidScan['Hashimoto'][0] == 'Yes' ? 'checked' : '' }}
+                                                id="formRadiosRighta79" value="Yes">
                                             <label class="form-check-label" for="formRadiosRighta79">
-                                                YES (TA contraindicated)
+                                                Yes (TA contraindicated)
                                             </label>
                                         </div>
                                     </div>
@@ -3462,10 +3462,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmThyroidScan[Hashimoto][]"
-                                                {{ isset($NmThyroidScan['Hashimoto'][0]) && $NmThyroidScan['Hashimoto'][0] == 'NO' ? 'checked' : '' }}
-                                                id="formRadiosRighta80" value="NO">
+                                                {{ isset($NmThyroidScan['Hashimoto'][0]) && $NmThyroidScan['Hashimoto'][0] == 'No' ? 'checked' : '' }}
+                                                id="formRadiosRighta80" value="No">
                                             <label class="form-check-label" for="formRadiosRighta80">
-                                                NO
+                                                No
                                             </label>
                                         </div>
                                     </div>
@@ -3476,20 +3476,20 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[disease][]"
-                                                {{ isset($NmThyroidScan['disease'][0]) && $NmThyroidScan['disease'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta81">
+                                                {{ isset($NmThyroidScan['disease'][0]) && $NmThyroidScan['disease'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta81">
                                             <label class="form-check-label" for="formRadiosRighta81">
-                                                YES (TA contraindicated)
+                                                Yes (TA contraindicated)
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[disease][]"
-                                                {{ isset($NmThyroidScan['disease'][0]) && $NmThyroidScan['disease'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta82">
+                                                {{ isset($NmThyroidScan['disease'][0]) && $NmThyroidScan['disease'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta82">
                                             <label class="form-check-label" for="formRadiosRighta82">
-                                                NO
+                                                No
                                             </label>
                                         </div>
                                     </div>
@@ -3516,10 +3516,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[RightUpper][]"
-                                                {{ isset($NmParaThyroidScan['RightUpper'][0]) && $NmParaThyroidScan['RightUpper'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta83">
+                                                {{ isset($NmParaThyroidScan['RightUpper'][0]) && $NmParaThyroidScan['RightUpper'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta83">
                                             <label class="form-check-label" for="formRadiosRighta83">
-                                                YES
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
@@ -3527,10 +3527,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[RightUpper][]"
-                                                {{ isset($NmParaThyroidScan['RightUpper'][0]) && $NmParaThyroidScan['RightUpper'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta84">
+                                                {{ isset($NmParaThyroidScan['RightUpper'][0]) && $NmParaThyroidScan['RightUpper'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta84">
                                             <label class="form-check-label" for="formRadiosRighta84">
-                                                NO
+                                                No
                                             </label>
                                         </div>
                                     </div>
@@ -3541,10 +3541,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[RightLower][]"
-                                                {{ isset($NmParaThyroidScan['RightLower'][0]) && $NmParaThyroidScan['RightLower'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta85">
+                                                {{ isset($NmParaThyroidScan['RightLower'][0]) && $NmParaThyroidScan['RightLower'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta85">
                                             <label class="form-check-label" for="formRadiosRighta85">
-                                                YES
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
@@ -3552,10 +3552,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[RightLower][]"
-                                                {{ isset($NmParaThyroidScan['RightLower'][0]) && $NmParaThyroidScan['RightLower'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta86">
+                                                {{ isset($NmParaThyroidScan['RightLower'][0]) && $NmParaThyroidScan['RightLower'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta86">
                                             <label class="form-check-label" for="formRadiosRighta86">
-                                                NO
+                                                No
                                             </label>
                                         </div>
                                     </div>
@@ -3566,10 +3566,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[LeftUpper][]"
-                                                {{ isset($NmParaThyroidScan['LeftUpper'][0]) && $NmParaThyroidScan['LeftUpper'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta87">
+                                                {{ isset($NmParaThyroidScan['LeftUpper'][0]) && $NmParaThyroidScan['LeftUpper'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta87">
                                             <label class="form-check-label" for="formRadiosRighta87">
-                                                YES
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
@@ -3577,10 +3577,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[LeftUpper][]"
-                                                {{ isset($NmParaThyroidScan['LeftUpper'][0]) && $NmParaThyroidScan['LeftUpper'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta88">
+                                                {{ isset($NmParaThyroidScan['LeftUpper'][0]) && $NmParaThyroidScan['LeftUpper'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta88">
                                             <label class="form-check-label" for="formRadiosRighta88">
-                                                NO
+                                                No
                                             </label>
                                         </div>
                                     </div>
@@ -3591,10 +3591,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[LeftLower][]"
-                                                {{ isset($NmParaThyroidScan['LeftLower'][0]) && $NmParaThyroidScan['LeftLower'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta89">
+                                                {{ isset($NmParaThyroidScan['LeftLower'][0]) && $NmParaThyroidScan['LeftLower'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta89">
                                             <label class="form-check-label" for="formRadiosRighta89">
-                                                YES
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
@@ -3602,10 +3602,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[LeftLower][]"
-                                                {{ isset($NmParaThyroidScan['LeftLower'][0]) && $NmParaThyroidScan['LeftLower'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta90">
+                                                {{ isset($NmParaThyroidScan['LeftLower'][0]) && $NmParaThyroidScan['LeftLower'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta90">
                                             <label class="form-check-label" for="formRadiosRighta90">
-                                                NO
+                                                No
                                             </label>
                                         </div>
                                     </div>

@@ -1560,9 +1560,9 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Erectile][]" id="formRadiosRight44"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1570,9 +1570,9 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Erectile][]" id="formRadiosRight45"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1586,9 +1586,9 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Detrusor][]" id="formRadiosRight46"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1596,9 +1596,9 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Detrusor][]" id="formRadiosRight47"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1825,17 +1825,17 @@
                                       </div>
                                       <div class="col-lg-6">
                                           <div class="form-check form-check-right mb-3">
-                                              <input class="form-check-input" type="radio" name="Imaging[lobe][]" value="YES" id="formRadiosRight62">
+                                              <input class="form-check-input" type="radio" name="Imaging[lobe][]" value="Yes" id="formRadiosRight62">
                                               <label class="form-check-label" for="formRadiosRight62">
-                                              YES (PAE unfavorable)
+                                              Yes (PAE unfavorable)
                                               </label>
                                           </div>
                                       </div>
                                       <div class="col-lg-6">
                                           <div class="form-check form-check-right mb-3">
-                                              <input class="form-check-input" type="radio" name="Imaging[lobe][]" value="NO" id="formRadiosRight63">
+                                              <input class="form-check-input" type="radio" name="Imaging[lobe][]" value="No" id="formRadiosRight63">
                                               <label class="form-check-label" for="formRadiosRight63">
-                                              NO 
+                                              No 
                                               </label>
                                           </div>
                                       </div>
@@ -1844,17 +1844,17 @@
                                       </div>
                                       <div class="col-lg-6">
                                           <div class="form-check form-check-right mb-3" id="pae_yes">
-                                              <input class="form-check-input" type="radio" name="Imaging[Abscess][]" value="YES" id="formRadiosRight64">
+                                              <input class="form-check-input" type="radio" name="Imaging[Abscess][]" value="Yes" id="formRadiosRight64">
                                               <label class="form-check-label" for="formRadiosRight64">
-                                              YES 
+                                              Yes 
                                               </label>
                                           </div>
                                       </div>
                                       <div class="col-lg-6">
                                           <div class="form-check form-check-right mb-3" id="pae_no">
-                                              <input class="form-check-input" type="radio" name="Imaging[Abscess][]" value="NO" id="formRadiosRight65">
+                                              <input class="form-check-input" type="radio" name="Imaging[Abscess][]" value="No" id="formRadiosRight65">
                                               <label class="form-check-label" for="formRadiosRight65">
-                                              NO 
+                                              No 
                                               </label>
                                           </div>
                                       </div>
@@ -1971,17 +1971,17 @@
                                        </div>
                                            <div class="col-lg-4">
                                            <div class="form-check form-check-right mb-3">
-                                               <input class="form-check-input" type="radio" name="Imaging[ProstateHyperplasia][]"  value="YES" id="formRadiosRight70">
+                                               <input class="form-check-input" type="radio" name="Imaging[ProstateHyperplasia][]"  value="Yes" id="formRadiosRight70">
                                                <label class="form-check-label" for="formRadiosRight70">
-                                               YES 
+                                               Yes 
                                                </label>
                                            </div>
                                        </div>
                                        <div class="col-lg-4">
                                            <div class="form-check form-check-right mb-3">
-                                               <input class="form-check-input" type="radio" name="Imaging[ProstateHyperplasia][]"  value="NO" id="formRadiosRight71">
+                                               <input class="form-check-input" type="radio" name="Imaging[ProstateHyperplasia][]"  value="No" id="formRadiosRight71">
                                                <label class="form-check-label" for="formRadiosRight71">
-                                               NO 
+                                               No 
                                                </label>
                                            </div>
                                        </div>
@@ -1993,17 +1993,17 @@
                                        </div>
                                            <div class="col-lg-4">
                                            <div class="form-check form-check-right mb-3">
-                                               <input class="form-check-input" type="radio" name="Imaging[ProstateAdenoCarcinoma][]" value="YES" id="formRadiosRight72">
+                                               <input class="form-check-input" type="radio" name="Imaging[ProstateAdenoCarcinoma][]" value="Yes" id="formRadiosRight72">
                                                <label class="form-check-label" for="formRadiosRight72">
-                                               YES 
+                                               Yes 
                                                </label>
                                            </div>
                                        </div>
                                        <div class="col-lg-4">
                                            <div class="form-check form-check-right mb-3">
-                                               <input class="form-check-input" type="radio" name="Imaging[ProstateAdenoCarcinoma][]" value="NO" id="formRadiosRight73">
+                                               <input class="form-check-input" type="radio" name="Imaging[ProstateAdenoCarcinoma][]" value="No" id="formRadiosRight73">
                                                <label class="form-check-label" for="formRadiosRight73">
-                                               NO
+                                               No
                                                </label>
                                            </div>
                                        </div>

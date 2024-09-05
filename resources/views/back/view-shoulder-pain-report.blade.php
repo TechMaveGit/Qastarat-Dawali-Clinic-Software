@@ -1995,7 +1995,7 @@
                                                                                 <p class="ss_result">Shoulder effusion
                                                                                 <p>
 
-                                                                                    @if (isset($jsonData['Shouldereffusion'][0]) && $jsonData['Shouldereffusion'][0] == 'YES')
+                                                                                    @if (isset($jsonData['Shouldereffusion'][0]) && $jsonData['Shouldereffusion'][0] == 'Yes')
                                                                                         <p class="ss_result">
                                                                                             {{ $jsonData['Shouldereffusion'][0] ?? '' }}
                                                                                         </p>
@@ -2014,7 +2014,7 @@
                                                                                     features
                                                                                 <p>
 
-                                                                                    @if (isset($jsonData['Osteoarthreticfeatures'][0]) && $jsonData['Osteoarthreticfeatures'][0] == 'YES')
+                                                                                    @if (isset($jsonData['Osteoarthreticfeatures'][0]) && $jsonData['Osteoarthreticfeatures'][0] == 'Yes')
                                                                                         <p class="ss_result">
                                                                                             {{ $jsonData['Osteoarthreticfeatures'][0] ?? '' }}
                                                                                         </p>

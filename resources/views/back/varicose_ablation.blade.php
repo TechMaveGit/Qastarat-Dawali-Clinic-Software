@@ -1876,9 +1876,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityPhlepitis][]" id="formRadiosRight042"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight042">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1886,9 +1886,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityPhlepitis][]" id="formRadiosRight043"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight043">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1901,9 +1901,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityDVT][]" id="formRadiosRight044"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight044">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1911,9 +1911,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityDVT][]" id="formRadiosRight045"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight045">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1926,9 +1926,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityDVTCHRONIC][]" id="formRadiosRight144"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight144">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1936,9 +1936,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[lowerextremityDVTCHRONIC][]" id="formRadiosRight245"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight245">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2039,18 +2039,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVLEFT][]" value="YES" id="formRadiosRight48Dilated">
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVLEFT][]" value="Yes" id="formRadiosRight48Dilated">
                                           <label class="form-check-label" for="formRadiosRight48Dilated">
-                                          YES
+                                          Yes
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVLEFT][]" value="NO" id="formRadiosRight492">
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVLEFT][]" value="No" id="formRadiosRight492">
                                           <label class="form-check-label" for="formRadiosRight492">
-                                          NO
+                                          No
                                           </label>
                                       </div>
                                   </div>
@@ -2063,18 +2063,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVLEFT][]" value="YES" id="formRadiosRightd10Reflux">
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVLEFT][]" value="Yes" id="formRadiosRightd10Reflux">
                                           <label class="form-check-label" for="formRadiosRightd10Reflux">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVLEFT][]" value="NO" id="formRadiosRightd11Reflux2">
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVLEFT][]" value="No" id="formRadiosRightd11Reflux2">
                                           <label class="form-check-label" for="formRadiosRightd11Reflux2">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -2088,18 +2088,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVLEFT][]" value="YES" id="formRadiosRightd12Reflux12">
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVLEFT][]" value="Yes" id="formRadiosRightd12Reflux12">
                                           <label class="form-check-label" for="formRadiosRightd12Reflux12">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVLEFT][]" value="NO" id="formRadiosRightd13Reflux321">
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVLEFT][]" value="No" id="formRadiosRightd13Reflux321">
                                           <label class="form-check-label" for="formRadiosRightd13Reflux321">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -2113,9 +2113,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVLEFT][]" value="YES" id="formRadiosRightd1499">
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVLEFT][]" value="Yes" id="formRadiosRightd1499">
                                           <label class="form-check-label" for="formRadiosRightd1499">
-                                          YES 
+                                          Yes 
                                           
                                           </label>
                                       </div>
@@ -2123,9 +2123,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVLEFT][]" value="NO" id="formRadiosRightd15Reflux00">
+                                          <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVLEFT][]" value="No" id="formRadiosRightd15Reflux00">
                                           <label class="form-check-label" for="formRadiosRightd15Reflux00">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -2139,9 +2139,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVLEFT][]" value="YES" id="formRadiosRightd1499Occlusive">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVLEFT][]" value="Yes" id="formRadiosRightd1499Occlusive">
                                         <label class="form-check-label" for="formRadiosRightd1499Occlusive">
-                                        YES 
+                                        Yes 
                                         
                                         </label>
                                     </div>
@@ -2149,9 +2149,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVLEFT][]" value="NO" id="formRadiosRightd15Reflux00Occlusive">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVLEFT][]" value="No" id="formRadiosRightd15Reflux00Occlusive">
                                         <label class="form-check-label" for="formRadiosRightd15Reflux00Occlusive">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2173,18 +2173,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVLEFT][]" value="YES" id="formRadiosRight48DilatedSSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVLEFT][]" value="Yes" id="formRadiosRight48DilatedSSVLEFT">
                                         <label class="form-check-label" for="formRadiosRight48DilatedSSVLEFT">
-                                        YES
+                                        Yes
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVLEFT][]" value="NO" id="formRadiosRight492SSVLEFT1">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVLEFT][]" value="No" id="formRadiosRight492SSVLEFT1">
                                         <label class="form-check-label" for="formRadiosRight492SSVLEFT1">
-                                        NO
+                                        No
                                         </label>
                                     </div>
                                 </div>
@@ -2197,18 +2197,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVLEFT][]" value="YES" id="formRadiosRightd10RefluxSSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVLEFT][]" value="Yes" id="formRadiosRightd10RefluxSSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd10RefluxSSVLEFT">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVLEFT][]" value="NO" id="formRadiosRightd11Reflux2SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVLEFT][]" value="No" id="formRadiosRightd11Reflux2SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd11Reflux2SSVLEFT">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2222,18 +2222,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVLEFT][]" value="YES" id="formRadiosRightd12Reflux12SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVLEFT][]" value="Yes" id="formRadiosRightd12Reflux12SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd12Reflux12SSVLEFT">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVLEFT][]" value="NO" id="formRadiosRightd13Reflux321SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVLEFT][]" value="No" id="formRadiosRightd13Reflux321SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd13Reflux321SSVLEFT">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2247,9 +2247,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVLEFT][]" value="YES" id="formRadiosRightd1499SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVLEFT][]" value="Yes" id="formRadiosRightd1499SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd1499SSVLEFT">
-                                        YES 
+                                        Yes 
                                         
                                         </label>
                                     </div>
@@ -2257,9 +2257,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVLEFT][]" value="NO" id="formRadiosRightd15Reflux00SSVLEFT">
+                                        <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVLEFT][]" value="No" id="formRadiosRightd15Reflux00SSVLEFT">
                                         <label class="form-check-label" for="formRadiosRightd15Reflux00SSVLEFT">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2273,9 +2273,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                       </div>
                       <div class="col-lg-4">
                                   <div class="form-check form-check-right mb-3">
-                                      <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT][]" value="YES" id="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT">
+                                      <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT][]" value="Yes" id="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT">
                                       <label class="form-check-label" for="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT">
-                                      YES 
+                                      Yes 
                                       
                                       </label>
                                   </div>
@@ -2283,9 +2283,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
                               <div class="col-lg-4">
                                   <div class="form-check form-check-right mb-3">
-                                      <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT][]" value="NO" id="formRadiosRightd15Reflux00OcclusiveSSVLEFT">
+                                      <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVLEFTSSVLEFT][]" value="No" id="formRadiosRightd15Reflux00OcclusiveSSVLEFT">
                                       <label class="form-check-label" for="formRadiosRightd15Reflux00OcclusiveSSVLEFT">
-                                      NO 
+                                      No 
                                       </label>
                                   </div>
                               </div>
@@ -2307,18 +2307,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                   </div>
                   <div class="col-lg-4">
                               <div class="form-check form-check-right mb-3">
-                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVRIGHT][]" value="YES" id="formRadiosRight48DilatedGSVRIGHT">
+                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVRIGHT][]" value="Yes" id="formRadiosRight48DilatedGSVRIGHT">
                                   <label class="form-check-label" for="formRadiosRight48DilatedGSVRIGHT">
-                                  YES
+                                  Yes
                                   </label>
                               </div>
                           </div>
 
                           <div class="col-lg-4">
                               <div class="form-check form-check-right mb-3">
-                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVRIGHT][]" value="NO" id="formRadiosRight492GSVRIGHT1">
+                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedGSVRIGHT][]" value="No" id="formRadiosRight492GSVRIGHT1">
                                   <label class="form-check-label" for="formRadiosRight492GSVRIGHT1">
-                                  NO
+                                  No
                                   </label>
                               </div>
                           </div>
@@ -2331,18 +2331,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                   </div>
                   <div class="col-lg-4">
                               <div class="form-check form-check-right mb-3">
-                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVRIGHT][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHT">
+                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVRIGHT][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHT">
                                   <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHT">
-                                  YES 
+                                  Yes 
                                   </label>
                               </div>
                           </div>
 
                           <div class="col-lg-4">
                               <div class="form-check form-check-right mb-3">
-                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVRIGHT][]" value="NO" id="formRadiosRightd11Reflux2GSVRIGHT">
+                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxGSVRIGHT][]" value="No" id="formRadiosRightd11Reflux2GSVRIGHT">
                                   <label class="form-check-label" for="formRadiosRightd11Reflux2GSVRIGHT">
-                                  NO 
+                                  No 
                                   </label>
                               </div>
                           </div>
@@ -2356,18 +2356,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                   </div>
                   <div class="col-lg-4">
                               <div class="form-check form-check-right mb-3">
-                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVRIGHT][]" value="YES" id="formRadiosRightd12Reflux12GSVRIGHT">
+                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVRIGHT][]" value="Yes" id="formRadiosRightd12Reflux12GSVRIGHT">
                                   <label class="form-check-label" for="formRadiosRightd12Reflux12GSVRIGHT">
-                                  YES 
+                                  Yes 
                                   </label>
                               </div>
                           </div>
 
                           <div class="col-lg-4">
                               <div class="form-check form-check-right mb-3">
-                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVRIGHT][]" value="NO" id="formRadiosRightd13Reflux321GSVRIGHT">
+                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2GSVRIGHT][]" value="No" id="formRadiosRightd13Reflux321GSVRIGHT">
                                   <label class="form-check-label" for="formRadiosRightd13Reflux321GSVRIGHT">
-                                  NO 
+                                  No 
                                   </label>
                               </div>
                           </div>
@@ -2381,9 +2381,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                   </div>
                   <div class="col-lg-4">
                               <div class="form-check form-check-right mb-3">
-                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVRIGHT][]" value="YES" id="formRadiosRightd1499GSVRIGHT">
+                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVRIGHT][]" value="Yes" id="formRadiosRightd1499GSVRIGHT">
                                   <label class="form-check-label" for="formRadiosRightd1499GSVRIGHT">
-                                  YES 
+                                  Yes 
                                   
                                   </label>
                               </div>
@@ -2391,9 +2391,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
                           <div class="col-lg-4">
                               <div class="form-check form-check-right mb-3">
-                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVRIGHT][]" value="NO" id="formRadiosRightd15Reflux00GSVRIGHT">
+                                  <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3GSVRIGHT][]" value="No" id="formRadiosRightd15Reflux00GSVRIGHT">
                                   <label class="form-check-label" for="formRadiosRightd15Reflux00GSVRIGHT">
-                                  NO 
+                                  No 
                                   </label>
                               </div>
                           </div>
@@ -2407,9 +2407,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
                 </div>
                 <div class="col-lg-4">
                             <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVRIGH][]" value="YES" id="formRadiosRightd1499OcclusiveGSVRIGH">
+                                <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVRIGH][]" value="Yes" id="formRadiosRightd1499OcclusiveGSVRIGH">
                                 <label class="form-check-label" for="formRadiosRightd1499OcclusiveGSVRIGH">
-                                YES 
+                                Yes 
                                 
                                 </label>
                             </div>
@@ -2417,9 +2417,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
                         <div class="col-lg-4">
                             <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVRIGH][]" value="NO" id="formRadiosRightd15Reflux00OcclusiveSSVLEFTGSVRIGH">
+                                <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveGSVRIGH][]" value="No" id="formRadiosRightd15Reflux00OcclusiveSSVLEFTGSVRIGH">
                                 <label class="form-check-label" for="formRadiosRightd15Reflux00OcclusiveSSVLEFTGSVRIGH">
-                                NO 
+                                No 
                                 </label>
                             </div>
                         </div>
@@ -2441,18 +2441,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
               </div>
               <div class="col-lg-4">
                           <div class="form-check form-check-right mb-3">
-                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVRIGHT][]" value="YES" id="formRadiosRight48DilatedSSVRIGHT">
+                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVRIGHT][]" value="Yes" id="formRadiosRight48DilatedSSVRIGHT">
                               <label class="form-check-label" for="formRadiosRight48DilatedSSVRIGHT">
-                              YES
+                              Yes
                               </label>
                           </div>
                       </div>
 
                       <div class="col-lg-4">
                           <div class="form-check form-check-right mb-3">
-                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVRIGHT][]" value="NO" id="formRadiosRight492SSVRIGHT1">
+                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70DilatedSSVRIGHT][]" value="No" id="formRadiosRight492SSVRIGHT1">
                               <label class="form-check-label" for="formRadiosRight492SSVRIGHT1">
-                              NO
+                              No
                               </label>
                           </div>
                       </div>
@@ -2465,18 +2465,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
               </div>
               <div class="col-lg-4">
                           <div class="form-check form-check-right mb-3">
-                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVRIGHT][]" value="YES" id="formRadiosRightd10RefluxSSVRIGHT">
+                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVRIGHT][]" value="Yes" id="formRadiosRightd10RefluxSSVRIGHT">
                               <label class="form-check-label" for="formRadiosRightd10RefluxSSVRIGHT">
-                              YES 
+                              Yes 
                               </label>
                           </div>
                       </div>
 
                       <div class="col-lg-4">
                           <div class="form-check form-check-right mb-3">
-                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVRIGHT][]" value="NO" id="formRadiosRightd11Reflux2SSVRIGHT">
+                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70RefluxSSVRIGHT][]" value="No" id="formRadiosRightd11Reflux2SSVRIGHT">
                               <label class="form-check-label" for="formRadiosRightd11Reflux2SSVRIGHT">
-                              NO 
+                              No 
                               </label>
                           </div>
                       </div>
@@ -2490,18 +2490,18 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
               </div>
               <div class="col-lg-4">
                           <div class="form-check form-check-right mb-3">
-                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVRIGHT][]" value="YES" id="formRadiosRightd12Reflux12SSVRIGHT">
+                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVRIGHT][]" value="Yes" id="formRadiosRightd12Reflux12SSVRIGHT">
                               <label class="form-check-label" for="formRadiosRightd12Reflux12SSVRIGHT">
-                              YES 
+                              Yes 
                               </label>
                           </div>
                       </div>
 
                       <div class="col-lg-4">
                           <div class="form-check form-check-right mb-3">
-                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVRIGHT][]" value="NO" id="formRadiosRightd13Reflux321SSVRIGHT">
+                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux2SSVRIGHT][]" value="No" id="formRadiosRightd13Reflux321SSVRIGHT">
                               <label class="form-check-label" for="formRadiosRightd13Reflux321SSVRIGHT">
-                              NO 
+                              No 
                               </label>
                           </div>
                       </div>
@@ -2515,9 +2515,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
               </div>
               <div class="col-lg-4">
                           <div class="form-check form-check-right mb-3">
-                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVRIGHT][]" value="YES" id="formRadiosRightd1499SSVRIGHT">
+                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVRIGHT][]" value="Yes" id="formRadiosRightd1499SSVRIGHT">
                               <label class="form-check-label" for="formRadiosRightd1499SSVRIGHT">
-                              YES 
+                              Yes 
                               
                               </label>
                           </div>
@@ -2525,9 +2525,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
                       <div class="col-lg-4">
                           <div class="form-check form-check-right mb-3">
-                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVRIGHT][]" value="NO" id="formRadiosRightd15Reflux00SSVRIGHT">
+                              <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70Reflux3SSVRIGHT][]" value="No" id="formRadiosRightd15Reflux00SSVRIGHT">
                               <label class="form-check-label" for="formRadiosRightd15Reflux00SSVRIGHT">
-                              NO 
+                              No 
                               </label>
                           </div>
                       </div>
@@ -2541,9 +2541,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
             </div>
             <div class="col-lg-4">
                         <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVRIGHT][]" value="YES" id="formRadiosRightd1499OcclusiveSSVRIGHT">
+                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVRIGHT][]" value="Yes" id="formRadiosRightd1499OcclusiveSSVRIGHT">
                             <label class="form-check-label" for="formRadiosRightd1499OcclusiveSSVRIGHT">
-                            YES 
+                            Yes 
                             
                             </label>
                         </div>
@@ -2551,9 +2551,9 @@ Patient | Varicose Ablation | QASTARAT & DAWALI CLINICS
 
                     <div class="col-lg-4">
                         <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVRIGHT][]" value="NO" id="formRadiosRightd15Reflux00OcclusiveSSVRIGHT">
+                            <input class="form-check-input"type="radio" name="Imaging[USVENOUSDOPPLER70OcclusiveSSVRIGHT][]" value="No" id="formRadiosRightd15Reflux00OcclusiveSSVRIGHT">
                             <label class="form-check-label" for="formRadiosRightd15Reflux00OcclusiveSSVRIGHT">
-                            NO 
+                            No 
                             </label>
                         </div>
                     </div>

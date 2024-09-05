@@ -1604,9 +1604,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Hemorrhoids][]" id="formRadiosRight42"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1614,9 +1614,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Hemorrhoids][]" id="formRadiosRight43"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1630,9 +1630,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[VulvarVarices][]" id="formRadiosRight44"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1640,9 +1640,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[VulvarVarices][]" id="formRadiosRight45"
-                                                        value="NO">
+                                                        value="No">
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1741,18 +1741,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70Dilatedpelvicvarices][]" value="YES" id="formRadiosRight48">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70Dilatedpelvicvarices][]" value="Yes" id="formRadiosRight48">
                                           <label class="form-check-label" for="formRadiosRight48">
-                                          YES
+                                          Yes
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70Dilatedpelvicvarices][]" value="NO" id="formRadiosRight49">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70Dilatedpelvicvarices][]" value="No" id="formRadiosRight49">
                                           <label class="form-check-label" for="formRadiosRight49">
-                                          NO
+                                          No
                                           </label>
                                       </div>
                                   </div>
@@ -1765,18 +1765,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70VenousReflux][]" value="YES" id="formRadiosRightd10">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70VenousReflux][]" value="Yes" id="formRadiosRightd10">
                                           <label class="form-check-label" for="formRadiosRightd10">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70VenousReflux][]" value="NO" id="formRadiosRightd11">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70VenousReflux][]" value="No" id="formRadiosRightd11">
                                           <label class="form-check-label" for="formRadiosRightd11">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1790,18 +1790,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70FreeFluid][]" value="YES" id="formRadiosRightd12">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70FreeFluid][]" value="Yes" id="formRadiosRightd12">
                                           <label class="form-check-label" for="formRadiosRightd12">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70FreeFluid][]" value="NO" id="formRadiosRightd13">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70FreeFluid][]" value="No" id="formRadiosRightd13">
                                           <label class="form-check-label" for="formRadiosRightd13">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1815,9 +1815,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70SuapiciousPelvicmass][]" value="YES" id="formRadiosRightd14">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70SuapiciousPelvicmass][]" value="Yes" id="formRadiosRightd14">
                                           <label class="form-check-label" for="formRadiosRightd14">
-                                          YES 
+                                          Yes 
                                           
                                           </label>
                                       </div>
@@ -1825,9 +1825,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70SuapiciousPelvicmass][]" value="NO" id="formRadiosRightd15">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70SuapiciousPelvicmass][]" value="No" id="formRadiosRightd15">
                                           <label class="form-check-label" for="formRadiosRightd15">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1848,18 +1848,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48Dilatedpelvicvarices][]"  value="YES" id="formRadiosRightd16">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48Dilatedpelvicvarices][]"  value="Yes" id="formRadiosRightd16">
                                           <label class="form-check-label" for="formRadiosRightd16">
-                                          YES
+                                          Yes
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48Dilatedpelvicvarices][]"  value="NO" id="formRadiosRightd17">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48Dilatedpelvicvarices][]"  value="No" id="formRadiosRightd17">
                                           <label class="form-check-label" for="formRadiosRightd17">
-                                          NO
+                                          No
                                           </label>
                                       </div>
                                   </div>
@@ -1872,9 +1872,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48VenousReflux][]" value="YES" id="formRadiosRightd18">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48VenousReflux][]" value="Yes" id="formRadiosRightd18">
                                           <label class="form-check-label" for="formRadiosRightd18">
-                                          YES 
+                                          Yes 
                                           
                                           </label>
                                       </div>
@@ -1882,9 +1882,9 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48VenousReflux][]" value="NO" id="formRadiosRightd19">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48VenousReflux][]" value="No" id="formRadiosRightd19">
                                           <label class="form-check-label" for="formRadiosRightd19">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1897,18 +1897,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48FreeFluid][]" value="YES" id="formRadiosRightd20">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48FreeFluid][]" value="Yes" id="formRadiosRightd20">
                                           <label class="form-check-label" for="formRadiosRightd20">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48FreeFluid][]" value="NO" id="formRadiosRightd21">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48FreeFluid][]" value="No" id="formRadiosRightd21">
                                           <label class="form-check-label" for="formRadiosRightd21">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1921,18 +1921,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48SuapiciousPelvicmass][]" value="YES" id="formRadiosRightd22">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48SuapiciousPelvicmass][]" value="Yes" id="formRadiosRightd22">
                                           <label class="form-check-label" for="formRadiosRightd22">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48SuapiciousPelvicmass][]" value="NO" id="formRadiosRightd23">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48SuapiciousPelvicmass][]" value="No" id="formRadiosRightd23">
                                           <label class="form-check-label" for="formRadiosRightd23">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1945,18 +1945,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48NetcruckerFeatures][]" value="YES" id="formRadiosRightd24">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48NetcruckerFeatures][]" value="Yes" id="formRadiosRightd24">
                                           <label class="form-check-label" for="formRadiosRightd24">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48NetcruckerFeatures][]" value="NO" id="formRadiosRightd25">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48NetcruckerFeatures][]" value="No" id="formRadiosRightd25">
                                           <label class="form-check-label" for="formRadiosRightd25">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1974,18 +1974,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48Dilatedpelvicvarices][]" value="YES" id="formRadiosRightd24">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48Dilatedpelvicvarices][]" value="Yes" id="formRadiosRightd24">
                                         <label class="form-check-label" for="formRadiosRightd24">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48Dilatedpelvicvarices][]" value="NO" id="formRadiosRightd25">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48Dilatedpelvicvarices][]" value="No" id="formRadiosRightd25">
                                         <label class="form-check-label" for="formRadiosRightd25">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1998,18 +1998,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48VenousReflux][]" value="YES" id="formRadiosRightd24">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48VenousReflux][]" value="Yes" id="formRadiosRightd24">
                                         <label class="form-check-label" for="formRadiosRightd24">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48VenousReflux][]" value="NO" id="formRadiosRightd25">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48VenousReflux][]" value="No" id="formRadiosRightd25">
                                         <label class="form-check-label" for="formRadiosRightd25">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2022,18 +2022,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48FreeFluid][]" value="YES" id="formRadiosRightd24">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48FreeFluid][]" value="Yes" id="formRadiosRightd24">
                                         <label class="form-check-label" for="formRadiosRightd24">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48FreeFluid][]" value="NO" id="formRadiosRightd25">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48FreeFluid][]" value="No" id="formRadiosRightd25">
                                         <label class="form-check-label" for="formRadiosRightd25">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2046,18 +2046,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48SuapiciousPelvicmass][]" value="YES" id="formRadiosRightd24">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48SuapiciousPelvicmass][]" value="Yes" id="formRadiosRightd24">
                                         <label class="form-check-label" for="formRadiosRightd24">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48SuapiciousPelvicmass][]" value="NO" id="formRadiosRightd25">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48SuapiciousPelvicmass][]" value="No" id="formRadiosRightd25">
                                         <label class="form-check-label" for="formRadiosRightd25">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2070,18 +2070,18 @@ Patient | Pelvic Cong Embo | QASTARAT & DAWALI CLINICS
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48NetcruckerFeatures][]" value="YES" id="formRadiosRightd24">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48NetcruckerFeatures][]" value="Yes" id="formRadiosRightd24">
                                         <label class="form-check-label" for="formRadiosRightd24">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48NetcruckerFeatures][]" value="NO" id="formRadiosRightd25">
+                                        <input class="form-check-input"type="radio" name="Imaging[CTCIR48NetcruckerFeatures][]" value="No" id="formRadiosRightd25">
                                         <label class="form-check-label" for="formRadiosRightd25">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>

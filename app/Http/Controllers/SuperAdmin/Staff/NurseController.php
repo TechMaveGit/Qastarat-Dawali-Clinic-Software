@@ -50,6 +50,7 @@ class NurseController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
+
         $data['role'] = DB::table('roles')->where('id', '!=', 1)->get();
         $data['branchs'] = DB::table('branchs')->get();
         return view('superAdmin.nurse.index', $data);

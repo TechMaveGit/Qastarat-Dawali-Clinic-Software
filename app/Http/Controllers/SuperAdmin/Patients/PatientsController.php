@@ -136,27 +136,11 @@ class PatientsController extends Controller
 
 
         $patient = $request->except(['_token', 'submit']);
-        $currentDate = $request->input('birth_date');
-              // Regular expressions to match the two date formats
-                $regexDMY = '/^\d{2}-\d{2}-\d{4}$/';
-                $regexDFY = '/^\d{2} [a-zA-Z]{3}, \d{4}$/';
-
-                if (preg_match($regexDMY, $currentDate)) {
-                    // '22-02-2024' format matches
-                    $carbonDate = Carbon::createFromFormat('d-m-Y', $currentDate);
-                } elseif (preg_match($regexDFY, $currentDate)) {
-                   // '01 May, 2000' format matches
-                 $carbonDate = Carbon::createFromFormat('d M, Y', $currentDate);
-
-                }
-                else {
-                    // '14-Jun-2004' format matches
-                    $carbonDate = Carbon::createFromFormat('d-M-Y', $currentDate);
-                }
+        
 
 
-                $carbonDate->format('d M, Y');
-                $patient['birth_date'] = $carbonDate->format('d M, Y');
+               
+                $patient['birth_date'] = $request->input('birth_date')??null;
                 $patient['patient_id']  = "PA" . rand('00000', '99999' . '0');
                 $patient['doctor_id'] = $request->input('doctorName');
                 $patient['password'] = Hash::make($request->input('password'));
@@ -309,31 +293,14 @@ class PatientsController extends Controller
 
 
 
-            $currentDate = $request->input('birth_date');
-
-              // Regular expressions to match the two date formats
-              
-                $regexDMY = '/^\d{2}-\d{2}-\d{4}$/';
-                $regexDFY = '/^\d{2} [a-zA-Z]{3}, \d{4}$/';
-
-                if (preg_match($regexDMY, $currentDate)) {
-                    // '22-02-2024' format matches
-                    $carbonDate = Carbon::createFromFormat('d-m-Y', $currentDate);
-                } elseif (preg_match($regexDFY, $currentDate)) {
-                    // '01 May, 2000' format matches
-                    $carbonDate = Carbon::createFromFormat('d M, Y', $currentDate);
-                }
-                else {
-                    // '14-Jun-2004' format matches
-                    $carbonDate = Carbon::createFromFormat('d-M-Y', $currentDate);
-                }
+           
 
 
 
             // dd( $carbonDate);
             $patient['title'] = $request->title;
             $patient['name'] = $request->name;
-            $patient['birth_date'] = $carbonDate->format('d M, Y');
+            $patient['birth_date'] = $request->input('birth_date')??null;
             $patient['gendar'] = $request->gendar;
             $patient['post_code'] = $request->post_code;
             $patient['street'] = $request->street;
