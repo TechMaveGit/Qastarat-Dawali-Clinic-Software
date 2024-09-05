@@ -19,7 +19,7 @@ class CalendarController extends Controller
         
         $users=DB::table('users')->orderBy('id','desc')->get();
 
-        $doctors= Doctor::select('id','name')->get();
+        $doctors= Doctor::select('id','name')->where('role_id','1')->get();
         $dtype = 'doctor';
         if(Auth::guard('doctor')->user()->user_type == "Nurse"){
             $dtype = 'Nurse';
@@ -122,10 +122,9 @@ class CalendarController extends Controller
                                                     
                     }    
                 }     
-
         }
         $countryCode = DB::table('dial_codes')->where('status', '1')->get();
-       
+    //    dd($doctors);
         return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','dlocations','pathology_price_list','appontment_availability','countData','patho_types','allDoctor','countryCode'));
     }
 
