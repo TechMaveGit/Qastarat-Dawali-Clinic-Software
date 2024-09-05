@@ -122,7 +122,6 @@ class CalendarController extends Controller
                                                     
                     }    
                 }     
-
         }
         $countryCode = DB::table('dial_codes')->where('status', '1')->get();
     //    dd($doctors);
