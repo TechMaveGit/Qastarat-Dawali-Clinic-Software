@@ -18,29 +18,55 @@ class NurseLoginWeb extends Controller
         $user_id=auth('doctor')->user()->id;
         $user=DB::table('doctors')->select('id','role_id','user_type')->where('id',$user_id)->first();
 
+        // return auth('doctor')->user();
+
         if($user->role_id =="1"){ 
-            $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->get();
-            return view('back/doctor_task', compact('nurse_tasks'));   
+
+            $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>$user_id,'branch_type'=>'doctor'])->get()->pluck('add_branch')->toArray();
+            $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$doctorBranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
+
+            $selectedDoctor = DB::table('doctor_nurse')->where('nurse_id',$user_id)->get()->pluck('doctor_id')->toArray();
+            $docterPatient = User::whereIn('doctor_id',$selectedDoctor)->get()->pluck('id')->toArray();
+
+            $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[]));
+
+            $nurse_tasks=DB::table('tasks')->where('test_type','!=','other')->whereIn('patient_id',$allpatient)->orderBy('created_at', 'DESC')->get();
+            return view('back/doctor_task', compact('nurse_tasks'));
         }     
 
         elseif($user->role_id =="10" || $user->role_id =="11"){
-            $nurse_tasks = DB::table('tasks')->orderBy('created_at', 'DESC')->get();
+
+            $ndtyoe = 'coordinator';
+            if($user->role_id =="10"){
+                $ndtyoe = 'receptionist';
+            }
+
+            $nDoctors = DB::table('doctor_nurse')->where('nurse_id',$user_id)->get()->pluck('doctor_id')->toArray();
+            $nDoctorsBranch = DB::table('user_branchs')->whereIn('patient_id',$nDoctors)->where(['branch_type'=>$ndtyoe])->get()->pluck('add_branch')->toArray();
+            $nMyBranch = DB::table('user_branchs')->where(['patient_id'=>$user_id,'branch_type'=>$ndtyoe])->get()->pluck('add_branch')->toArray();
+
+            $docterPatient = User::whereIn('doctor_id',$nDoctors)->get()->pluck('id')->toArray();
+
+            $allranch = array_merge($nDoctorsBranch??[],$nMyBranch??[],$docterPatient??[]);
+
+            $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$allranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
+
+            $nurse_tasks = DB::table('tasks')->where('test_type','!=','other')->whereIn('patient_id',$allpatientBranch)->orderBy('created_at', 'DESC')->get();
             return view('back/receptionist_task', compact('nurse_tasks'));
         }
 
         elseif($user->role_id =="2"){
-            $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->where('assigned','!=','9')->where('assignTo',$user->id)->get();
-         //   dd($nurse_tasks);
+            $nurse_tasks=DB::table('tasks')->where('test_type','!=','other')->orderBy('created_at', 'DESC')->where('assigned','!=','9')->where('assignTo',$user->id)->get();
             return view('back/nurse_task', compact('nurse_tasks'));
         }
 
         elseif($user->user_type =="pathology" || $user->user_type =="radiology"){
           
-             $nurse_tasks=DB::table('tasks')->orderBy('created_at', 'DESC')->where('assignToLabPerson',$user->id)->whereNotNull('assignToLab')->where('assignToLab','1')->get();
+             $nurse_tasks=DB::table('tasks')->where('test_type','!=','other')->orderBy('created_at', 'DESC')->where('assignToLabPerson',$user->id)->whereNotNull('assignToLab')->where('assignToLab','1')->get();
             return view('back/lab_task', compact('nurse_tasks'));
         }
 
-      $nurse_tasks= DB::table('nurse_tasks')->where('nurse_id',$user_id)->get();
+      $nurse_tasks= DB::table('nurse_tasks')->where('test_type','!=','other')->where('nurse_id',$user_id)->get();
       
 
     }
@@ -156,7 +182,8 @@ class NurseLoginWeb extends Controller
                                             'patient_summary' => $request->input('patientSummary'),
                                             'doctor_id' => $doctorIds[$i],
                                             'referal_doctor' =>auth('doctor')->user()->id,
-                                            'upload_document' =>$upload_uplaodDocument
+                                            'upload_document' =>$upload_uplaodDocument,
+                                            'referal_status'=>$request->input('checkViewPatient')??'0'
                                         ]);
                     }
                     else{

@@ -9,11 +9,12 @@
 	<!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="d-flex">
-        <h4 class="page-title">Manage Role</h4>
+        <h4 class="page-title">Add Role</h4>
         <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">User Permission</li>
+                    {{-- <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li> --}}
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ route('super-admin.dashboard') }}">User Permission</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add User Permission</li>
                 </ol>
             </nav>
         </div>

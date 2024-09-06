@@ -211,12 +211,13 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('add-patient-vital/{id?}', [PatientController::class, 'patient_vital'])->name('user.patient_vital');
     Route::post('add-patient-diagnosis/{id?}', [PatientController::class, 'Add_Diagnosis'])->name('user.Add_Diagnosis');
     Route::post('edit-patient-diagnosis', [PatientController::class, 'editDiagnosis'])->name('user.edit_Diagnosis');
+    Route::post('edit-patient-symptoms', [PatientController::class, 'editSymptoms'])->name('user.edit_Symptoms');
 
     Route::get('get-Diagnosis-Data', [PatientController::class, 'getDiagnosis'])->name('getDiagnosisData');
     Route::get('get-Symptoms-Data', [PatientController::class, 'fetchExistingSymptoms'])->name('fetchExistingSymptom');
     Route::post('referalReplySummary', [PatientController::class, 'referalReplySummary'])->name('referalReplySummary');
 
-    Route::any('remove-Existing-Symptom/{id}', [PatientController::class, 'removeExistingSymptom'])->name('removeExistingSymptom');
+    Route::any('remove-Existing-Symptom/', [PatientController::class, 'removeExistingSymptom'])->name('removeExistingSymptom');
     Route::get('get-special-investigation', [PatientController::class, 'getSpecialInvestigation'])->name('getSpecialInvestigations');
     Route::get('get-clinical-exam', [PatientController::class, 'getClinicalExam'])->name('getClinicalExams');
     Route::post('check-special-investigation', [PatientController::class, 'checkSpecialInvestigation'])->name('checkSpecialInvestigations');
@@ -272,11 +273,11 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::get('insurer-list', [PatientController::class, 'insurer_list'])->name('user.insurer_list');
     Route::get('getPatientsData', [PatientController::class, 'getPatientsData'])->name('user.getPatientsData');
     Route::post('patient-store', [PatientController::class, 'store'])->name('user.patient.store');
-    Route::get('patient-detail/{id}', [PatientController::class, 'patient_detail'])->name('user.patient-detail');
+    Route::get('patient-detail/{id}', [PatientController::class, 'patient_detail'])->name('user.patient-detail')->middleware('reff.permission');
     Route::get('patient-info-edit', [PatientController::class, 'patient_info_edit'])->name('user.patient-info-edit');
     Route::post('patient-info-update', [PatientController::class, 'patient_info_update'])->name('user.patient-info-update');
 
-    Route::get('patient-medical-detail/{id}', [PatientController::class, 'patient_medical_detail'])->name('user.patient_medical_detail');
+    Route::get('patient-medical-detail/{id}', [PatientController::class, 'patient_medical_detail'])->name('user.patient_medical_detail')->middleware('reff.permission');
 
     Route::delete('/patient-allergy/{id}', [PatientController::class, 'deletePatientAllergy'])->name('patient.allergy.delete');
 
@@ -311,7 +312,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
 
     Route::get('/user/calendar', [CalendarController::class, 'getEvents'])->name('user.calendar.getEvents');
     Route::post('/create-update-event', [CalendarController::class, 'createOrUpdateEvent'])->name('user.calendar.event');
-    Route::get('/delete-event/{id}', [CalendarController::class, 'deleteEvent'])->name('user.delete.event');
+    Route::get('/delete-event', [CalendarController::class, 'deleteEvent'])->name('user.delete.event');
     Route::get('view-medical-report', [ViewMedicalReportController::class, 'index'])->name('user.view-medical-report');
     Route::post('EligibilityForms', [PatientController::class, 'slectEligibilityForms'])->name('user.slectEligibilityForms');
 
@@ -321,7 +322,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('ThyroidEligibilityForms-store', [PatientController::class, 'storeThyroidEligibilityForms'])->name('user.storeThyroidEligibilityForms');
     Route::get('ThyroidEligibilityForms-edit/{patient_id}', [PatientController::class, 'editThyroidEligibilityForms'])->name('user.editThyroidEligibilityForms');
     Route::post('ThyroidEligibilityForms-update', [PatientController::class, 'UpdateThyroidEligibilityForms'])->name('user.UpdateThyroidEligibilityForms');
-    Route::get('view-thyroid-ablation-form/{id}', [PatientController::class, 'ViewThyroidAblationForm'])->name('user.ViewThyroidAblationForm');
+    Route::get('view-thyroid-ablation-form/{id}', [PatientController::class, 'ViewThyroidAblationForm'])->name('user.ViewThyroidAblationForm')->middleware('reff.permission');
     // end
 
     // ProstateEligibilityForms start
@@ -329,7 +330,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('storeProstateEligibilityForms', [PatientController::class, 'storeProstateEligibilityForms'])->name('user.storeProstateEligibilityForms');
     Route::get('ProstateEligibilityForms-edit/{patient_id}', [PatientController::class, 'editProstateEligibilityForms'])->name('user.EditProstateEligibilityForms');
     Route::post('ProstateEligibilityForms-update', [PatientController::class, 'UpdateProstateEligibilityForms'])->name('user.UpdateProstateEligibilityForms');
-    Route::get('view-prostate-Form/{id}', [PatientController::class, 'ViewProstateEligibilityForms'])->name('user.ViewProstateEligibilityForms');
+    Route::get('view-prostate-Form/{id}', [PatientController::class, 'ViewProstateEligibilityForms'])->name('user.ViewProstateEligibilityForms')->middleware('reff.permission');
     // end
 
 
@@ -338,7 +339,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('store-uterine-embo-eligibilityForms', [PatientController::class, 'storeUterineEmboEligibilityForms'])->name('user.storeUterineEmboEligibilityForms');
     Route::get('uterine-embo-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editUterineEmboEligibilityForms'])->name('user.editUterineEmboEligibilityForms');
     Route::post('uterine-embo-eligibilityForms-update', [PatientController::class, 'updateUterineEmboEligibilityForms'])->name('user.updateUterineEmboEligibilityForms');
-    Route::get('view-uterine-embo-Form/{id}', [PatientController::class, 'viewUterineEmboEligibilityForms'])->name('user.viewUterineEmboEligibilityForms');
+    Route::get('view-uterine-embo-Form/{id}', [PatientController::class, 'viewUterineEmboEligibilityForms'])->name('user.viewUterineEmboEligibilityForms')->middleware('reff.permission');
     // end
 
     // Pelvic Cong Embo (PCE) Form start
@@ -346,7 +347,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('store-pelvicCongEmbo-EligibilityForms', [PatientController::class, 'storePelvicCongEmboEligibilityForms'])->name('user.storePelvicCongEmboEligibilityForms');
     Route::get('pelvicCongEmbo-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editPelvicCongEmboEligibilityForms'])->name('user.editPelvicCongEmboEligibilityForms');
     Route::post('pelvicCongEmbo-eligibilityForms-update', [PatientController::class, 'updatePelvicCongEmboEligibilityForms'])->name('user.updatePelvicCongEmboEligibilityForms');
-    Route::get('view-pelvicCongEmbo-Form/{id}', [PatientController::class, 'viewPelvicCongEmboEligibilityForms'])->name('user.viewPelvicCongEmboEligibilityForms');
+    Route::get('view-pelvicCongEmbo-Form/{id}', [PatientController::class, 'viewPelvicCongEmboEligibilityForms'])->name('user.viewPelvicCongEmboEligibilityForms')->middleware('reff.permission');
     // end
 
     // Varicose Ablation (VA) Form start
@@ -354,7 +355,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('store-VaricoseAblation-eligibilityForms', [PatientController::class, 'storeVaricoseAblationEligibilityForms'])->name('user.storeVaricoseAblationEligibilityForms');
     Route::get('varicoseablation-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editVaricoseAblationEligibilityForms'])->name('user.editVaricoseAblationEligibilityForms');
     Route::post('varicoseablation-eligibilityForms-update', [PatientController::class, 'updateVaricoseAblationEligibilityForms'])->name('user.updateVaricoseAblationEligibilityForms');
-    Route::get('view-varicoseablation-Form/{id}', [PatientController::class, 'viewVaricoseAblationEligibilityForms'])->name('user.viewVaricoseAblationEligibilityForms');
+    Route::get('view-varicoseablation-Form/{id}', [PatientController::class, 'viewVaricoseAblationEligibilityForms'])->name('user.viewVaricoseAblationEligibilityForms')->middleware('reff.permission');
     // end
 
     // Varicocele-Embo form  start
@@ -362,15 +363,15 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('store-VaricoceleEmbo-eligibilityForms', [PatientController::class, 'storeVaricoceleEmboEligibilityForms'])->name('user.storeVaricoceleEmboEligibilityForms');
     Route::get('VaricoceleEmbo-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editVaricoceleEmboEligibilityForms'])->name('user.editVaricoceleEmboEligibilityForms');
     Route::post('VaricoceleEmbo-eligibilityForms-update', [PatientController::class, 'updateVaricoceleEmboEligibilityForms'])->name('user.updateVaricoceleEmboEligibilityForms');
-    Route::get('view-VaricoceleEmbo-Form/{id}', [PatientController::class, 'viewVaricoceleEmboEligibilityForms'])->name('user.viewVaricoceleEmboEligibilityForms');
+    Route::get('view-VaricoceleEmbo-Form/{id}', [PatientController::class, 'viewVaricoceleEmboEligibilityForms'])->name('user.viewVaricoceleEmboEligibilityForms')->middleware('reff.permission');
     // end
 
-    // Haemorrhoids Embo (HE) Form start
+    // Hemorrhoids Embo (HE) Form start
     Route::get('haemorrhoidsembo-eligibility-form/{patient_id}', [PatientController::class, 'HaemorrhoidsEmboEmbolizationEligibilityForms'])->name('user.HaemorrhoidsEmbolizationEligibilityForms');
     Route::post('store-haemorrhoidsembo-eligibilityForms', [PatientController::class, 'storeHaemorrhoidsEmboEligibilityForms'])->name('user.storeHaemorrhoidsEmboEligibilityForms');
     Route::get('haemorrhoidsembo-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editHaemorrhoidsEmboEligibilityForms'])->name('user.editHaemorrhoidsEmboEligibilityForms');
     Route::post('HaemorrhoidsEmbo-eligibilityForms-update', [PatientController::class, 'updateHaemorrhoidsEmboEligibilityForms'])->name('user.updateHaemorrhoidsEmboEligibilityForms');
-    Route::get('view-haemorrhoidsembo-Form/{id}', [PatientController::class, 'viewHaemorrhoidsEmboEligibilityForms'])->name('user.viewHaemorrhoidsEmboEligibilityForms');
+    Route::get('view-haemorrhoidsembo-Form/{id}', [PatientController::class, 'viewHaemorrhoidsEmboEligibilityForms'])->name('user.viewHaemorrhoidsEmboEligibilityForms')->middleware('reff.permission');
     // end
 
     // knee pain  Form start
@@ -378,7 +379,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('store-KneePain-eligibilityForms', [PatientController::class, 'storeKneePainEligibilityForms'])->name('user.storeKneePainEligibilityForms');
     Route::get('KneePain-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editKneePainEligibilityForms'])->name('user.editKneePainEligibilityForms');
     Route::post('KneePain-eligibilityForms-update', [PatientController::class, 'updateKneePainEligibilityForms'])->name('user.updateKneePainEligibilityForms');
-    Route::get('view-KneePain-Form/{id}', [PatientController::class, 'viewKneePainEligibilityForms'])->name('user.viewKneePainEligibilityForms');
+    Route::get('view-KneePain-Form/{id}', [PatientController::class, 'viewKneePainEligibilityForms'])->name('user.viewKneePainEligibilityForms')->middleware('reff.permission');
     // end
 
 
@@ -387,7 +388,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('store-SpinePain-eligibilityForms', [PatientController::class, 'storeSpinePainEligibilityForms'])->name('user.storeSpinePainEligibilityForms');
     Route::get('SpinePain-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editSpinePainEligibilityForms'])->name('user.editSpinePainEligibilityForms');
     Route::post('SpinePain-eligibilityForms-update', [PatientController::class, 'updateSpinePainEligibilityForms'])->name('user.updateSpinePainEligibilityForms');
-    Route::get('view-SpinePain-Form/{id}', [PatientController::class, 'viewSpinePainEligibilityForms'])->name('user.viewSpinePainEligibilityForms');
+    Route::get('view-SpinePain-Form/{id}', [PatientController::class, 'viewSpinePainEligibilityForms'])->name('user.viewSpinePainEligibilityForms')->middleware('reff.permission');
     // end
 
     // MSK pain  Form start
@@ -395,7 +396,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('store-MSKPain-eligibilityForms', [PatientController::class, 'storeMSKPainEligibilityForms'])->name('user.storeMSKPainEligibilityForms');
     Route::get('MSKPain-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editMSKPainEligibilityForms'])->name('user.editMSKPainEligibilityForms');
     Route::post('MSKPain-eligibilityForms-update', [PatientController::class, 'updateMSKPainEligibilityForms'])->name('user.updateMSKPainEligibilityForms');
-    Route::get('view-MSKPain-Form/{id}', [PatientController::class, 'viewMSKPainEligibilityForms'])->name('user.viewMSKPainEligibilityForms');
+    Route::get('view-MSKPain-Form/{id}', [PatientController::class, 'viewMSKPainEligibilityForms'])->name('user.viewMSKPainEligibilityForms')->middleware('reff.permission');
     // end
 
     // ShoulderPain   Form start
@@ -403,7 +404,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('store-ShoulderPain-eligibilityForms', [PatientController::class, 'storeShoulderPainEligibilityForms'])->name('user.storeShoulderPainEligibilityForms');
     Route::get('ShoulderPain-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editShoulderPainEligibilityForms'])->name('user.editShoulderPainEligibilityForms');
     Route::post('ShoulderPain-eligibilityForms-update', [PatientController::class, 'updateShoulderPainEligibilityForms'])->name('user.updateShoulderPainEligibilityForms');
-    Route::get('view-ShoulderPain-Form/{id}', [PatientController::class, 'viewShoulderPainEligibilityForms'])->name('user.viewShoulderPainEligibilityForms');
+    Route::get('view-ShoulderPain-Form/{id}', [PatientController::class, 'viewShoulderPainEligibilityForms'])->name('user.viewShoulderPainEligibilityForms')->middleware('reff.permission');
     // end
 
     // HeadachePain   Form start
@@ -411,7 +412,7 @@ Route::group(['middleware' => ['auth:doctor'],'prefix'=>'doctor'], function () {
     Route::post('store-HeadachePain-eligibilityForms', [PatientController::class, 'storeHeadachePainEligibilityForms'])->name('user.storeHeadachePainEligibilityForms');
     Route::get('HeadachePain-eligibilityForms-edit/{patient_id}', [PatientController::class, 'editHeadachePainEligibilityForms'])->name('user.editHeadachePainEligibilityForms');
     Route::post('HeadachePain-eligibilityForms-update', [PatientController::class, 'updateHeadachePainEligibilityForms'])->name('user.updateHeadachePainEligibilityForms');
-    Route::get('view-HeadachePain-Form/{id}', [PatientController::class, 'viewHeadachePainEligibilityForms'])->name('user.viewHeadachePainEligibilityForms');
+    Route::get('view-HeadachePain-Form/{id}', [PatientController::class, 'viewHeadachePainEligibilityForms'])->name('user.viewHeadachePainEligibilityForms')->middleware('reff.permission');
     // end
 
     // AddRemoveListDiagnosis View-Thyroid-Ablation-Form route

@@ -346,8 +346,7 @@
 
                                     <div class="input-group" id="datepicker1">
 
-                                        <input type="text" class="form-control" placeholder="dd M, yyyy"
-                                            data-date-format="dd M, yyyy" data-date-container='#datepicker1'
+                                        <input type="text" class="form-control"  data-date-container='#datepicker1'
                                             data-provide="datepicker">
 
                                     </div>
@@ -726,8 +725,7 @@
 
                                             <div class="input-group" id="datepicker3">
 
-                                                <input type="text" class="form-control" placeholder="dd M, yyyy"
-                                                    data-date-format="dd M, yyyy" data-date-container='#datepicker3'
+                                                <input type="text" class="form-control"  data-date-container='#datepicker3'
                                                     data-provide="datepicker">
 
                                             </div>
@@ -1591,7 +1589,6 @@
 
 
 
-
 <!----------------------------
 
                  Symptoms
@@ -1706,7 +1703,6 @@
     </div>
 
 </div>
-
 
 
 <!----------------------------
@@ -2560,7 +2556,7 @@
                  Future Plans
 
             ---------------------------->
-
+            @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="future_plans" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -2682,7 +2678,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------
@@ -3077,7 +3073,7 @@
                   Patient Refer
 
             ---------------------------->
-
+            @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="refer_patient" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -3357,7 +3353,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------
@@ -3462,7 +3458,6 @@
     </div>
 
 </div>
-
 
 
 
@@ -3960,7 +3955,6 @@
     </div>
 
 </div>
-
 
 
 <!----------------------------

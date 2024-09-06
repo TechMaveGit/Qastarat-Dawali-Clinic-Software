@@ -33,7 +33,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
-                    <input type="hidden" name="form_type" value="MSKPain" />
+                    <input type="hidden" name="form_type" value="msk_pain_report" />
 
                     <h3 class="form_title">Msk Pain</h3>
 
@@ -1151,7 +1151,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                                             <option value="">Duration Type</option>
                                                             @foreach (['Days', 'Weeks', 'Months', 'Years'] as $durationType)
                                                             <option value="{{ $durationType }}"
-                                                                {{ isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms6['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
+                                                                {{ $disfiguringSymptoms7 && isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms6['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
                                                                 {{ $durationType }}
                                                             </option>
                                                         @endforeach
@@ -1296,10 +1296,6 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     @php
                                         if (isset($symptoms_scores) && !empty($symptoms_scores)) {
                                             $symptoms_scores = json_decode($symptoms_scores->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($symptoms_scores);
-                                            //     die;
-
                                             $sum = 0;
 
                                             foreach ($symptoms_scores as $symptom => $values) {
@@ -1687,36 +1683,36 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                                     @if ($sum >= 0 && $sum <= 15)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild  </th>
                                                             <th>(0-15 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 16 && $sum <= 30)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate  </th>
                                                             <th>(16-30 pts) </th>
                                                         </tr>
                                                     @elseif ($sum >= 31 && $sum <= 1999)
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe  </th>
                                                             <th>(31-50 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-15 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">>
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(16-30 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(31-50 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -1747,11 +1743,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Softtissue][]" id="formRadiosRight42"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Softtissue'][0]) && $clinical_indicators['Softtissue'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Softtissue'][0]) && $clinical_indicators['Softtissue'][0] == 'Yes' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1773,9 +1769,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                                                   
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1861,7 +1859,9 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                       
                                       <div class="col-lg-12">
@@ -2068,7 +2068,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                                                                   <img src="images/new-images/nodules.png" alt="">
                                                                               </div> -->
                                         <div id="image-container">
-                                            <img src="{{ asset('public/images/new-images/nodules.png') }}" alt="Your Image" id="image">
+                                            {{-- <img src="{{ asset('/assets/images/new-images/nodules.png') }}" alt="Your Image" id="image"> --}}
                                         </div>
                                         <div class="button_images">
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
@@ -2078,230 +2078,311 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
                                                 id="download-image" type="button">Download</button>
                                         </div>
+                                        <input type="hidden" name="canvasImage" id="canvasImage">
                                     </div>
                                     @php
                                     if (isset($Labs) && !empty($Labs)) {
                                         $Lab = json_decode($Labs->data_value, true);
-                                        //    echo "<pre>";
-                                        //     print_r($Labs);
-                                        //     die;
                                     }
 
                                 @endphp
 
-<div class="col-lg-12">
-    <h6 class="section_title__">Lab <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
-  </div>
-  <div class="col-lg-12">
-    <div class="title_head">
-        <h4>LABACUTEMSK35   &gt; <span class="sub_tt__"> Acute MSK inflammation Results</span></h4>
-    </div>
-  </div>
-  <div class="col-lg-12 mb-3">
-     <div class="row">
-        <div class="col-lg-3">
-        <h6 class="mb-3 lut_title">CBC</h6>
-        </div>  
-        <div class="col-lg-6">
-            <div class="lab_test_value">
-                <select  class="tshRange" name="Lab[CBC][]">
-                <option value=""></option>
-                <option value="normal" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
-                <option value="low" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                <option value="high" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                </select>
-                <div class="result result_value {{ isset($Lab['CBC'][0]) ? $Lab['CBC'][0] : '' }}">
-                    <!-- Display low, high, and normal values here -->
-                    {{ isset($Lab['CBC'][0]) ? $Lab['CBC'][0] : '' }}
-                </div>
-            </div>
-        </div>
-        </div>
-     </div>
-     <div class="col-lg-12 mb-3">
-     <div class="row">
-        <div class="col-lg-3">
-        <h6 class="mb-3 lut_title">CRP</h6>
-        </div>  
-        <div class="col-lg-6">
-            <div class="lab_test_value">
-                <select  class="tshRange" name="Lab[CRP][]">
-                <option value=""></option>
-                <option value="normal" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
-                <option value="low" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                <option value="high" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                </select>
-                <div class="result result_value {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0] : '' }}">
-                    <!-- Display low, high, and normal values here -->
-                    {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0] : '' }}
-                </div>
-            </div>
-        </div>
-        </div>
-     </div>
-     <div class="col-lg-12 mb-3">
-      <div class="row">
-         <div class="col-lg-3">
-         <h6 class="mb-3 lut_title">ESR</h6>
-         </div>  
-         <div class="col-lg-6">
-             <div class="lab_test_value">
-                 <select  class="tshRange" name="Lab[ESR][]">
-                 <option value=""></option>
-                 <option value="normal" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
-                 <option value="low" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                 <option value="high" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                 </select>
-                 <div class="result result_value {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }}">
-                     <!-- Display low, high, and normal values here -->
-                     {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }}
-                 </div>
-             </div>
-         </div>
-         </div>
-      </div>
-      <div class="col-lg-12 mb-3">
-          <div class="row">
-             <div class="col-lg-3">
-             <h6 class="mb-3 lut_title">CKMP</h6>
-             </div>  
-             <div class="col-lg-6">
-                 <div class="lab_test_value">
-                     <select  class="tshRange" name="Lab[CKMP][]">
-                     <option value=""></option>
-                     <option value="normal" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
-                     <option value="low" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                     <option value="high" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                     </select>
-                     <div class="result result_value {{ isset($Lab['CKMP'][0]) ? $Lab['CKMP'][0] : '' }}">
-                         <!-- Display low, high, and normal values here -->
-                         {{ isset($Lab['CKMP'][0]) ? $Lab['CKMP'][0] : '' }}
-                     </div>
-                 </div>
-             </div>
-             </div>
-          </div>
-          <div class="col-lg-12 mb-3">
-              <div class="row">
-                 <div class="col-lg-3">
-                 <h6 class="mb-3 lut_title">Uric Acid</h6>
-                 </div>  
-                 <div class="col-lg-6">
-                     <div class="lab_test_value">
-                         <select  class="tshRange" name="Lab[UricAcid][]">
-                         <option value=""></option>
-                         <option value="normal" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
-                         <option value="low" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                         <option value="high" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                         </select>
-                         <div class="result result_value {{ isset($Lab['UricAcid'][0]) ? $Lab['UricAcid'][0] : '' }}">
-                             <!-- Display low, high, and normal values here -->
-                             {{ isset($Lab['UricAcid'][0]) ? $Lab['UricAcid'][0] : '' }}
-                         </div>
-                     </div>
-                 </div>
-                 </div>
-              </div>
-              <div class="col-lg-12 mb-3">
-                  <div class="row">
-                     <div class="col-lg-3">
-                     <h6 class="mb-3 lut_title">RF</h6>
-                     </div>  
-                     <div class="col-lg-6">
-                         <div class="lab_test_value">
-                             <select  class="tshRange" name="Lab[RF][]">
-                             <option value=""></option>
-                             <option value="normal" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
-                             <option value="low" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                             <option value="high" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                             </select>
-                             <div class="result result_value {{ isset($Lab['RF'][0]) ? $Lab['RF'][0] : '' }}">
-                                 <!-- Display low, high, and normal values here -->
-                                 {{ isset($Lab['RF'][0]) ? $Lab['RF'][0] : '' }}
-                             </div>
-                         </div>
-                     </div>
-                     </div>
-                  </div>
+                                <div class="col-lg-12">
+                                    <h6 class="section_title__">Lab 
+                                        {{-- <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                    </h6>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="title_head">
+                                        <h4>LABACUTEMSK35   &gt; <span class="sub_tt__"> Acute MSK inflammation Results</span></h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                        <h6 class="mb-3 lut_title">CBC</h6>
+                                        </div>  
+                                        <div class="col-lg-6">
+                                            <div class="lab_test_value">
+                                                <select  class="tshRange" name="Lab[CBC][]">
+                                                    <option value=""></option>
+                                                    <option value="normal" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
+                                                    <option value="low" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                    <option value="high" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                    <option value="other" {{ isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                </select>
 
-                  <div class="col-lg-12">
-                    <div class="title_head">
-                        <h4>LABJFA15 </h4>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="row">
-                    <div class="col-lg-4">
-                  <h6 class="mb-3 lut_title">Histopath MSK Biopsy - Findings</h6>
-                </div>
-                <div class="col-lg-4">
-                            <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input" type="radio" name="Lab[LABJFA15][]" value="Normal" id="formRadiosRightd14"
-                                {{ isset($Lab['LABJFA15'][0]) && $Lab['LABJFA15'][0] == "Normal" ? 'checked' : '' }}
-                                >
-                                <label class="form-check-label" for="formRadiosRightd14">
-                                Normal
-                                </label>
-                            </div>
-                        </div>
 
-                       
-                        <div class="col-lg-4">
-                            <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input" type="radio" name="Lab[LABJFA15][]" value="Abnormal" id="formRadiosRightd120"
-                                {{ isset($Lab['LABJFA15'][0]) && $Lab['LABJFA15'][0] == "Abnormal" ? 'checked' : '' }}
-                                >
-                                <label class="form-check-label" for="formRadiosRightd120">
-                                Abnormal
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-12" id="textarea_120" style="">
-                        <div class="text_area_gfhi mb-3">
-                        <textarea class="form-control" placeholder="Enter Elaborate Rheumatology / notes here***" style="height: 100px" name="Lab[LABJFA15Note][]">{{ $Lab['LABJFA15Note'][0] ?? '' }}</textarea>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="title_head">
-                        <h4>USSTBIOPSYMSK452</h4>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="row">
-                    <div class="col-lg-4">
-                  <h6 class="mb-3 lut_title">Histopath MSK Biopsy - Findings</h6>
-                </div>
-                <div class="col-lg-4">
-                            <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input" type="radio" name="Lab[USSTBIOPSYMSK452][]" value="Normal" id="formRadiosRightd39"
-                                {{ isset($Lab['USSTBIOPSYMSK452'][0]) && $Lab['USSTBIOPSYMSK452'][0] == "Normal" ? 'checked' : '' }}
-                                >
-                                <label class="form-check-label" for="formRadiosRightd39">
-                                Normal
-                                </label>
-                            </div>
-                        </div>
+                                                <div @if(isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['CBC'][0])  && $Lab['CBC'][0] != 'other' ? $Lab['CBC'][0] : 'normal' }}">
+                                                        {{ isset($Lab['CBC'][0])  && $Lab['CBC'][0] != 'other' ? $Lab['CBC'][0] : 'normal' }} 
+                                                    </div>
 
-                     
-                        <div class="col-lg-4">
-                            <div class="form-check form-check-right mb-3">
-                                <input class="form-check-input" type="radio" name="Lab[USSTBIOPSYMSK452][]" value="Abnormal" id="formRadiosRightd121"
-                                {{ isset($Lab['USSTBIOPSYMSK452'][0]) && $Lab['USSTBIOPSYMSK452'][0] == "Abnormal" ? 'checked' : '' }}
-                                >
-                                <label class="form-check-label" for="formRadiosRightd121">
-                               Abnormal
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-12" id="textarea_121" style="display: none;">
-                        <div class="text_area_gfhi mb-3">
-                        <textarea class="form-control" placeholder="Enter Elaborate Rheumatology / notes here***" style="height: 100px" name="Lab[USSTBIOPSYMSK452Note][]">{{ $Lab['USSTBIOPSYMSK452Note'][0] ?? '' }}</textarea>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+                                                <select @if(isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[CBC][otherLevel]">
+                                                    <option {{ isset($Lab['CBC']['otherLevel']) && $Lab['CBC']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                    <option {{ isset($Lab['CBC']['otherLevel']) && $Lab['CBC']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                    <option {{ isset($Lab['CBC']['otherLevel']) && $Lab['CBC']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                </select>
+                                                
+                                                <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CBC'][0]) && $Lab['CBC'][0] == 'other') value="{{$Lab['CBC']['other']??''}}" @else hidden @endif name="Lab[CBC][other]" >
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mb-3">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                        <h6 class="mb-3 lut_title">CRP</h6>
+                                        </div>  
+                                        <div class="col-lg-6">
+                                            <div class="lab_test_value">
+                                                <select  class="tshRange" name="Lab[CRP][]">
+                                                <option value=""></option>
+                                                <option value="normal" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
+                                                <option value="low" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                <option value="high" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                <option value="other" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                </select>
+                                                
+                                                <div @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }}">
+                                                    {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }} 
+                                                </div>
+
+                                                <select @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[CRP][otherLevel]">
+                                                    <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                    <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                    <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                </select>
+                                                
+                                                <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') value="{{ isset($Lab['CRP']['other']) ? $Lab['CRP']['other'] : '' }}" @else hidden @endif name="Lab[CRP][other]" >
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mb-3">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                        <h6 class="mb-3 lut_title">ESR</h6>
+                                        </div>  
+                                        <div class="col-lg-6">
+                                            <div class="lab_test_value">
+                                                <select  class="tshRange" name="Lab[ESR][]">
+                                                <option value=""></option>
+                                                <option value="normal" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
+                                                <option value="low" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                <option value="high" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                <option value="other"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                </select>
+
+                                                <div @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }}">
+                                                    {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }} 
+                                                </div>
+
+                                                <select @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[ESR][otherLevel]">
+                                                    <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                    <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                    <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                </select>
+                                                
+                                                <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') value="{{ isset($Lab['ESR']['other']) ? $Lab['ESR']['other'] : '' }}" @else hidden @endif name="Lab[ESR][other]" />
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mb-3">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                            <h6 class="mb-3 lut_title">CKMP</h6>
+                                            </div>  
+                                            <div class="col-lg-6">
+                                                <div class="lab_test_value">
+                                                    <select  class="tshRange" name="Lab[CKMP][]">
+                                                    <option value=""></option>
+                                                    <option value="normal" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
+                                                    <option value="low" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                    <option value="high" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                    <option value="other" {{ isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                    </select>
+
+                                                    <div @if(isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['CKMP'][0])  && $Lab['CKMP'][0] != 'other' ? $Lab['CKMP'][0] : 'normal' }}">
+                                                        {{ isset($Lab['CKMP'][0])  && $Lab['CKMP'][0] != 'other' ? $Lab['CKMP'][0] : 'normal' }} 
+                                                    </div>
+    
+                                                    <select @if(isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[CKMP][otherLevel]">
+                                                        <option {{ isset($Lab['CKMP']['otherLevel']) && $Lab['CKMP']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['CKMP']['otherLevel']) && $Lab['CKMP']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['CKMP']['otherLevel']) && $Lab['CKMP']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CKMP'][0]) && $Lab['CKMP'][0] == 'other') value="{{ isset($Lab['CKMP']['other']) ? $Lab['CKMP']['other'] : '' }}" @else hidden @endif name="Lab[CKMP][other]" />
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-3">
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                <h6 class="mb-3 lut_title">Uric Acid</h6>
+                                                </div>  
+                                                <div class="col-lg-6">
+                                                    <div class="lab_test_value">
+                                                        <select  class="tshRange" name="Lab[UricAcid][]">
+                                                        <option value=""></option>
+                                                        <option value="normal" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
+                                                        <option value="low" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                        <option value="high" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                        <option value="other" {{ isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                        </select>
+
+                                                        <div @if(isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['UricAcid'][0])  && $Lab['UricAcid'][0] != 'other' ? $Lab['UricAcid'][0] : 'normal' }}">
+                                                            {{ isset($Lab['UricAcid'][0])  && $Lab['UricAcid'][0] != 'other' ? $Lab['UricAcid'][0] : 'normal' }} 
+                                                        </div>
+        
+                                                        <select @if(isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[UricAcid][otherLevel]">
+                                                            <option {{ isset($Lab['UricAcid']['otherLevel']) && $Lab['UricAcid']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                            <option {{ isset($Lab['UricAcid']['otherLevel']) && $Lab['UricAcid']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                            <option {{ isset($Lab['UricAcid']['otherLevel']) && $Lab['UricAcid']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                        </select>
+                                                    
+                                                        <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['UricAcid'][0]) && $Lab['UricAcid'][0] == 'other') value="{{ isset($Lab['UricAcid']['other']) ? $Lab['UricAcid']['other'] : '' }}" @else hidden @endif name="Lab[UricAcid][other]" />
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 mb-3">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                    <h6 class="mb-3 lut_title">RF</h6>
+                                                    </div>  
+                                                    <div class="col-lg-6">
+                                                        <div class="lab_test_value">
+                                                            <select  class="tshRange" name="Lab[RF][]">
+                                                                <option value=""></option>
+                                                                <option value="normal" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
+                                                                <option value="low" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                                <option value="high" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                                <option value="other" {{ isset($Lab['RF'][0]) && $Lab['RF'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                            </select>
+
+                                                            <div @if(isset($Lab['RF'][0]) && $Lab['RF'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['RF'][0])  && $Lab['RF'][0] != 'other' ? $Lab['RF'][0] : 'normal' }}">
+                                                                {{ isset($Lab['RF'][0])  && $Lab['RF'][0] != 'other' ? $Lab['RF'][0] : 'normal' }} 
+                                                            </div>
+            
+                                                            <select @if(isset($Lab['RF'][0]) && $Lab['RF'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[RF][otherLevel]">
+                                                                <option {{ isset($Lab['RF']['otherLevel']) && $Lab['RF']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                                <option {{ isset($Lab['RF']['otherLevel']) && $Lab['RF']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                                <option {{ isset($Lab['RF']['otherLevel']) && $Lab['RF']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                            </select>
+                                                        
+                                                            <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['RF'][0]) && $Lab['RF'][0] == 'other') value="{{ isset($Lab['RF']['other']) ? $Lab['RF']['other'] : '' }}" @else hidden @endif name="Lab[RF][other]" />
+
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="title_head">
+                                                        <h4>LABJFA15 </h4>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                    <div class="col-lg-4">
+                                                <h6 class="mb-3 lut_title">Histopath MSK Biopsy - Findings</h6>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                            <div class="form-check form-check-right mb-3">
+                                                                <input class="form-check-input" type="radio" name="Lab[LABJFA15][]" value="Normal" id="formRadiosRightd14"
+                                                                {{ isset($Lab['LABJFA15'][0]) && $Lab['LABJFA15'][0] == "Normal" ? 'checked' : '' }}
+                                                                >
+                                                                <label class="form-check-label" for="formRadiosRightd14">
+                                                                Normal
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                    
+                                                        <div class="col-lg-4">
+                                                            <div class="form-check form-check-right mb-3">
+                                                                <input class="form-check-input" type="radio" name="Lab[LABJFA15][]" value="Abnormal" id="formRadiosRightd120"
+                                                                {{ isset($Lab['LABJFA15'][0]) && $Lab['LABJFA15'][0] == "Abnormal" ? 'checked' : '' }}
+                                                                >
+                                                                <label class="form-check-label" for="formRadiosRightd120">
+                                                                Abnormal
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12" id="textarea_120" style="">
+                                                        <div class="text_area_gfhi mb-3">
+                                                        <textarea class="form-control" placeholder="Enter Elaborate Rheumatology / notes here***" style="height: 100px" name="Lab[LABJFA15Note][]">{{ $Lab['LABJFA15Note'][0] ?? '' }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="title_head">
+                                                        <h4>USSTBIOPSYMSK452</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                    <div class="col-lg-4">
+                                                <h6 class="mb-3 lut_title">Histopath MSK Biopsy - Findings</h6>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                            <div class="form-check form-check-right mb-3">
+                                                                <input class="form-check-input" type="radio" name="Lab[USSTBIOPSYMSK452][]" value="Normal" id="formRadiosRightd39"
+                                                                {{ isset($Lab['USSTBIOPSYMSK452'][0]) && $Lab['USSTBIOPSYMSK452'][0] == "Normal" ? 'checked' : '' }}
+                                                                >
+                                                                <label class="form-check-label" for="formRadiosRightd39">
+                                                                Normal
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                    
+                                                        <div class="col-lg-4">
+                                                            <div class="form-check form-check-right mb-3">
+                                                                <input class="form-check-input" type="radio" name="Lab[USSTBIOPSYMSK452][]" value="Abnormal" id="formRadiosRightd121"
+                                                                {{ isset($Lab['USSTBIOPSYMSK452'][0]) && $Lab['USSTBIOPSYMSK452'][0] == "Abnormal" ? 'checked' : '' }}
+                                                                >
+                                                                <label class="form-check-label" for="formRadiosRightd121">
+                                                            Abnormal
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12" id="textarea_121" style="display: none;">
+                                                        <div class="text_area_gfhi mb-3">
+                                                        <textarea class="form-control" placeholder="Enter Elaborate Rheumatology / notes here***" style="height: 100px" name="Lab[USSTBIOPSYMSK452Note][]">{{ $Lab['USSTBIOPSYMSK452Note'][0] ?? '' }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    
+
+                                                    <div class="col-lg-12 mb-4">
+                                                        <div class="title_head">
+                                                            <h4>Others</h4>
+                                                        </div>
+                                                        <div class="otherLabRow">
+                                                            @if(isset($Lab['other']))
+                                                            @foreach($Lab['other'] as $kk=>$value)
+                                                            <div class="row my-3">
+                                                                <div class="col-lg-6">
+                                                                    <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                                                                </div>
+                                                            </div>
+                                                            @endforeach
+                                                            @endif
+                                                        </div>
+                                                        <div class="add_more_btn">
+                                                            <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
                        
                           
                               
@@ -2310,10 +2391,12 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
     
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#"
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>REQNERVECON5</h4>
                                         </div>
@@ -2377,13 +2460,15 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
-                                            <h4>MDTREVIEW00  &#62; <span class="sub_tt__"> Hemarrhoids MDT outcome</span></h4>
+                                            <h4>MDTREVIEW00  &#62; <span class="sub_tt__"> Hemorrhoids MDT outcome</span></h4>
                                         </div>
                                     </div>
                                     @php
@@ -2471,9 +2556,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2493,7 +2580,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - Topical Riparil&nbsp;</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - Topical Riparil&nbsp;</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2526,7 +2613,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - Topical Analgesics &nbsp;</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - Topical Analgesics &nbsp;</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2559,7 +2646,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - PO Analgesics</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - PO Analgesics</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2592,7 +2679,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - PO Glucasamine / Chondroitin</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - PO Glucasamine / Chondroitin</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2625,7 +2712,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - PO Collagen</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - PO Collagen</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2658,7 +2745,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - IV Vitamines</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - IV Vitamines</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2691,7 +2778,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - IM Nurobion</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - IM Nurobion</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2724,7 +2811,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - IM Collagen</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - IM Collagen</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2757,7 +2844,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">conservative - knee Brace</h6>
+                                      <h6 class="mb-3 lut_title">Conservative - knee Brace</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
@@ -2989,174 +3076,194 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                                 target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
 
                                     @php
                                         if (isset($Interventions) && !empty($Interventions)) {
                                             $Interventions = json_decode($Interventions->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($Interventions);
-                                            //     die;
                                         }
 
                                     @endphp
 
                                     
-<div class="col-lg-12">
-    <div class="row">
-    <div class="col-lg-4">
-  <h6 class="mb-3 lut_title">USTPINJECTION240</h6>
-</div>
-<div class="col-lg-4">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[USTPINJECTION240LABPREIRBASIC32][]" value="LABPREIRBASIC32"  id="formRadiosRightf70"
-                {{ isset($Interventions['USTPINJECTION240LABPREIRBASIC32'][0]) && $Interventions['USTPINJECTION240LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf70">
-                LABPREIRBASIC32
-                </label>
-            </div>
-        </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                        <div class="col-lg-4">
+                                    <h6 class="mb-3 lut_title">USTPINJECTION240</h6>
+                                    </div>
+                                    <div class="col-lg-4">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[USTPINJECTION240LABPREIRBASIC32][]" value="LABPREIRBASIC32"  id="formRadiosRightf70"
+                                                    {{ isset($Interventions['USTPINJECTION240LABPREIRBASIC32'][0]) && $Interventions['USTPINJECTION240LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf70">
+                                                    LABPREIRBASIC32
+                                                    </label>
+                                                </div>
+                                            </div>
 
-        <div class="col-lg-4">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[USTPINJECTION240LABPREIRSAFETY17][]" value="LABPREIRSAFETY17"  id="formRadiosRightf71"
-                {{ isset($Interventions['USTPINJECTION240LABPREIRSAFETY17'][0]) && $Interventions['USTPINJECTION240LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf71">
-                LABPREIRSAFETY17
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
+                                            <div class="col-lg-4">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[USTPINJECTION240LABPREIRSAFETY17][]" value="LABPREIRSAFETY17"  id="formRadiosRightf71"
+                                                    {{ isset($Interventions['USTPINJECTION240LABPREIRSAFETY17'][0]) && $Interventions['USTPINJECTION240LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf71">
+                                                    LABPREIRSAFETY17
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-<div class="col-lg-12">
-    <div class="row">
-    <div class="col-lg-4">
-  <h6 class="mb-3 lut_title">USNBINJECTION240</h6>
-</div>
-<div class="col-lg-4">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[USNBINJECTION240LABPREIRBASIC32][]" value="LABPREIRBASIC32" id="formRadiosRightf72"
-                {{ isset($Interventions['USNBINJECTION240LABPREIRBASIC32'][0]) && $Interventions['USNBINJECTION240LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf72">
-                LABPREIRBASIC32
-                </label>
-            </div>
-        </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                        <div class="col-lg-4">
+                                    <h6 class="mb-3 lut_title">USNBINJECTION240</h6>
+                                    </div>
+                                    <div class="col-lg-4">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[USNBINJECTION240LABPREIRBASIC32][]" value="LABPREIRBASIC32" id="formRadiosRightf72"
+                                                    {{ isset($Interventions['USNBINJECTION240LABPREIRBASIC32'][0]) && $Interventions['USNBINJECTION240LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf72">
+                                                    LABPREIRBASIC32
+                                                    </label>
+                                                </div>
+                                            </div>
 
-        <div class="col-lg-4">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[USNBINJECTION240LABPREIRSAFETY17][]" value="LABPREIRSAFETY17" id="formRadiosRightf73"
-                {{ isset($Interventions['USNBINJECTION240LABPREIRSAFETY17'][0]) && $Interventions['USNBINJECTION240LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf73">
-                LABPREIRSAFETY17
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-lg-12">
-    <div class="row">
-    <div class="col-lg-4">
-  <h6 class="mb-3 lut_title">USPRPINJECTION280</h6>
-</div>
-<div class="col-lg-4">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[USPRPINJECTION280LABPREIRBASIC32][]" value="LABPREIRBASIC32" id="formRadiosRightf73"
-                {{ isset($Interventions['USPRPINJECTION280LABPREIRBASIC32'][0]) && $Interventions['USPRPINJECTION280LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf73">
-                LABPREIRBASIC32
-                </label>
-            </div>
-        </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[USNBINJECTION240LABPREIRSAFETY17][]" value="LABPREIRSAFETY17" id="formRadiosRightf73"
+                                                    {{ isset($Interventions['USNBINJECTION240LABPREIRSAFETY17'][0]) && $Interventions['USNBINJECTION240LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf73">
+                                                    LABPREIRSAFETY17
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                        <div class="col-lg-4">
+                                    <h6 class="mb-3 lut_title">USPRPINJECTION280</h6>
+                                    </div>
+                                    <div class="col-lg-4">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[USPRPINJECTION280LABPREIRBASIC32][]" value="LABPREIRBASIC32" id="formRadiosRightf73"
+                                                    {{ isset($Interventions['USPRPINJECTION280LABPREIRBASIC32'][0]) && $Interventions['USPRPINJECTION280LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf73">
+                                                    LABPREIRBASIC32
+                                                    </label>
+                                                </div>
+                                            </div>
 
-        <div class="col-lg-4">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[USPRPINJECTION280LABPREIRSAFETY17][]"  value="LABPREIRSAFETY17" id="formRadiosRightf74"
-                {{ isset($Interventions['USPRPINJECTION280LABPREIRSAFETY17'][0]) && $Interventions['USPRPINJECTION280LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf74">
-                LABPREIRSAFETY17
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-lg-12">
-    <div class="row">
-    <div class="col-lg-4">
-  <h6 class="mb-3 lut_title">USRFTHERAPY490</h6>
-</div>
-<div class="col-lg-4">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[USRFTHERAPY490LABPREIRBASIC32][]"  value="LABPREIRBASIC32" id="formRadiosRightf75"
-                {{ isset($Interventions['USRFTHERAPY490LABPREIRBASIC32'][0]) && $Interventions['USRFTHERAPY490LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf75">
-                LABPREIRBASIC32
-                </label>
-            </div>
-        </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[USPRPINJECTION280LABPREIRSAFETY17][]"  value="LABPREIRSAFETY17" id="formRadiosRightf74"
+                                                    {{ isset($Interventions['USPRPINJECTION280LABPREIRSAFETY17'][0]) && $Interventions['USPRPINJECTION280LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf74">
+                                                    LABPREIRSAFETY17
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                        <div class="col-lg-4">
+                                    <h6 class="mb-3 lut_title">USRFTHERAPY490</h6>
+                                    </div>
+                                    <div class="col-lg-4">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[USRFTHERAPY490LABPREIRBASIC32][]"  value="LABPREIRBASIC32" id="formRadiosRightf75"
+                                                    {{ isset($Interventions['USRFTHERAPY490LABPREIRBASIC32'][0]) && $Interventions['USRFTHERAPY490LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf75">
+                                                    LABPREIRBASIC32
+                                                    </label>
+                                                </div>
+                                            </div>
 
-        <div class="col-lg-2">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[USRFTHERAPY490LABPREIRSAFETY17][]"  value="LABPREIRSAFETY17" id="formRadiosRightf76"
-                {{ isset($Interventions['USRFTHERAPY490LABPREIRSAFETY17'][0]) && $Interventions['USRFTHERAPY490LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf76">
-                LABPREIRSAFETY17
-                </label>
-            </div>
-        </div>
-        
-    </div>
-</div>
-<div class="col-lg-12">
-    <div class="row">
-    <div class="col-lg-4">
-  <h6 class="mb-3 lut_title">ANGIOSTE2310</h6>
-</div>
-<div class="col-lg-4">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[ANGIOSTE2310LABPREANGIO48][]" value="LABPREANGIO48" id="formRadiosRightf77"
-                {{ isset($Interventions['ANGIOSTE2310LABPREANGIO48'][0]) && $Interventions['ANGIOSTE2310LABPREANGIO48'][0] == 'LABPREANGIO48' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf77">
-                    LABPREANGIO48
-                </label>
-            </div>
-        </div>
+                                            <div class="col-lg-2">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[USRFTHERAPY490LABPREIRSAFETY17][]"  value="LABPREIRSAFETY17" id="formRadiosRightf76"
+                                                    {{ isset($Interventions['USRFTHERAPY490LABPREIRSAFETY17'][0]) && $Interventions['USRFTHERAPY490LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf76">
+                                                    LABPREIRSAFETY17
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                        <div class="col-lg-4">
+                                    <h6 class="mb-3 lut_title">ANGIOSTE2310</h6>
+                                    </div>
+                                    <div class="col-lg-4">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[ANGIOSTE2310LABPREANGIO48][]" value="LABPREANGIO48" id="formRadiosRightf77"
+                                                    {{ isset($Interventions['ANGIOSTE2310LABPREANGIO48'][0]) && $Interventions['ANGIOSTE2310LABPREANGIO48'][0] == 'LABPREANGIO48' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf77">
+                                                        LABPREANGIO48
+                                                    </label>
+                                                </div>
+                                            </div>
 
-        <div class="col-lg-2">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[ANGIOSTE2310LABPREIRSAFETY17][]" value="LABPREIRSAFETY17" id="formRadiosRightf78"
-                {{ isset($Interventions['ANGIOSTE2310LABPREIRSAFETY17'][0]) && $Interventions['ANGIOSTE2310LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf78">
-                LABPREIRSAFETY17
-                </label>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input" type="checkbox" name="Intervention[ANGIOSTE2310IVSEDATION270][]" value="IVSEDATION270" id="formRadiosRightf78IVSEDATION270"
-                {{ isset($Interventions['ANGIOSTE2310IVSEDATION270'][0]) && $Interventions['ANGIOSTE2310IVSEDATION270'][0] == 'IVSEDATION270' ? 'checked' : '' }}
-                >
-                <label class="form-check-label" for="formRadiosRightf78IVSEDATION270">
-                    IVSEDATION270
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
+                                            <div class="col-lg-2">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[ANGIOSTE2310LABPREIRSAFETY17][]" value="LABPREIRSAFETY17" id="formRadiosRightf78"
+                                                    {{ isset($Interventions['ANGIOSTE2310LABPREIRSAFETY17'][0]) && $Interventions['ANGIOSTE2310LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf78">
+                                                    LABPREIRSAFETY17
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="Intervention[ANGIOSTE2310IVSEDATION270][]" value="IVSEDATION270" id="formRadiosRightf78IVSEDATION270"
+                                                    {{ isset($Interventions['ANGIOSTE2310IVSEDATION270'][0]) && $Interventions['ANGIOSTE2310IVSEDATION270'][0] == 'IVSEDATION270' ? 'checked' : '' }}
+                                                    >
+                                                    <label class="form-check-label" for="formRadiosRightf78IVSEDATION270">
+                                                        IVSEDATION270
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-lg-12 mb-4">
+                                            <div class="otherOtherProcedureRx">
+                                                @if(isset($Interventions['other']))
+                                                @foreach($Interventions['other'] as $kk=>$value)
+                                                <div class="row my-3">
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" name="Intervention[other][]" placeholder="Other Title" value="{{$value}}"> 
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes" value="{{$Interventions['otherNote'][$kk]}}"> 
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherProcedureRx()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
 
 
 
@@ -3164,9 +3271,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewMSKPainEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {
@@ -3313,7 +3422,9 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                                     @endphp
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Prescription <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Prescription 
+                                            {{-- <a href="view-medical-record.php" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                         <div class="title_head">
                                               <h4>ADD A DRUG </h4>
                                           </div>
@@ -3398,9 +3509,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -3490,9 +3603,11 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                         </div>
                     </div>
 
+
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- @dd($VaricoceleEmboForm->AnnotateimageData) --}}
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
                             FINAL</button>
                     </div>
@@ -3509,6 +3624,7 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
 
 
     @push('custom-js')
+   
         <script>
             $(document).ready(function() {
                 $("#abnormal_a74").hide();
@@ -3719,6 +3835,26 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+
+                function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+                function addOtherProcedureRx(){
+                    $(".otherOtherProcedureRx").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -3727,10 +3863,23 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                     updateValues(this);
                 });
 
+                // updateValues($('.tshRange'));
+
+                
+
                 function updateValues(select) {
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+                    if($(select).val() == 'other'){
+                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                    } else {
+                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                    }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -3819,13 +3968,6 @@ Patient | Msk Pain | QASTARAT & DAWALI CLINICS
                     }
                 });
                 // end here sysmtoms scrore calculation
-
-              
-
-                
-
-
-
             });
         </script>
 
@@ -4717,20 +4859,151 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
             return true; 
         }
 
+
+
+
+
+    // Start Image    
+    const stage = new Konva.Stage({
+        container: 'image-container',
+        width: 600,
+        height: 600,
+    });
+    
+    const layer = new Konva.Layer();
+    stage.add(layer);
+    
+    let isDrawing = false;
+    let annotationMode = false;
+    let lastLine;
+    
+    const imageObj = new Image();
+    imageObj.src = '{{ $VaricoceleEmboForm->AnnotateimageData ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/ShoulderPain.jpg') }}';
+    
+    imageObj.onload = function() {
+        const image = new Konva.Image({
+            image: imageObj,
+            width: 600,
+            height: 600,
+        });
+    
+        layer.add(image);
+        stage.draw();
+    };
+    
+    stage.on('mousedown touchstart', function(e) {
+        if (annotationMode) {
+            const text = prompt('Enter annotation text:');
+            if (text) {
+                const pos = stage.getPointerPosition();
+                const annotation = new Konva.Label({
+                    x: pos.x,
+                    y: pos.y,
+                });
+    
+                annotation.add(
+                    new Konva.Tag({
+                        fill: 'transparent',
+                    })
+                );
+    
+                annotation.add(
+                    new Konva.Text({
+                        text: text,
+                        fontSize: 18,
+                        width:500,
+                        fontStyle: 'bold',
+                        fontFamily: 'Arial',
+                        fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
+                    })
+                );
+    
+                layer.add(annotation);
+                stage.draw();
+            }
+        } else {
+            isDrawing = true;
+            const pos = stage.getPointerPosition();
+            lastLine = new Konva.Line({
+                stroke: '#2760a4',
+                strokeWidth: 3,
+                globalCompositeOperation: 'source-over',
+                points: [pos.x, pos.y],
+            });
+            layer.add(lastLine);
+        }
+    });
+    
+    stage.on('mousemove touchmove', function() {
+        if (!isDrawing) {
+            return;
+        }
+    
+        const pos = stage.getPointerPosition();
+        const newPoints = lastLine.points().concat([pos.x, pos.y]);
+        lastLine.points(newPoints);
+        layer.batchDraw();
+    });
+    
+    stage.on('mouseup touchend', function() {
+        isDrawing = false;
+        lastLine = null;
+    });
+    
+    document.getElementById('draw-mode').addEventListener('click', function() {
+        annotationMode = false;
+    });
+    
+    document.getElementById('annotate-mode').addEventListener('click', function() {
+        annotationMode = true;
+    });
+    
+    
+    document.getElementById('download-image').addEventListener('click', function() {
+        const dataURL = stage.toDataURL({
+            mimeType: 'image/png'
+        });
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'msk-pain.png';
+        link.click();
+    });
+
+
+        function isFormDataValid(formData) {
+            for (let [key, value] of formData.entries()) {
+                if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                    if (value.trim() !== '') {
+                        return true; // A blank value found
+                    }
+                }
+            }
+            return false; // All values are non-blank
+        }
         
         $("#updateMSKPainEligibilityForms").submit(function(event) {
             
             event.preventDefault();
+            const dataURL = stage.toDataURL({
+                        mimeType: 'image/png'
+                    });
+
+            document.getElementById('canvasImage').value = dataURL;
             let formData = new FormData(this);
+            
+            if(isFormDataValid(formData)){
             if (!validateForm()) {
                 e.preventDefault(); 
             } 
             else {
                 if(validateForm()){
-
+                    
                 
+                    // console.log(document.getElementById('canvasImage').value);
                 
-                $.ajax({
+                        $.ajax({
                                 url: '{{ route("user.updateMSKPainEligibilityForms") }}',
                                 type: 'POST',
                                 data: formData,
@@ -4782,6 +5055,12 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
               
                 
             }
+        }}else{
+            Swal.fire({
+                title: "Fill Data?",
+                text: "Please fill the details.",
+                icon: "info",
+            });
         }
         });
     });

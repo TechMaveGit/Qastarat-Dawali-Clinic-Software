@@ -15,8 +15,10 @@ class AdminGuard
      */
     public function handle(Request $request, Closure $next): Response
     {
+      
         $D = json_decode(json_encode(Auth::guard('doctor')->user()->get_role()),true);
         $arr = [];
+        
         foreach($D as $v)
         {
           $arr[] = $v['permission_id'];

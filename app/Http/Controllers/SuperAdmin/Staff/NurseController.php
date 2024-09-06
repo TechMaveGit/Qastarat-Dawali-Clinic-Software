@@ -19,25 +19,40 @@ class NurseController extends Controller
     {
         $data['doctor'] = Doctor::with(['staffBranch.userBranchName'])->whereId($id)->first();
         $currentDate = now();
-        $data['tasks'] = DB::table('tasks')->where('assignTo', $id)->get();
+        $data['tasks'] = DB::table('tasks')->where('test_type','!=','other')->where('assignTo', $id)->get();
+        
         return view('superAdmin.nurse.view', $data);
     }
 
 
     // nurse
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $data['nurse'] = Doctor::with(['staffBranch.userBranchName'])->select('id', 'role_id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status', 'post_code', 'mobile_no', 'user_type')
+        $qurStaff = Doctor::with(['staffBranch.userBranchName']);
+
+            if(isset($request->stname) && $request->stname != ''){
+                $qurStaff->where('name','LIKE',"%{$request->stname}%");
+            }
+            if(isset($request->status) && $request->status != 0){
+                $qurStaff->where('status',$request->status);
+            }
+            if(isset($request->branch)){
+                $qurStaff->whereHas('staffBranch',function ($query) use($request) {
+                    $query->whereIn('add_branch',$request->branch);
+                });
+            }
+    
+            $data['nurse'] = $qurStaff->select('id', 'role_id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status', 'post_code', 'dial_code','mobile_no', 'user_type')
             ->whereNotIn('role_id', ['1'])
             ->whereNotIn('user_type', ['pathology', 'radiology'])
             ->orderBy('id', 'desc')
             ->get();
 
-        // dd($data['nurse']);    
 
         $data['role'] = DB::table('roles')->where('id', '!=', 1)->get();
+        $data['branchs'] = DB::table('branchs')->get();
         return view('superAdmin.nurse.index', $data);
     }
 
@@ -83,11 +98,13 @@ class NurseController extends Controller
                 'graduation_year' => 'nullable|regex:/^\d{4}$/',
                 'birth_date' => 'required',
                 'landline' => 'nullable|numeric|digits_between:10,15',
-                'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:10,15|regex:/^[0-9]{10,15}$/',
+                'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:7,13|regex:/^[0-9]{7,13}$/',
                 'password' => 'required|min:6',
                 // 'birth_date' => 'required|date',
                 'name' => 'required',
                 'gendar' => 'required',
+                'role_id' => 'required',
+                'selectBranch' => 'required|array',
                 'title' => 'required'
             ], [
                 'email.required' => 'Email is required.',
@@ -99,12 +116,15 @@ class NurseController extends Controller
                 'mobile_no.required' => 'Mobile Phone is required.',
                 'mobile_no.numeric' => 'Mobile Phone must be a number.',
                 'mobile_no.unique' => 'This mobile Phone is already taken.',
-                'mobile_no.digits_between' => 'Mobile number must be between 10 and 15 digits.',
+                'mobile_no.digits_between' => 'Mobile number must be between 7 and 13 digits.',
                 'password.required' => 'Password is required.',
                 'password.min' => 'Password must be at least :min characters.',
                 // 'birth_date.required' => 'Date of Birth  is required.',
                 // 'birth_date.date' => 'Please enter a valid date for the birth date.',
                 'name.required' => 'Name is required.',
+                'role_id.required' => 'Role  is required.',
+                'selectBranch.required' => 'Branch  is required.',
+                'selectBranch.array' => 'Branch  is required.',
                 'gendar.required' => 'Gender  is required.',
                 'title.required' => 'Title  is required.',
             ]);
@@ -116,7 +136,7 @@ class NurseController extends Controller
 
                 $files = $request->file('patient_profile_img');
 
-                $destinationPath = '/public/assets/nurse_profile';
+                $destinationPath = public_path('/public/assets/nurse_profile');
                 $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $file_name);
 
@@ -248,10 +268,12 @@ class NurseController extends Controller
                 'birth_date' => 'required',
                 'landline' => 'nullable|numeric',
                 'password' => 'nullable|min:6',
+                'role_id' => 'required',
+                'selectBranch' => 'required|array',
                 'mobile_no' => [
                     'required',
                     'numeric',
-                    'regex:/^[0-9]{10,15}$/',
+                    'regex:/^[0-9]{7,13}$/',
                     Rule::unique('doctors')->ignore($id),
                 ],
             ]);
@@ -264,7 +286,7 @@ class NurseController extends Controller
             $nurse_info = Doctor::findOrFail($id);
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
-                $destinationPath = '/public/assets/nurse_profile';
+                $destinationPath = public_path('/public/assets/nurse_profile');
 
                 // Get the existing file path from the database
                 $existingFilePath = $nurse_info->patient_profile_img;
@@ -373,7 +395,7 @@ class NurseController extends Controller
         // dd($patient);
 
         $files = $request->file('patient_profile_img');
-        $destinationPath = '/public/assets/doctor_profile/';
+        $destinationPath = public_path('/public/assets/doctor_profile/');
 
         // Get the existing file path from the database
         $existingFilePath = $Doctor->patient_profile_img;

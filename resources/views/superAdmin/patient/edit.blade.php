@@ -9,12 +9,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">Edit Patient</h4>
-        {{-- <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ Route('patients.index') }}">Patients</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Patient</li>
                 </ol>
-            </nav> --}}
+            </nav>
         </div>
 
 		</div>
@@ -23,7 +23,7 @@
         <div class="col-12">
 
 
-            <form action="{{ route('patients.edit', ['id' => $patientId->id]) }}" method="post" enctype="multipart/form-data">@csrf
+            <form action="{{ route('patients.edit', ['id' => $patientId->id]) }}" id="patientadddataForm" method="post" enctype="multipart/form-data">@csrf
             <div class="box">
                 <div class="box-body">
                     <div class="row">
@@ -70,7 +70,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" name="birth_date" placeholder="dd M, yyyy" data-date-format="dd M, yyyy" value="{{ $patientId->birth_date }}" class="form-control pull-right datepicker">
+                                    <input type="text" name="birth_date"  value="{{ $patientId->birth_date }}" class="form-control pull-right datepicker">
                                     @error('birth_date')
                                     <span class="error text-danger">{{ $message }}</span>
                                    @enderror
@@ -120,7 +120,7 @@
                         <div class="form-group">
                             <label class="form-label">Add Branch
                             </label>
-                            <select class="form-control select2 form-select" name="selectBranch[]" style="width: 100%;" multiple required>
+                            <select class="form-control select2 form-select selectBranch" name="selectBranch[]" style="width: 100%;" multiple >
                                 <option value="">Select Any One</option>
                                 @forelse ($branchs as $branch)
                                     <option value="{{ $branch->id }}" {{ in_array($branch->id, $user_branchs) ? 'selected' : '' }}>
@@ -130,6 +130,9 @@
                                     <!-- Handle case where no branches are available -->
                                 @endforelse
                             </select>
+                            @error('selectBranch')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -140,7 +143,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Add Doctor</label>
-                                <select class="form-control select2" name="doctorName" style="width: 100%;" required>
+                                <select class="form-control select2 selectDoctor" name="doctorName" style="width: 100%;" >
                                      <option value="">Select Any One</option>
                                     @forelse ($doctors as $alldoctors)
                                        <option value="{{$alldoctors->id}}" {{ $alldoctors->id == $patientId->doctor_id ? 'selected' : '' }} >{{$alldoctors->name}}</option>
@@ -148,6 +151,9 @@
 
                                     @endforelse
                                 </select>
+                                @error('doctorName')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         <!-- /.form-group -->
                         </div>
@@ -183,7 +189,7 @@
 								<h4>Phone & Email</h4>
 							</div>
 						</div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
                             <input type="text" value="{{ $patientId->email }}" name="email" class="form-control" placeholder="">
@@ -206,10 +212,22 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-lg-2">
+                            <div class="mb-3 form-group">
+                                <label for="dialCode" class="form-label">Dial Code</label>
+                                <select id="dialCode" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                    @foreach ($countryCode as $countryCodes)
+                                        <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == $patientId->dial_code ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                            {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Mobile Phone</label>
-                            <input type="tel" value="{{ $patientId->mobile_no }}" name="mobile_no" class="form-control" placeholder="" minlength="10" maxlength="15">
+                            <input type="tel" value="{{ $patientId->mobile_no }}" name="mobile_no" class="form-control" placeholder="" minlength="7" maxlength="13">
                             @error('mobile_no')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -330,7 +348,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="submit_btn text-end">
-                               <button type="submit" class="waves-effect waves-light btn btn-primary"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+                               <button type="button" id="patientadddatabutton" class="waves-effect waves-light btn btn-primary"><i class="fa-regular fa-floppy-disk"></i> Save</button>
                             </div>
                         </div>
                     </div>
@@ -345,20 +363,35 @@
       </div>
  </div>
 
-
-
  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const documentTypeSelect = document.getElementById('document_type');     
-        const idNumberInput = document.getElementById('enterIdNumber');
-        const validationMessage = document.getElementById('validationMessage');
 
-        documentTypeSelect.addEventListener('change', validateInput);
-        idNumberInput.addEventListener('input', validateInput);
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        var validForm = false;
+        $("#document_type").change(function(){
+            $("#enterIdNumber").val('');
+            $("#validationMessage").text('');
+            validateInput();
+        })
+
+
+        $("#patientadddatabutton").click(function(){
+            validateInput();
+            if(!validForm){
+                setTimeout(() => {
+                    $("#patientadddataForm").submit();
+                }, 1000);
+                
+            }
+        })
 
         function validateInput() {
-            const selectedType = documentTypeSelect.value;
-            const idNumber = idNumberInput.value;
+            const selectedType = $("#document_type").val();
+            const idNumber = $("#enterIdNumber").val();
+
             let maxLength = 0;
             let message = '';
 
@@ -368,30 +401,70 @@
                     message = 'CIVIL ID must be exactly 9 digits';
                     break;
                 case 'EID':
-                    maxLength = 18;
+                    maxLength = 15;
                     message = 'EID must be exactly 15 digits';
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
                     maxLength = 10;
-                    message = selectedType + ' must be exactly 11 digits';
+                    message = selectedType + ' must be exactly 10 digits';
                     break;
-                case 'PASSPORT, DRIVER\'s LICENSE, ETC':     
+                case 'PASSPORT, DRIVER\'s LICENSE, ETC':
                     maxLength = Infinity;
-                    message = '';  
+                    message = '';
                     break;
             }
 
             if (maxLength !== Infinity && idNumber.length > maxLength) {
-                idNumberInput.value = idNumber.slice(0, maxLength);
+                $("#enterIdNumber").val(idNumber.slice(0, maxLength));
             }
+            $("#enterIdNumber").attr('maxlength',maxLength);
+            $("#enterIdNumber").attr('minlength',maxLength);
 
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
-                validationMessage.textContent = message;
+                $("#validationMessage").text(message);
+                validForm = true;
             } else {
-                validationMessage.textContent = '';
+                $("#validationMessage").text('');
+                validForm = false;
             }
         }
+
+
+        $('.selectBranch').change(function() {
+
+            var selectedNurseId = $(this).val();
+
+            if(selectedNurseId && selectedNurseId != ''){
+            $.ajax({
+                    url: '{{ route('doctors.getStaff') }}', // Specify the URL for your AJAX request
+                    type: 'post', // Use GET method (or 'POST' if needed)
+                    data: {
+                        nurse_id: selectedNurseId,
+                        _token: $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+                    },
+                    success: function(response) {
+                        $('.selectDoctor').empty();
+
+                        if (response.doctorData && response.doctorData.length > 0) {
+                            $.each(response.doctorData, function(index, doctor) {
+                                let addressHtml =
+                                    `<option value="${doctor.id}">${doctor.name}</option>`;
+                                $(".selectDoctor").append(addressHtml);
+
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error); 
+                    }
+                });
+            }else{
+                $('.selectDoctor').empty();
+            }
+            });
+
+            // $('.selectBranch').trigger('change');
     });
     </script>
 

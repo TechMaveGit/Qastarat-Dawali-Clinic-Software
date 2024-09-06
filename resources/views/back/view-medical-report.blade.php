@@ -62,6 +62,7 @@
 
 
 
+                    
 
 
     <div class="patient-detail">
@@ -179,18 +180,19 @@
                                 <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                                     alt="">
 
+                                    @if($isEditAllowed)
                                 <div class="insure_btn">
 
                                     <a href="#" class="outline_btn add_insurer" data-bs-toggle="modal"
                                         data-bs-target="#insure_add_edit">Add Insurer</a>
 
                                 </div>
+                                @endif
 
                                 <div class="patient_dt_profile">
 
                                     <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} <a
-                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
-                                                icon="material-symbols:edit"></iconify-icon></a></h5>
+                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><i class="far fa-eye"></i></a></h5>
                                   
 
 
@@ -264,7 +266,7 @@
 
                                                     <h6><span class="point_dia"><i
                                                                 class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                        Gernal diagnosis</h6>
+                                                        General Diagnosis</h6>
 
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                                         eiusmod</p>
@@ -298,10 +300,12 @@
                                                 fdprocessedid="fwkd6">
                                                 <div class="top_title_mm_box">
                                                     <h6 class="allergies_hgjo"><span>Allergies</span>
+                                                        @if($isEditAllowed)
                                                         @if (in_array('6', $arr))
                                                             <a href="#" class="allergies_add_klt"
                                                                 data-bs-toggle="modal" data-bs-target="#allergies_add"><i
                                                                     class="fa-solid fa-circle-plus"></i></a>
+                                                        @endif
                                                         @endif
 
                                                     </h6>
@@ -322,10 +326,10 @@
                                                         @endphp
 
                                                         @if ($patient_allergies->isEmpty())
-                                                            <li>No Data Found.</li>
+                                                            {{-- <li>No Data Found.</li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
-                                                                <li>{{ $patient_allergy->allergy_name }}
+                                                                <li>{{ $patient_allergy->allergy_name }} <small>{{ \Carbon\Carbon::parse($patient_allergy->created_at)->format('D, d M Y') }}</small>
 
                                                                     <span class="alergyDelete" data-id="{{ $patient_allergy->id }}">
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
@@ -416,12 +420,12 @@
                                                                                 </p>
 
                                                                             </div>
-                                                                            @if (strlen($past_history->describe) >= 50)
+                                                                            {{-- @if (strlen($past_history->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
                                                                         </div>
 
@@ -526,12 +530,12 @@
                                                                                 </p>
 
                                                                             </div>
-                                                                            @if (strlen($past_surgical->describe) >= 50)
+                                                                            {{-- @if (strlen($past_surgical->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
 
                                                                         </div>
@@ -660,39 +664,38 @@
                                                             <li>No data Found.</li>
                                                         @else
                                                             @foreach ($procedures as $procedure)
-                                                                <li>
+                                                            <li>
+
+                                                                <div class="appoin_title">
+
+                                                                    <h6>{{ $procedure->procedure_name }}</h6>
+
+                                                                    <p>
+                                                                        <span class="patientListOf"
+                                                                            data-id="{{ $procedure->id }}">
+                                                                            <i
+                                                                                class="fa-regular fa-trash-can trash_btn"></i>
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+
+                                                                <div class="appoin_date">
+
 
                                                                     <div class="appoin_title">
+                                                                        <h6> {{ $procedure->summary }}</h6>
 
-                                                                        <h6>{{ $procedure->procedure_name }}</h6>
+                                                                        <p>
 
-                                                                        <p class="text-align:right">
                                                                             {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
                                                                         </p>
 
                                                                     </div>
+                                                                </div>
 
-
-                                                                    <div class="appoin_date">
-
-                                                                        <div class="read-more-content">
-
-                                                                            <p>
-
-                                                                                {{ $procedure->summary }}
-                                                                            </p>
-
-                                                                        </div>
-                                                                        @if (strlen($procedure->summary) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
-
-                                                                    </div>
-
-                                                                </li>
+                                                            </li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -729,14 +732,76 @@
 
                                             <div class="accordion-body">
 
-                                                <ul class="referrals_list scroll_list">
+                                                @php
+                                                    
+                                                    $patientId = decrypt($id);
+                                        $referaldoctors = DB::table('referal_patients')->where('patient_id',$patientId)->get();
+                                        $mainDoctorId= DB::table('users')->where('id',$patientId)->first()->doctor_id;
+                                        $mainDoctor= DB::table('doctors')->where('id',$mainDoctorId)->first();
+                                                @endphp
+                                                <ul class="referrals_list scroll_list" >
                                                   
+
+                                                    {{-- @if($mainDoctor)
+                                                        <li style="position: relative;">
+
+                                                            <div class="booking_card_select">
+
+                                                                <label for="cbx1">
+
+                                                                    <div class="doctor_dt">
+
+                                                                        <div class="image_dr">
+
+                                                                            @if (isset($mainDoctor->profileImage))
+                                                                                <img src="{{  asset('/assets/profileImage/') . '/' . $mainDoctor->patient_profile_img }}"
+                                                                                    alt="">
+                                                                            @else
+                                                                                <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                    alt="">
+                                                                            @endif
+
+                                                                        </div>
+
+                                                                        <div class="dr_detail">
+
+                                                                            <h6 class="dr_name">
+                                                                                {{ $mainDoctor->name ?? '' }}
+                                                                                <span>{{ $mainDoctor->title ?? '' }}</span>
+                                                                            </h6>
+
+                                                                            <span class="text-align-right">
+
+                                                                                <p class="dr_email"><a
+                                                                                        href="mailto:{{ $mainDoctor->email ?? '' }}">{{ $mainDoctor->email ?? '' }}</a>
+                                                                                </p>
+
+                                                                                
+                                                                            </span>
+
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </label>
+
+                                                            </div>
+
+                                                           
+
+
+
+                                                        </li>
+                                                        @endif --}}
 
                                                     @forelse ($referaldoctors as $allreferaldoctors)
 
                                                     @php
                                                      $doctorDetail = DB::table('doctors')->where('id',$allreferaldoctors->doctor_id)->first();
-                                                    
+                                                     $refferDoctorDetail = DB::table('doctors')
+                                                                    ->where('id', $allreferaldoctors->referal_doctor)
+                                                                    ->first();
                                                     @endphp
                                                     
                                                     <li style="position: relative;">
@@ -751,7 +816,7 @@
 
                                                                         @if (isset($doctorDetail->patient_profile_img))
 
-                                                                        <img src="{{ asset('//assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
+                                                                        <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
 
                                                                         @else
                                                                         <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
@@ -783,10 +848,12 @@
 
                                                         </div>
 
-                                                        @if (!(auth()->guard('doctor')->id()==$allreferaldoctors->doctor_id))
+                                                        @if (isset(auth()->guard('doctor')->user()->user_type) && auth()->guard('doctor')->user()->user_type == 'doctor' && auth()->guard('doctor')->user()->id == $allreferaldoctors->referal_doctor)
+                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                         <span class="removeReferalPatient" data-id="{{ $allreferaldoctors->id }}">
                                                             <i class="fa-regular fa-trash-can trash_btn"></i>
                                                         </span>
+                                                        @endif
                                                         @endif
 
                                                     </li>
@@ -820,44 +887,67 @@
                                         <div id="collapseleft8" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample8" style="">
                                             <div class="accordion-body">
-                                                <div class="appointments___list">
+                                                <div class="appointments___list past_medical_history_ak">
 
-                                                    <ul class="symptoms">
+                                                    <ul style="max-height: 300px !important;overflow-y: auto;">
                                                         @php
                                                             $patient_id = decrypt(@$id);
-                                                            $visit_notes = App\Models\patient\Patient_progress_note::select('created_at', 'voice_recognition')
-                                                                ->where(['progress_note_canned_text_id' => 6, 'patient_id' => @$patient_id])
-                                                                ->orderBy('id', 'desc')
-                                                                ->get();
-                                                        @endphp
-                                                        @if ($visit_notes->isEmpty())
-                                                            <li>No data Found.</li>
-                                                        @else
-                                                            @foreach ($visit_notes as $visit)
-                                                                <li>
 
+                                                            $Patient_appointments = DB::table('book_appointments')->where('patient_id', $patient_id)->orderBy('start_date', 'desc')->get();
+                                                        @endphp
+                                                        @if ($Patient_appointments->isEmpty())
+                                                            <li><small style="font-size:10px;">No Visit Found</small></li>
+                                                        @else
+                                                            @foreach ($Patient_appointments as $Patient_appointment)
+
+                                                                    @php
+                                                                    $doctorName = DB::table('doctors')
+                                                                        ->where('id', $Patient_appointment->doctor_id)
+                                                                        ->first();
+                                                                @endphp
+                                                                <li>
+                                                                    <div class="" >
+
+                                                                        <h6 style="font-size: 14px;">{{ $Patient_appointment->appointment_type }}</h6>
+
+                                                                        <p style="font-size: 15px;"> <span
+                                                                            style="color: #082787; font-weight: bold;">{{ $doctorName->title ?? '' }}
+                                                                        </span> {{ $doctorName->name ?? '' }} ({{ $doctorName->email ?? '' }})</p>
+                                                                        @php
+                                                                            $doctorName = DB::table('doctors')
+                                                                                ->where('id', $Patient_appointment->doctor_id)
+                                                                                ->first();
+                                                                        @endphp
+
+                                                                    </div>
                                                                     <div class="appoin_date">
 
                                                                         <div class="read-more-content">
 
-                                                                            <p>
+                                                                            @php
+                                                                                $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
+                                                                                $startTime = \Carbon\Carbon::createFromFormat(
+                                                                                    'H:i',
+                                                                                    date('H:i',strtotime($Patient_appointment->start_time)),
+                                                                                );
+                                                                                $startDateTime = $startDate
+                                                                                    ->copy()
+                                                                                    ->setTime($startTime->hour, $startTime->minute);
+                                                                                $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                                                $startDate = $startDateTime->format('l, j F Y');
+                                                                                $startTime = $startDateTime->format('H:i');
 
-                                                                                {{ $visit->voice_recognition }}
-                                                                            </p>
+                                                                                $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
+                                                                            @endphp
+
+
+                                                                            <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
 
                                                                         </div>
-                                                                        @if (strlen($visit->voice_recognition) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
+                                                                      
 
                                                                     </div>
-                                                                    <div class="appoin_date">
-                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                        </p>
-                                                                    </div>
+
                                                                 </li>
                                                             @endforeach
                                                         @endif
@@ -920,12 +1010,12 @@
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($prescription->prescription) >= 50)
+                                                                        {{-- @if (strlen($prescription->prescription) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1030,7 +1120,7 @@
                                                 <div class="diagnosis_type">
                                                     <h6><span class="point_dia"><i
                                                                 class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                        Gernal diagnosis</h6>
+                                                        General Diagnosis</h6>
                                                     @php
                                                         $diagnosis_general_data = App\Models\patient\Diagnosis::where(['title_name' => 'diagnosis_general', 'patient_id' => decrypt(@$id)])
                                                             ->get()
@@ -1057,7 +1147,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
                                                 </div>
@@ -1092,7 +1182,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
 
@@ -1176,7 +1266,7 @@
 
 
                                                         @empty
-                                                            <p>No Data Found</p>
+                                                            {{-- <p>No Data Found</p> --}}
                                                         @endforelse
                                                     </ul>
                                                 </div>
@@ -1273,11 +1363,11 @@
                                                                 // Determine the severity based on the score
                                                                 $severity = '';
                                                                 if ($score >= 0 && $score <= 7) {
-                                                                    $severity = 'Mild LUTS';
+                                                                    $severity = 'Mild ';
                                                                 } elseif ($score >= 8 && $score <= 19) {
-                                                                    $severity = 'Moderate LUTS (PAE FAVORABLE)';
+                                                                    $severity = 'Moderate  (PAE FAVORABLE)';
                                                                 } elseif ($score >= 20 && $score <= 35) {
-                                                                    $severity = 'Severe LUTS (PAE FAVORABLE)';
+                                                                    $severity = 'Severe  (PAE FAVORABLE)';
                                                                 }
 
                                                             @endphp
@@ -1294,7 +1384,7 @@
                                                                 }}
 
                                                             @empty
-                                                                <p>No Data Found</p>
+                                                                {{-- <p>No Data Found</p> --}}
                                                         @endforelse
 
                                                     </ul>
@@ -1386,7 +1476,7 @@
                                                         @endforeach
                                                     @endforeach
                                                 @else
-                                                    <p>No Data Found</p>
+                                                    {{-- <p>No Data Found</p> --}}
                                                 @endif
 
 
@@ -1475,7 +1565,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
                                                 </div>
@@ -1567,7 +1657,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
                                                 </div>
@@ -1656,7 +1746,7 @@
                                                         @endforeach
                                                     @endforeach
                                                 @else
-                                                    <p>No Data Found</p>
+                                                    {{-- <p>No Data Found</p> --}}
                                                 @endif
                                             </div>
                                         </div>
@@ -1741,7 +1831,7 @@
                                                         @endforeach
                                                     @endforeach
                                                 @else
-                                                    <p>No Data Found</p>
+                                                    {{-- <p>No Data Found</p> --}}
                                                 @endif
                                             </div>
                                         </div>
@@ -1825,7 +1915,7 @@
                                                         @endforeach
                                                     @endforeach
                                                 @else
-                                                    <p>No Data Found</p>
+                                                    {{-- <p>No Data Found</p> --}}
                                                 @endif
                                             </div>
                                         </div>
@@ -1906,12 +1996,12 @@
                                                                         </p>
 
                                                                     </div>
-                                                                    @if (strlen($procedure->entry) >= 50)
+                                                                    {{-- @if (strlen($procedure->entry) >= 50)
                                                                         <button
                                                                             class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                             onclick="toggleReadMore(this)">Read
                                                                             More</button>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                 </div>
 
@@ -1925,12 +2015,12 @@
                                                                         </p>
 
                                                                     </div>
-                                                                    @if (strlen($procedure->summary) >= 50)
+                                                                    {{-- @if (strlen($procedure->summary) >= 50)
                                                                         <button
                                                                             class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                             onclick="toggleReadMore(this)">Read
                                                                             More</button>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                 </div>
 
@@ -1997,7 +2087,7 @@
                                                 <div class="top_title_mm_box">
                                                     <h6 class="action_flex_ghi">
                                                         <div class="enterd_by">
-                                                            <span>Plans/Recommandation | <span class="enter_span_hivj">
+                                                            <span>Future Plans / Recommendations | <span class="enter_span_hivj">
                                                                     Entered By | SAIF ALZAABI</span> </span>
                                                             <div class="right_side_hjkl">
                                                                 <span class="date_time_fgu">Sat 21st Oct, 2023, 1:39
@@ -2144,12 +2234,12 @@
                                                                         </p>
 
                                                                     </div>
-                                                                    @if (strlen($procedure2->voice_recognition) >= 50)
+                                                                    {{-- @if (strlen($procedure2->voice_recognition) >= 50)
                                                                         <button
                                                                             class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                             onclick="toggleReadMore(this)">Read
                                                                             More</button>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                 </div>
 
@@ -2195,27 +2285,27 @@
 
     @push('custom-js')
         <script>
-            function toggleReadMore(button) {
+            // function toggleReadMore(button) {
 
-                var content = button.previousElementSibling; // Assumes the content is always before the button
+            //     var content = button.previousElementSibling; // Assumes the content is always before the button
 
 
 
-                if (content.style.maxHeight) {
+            //     if (content.style.maxHeight) {
 
-                    content.style.maxHeight = null;
+            //         content.style.maxHeight = null;
 
-                    button.innerHTML = 'Read More';
+            //         button.innerHTML = 'Read More';
 
-                } else {
+            //     } else {
 
-                    content.style.maxHeight = content.scrollHeight + 'px';
+            //         content.style.maxHeight = content.scrollHeight + 'px';
 
-                    button.innerHTML = 'Read Less';
+            //         button.innerHTML = 'Read Less';
 
-                }
+            //     }
 
-            }
+            // }
         </script>
 
 
@@ -3316,7 +3406,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -4623,7 +4713,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>

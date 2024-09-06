@@ -149,7 +149,7 @@
                                             <div class="form-group">
                                                 <label class="form-label">Mobile Phone</label>
                                                 <input type="text" value="{{ $telecaller->mobile_no }}"
-                                                    class="form-control" placeholder="" name="mobile_no" minlength="10" maxlength="15">
+                                                    class="form-control" placeholder="" name="mobile_no" minlength="7" maxlength="13">
                                                 @error('mobile_no')
                                                     <span class="error text-danger">{{ $message }}</span>
                                                 @enderror

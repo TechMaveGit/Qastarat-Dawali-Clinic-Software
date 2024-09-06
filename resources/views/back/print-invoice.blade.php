@@ -6,9 +6,7 @@ Invoice | QASTARAT & DAWALI CLINICS
 
 @section('content-section')
 
-@php                                                                
-$pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData->task)->first();                                                          
-@endphp
+
 
 
 <link rel="stylesheet" href="{{ asset('/assets/invoiceassets/css/style.css')}}">
@@ -52,7 +50,7 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
             <div class="tm_invoice_info tm_mb20 top_head_fgu">
            
               <div class="tm_invoice_info_list">
-                <p class="tm_invoice_number tm_m0">Invoice No: <b class="tm_primary_color">{{ $printData->invoiceNumber }}</b></p>
+                <p class="tm_invoice_number tm_m0">Invoice No: <b class="tm_primary_color">{{ $printData->invoice_no }}</b></p>
 
                 @php
                 $date = new DateTime($printData->updated_at);
@@ -95,28 +93,38 @@ $pathology_price_list=  DB::table('pathology_price_list')->where('id',$printData
                       <tr>
                         <th class="tm_width_3 tm_semi_bold tm_primary_color tm_gray_bg">Date</th>
                         <th class="tm_width_4 tm_semi_bold tm_primary_color tm_gray_bg">Item</th>
-                        <th class="tm_width_2 tm_semi_bold tm_primary_color tm_gray_bg">Invoice</th>
+                        <th class="tm_width_2 tm_semi_bold tm_primary_color tm_gray_bg">Item No.</th>
                         <th class="tm_width_1 tm_semi_bold tm_primary_color tm_gray_bg">Discount </th>
                         <th class="tm_width_1 tm_semi_bold tm_primary_color tm_gray_bg">VAT </th>
                         <th class="tm_width_2 tm_semi_bold tm_primary_color tm_gray_bg tm_text_right">Cost</th>
                       </tr>
                     </thead>
                     <tbody>
+
+                      @if($printData && $printData->tasks)
+                      @foreach($printData->tasks as $value)
+                        
+                      
+                      @php                                                                
+                          $pathology_price_list=  DB::table('pathology_price_list')->where('id',$value->task)->first();                                                          
+                      @endphp
                       <tr>
 
                         @php
-                        $created = new DateTime($printData->created_at);
+                        $created = new DateTime($value->created_at);
                         $createdDate = $created->format("D d F, Y");
                         @endphp
                           <td class="tm_width_3">{{ $createdDate }}</td>
                           <td class="tm_width_4">
                           {{ $pathology_price_list->test_name }}
                           </td>   
-                          <td class="tm_width_2">{{ $printData->invoiceNumber }}</td>
-                          <td class="tm_width_1">{{ $printData->discount }}%</td>
-                          <td class="tm_width_1">{{ $printData->vatDiscount }}%</td>
-                          <td class="tm_width_2 tm_text_right">{{env('SHOW_CURRENCY')}} {{ $printData->finalAmount }} </td>
+                          <td class="tm_width_2">{{ $value->invoiceNumber }}</td>
+                          <td class="tm_width_1">{{ $value->discount }}%</td>
+                          <td class="tm_width_1">{{ $value->vatDiscount }}%</td>
+                          <td class="tm_width_2 tm_text_right">{{env('SHOW_CURRENCY')}} {{ $value->finalAmount }} </td>
                         </tr>
+                        @endforeach
+                        @endif
                     </tbody>
                   </table>
                 </div>

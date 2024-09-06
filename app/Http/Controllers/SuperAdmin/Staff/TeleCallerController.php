@@ -13,7 +13,7 @@ class TelecallerController extends Controller
 {
     public function index()
     {
-        $data['tls']=Doctor::select('patient_profile_img', 'doctor_id', 'name', 'email', 'id', 'post_code', 'mobile_no')
+        $data['tls']=Doctor::select('patient_profile_img', 'doctor_id', 'name', 'email', 'id', 'post_code', 'dial_code','mobile_no')
                             ->where('user_type','telecaller')->orderBy('id','desc')->get();
         return view('superAdmin.telecaller.index')->with($data);
     }
@@ -56,7 +56,7 @@ class TelecallerController extends Controller
                 'graduation_year' => 'nullable|regex:/^\d{4}$/',
                 'birth_date'=>'required',
                 'landline' => 'nullable|numeric|digits_between:10,15',
-                'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:10,15|regex:/^[0-9]{10,15}$/',
+                'mobile_no' => 'required|numeric|unique:doctors,mobile_no|digits_between:7,13|regex:/^[0-9]{7,13}$/',
                 'password' => 'required|min:6',
                 // 'birth_date' => 'required|date',
                 'name' => 'required',
@@ -72,7 +72,7 @@ class TelecallerController extends Controller
                 'mobile_no.required' => 'Mobile Phone is required.',
                 'mobile_no.numeric' => 'Mobile Phone must be a number.',
                 'mobile_no.unique' => 'This mobile Phone is already taken.',
-                'mobile_no.digits_between' => 'Mobile number must be between 10 and 15 digits.',
+                'mobile_no.digits_between' => 'Mobile number must be between 7 and 13 digits.',
                 'password.required' => 'Password is required.',
                 'password.min' => 'Password must be at least :min characters.',
                 // 'birth_date.required' => 'Date of Birth  is required.',
@@ -105,7 +105,7 @@ class TelecallerController extends Controller
             $telecaller['birth_date']=$carbonDate->format('d M, Y'); 
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
-                $destinationPath = '/assets/telecaller_profile';
+                $destinationPath = public_path('/assets/telecaller_profile');
                 $file_name = md5(uniqid()) . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $file_name);
                 $telecaller['patient_profile_img'] = $file_name;
@@ -154,7 +154,7 @@ class TelecallerController extends Controller
                 'mobile_no' => [
                     'required',
                     'numeric',
-                    'regex:/^[0-9]{10,15}$/',
+                    'regex:/^[0-9]{7,13}$/',
                     Rule::unique('doctors')->ignore($id),
                 ],
             ]);
@@ -163,7 +163,7 @@ class TelecallerController extends Controller
            $nurse_info=Doctor::findOrFail($id);
             if ($request->hasFile('patient_profile_img')) {
                 $files = $request->file('patient_profile_img');
-                $destinationPath = '/assets/telecaller_profile';
+                $destinationPath = public_path('/assets/telecaller_profile');
             
                 // Get the existing file path from the database
                 $existingFilePath = $nurse_info->patient_profile_img;
@@ -215,7 +215,7 @@ class TelecallerController extends Controller
         // dd($patient);
         
             $files = $request->file('patient_profile_img');
-            $destinationPath = '/assets/telecaller_profile/';
+            $destinationPath = public_path('/assets/telecaller_profile/');
         
             // Get the existing file path from the database
             $existingFilePath = $Doctor->patient_profile_img;

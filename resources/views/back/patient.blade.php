@@ -115,7 +115,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">MOHAMMED ALI AL BADI</h6>
@@ -131,7 +131,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Jacob Hunter</h6>
@@ -147,7 +147,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Ronald Taylor</h6>
@@ -163,7 +163,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Juan Mitchell</h6>
@@ -179,7 +179,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Jamal Burnett</h6>
@@ -195,7 +195,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Neal Matthews </h6>
@@ -211,7 +211,7 @@
                 <a href="view-medical-record.php">
                     <div class="patient_details">
                         <div class="patient_profile">
-                            <img src="images/new-images/avtar.jpg" alt="">
+                            <img src="{{ asset('/assets/images/new-images/avtar.jpg')}}" alt="">
                         </div>
                         <div class="patient_dt">
                             <h6 class="patient_name">Tiger Nixon</h6>
@@ -262,7 +262,16 @@
                                                 <form action="{{route('user.getPatientsData')}}" method="get">@csrf
                                                 <div class="row justify-content-end">
                                                     @php
-                                                    $allBranch=  DB::table('branchs')->get();   
+                                                    $dtype = 'doctor';
+                                                    if(Auth::guard('doctor')->user()->user_type == "Nurse"){
+                                                        $dtype = 'Nurse';
+                                                    }else if(Auth::guard('doctor')->user()->user_type == "Receptionist"){
+                                                        $dtype = 'receptionist';
+                                                    }else if(Auth::guard('doctor')->user()->user_type == "Coordinator"){
+                                                        $dtype = 'coordinator';
+                                                    }
+                                                    $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
+                                                    $allBranch=  DB::table('branchs')->whereIn('id',$doctorBranch)->get();
                                                   @endphp
                                                     <div class="col-lg-3">
                                                         
@@ -707,6 +716,7 @@
         </script>
         <!-- Function to fetch and populate patient data -->
         <script>
+            var assetUrl = "{{asset('/assets/')}}";
             function fetchAndDisplayPatients(searchInput) {
 
                 $('#loader').show();
@@ -737,14 +747,14 @@
                                                     '<td>' +
                                                     '<div class="patent_detail__">' +
                                                     '<div class="patient_profile">' +
-                                                    '<img src="images/new-images/avtar.jpg" alt="">' +
+                                                    '<img src="'+assetUrl+'images/new-images/avtar.jpg" alt="">' +
                                                     '</div>' +
                                                     '<div class="patient_name__dt_">' +
                                                     '<h6>' + patient.name + '</h6>' +
                                                     '</div>' +
                                                     '</div>' +
                                                     '</td>' +
-                                                    '<td>' + patient.mobile_no + '</td>' +
+                                                    '<td> '+patient.dial_code+' '+ patient.mobile_no + '</td>' +
                                                     '<td>' + patient.email + '</td>' +
                                                     '<td>' + patient.post_code + '</td>' +
                                                     '<td>';
@@ -818,14 +828,14 @@
                                                     '<td>' +
                                                     '<div class="patent_detail__">' +
                                                     '<div class="patient_profile">' +
-                                                    '<img src="images/new-images/avtar.jpg" alt="">' +
+                                                    '<img src="'+assetUrl+'images/new-images/avtar.jpg" alt="">' +
                                                     '</div>' +
                                                     '<div class="patient_name__dt_">' +
                                                     '<h6>' + patient.name + '</h6>' +
                                                     '</div>' +
                                                     '</div>' +
                                                     '</td>' +
-                                                    '<td>' + patient.mobile_no + '</td>' +
+                                                    '<td>'+patient.dial_code+' ' + patient.mobile_no + '</td>' +
                                                     '<td>' + patient.email + '</td>' +
                                                     '<td>' + patient.post_code + '</td>' +
                                                     '<td>';
@@ -901,14 +911,14 @@
                                                         '<td>' +
                                                         '<div class="patent_detail__">' +
                                                         '<div class="patient_profile">' +
-                                                        '<img src="images/new-images/avtar.jpg" alt="">' +
+                                                        '<img src="'+assetUrl+'images/new-images/avtar.jpg" alt="">' +
                                                         '</div>' +
                                                         '<div class="patient_name__dt_">' +
                                                         '<h6>' + patient.name + '</h6>' +
                                                         '</div>' +
                                                         '</div>' +
                                                         '</td>' +
-                                                        '<td>' + patient.mobile_no + '</td>' +
+                                                        '<td>'+patient.dial_code+' ' + patient.mobile_no + '</td>' +
                                                         '<td>' + patient.email + '</td>' +
                                                         '<td>' + patient.post_code + '</td>' +
                                                         '<td>';

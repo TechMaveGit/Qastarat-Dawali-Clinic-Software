@@ -15,12 +15,12 @@
   <div class="content-header">
       <div class="d-flex">
       <h4 class="page-title">Snippets Management</h4>
-      {{-- <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Snippets</li>
               </ol>
-          </nav> --}}
+          </nav>
       </div>
 
       </div>
@@ -32,7 +32,7 @@
  <div class="box-header with-border">
   <div class="top_area">
   <h3 class="box-title">All Snippets</h3>
-  {{-- <a href="{{ route('add.snippets') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add New Snippet</a> --}}
+  <a href="{{ route('add.snippets') }}" class="waves-effect waves-light btn btn-md btn-primary"><i class="fa-solid fa-plus"></i> Add New Snippet</a>
   </div>
 
  </div>
@@ -50,9 +50,6 @@
              </tr>
          </thead>
          <tbody>
-
-
-
             @forelse ($snippets as $key=>$allsnippets)
             @php
               $allTemplate = DB::table('progress_note_canned_text')->where('id',$allsnippets->progress_note_canned_text_id)->first();

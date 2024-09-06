@@ -40,7 +40,7 @@ class LoginController extends Controller
        $data['radiology']=Doctor::where('user_type','radiology')->count();
        $data['pathology']=Doctor::where('user_type','pathology')->count();
        $data['adddoctor']=Doctor::where('user_type','doctor')->orderBy('id','desc')->get();
-       $data['nurseCount'] =   Doctor::select('id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'mobile_no', 'user_type')->whereNotIn('user_type', ['doctor', 'radiology','pathology'])->count();
+       $data['nurseCount'] =   Doctor::select('id', 'patient_profile_img', 'doctor_id', 'name', 'email', 'status','post_code', 'dial_code','mobile_no', 'user_type')->whereNotIn('user_type', ['doctor', 'radiology','pathology'])->count();
         return view('superAdmin.index',$data);
         
     }

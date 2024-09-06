@@ -450,7 +450,7 @@ h6 {
     clear: both;
     color: #111111;
     padding: 0;
-    margin: 0 0 20px 0;
+    margin: 0;
     font-weight: 500;
     line-height: 1.2em;
 }
@@ -478,7 +478,6 @@ h5 {
 h6 {
     font-size: 16px;
 }
-
 p,
 div {
     margin-top: 0;
@@ -486,7 +485,8 @@ div {
 }
 
 p {
-    margin-bottom: 15px;
+    margin-bottom: 0px;
+    font-size: 14px;
 }
 
 ul {
@@ -557,12 +557,7 @@ th {
 }
 
 td {
-    border-top: 1px solid #eaeaea;
-}
-
-td,
-th {
-    padding: 10px 15px;
+    padding:40px 40px 0px;
     line-height: 1.55em;
 }
 
@@ -1289,17 +1284,7 @@ kbd {
     padding: 10px 30px;
 }
 
-.cs-table.cs-style1.cs-type1 tr:first-child td {
-    border-top: none;
-}
 
-.cs-table.cs-style1.cs-type1 tr td:first-child {
-    padding-left: 0;
-}
-
-.cs-table.cs-style1.cs-type1 tr td:last-child {
-    padding-right: 0;
-}
 
 .cs-table.cs-style1.cs-type2>* {
     padding: 0 10px;
@@ -1310,25 +1295,8 @@ kbd {
     margin-bottom: -5px;
 }
 
-.cs-table.cs-style2 td {
-    border: none;
-}
 
-.cs-table.cs-style2 td,
-.cs-table.cs-style2 th {
-    padding: 12px 15px;
-    line-height: 1.55em;
-}
 
-.cs-table.cs-style2 tr:not(:first-child) {
-    border-top: 1px dashed #eaeaea;
-}
-
-.cs-list.cs-style1 {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
 
 .cs-list.cs-style1 li {
     display: flex;
@@ -1391,9 +1359,6 @@ kbd {
     grid-template-columns: repeat(4, 1fr);
 }
 
-.cs-border_less td {
-    border-color: transparent;
-}
 
 .cs-special_item {
     position: relative;
@@ -1410,13 +1375,8 @@ kbd {
     right: 0;
 }
 
-.cs-table.cs-style1 .cs-table.cs-style1 tr:not(:first-child) td {
-    border-color: #eaeaea;
-}
 
-.cs-table.cs-style1 .cs-table.cs-style2 td {
-    padding: 12px 0px;
-}
+
 
 .cs-ticket_wrap {
     display: flex;
@@ -1472,9 +1432,7 @@ kbd {
     border-radius: 5px;
 }
 
-.cs-box.cs-style2 .cs-table.cs-style2 td {
-    padding: 12px 0;
-}
+
 
 
 /* Sifat */
@@ -1552,17 +1510,13 @@ kbd {
     font-size: 14px;
 }
 
-.tm-p-16 td {
-    line-height: 10px !important;
-}
+
 
 .tm-consulting .tm-custom-td-padding {
     padding: 10px 0px;
 }
 
-.tm-consulting .tm-custom-td-padding td {
-    line-height: 10px;
-}
+
 
 .tm-consulting .tm-consult-thead {
     margin: 20px;
@@ -1603,9 +1557,7 @@ kbd {
     text-transform: uppercase;
 }
 
-.cs-table.cs-style2.padding-rignt-left td {
-    padding: 12px 0px;
-}
+
 
 .cs-table.cs-style2.padding-rignt-left th {
     padding: 12px 0px;
@@ -1957,6 +1909,17 @@ kbd {
         height: 100%;
         overflow: hidden;
     }
+    .appointments___list ul li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #e9edf173;
+        padding: 10px 20px;
+        border-radius: 4px;
+        border: none;
+        margin-top: 10px !important;
+        /* border-bottom: 1px solid #e0e0e0; */
+    }
 }
 
 
@@ -1996,12 +1959,10 @@ kbd {
 }
 
 .footer_section {
-    /* background: #78b0e8; */
-    background-image: url(../img/fgnvg.png);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 40px;
+    padding: 20px 40px;
 }
 .icon {
     display: flex;
@@ -2022,7 +1983,7 @@ kbd {
 .footerContact {
     border-left: 1px solid #fff;
     padding: 15px 0 0 25px;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 .rightSide p {
     color: #0c2a64;
@@ -2038,6 +1999,9 @@ kbd {
     font-weight: 600;
 }
 .icon iconify-icon {
+    font-size: 12px;
+}
+.icon svg {
     font-size: 12px;
 }
 
@@ -2083,7 +2047,7 @@ p.diagnosis_date {
 }
 .appoin_title h6 {
     font-size: 14px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     font-weight: 600;
     color: #0c2a64;
 }
@@ -2123,7 +2087,6 @@ span.sym_duration {
     font-size: 12px;
 }
 .symp_title {
-    margin-bottom: 10px;
 }
 /* pastMedical History */
 .appointments___list.past_medical_history_ak .appoin_title {
@@ -2157,7 +2120,6 @@ span.sym_duration {
     flex-wrap: wrap;
     padding-left: 0;
     background: #f5f7f9;
-    padding: 20px 20px 20px 35px;
     list-style: disc;
 }
 .symptoms li {
@@ -2213,4 +2175,50 @@ span.sym_duration {
     position: absolute;
     top: 0;
     right: 15px;
+}
+
+/* 26 apr 2024 */
+.detail_box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.detail_box ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+}
+.detail_ans h6 {
+    font-weight: 400;
+    color: #686868;
+}
+.border-right-dashed {
+    border-right: 2px dashed #ececec;
+}
+.row{
+    display: flex;
+    
+}
+.col-lg-6 {
+	width: 50%;
+	padding: 0 15px;
+}
+.patient {
+	border: 1px solid #ececec;
+	padding: 20px 20px 15px;
+	margin-bottom: 50px;
+	background: aliceblue;
+	border-radius: 5px;
+}
+.detail_title h6 {
+	margin-bottom: 0;
+	font-size: 15px;
+}
+.detail_ans h6 {
+	margin-bottom: 0;
+	font-size: 14px;
+}
+.mb-4{
+    margin-bottom: 20px;
 }

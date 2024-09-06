@@ -14,6 +14,9 @@
             color: red;
         }
     </style>
+    @php
+        $countryCode = DB::table('dial_codes')->where('status', '1')->get();
+    @endphp
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -24,7 +27,7 @@
                     <h4 class="page-title">Add Doctor</h4>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Doctor</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">All Doctors</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Add Doctor</li>
                         </ol>
                     </nav>
@@ -254,7 +257,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Email Address<span class="clr"> *
                                                     </span></label>
@@ -268,7 +271,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Password <span class="clr">*</span></label>
                                                 <div class="wrap-input">
@@ -284,11 +287,23 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3 form-group">
+                                                <label for="dialCode" class="form-label">Dial Code</label>
+                                                <select id="dialCode" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                                    @foreach ($countryCode as $countryCodes)
+                                                        <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                                            {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label class="form-label">Mobile Phone </label>
                                                 <input type="tel" name="mobile_no" value="{{ old('mobile_no') }}"
-                                                    class="form-control" placeholder="" minlength="10" maxlength="15"
+                                                    class="form-control" placeholder="" minlength="7" maxlength="13"
                                                     required>
 
                                                 @error('mobile_no')
@@ -297,7 +312,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label class="form-label">Landline</label>
                                                 <input type="tel" name="landline" value="{{ old('landline') }}"

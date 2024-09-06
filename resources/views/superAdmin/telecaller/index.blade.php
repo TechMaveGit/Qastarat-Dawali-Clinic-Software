@@ -85,7 +85,7 @@
                  <div class="patient_profile">
                     @if (isset($telecaller->patient_profile_img))
 
-                    <img src="{{ asset('//assets/telecaller_profile/' . $telecaller->patient_profile_img) }}" alt="">
+                    <img src="{{ asset('/assets/telecaller_profile/' . $telecaller->patient_profile_img) }}" alt="">
                     @else
                     <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
                     @endif
@@ -95,7 +95,7 @@
                  </div>
                  </div>
                 </td>
-                <td>{{ $telecaller->mobile_no }}</td>
+                <td>{{ $telecaller->dial_code }} {{ $telecaller->mobile_no }}</td>
                 <td>{{ $telecaller->email }}</td>
                 <td>{{ $telecaller->post_code }}</td>
                 <td>

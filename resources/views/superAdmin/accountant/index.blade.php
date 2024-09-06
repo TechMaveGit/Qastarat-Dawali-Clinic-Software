@@ -88,7 +88,7 @@
                  <div class="patient_profile">
                     @if (isset($allaccountant->patient_profile_img))
 
-                    <img src="{{ asset('//assets/accountant_profile/' . $allaccountant->patient_profile_img) }}" alt="">
+                    <img src="{{ asset('/assets/accountant_profile/' . $allaccountant->patient_profile_img) }}" alt="">
                     @else
                     <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
                     @endif
@@ -98,7 +98,7 @@
                  </div>
                  </div>
                 </td>
-                <td>{{ $allaccountant->mobile_no}}</td>
+                <td>{{ $allaccountant->dial_code}} {{ $allaccountant->mobile_no}}</td>
                 <td>{{ $allaccountant->email}}</td>
                 <td>{{ $allaccountant->post_code}}</td>
                 <td>

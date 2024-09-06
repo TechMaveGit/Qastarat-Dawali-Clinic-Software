@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-12">
 
-                    <form action="{{ route('patients.addCreate') }}" method="post"
+                    <form action="{{ route('patients.addCreate') }}" id="patientadddataForm" method="post"
                         enctype="multipart/form-data"> @csrf
                         <div class="box">
                             <div class="box-body">
@@ -140,39 +140,45 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label">Add Branch</label>
+                                            <label class="form-label">Add Branch <span class="clr"> * </span></label>
 
-                                            <select class="form-control select2 form-select" name="selectBranch[]"
-                                                style="width: 100%;" multiple required>
+                                            <select class="form-control select2 form-select selectBranch" required name="selectBranch[]"
+                                                style="width: 100%;" multiple >
 
                                                 {{-- <select class="form-control select2" name="doctorName" style="width: 100%;" required> --}}
                                                 <option value="">Select Any One</option>
                                                 @forelse($branchs as $allbranchs)
                                                     <option value="{{ $allbranchs->id }}"
-                                                        {{ old('doctorName') == $allbranchs->id ? 'selected' : '' }}>
+                                                        {{ old('selectBranch') && in_array($allbranchs->id,old('selectBranch'))  ? 'selected' : '' }}>
                                                         {{ $allbranchs->branch_name }}</option>
                                                 @empty
 
                                                 @endforelse
                                             </select>
+                                            @error('selectBranch')
+                                                <span class="error text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <!-- /.form-group -->
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label">Add Doctor</label>
-                                            <select class="form-control select2" name="doctorName" style="width: 100%;"
-                                                required>
+                                            <label class="form-label">Add Doctor <span class="clr"> * </span></label>
+                                            <select class="form-control select2 selectDoctor" required name="doctorName" style="width: 100%;"
+                                                >
                                                 <option value="">Select Any One</option>
-                                                @forelse($doctors as $alldoctors)
+                                                {{-- @forelse($doctors as $alldoctors)
                                                     <option value="{{ $alldoctors->id }}"
                                                         {{ old('doctorName') == $alldoctors->id ? 'selected' : '' }}>
                                                         {{ $alldoctors->name }} - {{ $alldoctors->email }}</option>
                                                 @empty
 
-                                                @endforelse
+                                                @endforelse --}}
                                             </select>
+                                            @error('doctorName')
+                                                <span class="error text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <!-- /.form-group -->
                                     </div>
@@ -203,7 +209,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Email Address <span class="clr"> * </span></label>
                                             <input type="text" name="email" value="{{ old('email') }}"
@@ -234,13 +240,24 @@
                                     </div>
 
 
-
+                                    <div class="col-lg-2">
+                                        <div class="mb-3 form-group">
+                                            <label for="dialCode" class="form-label">Dial Code</label>
+                                            <select id="dialCode" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                                @foreach ($countryCode as $countryCodes)
+                                                    <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                                        {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Mobile Phone <span class="clr"> * </span></label>
                                             <input type="tel" name="mobile_no"
                                                 value="{{ old('mobile_no') }}" class="form-control"
-                                                placeholder="" minlength="10" maxlength="15">
+                                                placeholder="" minlength="7" maxlength="13">
 
                                             @error('mobile_no')
                                                 <p class="error text-danger">{{ $message }}</p>
@@ -328,8 +345,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Select Id</label>
-                                            <select class="form-control select2" name="document_type" id="document_type"
-                                                onclick="emptyId()" style="width: 100%;">
+                                            <select class="form-control select2" name="document_type" id="document_type"  style="width: 100%;">
                                                 <option value="">Select Any One</option>
                                                 <option value="CIVIL ID"
                                                     {{ old('document_type') == 'CIVIL ID' ? 'selected' : '' }}>
@@ -373,7 +389,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="submit_btn text-end">
-                                            <button type="submit" class="waves-effect waves-light btn btn-primary"><i
+                                            <button id="patientadddatabutton" type="button" class="waves-effect waves-light btn btn-primary"><i
                                                     class="fa-regular fa-floppy-disk"></i> Save</button>
                                         </div>
                                     </div>
@@ -393,26 +409,30 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const documentTypeSelect = document.getElementById('document_type');
-        const idNumberInput = document.getElementById('enterIdNumber');
-        const validationMessage = document.getElementById('validationMessage');
+        
+        var validForm = false;
 
-        documentTypeSelect.addEventListener('change', handleDropdownChange);
-        idNumberInput.addEventListener('input', validateInput);
-
-        function handleDropdownChange() {
-            // Reset the value of the input field
-            idNumberInput.value = '';
-            // Clear the validation message
-            validationMessage.textContent = '';
-            // Validate input to enforce new rules
+        $("#patientadddatabutton").click(function(){
             validateInput();
-        }
+            if(!validForm){
+                setTimeout(() => {
+                    $("#patientadddataForm").submit();
+                }, 1000);
+                
+            }
+        })
 
+        $("#document_type").change(function(){
+            $("#enterIdNumber").val('');
+            $("#validationMessage").text('');
+            validateInput();
+        })
+
+        
         function validateInput() {
-            const selectedType = documentTypeSelect.value;
-            const idNumber = idNumberInput.value;
-
+            const selectedType = $("#document_type").val();
+            const idNumber = $("#enterIdNumber").val();
+            
             let maxLength = 0;
             let message = '';
 
@@ -422,13 +442,13 @@
                     message = 'CIVIL ID must be exactly 9 digits';
                     break;
                 case 'EID':
-                    maxLength = 18;
+                    maxLength = 15;
                     message = 'EID must be exactly 15 digits';
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
-                    maxLength = 11;
-                    message = selectedType + ' must be exactly 11 digits';
+                    maxLength = 10;
+                    message = selectedType + ' must be exactly 10 digits';
                     break;
                 case 'PASSPORT, DRIVER\'s LICENSE, ETC':
                     maxLength = Infinity;
@@ -437,16 +457,59 @@
             }
 
             if (maxLength !== Infinity && idNumber.length > maxLength) {
-                idNumberInput.value = idNumber.slice(0, maxLength);
+                $("#enterIdNumber").val(idNumber.slice(0, maxLength));
             }
-
+            $("#enterIdNumber").attr('maxlength',maxLength);
+            $("#enterIdNumber").attr('minlength',maxLength);
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
-                validationMessage.textContent = message;
+                $("#validationMessage").text(message);
+                validForm = true;
             } else {
-                validationMessage.textContent = '';
+                $("#validationMessage").text('');
+                validForm = false;
             }
         }
+
+        $('.selectBranch').change(function() {
+
+            var selectedNurseId = $(this).val();
+            
+            if(selectedNurseId && selectedNurseId != ''){
+            $.ajax({
+                    url: '{{ route('doctors.getStaff') }}', // Specify the URL for your AJAX request
+                    type: 'post', // Use GET method (or 'POST' if needed)
+                    data: {
+                        nurse_id: selectedNurseId,
+                        _token: $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+                    },
+                    success: function(response) {
+                        $('.selectDoctor').empty();
+
+                        if (response.doctorData && response.doctorData.length > 0) {
+                            $.each(response.doctorData, function(index, doctor) {
+                                let addressHtml =
+                                    `<option value="${doctor.id}">${doctor.name}</option>`;
+                                $(".selectDoctor").append(addressHtml);
+
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error); 
+                    }
+                });
+            }else{
+                $('.selectDoctor').empty();
+            }
+        });
+
+        $('.selectBranch').trigger('change');
     });
 </script>
+
+<script>
+            
+</script>
+
 
 @endsection

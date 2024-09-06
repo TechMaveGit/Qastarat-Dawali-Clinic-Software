@@ -5,12 +5,24 @@
 
 @push('custom-js')
 @section('content')
-
+@php
+        $countryCode = DB::table('dial_codes')->where('status', '1')->get();
+    @endphp
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="container-full">
             <!-- Content Header (Page header) -->
-            <div class="content-header edit_title_head mb-0">
+            <div class="content-header">
+                <div class="d-flex">
+                    <h4 class="page-title">All Pathology/Lab</h4>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">All Pathology/Lab</li>
+                        </ol>
+                    </nav>
+                </div>
+        
             </div>
             <section class="content">
                 <div class="row">
@@ -54,7 +66,7 @@
                                                             <td>{{ $key + 1 }}</td>
                                                             <td>{{ $allpathologys->lab_name }}</td>
                                                             <td>{{ $allpathologys->email }}</td>
-                                                            <td>{{ $allpathologys->mobile_no }}</td>
+                                                            <td>{{ $allpathologys->dial_code }} {{ $allpathologys->mobile_no }}</td>
                                                             <td>{{ $allpathologys->landline }}</td>
                                                             <td>{{ $allpathologys->street }}</td>
                                                                 
@@ -83,6 +95,7 @@
                                                                             '{{ $allpathologys->id }}',
                                                                             `{{ $allpathologys->lab_name ?? '' }}`,
                                                                             `{{ $allpathologys->email ?? '' }}`,
+                                                                            `{{ $allpathologys->dial_code ?? '' }}`,
                                                                             `{{ $allpathologys->mobile_no ?? '' }}`,
                                                                             `{{ $allpathologys->landline ?? '' }}`,
                                                                             '{{ $allpathologys->post_code }}',
@@ -184,7 +197,7 @@
 
 
                         
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label class="form-label">Add Branch</label>    
 
@@ -200,19 +213,30 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-2">
+                            <div class="mb-3 form-group">
+                                <label for="dialCode" class="form-label">Dial Code</label>
+                                <select id="dialCode" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                    @foreach ($countryCode as $countryCodes)
+                                        <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                            {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
-
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label class="form-label">Mobile Phone <span class="clr">*</span></label>
                                 <input type="text" name="mobile_no" id="mobile_no" class="form-control"
-                                    placeholder="" minlength="10" maxlength="15" required>
+                                    placeholder="" minlength="7" maxlength="13" required>
                                     @error('mobile_no')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Landline <span class="clr">*</span></label>
                                 <input type="text" name="landline" id="landline" class="form-control" placeholder="" required>
@@ -221,7 +245,7 @@
                             @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Country</label>
                                 <!-- <select class="" name="country" id="countries" style="width: 100%;"> -->
@@ -236,7 +260,7 @@
                             </div>
                         <!-- /.form-group -->
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Post Code</label>
                                 <input type="text" name="post_code" id="post_code" class="form-control" placeholder="" minlength="4" maxlength="8">
@@ -293,7 +317,7 @@
 
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">   
                                     <label class="form-label">Lab Name<span class="clr">*</span></label>
                                     <input type="text" name="lab_name" id="lab_name1" class="form-control" placeholder="" required value="{{ old('lab_name') }}">
@@ -328,10 +352,24 @@
                             </div>
 
 
-                            <div class="col-md-6">
+                            <div class="col-lg-2">
+                                <div class="mb-3 form-group">
+                                    <label for="dialCode" class="form-label">Dial Code</label>
+
+                                    <select id="dialCode1" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                        @foreach ($countryCode as $countryCodes)
+                                            <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                                {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="form-label">Mobile Phone<span class="clr">*</span></label>
-                                    <input type="text" name="mobile_no" id="mobile_no1" class="form-control" placeholder="" value="{{ old('mobile_no') }}" minlength="10" maxlength="15">
+                                    <input type="text" name="mobile_no" id="mobile_no1" class="form-control" placeholder="" value="{{ old('mobile_no') }}" minlength="7" maxlength="13">
                                     @error('mobile_no')
                                         <span class="error text-danger">{{ $message }}</span>
                                     @enderror
@@ -339,7 +377,7 @@
                             </div>
 
 
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="form-label">Add Branch</label>
     
@@ -440,13 +478,14 @@
             $("#add_lab").modal('show');
         }
 
-        function editForm(id, lab_name, email, mobile_phone, landline, post_code, street, town , status , branch) 
+        function editForm(id, lab_name, email, dial_code,mobile_phone, landline, post_code, street, town , status , branch) 
         {
              console.log(branch);
             $('#id').val(id);
             $('#lab_name').val(lab_name);
             $('#email').val(email);
             $('#mobile_no').val(mobile_phone);
+            $('#dialCode').val(dial_code);
             $('#landline').val(landline);
             $('#post_code').val(post_code);
             $('#street').val(street);

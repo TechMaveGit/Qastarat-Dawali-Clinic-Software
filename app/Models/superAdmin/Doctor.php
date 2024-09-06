@@ -41,6 +41,7 @@ class Doctor extends Model implements Authenticatable
         'street',
         'town',
         'country',
+        'dial_code',
         'mobile_no',
         'landline',
         'specialty',

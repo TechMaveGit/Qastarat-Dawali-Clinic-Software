@@ -50,6 +50,30 @@
             .fc-timeGrid-view .fc-day-grid .fc-row .fc-content-skeleton {
                 padding-bottom: 2em !important;
             }
+            .appointment_service{
+                height: 300px;
+            }
+
+            .service_box_appoin {
+                display: inline-block;
+                width: 100%;
+               
+            }
+
+            .service_box_appoin p{
+                display: flex;
+                margin-bottom: 0px;
+            }
+
+            .service_box_appoin p>span{
+                margin-right: 5px;
+            }
+
+            .service_box_appoin span{
+                display: inherit;
+                white-space: inherit;
+                margin-right:15px; 
+            }
         </style>
     @endpush
 
@@ -85,8 +109,8 @@
         <input type="hidden" name="user_id" value="{{ $_GET['user_id'] }}" id="user_id" />
     @endif
 
-    @if (isset($_GET['appointment_type']))
-        <input type="hidden" name="appointment_type" value="{{ $_GET['appointment_type'] }}" id="appointment_type" />
+    @if (isset($_GET['ap_type']))
+        <input type="hidden" name="ap_type" value="{{ $_GET['ap_type'] }}" id="ap_type" />
     @endif
 
     @if (isset($_GET['location']))
@@ -172,7 +196,7 @@
                                     placeholder="Search clinicians...">
                                 <div class="clinician_common_listbox clinic_listactive">
                                     <ul>
-                                        @forelse ($doctors as $alldoctors)
+                                        @forelse ($allDoctor as $alldoctors)
                                             @if (isset($_GET['user_id']))
                                                 @if ($alldoctors->id == $_GET['user_id'])
                                                     <li class="checkFont active" data-user_id="{{ $alldoctors->id }}"
@@ -230,8 +254,8 @@
                                     <ul>
                                         @foreach ($book_appointments as $allbook_appointments)
                                             @if ($allbook_appointments)
-                                                @if (isset($_GET['appointment_type']))
-                                                    @if ($allbook_appointments->appointment_type == $_GET['appointment_type'])
+                                                @if (isset($_GET['ap_type']))
+                                                    @if ($allbook_appointments->appointment_type == $_GET['ap_type'])
                                                         <li class="checkFont active"
                                                             data-appointment_type="{{ $allbook_appointments->appointment_type }}"
                                                             style="background-color: #c1c1c1;">
@@ -295,10 +319,10 @@
                                 <div class="clinician_common_listbox Location_flt">
                                     <ul>
 
-                                        @foreach ($locations as $alllocation)
+                                        @foreach ($dlocations as $alllocation)
                                             @if (isset($_GET['location']))
                                                 @if ($alllocation->branch_name == $_GET['location'])
-                                                    <li class="checkFont" data-location_type="CLINIC"
+                                                    <li class="checkFont" data-location_type=""
                                                         style="background-color: #c1c1c1;">
                                                         <iconify-icon
                                                             icon="simple-line-icons:location-pin"></iconify-icon>{{ $alllocation->branch_name }}
@@ -374,11 +398,11 @@
             <div class="modal-content">
                 <div class="modal-header py-3 px-4">
                     <h5 class="modal-title" id="modal-title">Create Appointment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
                 </div>
 
                 <div class="modal-body p-4">
-                    <form class="needs-validation" name="event-form" id="form-event" novalidate method="POST">
+                    <form class="needs-validation" novalidate name="event-form" id="form-event"  method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-lg-12" id="appoinment_book_bx">
@@ -387,16 +411,14 @@
 
 
                                     <div class="col-12 mb-3">
-                                        <select class="form-control select2_modal_fir" id="priority" name="priority">
-                                            <option selected> --Select Priority-- </option>
+                                        <select class="form-control select2_modal_fir" id="priority" required name="priority">
+                                            <option > --Select Priority-- </option>
                                             <option value="bg-danger">High</option>
                                             <option value="bg-success">Medium</option>   
                                             <option value="bg-primary">Low</option>
                                         </select>
 
                                         <span id="priorityError" style="color: red;"></span>
-
-                                        
                                     </div>
 
 
@@ -411,7 +433,7 @@
                                                                 value="{{ $_GET['patientId'] }}" id="patientId" />
                                                         @else
                                                             <label class="form-label">Patient</label>
-                                                            <select class="form-control select2_modal" name="patintValue"
+                                                            <select class="form-control select2_modal" required name="patintValue"
                                                                 id="patient_id">
                                                                 <option value=""> --Select-- </option>
                                                                 @forelse ($patients as $patient)
@@ -437,12 +459,11 @@
                                         <div class="inner_element">
                                             <div class="form-group">
                                                 <select class="form-control select2_modalapponiment"
-                                                    name="appointment_type" id="patient_id" required>
+                                                    name="appointment_type" id="appointment_type" required>
                                                     <option value=""> --Select Appoinment Type-- </option>
                                                     @foreach ($pathology_price_list as $allpathology_price_list)
                                                         @if (!empty($allpathology_price_list))
-                                                            <option value="{{ $allpathology_price_list->test_name }}">
-                                                                {{ $allpathology_price_list->test_name }}</option>
+                                                            <option value="{{ $allpathology_price_list->test_name }}">{{ $allpathology_price_list->test_name }}</option>
                                                         @endif
                                                     @endforeach
                                                 </select>
@@ -454,22 +475,13 @@
                                     <div class="col-lg-6">
                                         <div class="inner_element">
                                             <div class="form-group">
-
-                                                <select class="form-control select2_modal" name="location"
-                                                    id="location">
-
-                                                    @forelse ($locations as $alllocations)
-                                                        <option value="{{ $alllocations->branch_name }}">
-                                                            {{ $alllocations->branch_name }}</option>
-
+                                                <select class="form-control " name="location" id="location" required>
+                                                    @forelse ($dlocations as $alllocations)
+                                                        <option value="{{ $alllocations->branch_name }}">{{ $alllocations->branch_name }}</option>
                                                     @empty
                                                     @endforelse
-
-
-
-
-
                                                 </select>
+
                                             </div>
                                         </div>
                                     </div>
@@ -477,63 +489,31 @@
                                         <div class="inner_element">
                                             <div class="form-group">
                                                 <input type="hidden" id="event_id" name="event_id" value="">
-                                                <input type="text" class="form-control datepickerInput"
+                                                <input type="text" required class="form-control datepickerInput"
                                                     placeholder="Y-m-d" name="start_date">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="inner_element">
                                             <div class="form-group">
-
-                                                <input type="time" class="form-control" placeholder="12:00"
+                                                <input type="time" required class="form-control" id="start_time" placeholder="12:00"
                                                     name="start_time">
                                             </div>
                                         </div>
                                     </div>
-
-                                    {{-- <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="inner_element">
                                             <div class="form-group">
-
-                                                <input type="text" class="form-control datepickerInput_1"
-                                                placeholder="Y-m-d" id="end_date" name="end_date">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="inner_element">
-                                            <div class="form-group">
-
-                                                <input type="time" class="form-control"
-                                                    placeholder="12:00" name="end_time">
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
-
-                                    {{-- <div class="col-lg-4">
-                                        <div class="inner_element">
-                                            <div class="form-group">
-
-                                                <input type="text" class="form-control"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Cost"
-                                                    name="cost" id="cost">
+                                                <input type="time" id="end_time" required class="form-control" placeholder="12:00"
+                                                    name="end_time">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="inner_element">
                                             <div class="form-group">
-
-                                                <input type="text" class="form-control" placeholder="Code"
-                                                    name="code" id="code">
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <div class="col-lg-4">
-                                        <div class="inner_element">
-                                            <div class="form-group">
-                                                <select class="form-control select2_modal" name="doctor_id"
+                                                <select class="form-control select2_modal" required name="doctor_id"
                                                     id="clinician_id">
                                                     <option value="">Select Clinician</option>
                                                     @forelse ($doctors as $doctor)
@@ -593,18 +573,18 @@
                                                         <span id="nameError" style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-4">
                                                         <label class="form-label">Date of Birth</label>
                                                         <div class="input-group" id="datepicker1">
                                                             <input type="text" class="form-control"
-                                                                placeholder="dd M, yyyy" data-date-format="dd M, yyyy"
+                                                                
                                                                 data-date-container='#datepicker1' name="birth_date"
                                                                 data-provide="datepicker" data-date-end-date="0d">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3 form-group">
                                                         <label class="form-label">Gender</label>
                                                         <select class="form-control select2_modal" name="gender">
@@ -617,6 +597,24 @@
                                                             style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-4">
+                                                        <div class="mb-3 form-group">
+                                                            <label for="validationCustom01"
+                                                                class="form-label">Select Branch</label>
+                                                            <select class="form-control select2_modal" name="selectBranch">
+                                                                <option value="">Select</option>
+                                                                @forelse ($locations as $alllocations)
+                                                                    <option value="{{ $alllocations->id }}">
+                                                                        {{ $alllocations->branch_name }}</option>
+
+                                                                @empty
+                                                                @endforelse
+
+                                                            </select>
+                                                            <span id="branchError"
+                                                            style="color: red;font-size:smaller"></span>
+                                                        </div>
+                                                    </div>
                                             </div>
                                         </div>
 
@@ -680,7 +678,7 @@
                                         <div class="phnemailadd_pat">
                                             <div class="row">
 
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-6">
                                                     <div class="mb-3 form-group">
                                                         <label for="validationCustom01" class="form-label">Email
                                                             Address</label>
@@ -689,25 +687,7 @@
                                                         <span id="emailError" style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
-                                                    <div class="mb-3 form-group">
-                                                        <label for="validationCustom01" class="form-label">Mobile
-                                                            Phone</label>
-                                                        <input type="text" class="form-control" id="mobileNumber"
-                                                            placeholder="" minlength="0" maxlength="15"
-                                                            name="mobile_no">
-
-                                                        <span id="mobile_noError"
-                                                            style="color: red;font-size:smaller"></span>
-                                                        <!-- @error('mobile_no')
-        <span class="alert alert-danger">{{ $message }}</span>
-    @enderror -->
-
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-6">
 
                                                     <div class="mb-3 form-group">
 
@@ -721,6 +701,47 @@
                                                     </div>
 
                                                 </div>
+
+
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3 form-group">
+                                                        <label for="dialCode" class="form-label">Dial Code</label>
+                                                        <select id="dialCode" class="form-control " name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                                            @foreach ($countryCode as $countryCodes)
+                                                                <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                                                    {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+
+
+                                                        <span id="dialCodeError"
+                                                            style="color: red;font-size:smaller"></span>
+                                                        <!-- @error('dial_code')
+                                                                <span class="alert alert-danger">{{ $message }}</span>
+                                                            @enderror -->
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3 form-group">
+                                                        <label for="validationCustom01" class="form-label">Mobile
+                                                            Phone</label>
+                                                        <input type="text" class="form-control" id="mobileNumber"
+                                                            placeholder="" minlength="7" maxlength="13"
+                                                            name="mobile_no">
+
+                                                        <span id="mobile_noError"
+                                                            style="color: red;font-size:smaller"></span>
+                                                        <!-- @error('mobile_no')
+                                                                <span class="alert alert-danger">{{ $message }}</span>
+                                                            @enderror -->
+
+                                                    </div>
+                                                </div>
+
+
+                                                
 
 
                                                 <div class="col-md-6">
@@ -793,7 +814,7 @@
                             <div class="col-6 text-end d-flex justify-content-end">
                                 <button type="button" id="closebtn" class="btn btn_calender_cus btn-light me-1"
                                     data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="savebtn" class="btn btn_calender_cus btn-success"
+                                <button type="submit"  class="btn btn_calender_cus btn-success"
                                     id="btn-save-event">Save</button>
                             </div>
                         </div>
@@ -842,8 +863,8 @@
                             break;
                         case 'PERSONAL NUMBER':
                         case 'RESIDENT ID':
-                            maxLength = 11;
-                            message = selectedType + ' must be exactly 11 digits';
+                            maxLength = 10;
+                            message = selectedType + ' must be exactly 10 digits';
                             break;
                         case 'PASSPORT, DRIVER\'s LICENSE, ETC':
                             maxLength = Infinity;
@@ -1072,22 +1093,6 @@
                                                 </div>
 
 
-                                                {{-- <div class="inner_element appoin_type">
-                                                <div class="mb-3 form-group">
-                                                    <label  class="form-label">Select Appointment
-                                                        Type Available</label>
-                                                        <select class="form-control select2_service select2" name="appointment" id="appointment">
-                                                            <option value="">Select Any One</option>
-                                                                <option value="0">Pathology</option>
-                                                                <option value="1">Radiology</option>
-                                                                <option value="2">Other</option>
-    
-                                                        </select>
-                                                        <span id="appointmentError" class="text-danger" style="font-size: 14px;"></span>
-                                                </div>
-                                            </div> --}}
-
-
                                                 <div class="inner_element">
                                                     <div class="form-group">
                                                         <label class="form-label">Postal
@@ -1242,13 +1247,19 @@
                                                 <div class="inner_element appoin_type">
                                                     <div class="mb-3 form-group">
                                                         <label for="validationCustom01" class="form-label">Type</label>
-                                                        <select class="form-control" name="price_type">
+                                                        <select class="form-control" id="mulipleType" name="price_type">
                                                             <option value="">Select Any One</option>
-                                                            <option value="0">Pathology</option>
-                                                            <option value="1">Radiology</option>
-                                                            <option value="2">Other</option>
+                                                            @if($patho_types)
+                                                            @foreach($patho_types as  $value)
+                                                                <option value="{{$value}}">{{$value}}</option>
+                                                            @endforeach
+                                                            @endif
+                                                            <option value="Other">Other</option>
 
                                                         </select>
+                                                        <div id="mulipleTypeInput" hidden>
+                                                            <input class="form-control" name="mulipleTypeOt" id="mulipleTypeOt" placeholder="Enter New Type Here..." />
+                                                        </div>
                                                         <span id="price_typeError" class="text-danger"
                                                             style="font-size: 14px;"></span>
                                                     </div>
@@ -1812,11 +1823,11 @@
 
                 if (appointmentType) {
                     appointmentType_ = appointmentType.replace(/\+/g, ' ');
-                    queryParams.set('appointment_type', appointmentType_);
+                    queryParams.set('ap_type', appointmentType_);
                     const newUrl = `${baseUrl}?${queryParams.toString()}`;
                     window.location.href = newUrl;
                 } else {
-                    queryParams.delete('appointment_type');
+                    queryParams.delete('ap_type');
                 }
 
 
@@ -1857,6 +1868,17 @@
 
 
         <script>
+
+$("#mulipleType").on('change',function(){
+
+$("#mulipleTypeInput").attr('hidden',true);
+// $("#mulipleType").attr('hidden',false);
+if($(this).val() == "Other"){
+    $("#mulipleTypeInput").attr('hidden',false);
+    // $("#mulipleType").attr('hidden',true);
+}
+})
+
             document.addEventListener('DOMContentLoaded', function() {
                 // Get all list items
                 var listItems = document.querySelectorAll('.clinic_listactive li');
@@ -1902,7 +1924,12 @@
 
                 function initCalendar(events) {
                     //    console.log(events);
+                    
                     "use strict";
+
+                    var allowedPid = Object.values(events[events.length - 1]);
+                    // console.log(allowedPid);
+
                     var m = new FullCalendar.Calendar(document.getElementById("calendar"), {
                         plugins: ["bootstrap", "interaction", "dayGrid", "timeGrid"],
                         editable: false,
@@ -1915,13 +1942,18 @@
                             center: "title",
                             right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
                         },
+                        eventTimeFormat: { 
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        },
                         events: events,
 
                         eventRender: function(info) {
                             var eventEl = info.el;
                             var priority = info.event.extendedProps.priority;
                             var colour_type = info.event.extendedProps.colour_type;
-                            console.log(colour_type);
+                            // console.log(info);
 
                             // Create a span element for the icon
                             var iconSpan = document.createElement('span');
@@ -1944,21 +1976,18 @@
                             }
 
                             // Set icon HTML with specified class and color
-                            iconSpan.innerHTML =
-                                `<i class="${iconClass}" style="color: ${iconColor};"></i>`;
+                            iconSpan.innerHTML = `<i class="${iconClass}" style="color: ${iconColor};"></i>`;
 
                             // Append the icon span to the event element
                             eventEl.appendChild(iconSpan);
 
                             if (colour_type) {
-                                eventEl.style.backgroundColor =
-                                    colour_type; // Light red background for danger
+                                eventEl.style.backgroundColor = colour_type; // Light red background for danger
                             } else {
-                                eventEl.style.backgroundColor =
-                                    "#fff3cd"; // Light yellow background for other priorities
+                                eventEl.style.backgroundColor = "#fff3cd"; // Light yellow background for other priorities
                             }
                         },
-
+                        
 
 
 
@@ -1966,12 +1995,13 @@
 
 
                         eventClick: function(info) {
-
-
+                            $('#form-event').find('input, textarea, select, button').removeAttr('disabled');
+                            $("#addNew_patientBtn").css('display','block');
                             modal.find('.modal-title').text('Edit Appointment');
                             form[0].reset();
                             form.find('#btn-save-event').text('Update');
                             deleteButton.show();
+
 
                             form.find('input[name="event_id"]').val(info.event.id);
                             form.find('select[name="patintValue"]').val(info.event.extendedProps.patient_id)
@@ -2006,6 +2036,16 @@
 
                                 return year + '-' + month + '-' + day;
                             }
+
+
+                            function compareTwoDates(d2) {
+                                const date1 = new Date();
+                                const date2 = new Date(d2);
+                                return date1 - date2;
+                            }
+
+                            
+
                             if (info.event.end) {
                                 var formatendDate = new Date(info.event.end);
                                 var formattedEndDate = formatDate(formatendDate);
@@ -2019,6 +2059,15 @@
                             }
 
 
+                            let datesComparisonResult;
+                            datesComparisonResult = compareTwoDates(formattedStartDate);
+                           
+                            if (datesComparisonResult > 0) { 
+                                $("#btn-delete-event").css("display","none");
+                                $("#btn-save-event").css("display","none");
+                            } 
+
+
                             form.find('input[name="start_time"]').val(info.event.extendedProps.start_time)
                                 .trigger('change');
                             form.find('input[name="end_time"]').val(info.event.extendedProps.end_time)
@@ -2029,6 +2078,23 @@
                                 .clinician_id).trigger('change');
                             form.find('input[name="confirmation"]').prop('checked', info.event.extendedProps
                                 .confirmation === 'yes');
+                                // console.log(allowedPid,info.event.extendedProps.patient_id);
+
+                            if(!allowedPid.includes(info.event.extendedProps.patient_id)){
+                                $("#btn-delete-event").css("display","none");
+                                $("#btn-save-event").css("display","none");
+                                $('#form-event').find('input, textarea, select, button').prop('disabled', true);
+                                $("#addNew_patientBtn").css('display','none');
+                                // $('#select2-appointment_type-container').text(info.event.title);
+                                // $("#location").css('display','none');
+                                // $("#showlocation").css('display','block');
+                                // $('#showlocation').append(new Option(info.event.extendedProps.location, info.event.extendedProps.location));
+
+                                $("#closebtn").removeAttr('disabled');
+                            }else{
+                                
+                            }
+                                
 
                             modal.modal('show');
                         },
@@ -2055,7 +2121,8 @@
                                 });
                                 return; // Exit the function
                             }
-
+                            // $("#btn-delete-event").css("display","block");
+                            $("#btn-save-event").css("display","block");
                             modal.find('.modal-title').text('Create Appointment');
                             form[0].reset();
                             form.find('#btn-save-event').text('Save');
@@ -2073,7 +2140,7 @@
                                 dateFormat: 'yy-mm-dd',
                                 minDate: info.dateStr // Set minDate to start_date initially
                             });
-
+                            $('#form-event').find('input, textarea, select, button').removeAttr('disabled');
 
 
                             modal.modal('show');
@@ -2090,42 +2157,81 @@
 
                         e.preventDefault();
 
-                        if (!$('#priority').val()) {
-                            $('#priorityError').text('priority is required');
-                            isValid = false;
-                        }
-
-
-                        var formData = $(this).serialize();
-                        $.ajax({
-                            url: '{{ route('user.calendar.event') }}',
-                            type: 'POST',
-                            data: formData,
-                            success: function(response) {
-
-                                if (response.message) {
-                                    Swal.fire({
-                                        title: 'Success',
-                                        text: response.message,
-                                        icon: 'success',
-                                        showConfirmButton: false, // Hide the default "OK" button
-                                        timer: 2000 // Display the message for 2 seconds
-                                    }).then(function() {
-                                        window.location.reload();
-                                    });
+                        if (!$('#priority').val() || $('#priority').val()=="") {
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Priority field is required.',
+                                icon: 'warning',
+                            });
+                        }else if(!$('#patient_id').val() || $('#patient_id').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Patient field is required.',
+                                icon: 'warning',
+                            });
+                            
+                        }else if(!$('#appointment_type').val() || $('#appointment_type').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Appoinment type field is required.',
+                                icon: 'warning',
+                            });
+                            
+                        }else if(!$('#location').val() || $('#location').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Location field is required.',
+                                icon: 'warning',
+                            });
+                            
+                        }else if(!$('#start_time').val() || $('#start_time').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Start time field is required.',
+                                icon: 'warning',
+                            });
+                        }else if(!$('#end_time').val() || $('#end_time').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'End time field is required.',
+                                icon: 'warning',
+                            });
+                        }else if(!$('#clinician_id').val() || $('#clinician_id').val()==""){
+                            Swal.fire({
+                                title: 'Warning',
+                                text: 'Clinician field is required.',
+                                icon: 'warning',
+                            });
+                        }else{
+                            var formData = $(this).serialize();
+                            $.ajax({
+                                url: '{{ route('user.calendar.event') }}',
+                                type: 'POST',
+                                data: formData,
+                                success: function(response) {
+                                    if (response.message) {
+                                        Swal.fire({
+                                            title: 'Success',
+                                            text: response.message,
+                                            icon: 'success',
+                                            showConfirmButton: false, // Hide the default "OK" button
+                                            timer: 2000 // Display the message for 2 seconds
+                                        }).then(function() {
+                                            window.location.reload();
+                                        });
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error(error);
                                 }
-
-                            },
-                            error: function(xhr, status, error) {
-                                console.error(error);
-                            }
-                        });
+                            });
+                        }
                     });
 
                     deleteButton.on('click', function() {
                         var eventId = form.find('input[name="event_id"]').val();
 
-                        var deleteUrl = '{{ url('login/delete-event/') }}' + '/' + eventId;
+                        var deleteUrl = '{{ route('user.delete.event') }}' + '?id=' + eventId;
 
                         if (eventId) {
                             $.ajax({
@@ -2158,7 +2264,7 @@
 
                 var patientValue = $('#patientId').val();
                 var user_id = $('#user_id').val();
-                var appointment_type = $('#appointment_type').val();
+                var appointment_type = $('#ap_type').val();
                 var location = $('#hiddenLocation').val();
 
                 $.ajax({
@@ -2172,6 +2278,7 @@
                         location: location
                     },
                     success: function(response) {
+                        console.log(response);
                         initCalendar(response);
                     },
                     error: function(xhr, status, error) {
@@ -2204,7 +2311,7 @@
                 });
 
                 $('#event-modal').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
                 //   date format
                 $(function() {
@@ -2307,11 +2414,13 @@
                         formData.append('name', $('input[name="name"]').val());
                         formData.append('birth_date', $('input[name="birth_date"]').val());
                         formData.append('gender', $('select[name="gender"]').val());
+                        formData.append('selectBranch', $('select[name="selectBranch"]').val());
                         formData.append('post_code', $('input[name="post_code"]').val());
                         formData.append('street', $('input[name="street"]').val());
                         formData.append('town', $('input[name="town"]').val());
                         formData.append('country', $('select[name="country"]').val());
                         formData.append('email', $('input[name="email"]').val());
+                        formData.append('dial_code', $('input[name="dial_code"]').val());
                         formData.append('mobile_no', $('input[name="mobile_no"]').val());
                         formData.append('password', $('input[name="password"]').val());
                         formData.append('landline', $('input[name="landline"]').val());
@@ -2330,8 +2439,24 @@
                                     'Patient Details Added successfully!',
                                     'success'
                                 );
+                               
                                 $('#patientDetail_box').hide();
                                 $('#appoinment_book_bx').show();
+
+
+                                $('select[name="sirname"]').val('');
+                                $('input[name="name"]').val();
+                                $('input[name="birth_date"]').val('');
+                                $('select[name="gender"]').val('');
+                                $('input[name="post_code"]').val('');
+                                $('input[name="street"]').val('');
+                                $('input[name="town"]').val('');
+                                $('select[name="country"]').val('');
+                                $('input[name="email"]').val('');
+                                $('input[name="dial_code"]').val('');
+                                $('input[name="mobile_no"]').val('');
+                                $('input[name="password"]').val('');
+
                                 populateUsers();
                             },
                             error: function(xhr, status, error) {
@@ -2375,7 +2500,6 @@
                     // Validate sirname
                     let selectedTitle = $('select[name="sirname"]').val();
                     if (selectedTitle === '') {
-
                         isValid = false;
 
                         $('#titleError').text('Please select a title');
@@ -2407,6 +2531,14 @@
 
                         $('#genderError').text('Please select a gender');
                         $('select[name="gender"]').addClass('error');
+                    }
+
+                    let pbranch = $('select[name="selectBranch"]').val();
+                    if (pbranch == '' || pbranch == 'Select') {
+                        isValid = false;
+
+                        $('#branchError').text('Please select a branch');
+                        $('select[name="selectBranch"]').addClass('error');
                     }
 
                     // Validate Email Address
@@ -2458,13 +2590,13 @@
                         $('input[name="mobile_no"]').addClass('error');
                     }
                     // Validate landline   number
-                    let landline = $('input[name="landline"]').val();
-                    if (landline === '') {
-                        isValid = false;
+                    // let landline = $('input[name="landline"]').val();
+                    // if (landline === '') {
+                    //     isValid = false;
 
-                        $('#landlineError').text('landline number is required');
-                        $('input[name="landline"]').addClass('error');
-                    }
+                    //     $('#landlineError').text('landline number is required');
+                    //     $('input[name="landline"]').addClass('error');
+                    // }
                     // Validate document type
                     // let document_type = $('input[name="document_type"]').val();
                     // if (document_type === '') {
@@ -2514,7 +2646,7 @@
 
                     var closeButton = document.getElementById('closebtn');
                     // Find the save button by ID
-                    var saveButton = document.getElementById('savebtn');
+                    var saveButton = document.getElementById('btn-save-event');
 
                     // Hide the close button
                     if (closeButton) {
@@ -2534,7 +2666,7 @@
 
                     var closeButton = document.getElementById('closebtn');
                     // Find the save button by ID
-                    var saveButton = document.getElementById('savebtn');
+                    var saveButton = document.getElementById('btn-save-event');
 
                     // Show the close button if it exists
                     if (closeButton) {
@@ -2650,14 +2782,7 @@
                         $('input[name="price"]').addClass('error');
                     }
 
-                    // // Validate price_type
-                    // let price_type = $('select[name="price_type"]').val();
-                    // if (price_type === '' || price_type === 'Select') {
-                    //     isValid = false;
-
-                    //     $('#price_typeError').text('Please select a price type');
-                    //     $('select[name="price_type"]').addClass('error');
-                    // }
+                    
 
                     return isValid;
                 }
@@ -2670,22 +2795,19 @@
                         success: function(services) {
                             $('#serviceList').empty();
                             services.forEach(function(service) {
-                                let priceType;
-                                if (service.price_type === 0) {
-                                    priceType = 'Pathology';
-                                } else if (service.price_type === 1) {
-                                    priceType = 'Radiology';
-                                } else {
-                                    priceType = 'Other';
+                                let priceType=service.price_type;
+                                let notes = service.note;
+                                if(service.note == null){
+                                    notes = '-';
                                 }
 
                                 let serviceBox = `
                         <div class="service_box_appoin">
-                            <span class="bx_color_ghi" style="background: ${service.colour_type};"></span>
-                            <span>${service.test_name}</span>
-                            <span>${service.note}</span>
-                            <span>${priceType}</span>
-                            <span>${service.price}</span>
+                            <p><span class="bx_color_ghi" style="background: ${service.colour_type};"></span>
+                            <span>${service.test_name}</span></p>
+                            <span><b>Note :</b> ${notes}</span>
+                            <span><b>Type :</b>${priceType}</span>
+                            <span><b>Price :</b>${service.price}</span>
                            
                         </div>
                     `;

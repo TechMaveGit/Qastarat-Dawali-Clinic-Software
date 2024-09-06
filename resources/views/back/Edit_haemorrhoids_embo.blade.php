@@ -1,6 +1,6 @@
 @extends('back.layout.main_view')
 @push('title')
-Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
+Patient | Hemorrhoids Embo | QASTARAT & DAWALI CLINICS
 @endpush
 @push('custom-css')
     <style>
@@ -35,7 +35,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                     <input type="hidden" name="patient_id" value="{{ @$patient_id }}" />
                     <input type="hidden" name="form_type" value="HaemorrhoidsEmbo" />
 
-                    <h3 class="form_title">Haemorrhoids Embo (HE)</h3>
+                    <h3 class="form_title">Hemorrhoids Embo (HE)</h3>
 
                     <div class="form_data">
                         <h6 class="section_title__">Diagnosis</h6>
@@ -59,13 +59,13 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                             
 
                                             $existingData = [
-                                                'Haemorrhoids' => ['Haemorrhoids'],
+                                                'Hemorrhoids' => ['Hemorrhoids'],
                                                 'Analpain' => ['Anal pain'],
                                                 'LowerGIBleed' => ['Lower GI Bleed'],
                                                 'Perinealvaricosities' => ['Perineal varicosities'],
                                                 'Chronicconstipation' => ['Chronic constipation'],
                                                 'Analfissure' => ['Anal fissure'],     
-                                                'Proctitis' => ['Proctitis'],     
+                                                'Prostatitis' => ['Prostatitis'],     
                                                 
                                                 
                                             ];
@@ -77,11 +77,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Haemorrhoids][]" id="formRadiosRight1"
-                                                {{ isset($diagnosis_generals['Haemorrhoids']) && in_array('Haemorrhoids', $diagnosis_generals['Haemorrhoids']) ? 'checked' : '' }}
-                                                value="Haemorrhoids">
+                                                name="diagnosis_general[Hemorrhoids][]" id="formRadiosRight1"
+                                                {{ isset($diagnosis_generals['Hemorrhoids']) && in_array('Hemorrhoids', $diagnosis_generals['Hemorrhoids']) ? 'checked' : '' }}
+                                                value="Hemorrhoids">
                                             <label class="form-check-label" for="formRadiosRight1">
-                                                Haemorrhoids
+                                                Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
@@ -144,11 +144,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" id="diagnosis_general_checkbox">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Proctitis][]" id="formRadiosRight4Proctitis"
-                                                {{ isset($diagnosis_generals['Proctitis']) && in_array('Proctitis', $diagnosis_generals['Proctitis']) ? 'checked' : '' }}
-                                                value="Proctitis">
+                                                name="diagnosis_general[Prostatitis][]" id="formRadiosRight4Proctitis"
+                                                {{ isset($diagnosis_generals['Prostatitis']) && in_array('Prostatitis', $diagnosis_generals['Prostatitis']) ? 'checked' : '' }}
+                                                value="Prostatitis">
                                             <label class="form-check-label" for="formRadiosRight4Proctitis">
-                                                Proctitis
+                                                Prostatitis
                                             </label>
                                         </div>
                                     </div>
@@ -221,18 +221,18 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                             }
                                             $existingData = [
                                                 'D129' => ['D12.9 Benign neoplasm: Anus and anal canal'],
-                                                'K64' => ['K64 Haemorrhoids and perianal venous thrombosis'],
-                                                'K640' => ['K64.0 First degree haemorrhoids'],
-                                                'K641' => ['K64.1 Second degree haemorrhoids'],
-                                                'K642' => ['K64.2 Third degree haemorrhoids'],
-                                                'K643' => ['K64.3 Fourth degree haemorrhoids'],
+                                                'K64' => ['K64 Hemorrhoids and perianal venous thrombosis'],
+                                                'K640' => ['K64.0 First degree Hemorrhoids'],
+                                                'K641' => ['K64.1 Second degree Hemorrhoids'],
+                                                'K642' => ['K64.2 Third degree Hemorrhoids'],
+                                                'K643' => ['K64.3 Fourth degree Hemorrhoids'],
                                                 'K644' => ['K64.4 Residual haemorrhoidal skin tags'],
-                                                'K648' => ['K64.8 Other specified haemorrhoids'],
-                                                'K649' => ['K64.9 Haemorrhoids, unspecified'],
+                                                'K648' => ['K64.8 Other specified Hemorrhoids'],
+                                                'K649' => ['K64.9 Hemorrhoids, unspecified'],
                                                 'a022' => ['022 Venous complications and hemorrhoids in pregnancy'],
-                                                'a0224' => ['022.4 Haemorrhoids in pregnancy'],
+                                                'a0224' => ['022.4 Hemorrhoids in pregnancy'],
                                                 'a087' => ['087 Venous complications and hemorrhoids in the puerperium'],
-                                                'a0872' => ['087.2 Haemorrhoids in the puerperium']
+                                                'a0872' => ['087.2 Hemorrhoids in the puerperium']
                                                 
                                                
                                             ];
@@ -253,50 +253,50 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K64][]"
-                                                id="formRadiosRight9" value="K64 Haemorrhoids and perianal venous thrombosis"
-                                                {{ isset($diagnosis_cids['K64']) && in_array('K64 Haemorrhoids and perianal venous thrombosis', $diagnosis_cids['K64']) ? 'checked' : '' }}>
+                                                id="formRadiosRight9" value="K64 Hemorrhoids and perianal venous thrombosis"
+                                                {{ isset($diagnosis_cids['K64']) && in_array('K64 Hemorrhoids and perianal venous thrombosis', $diagnosis_cids['K64']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight9">
-                                                K64 Haemorrhoids and perianal venous thrombosis
+                                                K64 Hemorrhoids and perianal venous thrombosis
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K640][]"
-                                                id="formRadiosRight10" value="K64.0 First degree haemorrhoids"
-                                                {{ isset($diagnosis_cids['K640']) && in_array('K64.0 First degree haemorrhoids', $diagnosis_cids['K640']) ? 'checked' : '' }}>
+                                                id="formRadiosRight10" value="K64.0 First degree Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K640']) && in_array('K64.0 First degree Hemorrhoids', $diagnosis_cids['K640']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight10">
-                                                K64.0 First degree haemorrhoids
+                                                K64.0 First degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K641][]"
-                                                id="formRadiosRight11K641" value="K64.1 Second degree haemorrhoids"
-                                                {{ isset($diagnosis_cids['K641']) && in_array('K64.1 Second degree haemorrhoids', $diagnosis_cids['K641']) ? 'checked' : '' }}>
+                                                id="formRadiosRight11K641" value="K64.1 Second degree Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K641']) && in_array('K64.1 Second degree Hemorrhoids', $diagnosis_cids['K641']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight11K641">
-                                                K64.1 Second degree haemorrhoids
+                                                K64.1 Second degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K642][]"
-                                                id="formRadiosRight12K642" value="K64.2 Third degree haemorrhoids"
-                                                {{ isset($diagnosis_cids['K642']) && in_array('K64.2 Third degree haemorrhoids', $diagnosis_cids['K642']) ? 'checked' : '' }}>
+                                                id="formRadiosRight12K642" value="K64.2 Third degree Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K642']) && in_array('K64.2 Third degree Hemorrhoids', $diagnosis_cids['K642']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight12K642">
-                                                K64.2 Third degree haemorrhoids
+                                                K64.2 Third degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K643][]"
-                                                id="formRadiosRight13K643" value="K64.3 Fourth degree haemorrhoids"
-                                                {{ isset($diagnosis_cids['K643']) && in_array('K64.3 Fourth degree haemorrhoids', $diagnosis_cids['K643']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13K643" value="K64.3 Fourth degree Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K643']) && in_array('K64.3 Fourth degree Hemorrhoids', $diagnosis_cids['K643']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13K643">
-                                                K64.3 Fourth degree haemorrhoids
+                                                K64.3 Fourth degree Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
@@ -313,20 +313,20 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K648][]"
-                                                id="formRadiosRight13K648" value="K64.8 Other specified haemorrhoids"
-                                                {{ isset($diagnosis_cids['K648']) && in_array('K64.8 Other specified haemorrhoids', $diagnosis_cids['K648']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13K648" value="K64.8 Other specified Hemorrhoids"
+                                                {{ isset($diagnosis_cids['K648']) && in_array('K64.8 Other specified Hemorrhoids', $diagnosis_cids['K648']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13K648">
-                                                K64.8 Other specified haemorrhoids
+                                                K64.8 Other specified Hemorrhoids
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[K649][]"
-                                                id="formRadiosRight13K649" value="K64.9 Haemorrhoids, unspecified"
-                                                {{ isset($diagnosis_cids['K649']) && in_array('K64.9 Haemorrhoids, unspecified', $diagnosis_cids['K649']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13K649" value="K64.9 Hemorrhoids, unspecified"
+                                                {{ isset($diagnosis_cids['K649']) && in_array('K64.9 Hemorrhoids, unspecified', $diagnosis_cids['K649']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13K649">
-                                                K64.9 Haemorrhoids, unspecified
+                                                K64.9 Hemorrhoids, unspecified
                                             </label>
                                         </div>
                                     </div>
@@ -343,10 +343,10 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" >
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[a0224][]"
-                                                id="formRadiosRight13a0224" value="022.4 Haemorrhoids in pregnancy"
-                                                {{ isset($diagnosis_cids['a0224']) && in_array('022.4 Haemorrhoids in pregnancy', $diagnosis_cids['a0224']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13a0224" value="022.4 Hemorrhoids in pregnancy"
+                                                {{ isset($diagnosis_cids['a0224']) && in_array('022.4 Hemorrhoids in pregnancy', $diagnosis_cids['a0224']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13a0224">
-                                                022.4 Haemorrhoids in pregnancy
+                                                022.4 Hemorrhoids in pregnancy
                                             </label>
                                         </div>
                                     </div>
@@ -363,10 +363,10 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4" id="Postpartum_thyroiditis">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[a0872][]"
-                                                id="formRadiosRight13a0872" value="087.2 Haemorrhoids in the puerperium"
-                                                {{ isset($diagnosis_cids['a0872']) && in_array('087.2 Haemorrhoids in the puerperium', $diagnosis_cids['a0872']) ? 'checked' : '' }}>
+                                                id="formRadiosRight13a0872" value="087.2 Hemorrhoids in the puerperium"
+                                                {{ isset($diagnosis_cids['a0872']) && in_array('087.2 Hemorrhoids in the puerperium', $diagnosis_cids['a0872']) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="formRadiosRight13a0872">
-                                                087.2 Haemorrhoids in the puerperium
+                                                087.2 Hemorrhoids in the puerperium
                                             </label>
                                         </div>
                                     </div>
@@ -955,7 +955,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="title_head">
                                             <h6 class="section_title__">Symptoms Severity Score (SSS)</h6>
-                                            <h4>Hemarrhoids symptoms score (VSS)</h4>
+                                            <h4>Hemorrhoids symptoms score (VSS)</h4>
                                         </div>
                                     </div>
                                     @php
@@ -1303,36 +1303,36 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                     @if ($sum >= 0 && $sum <= 10)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild </th>
                                                             <th>(0-10 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 11 && $sum <= 20)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate </th>
                                                             <th>(11-20 pts) </th>
                                                         </tr>
                                                     @elseif ($sum >= 21 && $sum <= 1999)
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe </th>
                                                             <th>(21-30 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-10 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(11-20 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(21-30 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -1363,11 +1363,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[AnalFissure][]" id="formRadiosRight42"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['AnalFissure'][0]) && $clinical_indicators['AnalFissure'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['AnalFissure'][0]) && $clinical_indicators['AnalFissure'][0] == 'Yes' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1392,10 +1392,10 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[AnalDischarge][]" id="formRadiosRight44"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['AnalDischarge'][0]) && $clinical_indicators['AnalDischarge'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['AnalDischarge'][0]) && $clinical_indicators['AnalDischarge'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1406,7 +1406,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                         value="No"
                                                         {{ isset($clinical_indicators['AnalDischarge'][0]) && $clinical_indicators['AnalDischarge'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1414,16 +1414,16 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
 
                                         <div class="row align-items-center">
                                             <div class="col-lg-4">
-                                                <h6 class="mb-3 lut_title">Fistula in ano</h6>
+                                                <h6 class="mb-3 lut_title">Fistula in anal</h6>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Fistulainano][]" id="formRadiosRight44Fistulainano"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Fistulainano'][0]) && $clinical_indicators['Fistulainano'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Fistulainano'][0]) && $clinical_indicators['Fistulainano'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44Fistulainano">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1434,7 +1434,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                         value="No"
                                                         {{ isset($clinical_indicators['Fistulainano'][0]) && $clinical_indicators['Fistulainano'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45Fistulainano">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1448,10 +1448,10 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Hemarrhoidectomy][]" id="formRadiosRight44Hemarrhoidectomy"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Hemarrhoidectomy'][0]) && $clinical_indicators['Hemarrhoidectomy'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Hemarrhoidectomy'][0]) && $clinical_indicators['Hemarrhoidectomy'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44Hemarrhoidectomy">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1462,7 +1462,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                         value="No"
                                                         {{ isset($clinical_indicators['Hemarrhoidectomy'][0]) && $clinical_indicators['Hemarrhoidectomy'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45Hemarrhoidectomy">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1475,10 +1475,10 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Laser][]" id="formRadiosRight44Laser"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Laser'][0]) && $clinical_indicators['Laser'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Laser'][0]) && $clinical_indicators['Laser'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44Laser">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1489,7 +1489,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                         value="No"
                                                         {{ isset($clinical_indicators['Laser'][0]) && $clinical_indicators['Laser'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45Laser">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1497,9 +1497,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1585,12 +1587,14 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                       
                                       <div class="col-lg-12">
                                         <div class="title_head">
-                                            <h4>USVENOUSDOPPLER70   &gt; <span class="sub_tt__"> Hemarrhoids endorectal US Protocol Findings</span></h4>
+                                            <h4>USVENOUSDOPPLER70   &gt; <span class="sub_tt__"> Hemorrhoids endorectal US Protocol Findings</span></h4>
                                         </div>
                                     </div>
                                       @php
@@ -1607,15 +1611,15 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                       <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">External Hemarrhoids</h6>
+                                      <h6 class="mb-3 lut_title">External Hemorrhoids</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[ExternalHemarrhoids][]" value="YES" id="formRadiosRight48Dilated"
-                                                    {{ isset($Imaging['ExternalHemarrhoids'][0]) && $Imaging['ExternalHemarrhoids'][0] == "YES" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[ExternalHemarrhoids][]" value="Yes" id="formRadiosRight48Dilated"
+                                                    {{ isset($Imaging['ExternalHemarrhoids'][0]) && $Imaging['ExternalHemarrhoids'][0] == "Yes" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRight48Dilated">
-                                                    YES
+                                                    Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1635,15 +1639,15 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-12">
                                         <div class="row">
                                         <div class="col-lg-4">
-                                      <h6 class="mb-3 lut_title">Internal Hemarrhoids</h6>
+                                      <h6 class="mb-3 lut_title">Internal Hemorrhoids</h6>
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[InternalHemarrhoids][]" value="YES" id="formRadiosRightd10Reflux"
-                                                    {{ isset($Imaging['InternalHemarrhoids'][0]) && $Imaging['InternalHemarrhoids'][0] == "YES" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[InternalHemarrhoids][]" value="Yes" id="formRadiosRightd10Reflux"
+                                                    {{ isset($Imaging['InternalHemarrhoids'][0]) && $Imaging['InternalHemarrhoids'][0] == "Yes" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRightd10Reflux">
-                                                    YES 
+                                                    Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1668,11 +1672,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     </div>
                                     <div class="col-lg-4">
                                                 <div class="form-check form-check-right mb-3">
-                                                    <input class="form-check-input"type="radio" name="Imaging[SuspiciousAnalMass][]" value="YES" id="formRadiosRightd12Reflux12"
-                                                    {{ isset($Imaging['SuspiciousAnalMass'][0]) && $Imaging['SuspiciousAnalMass'][0] == "YES" ? 'checked' : '' }}
+                                                    <input class="form-check-input"type="radio" name="Imaging[SuspiciousAnalMass][]" value="Yes" id="formRadiosRightd12Reflux12"
+                                                    {{ isset($Imaging['SuspiciousAnalMass'][0]) && $Imaging['SuspiciousAnalMass'][0] == "Yes" ? 'checked' : '' }}
                                                     >
                                                     <label class="form-check-label" for="formRadiosRightd12Reflux12">
-                                                    YES 
+                                                    Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1697,7 +1701,7 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                             
                                     <div class="col-lg-12">
                                         <div class="title_head">
-                                            <h4>MRCIR48  &gt; <span class="sub_tt__">Hemarrhoids MRI Protocol Findings</span></h4>
+                                            <h4>MRCIR48  &gt; <span class="sub_tt__">Hemorrhoids MRI Protocol Findings</span></h4>
                                         </div>
                                     </div> 
                                     
@@ -1709,11 +1713,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                   </div>
                                   <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[ProminentSRAarteries][]" value="YES" id="formRadiosRight48DilatedSSVLEFT"
-                                                  {{ isset($Imaging['ProminentSRAarteries'][0]) && $Imaging['ProminentSRAarteries'][0] == "YES" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[ProminentSRAarteries][]" value="Yes" id="formRadiosRight48DilatedSSVLEFT"
+                                                  {{ isset($Imaging['ProminentSRAarteries'][0]) && $Imaging['ProminentSRAarteries'][0] == "Yes" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRight48DilatedSSVLEFT">
-                                                  YES
+                                                  Yes
                                                   </label>
                                               </div>
                                           </div>
@@ -1737,11 +1741,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                   </div>
                                   <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[Dilatedanalveins][]" value="YES" id="formRadiosRightd10RefluxSSVLEFT"
-                                                  {{ isset($Imaging['Dilatedanalveins'][0]) && $Imaging['Dilatedanalveins'][0] == "YES" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[Dilatedanalveins][]" value="Yes" id="formRadiosRightd10RefluxSSVLEFT"
+                                                  {{ isset($Imaging['Dilatedanalveins'][0]) && $Imaging['Dilatedanalveins'][0] == "Yes" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd10RefluxSSVLEFT">
-                                                  YES 
+                                                  Yes 
                                                   </label>
                                               </div>
                                           </div>
@@ -1766,11 +1770,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                   </div>
                                   <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[thrombosedhemorrhoids][]" value="YES" id="formRadiosRightd12Reflux12SSVLEFT"
-                                                  {{ isset($Imaging['thrombosedhemorrhoids'][0]) && $Imaging['thrombosedhemorrhoids'][0] == "YES" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[thrombosedhemorrhoids][]" value="Yes" id="formRadiosRightd12Reflux12SSVLEFT"
+                                                  {{ isset($Imaging['thrombosedhemorrhoids'][0]) && $Imaging['thrombosedhemorrhoids'][0] == "Yes" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd12Reflux12SSVLEFT">
-                                                  YES 
+                                                  Yes 
                                                   </label>
                                               </div>
                                           </div>
@@ -1795,11 +1799,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                   </div>
                                   <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[Congestedpelvicveins][]" value="YES" id="formRadiosRightd1499SSVLEFT"
-                                                  {{ isset($Imaging['Congestedpelvicveins'][0]) && $Imaging['Congestedpelvicveins'][0] == "YES" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[Congestedpelvicveins][]" value="Yes" id="formRadiosRightd1499SSVLEFT"
+                                                  {{ isset($Imaging['Congestedpelvicveins'][0]) && $Imaging['Congestedpelvicveins'][0] == "Yes" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd1499SSVLEFT">
-                                                  YES 
+                                                  Yes 
                                                   
                                                   </label>
                                               </div>
@@ -1807,11 +1811,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
           
                                           <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Imaging[Congestedpelvicveins][]" value="NO" id="formRadiosRightd15Reflux00SSVLEFT"
-                                                  {{ isset($Imaging['Congestedpelvicveins'][0]) && $Imaging['Congestedpelvicveins'][0] == "NO" ? 'checked' : '' }}
+                                                  <input class="form-check-input"type="radio" name="Imaging[Congestedpelvicveins][]" value="No" id="formRadiosRightd15Reflux00SSVLEFT"
+                                                  {{ isset($Imaging['Congestedpelvicveins'][0]) && $Imaging['Congestedpelvicveins'][0] == "No" ? 'checked' : '' }}
                                                   >
                                                   <label class="form-check-label" for="formRadiosRightd15Reflux00SSVLEFT">
-                                                  NO 
+                                                  No 
                                                   </label>
                                               </div>
                                           </div>
@@ -1825,11 +1829,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[Suspicious][]" value="YES" id="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT"
-                                                {{ isset($Imaging['Suspicious'][0]) && $Imaging['Suspicious'][0] == "YES" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[Suspicious][]" value="Yes" id="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT"
+                                                {{ isset($Imaging['Suspicious'][0]) && $Imaging['Suspicious'][0] == "Yes" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd1499OcclusiveSSVLEFTSSVLEFT">
-                                                YES 
+                                                Yes 
                                                 
                                                 </label>
                                             </div>
@@ -1837,11 +1841,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
           
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[Suspicious][]" value="NO" id="formRadiosRightd15Reflux00OcclusiveSSVLEFT"
-                                                {{ isset($Imaging['Suspicious'][0]) && $Imaging['Suspicious'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[Suspicious][]" value="No" id="formRadiosRightd15Reflux00OcclusiveSSVLEFT"
+                                                {{ isset($Imaging['Suspicious'][0]) && $Imaging['Suspicious'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd15Reflux00OcclusiveSSVLEFT">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -1956,7 +1960,6 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                                                   <img src="images/new-images/nodules.png" alt="">
                                                                               </div> -->
                                         <div id="image-container">
-                                            <img src="{{ asset('public/images/new-images/nodules.png') }}" alt="Your Image" id="image">
                                         </div>
                                         <div class="button_images">
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
@@ -1980,58 +1983,76 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
 
                                 @endphp
 
-<div class="col-lg-12">
-    <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
-  </div>
-    <div class="col-lg-12">
-      <div class="title_head">
-          <h4>LABCRCMARKERS000 &gt; <span class="sub_tt__">FERTILITY HORMONES Results</span></h4>
-      </div>
-    </div>
-    <div class="col-lg-12 mb-3">
-       <div class="row">
-          <div class="col-lg-3">
-          <h6 class="mb-3 lut_title">CEA</h6>
-          </div>  
-          <div class="col-lg-6">
-              <div class="lab_test_value">
-                  <select  class="tshRange" name="Lab[ESR][]">
-                  <option value=""></option>
-                  <option value="normal"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
-                  <option value="low"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                  <option value="high"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                  </select>
-                  <div class="result result_value {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }} ">
-                      <!-- Display low, high, and normal values here -->
-                      {{ isset($Lab['ESR'][0]) ? $Lab['ESR'][0] : '' }}
-                  </div>
-              </div>
-          </div>
-          </div>
-       </div>
-       <div class="col-lg-12 mb-3">
-       <div class="row">
-          <div class="col-lg-3">
-          <h6 class="mb-3 lut_title">CA-125</h6>
-          </div>  
-          <div class="col-lg-6">
-              <div class="lab_test_value">
-                  <select  class="tshRange" name="Lab[CRP][]">
-                  <option value=""></option>
-                  <option value="normal" 
-                  {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'normal' ? 'selected' : '' }}
-                  >(0.4 - 5.49 mIU/L)</option>
-                  <option value="low" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
-                  <option value="high" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                  </select>
-                  <div class="result result_value {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}">
-                    {{ isset($Lab['CRP'][0]) ? $Lab['CRP'][0]  :  '' }}
-                      <!-- Display low, high, and normal values here -->
-                  </div>
-              </div>
-          </div>
-          </div>
-       </div>
+                                            <div class="col-lg-12">
+                                                <h6 class="section_title__">Lab 
+                                                    {{-- <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
+                                            </div>
+                                                <div class="col-lg-12">
+                                                <div class="title_head">
+                                                    <h4>LABCRCMARKERS000 &gt; <span class="sub_tt__">FERTILITY HORMONES Results</span></h4>
+                                                </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-3">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                    <h6 class="mb-3 lut_title">CEA</h6>
+                                                    </div>  
+                                                    <div class="col-lg-6">
+                                                        <div class="lab_test_value">
+                                                            <select  class="tshRange" name="Lab[ESR][]">
+                                                            <option value=""></option>
+                                                            <option value="normal"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
+                                                            <option value="low"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                            <option value="high"  {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                            <option value="other" {{ isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                            </select>
+
+                                                            <div @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }}">
+                                                                {{ isset($Lab['ESR'][0])  && $Lab['ESR'][0] != 'other' ? $Lab['ESR'][0] : 'normal' }} 
+                                                            </div>
+            
+                                                            <select @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[ESR][otherLevel]">
+                                                                <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                                <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                                <option {{ isset($Lab['ESR']['otherLevel']) && $Lab['ESR']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                            </select>
+                                                        
+                                                            <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['ESR'][0]) && $Lab['ESR'][0] == 'other') value="{{ isset($Lab['ESR']['other']) ? $Lab['ESR']['other'] : '' }}" @else hidden @endif name="Lab[ESR][other]" />
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-3">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                    <h6 class="mb-3 lut_title">CA-125</h6>
+                                                    </div>  
+                                                    <div class="col-lg-6">
+                                                        <div class="lab_test_value">
+                                                            <select  class="tshRange" name="Lab[CRP][]">
+                                                            <option value=""></option>
+                                                            <option value="normal"  {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
+                                                            <option value="low" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
+                                                            <option value="high" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                                            <option value="other" {{ isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                                                            </select>
+                                                            
+                                                            <div @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }}">
+                                                                {{ isset($Lab['CRP'][0])  && $Lab['CRP'][0] != 'other' ? $Lab['CRP'][0] : 'normal' }} 
+                                                            </div>
+            
+                                                            <select @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[CRP][otherLevel]">
+                                                                <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                                <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                                <option {{ isset($Lab['CRP']['otherLevel']) && $Lab['CRP']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                            </select>
+                                                        
+                                                            <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['CRP'][0]) && $Lab['CRP'][0] == 'other') value="{{ isset($Lab['CRP']['other']) ? $Lab['CRP']['other'] : '' }}" @else hidden @endif name="Lab[CRP][other]" />
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
 
                                             <div class="col-lg-12">
                                             <div class="title_head">
@@ -2046,11 +2067,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Externalhemorrhoids][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTExternalhemorrhoids"
-                                                        {{ isset($Lab['Externalhemorrhoids'][0]) && $Lab['Externalhemorrhoids'][0] == "YES" ? 'checked' : '' }}
+                                                        <input class="form-check-input"type="radio" name="Lab[Externalhemorrhoids][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTExternalhemorrhoids"
+                                                        {{ isset($Lab['Externalhemorrhoids'][0]) && $Lab['Externalhemorrhoids'][0] == "Yes" ? 'checked' : '' }}
                                                         >
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTExternalhemorrhoids">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2074,11 +2095,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Internalhemorrhoids][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTInternalhemorrhoids"
-                                                        {{ isset($Lab['Internalhemorrhoids'][0]) && $Lab['Internalhemorrhoids'][0] == "YES" ? 'checked' : '' }}
+                                                        <input class="form-check-input"type="radio" name="Lab[Internalhemorrhoids][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTInternalhemorrhoids"
+                                                        {{ isset($Lab['Internalhemorrhoids'][0]) && $Lab['Internalhemorrhoids'][0] == "Yes" ? 'checked' : '' }}
                                                         >
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTInternalhemorrhoids">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2102,11 +2123,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Thrombosedhemorrhoids][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTThrombosedhemorrhoids"
-                                                        {{ isset($Lab['Thrombosedhemorrhoids'][0]) && $Lab['Thrombosedhemorrhoids'][0] == "YES" ? 'checked' : '' }}
+                                                        <input class="form-check-input"type="radio" name="Lab[Thrombosedhemorrhoids][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTThrombosedhemorrhoids"
+                                                        {{ isset($Lab['Thrombosedhemorrhoids'][0]) && $Lab['Thrombosedhemorrhoids'][0] == "Yes" ? 'checked' : '' }}
                                                         >
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTThrombosedhemorrhoids">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2130,11 +2151,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[BnignPolyp][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTBnignPolyp"
-                                                        {{ isset($Lab['BnignPolyp'][0]) && $Lab['BnignPolyp'][0] == "YES" ? 'checked' : '' }}
+                                                        <input class="form-check-input"type="radio" name="Lab[BnignPolyp][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTBnignPolyp"
+                                                        {{ isset($Lab['BnignPolyp'][0]) && $Lab['BnignPolyp'][0] == "Yes" ? 'checked' : '' }}
                                                         >
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTBnignPolyp">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2158,11 +2179,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Polp][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTPolp"
-                                                        {{ isset($Lab['Polp'][0]) && $Lab['Polp'][0] == "YES" ? 'checked' : '' }}
+                                                        <input class="form-check-input"type="radio" name="Lab[Polp][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTPolp"
+                                                        {{ isset($Lab['Polp'][0]) && $Lab['Polp'][0] == "Yes" ? 'checked' : '' }}
                                                         >
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTPolp">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2186,11 +2207,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[tumor][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTtumor"
-                                                        {{ isset($Lab['tumor'][0]) && $Lab['tumor'][0] == "YES" ? 'checked' : '' }}
+                                                        <input class="form-check-input"type="radio" name="Lab[tumor][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTtumor"
+                                                        {{ isset($Lab['tumor'][0]) && $Lab['tumor'][0] == "Yes" ? 'checked' : '' }}
                                                         >
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTtumor">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2214,11 +2235,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Ulcer][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTUlcer"
-                                                        {{ isset($Lab['Ulcer'][0]) && $Lab['Ulcer'][0] == "YES" ? 'checked' : '' }}
+                                                        <input class="form-check-input"type="radio" name="Lab[Ulcer][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTUlcer"
+                                                        {{ isset($Lab['Ulcer'][0]) && $Lab['Ulcer'][0] == "Yes" ? 'checked' : '' }}
                                                         >
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTUlcer">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2242,11 +2263,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Analfissure][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTAnalfissure"
-                                                        {{ isset($Lab['Analfissure'][0]) && $Lab['Analfissure'][0] == "YES" ? 'checked' : '' }}
+                                                        <input class="form-check-input"type="radio" name="Lab[Analfissure][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTAnalfissure"
+                                                        {{ isset($Lab['Analfissure'][0]) && $Lab['Analfissure'][0] == "Yes" ? 'checked' : '' }}
                                                         >
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTAnalfissure">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2266,15 +2287,15 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">Fistula in ano</h6>
+                                          <h6 class="mb-3 lut_title">Fistula in anal</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
-                                                        <input class="form-check-input"type="radio" name="Lab[Fistula][]" value="YES" id="formRadiosRightd10RefluxGSVRIGHTFistula"
-                                                        {{ isset($Lab['Fistula'][0]) && $Lab['Fistula'][0] == "YES" ? 'checked' : '' }}
+                                                        <input class="form-check-input"type="radio" name="Lab[Fistula][]" value="Yes" id="formRadiosRightd10RefluxGSVRIGHTFistula"
+                                                        {{ isset($Lab['Fistula'][0]) && $Lab['Fistula'][0] == "Yes" ? 'checked' : '' }}
                                                         >
                                                         <label class="form-check-label" for="formRadiosRightd10RefluxGSVRIGHTFistula">
-                                                        YES 
+                                                        Yes 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -2290,14 +2311,39 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-12 mb-4">
+                                                <div class="title_head">
+                                                    <h4>Others</h4>
+                                                </div>
+                                                <div class="otherLabRow">
+                                                    @if(isset($Lab['other']))
+                                                    @foreach($Lab['other'] as $kk=>$value)
+                                                    <div class="row my-3">
+                                                        <div class="col-lg-6">
+                                                            <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                    @endif
+                                                </div>
+                                                <div class="add_more_btn">
+                                                    <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                                </div>
+                                                
+                                            </div>
                                         </div>
 
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#"
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>REQLGIENDOSCOPY5</h4>
                                         </div>
@@ -2361,13 +2407,15 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
-                                            <h4>MDTREVIEW00  &#62; <span class="sub_tt__"> Hemarrhoids MDT outcome</span></h4>
+                                            <h4>MDTREVIEW00  &#62; <span class="sub_tt__"> Hemorrhoids MDT outcome</span></h4>
                                         </div>
                                     </div>
                                     @php
@@ -2455,9 +2503,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2516,17 +2566,29 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                             target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
 
                                     @php
                                         if (isset($Interventions) && !empty($Interventions)) {
                                             $Interventions = json_decode($Interventions->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($Interventions);
-                                            //     die;
+                                           
+
+                                            $existingDataInter = [
+                                            'ANGIOHE2910' => ['ANGIOHE2910'],
+                                            'LABPREANGIO48' => ['LABPREANGIO48'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'IVSEDATION270' => ['IVSEDATION270'],
+                                            'USHSCLERO490' => ['USHSCLERO490'],
+                                            'LABPREIRBASIC32' => ['LABPREIRBASIC32'],
+                                            'USVVNTNTABL2200' => ['USVVNTNTABL2200'],
+                                            ];
+
+                                            $filteredDataIner = array_diff_key($Interventions, $existingDataInter);
                                         }
 
                                     @endphp
@@ -2608,19 +2670,8 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[LABPREIRSAFETY17][]" value="LABPREIRSAFETY17"
-                    id="formRadiosRightb40LABPREIRSAFETY17"
-                    {{ isset($Interventions['LABPREIRSAFETY17'][0]) && $Interventions['LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40LABPREIRSAFETY17">
-                    LABPREIRSAFETY17
-                </label>
-            </div>
-        </div>
-        <div class="col-lg-3">
+        
+        <div class="col-lg-3" id="InterventionSample">
             <div class="form-check form-check-right mb-3">
                 <input class="form-check-input"type="checkbox"
                     name="Intervention[USVVNTNTABL2200][]" value="USVVNTNTABL2200"
@@ -2632,40 +2683,64 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="form-check form-check-right mb-3">
-                <input class="form-check-input"type="checkbox"
-                    name="Intervention[LABPREIRBASIC32][]" value="LABPREIRBASIC32"
-                    id="formRadiosRightb40LABPREIRBASIC32"
-                    {{ isset($Interventions['LABPREIRBASIC32'][0]) && $Interventions['LABPREIRBASIC32'][0] == 'LABPREIRBASIC32' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40LABPREIRBASIC32">
-                    LABPREIRBASIC32
-                </label>
+        
+
+        <div class="col-lg-12" >
+            <div id="dynamic_Intervention_checkbox_container" class="row">
+                @if (isset($filteredDataIner) && !empty($filteredDataIner))
+                @forelse ($filteredDataIner as $key => $value)
+                    <div class="col-lg-4">
+                        <div class="form-check form-check-right mb-3">
+                            <input class="form-check-input" type="checkbox"
+                                name="Intervention[{{ $key }}][]"
+                                id="formRadiosRight{{ $key }}"
+                                {{ isset($Interventions[$key]) && in_array($value[0], $Interventions[$key]) ? 'checked' : '' }}
+                                value="{{ $value[0] }}">
+                            <label class="form-check-label"
+                                for="formRadiosRight{{ $key }}">
+                                {{ $value[0] }}
+                            </label>
+                        </div>
+                    </div>
+                @empty
+                    <!-- Code to be executed if $filteredData is empty -->
+                @endforelse
+            @endif
             </div>
         </div>
         <div class="col-lg-3">
             <div class="form-check form-check-right mb-3">
                 <input class="form-check-input"type="checkbox"
-                    name="Intervention[LABPREIRSAFETY17][]" value="LABPREIRSAFETY17"
-                    id="formRadiosRightb40LABPREIRSAFETY17"
-                    {{ isset($Interventions['LABPREIRSAFETY17'][0]) && $Interventions['LABPREIRSAFETY17'][0] == 'LABPREIRSAFETY17' ? 'checked' : '' }}
-                    >
-                <label class="form-check-label" for="formRadiosRightb40LABPREIRSAFETY17">
-                    LABPREIRSAFETY17
+                    name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                <label class="form-check-label" for="formRadiosRightbf1inter">
+                    + Add More
                 </label>
             </div>
         </div>
-       
-       
-      
-       
-        
-        
-        
-       
+        <div class="col-lg-12" id="textarea_a852inter">
+            <div class="row addmore_diag">
+                <div class="col-lg-10">
+                    <div class="inner_element">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                                id="InterventionValue" placeholder="Type  here.....">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="add_more_btn">
+                        <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                class="fa-solid fa-plus"></i> Add More</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
         
     </div>
+   
 </div>
 
 
@@ -2674,9 +2749,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewHaemorrhoidsEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {
@@ -2799,9 +2876,11 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -2878,8 +2957,8 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                     </div>
 
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
                             FINAL</button>
                     </div>
@@ -2914,6 +2993,17 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                     $("#abnormal_a76").hide();
                 });
 
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
+                });
             })
         </script>
 
@@ -3099,7 +3189,25 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                 minimumResultsForSearch: -1
             });
         </script>
+
+
+
+
+
+
         <script>
+
+                function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -3112,6 +3220,15 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+                    if($(select).val() == 'other'){
+                            $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                            $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                            $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                        } else {
+                            $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                            $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                            $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                        }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -3278,6 +3395,28 @@ Patient | Haemorrhoids Embo | QASTARAT & DAWALI CLINICS
                         $('#SpecialInvestigationValue').val('');
                     }
                 });
+
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                })
 
                 // Supportive
 
@@ -3644,7 +3783,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     // Start Image    
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
     
@@ -3656,7 +3795,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
+    imageObj.src = '{{  ($VaricoceleEmboForm && $VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/HaemorrhoidsEmbo.jpg') }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({
@@ -3689,9 +3828,12 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
+                        width:300,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
                     })
                 );
     
@@ -3747,7 +3889,16 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
     });
     
     
-    
+    function isFormDataValid(formData) {
+            for (let [key, value] of formData.entries()) {
+                if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                    if (value.trim() !== '') {
+                        return true; // A blank value found
+                    }
+                }
+            }
+            return false; // All values are non-blank
+        }
     
     
         $("#updateHaemorrhoidsEmboEligibilityForms").submit(function(event) {
@@ -3762,6 +3913,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
             
             event.preventDefault();
             let formData = new FormData(this);
+            if(isFormDataValid(formData)){
             if (!validateForm()) {
                 e.preventDefault(); 
             } 
@@ -3783,7 +3935,7 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                                     {
                                        Swal.fire({
                                                 title: 'Success',
-                                                text: 'Haemorrhoids Embo form updated successfully!!',
+                                                text: 'Hemorrhoids Embo form updated successfully!!',
                                                 icon: 'success',
                                                 timer: 2000, // Display for 2 seconds
                                                 timerProgressBar: true, // Show progress bar
@@ -3800,6 +3952,12 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
               
                 
             }
+        }}else{
+            Swal.fire({
+                title: "Fill Data?",
+                text: "Please fill the details.",
+                icon: "info",
+            });
         }
         });
     });

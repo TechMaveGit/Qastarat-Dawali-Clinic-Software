@@ -1,6 +1,6 @@
 @extends('superAdmin.partical.main')
 @push('title')
-<title>All Nurses | Super Admin</title>
+<title>All Appointments & Services | Super Admin</title>
 @endpush
 @section('content')
 
@@ -79,12 +79,8 @@
                                                     <td>{{ $allpathology_price_list->turnaround }}</td>
                                                     <td>{{ $allpathology_price_list->note }}</td>
                                                     <td>
-                                                        @if ($allpathology_price_list->price_type=='0')
-                                                        Pathology
-                                                        @elseif($allpathology_price_list->price_type=='1')
-                                                        Radiology
-                                                        @elseif($allpathology_price_list->price_type=='2')
-                                                        Other
+                                                        @if ($allpathology_price_list->price_type)
+                                                        {{$allpathology_price_list->price_type}}
                                                         @else
                                                         ---
                                                         @endif
@@ -194,11 +190,17 @@ Launch demo modal
                                     <div class="form-group">
                                         <label class="form-label">Type <span class="required">*</span></label>
                                         <select class="form-control" id="mulipleType" name="price_type" style="width: 100%;" required>
-                                            <option value="11">Select Any One</option>
-                                            <option value="0">Pathology</option>
-                                            <option value="1">Radiology</option>
-                                            <option value="2">Other</option>
+                                            <option value="0">Select Any One</option>
+                                            @if($patho_types)
+                                            @foreach($patho_types as  $value)
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endforeach
+                                            @endif
+                                            <option value="Other">Other</option>
                                         </select>
+                                        <div id="mulipleTypeInput" hidden>
+                                            <input class="form-control" name="mulipleTypeOt" id="mulipleTypeOt" placeholder="Enter New Type Here..." />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -281,5 +283,18 @@ Launch demo modal
 </script>
 
 
+@push('custom-js')
+<script>
 
+$("#mulipleType").on('change',function(){
+
+    $("#mulipleTypeInput").attr('hidden',true);
+    // $("#mulipleType").attr('hidden',false);
+    if($(this).val() == "Other"){
+        $("#mulipleTypeInput").attr('hidden',false);
+        // $("#mulipleType").attr('hidden',true);
+    }
+})
+</script>
+@endpush
 @endsection

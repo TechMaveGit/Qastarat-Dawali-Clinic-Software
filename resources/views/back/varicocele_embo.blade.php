@@ -78,9 +78,9 @@
                      </div>
                      <div class="col-lg-4">
                          <div class="form-check form-check-right mb-3">
-                            <input class="form-check-input" type="checkbox" name="diagnosis_general[Testicular][]" value="Testicular mass / cyst" id="formRadiosRight4">
+                            <input class="form-check-input" type="checkbox" name="diagnosis_general[Testicular][]" value="Testicular mass / cystic" id="formRadiosRight4">
                             <label class="form-check-label" for="formRadiosRight4">
-                            Testicular mass / cyst
+                            Testicular mass / cystic
                             </label>
                         </div>
                      </div>
@@ -1447,15 +1447,15 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="clinical_indicator[testicles][]" value="YES  (VE unfaverable)" id="formRadiosRight42">
+                                        <input class="form-check-input"type="radio" name="clinical_indicator[testicles][]" value="Yes  (VE unfavorable)" id="formRadiosRight42">
                                         <label class="form-check-label" for="formRadiosRight42">
-                                        YES  (VE unfaverable)
+                                        Yes  (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="clinical_indicator[testicles][]" value="NO" id="formRadiosRight43">
+                                        <input class="form-check-input"type="radio" name="clinical_indicator[testicles][]" value="No" id="formRadiosRight43">
                                         <label class="form-check-label" for="formRadiosRight43">
                                         No
                                         </label>
@@ -1469,15 +1469,15 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="clinical_indicator[Undecendedtesticles][]" value="YES  (VE unfaverable)" id="formRadiosRight44">
+                                        <input class="form-check-input"type="radio" name="clinical_indicator[Undecendedtesticles][]" value="Yes  (VE unfavorable)" id="formRadiosRight44">
                                         <label class="form-check-label" for="formRadiosRight44">
-                                        YES  (VE unfaverable)
+                                        Yes  (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="clinical_indicator[Undecendedtesticles][]" value="NO" id="formRadiosRight45">
+                                        <input class="form-check-input"type="radio" name="clinical_indicator[Undecendedtesticles][]" value="No" id="formRadiosRight45">
                                         <label class="form-check-label" for="formRadiosRight45">
                                         No
                                         </label>
@@ -1491,15 +1491,15 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio"  name="clinical_indicator[Erectiledysfunction][]" value="YES" id="formRadiosRight46">
+                                        <input class="form-check-input" type="radio"  name="clinical_indicator[Erectiledysfunction][]" value="Yes" id="formRadiosRight46">
                                         <label class="form-check-label" for="formRadiosRight46">
-                                        YES
+                                        Yes
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio"  name="clinical_indicator[Erectiledysfunction][]" value="NO" id="formRadiosRight47">
+                                        <input class="form-check-input" type="radio"  name="clinical_indicator[Erectiledysfunction][]" value="No" id="formRadiosRight47">
                                         <label class="form-check-label" for="formRadiosRight47">
                                         No
                                         </label>
@@ -1512,15 +1512,15 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="clinical_indicator[ReducedEjaculate][]" value="YES" id="formRadiosRightd5">
+                                        <input class="form-check-input" type="radio" name="clinical_indicator[ReducedEjaculate][]" value="Yes" id="formRadiosRightd5">
                                         <label class="form-check-label" for="formRadiosRightd5">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="clinical_indicator[ReducedEjaculate][]" value="NO" id="formRadiosRightd6">
+                                        <input class="form-check-input" type="radio" name="clinical_indicator[ReducedEjaculate][]" value="No" id="formRadiosRightd6">
                                         <label class="form-check-label" for="formRadiosRightd6">
                                         No
                                         </label>
@@ -1533,15 +1533,15 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="clinical_indicator[Primaryinfertility][]" value="YES" id="formRadiosRightd8">
+                                        <input class="form-check-input" type="radio" name="clinical_indicator[Primaryinfertility][]" value="Yes" id="formRadiosRightd8">
                                         <label class="form-check-label" for="formRadiosRightd8">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="clinical_indicator[Primaryinfertility][]" value="NO" id="formRadiosRightd9">
+                                        <input class="form-check-input" type="radio" name="clinical_indicator[Primaryinfertility][]" value="No" id="formRadiosRightd9">
                                         <label class="form-check-label" for="formRadiosRightd9">
                                         No
                                         </label>
@@ -1554,15 +1554,15 @@
                                 </div>
                                     <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="clinical_indicator[Secondaryinfertility][]" value="YES" id="formRadiosRightd36">
+                                        <input class="form-check-input" type="radio" name="clinical_indicator[Secondaryinfertility][]" value="Yes" id="formRadiosRightd36">
                                         <label class="form-check-label" for="formRadiosRightd36">
-                                        YES 
+                                        Yes 
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="clinical_indicator[Secondaryinfertility][]" value="NO" id="formRadiosRightd37">
+                                        <input class="form-check-input" type="radio" name="clinical_indicator[Secondaryinfertility][]" value="No" id="formRadiosRightd37">
                                         <label class="form-check-label" for="formRadiosRightd37">
                                         No
                                         </label>
@@ -1573,9 +1573,11 @@
                         </div>
                         
                         <div class="col-lg-12">
-                            <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                            <h6 class="section_title__">Clinical Exam 
+                                {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                     class="order-now_btn order-now_btn_alt ">Order Now <i
-                                        class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                    </h6>
                             <div class="title_head">
                                 <h4>Add Clinical Finding </h4>
                             </div>
@@ -1642,7 +1644,9 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">Imaging 
+                                {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                            </h6>
                           </div>
                         <div class="col-lg-12">
                             <div class="title_head">
@@ -1711,18 +1715,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="YES (VE Unfaverable)" id="formRadiosRightd38">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="Yes (VE unfavorable)" id="formRadiosRightd38">
                                         <label class="form-check-label" for="formRadiosRightd38">
-                                        YES (VE Unfaverable)
+                                        Yes (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="NO" id="formRadiosRightd13">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="No" id="formRadiosRightd13">
                                         <label class="form-check-label" for="formRadiosRightd13">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1736,18 +1740,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularMass][]" value="YES (UFE contraindicated)"  id="formRadiosRightd14">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularMass][]" value="Yes (UFE contraindicated)"  id="formRadiosRightd14">
                                         <label class="form-check-label" for="formRadiosRightd14">
-                                        YES (UFE contraindicated)
+                                        Yes (UFE contraindicated)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularMass][]" value="NO"  id="formRadiosRightd15">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularMass][]" value="No"  id="formRadiosRightd15">
                                         <label class="form-check-label" for="formRadiosRightd15">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1761,18 +1765,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="YES (VE Unfaverable)" id="formRadiosRightd39">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="Yes (VE unfavorable)" id="formRadiosRightd39">
                                         <label class="form-check-label" for="formRadiosRightd39">
-                                        YES (VE Unfaverable)
+                                        Yes (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="NO" id="formRadiosRightd40">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="No" id="formRadiosRightd40">
                                         <label class="form-check-label" for="formRadiosRightd40">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1785,18 +1789,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="YES (VE Unfaverable)" id="formRadiosRightd41">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="Yes (VE unfavorable)" id="formRadiosRightd41">
                                         <label class="form-check-label" for="formRadiosRightd41">
-                                        YES (VE Unfaverable)
+                                        Yes (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="NO" id="formRadiosRightd42">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="No" id="formRadiosRightd42">
                                         <label class="form-check-label" for="formRadiosRightd42">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1809,18 +1813,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="YES (VE Unfaverable)" id="formRadiosRightd43">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="Yes (VE unfavorable)" id="formRadiosRightd43">
                                         <label class="form-check-label" for="formRadiosRightd43">
-                                        YES (VE Unfaverable)
+                                        Yes (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="NO" id="formRadiosRightd44">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="No" id="formRadiosRightd44">
                                         <label class="form-check-label" for="formRadiosRightd44">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1833,18 +1837,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTRetestestis][]" value="YES" id="formRadiosRightd45">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTRetestestis][]" value="Yes" id="formRadiosRightd45">
                                         <label class="form-check-label" for="formRadiosRightd45">
-                                        YES
+                                        Yes
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[LEFTRetestestis][]" value="NO" id="formRadiosRightd46">
+                                        <input class="form-check-input"type="radio" name="Imaging[LEFTRetestestis][]" value="No" id="formRadiosRightd46">
                                         <label class="form-check-label" for="formRadiosRightd46">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1865,16 +1869,16 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="YES (VE Unfaverable)" id="formRadiosRightd16">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="Yes (VE unfavorable)" id="formRadiosRightd16">
                                         <label class="form-check-label" for="formRadiosRightd16">
-                                        YES (VE Unfaverable)
+                                        Yes (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="NO" id="formRadiosRightd17">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="No" id="formRadiosRightd17">
                                         <label class="form-check-label" for="formRadiosRightd17">
                                         No
                                         </label>
@@ -1889,18 +1893,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTTesticularMass][]" value="YES (VE contraindicated)" id="formRadiosRightd18">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTTesticularMass][]" value="Yes (VE contraindicated)" id="formRadiosRightd18">
                                         <label class="form-check-label" for="formRadiosRightd18">
-                                        YES (VE contraindicated)
+                                        Yes (VE contraindicated)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTTesticularMass][]" value="NO" id="formRadiosRightd19">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTTesticularMass][]" value="No" id="formRadiosRightd19">
                                         <label class="form-check-label" for="formRadiosRightd19">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1913,18 +1917,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="YES (VE Unfaverable)" id="formRadiosRightd20">
+                                        <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="Yes (VE unfavorable)" id="formRadiosRightd20">
                                         <label class="form-check-label" for="formRadiosRightd20">
-                                        YES (VE Unfaverable)
+                                        Yes (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="NO" id="formRadiosRightd21">
+                                        <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="No" id="formRadiosRightd21">
                                         <label class="form-check-label" for="formRadiosRightd21">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1937,18 +1941,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="YES (VE Unfaverable)" id="formRadiosRightd22">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="Yes (VE unfavorable)" id="formRadiosRightd22">
                                         <label class="form-check-label" for="formRadiosRightd22">
-                                        YES (VE Unfaverable)
+                                        Yes (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="NO" id="formRadiosRightd23">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="No" id="formRadiosRightd23">
                                         <label class="form-check-label" for="formRadiosRightd23">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1961,18 +1965,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="YES (VE Unfaverable)" id="formRadiosRightd24">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="Yes (VE unfavorable)" id="formRadiosRightd24">
                                         <label class="form-check-label" for="formRadiosRightd24">
-                                        YES (VE Unfaverable)
+                                        Yes (VE unfavorable)
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="NO" id="formRadiosRightd25">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="No" id="formRadiosRightd25">
                                         <label class="form-check-label" for="formRadiosRightd25">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -1985,18 +1989,18 @@
                         </div>
                         <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="YES" id="formRadiosRightd47">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="Yes" id="formRadiosRightd47">
                                         <label class="form-check-label" for="formRadiosRightd47">
-                                        YES
+                                        Yes
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="NO" id="formRadiosRightd48">
+                                        <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="No" id="formRadiosRightd48">
                                         <label class="form-check-label" for="formRadiosRightd48">
-                                        NO 
+                                        No 
                                         </label>
                                     </div>
                                 </div>
@@ -2063,9 +2067,11 @@
 
                             <div class="col-lg-12">
                                         
-                                <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                <h6 class="section_title__">Lab 
+                                    {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                     class="order-now_btn order-now_btn_alt">Order Now <i
-                                        class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                    </h6>
                               </div>
                                 <div class="col-lg-12">
                                   <div class="title_head">
@@ -2084,10 +2090,19 @@
                                               <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                               <option value="low">(0.01 - 0.39 mIU/L)</option>
                                               <option value="high">(> 5.49 mIU/L)</option>
-                                              </select>
-                                              <div class="result result_value">
-                                                  <!-- Display low, high, and normal values here -->
-                                              </div>
+                                              <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[Prolactin][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[Prolactin][other]" />
                                           </div>
                                       </div>
                                       </div>
@@ -2104,10 +2119,19 @@
                                               <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                               <option value="low">(0.01 - 0.39 mIU/L)</option>
                                               <option value="high">(> 5.49 mIU/L)</option>
-                                              </select>
-                                              <div class="result result_value">
-                                                  <!-- Display low, high, and normal values here -->
-                                              </div>
+                                              <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[TSH][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[TSH][other]" />
                                           </div>
                                       </div>
                                       </div>
@@ -2124,10 +2148,19 @@
                                                <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                <option value="high">(> 5.49 mIU/L)</option>
-                                               </select>
-                                               <div class="result result_value">
-                                                   <!-- Display low, high, and normal values here -->
-                                               </div>
+                                               <option value="other" >Other</option>
+                                            </select>
+                                            <div class="result result_value">
+                                                <!-- Display low, high, and normal values here -->
+                                            </div>
+
+                                          <select  hidden class="tshRangeOther form-select" name="Lab[FSH][otherLevel]">
+                                              <option value="low">Low</option>
+                                              <option value="normal">Normal</option>
+                                              <option value="high">High</option>
+                                          </select>
+                                      
+                                          <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[FSH][other]" />
                                            </div>
                                        </div>
                                        </div>
@@ -2144,10 +2177,19 @@
                                                    <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                    <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                    <option value="high">(> 5.49 mIU/L)</option>
-                                                   </select>
-                                                   <div class="result result_value">
-                                                       <!-- Display low, high, and normal values here -->
-                                                   </div>
+                                                   <option value="other" >Other</option>
+                                                </select>
+                                                <div class="result result_value">
+                                                    <!-- Display low, high, and normal values here -->
+                                                </div>
+
+                                              <select  hidden class="tshRangeOther form-select" name="Lab[LH][otherLevel]">
+                                                  <option value="low">Low</option>
+                                                  <option value="normal">Normal</option>
+                                                  <option value="high">High</option>
+                                              </select>
+                                          
+                                              <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[LH][other]" />
                                                </div>
                                            </div>
                                            </div>
@@ -2164,10 +2206,19 @@
                                                        <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                        <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                        <option value="high">(> 5.49 mIU/L)</option>
-                                                       </select>
-                                                       <div class="result result_value">
-                                                           <!-- Display low, high, and normal values here -->
-                                                       </div>
+                                                       <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[Testosterone][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[Testosterone][other]" />
                                                    </div>
                                                </div>
                                                </div>
@@ -2184,10 +2235,19 @@
                                                            <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                            <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                            <option value="high">(> 5.49 mIU/L)</option>
-                                                           </select>
-                                                           <div class="result result_value">
-                                                               <!-- Display low, high, and normal values here -->
-                                                           </div>
+                                                           <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[EstrodiolD2][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[EstrodiolD2][other]" />
                                                        </div>
                                                    </div>
                                                    </div>
@@ -2433,12 +2493,26 @@
                                 </div>
                                
                             </div>
+                            <div class="col-lg-12 mb-4">
+                                <div class="title_head">
+                                    <h4>Others</h4>
+                                </div>
+                                <div class="otherLabRow">
+                                    
+                                </div>
+                                <div class="add_more_btn">
+                                    <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                </div>
+                                
+                            </div>
                         </div>
                         
                        
                      
                         <div class="col-lg-12  mb-2">
-                            <h6 class="section_title__">Special Investigation <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn ">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">Special Investigation 
+                                {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn ">Reffer <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                            </h6>
                             <div class="title_head">
                                   <h4>REQDNAFRAGTEST320</h4>
                               </div>
@@ -2488,7 +2562,9 @@
                        
 
                         <div class="col-lg-12">
-                            <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Medical Record <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">MDT 
+                                {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Medical Record <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                            </h6>
                           </div>
                           <div class="col-lg-12">
                             <div class="title_head">
@@ -2524,7 +2600,7 @@
                                         </div>
                                         <div  id="textarea_85">
                                         <div class="form-check form-check-right mb-3">
-                                          <textarea class="form-control" placeholder="Enter Elaborate Medical / conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
+                                          <textarea class="form-control" placeholder="Enter Elaborate Medical / Conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
                                         </div>
                                     </div>
                                     </div>
@@ -2562,9 +2638,11 @@
                             </div>
 
                         <div class="col-lg-12">
-                            <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                            <h6 class="section_title__">Eligibility STATUS 
+                                {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                     class="order-now_btn order-now_btn_alt">Medical Record <i
-                                        class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                        class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                    </h6>
                         </div>
                         <div class="col-lg-12">
                             <div class="title_head">
@@ -2629,9 +2707,10 @@
                                 </div>
                             </div>
                         <div class="col-lg-12 mb-3">
-                            <h6 class="section_title__">Intervention PROCEDURE / Rx <a
-                                    target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Order Now <i
-                                        class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn order-now_btn_alt">Order Now <i
+                                        class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                    </h6>
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
@@ -2659,7 +2738,7 @@
                                             </label>    
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-3" id="InterventionSample">
                                     <div class="form-check form-check-right mb-3">
                                         <input class="form-check-input"type="checkbox" name="InterventionProcedure[IVSEDATION270][]" value="IVSEDATION270" id="formRadiosRightb40">
                                             <label class="form-check-label" for="formRadiosRightb40">
@@ -2668,14 +2747,41 @@
                                     </div>
                                 </div>
                                 
-                                <!-- <div class="col-lg-3">
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input"type="checkbox" name="InterventionProcedure[][]" value="" id="formRadiosRightd34">
-                                            <label class="form-check-label" for="formRadiosRightd34">
-                                            LABPREIRSAFETY17
-                                            </label>    
+                                <div class="col-lg-12">
+                                    <div id="dynamic_Intervention_checkbox_container" class="row">
+
                                     </div>
-                                </div> -->
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-check form-check-right mb-3">
+                                        <input class="form-check-input"type="checkbox"
+                                            name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                                        <label class="form-check-label" for="formRadiosRightbf1inter">
+                                            + Add More
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12" id="textarea_a852inter">
+                                    <div class="row addmore_diag">
+                                        <div class="col-lg-10">
+                                            <div class="inner_element">
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"
+                                                        id="InterventionValue" placeholder="Type  here.....">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                                        class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
                               
                             </div>
                         </div>
@@ -2686,9 +2792,11 @@
                         
 
                         <div class="col-lg-12 mb-3">
-                            <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                            <h6 class="section_title__">Supportive 
+                                {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                     class="order-now_btn order-now_btn_alt">Medical Record <i
-                                        class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                    </h6>
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
@@ -2771,7 +2879,9 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">Referral 
+                                {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                            </h6>
                           <div class="title_head">
                                 <h4>HCREFFERAL</h4>
                             </div>
@@ -2872,7 +2982,7 @@
                 </div>
                 <div class="action_btns">
             
-            <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE DRAFT</button>
+            {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE DRAFT</button> --}}
             <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE FINAL</button>
           </div>
             </div>
@@ -3047,6 +3157,18 @@
         $("#formRadiosRight87").click(function() {
             $("#textarea_87").toggle();
         });
+
+
+        $("#textarea_a852inter").hide();
+        $("#textarea_a789inter").hide();
+
+        $("#formRadiosRightbf1inter").click(function() {
+            $("#textarea_a852inter").toggle();
+        });
+
+        $("#formRadiosRightbf7inter").click(function() {
+            $("#textarea_a789inter").toggle();
+        });
     })
 </script>
 
@@ -3165,7 +3287,26 @@
         });
 
 
-       
+        $('.InterventionAddMore').click(function(e){
+            e.preventDefault();
+
+            var diagnosisText = $('#InterventionValue').val();
+            var key = diagnosisText.replace(/\s+/g, '_');
+
+            if (diagnosisText.trim() !== '') {
+                var clonedDiv = $('#InterventionSample').clone(true);
+
+                clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                    'Intervention[' + key + '][]').attr('value', diagnosisText);
+                clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                    diagnosisText);
+
+
+                $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                $('#InterventionValue').val('');
+            }
+        })
       
 
         // Supportive
@@ -3226,6 +3367,17 @@
     });
 </script>
 <script>
+
+        function addOtherLab(){
+            $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                        <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                    </div></div>`);
+        }
+
+
     $(document).ready(function() {
         $('.tshRange').select2({
             minimumResultsForSearch: -1
@@ -3238,6 +3390,16 @@
             var tshRange = $(select).val();
             var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+
+            if($(select).val() == 'other'){
+                $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+            } else {
+                $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+            }
             // Remove previous class to reset background color
             resultDiv.removeClass('low high normal');
 
@@ -3304,7 +3466,7 @@
         
         function validateForm() {
 
-            // focal headache start  
+            // Focal headache start  
             var isChecked_sym_a1 = $("#sym_a1").is(":checked");
            
             var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
@@ -3335,10 +3497,10 @@
 
 
         }
-// focal headache end  
+// Focal headache end  
 
 
-// numbness/ pain to neck or shoulder or arm start
+// Numbness/ pain to neck or shoulder or arm start
 var isChecked_sym_a2 = $("#sym_a2").is(":checked");
            
            var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
@@ -3369,11 +3531,11 @@ var isChecked_sym_a2 = $("#sym_a2").is(":checked");
 
 
        }
-// numbness/ pain to neck or shoulder or arm end 
+// Numbness/ pain to neck or shoulder or arm end 
 
 
 
-// associated with nausea or vomiting start
+// Associated with nausea or vomiting start
 var isChecked_sym_a3 = $("#sym_a3").is(":checked");
            
            var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
@@ -3404,10 +3566,10 @@ var isChecked_sym_a3 = $("#sym_a3").is(":checked");
 
 
        }
-// associated with nausea or vomiting end 
+// Associated with nausea or vomiting end 
 
 
-//  associated with vertigo or drawziness start
+//  Associated with vertigo and drowsiness start
 var isChecked_sym_a4 = $("#sym_a4").is(":checked");
            
            var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
@@ -3438,11 +3600,11 @@ var isChecked_sym_a4 = $("#sym_a4").is(":checked");
 
 
        }
-//  associated with vertigo or drawziness end 
+//  Associated with vertigo and drowsiness end 
 
 
 
-//  associated with blurring / visual disturbances start
+//  Associated with blurring / visual disturbances start
 var isChecked_sym_a5 = $("#sym_a5").is(":checked");
            
            var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
@@ -3473,7 +3635,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
 
 
        }
-//  associated with blurring / visual disturbances end 
+//  Associated with blurring / visual disturbances end 
 
 
 
@@ -3690,7 +3852,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
 // Start Image
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
 
@@ -3702,7 +3864,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     let lastLine;
 
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/varicose.jpg') }}';
+    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/varicose-viens.jpg') }}';
 
     imageObj.onload = function() {
         const image = new Konva.Image({
@@ -3735,9 +3897,12 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
+                        width:500,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
                     })
                 );
 
@@ -3793,59 +3958,75 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
         link.click();
     });
 
+    function isFormDataValid(formData) {
+        for (let [key, value] of formData.entries()) {
+            if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                if (value.trim() !== '') {
+                    return true; // A blank value found
+                }
+            }
+        }
+        return false; // All values are non-blank
+    }
+
 
         
         $("#storeVaricoceleEmboEligibilityForms").submit(function(event) {
 
-            const dataURL = stage.toDataURL({
-                        mimeType: 'image/png'
-                    });
-
-                document.getElementById('canvasImage').value = dataURL;
-            
+            const dataURL = stage.toDataURL({mimeType: 'image/png'});
+            document.getElementById('canvasImage').value = dataURL;
             
             event.preventDefault();
+
             let formData = new FormData(this);
-            if (!validateForm()) {
-                e.preventDefault(); 
-            } 
-            else {
-                if(validateForm()){
+            if(isFormDataValid(formData)){
+                if (!validateForm()) {
+                    e.preventDefault(); 
+                }
+                else {
+                    if(validateForm()){
 
-                
-                
-                $.ajax({
-                                url: '{{ route("user.storeVaricoceleEmboEligibilityForms") }}',
-                                type: 'POST',
-                                data: formData,
-                                processData: false,
-                                contentType: false,
-                                success: function(response) {
-                                    
-                                    var patientId = response.patient_id;
-                                    if(response!=''){
+                    
+                    
+                            $.ajax({
+                                    url: '{{ route("user.storeVaricoceleEmboEligibilityForms") }}',
+                                    type: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function(response) {
+                                        
+                                        var patientId = response.patient_id;
+                                        if(response!=''){
 
-                                        Swal.fire({
-                                                    title: '', // Empty title
-                                                    text: 'Varicocele Embo form saved successfully!', // Success message
-                                                    icon: 'success',
-                                                    showConfirmButton: false, // Hide the default "OK" button
-                                                    timer: 2000 // Display the message for 2 seconds
-                                                }).then(function() {
-                                              var redirectUrl = "{{ route('user.viewVaricoceleEmboEligibilityForms', ['id' => ':id']) }}";
-                                            redirectUrl = redirectUrl.replace(':id', patientId);
-                                            window.location.href = redirectUrl;
-                                            });
-                                              
-                                        }
-                                }
-                             
+                                            Swal.fire({
+                                                        title: '', // Empty title
+                                                        text: 'Varicocele Embo form saved successfully!', // Success message
+                                                        icon: 'success',
+                                                        showConfirmButton: false, // Hide the default "OK" button
+                                                        timer: 2000 // Display the message for 2 seconds
+                                                    }).then(function() {
+                                                var redirectUrl = "{{ route('user.viewVaricoceleEmboEligibilityForms', ['id' => ':id']) }}";
+                                                redirectUrl = redirectUrl.replace(':id', patientId);
+                                                window.location.href = redirectUrl;
+                                                });
+                                                
+                                            }
+                                    }
                                 
-                            });
-              
+                                    
+                                });
                 
+                    
+                    }
+                }
+            }else{
+                Swal.fire({
+                    title: "Fill Data?",
+                    text: "Please fill the details.",
+                    icon: "info",
+                });
             }
-        }
         });
     });
 </script>

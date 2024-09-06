@@ -35,7 +35,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Name <span class="clr"> * </span></label>
-                                            <input type="text" name="name" value="{{ $userDetail->name }}" class="form-control" placeholder="">
+                                            <input type="text" name="name" value="{{ $userDetail->name??'' }}" class="form-control" placeholder="">
 
 
                                         </div>

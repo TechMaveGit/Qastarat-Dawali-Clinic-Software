@@ -171,7 +171,10 @@
 </head>
 
 
-
+@php
+    
+    $countryCode = DB::table('dial_codes')->where('status', '1')->get();
+@endphp
 
 
 
@@ -676,7 +679,7 @@
 
                                         <div class="data_pt">
 
-                                            <h6 id="data_pt_mobile">{{ @$patient->mobile_no }}</h6>
+                                            <h6 id="data_pt_mobile">{{ @$patient->dial_code??'+968' }} {{ @$patient->mobile_no }}</h6>
 
                                         </div>
 
@@ -1360,7 +1363,7 @@
 
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
 
                                         <div class="mb-3 form-group">
 
@@ -1375,8 +1378,32 @@
                                         </div>
 
                                     </div>
+                                    <div class="col-lg-6">
 
-                                    <div class="col-lg-4">
+                                        <div class="mb-3 form-group">
+
+                                            <label for="validationCustom01" class="form-label">Password</label>
+
+                                            <input type="password" class="form-control" id=""
+                                                placeholder="password" name="password">
+                                            <span id="passwordError" style="color: red;font-size:smaller"></span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3 form-group">
+                                            <label for="dialCode" class="form-label">Dial Code</label>
+                                            <select name="dial_code" class="form-select form-control" id="dialCode">
+                                                <option  value="+968">+968</option>
+                                                <option  value="+973">+973</option>
+                                                <option value="+966">+966</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
 
                                         <div class="mb-3 form-group">
 
@@ -1393,18 +1420,7 @@
                                     </div>
 
 
-                                    <div class="col-lg-4">
-
-                                        <div class="mb-3 form-group">
-
-                                            <label for="validationCustom01" class="form-label">Paswword</label>
-
-                                            <input type="password" class="form-control" id=""
-                                                placeholder="password" name="password">
-                                            <span id="passwordError" style="color: red;font-size:smaller"></span>
-                                        </div>
-
-                                    </div>
+                                    
 
                                 </div>
 
@@ -1628,7 +1644,6 @@
                                                     <div class="input-group" id="datepicker3">
 
                                                         <input type="text" class="form-control"
-                                                            placeholder="dd M, yyyy" data-date-format="dd M, yyyy"
                                                             data-date-container='#datepicker3'
                                                             data-provide="datepicker" name="patient_birth"
                                                             id="patient_birth">
@@ -1811,6 +1826,21 @@
 
                                         </div>
 
+                                    </div>
+
+
+                                    <div class="col-lg-4">
+                                        <div class="mb-3 form-group">
+                                            <label for="patient_dialCode" class="form-label">Dial Code</label>
+
+                                            <select id="patient_dialCode" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                                @foreach ($countryCode as $countryCodes)
+                                                    <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                                        {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="col-lg-4">
@@ -4025,7 +4055,7 @@
     </div>
 
 
-
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
 
                   Patient Refer
@@ -4314,7 +4344,7 @@
         </div>
 
     </div>
-
+@endif
 
 
     <!----------------------------
@@ -4431,7 +4461,7 @@
                 Add New Notes
 
             ---------------------------->
-
+            @if($isEditAllowed)
     <div class="modal fade edit_patient__" id="add_new_note" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
 
@@ -4953,6 +4983,7 @@
         </div>
 
     </div>
+    @endif
 
 
 
@@ -6512,12 +6543,13 @@
 
                                     <div class="col-lg-12 text-end">
 
-                                        <a href="#" class="diseases_name add_diseases_btn">+ Add More</a>
+                                        
                                         <span><a href="#" id="remove_disease"><i
                                                     class="fa-regular fa-trash-can"></i></a></span>
                                     </div>
 
                                 </div>
+                                <a href="#" class="diseases_name add_diseases_btn">+ Add More</a>
 
 
 
@@ -8384,7 +8416,7 @@
 
 
 
-
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!---- prescription_day model ---->
 
     <div class="modal fade edit_patient__" id="prescription_day" tabindex="-1"
@@ -8444,6 +8476,7 @@
             </div>
         </div>
     </div>
+    @endif
 
 
     <!------Order Special Invistigation model ---->
@@ -9866,7 +9899,7 @@
         imageObj.onload = function() {
             const image = new Konva.Image({
                 image: imageObj,
-                width: 500,
+                width: 800,
                 height: 600,
             });
 
@@ -9893,10 +9926,13 @@
                     annotation.add(
                         new Konva.Text({
                             text: text,
-                            fontSize: 18,
-                            fontStyle: 'bold',
-                            fontFamily: 'Arial',
-                            fill: '#000',
+                        fontSize: 18,
+                        width:500,
+                        fontStyle: 'bold',
+                        fontFamily: 'Arial',
+                        fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
                         })
                     );
 
@@ -9956,7 +9992,7 @@
         $(document).ready(function() {
             //  
             $('#edit_patient').on('hidden.bs.modal', function(e) {
-                location.reload();
+                // location.reload();
             });
         });
     </script>
@@ -9967,6 +10003,7 @@
             $('#edit_patient_info_form').submit(function(e) {
 
                 e.preventDefault();
+                // alert("aasdasd");
 
                 let isValid = validateFormPatientInfoEdit();
                 let formData = new FormData(this);
@@ -10178,6 +10215,7 @@
                             .patient_profile_img : '';
                         let role = data.patient_info.role ? data.patient_info.role : '';
                         let post_code = data.patient_info.post_code ? data.patient_info.post_code : '';
+                        let dial_code = data.patient_info.dial_code ? data.patient_info.dial_code : '';
                         let mobile_no = data.patient_info.mobile_no ? data.patient_info.mobile_no : '';
                         let birth_date = data.patient_info.birth_date ? data.patient_info.birth_date : '';
                         let selectedGendar = data.patient_info.gendar ? data.patient_info.gendar : '';
@@ -10220,6 +10258,7 @@
                         $('#patient_country').val(selectedCountry).trigger('change.select2');
                         $("#patient_email").val(email);
                         $("#patient_mobile_no").val(mobile_no);
+                        $("#patient_dialCode").val(dial_code);
                         $("#patient_landline").val(landline);
                         $("#patient_kin").val(kin);
                         $("#patient_policy_no").val(policy_no);
@@ -10248,7 +10287,7 @@
                         $("#data_pt_dob").text(birth_date);
                         $("#data_pt_gendar").text(selectedGendar);
 
-                        $("#data_pt_mobile").text(mobile_no);
+                        $("#data_pt_mobile").text(dial_code+' '+mobile_no);
                         $("#data_pt_landline").text(landline);
                         $("#data_pt_street").text(street);
                         $("#data_pt_town").text(town);

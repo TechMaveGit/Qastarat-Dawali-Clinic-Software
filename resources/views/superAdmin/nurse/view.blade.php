@@ -20,13 +20,12 @@
             <div class="content-header">
                 <div class="d-flex">
                     <h4 class="page-title">Staff Details</h4>
-                    <!-- <nav aria-label="breadcrumb">
-                                                                                                <ol class="breadcrumb">
-                                                                                                    <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Staff</a></li>
-                                                                                                    <li class="breadcrumb-item active" aria-current="page">Staff Details</li>
-                                                                                                </ol>
-                                                                                            </nav> -->
-                </div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('nurses.index') }}">All Staff</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Staff Details</li>
+                        </ol>
+                    </nav>
 
             </div>
             <section class="content">
@@ -45,7 +44,7 @@
                                         <div class="circle">
 
                                             @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
-                                                <img src="{{ asset('//assets/nurse_profile/' . '/' . $doctor->patient_profile_img) }}"
+                                                <img src="{{ asset('/assets/nurse_profile/' . '/' . $doctor->patient_profile_img) }}"
                                                     alt="">
                                             @else
                                                 <img class="profile-pic"
@@ -96,6 +95,14 @@
                                                     </div>
                                                     <div class="detail_ans">
                                                         <h6>{{ $doctor->email }}</h6>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="detail_title">
+                                                        <h6>Mobile No </h6>
+                                                    </div>
+                                                    <div class="detail_ans">
+                                                        <h6>{{ $doctor->dial_code }} {{ $doctor->mobile_no }}</h6>
                                                     </div>
                                                 </li>
 
@@ -149,9 +156,9 @@
 
                                                     <div class="detail_ans imageSize">
                                                         @if ($doctor->patient_profile_img)
-                                                            <a href="{{ asset('//assets/nurse_profile') }}/{{ $doctor->patient_profile_img }}"
+                                                            <a href="{{ asset('/assets/nurse_profile') }}/{{ $doctor->patient_profile_img }}"
                                                                 target="_blank">
-                                                                <img src="{{ asset('//assets/nurse_profile') }}/{{ $doctor->patient_profile_img }}"
+                                                                <img src="{{ asset('/assets/nurse_profile') }}/{{ $doctor->patient_profile_img }}"
                                                                     alt="Profile Image" style="max-width: 50%;" />
                                                             </a>
                                                         @endif
@@ -241,7 +248,7 @@
                                             <div class="d-flex align-items-center mb-10">
 
                                                 <div class="d-flex flex-column flex-grow-1 fw-500">
-                                                    <p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name }}
+                                                    <p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name??'' }}
                                                     </p>
                                                     @php
 

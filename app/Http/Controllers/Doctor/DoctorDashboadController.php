@@ -14,14 +14,14 @@ class DoctorDashboadController extends Controller
 
         $id = auth('doctor')->user()->id;
       
-        $labtasks= DB::table('tasks')->whereNotNull('labDocument')->where('doctor_id',$id)->count();
+        $labtasks= DB::table('tasks')->where('test_type','!=','other')->whereNotNull('labDocument')->where('doctor_id',$id)->count();
         
-        $payAmount= DB::table('tasks')->where('paymentMethod','Cash')->where('doctor_id',$id)->count();
+        $payAmount= DB::table('tasks')->where('test_type','!=','other')->where('paymentMethod','Cash')->where('doctor_id',$id)->count();
 
-        $unpayAmount= DB::table('tasks')->where('toInvoiceStatus','1')->where('doctor_id',$id)->where('paidStatus','0')->count();
+        $unpayAmount= DB::table('invoices')->where('doctor_id',$id)->where('paidStatus','0')->count();
 
     
-        $paid= DB::table('tasks')->where('paidstatus','1')->where('doctor_id',$id)->count();
+        $paid= DB::table('invoices')->where('paidstatus','1')->where('doctor_id',$id)->count();
 
         $imagingCount= DB::table('tasks')->where('test_type','radiology')->where('doctor_id',$id)->count();
 
@@ -33,9 +33,7 @@ class DoctorDashboadController extends Controller
 
         $currentYear  = date('Y');  
 
-        $count = DB::table('tasks')
-                                 ->where('toInvoiceStatus','1')
-                                ->whereMonth('created_at', '=', $currentMonth)
+        $count = DB::table('invoices')->whereMonth('created_at', '=', $currentMonth)
                                 ->whereYear('created_at', '=', $currentYear)
                                 ->where('doctor_id',$id)
                                 ->count();
@@ -48,7 +46,7 @@ class DoctorDashboadController extends Controller
          
          for ($i = 1; $i <= 12; $i++)
           {
-              $doctorRes[]  = DB::table('tasks')->whereIn('doctor_id',$doctorUserAmount)->where('paidStatus','1')->whereYear('created_at', $year)->whereMonth('created_at', $i)->sum('finalAmount');  
+              $doctorRes[]  = DB::table('invoices')->whereIn('doctor_id',$doctorUserAmount)->where('paidStatus','1')->whereYear('created_at', $year)->whereMonth('created_at', $i)->sum('finalAmount');  
           }
 
 

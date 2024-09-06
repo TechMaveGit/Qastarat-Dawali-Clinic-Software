@@ -92,10 +92,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Dysmenprrhea][]" id="formRadiosRight5"
-                                                value="Dysmenprrhea">
+                                                name="diagnosis_general[Dysmenorrhea][]" id="formRadiosRight5"
+                                                value="Dysmenorrhea">
                                             <label class="form-check-label" for="formRadiosRight5">
-                                                Dysmenprrhea
+                                                Dysmenorrhea
                                             </label>
                                         </div>
                                     </div>
@@ -123,9 +123,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[EndomertialCA][]" id="formRadiosRight6"
-                                                value="Endomertial CA">
+                                                value="Endometrial CA">
                                             <label class="form-check-label" for="formRadiosRight6">
-                                                Endomertial CA
+                                                Endometrial CA
                                             </label>
                                         </div>
                                     </div>
@@ -193,9 +193,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox" name="diagnosis_cid[D251][]"
-                                                id="formRadiosRight9" value="D25.1 Intramural leiomvoma of uterus">
+                                                id="formRadiosRight9" value="D25.1 Intramural leiomyoma of uterus">
                                             <label class="form-check-label" for="formRadiosRight9">
-                                                D25.1 Intramural leiomvoma of uterus
+                                                D25.1 Intramural leiomyoma of uterus
                                             </label>
                                         </div>
                                     </div>
@@ -1455,17 +1455,17 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 </tr>
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(8-19 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(20-35 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -1488,9 +1488,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Vaginal][]" id="formRadiosRight42"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1514,9 +1514,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Uterine][]" id="formRadiosRight44"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1542,7 +1542,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                         name="clinical_indicator[Painfulintercorse][]" id="formRadiosRight46"
                                                         value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1568,7 +1568,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                         name="clinical_indicator[Recurrentabortion][]" id="formRadiosRight46"
                                                         value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1594,7 +1594,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                         name="clinical_indicator[injections][]" id="formRadiosRight46"
                                                         value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1613,9 +1613,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1683,7 +1685,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
                                     
                         <div class="col-lg-12">
-                            <h6 class="section_title__">Imaging <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">Imaging 
+                                {{-- <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                            </h6>
                           </div>
                           
                           <div class="col-lg-12">
@@ -1772,9 +1776,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70PID][]" value="YES" id="formRadiosRightd14">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70PID][]" value="Yes" id="formRadiosRightd14">
                                           <label class="form-check-label" for="formRadiosRightd14">
-                                          YES 
+                                          Yes 
                                           
                                           </label>
                                       </div>
@@ -1782,9 +1786,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70PID][]" value="NO" id="formRadiosRightd15">
+                                          <input class="form-check-input"type="radio" name="Imaging[USGENERAL70PID][]" value="No" id="formRadiosRightd15">
                                           <label class="form-check-label" for="formRadiosRightd15">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1829,9 +1833,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48Ovaries][]" value="YES" id="formRadiosRightd18">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48Ovaries][]" value="Yes" id="formRadiosRightd18">
                                           <label class="form-check-label" for="formRadiosRightd18">
-                                          YES 
+                                          Yes 
                                           
                                           </label>
                                       </div>
@@ -1839,9 +1843,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48Ovaries][]" value="NO" id="formRadiosRightd19">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48Ovaries][]" value="No" id="formRadiosRightd19">
                                           <label class="form-check-label" for="formRadiosRightd19">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1850,22 +1854,22 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                           <div class="col-lg-12">
                               <div class="row">
                               <div class="col-lg-4">
-                            <h6 class="mb-3 lut_title">Adnexal Mass / Complex Cyst</h6>
+                            <h6 class="mb-3 lut_title">Adnexal Mass / Complex cystic</h6>
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OAdnexalMass][]" value="YES" id="formRadiosRightd20">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OAdnexalMass][]" value="Yes" id="formRadiosRightd20">
                                           <label class="form-check-label" for="formRadiosRightd20">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OAdnexalMass][]" value="NO" id="formRadiosRightd21">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OAdnexalMass][]" value="No" id="formRadiosRightd21">
                                           <label class="form-check-label" for="formRadiosRightd21">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1878,18 +1882,18 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OFreeFluid][]" value="YES" id="formRadiosRightd22">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OFreeFluid][]" value="Yes" id="formRadiosRightd22">
                                           <label class="form-check-label" for="formRadiosRightd22">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OFreeFluid][]" value="NO" id="formRadiosRightd23">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OFreeFluid][]" value="No" id="formRadiosRightd23">
                                           <label class="form-check-label" for="formRadiosRightd23">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1902,18 +1906,18 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                           </div>
                           <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OPID][]" value="YES" id="formRadiosRightd24">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OPID][]" value="Yes" id="formRadiosRightd24">
                                           <label class="form-check-label" for="formRadiosRightd24">
-                                          YES 
+                                          Yes 
                                           </label>
                                       </div>
                                   </div>
   
                                   <div class="col-lg-4">
                                       <div class="form-check form-check-right mb-3">
-                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OPID][]" value="NO" id="formRadiosRightd25">
+                                          <input class="form-check-input"type="radio" name="Imaging[MRCIR48OPID][]" value="No" id="formRadiosRightd25">
                                           <label class="form-check-label" for="formRadiosRightd25">
-                                          NO 
+                                          No 
                                           </label>
                                       </div>
                                   </div>
@@ -1950,7 +1954,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Lab <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Lab 
+                                            {{-- <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                         <div class="col-lg-12">
                                           <div class="title_head">
@@ -2086,9 +2092,9 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                           </div>
                                               <div class="col-lg-4">
                                               <div class="form-check form-check-right mb-3">
-                                                  <input class="form-check-input"type="radio" name="Lab[UrinalysisResults][]" value="Abnormal Urinanalysis (UAE unfaverable)" id="formRadiosRight76">
+                                                  <input class="form-check-input"type="radio" name="Lab[UrinalysisResults][]" value="Abnormal Urinanalysis (UAE unfavorable)" id="formRadiosRight76">
                                                   <label class="form-check-label" for="formRadiosRight76">
-                                                  Abnormal Urinanalysis (UAE unfaverable)
+                                                  Abnormal Urinanalysis (UAE unfavorable)
                                                   </label>
                                               </div>
                                           </div>
@@ -2141,9 +2147,23 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                   </div>
                                               </div>
                                           </div>
+                                          <div class="col-lg-12 mb-4">
+                                            <div class="title_head">
+                                                <h4>Others</h4>
+                                            </div>
+                                            <div class="otherLabRow">
+                                                
+                                            </div>
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                            
+                                        </div>
                                       </div>
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                         <div class="title_head">
                                               <h4>REQPAPSMEAR5</h4>
                                           </div>
@@ -2192,9 +2212,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                           </div>
                                           
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a href="javascript:void(0)"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2272,9 +2294,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2350,9 +2374,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                             href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="row">
@@ -2406,7 +2432,7 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3" id="InterventionSample">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="checkbox"
                                                         name="Intervention[LABPREIRBASIC32][]" value="LABPREIRBASIC32"
@@ -2417,7 +2443,41 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                                 </div>
                                             </div>
                                             
-                                            
+                                            <div class="col-lg-12">
+                                                <div id="dynamic_Intervention_checkbox_container" class="row">
+        
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input"type="checkbox"
+                                                        name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                                                    <label class="form-check-label" for="formRadiosRightbf1inter">
+                                                        + Add More
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" id="textarea_a852inter">
+                                                <div class="row addmore_diag">
+                                                    <div class="col-lg-10">
+                                                        <div class="inner_element">
+
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control"
+                                                                    id="InterventionValue" placeholder="Type  here.....">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="add_more_btn">
+                                                            <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                                                    class="fa-solid fa-plus"></i> Add More</a>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
                                            
                                             
                                         </div>
@@ -2429,9 +2489,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="row">
@@ -2501,9 +2563,11 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -2564,8 +2628,8 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                     </div>
 
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
                             FINAL</button>
                     </div>
@@ -2598,6 +2662,19 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                 });
                 $("#formRadiosRighta75").click(function() {
                     $("#abnormal_a76").hide();
+                });
+
+
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
                 });
 
             })
@@ -2721,6 +2798,17 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+
+function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -2728,6 +2816,10 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                 $('.tshRange').on('change', function() {
                     updateValues(this);
                 });
+
+
+
+                
 
                 function updateValues(select) {
                     var tshRange = $(select).val();
@@ -2988,6 +3080,29 @@ Patient | Uterine Embo| QASTARAT & DAWALI CLINICS
                         $('#SpecialInvestigationValue').val('');
                     }
                 });
+
+
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                })
 
                 // Supportive
 
@@ -3426,7 +3541,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
 // Start Image
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
 
@@ -3471,9 +3586,12 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
+                        width:500,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
                     })
                 );
 
@@ -3530,6 +3648,16 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     });
 
 
+    function isFormDataValid(formData) {
+        for (let [key, value] of formData.entries()) {
+            if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                if (value.trim() !== '') {
+                    return true; // A blank value found
+                }
+            }
+        }
+        return false; // All values are non-blank
+    }
 
 
 
@@ -3545,6 +3673,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
             
             event.preventDefault();
             let formData = new FormData(this);
+            if(isFormDataValid(formData)){
             if (!validateForm()) {
                 e.preventDefault(); 
             } 
@@ -3584,7 +3713,14 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
                             });
               
                 
+                }
             }
+        }else{
+            Swal.fire({
+                    title: "Fill Data?",
+                    text: "Please fill the details.",
+                    icon: "info",
+                });
         }
         });
     });

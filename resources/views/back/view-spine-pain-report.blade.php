@@ -214,7 +214,7 @@
 
 
 
-              <a href="#" class="action_btn_tooltip" data-bs-toggle="modal" data-bs-target="#genrate_report">
+              <a href="#" class="action_btn_tooltip" onclick="genrate_report('SpinePain')">
                 <iconify-icon icon="carbon:report" width="22"></iconify-icon>
                 <span class="toolTip">Generate Report</span>
             </a>
@@ -290,18 +290,19 @@
                                 <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                                     alt="">
 
+                                    @if($isEditAllowed)
                                 <div class="insure_btn">
 
                                     <a href="#" class="outline_btn add_insurer" data-bs-toggle="modal"
                                         data-bs-target="#insure_add_edit">Add Insurer</a>
 
                                 </div>
+                                @endif
 
                                 <div class="patient_dt_profile">
 
                                     <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} <a
-                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
-                                                icon="material-symbols:edit"></iconify-icon></a></h5>
+                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><i class="far fa-eye"></i></a></h5>
                                     
 
 
@@ -399,7 +400,7 @@
                                                 <div class="appointments___list past_medical_history_ak">
                                                     <ul class="scroll_list" >
                                                         @if ($checkGenerateData->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
 
                                                             @foreach ($checkGenerateData as $key => $report)
@@ -411,9 +412,11 @@
 
                                                                            <h6>Spine Pain {{ $key + 1 }}  <span class="text-align-right">
 
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <span class="reportDelete" data-id="{{ $report->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span>
+                                                                            @endif
                                                                         </h6>
 
                                                                         <h6>
@@ -451,10 +454,11 @@
                                                 fdprocessedid="fwkd6">
                                                 <div class="top_title_mm_box">
                                                     <h6 class="allergies_hgjo"><span>Allergies</span>
+                                                        @if($isEditAllowed)
                                                             <a href="#" class="allergies_add_klt"
                                                                 data-bs-toggle="modal" data-bs-target="#allergies_add"><i
                                                                     class="fa-solid fa-circle-plus"></i></a>
-
+@endif
                                                     </h6>
                                                 </div>
                                             </button>
@@ -473,14 +477,15 @@
                                                         @endphp
 
                                                         @if ($patient_allergies->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small>.</li> --}}
                                                         @else
                                                             @foreach ($patient_allergies as $patient_allergy)
-                                                                <li>{{ $patient_allergy->allergy_name }}
+                                                                <li>{{ $patient_allergy->allergy_name }}  <small>{{ \Carbon\Carbon::parse($patient_allergy->created_at)->format('D, d M Y') }}</small>
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
                                                                     <span class="alergyDelete" data-id="{{ $patient_allergy->id }}">
                                                                         <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                     </span>
-                                                                
+                                                                @endif
                                                                 
                                                                 </li>
                                                             @endforeach
@@ -542,8 +547,8 @@
                                                    
                                                         <ul id="past_medical_histories" class="allergiesdtl scroll_list allergiesdtl">
                                                             @if ($patient_past_history->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>.
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small>.
+                                                                </li> --}}
                                                             @else
                                                                 @foreach ($patient_past_history as $past_history)
                                                                     <li>
@@ -551,11 +556,11 @@
                                                                         <div class="appoin_title">
 
                                                                             <h6>{{ $past_history->diseases_name }}</h6>
-
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <p><span class="pastMedicalHistoryDelete " data-id="{{ $past_history->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span></p>
-                                                                                
+                                                                                @endif
                                                                              
 
                                                                         </div>
@@ -572,12 +577,12 @@
                                                                         </div>
 
                                                                         
-                                                                            @if (strlen($past_history->describe) >= 50)
+                                                                            {{-- @if (strlen($past_history->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
                                                                         
 
@@ -647,8 +652,8 @@
                                                    
                                                         <ul class="scroll_list allergiesdtl">
                                                             @if ($patient_past_surgical->isEmpty())
-                                                                <li><small style="font-size:10px;">No Data Found</small>.
-                                                                </li>
+                                                                {{-- <li><small style="font-size:10px;">No Data Found</small>.
+                                                                </li> --}}
                                                             @else
                                                                 @foreach ($patient_past_surgical as $past_surgical)
                                                                     <li>
@@ -656,7 +661,7 @@
                                                                         <div class="appoin_title">
 
                                                                             <h6>{{ $past_surgical->diseases_name }}</h6>
-
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <p>
 
                                                                                 <span class="patientPastSurgical" data-id="{{ $past_surgical->id }}">
@@ -664,7 +669,7 @@
                                                                                 </span>
 
                                                                             </p>
-
+                                                                            @endif
                                                                             
 
                                                                         </div>
@@ -678,12 +683,12 @@
                                                                                 </p>
                                                                                 
 
-                                                                            @if (strlen($past_surgical->describe) >= 50)
+                                                                            {{-- @if (strlen($past_surgical->describe) >= 50)
                                                                                 <button
                                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                     onclick="toggleReadMore(this)">Read
                                                                                     More</button>
-                                                                            @endif
+                                                                            @endif --}}
 
 
                                                                         </div>
@@ -745,7 +750,7 @@
 
                                                     <ul class="scroll_list">
                                                         @if ($patient_current_med->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($patient_current_med as $patient_current)
                                                                 <li>
@@ -753,12 +758,13 @@
                                                                     <div class="appoin_title">
 
                                                                         <h6>{{ $patient_current->drug_name }}</h6>
+                                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                                         <p>
                                                                             <span class="patientRemoveDrug" data-id="{{ $patient_current->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span>
                                                                         </p>
-
+                                                                        @endif
                                                                        
 
                                                                     </div>
@@ -815,48 +821,41 @@
                                                 <div class="appointments___list past_medical_history_ak">
                                                     <ul class="scroll_list">
                                                         @if ($procedures->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($procedures as $procedure)
-                                                                <li>
+                                                            <li>
+
+                                                                <div class="appoin_title">
+
+                                                                    <h6>{{ $procedure->procedure_name }}</h6>
+                                                                    @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                    <p>
+                                                                        <span class="patientListOf"
+                                                                            data-id="{{ $procedure->id }}">
+                                                                            <i
+                                                                                class="fa-regular fa-trash-can trash_btn"></i>
+                                                                        </span>
+                                                                    </p>
+                                                                    @endif
+                                                                </div>
+
+
+                                                                <div class="appoin_date">
+
 
                                                                     <div class="appoin_title">
-
-                                                                        <h6>{{ $procedure->procedure_name }}</h6>
+                                                                        <h6> {{ $procedure->summary }}</h6>
 
                                                                         <p>
-                                                                            <span class="patientListOf" data-id="{{ $procedure->id }}">
-                                                                                <i class="fa-regular fa-trash-can trash_btn"></i>
-                                                                            </span>
+
+                                                                            {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
                                                                         </p>
 
                                                                     </div>
+                                                                </div>
 
-
-                                                                    <div class="appoin_date">
-
-
-                                                                        <div class="appoin_title">
-                                                                            <h6> {{ $procedure->summary }}</h6>
-
-                                                                            <p>
-                                                                               
-                                                                            {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
-                                                                            </p>
-
-                                                                    </div>
-
-
-                                                                        @if (strlen($procedure->summary) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
-
-                                                                    </div>
-
-                                                                </li>
+                                                            </li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -890,7 +889,8 @@
                                       @php
                                         $patientId = decrypt($id);
                                         $referaldoctors = DB::table('referal_patients')->where('patient_id',$patientId)->get();
-                                     
+                                        $mainDoctorId= DB::table('users')->where('id',$patientId)->first()->doctor_id;
+                                        $mainDoctor= DB::table('doctors')->where('id',$mainDoctorId)->first();
                                       @endphp
 
 
@@ -901,15 +901,68 @@
                                            
                                             <div class="accordion-body">
 
-                                                <ul class="referrals_list scroll_list">
-                                                  
+                                                <ul class="referrals_list scroll_list" >
+                                                    {{-- @if($mainDoctor)
+                                                    <li style="position: relative;">
+
+                                                        <div class="booking_card_select">
+
+                                                            <label for="cbx1">
+
+                                                                <div class="doctor_dt">
+
+                                                                    <div class="image_dr">
+
+                                                                        @if (isset($mainDoctor->profileImage))
+                                                                            <img src="{{  asset('/assets/profileImage/') . '/' . $mainDoctor->patient_profile_img }}"
+                                                                                alt="">
+                                                                        @else
+                                                                            <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                alt="">
+                                                                        @endif
+
+                                                                    </div>
+
+                                                                    <div class="dr_detail">
+
+                                                                        <h6 class="dr_name">
+                                                                            {{ $mainDoctor->name ?? '' }}
+                                                                            <span>{{ $mainDoctor->title ?? '' }}</span>
+                                                                        </h6>
+
+                                                                        <span class="text-align-right">
+
+                                                                            <p class="dr_email"><a
+                                                                                    href="mailto:{{ $mainDoctor->email ?? '' }}">{{ $mainDoctor->email ?? '' }}</a>
+                                                                            </p>
+
+                                                                            
+                                                                        </span>
+
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </label>
+
+                                                        </div>
+
+                                                       
+
+
+
+                                                    </li>
+                                                    @endif --}}
 
                                                     @forelse ($referaldoctors as $allreferaldoctors)
 
                                                     @php
 
                                                      $doctorDetail = DB::table('doctors')->where('id',$allreferaldoctors->doctor_id)->first();
-                                                    
+                                                     $refferDoctorDetail = DB::table('doctors')
+                                                                    ->where('id', $allreferaldoctors->referal_doctor)
+                                                                    ->first();
                                                     @endphp
                                                     
                                                     <li style="position: relative;">
@@ -924,7 +977,7 @@
 
                                                                         @if (isset($doctorDetail->patient_profile_img))
 
-                                                                        <img src="{{ asset('//assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
+                                                                        <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}" alt="">
 
                                                                         @else
                                                                         <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
@@ -934,7 +987,10 @@
                                                                     </div>
 
                                                                     <div class="dr_detail">
-
+                                                                        <h6 class="dr_name" style="font-size: 12px;"> 
+                                                                            <span>Assigned By :</span> {{ $refferDoctorDetail->name ?? '' }}
+                                                                             <span>{{ $refferDoctorDetail->title ?? '' }}</span>
+                                                                         </h6>
                                                                         <h6 class="dr_name">{{ $doctorDetail->name??'' }}
                                                                             <span>{{ $doctorDetail->title??'' }}</span>
                                                                         </h6>
@@ -946,7 +1002,7 @@
                                                                         </p>
 
                                                                         @php
-                                                                        $documentUrl = asset('/assets/referalDocument/' . $allreferaldoctors->upload_document);
+                                                                        $documentUrl = $allreferaldoctors->upload_document ? asset('/assets/referalDocument/' . $allreferaldoctors->upload_document) : '';
                                                                         @endphp
                                                                         <p onclick="ViewSummary(`{{ $allreferaldoctors->patient_summary}}`,`{{ $documentUrl }}`)"> View Summary</p></span>
 
@@ -959,10 +1015,12 @@
 
                                                         </div>
 
-                                                        @if (!(auth()->guard('doctor')->id()==$allreferaldoctors->doctor_id))
+                                                        @if (isset(auth()->guard('doctor')->user()->user_type) && auth()->guard('doctor')->user()->user_type == 'doctor' && auth()->guard('doctor')->user()->id == $allreferaldoctors->referal_doctor)
+                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                         <span class="removeReferalPatient" data-id="{{ $allreferaldoctors->id }}">
                                                             <i class="fa-regular fa-trash-can trash_btn"></i>
                                                         </span>
+                                                        @endif
                                                         @endif
 
                                                         
@@ -1004,49 +1062,62 @@
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak">
 
-                                                    <ul>
+                                                    <ul style="max-height: 300px !important;overflow-y: auto;">
                                                         @php
                                                             $patient_id = decrypt(@$id);
-                                                            $visit_notes = App\Models\patient\Patient_progress_note::select(
-                                                                'created_at',
-                                                                'voice_recognition',
-                                                            )
-                                                                ->where([
-                                                                    'progress_note_canned_text_id' => 6,
-                                                                    'patient_id' => @$patient_id,
-                                                                ])
-                                                                ->orderBy('id', 'desc')
-                                                                ->get();
+
+                                                            $Patient_appointments = DB::table('book_appointments')->where('patient_id', $patient_id)->orderBy('start_date', 'desc')->get();
                                                         @endphp
-                                                        @if ($visit_notes->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small>.</li>
+                                                        @if ($Patient_appointments->isEmpty())
+                                                            <li><small style="font-size:10px;">No Visit Found</small></li>
                                                         @else
-                                                            @foreach ($visit_notes as $visit)
+                                                            @foreach ($Patient_appointments as $Patient_appointment)
+
+                                                                    @php
+                                                                    $doctorName = DB::table('doctors')
+                                                                        ->where('id', $Patient_appointment->doctor_id)
+                                                                        ->first();
+                                                                @endphp
                                                                 <li>
-                                                                    <div class="appoin_title">
+                                                                    <div class="" >
 
-                                                                        <h6></h6>
+                                                                        <h6 style="font-size: 14px;">{{ $Patient_appointment->appointment_type }}</h6>
 
-                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                        </p>
+                                                                        <p style="font-size: 15px;"> <span
+                                                                            style="color: #082787; font-weight: bold;">{{ $doctorName->title ?? '' }}
+                                                                        </span> {{ $doctorName->name ?? '' }} ({{ $doctorName->email ?? '' }})</p>
+                                                                        @php
+                                                                            $doctorName = DB::table('doctors')
+                                                                                ->where('id', $Patient_appointment->doctor_id)
+                                                                                ->first();
+                                                                        @endphp
 
                                                                     </div>
                                                                     <div class="appoin_date">
 
                                                                         <div class="read-more-content">
 
-                                                                            <p>
+                                                                            @php
+                                                                                $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
+                                                                                $startTime = \Carbon\Carbon::createFromFormat(
+                                                                                    'H:i',
+                                                                                    date('H:i',strtotime($Patient_appointment->start_time)),
+                                                                                );
+                                                                                $startDateTime = $startDate
+                                                                                    ->copy()
+                                                                                    ->setTime($startTime->hour, $startTime->minute);
+                                                                                $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                                                $startDate = $startDateTime->format('l, j F Y');
+                                                                                $startTime = $startDateTime->format('H:i');
 
-                                                                                {!! $visit->voice_recognition !!}
-                                                                            </p>
+                                                                                $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
+                                                                            @endphp
+
+
+                                                                            <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
 
                                                                         </div>
-                                                                        @if (strlen($visit->voice_recognition) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
+                                                                      
 
                                                                     </div>
 
@@ -1089,7 +1160,7 @@
 
                                                     <ul class="allergiesdtl scroll_list">
                                                         @if ($prescriptions->isEmpty())
-                                                            <li><small style="font-size:10px;">No Data Found</small></li>
+                                                            {{-- <li><small style="font-size:10px;">No Data Found</small></li> --}}
                                                         @else
                                                             @foreach ($prescriptions as $prescription)
                                                                 <li>
@@ -1098,13 +1169,13 @@
 
                                                                         <h6>{{ $prescription->prescription }}</h6>
 
-                                                                       
+                                                                        @if(isset($isEditAllowed) && $isEditAllowed)
                                                                          <p>
                                                                             <span class="prescriptionsMedicines" data-id="{{ $prescription->id }}">
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                             </span>
                                                                         </p>
-
+                                                                        @endif
                                                                        
 
                                                                     </div>
@@ -1115,12 +1186,12 @@
 
                                                                         <p>{{ \Carbon\Carbon::parse($prescription->created_at)->format('D, d M Y') }}</p>
 
-                                                                        @if (strlen($prescription->prescription) >= 50)
+                                                                        {{-- @if (strlen($prescription->prescription) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1222,7 +1293,7 @@
                                                             <div class="appoin_title">
                                                                 <h6><span class="point_dia"><i
                                                                             class="fa-regular fa-circle-dot"></i></span>
-                                                                    Provisional / Gernal diagnosis</h6>
+                                                                    Provisional / General Diagnosis</h6>
 
                                                             </div>
 
@@ -1247,27 +1318,29 @@
                                                                                         $diagnosis_general_data_value = json_decode($diagnosis_general->data_value, true);
 
                                                                                     @endphp
-                                                                                    @forelse ($diagnosis_general_data_value as $key => $values)
+                                                                                    @if($diagnosis_general_data_value)
+                                                                                    @foreach ($diagnosis_general_data_value as $key => $values)
                                                                                         @foreach ($values as $value)
                                                                                             {{ $value }}
 
                                                                                             <span
                                                                                                 class="separation">|</span>
                                                                                         @endforeach
-                                                                                    @empty
-                                                                                    @endforelse
+                                                                                    
+                                                                                    @endforeach
+                                                                                    @endif
                                                                                 @endif
                                                                             </p>
 
 
                                                                         </div>
 
-                                                                        @if ($loop->last)
+                                                                        {{-- @if ($loop->last)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
                                                                     @empty
                                                                         <small style="font-size:10px;">No Data
                                                                             Found</small>
@@ -1312,27 +1385,28 @@
                                                                                         $diagnosis_cid_data_value = json_decode($diagnosis_cid->data_value, true);
 
                                                                                     @endphp
-                                                                                    @forelse ($diagnosis_cid_data_value as $key => $values)
+                                                                                    @if($diagnosis_cid_data_value)
+                                                                                    @foreach ($diagnosis_cid_data_value as $key => $values)
                                                                                         @foreach ($values as $value)
                                                                                             {{ $value }}
 
                                                                                             <span
                                                                                                 class="separation">|</span>
                                                                                         @endforeach
-                                                                                    @empty
-                                                                                    @endforelse
+                                                                                    @endforeach
+                                                                                    @endif
                                                                                 @endif
                                                                             </p>
 
 
                                                                         </div>
 
-                                                                        @if ($loop->last)
+                                                                        {{-- @if ($loop->last)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
                                                                     @empty
                                                                         <small style="font-size:10px;">No Data
                                                                             Found</small>
@@ -1449,15 +1523,15 @@
 
                                                                     </div>
 
-                                                                    <button
+                                                                    {{-- <button
                                                                         class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                         onclick="toggleReadMore(this)">Read
-                                                                        More</button>
+                                                                        More</button> --}}
 
                                                                 </div>
                                                             </li>
                                                         @empty
-                                                            <small style="font-size:10px;">No Data Found</small>
+                                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                         @endforelse
 
 
@@ -1553,15 +1627,15 @@
 
                                                                                     @endphp
                                                                                     @if (isset($sum) && ($sum >= 0 && $sum <= 15))
-                                                                                        <p class="ss_result">Mild LUTS
+                                                                                        <p class="ss_result">Mild 
                                                                                             (1-15 pts)</p>
                                                                                         
                                                                                             @elseif  (isset($sum) && ($sum >= 16 && $sum <= 30))
-                                                                                        <p class="ss_result">Moderate LUTS
+                                                                                        <p class="ss_result">Moderate 
                                                                                             (16-30 pts)</p>
                                                                                         
                                                                                             @elseif (isset($sum) && ($sum >= 31 && $sum <= 1009))
-                                                                                        <p class="ss_result">Severe LUTS
+                                                                                        <p class="ss_result">Severe 
                                                                                             (31-50 pts)</p>
                                                                                     @endif
 
@@ -1617,9 +1691,9 @@
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
                                                 </div>
                                                 </li>
 
@@ -1760,13 +1834,13 @@
 
 
                                                                     </div>
-                                                                    <button
+                                                                    {{-- <button
                                                                         class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                                 </div>
                                                             </li>
                                                         @empty
-                                                            <small style="font-size:10px;">No Data Found</small>
+                                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                         @endforelse
                                                     @endif
 
@@ -1879,8 +1953,8 @@
               
                                                                                   @if($Patient_order_lab->labDocument)
                                                                                   <td>
-                                                                                      <a href="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}"
-                                                                                          download="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
+                                                                                      <a href="{{ asset('/assets/')}}/{{ $Patient_order_lab->labDocument }}"
+                                                                                          download="{{ asset('/assets/')}}/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
                                                                                           <i class="fa-solid fa-file-arrow-down"></i>
                                                                                           Download Report
                                                                                       </a>
@@ -1939,7 +2013,7 @@
                                                                             //     print_r($jsonData);
                                                                             //     die;
                                                                         @endphp
-                                                                        <!--USVENOUSDOPPLER70  > Hemarrhoids endorectal US Protocol Findings start -->
+                                                                        <!--USVENOUSDOPPLER70  > Hemorrhoids endorectal US Protocol Findings start -->
                                                                         <div class="ss_result_box">
                                                                             <div class="symp_title mb-3">
                                                                                 <h6><span class="point_dia"><i
@@ -2009,7 +2083,7 @@
                                                                             </div>
 
                                                                             <div class="symp_title mb-3">
-                                                                                <p class="ss_result">Thooracic -
+                                                                                <p class="ss_result">Thoracic -
                                                                                     Inter-costal nerves
                                                                                 <p>
 
@@ -2056,10 +2130,10 @@
 
 
                                                                         </div>
-                                                                        <!--USVENOUSDOPPLER70  > Hemarrhoids endorectal US Protocol Findings end -->
+                                                                        <!--USVENOUSDOPPLER70  > Hemorrhoids endorectal US Protocol Findings end -->
 
 
-                                                                        <!-- MRCIR48 > Hemarrhoids MRI Protocol Findings start -->
+                                                                        <!-- MRCIR48 > Hemorrhoids MRI Protocol Findings start -->
                                                                         <div class="ss_result_box">
                                                                             <div class="symp_title mb-3">
                                                                                 <h6><span class="point_dia"><i
@@ -2081,7 +2155,7 @@
                                                                             @endif
 
                                                                         </div>
-                                                                        <!-- MRCIR48 > Hemarrhoids MRI Protocol Findings end -->
+                                                                        <!-- MRCIR48 > Hemorrhoids MRI Protocol Findings end -->
 
                                                                         <!--CTCIR48 > CTA - Pelvic Protocol - Findings start -->
                                                                         <div class="ss_result_box">
@@ -2120,16 +2194,16 @@
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
                                                             </div>
 
                                                         </li>
 
                                                     @empty
 
-                                                        <small style="font-size:10px;">No Data Found</small>
+                                                        {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                     @endforelse
 
 
@@ -2246,8 +2320,8 @@
                 
                                                                                     @if($Patient_order_lab->labDocument)
                                                                                     <td>
-                                                                                        <a href="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}"
-                                                                                            download="http://localhost/webclinic//assets/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
+                                                                                        <a href="{{ asset('/assets/')}}/{{ $Patient_order_lab->labDocument }}"
+                                                                                            download="{{ asset('/assets/')}}/{{ $Patient_order_lab->labDocument }}" class="download_rp_btn">
                                                                                             <i class="fa-solid fa-file-arrow-down"></i>
                                                                                             Download Report
                                                                                         </a>
@@ -2343,6 +2417,12 @@
                                                                             //     die;
                                                                         @endphp
                                                                         <div class="ss_result_box">
+                                                                            @if(isset($jsonData['CBC'][0]) ||
+                                                                            isset($jsonData['CRP'][0]) ||
+                                                                            isset($jsonData['ESR'][0]) ||
+                                                                            isset($jsonData['CKMP'][0]) ||
+                                                                            isset($jsonData['UricAcid'][0]) ||
+                                                                            isset($jsonData['RF'][0]))
                                                                             <div class="symp_title mb-1">
                                                                                 <h6><span class="point_dia"><i
                                                                                             class="fa-regular fa-circle-dot"></i></span>
@@ -2350,80 +2430,92 @@
                                                                                     Results</h6>
 
                                                                             </div>
+                                                                            @endif
 
+                                                                            @if(isset($jsonData['CBC'][0]))
                                                                             <p class="ss_result"><strong>CBC</strong> -
-
-                                                                                @if (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'normal')
+                                                                                @if ($jsonData['CBC'][0] == 'normal')
                                                                                     (0.4 - 5.49 mIU/L)
-                                                                                    <span>Normal</span>
-                                                                                @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'low')
-                                                                                    (0.01 - 0.39 mIU/L)<span>Low</span>
-                                                                                @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'high')
-                                                                                    (> 5.49 mIU/L)<span>High</span>
+                                                                                    <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                                                @elseif ($jsonData['CBC'][0] == 'low')
+                                                                                    (0.01 - 0.39 mIU/L)<span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                                                @elseif ($jsonData['CBC'][0] == 'high')
+                                                                                    (> 5.49 mIU/L)<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['CBC'][0]) && $jsonData['CBC'][0] == 'other')
+                                                                                    {{$jsonData['CBC']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CBC']['otherLevel']}}</span>
                                                                                 @endif
-
-
                                                                             </p>
+                                                                            @endif
+
+                                                                            @if(isset($jsonData['CRP'][0]))
                                                                             <p class="ss_result"><strong>CRP</strong>
-
-                                                                                @if (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
-                                                                                @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
-                                                                                @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                @if ($jsonData['CRP'][0] == 'normal')
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                                                @elseif ($jsonData['CRP'][0] == 'low')
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                                                @elseif ($jsonData['CRP'][0] == 'high')
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['CRP'][0]) && $jsonData['CRP'][0] == 'other')
+                                                                                    {{$jsonData['CRP']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CRP']['otherLevel']}}</span>
                                                                                 @endif
-
-
                                                                             </p>
+                                                                            @endif
+                                                                            
+                                                                            @if(isset($jsonData['ESR'][0]))
                                                                             <p class="ss_result"><strong>ESR</strong>
-
-                                                                                @if (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
-                                                                                @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
-                                                                                @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                @if ($jsonData['ESR'][0] == 'normal')
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                                                @elseif ($jsonData['ESR'][0] == 'low')
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                                                @elseif ($jsonData['ESR'][0] == 'high')
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['ESR'][0]) && $jsonData['ESR'][0] == 'other')
+                                                                                    {{$jsonData['ESR']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['ESR']['otherLevel']}}</span>
                                                                                 @endif
-
-
                                                                             </p>
+                                                                            @endif
+
+                                                                            @if(isset($jsonData['CKMP'][0]))
                                                                             <p class="ss_result"><strong>CKMP</strong>
-
-                                                                                @if (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
-                                                                                @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
-                                                                                @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                @if ($jsonData['CKMP'][0] == 'normal')
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                                                @elseif ($jsonData['CKMP'][0] == 'low')
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                                                @elseif ($jsonData['CKMP'][0] == 'high')
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['CKMP'][0]) && $jsonData['CKMP'][0] == 'other')
+                                                                                    {{$jsonData['CKMP']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['CKMP']['otherLevel']}}</span>
                                                                                 @endif
-
-
                                                                             </p>
+                                                                            @endif
+
+                                                                            @if(isset($jsonData['UricAcid'][0]))
                                                                             <p class="ss_result"><strong>Uric Acid</strong>
-
-                                                                                @if (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
-                                                                                @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
-                                                                                @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                @if ($jsonData['UricAcid'][0] == 'normal')
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                                                @elseif ($jsonData['UricAcid'][0] == 'low')
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                                                @elseif ($jsonData['UricAcid'][0] == 'high')
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['UricAcid'][0]) && $jsonData['UricAcid'][0] == 'other')
+                                                                                    {{$jsonData['UricAcid']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['UricAcid']['otherLevel']}}</span>
                                                                                 @endif
-
-
                                                                             </p>
+                                                                            @endif
+
+                                                                            @if(isset($jsonData['RF'][0]))
                                                                             <p class="ss_result"><strong>RF</strong>
-
-                                                                                @if (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'normal')
-                                                                                    0.9 to 2.3 ng/dL <span>Normal</span>
-                                                                                @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'low')
-                                                                                    Below 0.9 ng/dL<span>Low</span>
-                                                                                @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'high')
-                                                                                    Above 2.3 ng/dL&nbsp;<span>High</span>
+                                                                                @if ($jsonData['RF'][0] == 'normal')
+                                                                                    0.9 to 2.3 ng/dL <span style="text-transform: capitalize;padding:5px;">Normal</span>
+                                                                                @elseif ($jsonData['RF'][0] == 'low')
+                                                                                    Below 0.9 ng/dL<span style="text-transform: capitalize;padding:5px;">Low</span>
+                                                                                @elseif ($jsonData['RF'][0] == 'high')
+                                                                                    Above 2.3 ng/dL&nbsp;<span style="text-transform: capitalize;padding:5px;">High</span>
+                                                                                @elseif (isset($jsonData['RF'][0]) && $jsonData['RF'][0] == 'other')
+                                                                                    {{$jsonData['RF']['other']??''}} <span style="text-transform: capitalize;padding:5px;">{{$jsonData['RF']['otherLevel']}}</span>
                                                                                 @endif
-
-
                                                                             </p>
+                                                                            @endif
 
 
 
@@ -2433,6 +2525,7 @@
                                                                         </div>
 
                                                                         <!--HCLGIENDOSCOPY000  > LGI Endoscopy Findings start -->
+                                                                        @if(isset($jsonData['USSTBIOPSYMSK452'][0]))
                                                                         <div class="ss_result_box">
                                                                             <div class="symp_title ">
                                                                                 <h6><span class="point_dia"><i
@@ -2454,22 +2547,33 @@
                                                                                 </p>
                                                                             @endif
 
-
-
-
-
-
                                                                         </div>
+                                                                        @endif
+
+                                                                        
                                                                         <!--HCLGIENDOSCOPY000  > LGI Endoscopy Findings end -->
 
                                                                     </div>
-
+                                                                    @if(isset($jsonData['other']))
+                                                                    <!--LABJFA15  > LGI Endoscopy Findings start -->
+                                                                    <div class="ss_result_box">
+                                                                        <div class="symp_title ">
+                                                                            <h6><span class="point_dia"><i
+                                                                                        class="fa-regular fa-circle-dot"></i></span>Others</h6>
+                                                                        </div>
+                                                                        @foreach($jsonData['other'] as $kk=>$value)
+                                                                            <p class="ss_result">
+                                                                               <strong>{{$value??''}} - </strong> {{$jsonData['otherNote'][$kk]??''}}
+                                                                            </p>
+                                                                        @endforeach
+                                                                    </div>
+                                                                    @endif
 
 
                                                                 </div>
-                                                                <button
+                                                                {{-- <button
                                                                     class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                                    onclick="toggleReadMore(this)">Read More</button> --}}
                                                             </div>
                                                         </li>
                                                     @empty
@@ -2601,13 +2705,13 @@
 
 
                                                                     </div>
-                                                                    <button
+                                                                    {{-- <button
                                                                         class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                                 </div>
                                                             </li>
                                                         @empty
-                                                            <small style="font-size:10px;">No Data Found</small>
+                                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                         @endforelse
                                                     @endif
                                                 </ul>
@@ -2657,7 +2761,7 @@
             
                                     <div id="collapseleft18" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample18">
-                                        @if (count($MDTs_db) > 0)
+                                        @if (count($MDTs_db) > 0  || count($document_file)>0)
                                         <div class="accordion-body">
                                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                 <ul class="symptoms allergiesdtl scroll_list">
@@ -2667,13 +2771,13 @@
                                                                 <div class="appoin_date">
                                                                     <div class="read-more-content " style="">
                                                                         <div class="diagnosis_show">
-            
+                                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                                             <div class="Bottom_btn">
                                                                                 <span class="removeMbtReview" data-id="{{ $record->id }}">
                                                                                                    <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                            </span>
                                                                               </div>
-                                                                            
+                                                                            @endif
                                                                             
             
             
@@ -2683,29 +2787,29 @@
                                                                               
                                                                             @endphp  
             
-                                                                            @if (isset($MDT['TTA']) && $MDT['TTA'][0] == 'TTA')
+                                                                            @if (isset($MDT['IRprocedure']) && $MDT['IRprocedure'][0] == 'IR procedure')
                                                                                 <div class="ss_result_box">
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            TTA</h6>
+                                                                                                    IR procedure</h6>
             
                                                                                     </div>
                                                                                     <p class="ss_result">
-                                                                                        {{ $MDT['TTANote'][0] ?? '' }}.
+                                                                                        {{ $MDT['IRprocedureNote'][0] ?? '' }}.
                                                                                     </p>
                                                                                 </div>
                                                                             @endif
-                                                                            @if (isset($MDT['TE']) && $MDT['TE'][0] == 'TE')
+                                                                            @if (isset($MDT['Medical']) && $MDT['Medical'][0] == 'Medical')
                                                                                 <div class="ss_result_box">
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            TE</h6>
+                                                                                                    Medical</h6>
             
                                                                                     </div>
                                                                                     <p class="ss_result">
-                                                                                        {{ $MDT['TENote'][0] ?? '' }}.
+                                                                                        {{ $MDT['MedicalNote'][0] ?? '' }}.
                                                                                     </p>
                                                                                 </div>
                                                                             @endif
@@ -2733,7 +2837,7 @@
                                                                                         {{ $MDT['OtherOptionsNote'][0] ?? '' }}.</p>
                                                                                 </div>
                                                                             @endif
-                                                                            @if (!isset($MDT['OtherOptions']) || !isset($MDT['Surgical']) || !isset($MDT['TE']) || !isset($MDT['TTA']))
+                                                                            @if (!isset($MDT['OtherOptions']) && !isset($MDT['Surgical']) && !isset($MDT['Medical']) && !isset($MDT['IRprocedure']))
                                                                                 <div class="ss_result_box">
                                                                                     @foreach ($MDT as $key => $value)
                                                                                         <div class="symp_title mb-1">
@@ -2750,8 +2854,8 @@
                                                                     </div>
             
             
-                                                                       <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                                       {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                                   
                                                                         <p class="diagnosis_date "><span
                                                                             class="enter_span_hivj">{{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
@@ -2773,7 +2877,7 @@
                                                             @if (in_array($alldocument_file->form_section_type, ['mbt_review']))
                                                            
                                                             <div class="document_view">
-                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                             </div> 
                                                             @endif
                                                             @empty
@@ -2824,7 +2928,7 @@
             
                                     <div id="collapseleft19" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample19">
-                                        @if (count($ElegibilitySTATUSDB)>0)
+                                        @if (count($ElegibilitySTATUSDB)>0  || count($document_file)>0)
                                         <div class="accordion-body">
                                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                 <ul>
@@ -2837,13 +2941,13 @@
                                                                         <div class="diagnosis_show">
                                                                             <p class="diagnosis_date "><span class="enter_span_hivj">
             
-                                                                                   
+                                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                               <div class="Bottom_btn">
                                                                                 <span class="removeEligibilityStatus" data-id="{{ $record->id }}">
                                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
                                                                               </div>
-            
+                                                                              @endif
             
             
                                                                             </p>
@@ -2855,83 +2959,386 @@
                                                                                
                                                                             @endphp
             
-                                                                            @if (isset($ElegibilitySTATUS['TTA']) && $ElegibilitySTATUS['TTA'][0] == 'THYROID THERMAL ABLATION (TTA)')
+                                                                            @if (isset($ElegibilitySTATUS['TopicalRiparil']) && !empty($ElegibilitySTATUS['TopicalRiparil'][0]))
                                                                                 <div class="ss_result_box">
                                                                                     <div class="symp_title mb-1">
                                                                                         <h6><span class="point_dia"><i
                                                                                                     class="fa-regular fa-circle-dot"></i></span>
-                                                                                            THYROID THERMAL ABLATION (TTA)</h6>
-            
+                                                                                                    Conservative - Topical Riparil  </h6>
+
                                                                                     </div>
-                                                                                    <p class="ss_result">
-                                                                                        {{ $ElegibilitySTATUS['TTANote'][0] ?? '' }}
-                                                                                    </p>
-                                                                                </div>
-                                                                            @endif
-                                                                            @if (isset($ElegibilitySTATUS['PTTA']) && $ElegibilitySTATUS['PTTA'][0] == 'PARATHYROID THERMAL ABLATION PTTA')
-                                                                                <div class="ss_result_box">
-                                                                                    <div class="symp_title mb-1">
-                                                                                        <h6><span class="point_dia"><i
-                                                                                                    class="fa-regular fa-circle-dot"></i></span>
-                                                                                            PARATHYROID THERMAL ABLATION PTTA</h6>
-            
-                                                                                    </div>
-                                                                                    <p class="ss_result">
-                                                                                        {{ $ElegibilitySTATUS['PTTANote'][0] ?? '' }}
-                                                                                    </p>
-                                                                                </div>
-                                                                            @endif
-                                                                            @if (isset($ElegibilitySTATUS['TE']) && $ElegibilitySTATUS['TE'][0] == 'THYROID EMBOLIZATION TE')
-                                                                                <div class="ss_result_box">
-                                                                                    <div class="symp_title mb-1">
-                                                                                        <h6><span class="point_dia"><i
-                                                                                                    class="fa-regular fa-circle-dot"></i></span>
-                                                                                            THYROID EMBOLIZATION TE</h6>
-            
-                                                                                    </div>
-                                                                                    <p class="ss_result">
-                                                                                        {{ $ElegibilitySTATUS['TENote'][0] ?? '' }}</p>
-                                                                                </div>
-                                                                            @endif
-                                                                            @if (isset($ElegibilitySTATUS['OTHERS']) && $ElegibilitySTATUS['OTHERS'][0] == 'OTHERS')
-                                                                                <div class="ss_result_box">
-                                                                                    <div class="symp_title mb-1">
-                                                                                        <h6><span class="point_dia"><i
-                                                                                                    class="fa-regular fa-circle-dot"></i></span>
-                                                                                            Other options</h6>
-            
-                                                                                    </div>
-                                                                                    <p class="ss_result">
-                                                                                        {{ $ElegibilitySTATUS['OTHERSNote'][0] ?? '' }}
-                                                                                    </p>
-                                                                                </div>
-                                                                            @endif
-            
-                                                                            @if (
-                                                                                !isset($ElegibilitySTATUS['OTHERS']) ||
-                                                                                    !isset($ElegibilitySTATUS['TE']) ||
-                                                                                    !isset($ElegibilitySTATUS['PTTA']) ||
-                                                                                    !isset($ElegibilitySTATUS['TTA']))
-                                                                                <div class="ss_result_box">
-                                                                                    @foreach ($ElegibilitySTATUS as $key => $value)
-                                                                                        <div class="symp_title mb-1">
-                                                                                            <h6><span class="point_dia"><i
-                                                                                                        class="fa-regular fa-circle-dot"></i></span>
-                                                                                                {{ $key }}</h6>
-                                                                                        </div>
-                                                                                        <p class="ss_result">{{ $value['asd'] ?? '' }}
+
+                                                                                    @if (isset($ElegibilitySTATUS['TopicalRiparil']) && $ElegibilitySTATUS['TopicalRiparil'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['TopicalRiparil'][0] ?? '' }}
                                                                                         </p>
-                                                                                    @endforeach
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalRiparilNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalRiparil'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
                                                                                 </div>
                                                                             @endif
+                                                                            @if (isset($ElegibilitySTATUS['TopicalAnalgesics']) && !empty($ElegibilitySTATUS['TopicalAnalgesics'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Conservative - Topical Analgesics  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['TopicalAnalgesics']) && $ElegibilitySTATUS['TopicalAnalgesics'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['TopicalAnalgesics'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalAnalgesicsNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['TopicalAnalgesics'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['POAnalgesics']) && !empty($ElegibilitySTATUS['POAnalgesics'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Conservative - PO Analgesics  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['POAnalgesics']) && $ElegibilitySTATUS['POAnalgesics'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['POAnalgesics'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['POAnalgesicsNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['POAnalgesics'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['Chondroitin']) && !empty($ElegibilitySTATUS['Chondroitin'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Conservative - PO Glucasamine / Chondroitin  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['Chondroitin']) && $ElegibilitySTATUS['Chondroitin'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['Chondroitin'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['ChondroitinNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['Chondroitin'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['POCollagen']) && !empty($ElegibilitySTATUS['POCollagen'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Conservative - PO Collagen  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['POCollagen']) && $ElegibilitySTATUS['POCollagen'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['POCollagen'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['POCollagenNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['POCollagen'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['conservativeVitamines']) && !empty($ElegibilitySTATUS['conservativeVitamines'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Conservative - IV Vitamines  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['conservativeVitamines']) && $ElegibilitySTATUS['conservativeVitamines'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['conservativeVitamines'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeVitaminesNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeVitamines'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['conservativeIMNurobion']) && !empty($ElegibilitySTATUS['conservativeIMNurobion'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Conservative - IM Nurobion  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['conservativeIMNurobion']) && $ElegibilitySTATUS['conservativeIMNurobion'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['conservativeIMNurobion'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMNurobionNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMNurobion'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['conservativeIMCollagen']) && !empty($ElegibilitySTATUS['conservativeIMCollagen'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Conservative - IM Collagen  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['conservativeIMCollagen']) && $ElegibilitySTATUS['conservativeIMCollagen'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['conservativeIMCollagen'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMCollagenNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativeIMCollagen'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['conservativekneeBrace']) && !empty($ElegibilitySTATUS['conservativekneeBrace'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Conservative - knee Brace  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['conservativekneeBrace']) && $ElegibilitySTATUS['conservativekneeBrace'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['conservativekneeBrace'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativekneeBraceNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['conservativekneeBrace'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['Triggerpointinjection']) && !empty($ElegibilitySTATUS['Triggerpointinjection'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Trigger point injection  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['Triggerpointinjection']) && $ElegibilitySTATUS['Triggerpointinjection'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['Triggerpointinjection'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['TriggerpointinjectionNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['Triggerpointinjection'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['PRPinjection']) && !empty($ElegibilitySTATUS['PRPinjection'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    PRP injection  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['PRPinjection']) && $ElegibilitySTATUS['PRPinjection'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['PRPinjection'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['PRPinjectionNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['PRPinjection'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['Ozoneintradiscalinjection']) && !empty($ElegibilitySTATUS['Ozoneintradiscalinjection'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Ozone intra-discal injection  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['Ozoneintradiscalinjection']) && $ElegibilitySTATUS['Ozoneintradiscalinjection'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['Ozoneintradiscalinjection'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['OzoneintradiscalinjectionNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['Ozoneintradiscalinjection'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['NerveRFAblation']) && !empty($ElegibilitySTATUS['NerveRFAblation'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Nerve RF Ablation  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['NerveRFAblation']) && $ElegibilitySTATUS['NerveRFAblation'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['NerveRFAblation'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveRFAblationNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveRFAblation'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['NerveCooledRFNote']) && !empty($ElegibilitySTATUS['NerveCooledRFNote'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Nerve Cooled RF  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['NerveCooledRFNote']) && $ElegibilitySTATUS['NerveCooledRFNote'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['NerveCooledRFNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveCooledRFNoteNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveCooledRFNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['NerveCryotherapy']) && !empty($ElegibilitySTATUS['NerveCryotherapy'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Nerve Cryotherapy  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['NerveCryotherapy']) && $ElegibilitySTATUS['NerveCryotherapy'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['NerveCryotherapy'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveCryotherapyNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['NerveCryotherapy'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            @if (isset($ElegibilitySTATUS['Others']) && !empty($ElegibilitySTATUS['Others'][0]))
+                                                                                <div class="ss_result_box">
+                                                                                    <div class="symp_title mb-1">
+                                                                                        <h6><span class="point_dia"><i
+                                                                                                    class="fa-regular fa-circle-dot"></i></span>
+                                                                                                    Others  </h6>
+
+                                                                                    </div>
+
+                                                                                    @if (isset($ElegibilitySTATUS['Others']) && $ElegibilitySTATUS['Others'][0] == 'Eligibile')
+                                                                                                                    <p class="ss_result">
+                                                                                            {{ $ElegibilitySTATUS['Others'][0] ?? '' }}
+                                                                                        </p>
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['OthersNote'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @else
+                                                                                        <p class="ss_result">
+                                                                                            &nbsp;&nbsp;{{ $ElegibilitySTATUS['Others'][0] ?? '' }}
+                                                                                        </p>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @endif
+                                                                            
+
+            
+                                                                            
             
                                                                         </div>
             
             
             
                                                                     </div>
-                                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                        onclick="toggleReadMore(this)">Read More</button> --}}
             
                                                                         <p class="diagnosis_date "><span class="enter_span_hivj"> {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
                                                                         </span> <span class="enter_span_hivj">{{ isset($record) && isset($record->created_at) ? $record->created_at->format('D, d M Y, H:i A') : '' }}
@@ -2947,7 +3354,7 @@
                                                                         @if (in_array($alldocument_file->form_section_type, ['eligibility_status']))
                                                                     
                                                                         <div class="document_view">
-                                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                            <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                                         </div> 
                                                                         @endif
                                                                         @empty
@@ -3015,7 +3422,7 @@
                     </h2>
 
                     <div id="collapseleft20" class="accordion-collapse collapse" data-bs-parent="#accordionExample20">
-                        @if (count($procedures) > 0)
+                        @if (count($procedures) > 0 || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                
@@ -3027,13 +3434,13 @@
                                                     <div class="read-more-content " style="">
                                                         <div class="diagnosis_show">
                                                            
-
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                             <div class="Bottom_btn">
                                                                 <span class="orderProcedure" data-id="{{ $record->id }}">
                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                 </span>
                                                             </div>
-                                                         
+                                                            @endif
                                                          
 
                                                              
@@ -3065,8 +3472,8 @@
 
                                                     </div>
 
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                    onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                    onclick="toggleReadMore(this)">Read More</button> --}}
 
 
                                                     <p class="diagnosis_date "><span class="enter_span_hivj">
@@ -3087,7 +3494,7 @@
                                                 @if (in_array($alldocument_file->form_section_type, ['procedure']))
                                             
                                                 <div class="document_view">
-                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                 </div> 
                                                 @endif
                                                 @empty
@@ -3097,7 +3504,7 @@
 
                                             </li>
                                         @empty
-                                            <small style="font-size:10px;">No Data Found</small>
+                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                         @endforelse
                                     @endif
                                 </ul>
@@ -3139,7 +3546,7 @@
                     </h2>
 
                     <div id="collapseleft21" class="accordion-collapse collapse" data-bs-parent="#accordionExample21">
-                        @if (count($supportiveTreatments) > 0)
+                        @if (count($supportiveTreatments) > 0 || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list past_medical_history_ak diagnosis_data">
                                 <ul class="allergiesdtl">
@@ -3149,12 +3556,14 @@
                                                 <div class="appoin_date">
                                                     <div class="read-more-content " style="">
                                                         <div class="diagnosis_show">
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                             <div class="Bottom_btn">
                                                         
                                                                 <span class="supportiveTrea" data-id="{{ $record->id }}">
                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                 </span>
                                                             </div>
+                                                            @endif
 
                                                             <div class="ss_result_box">
                                                                 <div class="symp_title mb-1">
@@ -3169,7 +3578,7 @@
                                                                 <div class="symp_title mb-1">
                                                                     
                                                                     <p class="ss_result">
-                                                                        <strong>Sub Ttile</strong> &nbsp;&colon;
+                                                                        <strong>Sub Title</strong> &nbsp;&colon;
                                                                         {{ $record->sub_title ?? '' }}
                                                                     </p>
 
@@ -3199,8 +3608,8 @@
 
                                                     </div>
 
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                        onclick="toggleReadMore(this)">Read More</button> --}}
 
 
                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
@@ -3228,7 +3637,7 @@
                                                 @if (in_array($alldocument_file->form_section_type, ['supportive_treatment']))
                                             
                                                 <div class="document_view">
-                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                 </div> 
                                                 @endif
                                                 @empty
@@ -3236,7 +3645,7 @@
                                             @endforelse
                                             </li>
                                         @empty
-                                            <small style="font-size:10px;">No Data Found</small>
+                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                         @endforelse
                                     @endif
                                 </ul>
@@ -3253,7 +3662,7 @@
                             <div class="top_title_mm_box">
                                 <h6 class="action_flex_ghi">
                                     <div class="enterd_by">
-                                        <span>Plans/Recommandation </span>
+                                        <span>Future Plans / Recommendations </span>
                                         <div class="right_side_hjkl">
 
                                             <div class="customdotdropdown">
@@ -3276,7 +3685,7 @@
                         </button>
                     </h2>
                     <div id="collapseleft9" class="accordion-collapse collapse" data-bs-parent="#accordionExample9">
-                        @if (count($patient_future_plans) > 0)
+                        @if (count($patient_future_plans) > 0 || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list">
 
@@ -3289,14 +3698,14 @@
                                                     <div class="read-more-content " style="">
                                                         <div class="diagnosis_show">
 
-
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                             <div class="Bottom_btn">
                                                         
                                                                 <span class="removeFuturePlan" data-id="{{ $record->id }}">
                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                 </span>
                                                             </div>
-                                                           
+                                                           @endif
 
 
 
@@ -3323,8 +3732,8 @@
 
 
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                        onclick="toggleReadMore(this)">Read More</button> --}}
                                                         
                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
                                                                 {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
@@ -3341,7 +3750,7 @@
                                                 @if (in_array($alldocument_file->form_section_type, ['plan_recomandation']))
                                             
                                                 <div class="document_view">
-                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                 </div> 
                                                 @endif
                                                 @empty
@@ -3351,7 +3760,7 @@
 
                                             </li>
                                         @empty
-                                            <small style="font-size:10px;">No Data Found</small>
+                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                         @endforelse
                                     @endif
                                 </ul>
@@ -3401,7 +3810,7 @@
                     </h2>
 
                     <div id="collapseleft14" class="accordion-collapse collapse" data-bs-parent="#accordionExample14">
-                        @if (count($Patient_progress_notes) > 0)
+                        @if (count($Patient_progress_notes) > 0 || count($document_file)>0)
                         <div class="accordion-body">
                             <div class="appointments___list">
 
@@ -3413,14 +3822,14 @@
                                                 <div class="appoin_date">
                                                     <div class="read-more-content " style="">
                                                         <div class="diagnosis_show">
-                                                            
+                                                            @if(isset($isEditAllowed) && $isEditAllowed)
                                                             <div class="Bottom_btn">
                                                         
                                                                 <span class="removeNotes" data-id="{{ $record->id }}">
                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                 </span>
                                                             </div>
-                                                            
+                                                            @endif
                                                             <div class="ss_result_box">
                                                                 <div class="symp_title mb-1">
                                                                     <h6><span class="point_dia"><i
@@ -3430,16 +3839,16 @@
 
                                                                 </div>
 
-                                                                  @if ($record->voice_recognition)
+                                                                  {{-- @if ($record->voice_recognition)
                                                                     <p class="ss_result">
-                                                                        <strong>Summery 1</strong> &nbsp;&colon;
+                                                                        <strong>Summary 1</strong> &nbsp;&colon;
                                                                         {{ strip_tags($record->voice_recognition ?? '') }}
                                                                     </p>
-                                                                  @endif
+                                                                  @endif --}}
 
                                                                   @if ($record->summery)
                                                                     <p class="ss_result">
-                                                                        <strong>Summery 2</strong> &nbsp;&colon;
+                                                                        <strong>Summary</strong> &nbsp;&colon;
                                                                         {{ $record->summery ?? '' }}
                                                                     </p>
                                                                   @endif
@@ -3456,8 +3865,8 @@
 
 
                                                     </div>
-                                                    <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                        onclick="toggleReadMore(this)">Read More</button>
+                                                    {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                        onclick="toggleReadMore(this)">Read More</button> --}}
 
                                                         <p class="diagnosis_date "><span class="enter_span_hivj">
                                                             {{ 'Entered By |' . optional(optional($record)->doctor)->name ?? '' }}
@@ -3471,7 +3880,7 @@
 
                                             </li>
                                         @empty
-                                            <small style="font-size:10px;">No Data Found</small>
+                                            {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                         @endforelse
                                     @endif
                                 </ul>
@@ -3480,7 +3889,7 @@
                                 @if (in_array($alldocument_file->form_section_type, ['progress_notes']))
                             
                                 <div class="document_view">
-                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                    <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                 </div> 
                                 @endif
                                 @empty
@@ -3515,7 +3924,7 @@
 
 
 
-
+    @if($isEditAllowed)
     <!----------------------------
          Add or Remove Diagnosis
         ---------------------------->
@@ -3541,7 +3950,7 @@
                                             <label for="validationCustom01" class="form-label">Diagnosis Type</label>
                                             <select class="form-control select_diagnosis" id="diagnosis_type">
                                                 <option value="">Choose Diagnosis Type</option>
-                                                <option value="general">Provisional / Gernal diagnosis</option>
+                                                <option value="general">Provisional / General Diagnosis</option>
                                                 <option value="icd">ICD 10 diagnosis</option>
 
                                             </select>
@@ -3585,8 +3994,10 @@
             </div>
         </div>
     </div>
+@endif
 
 
+@if($isEditAllowed)
     <!----------------------------
              Symptoms
         ---------------------------->
@@ -3735,9 +4146,10 @@
             </div>
         </div>
     </div>
+    @endif
 
 
-
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
         clinical_exam
         ---------------------------->
@@ -3845,8 +4257,10 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
            order imagenairy Exam
         ---------------------------->
@@ -3877,7 +4291,7 @@
                                     <select id="sumo-select4" multiple name="lab_test_names[]">
                                         @php
                                             $patient_order_labs = DB::table('pathology_price_list')
-                                                ->where('price_type', '1')
+                                                ->where('price_type', 'Radiology')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
                                         @endphp
@@ -3914,7 +4328,10 @@
             </div>
         </div>
     </div>
+    @endif
 
+
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
             Lab Test
         ---------------------------->
@@ -3968,8 +4385,10 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
           Order Supportive Surface
         ---------------------------->
@@ -4046,7 +4465,10 @@
             </div>
         </div>
     </div>
+    @endif
 
+
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
           MDT Review
         ---------------------------->
@@ -4118,8 +4540,10 @@
             </div>
         </div>
     </div>
+    @endif
 
 
+    @if(isset($isEditAllowed) && $isEditAllowed)
     <!----------------------------
           Eligibility Status
         ---------------------------->
@@ -4203,6 +4627,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     @push('custom-js')
         <script>
@@ -5868,7 +6293,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -6715,7 +7140,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>

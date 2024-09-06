@@ -91,7 +91,10 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload'])){
            
                 if(isset($aboutUs->imageUpload)){
-                    unlink('/assets/video'.'/'.$aboutUs->imageUpload);
+                    $unlFile = public_path('/assets/video').$aboutUs->imageUpload;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -103,7 +106,10 @@ class WebsiteController extends Controller
                if(isset($data['videoFile'])){
            
                 if(isset($aboutUs->videoFile)){
-                    unlink('/assets/video'.'/'.$aboutUs->videoFile);
+                    $unlFile = public_path('/assets/video').$aboutUs->videoFile;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['videoFile'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -152,9 +158,12 @@ class WebsiteController extends Controller
           $data=$request->all();
            $temp_data=[];
             if(isset($data['imageUpload'])){
-           
+                
                 if(isset($treatment->imageUpload)){
-                    unlink('/assets/video'.'/'.$treatment->imageUpload);
+                    $unlFile = public_path('/assets/video').$treatment->imageUpload;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -166,7 +175,10 @@ class WebsiteController extends Controller
                if(isset($data['videoFile'])){
            
                 if(isset($treatment->videoFile)){
-                    unlink('/assets/video'.'/'.$treatment->videoFile);
+                    $unlFile = public_path('/assets/video').$treatment->videoFile;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['videoFile'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -240,7 +252,10 @@ class WebsiteController extends Controller
             if(isset($data['image1'])){
            
                 if(isset($service->image1)){
-                    unlink('/assets/video'.'/'.$service->image1);
+                    $unlFile = public_path('/assets/video').$service->image1;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['image1'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -255,7 +270,10 @@ class WebsiteController extends Controller
                if(isset($data['image2'])){
            
                 if(isset($service->image2)){
-                    unlink('/assets/video'.'/'.$service->image2);
+                    $unlFile = public_path('/assets/video').$service->image2;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['image2'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -270,7 +288,10 @@ class WebsiteController extends Controller
                if(isset($data['image3'])){
            
                 if(isset($service->image3)){
-                    unlink('/assets/video'.'/'.$service->image3);
+                    $unlFile = public_path('/assets/video').$service->image3;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['image3'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -322,7 +343,10 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload'])){
            
                 if(isset($software->imageUpload)){
-                    unlink('/assets/video'.'/'.$software->imageUpload);
+                    $unlFile = public_path('/assets/video').$software->imageUpload;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -381,7 +405,10 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload'])){
            
                 if(isset($branch->imageUpload)){
-                    unlink('/assets/video'.'/'.$branch->imageUpload);
+                    $unlFile = public_path('/assets/video').$branch->imageUpload;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -531,7 +558,10 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload'])){
            
                 if(isset($contactUs->imageUpload)){
-                    unlink('/assets/video'.'/'.$contactUs->imageUpload);
+                    $unlFile = public_path('/assets/video').$contactUs->imageUpload;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['imageUpload'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -543,7 +573,10 @@ class WebsiteController extends Controller
                if(isset($data['videoFile'])){
            
                 if(isset($contactUs->videoFile)){
-                    unlink('/assets/video'.'/'.$contactUs->videoFile);
+                    $unlFile = public_path('/assets/video').$contactUs->videoFile;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['videoFile'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -602,7 +635,10 @@ class WebsiteController extends Controller
             if(isset($data['imageUpload']))
                {
                     if(isset($faq->imageUpload)){
-                        unlink('/assets/video'.'/'.$faq->imageUpload);
+                        $unlFile = public_path('/assets/video').$faq->imageUpload;
+                        if(file_exists($unlFile)){
+                            unlink($unlFile);
+                        }
                     }
                     $image = $data['imageUpload'];
                     $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -649,7 +685,10 @@ class WebsiteController extends Controller
             if(isset($data['websitelogo'])){
            
                 if(isset($footer->websitelogo)){
-                    unlink('/assets/video'.'/'.$footer->websitelogo);
+                    $unlFile = public_path('/assets/video').$footer->websitelogo;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['websitelogo'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -661,7 +700,10 @@ class WebsiteController extends Controller
                if(isset($data['logo1'])){
            
                 if(isset($footer->logo1)){
-                    unlink('/assets/video'.'/'.$footer->logo1);
+                    $unlFile = public_path('/assets/video').$footer->logo1;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['logo1'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -676,7 +718,10 @@ class WebsiteController extends Controller
                if(isset($data['logo2'])){
            
                 if(isset($footer->logo2)){
-                    unlink('/assets/video'.'/'.$footer->logo2);
+                    $unlFile = public_path('/assets/video').$footer->logo2;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['logo2'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -691,7 +736,10 @@ class WebsiteController extends Controller
                if(isset($data['logo3'])){
            
                 if(isset($footer->logo3)){
-                    unlink('/assets/video'.'/'.$footer->logo3);
+                    $unlFile = public_path('/assets/video').$footer->logo3;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['logo3'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -706,7 +754,10 @@ class WebsiteController extends Controller
                if(isset($data['logo4'])){
            
                 if(isset($footer->logo4)){
-                    unlink('/assets/video'.'/'.$footer->logo4);
+                    $unlFile = public_path('/assets/video').$footer->logo4;
+                    if(file_exists($unlFile)){
+                        unlink($unlFile);
+                    }
                 }
                 $image = $data['logo4'];
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();

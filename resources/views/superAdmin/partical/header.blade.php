@@ -38,6 +38,7 @@
    <link href="{{ asset('/assets/css/toastr.min.css')}}" rel="stylesheet">
  <!-- CHARTJS JS -->
  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<style>
 	.website_icon iconify-icon {
 	font-size: 17px;
@@ -74,6 +75,15 @@
     max-width: 800px;
     margin: 1.75rem auto;
 }
+.content-header nav{
+                    right: 3%;
+                    position: absolute;
+                }
+
+				.detail_box ul li {
+					margin-bottom: 13px;
+					border-bottom: 1px dotted gray;
+				}
 
 			</style>
     @stack('custom-css')
@@ -399,7 +409,7 @@
 
 
 
-				<li>
+				<li class="{{ Route::is('branch.management.index') ? 'active' : '' }}">
                     <a href="{{ route('branch.management.index') }}">
 					<i data-feather="map-pin"></i>
 					<span>Location Management </span>
@@ -408,7 +418,7 @@
 				</li>
 
 
-				<li>
+				<li class="{{ Route::is('snippets','add.snippets','edit.snippets') ? 'active' : '' }}">
                     <a href="{{ route('snippets') }}">
 					<i data-feather="map-pin"></i>
 					<span>Snippet</span>

@@ -14,17 +14,62 @@ class CalendarController extends Controller
     public function index(Request $request)
     {
 
-        $doctors=Doctor::select('id','name')->where('role_id','1')->orderBy('id','desc')->get();
-        $patients=User::select('id','name')->orderBy('id','desc')->get();
 
-        $book_appointments= DB::table('book_appointments')
-                                        ->select('appointment_type')
-                                        ->distinct()
-                                        ->get();
-
+        $allDoctor = Doctor::select('id','name')->where('role_id','1')->orderBy('id','desc')->get();
+        
         $users=DB::table('users')->orderBy('id','desc')->get();
-        $locations=DB::table('branchs')->orderBy('id','desc')->get();
-        $pathology_price_list = DB::table('pathology_price_list')->get();
+
+        $doctors= Doctor::select('id','name')->where('role_id','1')->get();
+        $dtype = 'doctor';
+        if(Auth::guard('doctor')->user()->user_type == "Nurse"){
+            $dtype = 'Nurse';
+
+            $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
+            $doctors= null;
+            if($nuDoctor){
+                $doctors= Doctor::select('id','name')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+            }
+            
+        }else if(Auth::guard('doctor')->user()->user_type == "Receptionist"){
+            $dtype = 'receptionist';
+
+            $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
+            $doctors= null;
+            if($nuDoctor){
+                $doctors= Doctor::select('id','name')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+            }
+        }else if(Auth::guard('doctor')->user()->user_type == "Coordinator"){
+            $dtype = 'coordinator';
+            
+            $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
+            $doctors= null;
+            if($nuDoctor){
+                $doctors= Doctor::select('id','name')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+            }
+        }
+        
+        $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
+        $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$doctorBranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
+        
+        $docterPatient = User::where('doctor_id',Auth::guard('doctor')->user()->id)->get()->pluck('id')->toArray();
+
+        $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[]));
+        
+        $locations=  DB::table('branchs')->whereIn('id',$doctorBranch)->get();
+        $dlocations=  DB::table('branchs')->get();
+        // $locations=DB::table('branchs')->orderBy('id','desc')->get();
+        $patients = User::orderBy('id','desc')->get();
+
+
+        $pathology_price_list = DB::table('pathology_price_list')->where('status','1')->get();
+        $book_appointments= null;
+        if($pathology_price_list){
+            $book_appointments= DB::table('book_appointments')->select('appointment_type')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->distinct()->get();
+        }
+
+        // dd($allpatientBranch,$book_appointments);
+
+        $patho_types = $pathology_price_list ? $pathology_price_list->unique('price_type')->pluck('price_type') : [];
 
         $searchPatient =$request->input('searchPatient');
         $appontment_availability = [];   
@@ -34,6 +79,7 @@ class CalendarController extends Controller
         if (request()->isMethod("post"))    
         {
            // echo "ok"; die;  user_id
+        //    dd('--');
                  
             $appointmentType  =  $request->input('appointmentType');    
             $location         = $request->input('location');      
@@ -76,10 +122,10 @@ class CalendarController extends Controller
                                                     
                     }    
                 }     
-
         }
-       
-        return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','pathology_price_list','appontment_availability','countData'));
+        $countryCode = DB::table('dial_codes')->where('status', '1')->get();
+    //    dd($doctors);
+        return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','dlocations','pathology_price_list','appontment_availability','countData','patho_types','allDoctor','countryCode'));
     }
 
     
@@ -88,7 +134,7 @@ class CalendarController extends Controller
 
     public function createOrUpdateEvent(Request $request)
     {
-      //  return $request->all();
+    //    return $request->all();
 
         $eventId = $request->input('event_id');
         $eventData = [
@@ -98,7 +144,6 @@ class CalendarController extends Controller
             'priority' => $request->input('priority'),
             'appointment_type' => $request->input('appointment_type'),
             'location' => $request->input('location'),
-           // 'status' =>  '1',
             'start_date' => $request->input('start_date') .  ' ' . $request->input('start_time'),
             'start_time' => $request->input('start_time'),
             'end_date' => $request->input('end_date') . ' ' .  $request->input('end_time'),
@@ -108,33 +153,54 @@ class CalendarController extends Controller
             'confirmation' => isset($request->confirmation) ? 'yes' : 'no',
         ];
 
-   //     dd($eventData);
 
-
-        if ($eventId)
-
-        {
+        if ($eventId){
             $event = BookAppointment::find($eventId);
             if (!$event) {
                 return response()->json(['error' => 'Event not found'], 404);
             }
             $event->update($eventData);
             $message = 'Event updated successfully';
-        }
-
-        else {
-
+        }else {
             $event = BookAppointment::create($eventData);
             $message = 'Appointment added successfully';
         }
 
+        $task= DB::table('pathology_price_list')->where('test_name',$request->input('appointment_type'))->first()??'';
+
+        // dd($task);
+
+        $test_type = 'other';
+        if($task && trim($task->price_type) =='Radiology'){
+            $test_type = 'radiology';
+        }else if($task && trim($task->price_type) =='Pathology'){
+            $test_type = 'pathology';
+        }
+
+        $ltsId = DB::table('tasks')->latest()->value('id');
+        if(DB::table('tasks')->where('appointment_id',$eventId)->exists()){
+            DB::table('tasks')->where('appointment_id',$eventId)->delete();
+        }
+        DB::table('tasks')->insert([
+            'appointment_id' => $eventId,
+            'invoiceNumber'  => sprintf("%06d", rand(0, 999999)) . $ltsId,
+            'patient_id'      => $request->input('patintValue'),
+            'doctor_id'       => $request->input('doctor_id'),
+            'task'            => $task->id??null,
+            'form_type'       => 'general_form',
+            'test_type'       => $test_type,
+            'order_summary'   => ''
+        ]);
+
         return response()->json(['message' => $message, 'event' => $event], 200);
     }
 
-    public function deleteEvent(Request $request, $id)
+    public function deleteEvent(Request $request)
     {
-        $event = BookAppointment::find($id);
-
+        $event = BookAppointment::find($request->id);
+        if(DB::table('tasks')->where('appointment_id',$request->id)->exists()){
+            DB::table('tasks')->where('appointment_id',$request->id)->delete();
+        }
         if (!$event) {
             return response()->json(['error' => 'Event not found'], 404);
         }
@@ -149,6 +215,22 @@ class CalendarController extends Controller
     {
 
       //  return $request->all();
+
+      
+        $dtype = 'doctor';
+        if(Auth::guard('doctor')->user()->user_type == "Nurse"){
+            $dtype = 'Nurse';
+        }else if(Auth::guard('doctor')->user()->user_type == "Receptionist"){
+            $dtype = 'receptionist';
+        }else if(Auth::guard('doctor')->user()->user_type == "Coordinator"){
+            $dtype = 'coordinator';
+        }
+
+        $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
+        $allpatientBranch = DB::table('user_branchs')->whereIn('add_branch',$doctorBranch)->where('branch_type','patient')->get()->pluck('patient_id')->toArray();
+        $docterPatient = User::where('doctor_id',Auth::guard('doctor')->user()->id)->get()->pluck('id')->toArray();
+
+        $allpatient = array_unique(array_merge($allpatientBranch??[],$docterPatient??[]));
 
             $checkdoctor=Auth::guard('doctor')->user();
 
@@ -172,7 +254,7 @@ class CalendarController extends Controller
 
 
             if ($checkdoctor->role_id=='1') {
-               $events=$events->where('doctor_id',$checkdoctor->id);
+            //    $events=$events->where('doctor_id',$checkdoctor->id);
             }
 
             $patientValue=$request->input('patientValue');
@@ -198,8 +280,9 @@ class CalendarController extends Controller
 
             foreach($events as $allevents)
             {
-                $allevents->colour_type=DB::table('pathology_price_list')->where('test_name',$allevents->title)->first()->colour_type??'#fffff';
+                $allevents->colour_type=DB::table('pathology_price_list')->where('status','1')->where('test_name',$allevents->title)->first()->colour_type??'#fffff';
             }
+            $events->push($allpatient);
 
         return response()->json($events);
     }

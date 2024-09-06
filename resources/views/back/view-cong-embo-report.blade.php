@@ -386,18 +386,18 @@
                                 <img src="{{ asset('/assets/patient_profile/' . $patient->patient_profile_img) }}"
                                     alt="">
 
+                                    @if($isEditAllowed)
                                 <div class="insure_btn">
-
                                     <a href="#" class="outline_btn add_insurer" data-bs-toggle="modal"
                                         data-bs-target="#insure_add_edit">Add Insurer</a>
-
-                                </div>
+                                        
+                                    </div>
+                                    @endif
 
                                 <div class="patient_dt_profile">
 
                                     <h5 class="patient_name__">{{ @$patient->sirname . ' ' . @$patient->name }} <a
-                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><iconify-icon
-                                                icon="material-symbols:edit"></iconify-icon></a></h5>
+                                            href="{{ route('user.patient-detail', ['id' => @$id]) }}"><i class="far fa-eye"></i></a></h5>
                                     
 
                                     @php
@@ -505,9 +505,11 @@
                                                                             
                                                                             <h6>Cong Embo {{ $key + 1 }}  <span class="text-align-right">
 
+                                                                                @if(isset($isEditAllowed) && $isEditAllowed)
                                                                                 <span class="reportDelete" data-id="{{ $report->id }}">
                                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
                                                                                 </span>
+                                                                                @endif
                                                                             </h6>
 
                                                                             <h6>
@@ -539,10 +541,14 @@
                                                 aria-expanded="false" aria-controls="collapseleft7"
                                                 fdprocessedid="fwkd6">
                                                 <div class="top_title_mm_box">
-                                                    <h6 class="allergies_hgjo"><span>Allergies</span> <a href="#"
+                                                    <h6 class="allergies_hgjo"><span>Allergies</span> 
+                                                        @if($isEditAllowed)
+                                                        <a href="#"
                                                             class="allergies_add_klt" data-bs-toggle="modal"
                                                             data-bs-target="#allergies_add"><i
-                                                                class="fa-solid fa-circle-plus"></i></a></h6>
+                                                                class="fa-solid fa-circle-plus"></i></a>
+                                                            @endif
+                                                            </h6>
                                                 </div>
                                             </button>
                                         </h2>
@@ -563,7 +569,9 @@
                                                             <li>{{ $patient_allergy->allergy_name }}
                                                             
                                                                 <span class="alergyDelete" data-id="{{ $patient_allergy->id }}">
+                                                                    @if($isEditAllowed)
                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                    @endif
                                                                 </span>
                                                             
                                                             </li>
@@ -632,7 +640,9 @@
                                                                         <p>{{ \Carbon\Carbon::parse($past_history->created_at)->format('D, d M Y') }}
 
                                                                             <span class="pastMedicalHistoryDelete" data-id="{{ $past_history->id }}">
+                                                                                @if($isEditAllowed)
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                @endif
                                                                             </span>
 
 
@@ -650,12 +660,12 @@
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($past_history->describe) >= 50)
+                                                                        {{-- @if (strlen($past_history->describe) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -737,7 +747,9 @@
                                                                         <p>{{ \Carbon\Carbon::parse($past_surgical->created_at)->format('D, d M Y') }}
 
                                                                             <span class="pastMedicalHistoryDelete" data-id="{{ $past_surgical->id }}">
+                                                                                @if($isEditAllowed)
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                @endif
                                                                             </span>
 
 
@@ -755,12 +767,12 @@
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($past_surgical->describe) >= 50)
+                                                                        {{-- @if (strlen($past_surgical->describe) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
 
                                                                     </div>
@@ -836,7 +848,9 @@
                                                                         <p>{{ \Carbon\Carbon::parse($patient_current->created_at)->format('D, d M Y') }}
 
                                                                             <span class="pastMedicalHistoryDelete" data-id="{{ $patient_current->id }}">
+                                                                                @if($isEditAllowed)
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                @endif
                                                                             </span>
 
                                                                         </p>
@@ -897,39 +911,40 @@
                                                             <li>No data Found.</li>
                                                         @else
                                                             @foreach ($procedures as $procedure)
-                                                                <li>
+                                                            <li>
+
+                                                                <div class="appoin_title">
+
+                                                                    <h6>{{ $procedure->procedure_name }}</h6>
+
+                                                                    <p>
+                                                                        <span class="patientListOf"
+                                                                            data-id="{{ $procedure->id }}">
+                                                                            @if($isEditAllowed)
+                                                                            <i
+                                                                                class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                @endif
+                                                                        </span>
+                                                                    </p>
+
+                                                                </div>
+
+
+                                                                <div class="appoin_date">
+
 
                                                                     <div class="appoin_title">
+                                                                        <h6> {{ $procedure->summary }}</h6>
 
-                                                                        <h6>{{ $procedure->procedure_name }}</h6>
+                                                                        <p>
 
-                                                                        <p class="text-align:right">
                                                                             {{ \Carbon\Carbon::parse($procedure->created_at)->format('D, d M Y') }}
                                                                         </p>
 
                                                                     </div>
+                                                                </div>
 
-
-                                                                    <div class="appoin_date">
-
-                                                                        <div class="read-more-content">
-
-                                                                            <p>
-
-                                                                                {{ $procedure->summary }}
-                                                                            </p>
-
-                                                                        </div>
-                                                                        @if (strlen($procedure->summary) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
-
-                                                                    </div>
-
-                                                                </li>
+                                                            </li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -961,78 +976,173 @@
 
                                         </h2>
 
+                                        @php
+                                            $patientId = decrypt($id);
+                                            $mainDoctorId= DB::table('users')->where('id',$patientId)->first()->doctor_id;
+                                            $mainDoctor= DB::table('doctors')->where('id',$mainDoctorId)->first();
+                                            $referaldoctors = DB::table('referal_patients')
+                                                ->where('patient_id', $patientId)
+                                                ->get();
+
+                                        @endphp
+
+
                                         <div id="collapseleft11" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample11">
+                                            @if (count($referaldoctors) > 0)
+                                                <div class="accordion-body">
 
-                                            <div class="accordion-body">
+                                                    {{-- <ul class="referrals_list scroll_list" style="list-style:    decimal-leading-zero;color: #000;padding-left: 25px;"> --}}
+                                                    <ul class="referrals_list scroll_list" >
 
-                                               
-                                                <ul class="referrals_list allergiesdtl">
-                                                    @php
-                                                    $referaldoctors = DB::table('doctors')->select('id','doctor_id','title','name','email')->where('referal_status', '1')->get();
-                                                  @endphp
+                                                        {{-- @if($mainDoctor)
+                                                        <li style="position: relative;">
 
-                                                  @forelse ($referaldoctors as $referaldoctors)
-                                                  
-                                                  <li style="position: relative;">
-                                                      <div class="booking_card_select">
+                                                            <div class="booking_card_select">
 
-                                                          <label for="cbx1">
+                                                                <label for="cbx1">
 
-                                                              <div class="doctor_dt">
+                                                                    <div class="doctor_dt">
 
-                                                                  <div class="image_dr">
+                                                                        <div class="image_dr">
 
-                                                                    @if (isset($referaldoctors->patient_profile_img))
+                                                                            @if (isset($mainDoctor->profileImage))
+                                                                                <img src="{{  asset('/assets/profileImage/') . '/' . $mainDoctor->patient_profile_img }}"
+                                                                                    alt="">
+                                                                            @else
+                                                                                <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                    alt="">
+                                                                            @endif
 
-                                                                    <img src="{{ asset('//assets/profileImage/' . $referaldoctors->patient_profile_img) }}" alt="">
+                                                                        </div>
 
-                                                                    @else
-                                                                    <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
+                                                                        <div class="dr_detail">
 
+                                                                            <h6 class="dr_name">
+                                                                                {{ $mainDoctor->name ?? '' }}
+                                                                                <span>{{ $mainDoctor->title ?? '' }}</span>
+                                                                            </h6>
+
+                                                                            <span class="text-align-right">
+
+                                                                                <p class="dr_email"><a
+                                                                                        href="mailto:{{ $mainDoctor->email ?? '' }}">{{ $mainDoctor->email ?? '' }}</a>
+                                                                                </p>
+
+                                                                                
+                                                                            </span>
+
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </label>
+
+                                                            </div>
+
+                                                           
+
+
+
+                                                        </li>
+                                                        @endif --}}
+
+                                                        @forelse ($referaldoctors as $allreferaldoctors)
+                                                            @php
+
+                                                                $doctorDetail = DB::table('doctors')
+                                                                    ->where('id', $allreferaldoctors->doctor_id)
+                                                                    ->first();
+
+                                                                $userDetail =DB::table('users')->where('id',$allreferaldoctors->patient_id)->first();    
+                                                                $refferDoctorDetail = DB::table('doctors')
+                                                                    ->where('id', $allreferaldoctors->referal_doctor)
+                                                                    ->first();
+                                                                
+                                                            @endphp
+
+                                                            <li style="position: relative;">
+
+                                                                <div class="booking_card_select">
+
+                                                                    <label for="cbx1">
+
+                                                                        <div class="doctor_dt">
+
+                                                                            <div class="image_dr">
+
+                                                                                @if (isset($doctorDetail->patient_profile_img))
+                                                                                    <img src="{{ asset('/assets/profileImage/' . $doctorDetail->patient_profile_img) }}"
+                                                                                        alt="">
+                                                                                @else
+                                                                                    <img src="{{ asset('/superAdmin/images/newimages/avtar.jpg') }}"
+                                                                                        alt="">
+                                                                                @endif
+
+                                                                            </div>
+
+                                                                            <div class="dr_detail">
+                                                                                <h6 class="dr_name" style="font-size: 12px;"> 
+                                                                                    <span>Assigned By :</span> {{ $refferDoctorDetail->name ?? '' }}
+                                                                                     <span>{{ $refferDoctorDetail->title ?? '' }}</span>
+                                                                                 </h6>
+                                                                                <h6 class="dr_name">
+                                                                                    {{ $doctorDetail->name ?? '' }}
+                                                                                    <span>{{ $doctorDetail->title ?? '' }}</span>
+                                                                                </h6>
+                                                                                
+
+                                                                                <span class="text-align-right">
+
+                                                                                    <p class="dr_email"><a
+                                                                                            href="mailto:{{ $doctorDetail->email ?? '' }}">{{ $doctorDetail->email ?? '' }}</a>
+                                                                                    </p>
+
+                                                                                    @php
+                                                                                        $documentUrl = $allreferaldoctors->upload_document ? asset(
+                                                                                            '/assets/referalDocument/' .
+                                                                                                $allreferaldoctors->upload_document,
+                                                                                        ) : '';
+                                                                                    @endphp
+                                                                                    <p
+                                                                                    onclick="ViewSummary(`{{ $allreferaldoctors->patient_summary }}`,`{{  $allreferaldoctors->upload_document??'' }}`,`{{ $documentUrl }}`,`{{ $allreferaldoctors->reply_summary }}`,`{{ $allreferaldoctors->id}}`)">
+                                                                                    View Summary</p>
+                                                                                </span>
+
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </label>
+
+                                                                </div>
+
+                                                                @if (isset(auth()->guard('doctor')->user()->user_type) && auth()->guard('doctor')->user()->user_type == 'doctor' && auth()->guard('doctor')->user()->id == $allreferaldoctors->referal_doctor)
+                                                                @if(isset($isEditAllowed) && $isEditAllowed)
+                                                                    <span class="removeReferalPatient"
+                                                                        data-id="{{ $allreferaldoctors->id }}">
+                                                                        <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                    </span>
                                                                     @endif
-
-                                                                  </div>
-
-                                                                  <div class="dr_detail">
-
-                                                                      <h6 class="dr_name">{{ $referaldoctors->name }}
-                                                                          <span>{{ $referaldoctors->title }}</span>
-                                                                      </h6>
-
-                                                                      <p class="dr_email"><a
-                                                                              href="mailto:{{ $referaldoctors->email }}">{{ $referaldoctors->email }}</a>
-                                                                      </p>
-
-                                                                  </div>
-
-                                                              </div>
-
-                                                          </label>
-
-                                                      </div>
-
-                                                      @if (!(auth()->guard('doctor')->id()==$referaldoctors->doctor_id))
-                                                            <span class="removeReferalPatient" data-id="{{ $referaldoctors->id }}">
-                                                                <i class="fa-regular fa-trash-can trash_btn"></i>
-                                                            </span>
-                                                      @endif
+                                                                @endif
 
 
-                                                  </li>
 
-                                                  @empty
-                                                  <li>
-                                                      <h4>No Data Found</h4>
-                                                  </li>
-                                                      
-                                                  @endforelse
-                                                  
+                                                            </li>
 
-                                                </ul>
+                                                        @empty
+                                                            {{-- <p>sasd</p> --}}
+                                                        @endforelse
 
 
-                                            </div>
+
+                                                    </ul>
+
+                                                </div>
+                                            @endif
+
 
                                         </div>
 
@@ -1052,44 +1162,67 @@
                                         <div id="collapseleft8" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample8" style="">
                                             <div class="accordion-body">
-                                                <div class="appointments___list">
+                                                <div class="appointments___list past_medical_history_ak">
 
-                                                    <ul class="symptoms allergiesdtl">
+                                                    <ul style="max-height: 300px !important;overflow-y: auto;">
                                                         @php
                                                             $patient_id = decrypt(@$id);
-                                                            $visit_notes = App\Models\patient\Patient_progress_note::select('created_at', 'voice_recognition')
-                                                                ->where(['progress_note_canned_text_id' => 6, 'patient_id' => @$patient_id])
-                                                                ->orderBy('id', 'desc')
-                                                                ->get();
-                                                        @endphp
-                                                        @if ($visit_notes->isEmpty())
-                                                            <li>No data Found.</li>
-                                                        @else
-                                                            @foreach ($visit_notes as $visit)
-                                                                <li>
 
+                                                            $Patient_appointments = DB::table('book_appointments')->where('patient_id', $patient_id)->orderBy('start_date', 'desc')->get();
+                                                        @endphp
+                                                        @if ($Patient_appointments->isEmpty())
+                                                            <li><small style="font-size:10px;">No Visit Found</small></li>
+                                                        @else
+                                                            @foreach ($Patient_appointments as $Patient_appointment)
+
+                                                                    @php
+                                                                    $doctorName = DB::table('doctors')
+                                                                        ->where('id', $Patient_appointment->doctor_id)
+                                                                        ->first();
+                                                                @endphp
+                                                                <li>
+                                                                    <div class="" >
+
+                                                                        <h6 style="font-size: 14px;">{{ $Patient_appointment->appointment_type }}</h6>
+
+                                                                        <p style="font-size: 15px;"> <span
+                                                                            style="color: #082787; font-weight: bold;">{{ $doctorName->title ?? '' }}
+                                                                        </span> {{ $doctorName->name ?? '' }} ({{ $doctorName->email ?? '' }})</p>
+                                                                        @php
+                                                                            $doctorName = DB::table('doctors')
+                                                                                ->where('id', $Patient_appointment->doctor_id)
+                                                                                ->first();
+                                                                        @endphp
+
+                                                                    </div>
                                                                     <div class="appoin_date">
 
                                                                         <div class="read-more-content">
 
-                                                                            <p>
+                                                                            @php
+                                                                                $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
+                                                                                $startTime = \Carbon\Carbon::createFromFormat(
+                                                                                    'H:i',
+                                                                                    date('H:i',strtotime($Patient_appointment->start_time)),
+                                                                                );
+                                                                                $startDateTime = $startDate
+                                                                                    ->copy()
+                                                                                    ->setTime($startTime->hour, $startTime->minute);
+                                                                                $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                                                $startDate = $startDateTime->format('l, j F Y');
+                                                                                $startTime = $startDateTime->format('H:i');
 
-                                                                                {{ $visit->voice_recognition }}
-                                                                            </p>
+                                                                                $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
+                                                                            @endphp
+
+
+                                                                            <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
 
                                                                         </div>
-                                                                        @if (strlen($visit->voice_recognition) >= 50)
-                                                                            <button
-                                                                                class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                                onclick="toggleReadMore(this)">Read
-                                                                                More</button>
-                                                                        @endif
+                                                                      
 
                                                                     </div>
-                                                                    <div class="appoin_date">
-                                                                        <p>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y') }}
-                                                                        </p>
-                                                                    </div>
+
                                                                 </li>
                                                             @endforeach
                                                         @endif
@@ -1140,7 +1273,9 @@
                                                                         <p>{{ \Carbon\Carbon::parse($prescription->created_at)->format('D, d M Y') }}
 
                                                                             <span class="prescriptionsMedicines" data-id="{{ $prescription->id }}">
+                                                                                @if($isEditAllowed)
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                @endif
                                                                             </span>
 
 
@@ -1158,12 +1293,12 @@
                                                                             </p>
 
                                                                         </div>
-                                                                        @if (strlen($prescription->prescription) >= 50)
+                                                                        {{-- @if (strlen($prescription->prescription) >= 50)
                                                                             <button
                                                                                 class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                                 onclick="toggleReadMore(this)">Read
                                                                                 More</button>
-                                                                        @endif
+                                                                        @endif --}}
 
                                                                     </div>
 
@@ -1263,7 +1398,7 @@
                                                 <div class="diagnosis_type">
                                                     <h6><span class="point_dia"><i
                                                                 class="fa-regular fa-circle-dot"></i></span> Provisional /
-                                                        Gernal diagnosis</h6>
+                                                        General Diagnosis</h6>
                                                         @php
                                                         $diagnosis_general_data = App\Models\patient\ThyroidDiagnosis::where(['title_name' => 'diagnosis_general', 'patient_id' => decrypt(@$id)])
                                                             ->get()
@@ -1290,7 +1425,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
                                                 </div>
@@ -1323,7 +1458,7 @@
                                                             @endforeach
                                                         @endforeach
                                                     @else
-                                                        <p>No Data Found</p>
+                                                        {{-- <p>No Data Found</p> --}}
                                                     @endif
 
 
@@ -1406,7 +1541,7 @@
                                                   @endforeach
                                               @endforeach
                                           @else
-                                              <p>No Data Found</p>
+                                              {{-- <p>No Data Found</p> --}}
                                           @endif
 
                                             </div>
@@ -1507,7 +1642,7 @@
                                                         @endforeach
                                                     @endforeach
                                                 @else
-                                                    <p>No Data Found</p>
+                                                    {{-- <p>No Data Found</p> --}}
                                                 @endif
                                                 </div>
                                             </div>
@@ -1590,7 +1725,7 @@
                                                   @endforeach
                                               @endforeach
                                           @else
-                                              <p>No Data Found</p>
+                                              {{-- <p>No Data Found</p> --}}
                                           @endif
                                               
 
@@ -1676,7 +1811,7 @@
                                                       @endforeach
                                                   @endforeach
                                               @else
-                                                  <p>No Data Found</p>
+                                                  {{-- <p>No Data Found</p> --}}
                                               @endif
                                                   
                                                 </div>
@@ -1763,7 +1898,7 @@
                                                       @endforeach
                                                   @endforeach
                                               @else
-                                                  <p>No Data Found</p>
+                                                  {{-- <p>No Data Found</p> --}}
                                               @endif
                                                    
                                                 </div>
@@ -1847,7 +1982,7 @@
                                                   @endforeach
                                               @endforeach
                                           @else
-                                              <p>No Data Found</p>
+                                              {{-- <p>No Data Found</p> --}}
                                           @endif
                                             </div>
                                         </div>
@@ -1929,7 +2064,7 @@
                                                   @endforeach
                                               @endforeach
                                           @else
-                                              <p>No Data Found</p>
+                                              {{-- <p>No Data Found</p> --}}
                                           @endif
                                             </div>
                                         </div>
@@ -2009,7 +2144,7 @@
                                                   @endforeach
                                               @endforeach
                                           @else
-                                              <p>No Data Found</p>
+                                              {{-- <p>No Data Found</p> --}}
                                           @endif
                                             </div>
                                         </div>
@@ -2092,12 +2227,12 @@
                                                                         </p>
 
                                                                     </div>
-                                                                    @if (strlen($procedure->entry) >= 50)
+                                                                    {{-- @if (strlen($procedure->entry) >= 50)
                                                                         <button
                                                                             class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                             onclick="toggleReadMore(this)">Read
                                                                             More</button>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                 </div>
 
@@ -2112,15 +2247,17 @@
 
                                                                     </div>
                                                                     @if (strlen($procedure->summary) >= 50)
-                                                                        <button
+                                                                        {{-- <button
                                                                             class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                             onclick="toggleReadMore(this)">Read
-                                                                            More</button>
+                                                                            More</button> --}}
 
                                                                             
                                                                              <div class="Bottom_btn">
                                                                                 <span class="orderProcedure" data-id="{{ $record->id }}">
+                                                                                    @if($isEditAllowed)
                                                                                     <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                    @endif
                                                                                 </span>
                                                                             </div>
                                                                     @endif
@@ -2177,7 +2314,7 @@
                                         
 
                                         <div id="collapseleft21" class="accordion-collapse collapse" data-bs-parent="#accordionExample21">
-                                            @if (count($supportiveTreatments) > 0)
+                                            @if (count($supportiveTreatments) > 0 || count($document_file)>0)
                                             <div class="accordion-body">
                                                 <div class="appointments___list past_medical_history_ak diagnosis_data">
                                                     <ul class="allergiesdtl">
@@ -2218,7 +2355,7 @@
                                                                                         
                                                                                       
                                                                                         <p class="ss_result">
-                                                                                            <strong>Sub Ttile</strong> &nbsp;&colon;
+                                                                                            <strong>Sub Title</strong> &nbsp;&colon;
                                                                                             {{ $record->sub_title ?? '' }}
                                                                                         </p>
                     
@@ -2248,14 +2385,16 @@
                     
                                                                         </div>
                     
-                                                                        <button class="btn btn_read read-more-btn past_history_readmorebtn"
-                                                                            onclick="toggleReadMore(this)">Read More</button>
+                                                                        {{-- <button class="btn btn_read read-more-btn past_history_readmorebtn"
+                                                                            onclick="toggleReadMore(this)">Read More</button> --}}
                     
                     
                                                                         <div class="Bottom_btn">
                                                                             
                                                                             <span class="supportiveTrea" data-id="{{ $record->id }}">
+                                                                                @if($isEditAllowed)
                                                                                 <i class="fa-regular fa-trash-can trash_btn"></i>
+                                                                                @endif
                                                                             </span>
                                                                         </div>
                     
@@ -2268,7 +2407,7 @@
                                                                     @if (in_array($alldocument_file->form_section_type, ['supportive_treatment']))
                                                                 
                                                                     <div class="document_view">
-                                                                        <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ url('public/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
+                                                                        <h6><span class="trshDoc"><a href="{{ route('delete-document', ['id' => $alldocument_file->id]) }}"><iconify-icon icon="ph:trash-bold"></iconify-icon></a></span> <a href="{{ asset('/uploads/' . $alldocument_file->upload_file) }}" target="_blank"><iconify-icon icon="basil:document-outline" ></iconify-icon>{{ $alldocument_file->document_title }}</a></h6>
                                                                     </div> 
                                                                     @endif
                                                                     @empty
@@ -2276,7 +2415,7 @@
                                                                 @endforelse
                                                                 </li>
                                                             @empty
-                                                                <small style="font-size:10px;">No Data Found</small>
+                                                                {{-- <small style="font-size:10px;">No Data Found</small> --}}
                                                             @endforelse
                                                         @endif
                                                     </ul>
@@ -2299,7 +2438,7 @@
                                                 <div class="top_title_mm_box">
                                                     <h6 class="action_flex_ghi">
                                                         <div class="enterd_by">
-                                                            <span>Plans/Recommandation | <span class="enter_span_hivj">
+                                                            <span>Future Plans / Recommendations | <span class="enter_span_hivj">
                                                                     Entered By | SAIF ALZAABI</span> </span>
                                                             <div class="right_side_hjkl">
                                                                 <span class="date_time_fgu">Sat 21st Oct, 2023, 1:39
@@ -2446,12 +2585,12 @@
                                                                         </p>
 
                                                                     </div>
-                                                                    @if (strlen($procedure2->voice_recognition) >= 50)
+                                                                    {{-- @if (strlen($procedure2->voice_recognition) >= 50)
                                                                         <button
                                                                             class="btn btn_read read-more-btn past_history_readmorebtn"
                                                                             onclick="toggleReadMore(this)">Read
                                                                             More</button>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                 </div>
 
@@ -2497,27 +2636,28 @@
 
     @push('custom-js')
         <script>
-            function toggleReadMore(button) {
+            var isEditAllowed = {{$isEditAllowed}};
+            // function toggleReadMore(button) {
 
-                var content = button.previousElementSibling; // Assumes the content is always before the button
+            //     var content = button.previousElementSibling; // Assumes the content is always before the button
 
 
 
-                if (content.style.maxHeight) {
+            //     if (content.style.maxHeight) {
 
-                    content.style.maxHeight = null;
+            //         content.style.maxHeight = null;
 
-                    button.innerHTML = 'Read More';
+            //         button.innerHTML = 'Read More';
 
-                } else {
+            //     } else {
 
-                    content.style.maxHeight = content.scrollHeight + 'px';
+            //         content.style.maxHeight = content.scrollHeight + 'px';
 
-                    button.innerHTML = 'Read Less';
+            //         button.innerHTML = 'Read Less';
 
-                }
+            //     }
 
-            }
+            // }
         </script>
 
 
@@ -2759,8 +2899,10 @@
         </script>
         <!-- Function to fetch and populate patient data -->
         <script>
+            
             function fetchAndDisplayPatientVital(patient_id) {
 
+                
                 // let patient_id = $('input[name="patient_id"]').val();
                 $.ajax({
                     url: '{{ route('user.patient_vital_list') }}',
@@ -2779,11 +2921,13 @@
                     <td>${item.date}</td>
                     <td>${item.measurement}</td>
                     <td>${item.value}</td>
-                    <td>
-                        <a onclick="removeMeasurement(this, ${item.id})" class="trash_btn">
+                    <td>`;
+                       if(isEditAllowed){
+                        rowHtml2 += `<a onclick="removeMeasurement(this, ${item.id})" class="trash_btn">
                           <i class="fa-regular fa-trash-can"></i>
-                        </a>
-                    </td>
+                        </a>`;
+                    }
+                    rowHtml2 +=`</td>
                 </tr>`;
 
                                 $("#measurement_table_body").append(rowHtml2);
@@ -3022,11 +3166,13 @@
                     <td>${item.test_name}</td>
 
                     <td>${item.lab_created_at}</td>
-                    <td>
-                        <a onclick="removeOrderLabTest(this, ${item.lab_id})" class="trash_btn">
+                    <td>`;
+                        if(isEditAllowed){
+                            rowHtml2 +=`<a onclick="removeOrderLabTest(this, ${item.lab_id})" class="trash_btn">
                           <i class="fa-regular fa-trash-can"></i>
-                        </a>
-                    </td>
+                        </a>`;
+                    }
+                    rowHtml2 +=`</td>
                 </tr>`;
 
                                 $("#lab_order_list_body").append(rowHtml2);
@@ -3216,11 +3362,12 @@
                     <td>${item.item_name}</td>
                     <td>${item.cost}</td>
                     <td>${item.code}</td>
-                    <td>
-                        <a onclick="removeInvoiceItem(this, ${item.id})" class="trash_btn">
+                    <td>`;
+                         if(isEditAllowed){
+                            rowHtml2 +=`<a onclick="removeInvoiceItem(this, ${item.id})" class="trash_btn">
                           <i class="fa-regular fa-trash-can"></i>
-                        </a>
-                    </td>
+                        </a>`;}
+                    rowHtml2 +=`</td>
                 </tr>`;
 
                                 $("#invoice_item_table_body").append(rowHtml2);
@@ -3616,7 +3763,7 @@
                 });
 
                 $('#medicine_add_edit').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -3756,11 +3903,13 @@
                                         <td>${item.stopped}</td>
                                         <td>${item.stopped_date}</td>
                                         <td>${item.code}</td>
-                                        <td>
-                                            <a onclick="removeDrugItem(this, ${item.id})" class="trash_btn">
+                                        <td>`;
+                                             if(isEditAllowed){
+                            rowHtml2 +=`<a onclick="removeDrugItem(this, ${item.id})" class="trash_btn">
                                                 <i class="fa-regular fa-trash-can"></i>
-                                            </a>
-                                        </td>
+                                            </a>`;
+                                        }
+                                        rowHtml2 +=`</td>
                                     </tr>`;
                                 patientData.append(rowHtml2);
                             });

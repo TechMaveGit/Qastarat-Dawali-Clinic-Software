@@ -26,3 +26,5 @@ Homestead.json
 .github/*
 *.DS_Store
 .github
+
+!/public/assets/Common/

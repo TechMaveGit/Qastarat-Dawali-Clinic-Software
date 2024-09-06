@@ -9,6 +9,10 @@
         .imageSize {
             width: 100px;
         }
+
+        .detail_ans{
+		width: 35% !important;
+	}
     </style>
 
     <div class="content-wrapper">
@@ -17,12 +21,12 @@
             <div class="content-header">
                 <div class="d-flex">
                     <h4 class="page-title">Doctor Details</h4>
-                    {{-- <nav aria-label="breadcrumb">
+                    <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Doctor</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">All Doctors</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Doctor Details</li>
                 </ol>
-            </nav> --}}
+            </nav>
                 </div>
 
             </div>
@@ -43,7 +47,7 @@
                                             {{-- https://techmavesoftwaredev.com/webclinic//superAdmin/images/avatar/avatar-1.png --}}
 
                                             @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
-                                                <img src="{{ asset('//assets/profileImage/' . $doctor->patient_profile_img) }}"
+                                                <img src="{{ asset('/assets/profileImage/' . $doctor->patient_profile_img) }}"
                                                     alt="">
                                             @else
                                                 <img class="profile-pic"
@@ -97,6 +101,14 @@
                                                     </div>
                                                     <div class="detail_ans">
                                                         <h6>{{ $doctor->email }}</h6>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="detail_title">
+                                                        <h6>Mobile No </h6>
+                                                    </div>
+                                                    <div class="detail_ans">
+                                                        <h6>{{ $doctor->dial_code }} {{ $doctor->mobile_no }}</h6>
                                                     </div>
                                                 </li>
 
@@ -293,7 +305,10 @@
                                                     </div>
                                                     <div class="detail_ans">
                                                         <span class="branchcls">
-                                                            @forelse ($doctor->userBranch as $getbranchName)
+                                                            @php
+                                                                $uniqueBranch = $doctor->userBranch->unique('add_branch');
+                                                            @endphp
+                                                            @forelse ($uniqueBranch as $getbranchName)
                                                                 <p>{{ $getbranchName->userBranchName->branch_name }}
                                                                     @if (!$loop->last)
                                                                         ,
@@ -340,7 +355,7 @@
                                         <div>
                                             <div class="d-flex align-items-center mb-10">
                                                 <div class="d-flex flex-column flex-grow-1 fw-500">
-                                                    <p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name }}
+                                                    <p class="hover-primary text-fade mb-1 fs-14">{{ $userDetail->name??'' }}
                                                     </p>
                                                     <p class="hover-primary text-fade mb-1 fs-14">
                                                         {{ $allbook_appointments->appointment_type }}</p>
@@ -361,11 +376,12 @@
                                                             ->copy()
                                                             ->setTime($startTime->hour, $startTime->minute);
                                                         $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                        $endTime = $allbook_appointments->end_time ? date('H:i', strtotime($allbook_appointments->end_time)) : '';
                                                     @endphp
 
 
                                                     <p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i>
-                                                        {{ $formattedDateTime }}</p>
+                                                        {{ $formattedDateTime }} - {{$endTime}}</p>
                                                 </div>
                                             </div>
                                             <hr>

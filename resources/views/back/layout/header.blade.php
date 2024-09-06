@@ -305,7 +305,13 @@
                {
                 position: absolute;
                }
-                
+                .content-header nav{
+                    right: 3%;
+                    position: absolute;
+                }
+                .sypm_tom_cnt {
+  max-height: 100% !important;
+}
     </style>
 
 
@@ -326,13 +332,12 @@
         }
     @endphp
 
-    @if ($showAlert)
+    @if (isset($isEditAllowed) &&  !$isEditAllowed)
         <script>
             function appendRandomIDToDataBsToggle() {
                 const elements = document.querySelectorAll('.action_btn_tooltip');
 
                 elements.forEach(element => {
-                    console.log(element, "+++++++++++++++++++++++++++++++++++++++++++++++");
 
                     // Get the value of data-bs-target
                     const targetId = element.getAttribute('data-bs-target');
@@ -602,11 +607,10 @@
 
 
                                     <!-- SIMPLE NAVIGATION LINK -->
-                                    @if (Auth::guard('doctor')->user()->user_type !== 'pathology' &&
-                                            Auth::guard('doctor')->user()->user_type !== 'radiology')
+                                    @if (!Auth::guard('doctor')->user())
                                         <li class="nl-simple {{ request()->routeIs('service') ? 'active' : '' }}"
                                             aria-haspopup="true"><a href="{{ route('service') }}"
-                                                class="h-link">Services</a></li>
+                                                class="h-link">Services--</a></li>
                                     @endif
 
                                 </ul>

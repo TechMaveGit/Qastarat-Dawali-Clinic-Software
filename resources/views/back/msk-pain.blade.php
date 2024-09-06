@@ -1514,17 +1514,17 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                 
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-15 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">>
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(16-30 pts)</th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(31-50 pts)</th>
                                                 </tr>
                                             </tbody>
@@ -1547,9 +1547,9 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Softtissue][]" id="formRadiosRight042"
-                                                        value="YES">
+                                                        value="Yes">
                                                     <label class="form-check-label" for="formRadiosRight042">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1568,9 +1568,11 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1638,7 +1640,9 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                     </div>
                                     
                         <div class="col-lg-12">
-                            <h6 class="section_title__">Imaging <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                            <h6 class="section_title__">Imaging 
+                                {{-- <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                            </h6>
                           </div>
                           
                           <div class="col-lg-12">
@@ -1814,7 +1818,6 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                       <img src="images/new-images/nodules.png" alt="">
                                   </div> -->
                                         <div id="image-container">
-                                            <img src="images/new-images/nodules.png" alt="Your Image" id="image">
                                         </div>
                                         <div class="button_images">
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
@@ -1824,10 +1827,13 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
                                                 id="download-image" type="button">Download</button>
                                         </div>
+                                        <input type="hidden" name="canvasImage" id="canvasImage">
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Lab <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Lab 
+                                            {{-- <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                         <div class="col-lg-12">
                                           <div class="title_head">
@@ -1846,10 +1852,20 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                       <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                       <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                       <option value="high">(> 5.49 mIU/L)</option>
+                                                      <option value="other" >Other</option>
                                                       </select>
                                                       <div class="result result_value">
                                                           <!-- Display low, high, and normal values here -->
                                                       </div>
+    
+                                                    <select  hidden class="tshRangeOther form-select" name="Lab[CBC][otherLevel]">
+                                                        <option value="low">Low</option>
+                                                        <option value="normal">Normal</option>
+                                                        <option value="high">High</option>
+                                                    </select>
+                                                
+                                                    <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[CBC][other]" />
+
                                                   </div>
                                               </div>
                                               </div>
@@ -1866,10 +1882,19 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                       <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                       <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                       <option value="high">(> 5.49 mIU/L)</option>
+                                                      <option value="other" >Other</option>
                                                       </select>
                                                       <div class="result result_value">
                                                           <!-- Display low, high, and normal values here -->
                                                       </div>
+    
+                                                    <select  hidden class="tshRangeOther form-select" name="Lab[CRP][otherLevel]">
+                                                        <option value="low">Low</option>
+                                                        <option value="normal">Normal</option>
+                                                        <option value="high">High</option>
+                                                    </select>
+                                                
+                                                    <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[CRP][other]" />
                                                   </div>
                                               </div>
                                               </div>
@@ -1886,10 +1911,19 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                        <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                        <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                        <option value="high">(> 5.49 mIU/L)</option>
-                                                       </select>
-                                                       <div class="result result_value">
-                                                           <!-- Display low, high, and normal values here -->
-                                                       </div>
+                                                       <option value="other" >Other</option>
+                                                    </select>
+                                                    <div class="result result_value">
+                                                        <!-- Display low, high, and normal values here -->
+                                                    </div>
+  
+                                                  <select  hidden class="tshRangeOther form-select" name="Lab[ESR][otherLevel]">
+                                                      <option value="low">Low</option>
+                                                      <option value="normal">Normal</option>
+                                                      <option value="high">High</option>
+                                                  </select>
+                                              
+                                                  <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[ESR][other]" />
                                                    </div>
                                                </div>
                                                </div>
@@ -1906,10 +1940,19 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                            <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                            <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                            <option value="high">(> 5.49 mIU/L)</option>
-                                                           </select>
-                                                           <div class="result result_value">
-                                                               <!-- Display low, high, and normal values here -->
-                                                           </div>
+                                                           <option value="other" >Other</option>
+                                                        </select>
+                                                        <div class="result result_value">
+                                                            <!-- Display low, high, and normal values here -->
+                                                        </div>
+      
+                                                      <select  hidden class="tshRangeOther form-select" name="Lab[CKMP][otherLevel]">
+                                                          <option value="low">Low</option>
+                                                          <option value="normal">Normal</option>
+                                                          <option value="high">High</option>
+                                                      </select>
+                                                  
+                                                      <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[CKMP][other]" />
                                                        </div>
                                                    </div>
                                                    </div>
@@ -1926,10 +1969,19 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                                <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                                <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                                <option value="high">(> 5.49 mIU/L)</option>
-                                                               </select>
-                                                               <div class="result result_value">
-                                                                   <!-- Display low, high, and normal values here -->
-                                                               </div>
+                                                               <option value="other" >Other</option>
+                                                                </select>
+                                                                <div class="result result_value">
+                                                                    <!-- Display low, high, and normal values here -->
+                                                                </div>
+                
+                                                                <select  hidden class="tshRangeOther form-select" name="Lab[UricAcid][otherLevel]">
+                                                                    <option value="low">Low</option>
+                                                                    <option value="normal">Normal</option>
+                                                                    <option value="high">High</option>
+                                                                </select>
+                                                            
+                                                                <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[UricAcid][other]" />
                                                            </div>
                                                        </div>
                                                        </div>
@@ -1946,10 +1998,19 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                                    <option value="normal">(0.4 - 5.49 mIU/L)</option>
                                                                    <option value="low">(0.01 - 0.39 mIU/L)</option>
                                                                    <option value="high">(> 5.49 mIU/L)</option>
-                                                                   </select>
-                                                                   <div class="result result_value">
-                                                                       <!-- Display low, high, and normal values here -->
-                                                                   </div>
+                                                                   <option value="other" >Other</option>
+                                                                </select>
+                                                                <div class="result result_value">
+                                                                    <!-- Display low, high, and normal values here -->
+                                                                </div>
+              
+                                                              <select  hidden class="tshRangeOther form-select" name="Lab[RF][otherLevel]">
+                                                                  <option value="low">Low</option>
+                                                                  <option value="normal">Normal</option>
+                                                                  <option value="high">High</option>
+                                                              </select>
+                                                          
+                                                              <input class="LabOther form-control" placeholder="enter here ..."  hidden name="Lab[RF][other]" />
                                                                </div>
                                                            </div>
                                                            </div>
@@ -2023,10 +2084,24 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                                 </div>
                                                             </div>
                                                             </div>
+                                                            <div class="col-lg-12 mb-4">
+                                                                <div class="title_head">
+                                                                    <h4>Others</h4>
+                                                                </div>
+                                                                <div class="otherLabRow">
+                                                                    
+                                                                </div>
+                                                                <div class="add_more_btn">
+                                                                    <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                                                </div>
+                                                                
+                                                            </div>
                                                         </div>
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#refer_patient" class="order-now_btn">Reffer <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                         <div class="title_head">
                                               <h4>REQNERVECON5</h4>
                                           </div>
@@ -2075,9 +2150,11 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                           </div>
                                           
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a  href="javascript:void(0)"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a  href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2108,12 +2185,12 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                     <div class="form-check form-check-right mb-3">
                                                         <input class="form-check-input" type="checkbox" name="MDT[Medical][]" value="Medical"  id="formRadiosRight85">
                                                         <label class="form-check-label" for="formRadiosRight85">
-                                                            Medical / conservative
+                                                            Medical / Conservative
                                                         </label>
                                                     </div>
                                                     <div  id="textarea_85">
                                                     <div class="form-check form-check-right mb-3">
-                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
+                                                      <textarea class="form-control" placeholder="Enter Elaborate Medical / Conservative/ notes here***"  style="height: 100px" name="MDT[MedicalNote][]"></textarea>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -2151,9 +2228,11 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2165,7 +2244,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - Topical Riparil&nbsp;</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - Topical Riparil&nbsp;</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2194,7 +2273,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - Topical Analgesics&nbsp;</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - Topical Analgesics&nbsp;</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2223,7 +2302,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Analgesics</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Analgesics</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2252,7 +2331,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Glucasamine / Chondroitin</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Glucasamine / Chondroitin</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2281,7 +2360,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - PO Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - PO Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2310,7 +2389,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IV Vitamines</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IV Vitamines</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2339,7 +2418,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Nurobion</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Nurobion</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2368,7 +2447,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - IM Collagen</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - IM Collagen</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2397,7 +2476,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         <div class="col-lg-12">
                                             <div class="row">
                                             <div class="col-lg-4">
-                                          <h6 class="mb-3 lut_title">conservative - knee Brace</h6>
+                                          <h6 class="mb-3 lut_title">Conservative - knee Brace</h6>
                                         </div>
                                         <div class="col-lg-4">
                                                     <div class="form-check form-check-right mb-3">
@@ -2601,9 +2680,11 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                             </div>
                                         </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                             href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     
 
@@ -2736,6 +2817,15 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-12 mb-4">
+                                            <div class="otherOtherProcedureRx">
+                                                
+                                            </div>
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherProcedureRx()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                            
+                                        </div>
                                     </div>
                                     
                                     
@@ -2743,9 +2833,11 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                     
                                     
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a href="javascript:void(0)"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a href="javascript:void(0)"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="row">
@@ -2837,7 +2929,9 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Prescription <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Prescription 
+                                            {{-- <a href="javascript:void(0)" class="order-now_btn order-now_btn_alt">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                         <div class="title_head">
                                               <h4>ADD A DRUG </h4>
                                           </div>
@@ -2906,9 +3000,11 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                                 </div>
                                 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="javascript:void(0)" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -2981,8 +3077,8 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                     </div>
 
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
                             FINAL</button>
                     </div>
@@ -2999,6 +3095,7 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
 
 
     @push('custom-js')
+    
         <script>
             $(document).ready(function() {
                 $("#abnormal_a74").hide();
@@ -3138,6 +3235,27 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+
+                function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+                function addOtherProcedureRx(){
+                    $(".otherOtherProcedureRx").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Intervention[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -3146,9 +3264,22 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
                     updateValues(this);
                 });
 
+                
+
                 function updateValues(select) {
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
+
+
+                    if($(select).val() == 'other'){
+                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                    } else {
+                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                    }
 
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
@@ -3866,6 +3997,11 @@ Patient | MSK Pain | QASTARAT & DAWALI CLINICS
 // Focal soft tissue pain end  
 
 
+
+
+       
+        
+
 // Focal soft tissue swelling / bulge start
 var isChecked_sym_a2 = $("#sym_a2").is(":checked");
            
@@ -4109,11 +4245,144 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
             return true; 
         }
 
+
+
+
+              
+// Start Image
+    const stage = new Konva.Stage({
+        container: 'image-container',
+        width: 600,
+        height: 600,
+    });
+
+    const layer = new Konva.Layer();
+    stage.add(layer);
+
+    let isDrawing = false;
+    let annotationMode = false;
+    let lastLine;
+
+    const imageObj = new Image();
+
+    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/add/ShoulderPain.jpg') }}';
+
+    imageObj.onload = function() {
+        const image = new Konva.Image({
+            image: imageObj,
+            width: 600,
+            height: 600,
+        });
+
+        layer.add(image);
+        stage.draw();
+    };
+
+    stage.on('mousedown touchstart', function(e) {
+        if (annotationMode) {
+            const text = prompt('Enter annotation text:');
+            if (text) {
+                const pos = stage.getPointerPosition();
+                const annotation = new Konva.Label({
+                    x: pos.x,
+                    y: pos.y,
+                });
+
+                annotation.add(
+                    new Konva.Tag({
+                        fill: 'transparent',
+                    })
+                );
+
+                annotation.add(
+                    new Konva.Text({
+                        text: text,
+                        fontSize: 18,
+                        width:500,
+                        fontStyle: 'bold',
+                        fontFamily: 'Arial',
+                        fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
+                    })
+                );
+
+                layer.add(annotation);
+                stage.draw();
+            }
+        } else {
+            isDrawing = true;
+            const pos = stage.getPointerPosition();
+            lastLine = new Konva.Line({
+                stroke: '#2760a4',
+                strokeWidth: 3,
+                globalCompositeOperation: 'source-over',
+                points: [pos.x, pos.y],
+            });
+            layer.add(lastLine);
+        }
+    });
+
+    stage.on('mousemove touchmove', function() {
+        if (!isDrawing) {
+            return;
+        }
+
+        const pos = stage.getPointerPosition();
+        const newPoints = lastLine.points().concat([pos.x, pos.y]);
+        lastLine.points(newPoints);
+        layer.batchDraw();
+    });
+
+    stage.on('mouseup touchend', function() {
+        isDrawing = false;
+        lastLine = null;
+    });
+
+
+   document.getElementById('draw-mode').addEventListener('click', function() {
+        annotationMode = false;
+    });
+
+    document.getElementById('annotate-mode').addEventListener('click', function() {
+        annotationMode = true;
+    });
+
+
+    document.getElementById('download-image').addEventListener('click', function() {
+        const dataURL = stage.toDataURL({
+            mimeType: 'image/png'
+        });
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'MSK-pain.png';
+        link.click();
+    });
+
+        function isFormDataValid(formData) {
+            for (let [key, value] of formData.entries()) {
+                if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                    if (value.trim() !== '') {
+                        return true; // A blank value found
+                    }
+                }
+            }
+            return false; // All values are non-blank
+        }
         
         $("#storeMSKPainEligibilityForms").submit(function(event) {
             
             event.preventDefault();
+            const dataURL = stage.toDataURL({
+                        mimeType: 'image/png'
+                    });
+
+                document.getElementById('canvasImage').value = dataURL;
             let formData = new FormData(this);
+
+           
+            if(isFormDataValid(formData)){
+                
             if (!validateForm()) {
                 e.preventDefault(); 
             } 
@@ -4175,6 +4444,13 @@ var isChecked_sym_a18= $("#sym_a18").is(":checked");
                 
             }
         }
+    }else{
+        Swal.fire({
+                title: "Fill Data?",
+                text: "Please fill the details.",
+                icon: "info",
+            });
+    }
         });
     });
 </script>

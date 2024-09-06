@@ -16,12 +16,12 @@
     <div class="content-header">
         <div class="d-flex">
         <h4 class="page-title">Patient Details</h4>
-        <!-- <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}">Patient</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('patients.index') }}">All Patients</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Patient Details</li>
                 </ol>
-            </nav> -->
+            </nav>
         </div>
 
 		</div>
@@ -39,8 +39,8 @@
                                     <div class="circle">
 
 
-                                        @if (isset($doctor->patient_profile_img) && !empty($doctor->patient_profile_img))
-                                        <img src="{{ asset('//assets/patient_profile/' . $doctor->patient_profile_img) }}" alt="">
+                                        @if($doctor->patient_profile_img)
+                                        <img src="{{ asset('/assets/patient_profile') }}/{{ $doctor->patient_profile_img }}" alt="">
                                         @else
                                         <img class="profile-pic" src="{{ asset('/superAdmin/images/newimages/avtar.jpg')}}" alt="">
 
@@ -103,7 +103,7 @@
                                                 <h6>Mobile No </h6>
                                             </div>
                                             <div class="detail_ans">
-                                                <h6>{{ $doctor->mobile_no }}</h6>
+                                                <h6>{{ $doctor->dial_code }} {{ $doctor->mobile_no }}</h6>
                                             </div>
                                         </li>
 
@@ -284,11 +284,14 @@
                                             $startTime = \Carbon\Carbon::createFromFormat('H:i', date('H:i',strtotime($add_book_appointments->start_time)));
                                             $startDateTime = $startDate->copy()->setTime($startTime->hour, $startTime->minute);
                                             $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+
+
+                                            $endTime = $add_book_appointments->end_time ? date('H:i', strtotime($add_book_appointments->end_time)) : '-';
                                         @endphp
 
 
                                            
-											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> {{ $formattedDateTime }}</p>
+											<p class="mb-0 text-muted"><i class="fa fa-clock-o me-5"></i> {{ $formattedDateTime }} - {{$endTime}}</p>
 										</div>
 									</div>
                                     <hr>

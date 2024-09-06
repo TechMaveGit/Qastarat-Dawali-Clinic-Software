@@ -62,7 +62,8 @@
                                     <span class="toolTip">View Medical Record</span>
 
                                 </a>
-
+                                
+                                @if(isset($isEditAllowed) && $isEditAllowed)
                                 <a href="#" class="action_btn_tooltip patient_edit" data-bs-toggle="modal"
                                     data-bs-target="#edit_patient">
 
@@ -71,6 +72,7 @@
                                     <span class="toolTip">Edit Patient Info .</span>
 
                                 </a>
+                                @endif
 
                                 {{-- <a href="#" class="action_btn_tooltip" data-bs-toggle="modal" data-bs-target="#create_appointment">
 
@@ -235,7 +237,7 @@ if (!empty($patient->birth_date ?? '')) {
 
                                     <div class="data_pt">
 
-                                        <h6 id="data_pt_mobile">{{ @$patient->mobile_no }}</h6>
+                                        <h6 id="data_pt_mobile">{{ @$patient->dial_code }} {{ @$patient->mobile_no }}</h6>
 
                                     </div>
 
@@ -449,6 +451,24 @@ if (!empty($patient->birth_date ?? '')) {
                                     </div>
 
                                 </li>
+                                <li class="mb-4">
+                                    <div class="title___">
+
+                                        <h6>Assign Doctor</h6>
+
+                                    </div>
+
+                                
+        
+                                    <div class="data_pt">
+                                        @php
+                                            $doctor = DB::table('doctors')->whereId(@$patient->doctor_id)->first();
+                                        @endphp
+                                        <h6 id="data_pt_kin">{{ $doctor->title??'' }} {{ $doctor->name??'' }} </h6>
+        
+                                    </div>
+        
+                                </li>
 
 
 
@@ -514,10 +534,12 @@ if (!empty($patient->birth_date ?? '')) {
                                             $formattedDateTime = $startDateTime->format('l, j F Y H:i');
                                             $startDate = $startDateTime->format('l, j F Y');
                                             $startTime = $startDateTime->format('H:i');
+
+                                            $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
                                         @endphp
 
 
-                                        <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }}</span></p>
+                                        <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
 
                                     </div>
 
@@ -548,7 +570,7 @@ if (!empty($patient->birth_date ?? '')) {
             $(document).ready(function() {
                 //
                 $('#edit_patient').on('hidden.bs.modal', function(e) {
-                    location.reload();
+                    // location.reload();
                 });
             });
         </script>
@@ -590,7 +612,7 @@ if (!empty($patient->birth_date ?? '')) {
                                     )
 
                                     fetchAndDisplayPatientInfoData(patient_id);
-                                    location.reload();
+                                    // location.reload();
                                 } else {
 
                                     swal.fire("Error!", "Enter valid Patient Info  Details!",
@@ -667,6 +689,15 @@ if (!empty($patient->birth_date ?? '')) {
 
                         $('#patient_gendarError').text('Please select a gender');
                         $('select[name="patient_gendar"]').addClass('error');
+                    }
+
+
+                    let patient_branch = $('select[name="patient_branch"]').val();
+                    if (patient_branch === '' || patient_branch === 'Select Any One') {
+                        isValid = false;
+
+                        $('#patient_branchError').text('Please select a branch');
+                        $('select[name="patient_branch"]').addClass('error');
                     }
 
                     // Validate patient_post_code
@@ -786,13 +817,13 @@ if (!empty($patient->birth_date ?? '')) {
                     message = 'CIVIL ID must be exactly 9 digits';
                     break;
                 case 'EID':
-                    maxLength = 18;
+                    maxLength = 15;
                     message = 'EID must be exactly 15 digits';
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
-                    maxLength = 11;
-                    message = selectedType + ' must be exactly 11 digits';
+                    maxLength = 10;
+                    message = selectedType + ' must be exactly 10 digits';
                     break;
                 case 'PASSPORT, DRIVER\'s LICENSE, ETC':     
                     maxLength = Infinity;
@@ -836,6 +867,7 @@ if (!empty($patient->birth_date ?? '')) {
                                 .patient_profile_img : '';
                             let role = data.patient_info.role ? data.patient_info.role : '';
                             let post_code = data.patient_info.post_code ? data.patient_info.post_code : '';
+                            let dial_code = data.patient_info.dial_code ? data.patient_info.dial_code : '';
                             let mobile_no = data.patient_info.mobile_no ? data.patient_info.mobile_no : '';
                             let birth_date = data.patient_info.birth_date ? data.patient_info.birth_date : '';
                             let selectedGendar = data.patient_info.gendar ? data.patient_info.gendar : '';
@@ -852,6 +884,7 @@ if (!empty($patient->birth_date ?? '')) {
                             let additional_info = data.patient_info.additional_info ? data.patient_info
                                 .additional_info : '';
                             let policy_no = data.patient_info.policy_no ? data.patient_info.policy_no : '';
+                            let add_branch = data.patient_info.add_branch ? data.patient_info.add_branch : '';
                             //   let document_type = data.patient_info.document_type ? data.patient_info.document_type : '';
                             let enterIdNumber = data.patient_info.enterIdNumber ? data.patient_info.enterIdNumber :
                                 '';
@@ -870,6 +903,14 @@ if (!empty($patient->birth_date ?? '')) {
                                 }
                             });
                             $('#patient_gendar').val(selectedGendar).trigger('change.select2');
+
+                            $('#patient_branch option').each(function() {
+                                if ($(this).val() === add_branch) {
+                                    $(this).prop('selected', true);
+                                }
+                            });
+                            $('#patient_branch').val(add_branch);
+
                             $("#patient_post_code").val(post_code);
                             $("#patient_street").val(street);
                             $("#patient_town").val(town);
@@ -884,6 +925,7 @@ if (!empty($patient->birth_date ?? '')) {
 
                             $("#patient_email").val(email);
                             $("#patient_mobile_no").val(mobile_no);
+                            $("#patient_dialCode").val(dial_code);
                             $("#patient_landline").val(landline);
                             $("#patient_kin").val(kin);
                             $("#patient_policy_no").val(policy_no);
@@ -918,7 +960,7 @@ if (!empty($patient->birth_date ?? '')) {
                             $("#data_pt_dob").text(birth_date);
                             $("#data_pt_gendar").text(selectedGendar);
 
-                            $("#data_pt_mobile").text(mobile_no);
+                            $("#data_pt_mobile").text(dial_code+' '+mobile_no);
                             $("#data_pt_landline").text(landline);
                             $("#data_pt_street").text(street);
                             $("#data_pt_town").text(town);

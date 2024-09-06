@@ -1,3 +1,54 @@
+@php
+    
+    $dtype = 'doctor';
+    $doctors=[Auth::guard('doctor')->user()];
+    if(Auth::guard('doctor')->user()->user_type == "Nurse"){
+        $dtype = 'Nurse';
+        $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
+        $doctors= null;
+        if($nuDoctor){
+            $doctors= DB::table('doctors')->select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+        }
+    }else if(Auth::guard('doctor')->user()->user_type == "Receptionist"){
+        $dtype = 'receptionist';
+
+        $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
+        $doctors= null;
+        if($nuDoctor){
+            $doctors= DB::table('doctors')->select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+        }
+
+    }else if(Auth::guard('doctor')->user()->user_type == "Coordinator"){
+        $dtype = 'coordinator';
+
+        $nuDoctor = DB::table('doctor_nurse')->where('nurse_id',Auth::guard('doctor')->user()->id)->get()->pluck('doctor_id')->toArray()??null;
+        $doctors= null;
+        if($nuDoctor){
+            $doctors= DB::table('doctors')->select('id','name','email')->whereIn('id',$nuDoctor)->where('role_id','1')->orderBy('id','desc')->get();
+        }
+    }
+    $doctorBranch = DB::table('user_branchs')->where(['patient_id'=>Auth::guard('doctor')->user()->id,'branch_type'=>$dtype])->get()->pluck('add_branch')->toArray();
+    $allBranch=  DB::table('branchs')->whereIn('id',$doctorBranch)->get();
+    $epatient_id = null;
+    // dump($doctors);
+    if(isset($id) && $id) $epatient_id = decrypt($id);
+
+    $dreffer = [];
+    if($epatient_id){
+        $patientDoctor = DB::table('users')->whereId($epatient_id)->first()->doctor_id ?? 0;
+        $dreffer = DB::table('referal_patients')->where('patient_id',$epatient_id)->get()->pluck('doctor_id')->toArray()??[];
+
+        array_push($dreffer,$patientDoctor);
+        // dump($dreffer);
+    }
+
+    $countryCode = DB::table('dial_codes')->where('status', '1')->get();
+@endphp
+<style>
+    .dynamic-select .dynamic-select-header, .dynamic-select .dynamic-select-option {
+    height: 45px !important;
+    }
+</style>
 <div class="modal fade " id="allergies_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog ">
@@ -107,14 +158,13 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title" id="exampleModalLabel"><i class="fa-regular fa-square-plus"></i> Pre-prepared
-                    Text Snippets </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                        class="fa-solid fa-xmark"></i></button>
+                <h1 class="modal-title" id="exampleModalLabel"><i class="fa-regular fa-square-plus"></i> Pre-prepared Text Snippets </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body padding-0">
                 {{-- <form action="{{ route('user.save_patient_note') }}" method="post" /> @csrf --}}
-                <form id="savePatientNote" method="POST" enctype="multipart/form-data"> @csrf
+                <form id="savePatientNote" method="POST" enctype="multipart/form-data"> 
+                    @csrf
                     <div class="inner_data">
                         <div class="row">
                             <div class="col-lg-12">
@@ -122,7 +172,7 @@
                                     <p class="note_created_snippet">You can store often used blocks of text to speed
                                         up data entry in medical records. </p>
 
-                                    <ul class="created_snippet_list">
+                                    <ul class="created_snippet_list" style="max-height: 200px;overflow-y: scroll;">
                                         @php
                                             $note_name = DB::table('progress_note_contents')
                                                 ->orderBy('id', 'DESC')
@@ -163,48 +213,32 @@
                                                 <div class="d-flex">
                                                     <div class="inner_element w-100">
                                                         <div class="form-group">
-                                                            <input type="text" name="newContext"
+                                                            <input type="text" required name="newContext"
                                                                 class="form-control"
-                                                                placeholder="Type a new context">
+                                                                placeholder="Type a new context *">
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="d-flex">
                                                     <div class="inner_element w-100">
                                                         <div class="form-group">
-                                                            <input type="text" name="snippetText"
+                                                            <input type="text" required name="snippetText"
                                                                 class="form-control"
-                                                                placeholder="Give your Snippet Title">
+                                                                placeholder="Give your Snippet Title *">
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                             </div>
-
-
-
                                             <div class="col-lg-12">
                                                 <div class="mt-2 form-group">
-                                                    <textarea class="form-control" name="snippetDescription" placeholder="Type or paste in your text snippet here.."
-                                                        style="height:100px"></textarea>
+                                                    <textarea class="form-control" required name="snippetDescription" id="snippetDescription"  placeholder="Type or paste in your text snippet here.."
+                                                        style="height:100px">Type or paste in your text snippet here..</textarea>
                                                 </div>
-
-
                                             </div>
-
-
-
-
                                         </div>
                                     </div>
-
-
-
                                 </div>
 
                             </div>
@@ -234,7 +268,7 @@
 
 
 
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="genrate_report" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -283,7 +317,7 @@
                                                 <div class="form-group">
                                                     <input type="checkbox" name="oldCurrentMeds"
                                                         value="Old Current Meds" id="a4">
-                                                    <label for="a4">Old / Current meds</label>
+                                                    <label for="a4">Drugs / Current meds</label>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="checkbox" name="allergies" value="Allergies"
@@ -302,14 +336,10 @@
                                                     <label for="a7">Annotate Image</label>
                                                     <img src="" />
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="report_check_box">
                                                 <div class="form-group">
                                                     <input type="checkbox" name="specialInvestigatior"
                                                         value="SpecialInvestigatior" id="a9">
-                                                    <label for="a9">Special Investigatior</label>
+                                                    <label for="a9">Special Investigation</label>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="checkbox" name="mdtReview" value="MdtReview"
@@ -321,6 +351,12 @@
                                                         id="a11">
                                                     <label for="a11">Diagnosis</label>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="report_check_box">
+                                                
+                                                
                                                 <div class="form-group">
                                                     <input type="checkbox" name="Eligiblity"
                                                         value="EligiblityStatus" id="a12">
@@ -329,8 +365,14 @@
                                                 <div class="form-group">
                                                     <input type="checkbox" name="list" value="List"
                                                         id="a13">
-                                                    <label for="a13">List of procedures</label>
+                                                    <label for="a13">List Of Procedures</label>
                                                 </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="Procedure" value="Procedure"
+                                                        id="a22">
+                                                    <label for="a22">Procedure</label>
+                                                </div>
+                                                
                                                 <div class="form-group">
                                                     <input type="checkbox" name="supportiveTreatement"
                                                         value="SupportiveTreatement" id="a14">
@@ -339,12 +381,33 @@
                                                 <div class="form-group">
                                                     <input type="checkbox" name="ListOfPrescribed"
                                                         value="ListOfPrescribed" id="a15">
-                                                    <label for="a15">List of prescribed medication</label>
+                                                    <label for="a15">List Of Prescribed Medicines</label>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="checkbox" name="planRecommandation"
                                                         value="PlanRecommandation" id="a16">
-                                                    <label for="a16">Plans/Recommandation</label>
+                                                    <label for="a16">Future Plans / Recommendations</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="OrderImagingExam"
+                                                        value="OrderImagingExam" id="a19">
+                                                    <label for="a19">Order Imaging Exam</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="LAB"
+                                                        value="LAB" id="a20">
+                                                    <label for="a20">Lab</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="ListofVisit"
+                                                        value="ListofVisit" id="a17">
+                                                    <label for="a17">List of Visit</label>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="ProgressNote"
+                                                        value="ProgressNote" id="a18">
+                                                    <label for="a18">Progress Note</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -372,6 +435,7 @@
     </div>
 
 </div>
+@endif
 
 
 
@@ -583,9 +647,12 @@
     }
 
 
-    function ViewSummary(formType, documentUrl, reply_summary, id) {
+    function ViewSummary(formType, reply_summary,documentUrl, id) {
         // console.log(id);
         $('#referalSummaryData').val(formType);
+        if(documentUrl == ''){
+            documentUrl = '#';
+        }
         $('#documentLink').attr('href', documentUrl);
         $('.appendReply').text(reply_summary);
         $('#referalId').val(id);
@@ -597,6 +664,8 @@
     //     $('#order_imagenairy').modal('hide');
     // }
 </script>
+
+
 
 
 
@@ -987,11 +1056,6 @@
 
                                     <div class="mb-3 form-group">
 
-                                        @php
-                                            $doctorName = DB::table('doctors')
-                                                ->where(['role_id' => '1', 'status' => 'active'])
-                                                ->get();
-                                        @endphp
 
                                         <label for="validationCustom01" class="form-label">Select Doctor</label>
 
@@ -999,8 +1063,8 @@
 
                                             <option value="">Selct Any One</option>
 
-                                            @foreach ($doctorName as $doctorName)
-                                                <option value="{{ $doctorName->id }}">{{ $doctorName->name }}
+                                            @foreach ($doctors as $doctorName)
+                                                <option  value="{{ $doctorName->id }}">{{ $doctorName->name }}
                                                 </option>
                                             @endforeach
 
@@ -1012,32 +1076,17 @@
 
 
 
-                                @php
-                                    $doctorData = Auth::guard('doctor')->user();
-                                    $useBranch = DB::table('user_branchs')
-                                        ->where('patient_id', $doctorData->id)
-                                        ->get();
-                                    $branchs = [];
+                                
 
-                                    foreach ($useBranch as $alluseBranch) {
-                                        $branch = DB::table('branchs')
-                                            ->where('id', $alluseBranch->add_branch)
-                                            ->first();
-                                        if ($branch) {
-                                            $branchs[] = $branch;
-                                        }
-                                    }
-                                @endphp
-
-                                @if (!empty($branchs))
+                                @if (!empty($allBranch))
                                     <div class="col-lg-6">
                                         <div class="mb-3 form-group">
                                             <label for="validationCustom01" class="form-label">Select
-                                                Branch</label>
+                                                Branch </label>
                                             <select class="form-control select2_modal_" name="selectBranch"
                                                 required>
                                                 <option value="">Select Any One</option>
-                                                @forelse ($branchs as $allbranchs)
+                                                @forelse ($allBranch as $allbranchs)
                                                     <option value="{{ $allbranchs->id }}">
                                                         {{ $allbranchs->branch_name }}</option>
                                                 @empty
@@ -1052,8 +1101,7 @@
                                     <div class="mb-4">
                                         <label class="form-label">Date of Birth</label>
                                         <div class="input-group" id="datepicker1">
-                                            <input type="text" class="datepicker form-control "
-                                                placeholder="dd M, yyyy" data-date-format="dd M, yyyy"
+                                            <input type="text" class="datepicker form-control " 
                                                 data-date-container='#datepicker1' data-provide="datepicker"
                                                 name="birth_date" id="birth_date" data-date-end-date="0d">
                                             <span id="datepickerError"
@@ -1200,7 +1248,7 @@
 
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
 
                                     <div class="mb-3 form-group">
 
@@ -1216,29 +1264,7 @@
 
                                 </div>
 
-                                <div class="col-lg-4">
-
-                                    <div class="mb-3 form-group">
-
-                                        <label for="validationCustom01" class="form-label">Mobile Phone</label>
-
-                                        <input type="text"
-                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                            class="form-control" id="" placeholder=""
-                                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                            minlength="0" maxlength="15" name="mobile_no"
-                                            pattern="[0-9]{10,15}">
-                                        <span id="mobile_noError" style="color: red;font-size:smaller"></span>
-                                        <!-- @error('mobile_no')
- <span class="alert alert-danger">{{ $message }}</span>
-@enderror -->
-                                    </div>
-
-                                </div>
-
-
-
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="mb-3 form-group position-relative">
                                         <label for="validationCustom01" class="form-label">Password</label>
                                         <div class="input-group">
@@ -1253,6 +1279,60 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-3">
+                                    <div class="mb-3 form-group">
+                                        <label for="dialCode" class="form-label">Dial Code</label>
+                                        <select id="dialCode" class="form-control form-select" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                            @foreach ($countryCode as $countryCodes)
+                                                <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                                    {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+
+                                    <div class="mb-3 form-group">
+
+                                        <label for="validationCustom01" class="form-label">Mobile Phone</label>
+
+                                        <input type="text"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            class="form-control" id="" placeholder=""
+                                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                            minlength="7" maxlength="13" name="mobile_no">
+                                        <span id="mobile_noError" style="color: red;font-size:smaller"></span>
+                                        <!-- @error('mobile_no')
+ <span class="alert alert-danger">{{ $message }}</span>
+@enderror -->
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-5">
+
+                                    <div class="mb-3 form-group">
+
+                                        <label for="validationCustom01" class="form-label">Landline</label>
+
+
+                                        <input type="text"
+                                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                            minlength="0" maxlength="15"
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            class="form-control" id="landline" placeholder="" minlength="0"
+                                            maxlength="15" name="landline" pattern="[0-9]{10,15}">
+
+                                        <span id="landlineError" style="color: red;font-size:smaller"></span>
+                                    </div>
+
+                                </div>
+
+
+
+                                
                             </div>
                         </div>
 
@@ -1313,24 +1393,7 @@
                                 </div>
 
 
-                                <div class="col-lg-6">
-
-                                    <div class="mb-3 form-group">
-
-                                        <label for="validationCustom01" class="form-label">Landline</label>
-
-
-                                        <input type="text"
-                                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                            minlength="0" maxlength="15"
-                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                            class="form-control" id="landline" placeholder="" minlength="0"
-                                            maxlength="15" name="landline" pattern="[0-9]{10,15}">
-
-                                        <span id="landlineError" style="color: red;font-size:smaller"></span>
-                                    </div>
-
-                                </div>
+                                
 
                             </div>
 
@@ -1504,7 +1567,7 @@
 
                                         </div>
 
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
 
                                             <div class="mb-4">
 
@@ -1526,7 +1589,7 @@
 
                                         </div>
 
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
 
                                             <div class="mb-3 form-group">
 
@@ -1549,6 +1612,25 @@
 
                                             </div>
 
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="mb-3 form-group">
+                                                <label for="validationCustom01" class="form-label">Select
+                                                    Branch <span>*</span></label>
+                                                <select class="form-control" id="patient_branch" name="selectBranch"
+                                                    required>
+                                                    <option value="">Select Any One</option>
+                                                    @forelse ($allBranch as $allbranchs)
+                                                        <option value="{{ $allbranchs->id }}">
+                                                            {{ $allbranchs->branch_name }}</option>
+                                                    @empty
+                                                        <option value="" disabled>No branches available</option>
+                                                    @endforelse
+                                                </select>
+                                                <span id="patient_branchError"
+                                                style="color: red;font-size:smaller"></span>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -1739,24 +1821,6 @@
 
                                 </div>
 
-                                {{-- <div class="col-lg-6">
-
-                                 <div class="mb-3 form-group">
-
-                                     <label class="form-label">Insurer Name</label>
-
-                                     <select class="form-control select2_edit_info" name="patient_insurer"
-                                         id="patient_insurer">
-
-                                     </select>
-
-                                     <span id="patient_insurerError" style="color: red;font-size:smaller"></span>
-
-                                 </div>
-
-                             </div>
---}}
-
                                 <div class="col-lg-6">
 
                                     <div class="mb-3 form-group">
@@ -1910,7 +1974,7 @@
                                         <input type="text" name="enterIdNumber" id="editEnterIdNumber"
                                             value="{{ old('enterIdNumber') }}" class="form-control"
                                             placeholder="">
-                                        <span class="error text-danger" id="validationMessage"> </span>
+                                        <span class="error text-danger" id="editValidationMessage"> </span>
 
                                     </div>
                                 </div>
@@ -2133,7 +2197,7 @@
 
             <div class="modal-header">
 
-                <h1 class="modal-title" id="exampleModalLabel">Add or Edit Insurer </h1>
+                <h1 class="modal-title" id="exampleModalLabel">Add or Edit Insurer</h1>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                         class="fa-solid fa-xmark"></i></button>
@@ -2197,9 +2261,12 @@
 
                     <div class="action text-end bottom_modal">
 
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">
+                        <button type="submit" class="btn r-04 btn--theme hover--tra-black " style="padding: 12px 15px !important;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;">
 
-                            <iconify-icon icon="bi:save"></iconify-icon> Save & Update
+                            <iconify-icon class="mx-2" icon="bi:save"></iconify-icon> Save & Update
 
                         </button>
 
@@ -2420,6 +2487,8 @@
 
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
+
 <!----------------------------
 
               Symptoms
@@ -2529,9 +2598,10 @@
     </div>
 
 </div>
+@endif
 
 
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
          clinical_exam
@@ -2630,9 +2700,11 @@
     </div>
 
 </div>
+@endif
 
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
              Drugs / Current Meds
@@ -2837,7 +2909,7 @@
             </form>
         </div>
 
-        <div class="add_data_diagnosis">
+        <div class="drug_table_diagnosis">
 
             <table class="table table-striped table-bordered">
 
@@ -2884,6 +2956,7 @@
 </div>
 
 </div>
+@endif
 
 <!----------------------------
 
@@ -2897,7 +2970,7 @@
 
 
 
-
+         @if(isset($isEditAllowed) && $isEditAllowed)
 
 <!----------------------------
 
@@ -3191,7 +3264,7 @@
     </div>
 
 </div>
-
+@endif
 <!-- <div class="modal-footer">
 
                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -3213,7 +3286,7 @@
               Future Plans
 
          ---------------------------->
-
+         @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="future_plans" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -3348,6 +3421,8 @@
     </div>
 
 </div>
+@endif
+
 
 
 
@@ -3738,6 +3813,7 @@
 
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
                Patient Refer
@@ -3796,8 +3872,7 @@
 
 
                                             @php
-
-                                                $doctorList = DB::table('doctors')->where('role_id', '1');
+                                                $doctorList =  DB::table('doctors')->whereNotIn('id',$dreffer)->where('role_id', '1');
 
                                                 if (auth()->guard('doctor')->user()->role_id == '1') {
                                                     $doctorList = $doctorList->where(
@@ -3878,56 +3953,29 @@
 
                                 <div class="col-lg-12 px-4 mb-3">
                                     <div class="flxref" style="display: flex;">
-                                        <input type="checkbox" class="checkeditPt" name="checkViewPatient"
+                                        <input type="checkbox" id="toGiveEditPermission" class="checkeditPt" name="checkViewPatient"
                                             value="1">
-                                        <p class="" style="font-size: 16px; color: #707883;">To give edit
-                                            permission</p>
+                                        <p for="toGiveEditPermission" class="" style="font-size: 16px; color: #707883;">To give edit permission</p>
                                     </div>
                                 </div>
-
-
                             </div>
-
-
-
                         </div>
-
                     </div>
 
                     <div class="action text-end bottom_modal">
-
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient"
-                            data-bs-dismiss="modal">
-
-                            Save</button>
-
-                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient secondary_btn"
-                                 data-bs-dismiss="modal">
-
-                                 Close</button> --}}
-
-                        <button type="button" class="modalCloseBtn" data-bs-dismiss="modal"
-                            aria-label="Close">
-                            Close</button>
-
+                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient" data-bs-dismiss="modal">Save</button>
+                        <button type="button" class="modalCloseBtn" data-bs-dismiss="modal" aria-label="Close">Close</button>
                     </div>
 
                 </div>
                 <form>
-                    <!-- <div class="modal-footer">
-
-                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                                 <button type="button" class="btn btn-primary">Save changes</button>
-
-                             </div> -->
 
         </div>
 
     </div>
 
 </div>
-
+@endif
 
 
 
@@ -4061,10 +4109,7 @@
 
 </div>
 
-
-
-
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
              Add New Notes
@@ -4195,10 +4240,7 @@
 
                                                         <div class="voice_recognition">
 
-                                                            {{--
-                                                 <button  class="startRecognition" id="startRecognition">Start Voice Recognition</button> --}}
-
-
+                                                            
                                                             <p>
                                                                 <a href="javascript:void(0)" class="mic_btn"
                                                                     role="button"
@@ -4248,20 +4290,92 @@
                                                 </div>
                                                 <div class="mt-2 form-group">
 
-                                                    <textarea class="form-control" id="summerynote" placeholder="Type your summery here" style="height:100px"
+                                                    <textarea class="form-control" id="summerynote" placeholder="Type your summary here" style="height:100px"
                                                         name="summerynote"></textarea>
                                                     <span id="summerynoteError"
                                                         style="color: red; font-size:small"></span>
 
                                                 </div>
-                                                <h6 class="recall">Recall <span>Follow-up on this episode. Patient
-                                                        will be notified a week before and clinic staff will be
-                                                        notified
-                                                        on due date. </span></h6>
 
                                             </div>
+                                            <div class="col-lg-12 mt-4">
+                                                <div class="appointments___list">
+                                                    @if(isset($epatient_id))
+                                                    @php
+                                                        $Patient_appointments = DB::table('book_appointments')->where('patient_id', $epatient_id)->orderBy('start_date', 'desc')->get();
+                                                    @endphp
+                                                    <h3 class="sub_title__">Appointments</h3>
+                            
+                                                    <ul style="max-height: 300px !important;overflow-y: auto;">
+                            
+                                                        @forelse ($Patient_appointments as $Patient_appointment)
+                                                            <li>
+                                                                @php
+                                                                    $doctorName = DB::table('doctors')
+                                                                        ->where('id', $Patient_appointment->doctor_id)
+                                                                        ->first();
+                                                                @endphp
+                            
+                                                                <div class="appoin_title">
+                            
+                                                                    <h6>{{ $Patient_appointment->appointment_type }}</h6>
+                                                                    <p style="font-size: 15px;"> <span
+                                                                            style="color: #082787; font-weight: bold;">{{ $doctorName->title ?? '' }}
+                                                                        </span> {{ $doctorName->name ?? '' }}</p>
+                                                                    @php
+                                                                        $doctorName = DB::table('doctors')
+                                                                            ->where('id', $Patient_appointment->doctor_id)
+                                                                            ->first();
+                                                                    @endphp
+                                                                    <p class="hover-primary text-fade mb-1 fs-14" style="font-size: 14px;">
+                                                                        {{ $doctorName->name ?? '' }} - {{ $doctorName->email ?? '' }}</p>
+                            
+                            
+                                                                </div>
+                            
+                            
+                            
+                                                                <div class="appoin_date">
+                            
+                                                                    @php
+                                                                        $startDate = \Carbon\Carbon::parse($Patient_appointment->start_date);
+                                                                        $startTime = \Carbon\Carbon::createFromFormat(
+                                                                            'H:i',
+                                                                            date('H:i',strtotime($Patient_appointment->start_time)),
+                                                                        );
+                                                                        $startDateTime = $startDate
+                                                                            ->copy()
+                                                                            ->setTime($startTime->hour, $startTime->minute);
+                                                                        $formattedDateTime = $startDateTime->format('l, j F Y H:i');
+                                                                        $startDate = $startDateTime->format('l, j F Y');
+                                                                        $startTime = $startDateTime->format('H:i');
+                            
+                                                                        $endTime = $Patient_appointment->end_time ? date('H:i', strtotime($Patient_appointment->end_time)) : '';
+                                                                    @endphp
+                            
+                            
+                                                                    <p>{{ $startDate }} <span class="appoin_time">{{ $startTime }} - {{$endTime}}</span></p>
+                            
+                                                                </div>
+                            
+                                                            </li>
+                            
+                                                        @empty
+                            
+                                                            <li>
+                            
+                                                                <p>Not found any appointments</p>
+                            
+                                                            </li>
+                                                        @endforelse
+                                                    </ul>
+                            
+                                                    @endif
+                                                </div>
+                            
+                                            </div>
 
-                                            <div class="col-lg-12">
+                                            {{-- <div class="col-lg-12">
 
                                                 <div class="row align-items-center mt-3">
 
@@ -4324,24 +4438,7 @@
 
                                                     </div>
 
-                                                    {{-- <div class="col-lg-3">
-
-                                                     <div class="form-check">
-
-                                                         <input class="form-check-input" type="checkbox"
-                                                             value="active" id="prog_recall_reminder"
-                                                             name="prog_recall_reminder">
-
-                                                         <label class="form-check-label"
-                                                             for="prog_recall_reminder">
-
-                                                             Save without a recall reminder
-
-                                                         </label>
-
-                                                     </div>
-
-                                                 </div> --}}
+                                                   
 
                                                 </div>
 
@@ -4401,121 +4498,11 @@
                                                         });
                                                     </script>
 
-                                                    {{-- <div class="col-lg-4">
-
-                                                     <div class="form-check">
-
-                                                         <input class="form-check-input" type="checkbox"
-                                                             value="active" id="flexCheckCheckeda2"
-                                                             id="prog_invoice_item" name="prog_invoice_item">
-
-                                                         <label class="form-check-label"
-                                                             for="flexCheckCheckeda2">
-
-                                                             Create an Invoice Item
-
-                                                         </label>
-                                                         <span id="prog_invoice_itemError"
-                                                             style="color: red; font-size:small"></span>
-
-                                                     </div>
-
-                                                 </div> --}}
-
-                                                    {{-- <div class="col-lg-12 mt-3" id="invoice_appoin">
-
-                                                     <div class="inner_element w-100">
-
-                                                         <div class="form-group">
-
-                                                             <select class="form-control select2_note"
-                                                                 name="prog_appointment_type">
-
-                                                                 <option value="">Appointment Type</option>
-
-                                                                 <option
-                                                                     value="CONSULTATION/Interventional Radiology">
-                                                                     CONSULTATION/Interventional Radiology استشارة
-                                                                     أشعة تداخلية</option>
-
-                                                                 <option
-                                                                     value="CT / Fluro Guided joint / facet RFA (Radio-Frequency) ablation">
-                                                                     CT / Fluro Guided joint / facet RFA
-                                                                     (Radio-Frequency) ablation علاج ألم المفاصل
-                                                                     بالتردد الحراري بتوجية الأشعة</option>
-
-                                                                 <option value="Follow up appointment">Follow up
-                                                                     appointment</option>
-
-                                                                 <option value="Hemorrhoids Embolization">
-                                                                     Hemorrhoids Embolization</option>
-
-                                                                 <option
-                                                                     value="Image guided MSK inflammation / pain injection - PRP">
-                                                                     Image guided MSK inflammation / pain injection -
-                                                                     PRP حقن إالتهاب/ألم المفاصل بتوجية الأشعة-بلازما
-                                                                     QASTARAT & DAWALI CLINICS</option>
-
-                                                                 <option
-                                                                     value="Image guided MSK / pain injection - HA">
-                                                                     Image guided MSK / pain injection - HA حقن
-                                                                     إالتهاب/ألم المفاصل بتوجية الأشعة-حقن زيتية
-                                                                 </option>
-
-                                                                 <option
-                                                                     value="Image (Ultrasound) guided Occipital Headache nerve block">
-                                                                     Image (Ultrasound) guided Occipital Headache
-                                                                     nerve block</option>
-
-                                                                 <option value="INTRAVENOUS VITAMIN THERAPY">
-                                                                     INTRAVENOUS VITAMIN THERAPY</option>
-
-                                                                 <option
-                                                                     value="IV DRIP ASCORBIC ACID (Essential dose)">
-                                                                     IV DRIP ASCORBIC ACID (Essential dose) فيتامين
-                                                                     سي الجرعه الأساسية</option>
-
-                                                                 <option
-                                                                     value="IV DRIP DETOX MASTER (ESSENTIAL DOSE)">
-                                                                     IV DRIP DETOX MASTER (ESSENTIAL DOSE)مزيل
-                                                                     السميات (الجرعة الأساسية)</option>
-
-                                                                 <option
-                                                                     value="IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE)">
-                                                                     IV DRIP ENERGY BOOSTER (ESSENTIAL DOSE) معزز
-                                                                     الطاقة الجرعة الأساسية</option>
-
-                                                                 <option
-                                                                     value="IV DRIP FAT BURNER (ESSENTIAL DOSE)">IV
-                                                                     DRIP FAT BURNER (ESSENTIAL DOSE) مسرعات حرق
-                                                                     الدهون (الجرعة الأساسية)</option>
-
-                                                                 <option
-                                                                     value="IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER WITH VITAMIN C">
-                                                                     IV VITAMINE- WOMEN SPECIFICIMMUNITY BOOSTER
-                                                                     WITH VITAMIN C</option>
-
-                                                                 <option
-                                                                     value="IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI HAIR LOSS COMBINATION ">
-                                                                     IV VITAMINE- WOMEN SPECIFIC- IRON BOOSTER - ANTI
-                                                                     HAIR LOSS COMBINATION </option>
-
-                                                                 <option
-                                                                     value="IV Vitamin - Multivatamins w/ Iron">IV
-                                                                     Vitamin - Multivatamins w/ Iron</option>
-
-
-                                                             </select>
-
-                                                         </div>
-
-                                                     </div>
-
-                                                 </div> --}}
+                                                    
 
                                                 </div>
 
-                                            </div>
+                                            </div> --}}
 
 
 
@@ -4569,9 +4556,11 @@
     </div>
 
 </div>
+@endif
 
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
             order imagenairy Exam
@@ -4676,7 +4665,7 @@
 
 </div>
 
-
+@endif
 
 <!----------------------------
 
@@ -4685,7 +4674,7 @@
 
             ---------------------------->
 
-
+            @if(isset($isEditAllowed) && $isEditAllowed)
 
 <div class="modal fade edit_patient__" id="consent_form" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -5040,7 +5029,7 @@
                                                         alt="">
                                                 </div>
                                                 <div class="form_dt">
-                                                    <h6>Haemorrhoids Embo (HE)</h6>
+                                                    <h6>Hemorrhoids Embo (HE)</h6>
                                                 </div>
 
                                             </div>
@@ -5140,7 +5129,7 @@
                                     $MSKPain_Eligibility_Forms = App\Models\patient\ThyroidDiagnosis::select(
                                         'patient_id',
                                     )
-                                        ->where(['patient_id' => $patient->id, 'form_type' => 'MSKPain'])
+                                        ->where(['patient_id' => $patient->id, 'form_type' => 'msk_pain_report'])
                                         ->first();
 
                                     if ($MSKPain_Eligibility_Forms !== null) {
@@ -5157,7 +5146,7 @@
                                             <input type="radio" name="EligibilityForm"
                                                 class="card-input-element"
                                                 id="ProstateArteryEmbolizationEligibilityMSKPain"
-                                                value="MSKPain" />
+                                                value="msk_pain_report" />
 
                                             <div class="form_box card-input">
 
@@ -5295,6 +5284,7 @@
     </div>
 
 </div>
+@endif
 
 
 
@@ -5913,7 +5903,7 @@
 </div>
 
 
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
           Past Medical history
@@ -5994,18 +5984,20 @@
 
                                 <div class="col-lg-12 text-end">
 
-                                    <a href="#" class="diseases_name add_diseases_btn">+ Add More</a>
+                                    
                                     <span><a href="#" id="remove_disease"><i
                                                 class="fa-regular fa-trash-can"></i></a></span>
                                 </div>
 
                             </div>
-
+                            
 
 
                             <div id="dynamic-sections">
                                 <!-- Initially empty; will contain dynamically added sections -->
                             </div>
+
+                            <a href="#" class="diseases_name add_diseases_btn">+ Add More</a>
 
                         </div>
 
@@ -6039,9 +6031,9 @@
     </div>
 
 </div>
+@endif
 
-
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
           Past surgery history
@@ -6152,7 +6144,10 @@
     </div>
 
 </div>
+@endif
 
+
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
              Make an Appointment
@@ -6204,7 +6199,7 @@
 
                                                 <input type="text" class="form-control datepickerInput"
                                                     placeholder="Click here to find availability"
-                                                    name="appointment_date">
+                                                    name="appointment_date" id="appointment_datenextpre">
                                                 {{-- <span id="appointment_dateError"
                                                  style="color: red;font-size:small"></span> --}}
                                             </div>
@@ -6269,7 +6264,7 @@
                                                 <select class="form-control select2_appoin_ttype__"
                                                     name="appointment_type" required>
 
-                                                    <option value=""> --Select Appoinment  ss Type-- </option>
+                                                    <option value=""> --Select Appoinment Type-- </option>
                                                     @foreach ($pathology_price_list as $allpathology_price_list)
                                                         @if (!empty($allpathology_price_list))
                                                             <option
@@ -6294,9 +6289,6 @@
                                         <div class="inner_element">
 
                                             <div class="form-group">
-                                                @php
-                                                    $allBranch = DB::table('branchs')->where('status', '1')->get();
-                                                @endphp
 
                                                 <select class="form-control select2_appoin_ttype__"
                                                     name="location" id="location" required>
@@ -6324,18 +6316,13 @@
                                         <div class="inner_element">
 
                                             <div class="form-group">
-                                                @php
-                                                    $Clinician = DB::table('doctors')
-                                                        ->where('status', 'active')
-                                                        ->get();
-                                                @endphp
 
                                                 <select class="form-control select2_appoin_ttype__"
                                                     name="doctor_id" required>
                                                     <option value=""> --Select Clinician Type-- </option>
-                                                    @forelse ($Clinician as $allClinician)
+                                                    @forelse ($doctors as $allClinician)
                                                         <option value="{{ $allClinician->id }}">
-                                                            {{ $allClinician->name }}</option>
+                                                            {{ $allClinician->name }} ({{ $allClinician->email }})</option>
                                                     @empty
                                                     @endforelse
 
@@ -6363,8 +6350,8 @@
 
 
                                                 <input type="text"
-                                                    class="form-control datepickerInputDate start_date"
-                                                    placeholder="YYYY-MM-DD" name="start_date">
+                                                    class="form-control "
+                                                    placeholder="YYYY-MM-DD" name="start_date" readonly id="appo_start_date">
                                                 <span id="start_dateError"
                                                     style="color: red;font-size:small"></span>
                                             </div>
@@ -6373,7 +6360,7 @@
 
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
 
                                         <div class="inner_element">
 
@@ -6392,24 +6379,8 @@
 
                                     </div>
 
-                                    {{-- <div class="col-lg-6">
-
-                                        <div class="inner_element">
-
-                                            <div class="form-group">
-
-
-
-                                                <input type="text"
-                                                    class="form-control datepickerInputDate end_date"
-                                                    placeholder="YYYY-MM-DD" name="end_date">                                           
-                                                     </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6">
+                                    
+                                    <div class="col-lg-3">
 
                                         <div class="inner_element">
 
@@ -6425,7 +6396,7 @@
 
                                         </div>
 
-                                    </div> --}}
+                                    </div>
 
 
 
@@ -6482,7 +6453,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------
@@ -6491,7 +6462,7 @@
 
          ---------------------------->
 
-
+         @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="video_meeting" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -6599,8 +6570,10 @@
     </div>
 
 </div>
+@endif
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
 
              Lab Test
@@ -6699,6 +6672,7 @@
     </div>
 
 </div>
+@endif
 
 <!----------------------------
 
@@ -7748,7 +7722,7 @@
 
 
 
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!---- prescription_day model ---->
 
 <div class="modal fade edit_patient__" id="prescription_day" tabindex="-1"
@@ -7808,8 +7782,10 @@
         </div>
     </div>
 </div>
+@endif
 
 
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!------Order Special Invistigation model ---->
 
 <div class="modal fade edit_patient__" id="order_supportive_surface" tabindex="-1"
@@ -7829,10 +7805,10 @@
                     <div class="inner_data">
                         <div class="row">
                             <!-- <div class="col-lg-12">
-   <div class="title_head">
-    <h4>Schedule Appointment</h4>
-   </div>
-  </div> -->
+                    <div class="title_head">
+                        <h4>Schedule Appointment</h4>
+                    </div>
+                    </div> -->
 
                             <div class="col-lg-12">
 
@@ -7869,10 +7845,10 @@
         </div>
     </div>
 </div>
+@endif
 
 
-
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!------Order Order Procedure model ---->
 <div class="modal fade edit_patient__" id="order_procedure" tabindex="-1"
     aria-labelledby="exampleModalLabel" style="display: none;" data-select2-id="order_procedure"
@@ -7955,7 +7931,7 @@
     </div>
 </div>
 
-
+@endif
 <!----------------------------
 
                invoice canvas modal #invoice page action to open canvas
@@ -8144,6 +8120,8 @@
 
 <!-- invoice canvas modal end -->
 
+
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!----------------------------
            supportive Treatment
          ---------------------------->
@@ -8152,7 +8130,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title" id="exampleModalLabel">supportive Treatment</h1>
+                <h1 class="modal-title" id="exampleModalLabel">Supportive Treatment</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                         class="fa-solid fa-xmark"></i></button>
             </div>
@@ -8220,7 +8198,7 @@
         </div>
     </div>
 </div>
-
+@endif
 <!----------------------------
   Symptoms
 ---------------------------->
@@ -8300,7 +8278,12 @@
                  ============================================= -->
 
 <script src="{{ asset('/assets/js/jquery-3.7.0.min.js')}}"></script>
-
+{{-- <script src="https://cdn.jsdelivr.net/npm/tinymce@5.7.1/tinymce.min.js"></script>
+<script>
+        tinymce.init({
+            selector: 'textarea#textareaSummary',
+    });
+</script> --}}
 
 
 <script src="{{ asset('/assets/js/bootstrap.min.js')}}"></script>
@@ -8529,6 +8512,11 @@
     profile.onclick = function() {
         menu.classList.toggle("active");
     };
+
+
+    $("#appointment_datenextpre").change(function(){
+        $("#appo_start_date").val($(this).val());
+    });
 </script>
 
 
@@ -8650,6 +8638,8 @@
 <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 
 <!--  Flatpickr  -->
+<script src="{{ asset('/assets/Common/js/CountrySelect.js')}}"></script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
 <script>
@@ -9142,19 +9132,28 @@
 </script>
 <!-- add_surgical_btn end here -->
 
+
+
+
+
 <script>
     // Initialize CKEditor 4
     // voiceInput fields
+
+    CKEDITOR.replace('snippetDescription');
+
     CKEDITOR.replace('voiceInput')
         .catch(function(error) {
             console.error(error);
         });
-    // summery fields
+
+    // summary fields
     CKEDITOR.replace('summerynote')
         .catch(function(error) {
             console.error(error);
         });
 </script>
+
 <script>
     $(document).ready(function() {
 
@@ -9178,7 +9177,7 @@
         });
 
         $('#event-modal').on('hidden.bs.modal', function(e) {
-            location.reload();
+            // location.reload();
         });
         //   date format
         $(function() {
@@ -9230,8 +9229,7 @@
                         }, 1000);
 
                         if (result != '') {
-                            document.querySelector('.select2_appoin_ttype__')
-                                .selectedIndex = 0;
+                            document.querySelector('.select2_appoin_ttype__').selectedIndex = 0;
                             swal.fire({
                                 title: 'Success',
                                 html: 'Appointment Booked successfully!',
@@ -9952,6 +9950,11 @@
 
 <script>
     $(document).ready(function() {
+
+
+        
+
+
         $('#document_type').change(function() {
             $('#enterIdNumber').val('');
             //  $('#validationMessage').hide();
@@ -9962,7 +9965,8 @@
 
             $('#fileInputContainer').html(fileInputHtml);
         });
-        $("#insure_add_edit .add_patient").click(function() {
+        $("#insure_add_edit .add_patient").click(function(e) {
+            e.preventDefault();
             setTimeout(function() {
                 location.reload();
             }, 3000);
@@ -9974,7 +9978,89 @@
 
 
 
+<script>
+    $(document).ready(function() {
 
+            function setupCategorySection(containerID, inputClass, addButtonClass, listID) {
+
+                var categories = [];
+
+
+
+                $(containerID).on('click', addButtonClass, function() {
+
+                    var category = $(inputClass, containerID).val();
+
+                    if (category.trim() !== '') {
+
+                        categories.push(category);
+
+                        var categoryItem = $('<div class="category">' + category +
+
+                            '<i class="remove-category fas fa-times"></i></div>');
+
+                        $(listID).append(categoryItem);
+
+                        $(inputClass, containerID).val('');
+
+                    }
+
+                });
+
+
+
+                $(inputClass, containerID).keypress(function(event) {
+
+                    if (event.which === 13) {
+
+                        var category = $(inputClass, containerID).val();
+
+                        if (category.trim() !== '') {
+
+                            categories.push(category);
+
+                            var categoryItem = $('<div class="category">' + category +
+
+                                '<i class="remove-category fas fa-times"></i></div>');
+
+                            $(listID).append(categoryItem);
+
+                            $(inputClass, containerID).val('');
+
+                        }
+
+                    }
+
+                });
+
+
+
+                $(listID).on('click', '.remove-category', function() {
+
+                    var category = $(this).parent().text().trim();
+
+                    categories = categories.filter(function(item) {
+
+                        return item !== category;
+
+                    });
+
+                    $(this).parent().remove();
+
+                });
+
+            }
+
+
+
+            setupCategorySection('#category-container-1', '.category-input', '.add-category', '#categories-list-1');
+
+            setupCategorySection('#category-container-2', '.category-input', '.add-category', '#categories-list-2');
+
+            setupCategorySection('#category-container-3', '.category-input', '.add-category', '#categories-list-3');
+
+        });
+</script>
 
 
 <script>
@@ -10050,7 +10136,7 @@
     $(document).ready(function() {
         $('#savePatientNote').submit(function(e) {
             e.preventDefault();
-
+            CKEDITOR.instances['snippetDescription'].updateElement();
             $.ajax({
                 url: '{{ route('user.save_patient_note') }}',
                 type: 'POST',
@@ -10204,25 +10290,25 @@
 
 
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const documentTypeSelect = document.getElementById('document_type');
-        const idNumberInput = document.getElementById('enterIdNumber');
-        const validationMessage = document.getElementById('validationMessage');
+        $("#Edit_document_type").change(function(){
+            $("#editEnterIdNumber").val('');
+            $("#editValidationMessage").text('');
+            validateInput('editEnterIdNumber','Edit_document_type','editValidationMessage');
+        })
 
-        documentTypeSelect.addEventListener('change', validateInput);
-        idNumberInput.addEventListener('input', validateInput);
+        $("#document_type").change(function(){
+            $("#enterIdNumber").val('');
+            $("#validationMessage").text('');
+            validateInput('enterIdNumber','document_type','validationMessage');
+        })
 
-        // console.log("function");
+        function validateInput(valpoint,selectId,vmsg) {
+            const selectedType = $(`#${selectId}`).val();
+            const idNumber = $(`#${valpoint}`).val();
 
-        function validateInput() {
-
-
-
-            // $('#enterIdNumber').val();
-            const selectedType = documentTypeSelect.value;
-
-            const idNumber = idNumberInput.value;
             let maxLength = 0;
             let message = '';
 
@@ -10232,13 +10318,13 @@
                     message = 'CIVIL ID must be exactly 9 digits';
                     break;
                 case 'EID':
-                    maxLength = 18;
+                    maxLength = 15;
                     message = 'EID must be exactly 15 digits';
                     break;
                 case 'PERSONAL NUMBER':
                 case 'RESIDENT ID':
                     maxLength = 10;
-                    message = selectedType + ' must be exactly 11 digits';
+                    message = selectedType + ' must be exactly 10 digits';
                     break;
                 case 'PASSPORT, DRIVER\'s LICENSE, ETC':
                     maxLength = Infinity;
@@ -10247,13 +10333,15 @@
             }
 
             if (maxLength !== Infinity && idNumber.length > maxLength) {
-                idNumberInput.value = idNumber.slice(0, maxLength);
+                $(`#${valpoint}`).val(idNumber.slice(0, maxLength));
             }
-
+            // console.log(idNumber.length,maxLength,message);
+            $(`#${valpoint}`).attr('maxlength',maxLength);
+            $(`#${valpoint}`).attr('minlength',maxLength);
             if (maxLength !== Infinity && idNumber.length !== maxLength) {
-                validationMessage.textContent = message;
+                $(`#${vmsg}`).text(message);
             } else {
-                validationMessage.textContent = '';
+                $(`#${vmsg}`).text('');
             }
         }
     });

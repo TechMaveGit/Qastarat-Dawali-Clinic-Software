@@ -111,7 +111,7 @@ foreach($D as $v)
 
                                                                 <li>
                                                                     <div class="tb_listTitle_label">Mobile No.</div>
-                                                                    <span>{{ $patient->mobile_no }}</span>
+                                                                    <span>{{ $patient->dial_code }} {{ $patient->mobile_no }}</span>
                                                                 </li>
 
                                                                 <li>
@@ -624,7 +624,7 @@ foreach($D as $v)
 						if (result.error==200) {
 							swal.fire(
 								'Success',
-								'Task Assigend Successfully!',
+								'Task Assigned Successfully!',
 								'success'
 							).then(function() {
                                         window.location.reload();
@@ -701,7 +701,7 @@ function refreshPage() {
     window.location.reload();
 }
 $('#book_appointment').on('hidden.bs.modal', function () {
-    refreshPage();
+    // refreshPage();
 });
 </script>
 @endpush

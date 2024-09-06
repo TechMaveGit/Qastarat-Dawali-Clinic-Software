@@ -71,14 +71,14 @@
                                             
 
                                             $existingData = [
-                                                'Euothyroid' => ['Euothyroid'],
-                                                'ThyroidCyst' => ['Thyroid Cyst'],
+                                                'Euthyroid' => ['Euthyroid'],
+                                                'ThyroidCyst' => ['Thyroid cystic'],
                                                 'GraveDisease' => ['Grave’s Disease'],
                                                 'Thyroidnodule' => ['Thyroid nodule'],
                                                 'Hypothyroidism' => ['Hypothyroidism'],
                                                 'Thyrotoxicosis' => ['Thyrotoxicosis'],
                                                 'ThyroidCarcinoma' => ['Thyroid Carcinoma'],
-                                                'MultiNodularGoitre' => ['Multi-Nodular Goitre'],
+                                                'MultiNodularGoitre' => ['Multi nodular goiter'],
                                                 'LymphocyticThyroiditis' => ['Lymphocytic Thyroiditis'],
                                             ];
                                             $filteredData = array_diff_key($diagnosis_generals, $existingData);
@@ -101,10 +101,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[MultiNodularGoitre][]" id="formRadiosRight2"
-                                                {{ isset($diagnosis_generals['MultiNodularGoitre']) && in_array('Multi-Nodular Goitre', $diagnosis_generals['MultiNodularGoitre']) ? 'checked' : '' }}
-                                                value="Multi-Nodular Goitre">
+                                                {{ isset($diagnosis_generals['MultiNodularGoitre']) && in_array('Multi nodular goiter', $diagnosis_generals['MultiNodularGoitre']) ? 'checked' : '' }}
+                                                value="Multi nodular goiter">
                                             <label class="form-check-label" for="formRadiosRight2">
-                                                Multi-Nodular Goitre
+                                                Multi nodular goiter
                                             </label>
                                         </div>
                                     </div>
@@ -112,21 +112,21 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[ThyroidCyst][]" id="formRadiosRight3"
-                                                {{ isset($diagnosis_generals['ThyroidCyst']) && in_array('Thyroid Cyst', $diagnosis_generals['ThyroidCyst']) ? 'checked' : '' }}
-                                                value="Thyroid Cyst">
+                                                {{ isset($diagnosis_generals['ThyroidCyst']) && in_array('Thyroid cystic', $diagnosis_generals['ThyroidCyst']) ? 'checked' : '' }}
+                                                value="Thyroid cystic">
                                             <label class="form-check-label" for="formRadiosRight3">
-                                                Thyroid Cyst
+                                                Thyroid cystic
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
-                                                name="diagnosis_general[Euothyroid][]" id="formRadiosRight4"
-                                                {{ isset($diagnosis_generals['Euothyroid']) && in_array('Euothyroid', $diagnosis_generals['Euothyroid']) ? 'checked' : '' }}
-                                                value="Euothyroid">
+                                                name="diagnosis_general[Euthyroid][]" id="formRadiosRight4"
+                                                {{ isset($diagnosis_generals['Euthyroid']) && in_array('Euthyroid', $diagnosis_generals['Euthyroid']) ? 'checked' : '' }}
+                                                value="Euthyroid">
                                             <label class="form-check-label" for="formRadiosRight4">
-                                                Euothyroid
+                                                Euthyroid
                                             </label>
                                         </div>
                                     </div>
@@ -1113,7 +1113,7 @@
                                                             <option value="">Duration Type</option>
                                                             @foreach (['Days', 'Weeks', 'Months', 'Years'] as $durationType)
                                                             <option value="{{ $durationType }}"
-                                                                {{ isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
+                                                                {{ $disfiguringSymptoms7 && isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
                                                                 {{ $durationType }}
                                                             </option>
                                                         @endforeach
@@ -2225,36 +2225,36 @@
                                                     @if ($sum >= 0 && $sum <= 7)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild  </th>
                                                             <th>(0-7 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 8 && $sum <= 19)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate  </th>
                                                             <th>(8-19 pts) </th>
                                                         </tr>
                                                     @else
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe  </th>
                                                             <th>(20-35 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild  </th>
                                                     <th>(0-7 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate  </th>
                                                     <th>(8-19 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe  </th>
                                                     <th>(20-35 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -2286,11 +2286,11 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Palpitations][]" id="formRadiosRight42"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'Yes' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES (TA unfaverable unless ATN)
+                                                        Yes (TA unfavorable unless ATN)
                                                     </label>
                                                 </div>
                                             </div>
@@ -2299,9 +2299,9 @@
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Palpitations][]" id="formRadiosRight43"
                                                         value="No"
-                                                        {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'NO' ? 'checked' : '' }}>
+                                                        {{ isset($clinical_indicators['Palpitations'][0]) && $clinical_indicators['Palpitations'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2315,10 +2315,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Carbimazole][]" id="formRadiosRight44"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Carbimazole'][0]) && $clinical_indicators['Carbimazole'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Carbimazole'][0]) && $clinical_indicators['Carbimazole'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES (TA unfaverable unless ATN)
+                                                        Yes (TA unfavorable unless ATN)
                                                     </label>
                                                 </div>
                                             </div>
@@ -2326,10 +2326,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Carbimazole][]" id="formRadiosRight45"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['Carbimazole'][0]) && $clinical_indicators['Carbimazole'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['Carbimazole'][0]) && $clinical_indicators['Carbimazole'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2344,10 +2344,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[lethargy][]" id="formRadiosRight46"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['lethargy'][0]) && $clinical_indicators['lethargy'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['lethargy'][0]) && $clinical_indicators['lethargy'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight46">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -2355,10 +2355,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[lethargy][]" id="formRadiosRight47"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['lethargy'][0]) && $clinical_indicators['lethargy'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['lethargy'][0]) && $clinical_indicators['lethargy'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight47">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -2372,10 +2372,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Thyroxine][]" id="formRadiosRight46"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Thyroxine'][0]) && $clinical_indicators['Thyroxine'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Thyroxine'][0]) && $clinical_indicators['Thyroxine'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight48">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -2383,19 +2383,21 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input" type="radio"
                                                         name="clinical_indicator[Thyroxine][]" id="formRadiosRight47"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['Thyroxine'][0]) && $clinical_indicators['Thyroxine'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['Thyroxine'][0]) && $clinical_indicators['Thyroxine'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight49">
-                                                       NO
+                                                       No
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -2481,9 +2483,11 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>USTHYROIDACRTIRADS70</h4>
                                         </div>
@@ -2552,7 +2556,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>DMixed Cystic / solid </td>
+                                                    <td>Mixed Cystic / solid </td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
@@ -2585,7 +2589,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <th colspan="2">Echogenisity</th>
+                                                    <th colspan="2">Echogenesity</th>
                                                 </tr>
 
                                                 <tr>
@@ -2593,9 +2597,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta29" value="0"
-                                                                {{ isset($rightLobeScore['Echogenisity'][0]) && $rightLobeScore['Echogenisity'][0] == 0 ? 'checked' : '' }}>
+                                                                {{ isset($rightLobeScore['Echogenesity'][0]) && $rightLobeScore['Echogenesity'][0] == 0 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta29">
                                                                 0 pts
                                                             </label>
@@ -2607,9 +2611,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta30" value="1"
-                                                                {{ isset($rightLobeScore['Echogenisity'][0]) && $rightLobeScore['Echogenisity'][0] == 1 ? 'checked' : '' }}>
+                                                                {{ isset($rightLobeScore['Echogenesity'][0]) && $rightLobeScore['Echogenesity'][0] == 1 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta30">
                                                                 1 pts
                                                             </label>
@@ -2621,9 +2625,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta31" value="2"
-                                                                {{ isset($rightLobeScore['Echogenisity'][0]) && $rightLobeScore['Echogenisity'][0] == 2 ? 'checked' : '' }}>
+                                                                {{ isset($rightLobeScore['Echogenesity'][0]) && $rightLobeScore['Echogenesity'][0] == 2 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta31">
                                                                 2 pts
                                                             </label>
@@ -2635,9 +2639,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
-                                                                type="radio" name="right_lobe_score[Echogenisity][]"
+                                                                type="radio" name="right_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta32" value="2"
-                                                                {{ isset($rightLobeScore['Echogenisity'][0]) && $rightLobeScore['Echogenisity'][0] == 2 ? 'checked' : '' }}>
+                                                                {{ isset($rightLobeScore['Echogenesity'][0]) && $rightLobeScore['Echogenesity'][0] == 2 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta32">
                                                                 2 pts
                                                             </label>
@@ -2649,7 +2653,7 @@
                                                     <th colspan="2">Shape</th>
                                                 </tr>
                                                 <tr>
-                                                    <td>Eider-than-taller</td>
+                                                    <td>Wider-than-taller</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
@@ -2709,7 +2713,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>lobulated / irrigular</td>
+                                                    <td>lobulated / irregular</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input right_lobe_score_checkbox"
@@ -2906,7 +2910,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>DMixed Cystic / solid </td>
+                                                    <td>Mixed Cystic / solid </td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
@@ -2939,7 +2943,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <th colspan="2">Echogenisity</th>
+                                                    <th colspan="2">Echogenesity</th>
                                                 </tr>
 
                                                 <tr>
@@ -2947,9 +2951,9 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
                                                                 id="formRadiosRighta43" value="0"
-                                                                {{ isset($leftLobeScore['Echogenisity'][0]) && $leftLobeScore['Echogenisity'][0] == 0 ? 'checked' : '' }}>
+                                                                {{ isset($leftLobeScore['Echogenesity'][0]) && $leftLobeScore['Echogenesity'][0] == 0 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="formRadiosRighta43">
                                                                 0 pts
                                                             </label>
@@ -2961,8 +2965,8 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
-                                                                {{ isset($leftLobeScore['Echogenisity'][0]) && $leftLobeScore['Echogenisity'][0] == 1 ? 'checked' : '' }}
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
+                                                                {{ isset($leftLobeScore['Echogenesity'][0]) && $leftLobeScore['Echogenesity'][0] == 1 ? 'checked' : '' }}
                                                                 id="formRadiosRighta44" value="1">
                                                             <label class="form-check-label" for="formRadiosRighta44">
                                                                 1 pts
@@ -2975,8 +2979,8 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
-                                                                {{ isset($leftLobeScore['Echogenisity'][0]) && $leftLobeScore['Echogenisity'][0] == 2 ? 'checked' : '' }}
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
+                                                                {{ isset($leftLobeScore['Echogenesity'][0]) && $leftLobeScore['Echogenesity'][0] == 2 ? 'checked' : '' }}
                                                                 id="formRadiosRighta45" value="2">
                                                             <label class="form-check-label" for="formRadiosRighta45">
                                                                 2 pts
@@ -2989,8 +2993,8 @@
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
-                                                                type="radio" name="left_lobe_score[Echogenisity][]"
-                                                                {{ isset($leftLobeScore['Echogenisity'][0]) && $leftLobeScore['Echogenisity'][0] == 2 ? 'checked' : '' }}
+                                                                type="radio" name="left_lobe_score[Echogenesity][]"
+                                                                {{ isset($leftLobeScore['Echogenesity'][0]) && $leftLobeScore['Echogenesity'][0] == 2 ? 'checked' : '' }}
                                                                 id="formRadiosRighta46" value="2">
                                                             <label class="form-check-label" for="formRadiosRighta46">
                                                                 2 pts
@@ -3003,7 +3007,7 @@
                                                     <th colspan="2">Shape</th>
                                                 </tr>
                                                 <tr>
-                                                    <td>Eider-than-taller</td>
+                                                    <td>Wider-than-taller</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
@@ -3063,7 +3067,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>lobulated / irrigular</td>
+                                                    <td>lobulated / irregular</td>
                                                     <td style="width:40%">
                                                         <div class="form-check form-check-right">
                                                             <input class="form-check-input left_lobe_score_checkbox"
@@ -3219,10 +3223,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="Retrosternalextension[extension][]"
-                                                        {{ isset($Retrosternalextension['extension'][0]) && $Retrosternalextension['extension'][0] == 'YES' ? 'checked' : '' }}
-                                                        id="formRadiosRighta63" value="YES">
+                                                        {{ isset($Retrosternalextension['extension'][0]) && $Retrosternalextension['extension'][0] == 'Yes' ? 'checked' : '' }}
+                                                        id="formRadiosRighta63" value="Yes">
                                                     <label class="form-check-label" for="formRadiosRighta63">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -3230,8 +3234,8 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="Retrosternalextension[extension][]"
-                                                        {{ isset($Retrosternalextension['extension'][0]) && $Retrosternalextension['extension'][0] == 3 ? 'NO' : '' }}
-                                                        id="formRadiosRighta64" value="NO">
+                                                        {{ isset($Retrosternalextension['extension'][0]) && $Retrosternalextension['extension'][0] == 3 ? 'No' : '' }}
+                                                        id="formRadiosRighta64" value="No">
                                                     <label class="form-check-label" for="formRadiosRighta64">
                                                         No
                                                     </label>
@@ -3256,10 +3260,10 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="EnlargedLymphnodes[nodes][]"
-                                                        {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'YES' ? 'checked' : '' }}
-                                                        id="formRadiosRighta65" value="YES">
+                                                        {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'Yes' ? 'checked' : '' }}
+                                                        id="formRadiosRighta65" value="Yes">
                                                     <label class="form-check-label" for="formRadiosRighta65">
-                                                        YES (TA unfaverable)
+                                                        Yes (TA unfavorable)
                                                     </label>
                                                 </div>
                                             </div>
@@ -3267,8 +3271,8 @@
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="EnlargedLymphnodes[nodes][]"
-                                                        {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'NO' ? 'checked' : '' }}
-                                                        id="formRadiosRighta66" value="NO">
+                                                        {{ isset($EnlargedLymphnodes['nodes'][0]) && $EnlargedLymphnodes['nodes'][0] == 'No' ? 'checked' : '' }}
+                                                        id="formRadiosRighta66" value="No">
                                                     <label class="form-check-label" for="formRadiosRighta66">
                                                         No
                                                     </label>
@@ -3297,7 +3301,7 @@
                                                         {{ isset($paralysis['antoy'][0]) && $paralysis['antoy'][0] == 'yes' ? 'checked' : '' }}
                                                         id="formRadiosRighta67" value="yes">
                                                     <label class="form-check-label" for="formRadiosRighta67">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -3447,10 +3451,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmThyroidScan[Hashimoto][]"
-                                                {{ isset($NmThyroidScan['Hashimoto'][0]) && $NmThyroidScan['Hashimoto'][0] == 'YES' ? 'checked' : '' }}
-                                                id="formRadiosRighta79" value="YES">
+                                                {{ isset($NmThyroidScan['Hashimoto'][0]) && $NmThyroidScan['Hashimoto'][0] == 'Yes' ? 'checked' : '' }}
+                                                id="formRadiosRighta79" value="Yes">
                                             <label class="form-check-label" for="formRadiosRighta79">
-                                                YES (TA contraindicated)
+                                                Yes (TA contraindicated)
                                             </label>
                                         </div>
                                     </div>
@@ -3472,18 +3476,18 @@
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[disease][]"
-                                                {{ isset($NmThyroidScan['disease'][0]) && $NmThyroidScan['disease'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta81">
+                                                {{ isset($NmThyroidScan['disease'][0]) && $NmThyroidScan['disease'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta81">
                                             <label class="form-check-label" for="formRadiosRighta81">
-                                                YES (TA contraindicated)
+                                                Yes (TA contraindicated)
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio" name="NmThyroidScan[disease][]"
-                                                {{ isset($NmThyroidScan['disease'][0]) && $NmThyroidScan['disease'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta82">
+                                                {{ isset($NmThyroidScan['disease'][0]) && $NmThyroidScan['disease'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta82">
                                             <label class="form-check-label" for="formRadiosRighta82">
                                                 No
                                             </label>
@@ -3506,16 +3510,16 @@
 
                                     @endphp
                                     <div class="col-lg-4">
-                                        <h6 class="mb-3 lut_title">Toxic Parathyroid Adenoma - RIGHTupper</h6>
+                                        <h6 class="mb-3 lut_title">Toxic Parathyroid Adenoma - RIGHT upper</h6>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[RightUpper][]"
-                                                {{ isset($NmParaThyroidScan['RightUpper'][0]) && $NmParaThyroidScan['RightUpper'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta83">
+                                                {{ isset($NmParaThyroidScan['RightUpper'][0]) && $NmParaThyroidScan['RightUpper'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta83">
                                             <label class="form-check-label" for="formRadiosRighta83">
-                                                YES
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
@@ -3523,8 +3527,8 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[RightUpper][]"
-                                                {{ isset($NmParaThyroidScan['RightUpper'][0]) && $NmParaThyroidScan['RightUpper'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta84">
+                                                {{ isset($NmParaThyroidScan['RightUpper'][0]) && $NmParaThyroidScan['RightUpper'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta84">
                                             <label class="form-check-label" for="formRadiosRighta84">
                                                 No
                                             </label>
@@ -3537,10 +3541,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[RightLower][]"
-                                                {{ isset($NmParaThyroidScan['RightLower'][0]) && $NmParaThyroidScan['RightLower'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta85">
+                                                {{ isset($NmParaThyroidScan['RightLower'][0]) && $NmParaThyroidScan['RightLower'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta85">
                                             <label class="form-check-label" for="formRadiosRighta85">
-                                                YES
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
@@ -3548,8 +3552,8 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[RightLower][]"
-                                                {{ isset($NmParaThyroidScan['RightLower'][0]) && $NmParaThyroidScan['RightLower'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta86">
+                                                {{ isset($NmParaThyroidScan['RightLower'][0]) && $NmParaThyroidScan['RightLower'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta86">
                                             <label class="form-check-label" for="formRadiosRighta86">
                                                 No
                                             </label>
@@ -3562,10 +3566,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[LeftUpper][]"
-                                                {{ isset($NmParaThyroidScan['LeftUpper'][0]) && $NmParaThyroidScan['LeftUpper'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta87">
+                                                {{ isset($NmParaThyroidScan['LeftUpper'][0]) && $NmParaThyroidScan['LeftUpper'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta87">
                                             <label class="form-check-label" for="formRadiosRighta87">
-                                                YES
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
@@ -3573,8 +3577,8 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[LeftUpper][]"
-                                                {{ isset($NmParaThyroidScan['LeftUpper'][0]) && $NmParaThyroidScan['LeftUpper'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta88">
+                                                {{ isset($NmParaThyroidScan['LeftUpper'][0]) && $NmParaThyroidScan['LeftUpper'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta88">
                                             <label class="form-check-label" for="formRadiosRighta88">
                                                 No
                                             </label>
@@ -3587,10 +3591,10 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[LeftLower][]"
-                                                {{ isset($NmParaThyroidScan['LeftLower'][0]) && $NmParaThyroidScan['LeftLower'][0] == 'YES' ? 'checked' : '' }}
-                                                value="YES" id="formRadiosRighta89">
+                                                {{ isset($NmParaThyroidScan['LeftLower'][0]) && $NmParaThyroidScan['LeftLower'][0] == 'Yes' ? 'checked' : '' }}
+                                                value="Yes" id="formRadiosRighta89">
                                             <label class="form-check-label" for="formRadiosRighta89">
-                                                YES
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
@@ -3598,8 +3602,8 @@
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input"type="radio"
                                                 name="NmParaThyroidScan[LeftLower][]"
-                                                {{ isset($NmParaThyroidScan['LeftLower'][0]) && $NmParaThyroidScan['LeftLower'][0] == 'NO' ? 'checked' : '' }}
-                                                value="NO" id="formRadiosRighta90">
+                                                {{ isset($NmParaThyroidScan['LeftLower'][0]) && $NmParaThyroidScan['LeftLower'][0] == 'No' ? 'checked' : '' }}
+                                                value="No" id="formRadiosRighta90">
                                             <label class="form-check-label" for="formRadiosRighta90">
                                                 No
                                             </label>
@@ -3783,14 +3787,9 @@
                                         </div>
                                         <!-- <h6 class="mb-3 lut_title">Calculate TI-RARDS - RIGHT LOBE score</h6> -->
                                     </div>
-                                    <div class="col-lg-12">
-
-                                           
-                                            <div id="image-container">
-
-
-                                           
-                                              </div>
+                                    <div class="col-lg-12">                                           
+                                        <div id="image-container">
+                                        </div>
 
                                         <div class="button_images">
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
@@ -3807,9 +3806,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Lab <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
+                                        <h6 class="section_title__">Lab 
+                                            {{-- <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
                                                 class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>LABTFT39 &gt; <span class="sub_tt__">TFT Results </span></h4>
                                         </div>
@@ -3843,12 +3844,20 @@
                                                         <option value="high"
                                                             {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'high' ? 'selected' : '' }}>
                                                             (> 5.49 mIU/L)</option>
+                                                        <option value="other" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($Lab['TSH'][0]) ? $Lab['TSH'][0] : '' }}">
-                                                        {{ isset($Lab['TSH'][0]) ? $Lab['TSH'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+                                                    
+                                                    <div @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['TSH'][0])  && $Lab['TSH'][0] != 'other' ? $Lab['TSH'][0] : 'normal' }}">
+                                                        {{ isset($Lab['TSH'][0])  && $Lab['TSH'][0] != 'other' ? $Lab['TSH'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[TSH][otherLevel]">
+                                                        <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') value="{{$Lab['TSH']['other']??''}}" @else hidden @endif name="Lab[TSH][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -3872,12 +3881,21 @@
                                                         <option value="high"
                                                             {{ isset($Lab['T4'][0]) && $Lab['T4'][0] == 'high' ? 'selected' : '' }}>
                                                             Above 2.3 ng/dL</option>
+                                                        <option value="other" {{ isset($Lab['T4'][0]) && $Lab['T4'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($Lab['T4'][0]) ? $Lab['T4'][0] : '' }}">
-                                                        {{ isset($Lab['T4'][0]) ? $Lab['T4'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+                                                    
+                                                    
+                                                    <div @if(isset($Lab['T4'][0]) && $Lab['T4'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['T4'][0])  && $Lab['T4'][0] != 'other' ? $Lab['T4'][0] : 'normal' }}">
+                                                        {{ isset($Lab['T4'][0])  && $Lab['T4'][0] != 'other' ? $Lab['T4'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($Lab['T4'][0]) && $Lab['T4'][0] == 'other') @else hidden @endif class="T4RangeOther form-select" name="Lab[T4][otherLevel]">
+                                                        <option {{ isset($Lab['T4']['otherLevel']) && $Lab['T4']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['T4']['otherLevel']) && $Lab['T4']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['T4']['otherLevel']) && $Lab['T4']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['T4'][0]) && $Lab['T4'][0] == 'other') value="{{$Lab['T4']['other']??''}}" @else hidden @endif name="Lab[T4][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -3906,12 +3924,20 @@
                                                         <option value="high"
                                                             {{ isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'high' ? 'selected' : '' }}>
                                                             (5.49 mIU/L)</option>
+                                                        <option value="other" {{ isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($Lab['PTH'][0]) ? $Lab['PTH'][0] : '' }}">
-                                                        {{ isset($Lab['PTH'][0]) ? $Lab['PTH'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+                                                    <div @if(isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['PTH'][0])  && $Lab['PTH'][0] != 'other' ? $Lab['PTH'][0] : 'normal' }}">
+                                                        {{ isset($Lab['PTH'][0])  && $Lab['PTH'][0] != 'other' ? $Lab['PTH'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'other') @else hidden @endif class="PTHRangeOther form-select" name="Lab[PTH][otherLevel]">
+                                                        <option {{ isset($Lab['PTH']['otherLevel']) && $Lab['PTH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['PTH']['otherLevel']) && $Lab['PTH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['PTH']['otherLevel']) && $Lab['PTH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['PTH'][0]) && $Lab['PTH'][0] == 'other') value="{{$Lab['PTH']['other']??''}}" @else hidden @endif name="Lab[PTH][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -3935,12 +3961,21 @@
                                                         <option value="high"
                                                             {{ isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($Lab['Ca'][0]) ? $Lab['Ca'][0] : '' }}">
-                                                        {{ isset($Lab['Ca'][0]) ? $Lab['Ca'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+                                                    
+                                                    <div @if(isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Ca'][0])  && $Lab['Ca'][0] != 'other' ? $Lab['Ca'][0] : 'normal' }}">
+                                                        {{ isset($Lab['Ca'][0])  && $Lab['Ca'][0] != 'other' ? $Lab['Ca'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="Lab[Ca][otherLevel]">
+                                                        <option {{ isset($Lab['Ca']['otherLevel']) && $Lab['Ca']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($Lab['Ca']['otherLevel']) && $Lab['Ca']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($Lab['Ca']['otherLevel']) && $Lab['Ca']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Ca'][0]) && $Lab['Ca'][0] == 'other') value="{{$Lab['Ca']['other']??''}}" @else hidden @endif name="Lab[Ca][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -3980,12 +4015,21 @@
                                                         <option value="high"
                                                             {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) ? $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) ? $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0])  && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] != 'other' ? $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0])  && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] != 'other' ? $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[HashimotosThyroditisTPOAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0]) && $AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['HashimotosThyroditisTPOAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[HashimotosThyroditisTPOAb][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -4009,12 +4053,20 @@
                                                         <option
                                                             value="high {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'high' ? 'selected' : '' }}">
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[GravesDiseaseTSAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTSAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['GravesDiseaseTSAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[GravesDiseaseTSAb][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -4038,12 +4090,21 @@
                                                         <option value="high"
                                                             {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[GravesDiseaseTPOAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTPOAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['GravesDiseaseTPOAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[GravesDiseaseTPOAb][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -4067,12 +4128,21 @@
                                                         <option value="high"
                                                             {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) ? $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0])  && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] != 'other' ? $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[GravesDiseaseTBAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0]) && $AntithyroidAntibodiesTests['GravesDiseaseTBAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['GravesDiseaseTBAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[GravesDiseaseTBAb][other]" >
                                                 </div>
                                             </div>
                                         </div>
@@ -4096,23 +4166,58 @@
                                                         <option value="high"
                                                             {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'high' ? 'selected' : '' }}>
                                                             5.5 mIU/L and above</option>
+                                                        <option value="other" {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                                     </select>
-                                                    <div
-                                                        class="result result_value {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) ? $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] : '' }}">
-                                                        {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) ? $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] : '' }}
-                                                        <!-- Display low, high, and normal values here -->
+
+
+
+                                                    <div @if(isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0])  && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] != 'other' ? $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] : 'normal' }}">
+                                                        {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0])  && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] != 'other' ? $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] : 'normal' }} 
                                                     </div>
+
+                                                    <select @if(isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other') @else hidden @endif class="CaRangeOther form-select" name="AntithyroidAntibodiesTests[AtrophicThyroditisTBAb][otherLevel]">
+                                                        <option {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                                        <option {{ isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel']) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                                    </select>
+                                                    
+                                                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0]) && $AntithyroidAntibodiesTests['AtrophicThyroditisTBAb'][0] == 'other') value="{{$AntithyroidAntibodiesTests['AtrophicThyroditisTBAb']['other']??''}}" @else hidden @endif name="AntithyroidAntibodiesTests[AtrophicThyroditisTBAb][other]" >
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-4">
+                                            <div class="title_head">
+                                                <h4>Others</h4>
+                                            </div>
+                                            <div class="otherLabRow">
+                                                @if(isset($Lab['other']))
+                                                @foreach($Lab['other'] as $kk=>$value)
+                                                <div class="row my-3">
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add_more_btn">
+                                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                                            </div>
+                                            
                                         </div>
                                     </div>
 
 
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#"
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>REQVCFUNEVAL5</h4>
                                         </div>
@@ -4175,9 +4280,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -4275,9 +4382,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -4381,17 +4490,28 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
-                                                target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}" class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}" class="order-now_btn">Order Now <i
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
 
                                     @php
                                         if (isset($Interventions) && !empty($Interventions)) {
                                             $Interventions = json_decode($Interventions->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($Interventions);
-                                            //     die;
+                                        
+                                            $existingDataInter = [
+                                            'USTTAUL2180' => ['USTTAUL2180'],
+                                            'USTTABL2470' => ['USTTABL2470'],
+                                            'LABPREIRBASIC32' => ['LABPREIRBASIC32'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'ANGIOTE2910' => ['ANGIOTE2910'],
+                                            'LABPREANGIO48' => ['LABPREANGIO48'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'IVSEDATION270' => ['IVSEDATION270'],
+                                            ];
+
+                                            $filteredDataIner = array_diff_key($Interventions, $existingDataInter);
                                         }
 
                                     @endphp
@@ -4475,7 +4595,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3" id="InterventionSample">
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="checkbox"
                                                         name="Intervention[IVSEDATION270][]"
@@ -4484,6 +4604,59 @@
                                                     <label class="form-check-label" for="formRadiosRightb44">
                                                         IVSEDATION270
                                                     </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" >
+                                                <div id="dynamic_Intervention_checkbox_container" class="row">
+                                                    @if (isset($filteredDataIner) && !empty($filteredDataIner))
+                                                    @forelse ($filteredDataIner as $key => $value)
+                                                        <div class="col-lg-4">
+                                                            <div class="form-check form-check-right mb-3">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="Intervention[{{ $key }}][]"
+                                                                    id="formRadiosRight{{ $key }}"
+                                                                    {{ isset($Interventions[$key]) && in_array($value[0], $Interventions[$key]) ? 'checked' : '' }}
+                                                                    value="{{ $value[0] }}">
+                                                                <label class="form-check-label"
+                                                                    for="formRadiosRight{{ $key }}">
+                                                                    {{ $value[0] }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    @empty
+                                                        <!-- Code to be executed if $filteredData is empty -->
+                                                    @endforelse
+                                                @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-check form-check-right mb-3">
+                                                    <input class="form-check-input"type="checkbox"
+                                                        name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                                                    <label class="form-check-label" for="formRadiosRightbf1inter">
+                                                        + Add More
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" id="textarea_a852inter">
+                                                <div class="row addmore_diag">
+                                                    <div class="col-lg-10">
+                                                        <div class="inner_element">
+
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control"
+                                                                    id="InterventionValue" placeholder="Type  here.....">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="add_more_btn">
+                                                            <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                                                    class="fa-solid fa-plus"></i> Add More</a>
+                                                        </div>
+                                                    </div>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -4495,9 +4668,11 @@
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank" href="{{ route('user.ViewThyroidAblationForm',['id'=>@$patient_id]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {
@@ -4606,9 +4781,11 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -4720,13 +4897,13 @@
                     </div>
 
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
 
                             <div id="loader" style="display: none;">
                                 <!-- Loader HTML (e.g., spinner or loading message) -->
                                 {{-- <p>Loading...</p> --}}
-                                <img src="{{ asset('public/index.svg') }}" alt="Index Image">
+                                <img src="{{ asset('/index.svg') }}" alt="Index Image">
 
                             </div>
 
@@ -4965,6 +5142,18 @@
             });
         </script>
         <script>
+
+
+            function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -4977,6 +5166,15 @@
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+                    if($(select).val() == 'other'){
+                            $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                            $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                            $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                        } else {
+                            $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                            $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                            $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                        }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -5024,6 +5222,18 @@
                 });
                 $("#formRadiosRightbf7").click(function() {
                     $("#textarea_a789").toggle();
+                });
+
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
                 });
             });
         </script>
@@ -5252,6 +5462,29 @@
                         $('#SpecialInvestigationValue').val('');
                     }
                 });
+
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                });
+
 
                 // Supportive
 
@@ -5907,7 +6140,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
 // Start Image    
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
 
@@ -5921,7 +6154,8 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     const imageObj = new Image();
 
         @php
-        $imageSrc = $thyroidEligibilityFormsImage ? asset('/assets/thyroid-eligibility-form/' . $thyroidEligibilityFormsImage->AnnotateimageData) : asset('path/to/default/image.png');
+        
+        $imageSrc = ($thyroidEligibilityFormsImage && $thyroidEligibilityFormsImage->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $thyroidEligibilityFormsImage->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/thyroid-eligibility.jpg');
         @endphp
 
         imageObj.src = '{{ $imageSrc }}';
@@ -5959,9 +6193,12 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
+                        width:500,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
                     })
                 );
 
@@ -6018,6 +6255,16 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
     
     // End Image 
 
+    function isFormDataValid(formData) {
+            for (let [key, value] of formData.entries()) {
+                if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                    if (value.trim() !== '') {
+                        return true; // A blank value found
+                    }
+                }
+            }
+            return false; // All values are non-blank
+        }
 
 
 
@@ -6034,6 +6281,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
             
             event.preventDefault();
             let formData = new FormData(this);
+            if(isFormDataValid(formData)){
             if (!validateForm()) {
                 e.preventDefault(); 
 
@@ -6086,6 +6334,13 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
                                         });
                         }
                     }
+                }else{
+                    Swal.fire({
+                title: "Fill Data?",
+                text: "Please fill the details.",
+                icon: "info",
+            });
+                }
         });
 
 

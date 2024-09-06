@@ -62,7 +62,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 'Varicocele' => ['Varicocele'],
                                                 'Testicularpain' => ['Testicular pain'],
                                                 'Testicularatrophy' => ['Testicular atrophy'],
-                                                'Testicular' => ['Testicular mass / cyst'],
+                                                'Testicular' => ['Testicular mass / cystic'],
                                                 'Hydrocele' => ['Hydrocele'],
                                                 'Epedidimalabnormality' => ['Epedidimal abnormality'],     
                                                 'Hormonalabnormalities' => ['Hormonal abnormalities'],     
@@ -113,10 +113,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                         <div class="form-check form-check-right mb-3">
                                             <input class="form-check-input" type="checkbox"
                                                 name="diagnosis_general[Testicular][]" id="formRadiosRight4"
-                                                {{ isset($diagnosis_generals['Testicular']) && in_array('Testicular mass / cyst', $diagnosis_generals['Testicular']) ? 'checked' : '' }}
-                                                value="Testicular mass / cyst">
+                                                {{ isset($diagnosis_generals['Testicular']) && in_array('Testicular mass / cystic', $diagnosis_generals['Testicular']) ? 'checked' : '' }}
+                                                value="Testicular mass / cystic">
                                             <label class="form-check-label" for="formRadiosRight4">
-                                                Testicular mass / cyst
+                                                Testicular mass / cystic
                                             </label>
                                         </div>
                                     </div>
@@ -946,7 +946,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                             <option value="">Duration Type</option>
                                                             @foreach (['Days', 'Weeks', 'Months', 'Years'] as $durationType)
                                                             <option value="{{ $durationType }}"
-                                                                {{ isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
+                                                                {{ $disfiguringSymptoms7 && isset($disfiguringSymptoms7['SymptomDurationType']) &&  $disfiguringSymptoms7['SymptomDurationType'] == $durationType  ? 'selected' : '' }}>
                                                                 {{ $durationType }}
                                                             </option>
                                                         @endforeach
@@ -1562,36 +1562,36 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                     @if ($sum >= 0 && $sum <= 5)
                                                         <tr id="mildLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Mild LUTS </th>
+                                                            <th>Mild </th>
                                                             <th>(0-5 pts)</th>
                                                         </tr>
                                                     @elseif ($sum >= 6 && $sum <= 15)
                                                         <tr id="moderateLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Moderate LUTS </th>
+                                                            <th>Moderate </th>
                                                             <th>(6-15 pts) </th>
                                                         </tr>
                                                     @elseif ($sum >= 16 && $sum <= 1999)
                                                         <tr id="severeLUTSDB">
                                                             <td colspan="3" rowspan="3"></td>
-                                                            <th>Severe LUTS </th>
+                                                            <th>Severe </th>
                                                             <th>(16-25 pts) </th>
                                                         </tr>
                                                     @endif
                                                 @endif
                                                 <tr id="mildLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Mild LUTS </th>
+                                                    <th>Mild </th>
                                                     <th>(0-5 pts)</th>
                                                 </tr>
                                                 <tr id="moderateLUTS" class="hidden">>
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Moderate LUTS </th>
+                                                    <th>Moderate </th>
                                                     <th>(6-15 pts) </th>
                                                 </tr>
                                                 <tr id="severeLUTS" class="hidden">
                                                     <td colspan="3" rowspan="3"></td>
-                                                    <th>Severe LUTS </th>
+                                                    <th>Severe </th>
                                                     <th>(16-25 pts) </th>
                                                 </tr>
                                             </tbody>
@@ -1622,11 +1622,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[testicles][]" id="formRadiosRight42"
-                                                        value="YES  (VE unfaverable)"
-                                                        {{ isset($clinical_indicators['testicles'][0]) && $clinical_indicators['testicles'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes  (VE unfavorable)"
+                                                        {{ isset($clinical_indicators['testicles'][0]) && $clinical_indicators['testicles'][0] == 'Yes' ? 'checked' : '' }}>
 
                                                     <label class="form-check-label" for="formRadiosRight42">
-                                                        YES
+                                                        Yes
                                                     </label>
                                                 </div>
                                             </div>
@@ -1635,7 +1635,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[testicles][]" id="formRadiosRight43"
                                                         value="No"
-                                                        {{ isset($clinical_indicators['testicles'][0]) && $clinical_indicators['testicles'][0] == 'NO' ? 'checked' : '' }}>
+                                                        {{ isset($clinical_indicators['testicles'][0]) && $clinical_indicators['testicles'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight43">
                                                         No
                                                     </label>
@@ -1651,10 +1651,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Undecendedtesticles][]" id="formRadiosRight44"
-                                                        value="YES  (VE unfaverable)"
-                                                        {{ isset($clinical_indicators['Undecendedtesticles'][0]) && $clinical_indicators['Undecendedtesticles'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes  (VE unfavorable)"
+                                                        {{ isset($clinical_indicators['Undecendedtesticles'][0]) && $clinical_indicators['Undecendedtesticles'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1662,10 +1662,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Undecendedtesticles][]" id="formRadiosRight45"
-                                                        value="NO"
-                                                        {{ isset($clinical_indicators['Undecendedtesticles'][0]) && $clinical_indicators['Undecendedtesticles'][0] == 'NO' ? 'checked' : '' }}>
+                                                        value="No"
+                                                        {{ isset($clinical_indicators['Undecendedtesticles'][0]) && $clinical_indicators['Undecendedtesticles'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1679,10 +1679,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Erectiledysfunction][]" id="formRadiosRight44Erectiledysfunction"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Erectiledysfunction'][0]) && $clinical_indicators['Erectiledysfunction'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Erectiledysfunction'][0]) && $clinical_indicators['Erectiledysfunction'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44Erectiledysfunction">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1691,9 +1691,9 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Erectiledysfunction][]" id="formRadiosRight45Erectiledysfunction"
                                                         value="No"
-                                                        {{ isset($clinical_indicators['Erectiledysfunction'][0]) && $clinical_indicators['Erectiledysfunction'][0] == 'NO' ? 'checked' : '' }}>
+                                                        {{ isset($clinical_indicators['Erectiledysfunction'][0]) && $clinical_indicators['Erectiledysfunction'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45Erectiledysfunction">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1707,10 +1707,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[ReducedEjaculate][]" id="formRadiosRight44ReducedEjaculate"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['ReducedEjaculate'][0]) && $clinical_indicators['ReducedEjaculate'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['ReducedEjaculate'][0]) && $clinical_indicators['ReducedEjaculate'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44ReducedEjaculate">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1719,9 +1719,9 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[ReducedEjaculate][]" id="formRadiosRight45ReducedEjaculate"
                                                         value="No"
-                                                        {{ isset($clinical_indicators['ReducedEjaculate'][0]) && $clinical_indicators['ReducedEjaculate'][0] == 'NO' ? 'checked' : '' }}>
+                                                        {{ isset($clinical_indicators['ReducedEjaculate'][0]) && $clinical_indicators['ReducedEjaculate'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45ReducedEjaculate">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1734,10 +1734,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Primaryinfertility][]" id="formRadiosRight44Primaryinfertility"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Primaryinfertility'][0]) && $clinical_indicators['Primaryinfertility'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Primaryinfertility'][0]) && $clinical_indicators['Primaryinfertility'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44Primaryinfertility">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1746,9 +1746,9 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Primaryinfertility][]" id="formRadiosRight45Primaryinfertility"
                                                         value="No"
-                                                        {{ isset($clinical_indicators['Primaryinfertility'][0]) && $clinical_indicators['Primaryinfertility'][0] == 'NO' ? 'checked' : '' }}>
+                                                        {{ isset($clinical_indicators['Primaryinfertility'][0]) && $clinical_indicators['Primaryinfertility'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45Primaryinfertility">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1761,10 +1761,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                 <div class="form-check form-check-right mb-3">
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Secondaryinfertility][]" id="formRadiosRight44Secondaryinfertility"
-                                                        value="YES"
-                                                        {{ isset($clinical_indicators['Secondaryinfertility'][0]) && $clinical_indicators['Secondaryinfertility'][0] == 'YES' ? 'checked' : '' }}>
+                                                        value="Yes"
+                                                        {{ isset($clinical_indicators['Secondaryinfertility'][0]) && $clinical_indicators['Secondaryinfertility'][0] == 'Yes' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight44Secondaryinfertility">
-                                                        YES 
+                                                        Yes 
                                                     </label>
                                                 </div>
                                             </div>
@@ -1773,9 +1773,9 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                     <input class="form-check-input"type="radio"
                                                         name="clinical_indicator[Secondaryinfertility][]" id="formRadiosRight45Secondaryinfertility"
                                                         value="No"
-                                                        {{ isset($clinical_indicators['Secondaryinfertility'][0]) && $clinical_indicators['Secondaryinfertility'][0] == 'NO' ? 'checked' : '' }}>
+                                                        {{ isset($clinical_indicators['Secondaryinfertility'][0]) && $clinical_indicators['Secondaryinfertility'][0] == 'No' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="formRadiosRight45Secondaryinfertility">
-                                                        NO
+                                                        No
                                                     </label>
                                                 </div>
                                             </div>
@@ -1783,9 +1783,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                         
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Clinical Exam <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Clinical Exam 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn ">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>Add Clinical Finding </h4>
                                         </div>
@@ -1871,8 +1873,10 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Imaging <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
-                                            class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                        <h6 class="section_title__">Imaging 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                            class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                        </h6>
                                       </div>
                                       
                                     
@@ -1964,22 +1968,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="YES (VE Unfaverable)" id="formRadiosRightd38"
-                                                {{ isset($Imaging['LEFTTesticularSize'][0]) && $Imaging['LEFTTesticularSize'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="Yes (VE unfavorable)" id="formRadiosRightd38"
+                                                {{ isset($Imaging['LEFTTesticularSize'][0]) && $Imaging['LEFTTesticularSize'][0] == "Yes (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd38">
-                                                YES (VE Unfaverable)
+                                                Yes (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="NO" id="formRadiosRightd13"
-                                                {{ isset($Imaging['LEFTTesticularSize'][0]) && $Imaging['LEFTTesticularSize'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularSize][]" value="No" id="formRadiosRightd13"
+                                                {{ isset($Imaging['LEFTTesticularSize'][0]) && $Imaging['LEFTTesticularSize'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd13">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -1993,22 +1997,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularMass][]" value="YES (UFE contraindicated)"  id="formRadiosRightd14"
-                                                {{ isset($Imaging['LEFTTesticularMass'][0]) && $Imaging['LEFTTesticularMass'][0] == "YES (UFE contraindicated)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularMass][]" value="Yes (UFE contraindicated)"  id="formRadiosRightd14"
+                                                {{ isset($Imaging['LEFTTesticularMass'][0]) && $Imaging['LEFTTesticularMass'][0] == "Yes (UFE contraindicated)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd14">
-                                                YES (UFE contraindicated)
+                                                Yes (UFE contraindicated)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularMass][]" value="NO"  id="formRadiosRightd15"
-                                                {{ isset($Imaging['LEFTTesticularMass'][0]) && $Imaging['LEFTTesticularMass'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularMass][]" value="No"  id="formRadiosRightd15"
+                                                {{ isset($Imaging['LEFTTesticularMass'][0]) && $Imaging['LEFTTesticularMass'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd15">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2022,22 +2026,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="YES (VE Unfaverable)" id="formRadiosRightd39"
-                                                {{ isset($Imaging['LEFTTesticularCalcification'][0]) && $Imaging['LEFTTesticularCalcification'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="Yes (VE unfavorable)" id="formRadiosRightd39"
+                                                {{ isset($Imaging['LEFTTesticularCalcification'][0]) && $Imaging['LEFTTesticularCalcification'][0] == "Yes (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd39">
-                                                YES (VE Unfaverable)
+                                                Yes (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="NO" id="formRadiosRightd40"
-                                                {{ isset($Imaging['LEFTTesticularCalcification'][0]) && $Imaging['LEFTTesticularCalcification'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTTesticularCalcification][]" value="No" id="formRadiosRightd40"
+                                                {{ isset($Imaging['LEFTTesticularCalcification'][0]) && $Imaging['LEFTTesticularCalcification'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd40">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2050,22 +2054,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="YES (VE Unfaverable)" id="formRadiosRightd41"
-                                                {{ isset($Imaging['LEFTEpididemisAbnormality'][0]) && $Imaging['LEFTEpididemisAbnormality'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="Yes (VE unfavorable)" id="formRadiosRightd41"
+                                                {{ isset($Imaging['LEFTEpididemisAbnormality'][0]) && $Imaging['LEFTEpididemisAbnormality'][0] == "Yes (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd41">
-                                                YES (VE Unfaverable)
+                                                Yes (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="NO" id="formRadiosRightd42"
-                                                {{ isset($Imaging['LEFTEpididemisAbnormality'][0]) && $Imaging['LEFTEpididemisAbnormality'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTEpididemisAbnormality][]" value="No" id="formRadiosRightd42"
+                                                {{ isset($Imaging['LEFTEpididemisAbnormality'][0]) && $Imaging['LEFTEpididemisAbnormality'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd42">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2078,22 +2082,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="YES (VE Unfaverable)" id="formRadiosRightd43"
-                                                {{ isset($Imaging['LEFTHydrocele'][0]) && $Imaging['LEFTHydrocele'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="Yes (VE unfavorable)" id="formRadiosRightd43"
+                                                {{ isset($Imaging['LEFTHydrocele'][0]) && $Imaging['LEFTHydrocele'][0] == "Yes (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd43">
-                                                YES (VE Unfaverable)
+                                                Yes (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="NO" id="formRadiosRightd44"
-                                                {{ isset($Imaging['LEFTHydrocele'][0]) && $Imaging['LEFTHydrocele'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTHydrocele][]" value="No" id="formRadiosRightd44"
+                                                {{ isset($Imaging['LEFTHydrocele'][0]) && $Imaging['LEFTHydrocele'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd44">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2106,22 +2110,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTRetestestis][]" value="YES" id="formRadiosRightd45"
-                                                {{ isset($Imaging['LEFTRetestestis'][0]) && $Imaging['LEFTRetestestis'][0] == "YES" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTRetestestis][]" value="Yes" id="formRadiosRightd45"
+                                                {{ isset($Imaging['LEFTRetestestis'][0]) && $Imaging['LEFTRetestestis'][0] == "Yes" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd45">
-                                                YES
+                                                Yes
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[LEFTRetestestis][]" value="NO" id="formRadiosRightd46"
-                                                {{ isset($Imaging['LEFTRetestestis'][0]) && $Imaging['LEFTRetestestis'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[LEFTRetestestis][]" value="No" id="formRadiosRightd46"
+                                                {{ isset($Imaging['LEFTRetestestis'][0]) && $Imaging['LEFTRetestestis'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd46">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2142,19 +2146,19 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="YES (VE Unfaverable)" id="formRadiosRightd16"
-                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="Yes (VE unfavorable)" id="formRadiosRightd16"
+                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "Yes (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd16">
-                                                YES (VE Unfaverable)
+                                                Yes (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="NO" id="formRadiosRightd17"
-                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="No" id="formRadiosRightd17"
+                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd17">
                                                 No
@@ -2170,22 +2174,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTTesticularMass][]" value="YES (VE contraindicated)" id="formRadiosRightd18"
-                                                {{ isset($Imaging['RIGHTTesticularMass'][0]) && $Imaging['RIGHTTesticularMass'][0] == "YES (VE contraindicated)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTTesticularMass][]" value="Yes (VE contraindicated)" id="formRadiosRightd18"
+                                                {{ isset($Imaging['RIGHTTesticularMass'][0]) && $Imaging['RIGHTTesticularMass'][0] == "Yes (VE contraindicated)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd18">
-                                                YES (VE contraindicated)
+                                                Yes (VE contraindicated)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTTesticularMass][]" value="NO" id="formRadiosRightd19"
-                                                {{ isset($Imaging['RIGHTTesticularMass'][0]) && $Imaging['RIGHTTesticularMass'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTTesticularMass][]" value="No" id="formRadiosRightd19"
+                                                {{ isset($Imaging['RIGHTTesticularMass'][0]) && $Imaging['RIGHTTesticularMass'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd19">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2198,22 +2202,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="YES (VE Unfaverable)" id="formRadiosRightd20"
-                                                {{ isset($Imaging['RIGHTTesticularCalcification'][0]) && $Imaging['RIGHTTesticularCalcification'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="Yes (VE unfavorable)" id="formRadiosRightd20"
+                                                {{ isset($Imaging['RIGHTTesticularCalcification'][0]) && $Imaging['RIGHTTesticularCalcification'][0] == "Yes (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd20">
-                                                YES (VE Unfaverable)
+                                                Yes (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="NO" id="formRadiosRightd21"
-                                                {{ isset($Imaging['RIGHTTesticularCalcification'][0]) && $Imaging['RIGHTTesticularCalcification'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio"  name="Imaging[RIGHTTesticularCalcification][]" value="No" id="formRadiosRightd21"
+                                                {{ isset($Imaging['RIGHTTesticularCalcification'][0]) && $Imaging['RIGHTTesticularCalcification'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd21">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2226,22 +2230,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="YES (VE Unfaverable)" id="formRadiosRightd22"
-                                                {{ isset($Imaging['RIGHTEpididemisAbnormality'][0]) && $Imaging['RIGHTEpididemisAbnormality'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="Yes (VE unfavorable)" id="formRadiosRightd22"
+                                                {{ isset($Imaging['RIGHTEpididemisAbnormality'][0]) && $Imaging['RIGHTEpididemisAbnormality'][0] == "Yes (VE unfavorable)" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd22">
-                                                YES (VE Unfaverable)
+                                                Yes (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="NO" id="formRadiosRightd23"
-                                                {{ isset($Imaging['RIGHTEpididemisAbnormality'][0]) && $Imaging['RIGHTEpididemisAbnormality'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTEpididemisAbnormality][]" value="No" id="formRadiosRightd23"
+                                                {{ isset($Imaging['RIGHTEpididemisAbnormality'][0]) && $Imaging['RIGHTEpididemisAbnormality'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd23">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2254,23 +2258,23 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="YES (VE Unfaverable)" id="formRadiosRightd24"
-                                                {{ isset($Imaging['RIGHTHydrocele'][0]) && $Imaging['RIGHTHydrocele'][0] == "YES (VE Unfaverable)" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="Yes (VE unfavorable)" id="formRadiosRightd24"
+                                                {{ isset($Imaging['RIGHTHydrocele'][0]) && $Imaging['RIGHTHydrocele'][0] == "Yes (VE unfavorable)" ? 'checked' : '' }}
                                                 
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd24">
-                                                YES (VE Unfaverable)
+                                                Yes (VE unfavorable)
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="NO" id="formRadiosRightd25"
-                                                {{ isset($Imaging['RIGHTHydrocele'][0]) && $Imaging['RIGHTHydrocele'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTHydrocele][]" value="No" id="formRadiosRightd25"
+                                                {{ isset($Imaging['RIGHTHydrocele'][0]) && $Imaging['RIGHTHydrocele'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd25">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2283,22 +2287,22 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 </div>
                                 <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="YES" id="formRadiosRightd47"
-                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "YES" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="Yes" id="formRadiosRightd47"
+                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "Yes" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd47">
-                                                YES
+                                                Yes
                                                 </label>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4">
                                             <div class="form-check form-check-right mb-3">
-                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="NO" id="formRadiosRightd48"
-                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "NO" ? 'checked' : '' }}
+                                                <input class="form-check-input"type="radio" name="Imaging[RIGHTRetestestis][]" value="No" id="formRadiosRightd48"
+                                                {{ isset($Imaging['RIGHTRetestestis'][0]) && $Imaging['RIGHTRetestestis'][0] == "No" ? 'checked' : '' }}
                                                 >
                                                 <label class="form-check-label" for="formRadiosRightd48">
-                                                NO 
+                                                No 
                                                 </label>
                                             </div>
                                         </div>
@@ -2355,7 +2359,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                                                                   <img src="images/new-images/nodules.png" alt="">
                                                                               </div> -->
                                         <div id="image-container">
-                                            <img src="{{ asset('public/images/new-images/nodules.png') }}" alt="Your Image" id="image">
+                                            <img src="{{ asset('assets/images/new-images/nodules.png') }}" alt="Your Image" id="image">
                                         </div>
                                         <div class="button_images">
                                             <button class="btn r-04 btn--theme hover--tra-black add_patient"
@@ -2378,7 +2382,9 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 @endphp
 
 <div class="col-lg-12">
-    <h6 class="section_title__">Lab <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a></h6>
+    <h6 class="section_title__">Lab 
+        {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i class="fa-solid fa-arrow-right-long"></i></a> --}}
+    </h6>
   </div>
     <div class="col-lg-12">
       <div class="title_head">
@@ -2399,11 +2405,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                    <option value="normal" {{ isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                    <option value="low" {{ isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                    <option value="high" {{ isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                   </select>
-                   <div class="result result_value {{ isset($Lab['Prolactin'][0]) ? $Lab['Prolactin'][0] : '' }}">
-                       <!-- Display low, high, and normal values here -->
-                       {{ isset($Lab['Prolactin'][0]) ? $Lab['Prolactin'][0] : '' }}
-                   </div>
+                   <option value="other" {{ isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                    </select>
+                    
+                    <div @if(isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Prolactin'][0])  && $Lab['Prolactin'][0] != 'other' ? $Lab['Prolactin'][0] : 'normal' }}">
+                        {{ isset($Lab['Prolactin'][0])  && $Lab['Prolactin'][0] != 'other' ? $Lab['Prolactin'][0] : 'normal' }} 
+                    </div>
+
+                    <select @if(isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[Prolactin][otherLevel]">
+                        <option {{ isset($Lab['Prolactin']['otherLevel']) && $Lab['Prolactin']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                        <option {{ isset($Lab['Prolactin']['otherLevel']) && $Lab['Prolactin']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                        <option {{ isset($Lab['Prolactin']['otherLevel']) && $Lab['Prolactin']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                    </select>
+                    
+                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Prolactin'][0]) && $Lab['Prolactin'][0] == 'other') value="{{$Lab['Prolactin']['other']??''}}" @else hidden @endif name="Lab[Prolactin][other]" >
                </div>
            </div>
            </div>
@@ -2420,11 +2435,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                    <option value="normal" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                    <option value="low" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                    <option value="high" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
-                   </select>
-                   <div class="result result_value {{ isset($Lab['TSH'][0]) ? $Lab['TSH'][0] : '' }}">
-                       <!-- Display low, high, and normal values here -->
-                       {{ isset($Lab['TSH'][0]) ? $Lab['TSH'][0] : '' }}
-                   </div>
+                   <option value="other" {{ isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other' ? 'selected' : '' }}>Other</option>
+                </select>
+                
+                <div @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['TSH'][0])  && $Lab['TSH'][0] != 'other' ? $Lab['TSH'][0] : 'normal' }}">
+                    {{ isset($Lab['TSH'][0])  && $Lab['TSH'][0] != 'other' ? $Lab['TSH'][0] : 'normal' }} 
+                </div>
+
+                <select @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[TSH][otherLevel]">
+                    <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                    <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                    <option {{ isset($Lab['TSH']['otherLevel']) && $Lab['TSH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                </select>
+                
+                <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['TSH'][0]) && $Lab['TSH'][0] == 'other') value="{{$Lab['TSH']['other']??''}}" @else hidden @endif name="Lab[TSH][other]" >
                </div>
            </div>
            </div>
@@ -2441,11 +2465,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     <option value="normal" {{ isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                     <option value="low" {{ isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                     <option value="high" {{ isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                    <option value="other" {{ isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'other' ? 'selected' : '' }}>Other</option>
                     </select>
-                    <div class="result result_value {{ isset($Lab['FSH'][0]) ? $Lab['FSH'][0] : '' }}">
-                        <!-- Display low, high, and normal values here -->
-                        {{ isset($Lab['FSH'][0]) ? $Lab['FSH'][0] : '' }}
+                    
+                    <div @if(isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['FSH'][0])  && $Lab['FSH'][0] != 'other' ? $Lab['FSH'][0] : 'normal' }}">
+                        {{ isset($Lab['FSH'][0])  && $Lab['FSH'][0] != 'other' ? $Lab['FSH'][0] : 'normal' }} 
                     </div>
+
+                    <select @if(isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[FSH][otherLevel]">
+                        <option {{ isset($Lab['FSH']['otherLevel']) && $Lab['FSH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                        <option {{ isset($Lab['FSH']['otherLevel']) && $Lab['FSH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                        <option {{ isset($Lab['FSH']['otherLevel']) && $Lab['FSH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                    </select>
+                    
+                    <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['FSH'][0]) && $Lab['FSH'][0] == 'other') value="{{$Lab['FSH']['other']??''}}" @else hidden @endif name="Lab[FSH][other]" >
                 </div>
             </div>
             </div>
@@ -2462,11 +2495,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                         <option value="normal" {{ isset($Lab['LH'][0]) && $Lab['LH'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                         <option value="low" {{ isset($Lab['LH'][0]) && $Lab['LH'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                         <option value="high" {{ isset($Lab['LH'][0]) && $Lab['LH'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                        <option value="other" {{ isset($Lab['LH'][0]) && $Lab['LH'][0] == 'other' ? 'selected' : '' }}>Other</option>
                         </select>
-                        <div class="result result_value {{ isset($Lab['LH'][0]) ? $Lab['LH'][0] : '' }}">
-                            <!-- Display low, high, and normal values here -->
-                            {{ isset($Lab['LH'][0]) ? $Lab['LH'][0] : '' }}
+                        
+                        <div @if(isset($Lab['LH'][0]) && $Lab['LH'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['LH'][0])  && $Lab['LH'][0] != 'other' ? $Lab['LH'][0] : 'normal' }}">
+                            {{ isset($Lab['LH'][0])  && $Lab['LH'][0] != 'other' ? $Lab['LH'][0] : 'normal' }} 
                         </div>
+
+                        <select @if(isset($Lab['LH'][0]) && $Lab['LH'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[LH][otherLevel]">
+                            <option {{ isset($Lab['LH']['otherLevel']) && $Lab['LH']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                            <option {{ isset($Lab['LH']['otherLevel']) && $Lab['LH']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                            <option {{ isset($Lab['LH']['otherLevel']) && $Lab['LH']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                        </select>
+                        
+                        <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['LH'][0]) && $Lab['LH'][0] == 'other') value="{{$Lab['LH']['other']??''}}" @else hidden @endif name="Lab[LH][other]" >
                     </div>
                 </div>
                 </div>
@@ -2483,11 +2525,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                             <option value="normal" {{ isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                             <option value="low" {{ isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                             <option value="high" {{ isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                            <option value="other" {{ isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'other' ? 'selected' : '' }}>Other</option>
                             </select>
-                            <div class="result result_value {{ isset($Lab['Testosterone'][0]) ? $Lab['Testosterone'][0] : '' }}">
-                                <!-- Display low, high, and normal values here -->
-                                {{ isset($Lab['Testosterone'][0]) ? $Lab['Testosterone'][0] : '' }}
+                            
+                            <div @if(isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['Testosterone'][0])  && $Lab['Testosterone'][0] != 'other' ? $Lab['Testosterone'][0] : 'normal' }}">
+                                {{ isset($Lab['Testosterone'][0])  && $Lab['Testosterone'][0] != 'other' ? $Lab['Testosterone'][0] : 'normal' }} 
                             </div>
+
+                            <select @if(isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[Testosterone][otherLevel]">
+                                <option {{ isset($Lab['Testosterone']['otherLevel']) && $Lab['Testosterone']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                <option {{ isset($Lab['Testosterone']['otherLevel']) && $Lab['Testosterone']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                <option {{ isset($Lab['Testosterone']['otherLevel']) && $Lab['Testosterone']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                            </select>
+                            
+                            <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['Testosterone'][0]) && $Lab['Testosterone'][0] == 'other') value="{{$Lab['Testosterone']['other']??''}}" @else hidden @endif name="Lab[Testosterone][other]" >
                         </div>
                     </div>
                     </div>
@@ -2504,11 +2555,20 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                 <option value="normal" {{ isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'normal' ? 'selected' : '' }}>(0.4 - 5.49 mIU/L)</option>
                                 <option value="low" {{ isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'low' ? 'selected' : '' }}>(0.01 - 0.39 mIU/L)</option>
                                 <option value="high" {{ isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'high' ? 'selected' : '' }}>(> 5.49 mIU/L)</option>
+                                <option value="other" {{ isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'other' ? 'selected' : '' }}>Other</option>
                                 </select>
-                                <div class="result result_value {{ isset($Lab['EstrodiolD2'][0]) ? $Lab['EstrodiolD2'][0] : '' }}">
-                                    <!-- Display low, high, and normal values here -->
-                                    {{ isset($Lab['EstrodiolD2'][0]) ? $Lab['EstrodiolD2'][0] : '' }}
+                                
+                                <div @if(isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'other') hidden @else  @endif class="result result_value {{ isset($Lab['EstrodiolD2'][0])  && $Lab['EstrodiolD2'][0] != 'other' ? $Lab['EstrodiolD2'][0] : 'normal' }}">
+                                    {{ isset($Lab['EstrodiolD2'][0])  && $Lab['EstrodiolD2'][0] != 'other' ? $Lab['EstrodiolD2'][0] : 'normal' }} 
                                 </div>
+
+                                <select @if(isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'other') @else hidden @endif class="tshRangeOther form-select" name="Lab[EstrodiolD2][otherLevel]">
+                                    <option {{ isset($Lab['EstrodiolD2']['otherLevel']) && $Lab['EstrodiolD2']['otherLevel'] == 'low' ? 'selected' : '' }} value="low">Low</option>
+                                    <option {{ isset($Lab['EstrodiolD2']['otherLevel']) && $Lab['EstrodiolD2']['otherLevel'] == 'normal' ? 'selected' : '' }} value="normal">Normal</option>
+                                    <option {{ isset($Lab['EstrodiolD2']['otherLevel']) && $Lab['EstrodiolD2']['otherLevel'] == 'high' ? 'selected' : '' }} value="high">High</option>
+                                </select>
+                                
+                                <input class="LabOther form-control" placeholder="enter here ..." @if(isset($Lab['EstrodiolD2'][0]) && $Lab['EstrodiolD2'][0] == 'other') value="{{$Lab['EstrodiolD2']['other']??''}}" @else hidden @endif name="Lab[EstrodiolD2][other]" >
                             </div>
                         </div>
                         </div>
@@ -2789,14 +2849,39 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                             </div>
                            
                         </div>
+                        <div class="col-lg-12 mb-4">
+                            <div class="title_head">
+                                <h4>Others</h4>
+                            </div>
+                            <div class="otherLabRow">
+                                @if(isset($Lab['other']))
+                                @foreach($Lab['other'] as $kk=>$value)
+                                <div class="row my-3">
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="Lab[other][]" placeholder="Other Title" value="{{$value}}"> 
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes" value="{{$Lab['otherNote'][$kk]}}"> 
+                                    </div>
+                                </div>
+                                @endforeach
+                                @endif
+                            </div>
+                            <div class="add_more_btn">
+                                <a href="javascript:void(0);" style="width: 20%;" onclick="addOtherLab()"><i class="fa-solid fa-plus"></i> Add More</a>
+                            </div>
+                            
+                        </div>
                     </div>
                     
                    
                                     <div class="col-lg-12  mb-2">
-                                        <h6 class="section_title__">Special Investigation <a href="#"
+                                        <h6 class="section_title__">Special Investigation 
+                                            {{-- <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#refer_patient"
                                                 class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>REQNERVECON5</h4>
                                         </div>
@@ -2860,9 +2945,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">MDT <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">MDT 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2954,9 +3041,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                         </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Elegibility STATUS <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Eligibility STATUS 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>ElegibilitySTATUS
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="title_head">
@@ -2967,6 +3056,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                     @php
                                         if (isset($ElegibilitySTATUS) && !empty($ElegibilitySTATUS)) {
                                             $ElegibilitySTATUS = json_decode($ElegibilitySTATUS->data_value, true);
+                                                                             
                                             //    echo "<pre>";
                                             //     print_r($ElegibilitySTATUS);
                                             //     die;
@@ -3015,17 +3105,26 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Intervention PROCEDURE / Rx <a
+                                        <h6 class="section_title__">Intervention PROCEDURE / Rx 
+                                            {{-- <a
                                                 target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}" class="order-now_btn">Order Now <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
 
                                     @php
                                         if (isset($Interventions) && !empty($Interventions)) {
                                             $Interventions = json_decode($Interventions->data_value, true);
-                                            //    echo "<pre>";
-                                            //     print_r($Interventions);
-                                            //     die;
+                                           
+                                            $existingDataInter = [
+                                            'ANGIOVE1780' => ['ANGIOVE1780'],
+                                            'LABPREANGIO48' => ['LABPREANGIO48'],
+                                            'LABPREIRSAFETY17' => ['LABPREIRSAFETY17'],
+                                            'IVSEDATION270' => ['IVSEDATION270'],
+                                            'USTTAUL2180' => ['USTTAUL2180'],
+                                            ];
+
+                                            $filteredDataIner = array_diff_key($Interventions, $existingDataInter);
                                         }
 
                                     @endphp
@@ -3069,7 +3168,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                 </label>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3" id="InterventionSample">
             <div class="form-check form-check-right mb-3">
                 <input class="form-check-input"type="checkbox"
                     name="Intervention[IVSEDATION270][]" value="IVSEDATION270"
@@ -3082,7 +3181,59 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
             </div>
         </div>
         
-       
+        <div class="col-lg-12" >
+            <div id="dynamic_Intervention_checkbox_container" class="row">
+                @if (isset($filteredDataIner) && !empty($filteredDataIner))
+                @forelse ($filteredDataIner as $key => $value)
+                    <div class="col-lg-3">
+                        <div class="form-check form-check-right mb-3">
+                            <input class="form-check-input" type="checkbox"
+                                name="Intervention[{{ $key }}][]"
+                                id="formRadiosRight{{ $key }}"
+                                {{ isset($Interventions[$key]) && in_array($value[0], $Interventions[$key]) ? 'checked' : '' }}
+                                value="{{ $value[0] }}">
+                            <label class="form-check-label"
+                                for="formRadiosRight{{ $key }}">
+                                {{ $value[0] }}
+                            </label>
+                        </div>
+                    </div>
+                @empty
+                    <!-- Code to be executed if $filteredData is empty -->
+                @endforelse
+            @endif
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check form-check-right mb-3">
+                <input class="form-check-input"type="checkbox"
+                    name="formRadiosRight27inter" id="formRadiosRightbf1inter">
+                <label class="form-check-label" for="formRadiosRightbf1inter">
+                    + Add More
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-12" id="textarea_a852inter">
+            <div class="row addmore_diag">
+                <div class="col-lg-10">
+                    <div class="inner_element">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                                id="InterventionValue" placeholder="Type  here.....">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="add_more_btn">
+                        <a href="javascript:void(0);" class="InterventionAddMore"><i
+                                class="fa-solid fa-plus"></i> Add More</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
         
     </div>
 </div>
@@ -3093,9 +3244,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
 
 
                                     <div class="col-lg-12 mb-3">
-                                        <h6 class="section_title__">Supportive <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
+                                        <h6 class="section_title__">Supportive 
+                                            {{-- <a target="_blank"  href="{{ route('user.viewVaricoceleEmboEligibilityForms',['id'=>@$patient_id ]) }}"
                                                 class="order-now_btn order-now_btn_alt">Medical Record <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                     </div>
                                     @php
                                     if (isset($supportives) && !empty($supportives)) {
@@ -3229,9 +3382,11 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <h6 class="section_title__">Referral <a href="#" data-bs-toggle="modal"
+                                        <h6 class="section_title__">Referral 
+                                            {{-- <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#refer_patient" class="order-now_btn">Reffer <i
-                                                    class="fa-solid fa-arrow-right-long"></i></a></h6>
+                                                    class="fa-solid fa-arrow-right-long"></i></a> --}}
+                                                </h6>
                                         <div class="title_head">
                                             <h4>HCREFFERAL</h4>
                                         </div>
@@ -3358,8 +3513,8 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     </div>
 
                     <div class="action_btns">
-                        <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
-                            DRAFT</button>
+                        {{-- <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient draft_btn">SAVE
+                            DRAFT</button> --}}
                         <button type="submit" class="btn r-04 btn--theme hover--tra-black add_patient">SAVE
                             FINAL</button>
                     </div>
@@ -3383,7 +3538,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
     // Start Image    
     const stage = new Konva.Stage({
         container: 'image-container',
-        width: 800,
+        width: 500,
         height: 600,
     });
     
@@ -3395,7 +3550,7 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
     let lastLine;
     
     const imageObj = new Image();
-    imageObj.src = '{{ asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) }}';
+    imageObj.src = '{{ isset($VaricoceleEmboForm->AnnotateimageData) ? asset('/assets/thyroid-eligibility-form/' . $VaricoceleEmboForm->AnnotateimageData) : asset('/assets/thyroid-eligibility-form/add/varicose-viens.jpg') }}';
     
     imageObj.onload = function() {
         const image = new Konva.Image({
@@ -3428,9 +3583,12 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     new Konva.Text({
                         text: text,
                         fontSize: 18,
+                        width:500,
                         fontStyle: 'bold',
                         fontFamily: 'Arial',
                         fill: '#000',
+                        wrap:'word',
+                        ellipsis:true
                     })
                 );
     
@@ -3510,6 +3668,18 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     $("#abnormal_a76").hide();
                 });
 
+
+
+                $("#textarea_a852inter").hide();
+                $("#textarea_a789inter").hide();
+
+                $("#formRadiosRightbf1inter").click(function() {
+                    $("#textarea_a852inter").toggle();
+                });
+
+                $("#formRadiosRightbf7inter").click(function() {
+                    $("#textarea_a789inter").toggle();
+                });
             })
         </script>
 
@@ -3708,6 +3878,16 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
             });
         </script>
         <script>
+
+function addOtherLab(){
+                    $(".otherLabRow").append(`<div class="row my-3"><div class="col-lg-6">
+                                                <input class="form-control" name="Lab[other][]" placeholder="Other Title"> 
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="form-control" name="Lab[otherNote][]" placeholder="Other Notes"> 
+                                            </div></div>`);
+                }
+
             $(document).ready(function() {
                 $('.tshRange').select2({
                     minimumResultsForSearch: -1
@@ -3720,6 +3900,15 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     var tshRange = $(select).val();
                     var resultDiv = $(select).nextAll('.result').first(); // Get the next sibling with class 'result'
 
+                    if($(select).val() == 'other'){
+                        $(select).closest('.lab_test_value').find('.LabOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').removeAttr('hidden').focus();
+                        $(select).closest('.lab_test_value').find('.result_value').attr('hidden', 'hidden');
+                    } else {
+                        $(select).closest('.lab_test_value').find('.LabOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.tshRangeOther').attr('hidden', 'hidden');
+                        $(select).closest('.lab_test_value').find('.result_value').removeAttr('hidden').focus();
+                    }
                     // Remove previous class to reset background color
                     resultDiv.removeClass('low high normal');
 
@@ -3887,6 +4076,27 @@ Patient | Edit varicocele embo | QASTARAT & DAWALI CLINICS
                     }
                 });
 
+
+                $('.InterventionAddMore').click(function(e){
+                    e.preventDefault();
+
+                    var diagnosisText = $('#InterventionValue').val();
+                    var key = diagnosisText.replace(/\s+/g, '_');
+
+                    if (diagnosisText.trim() !== '') {
+                        var clonedDiv = $('#InterventionSample').clone(true);
+
+                        clonedDiv.find('.form-check-input').attr('id', 'formRadiosRight_' + key).attr('name',
+                            'Intervention[' + key + '][]').attr('value', diagnosisText);
+                        clonedDiv.find('.form-check-label').attr('for', 'formRadiosRight_' + key).text(
+                            diagnosisText);
+
+
+                        $('#dynamic_Intervention_checkbox_container').append(clonedDiv);
+
+                        $('#InterventionValue').val('');
+                    }
+                })
                 // Supportive
 
                 $('.SupportiveAddMore').click(function(e) {
@@ -4084,7 +4294,7 @@ $("#textarea_76").show();
         
         function validateForm() {
 
-            // focal headache start  
+            // Focal headache start  
             var isChecked_sym_a1 = $("#sym_a1").is(":checked");
            
             var sym_a1_durationValue = $("select[name='symptoms[0][1]']").val();
@@ -4115,10 +4325,10 @@ $("#textarea_76").show();
 
 
         }
-// focal headache end  
+// Focal headache end  
 
 
-// numbness/ pain to neck or shoulder or arm start
+// Numbness/ pain to neck or shoulder or arm start
 var isChecked_sym_a2 = $("#sym_a2").is(":checked");
            
            var sym_a2_durationValue = $("select[name='symptoms[1][1]']").val();
@@ -4149,11 +4359,11 @@ var isChecked_sym_a2 = $("#sym_a2").is(":checked");
 
 
        }
-// numbness/ pain to neck or shoulder or arm end 
+// Numbness/ pain to neck or shoulder or arm end 
 
 
 
-// associated with nausea or vomiting start
+// Associated with nausea or vomiting start
 var isChecked_sym_a3 = $("#sym_a3").is(":checked");
            
            var sym_a3_durationValue = $("select[name='symptoms[2][1]']").val();
@@ -4184,10 +4394,10 @@ var isChecked_sym_a3 = $("#sym_a3").is(":checked");
 
 
        }
-// associated with nausea or vomiting end 
+// Associated with nausea or vomiting end 
 
 
-//  associated with vertigo or drawziness start
+//  Associated with vertigo and drowsiness start
 var isChecked_sym_a4 = $("#sym_a4").is(":checked");
            
            var sym_a4_durationValue = $("select[name='symptoms[3][1]']").val();
@@ -4218,11 +4428,11 @@ var isChecked_sym_a4 = $("#sym_a4").is(":checked");
 
 
        }
-//  associated with vertigo or drawziness end 
+//  Associated with vertigo and drowsiness end 
 
 
 
-//  associated with blurring / visual disturbances start
+//  Associated with blurring / visual disturbances start
 var isChecked_sym_a5 = $("#sym_a5").is(":checked");
            
            var sym_a5_durationValue = $("select[name='symptoms[4][1]']").val();
@@ -4253,7 +4463,7 @@ var isChecked_sym_a5 = $("#sym_a5").is(":checked");
 
 
        }
-//  associated with blurring / visual disturbances end 
+//  Associated with blurring / visual disturbances end 
 
 
 
@@ -4465,6 +4675,16 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
             return true; 
         }
 
+        function isFormDataValid(formData) {
+            for (let [key, value] of formData.entries()) {
+                if(key != '_token' && key != 'patient_id' && key != 'form_type' && key != 'canvasImage'){
+                    if (value.trim() !== '') {
+                        return true; // A blank value found
+                    }
+                }
+            }
+            return false; // All values are non-blank
+        }
         
 
         $("#updateVaricoceleEmboEligibilityForms").submit(function(event) {
@@ -4477,6 +4697,7 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
             
             event.preventDefault();
             let formData = new FormData(this);
+            if(isFormDataValid(formData)){
             if (!validateForm()) {
                 e.preventDefault(); 
             } 
@@ -4499,13 +4720,21 @@ var isChecked_sym_a18 = $("#sym_a18").is(":checked");
                                                 showConfirmButton: false, // Hide the default "OK" button
                                                 timer: 2000 // Display the message for 2 seconds
                                             }).then(() => {
-                                                location.reload(); // Refresh the page after the timer ends
+                                                var redirectUrl = "{{ route('user.viewVaricoceleEmboEligibilityForms', ['id' => ':id']) }}";
+                                                redirectUrl = redirectUrl.replace(':id', patientId);
+                                                window.location.href = redirectUrl;
                                             });
                                     
                                     }
                             } 
                     });    
                 }
+        }}else{
+            Swal.fire({
+                title: "Fill Data?",
+                text: "Please fill the details.",
+                icon: "info",
+            });
         }
         });
 

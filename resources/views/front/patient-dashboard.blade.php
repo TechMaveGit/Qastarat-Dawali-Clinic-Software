@@ -5,7 +5,11 @@
 @endpush
 
 @section('content-section')
-
+@php
+    
+    use Carbon\Carbon;
+    $countryCode = DB::table('dial_codes')->where('status', '1')->get();
+@endphp
 
 <div class="sub_bnr"
     style="background-image: url({{ asset('/assets/images/hero-15.jpg')}}') }});">
@@ -131,13 +135,14 @@
                     <div class="patient_dt_profile">
 
                         <h5 class="patient_name__">
-                            {{ $patient->sirname??'' . ' ' . $patient->name??'' }}
+                            {{ $patient->sirname??''  }} {{$patient->name??''}}
+                            
                         </h5>
                         
 
 
                         @php
-                        use Carbon\Carbon;
+                        
 
                         $patientBirthDate = null;
                         if (isset($patient->birth_date) && !empty($patient->birth_date)) {
@@ -222,7 +227,7 @@
 
                             <div class="data_pt">
 
-                                <h6 id="data_pt_mobile">{{ @$patient->mobile_no }}</h6>
+                                <h6 id="data_pt_mobile">{{ @$patient->dial_code }} {{ @$patient->mobile_no }}</h6>
 
                             </div>
 
@@ -470,7 +475,7 @@
                                 <span class="branchcls">
                                 @forelse($patient->userBranch as $getbranchName)
                                         <h6 id="data_pt_kin">
-                                            {{ $getbranchName->userBranchName->branch_name }}
+                                            {{ $getbranchName->userBranchName->branch_name??'' }}
                                             @if(!$loop->last)
                                                 ,
                                             @endif
@@ -512,8 +517,8 @@
                             <div class="appoin_title">    
 
                             @php
-                                              $doctorName=DB::table('doctors')->where('id',$Patient_appointment->doctor_id)->first();
-                                            @endphp
+                                $doctorName=DB::table('doctors')->where('id',$Patient_appointment->doctor_id)->first();
+                            @endphp
                                
                                 <h6>{{ $Patient_appointment->appointment_type }}</h6>
                                 <p style="font-size: 15px;"> <span
@@ -528,7 +533,7 @@
                             <div class="appoin_date">
                                 <h6 style="font-size: 12px;">Appointment Date</h6>
 
-                                <p>{{ $Patient_appointment->start_date }} 
+                                <p>{{ $Patient_appointment->start_date }} - {{ $Patient_appointment->end_date??'' }} 
                                 </p>
 
 
@@ -562,273 +567,6 @@
 
 
 
-<!-- FOOTER-3
-
-   ============================================= -->
-
-<footer id="footer-3" class="pt-100 footer ft-3-ntr">
-
-    <div class="container">
-
-        @php
-            $footer = DB::table('footers')->first();
-        @endphp
-
-        <!-- FOOTER CONTENT -->
-
-        <div class="row">
-
-            <!-- FOOTER LOGO -->
-
-            <!-- FOOTER LOGO -->
-            <div class="col-xl-4">
-                <div class="footer-info mb-0">
-                    @isset($footer->websitelogo)
-                        <img class="footer-logo"
-                            src="{{ asset('/assets/video/'.$footer->websitelogo) }}"
-                            alt="footer-logo">
-                    @else
-                        <img class="footer-logo"
-                            src="{{ asset('/assets/images/new-images/logofwhite.png') }}"
-                            alt="footer-logo">
-                    @endisset
-                </div>
-                <div class="contact_dt_ak">
-                    <h6>Headquarter Location:</h6>
-                    <p>{{ $footer->HeadquarterLocation ?? '' }}</p>
-                    <h6>Mailing address:</h6>
-                    <p>{{ $footer->Mailingaddress ?? '' }}</p>
-                    <h6>International Call Center:</h6>
-                    <p><a
-                            href="tel:+{{ $footer->CallCenter ?? '' }}">+{{ $footer->CallCenter ?? '' }}</a>
-                    </p>
-                </div>
-            </div>
-
-            <!-- FOOTER LINKS -->
-            <div class="col-sm-4 col-lg-4 col-xl-2">
-                <div class="footer-links fl-1">
-
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Quick login</h6>
-                    <ul class="foo-links clearfix">
-                        <li>
-                            <p><a href="index.php">Patient Login</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Staff Login</a></p>
-                        </li>
-
-                    </ul>
-                    <h6 class="s-17 w-700 mt-3">Services</h6>
-                    <!-- Links -->
-                    <ul class="foo-links clearfix">
-                        <li>
-                            <p><a href="#">Women heal better</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Men heal better</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Women & Men heal better</a></p>
-                        </li>
-                        <li>
-                            <p><a href="#">Regenerative therapies</a></p>
-                        </li>
-                    </ul>
-                    <h6 class="s-17 w-700 mt-3">Legal</h6>
-                    <ul class="foo-links clearfix">
-                        <li>
-                            <p><a href="{{ route('front.terms.page') }}">Terms of use</a></p>
-                        </li>
-                        <li>
-                            <p><a href="{{ route('front.privacy.terms') }}">Privacy Policy</a></p>
-                        </li>
-                        <li>
-                            <p><a href="{{ route('front.cookie.page') }}">Cookie Policy</a></p>
-                        </li>
-
-                    </ul>
-                </div>
-            </div> <!-- END FOOTER LINKS -->
-
-
-
-
-            <!-- FOOTER LINKS -->
-            <div class="col-sm-4 col-lg-4 col-xl-3">
-                <div class="footer-links fl-3">
-
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">Quick Connect</h6>
-
-                    <!-- Links -->
-                    <div class="coonect_box">
-                        <div class="left_flag">
-                            @isset($footer->logo1)
-                                <img src="{{ asset('/assets/video/'.$footer->logo1) }}"
-                                    alt="">
-                            @else
-                                <img src="{{ asset('/assets/images/new-images/Flag_of_Oman.svg.png') }}"
-                                    alt="">
-                            @endisset
-
-                        </div>
-                        <div class="contact_num">
-                            <p><a href="https://wa.me/{{ $footer->logo1whatsapp ?? '' }}"><i
-                                        class="fa-brands fa-whatsapp"></i>
-                                    +{{ $footer->logo1whatsapp ?? '' }}</a></p>
-                            <p><a href="tel:+{{ $footer->logo1phone ?? '' }}"><i
-                                        class="fa-solid fa-phone"></i>
-                                    +{{ $footer->logo1phone ?? '' }}</a></p>
-
-                        </div>
-                    </div>
-                    <div class="coonect_box">
-                        <div class="left_flag">
-                            @isset($footer->logo2)
-                                <img src="{{ asset('/assets/video/'.$footer->logo2) }}"
-                                    alt="">
-                            @else
-                                <img src="{{ asset('/assets/images/new-images/Flag_of_the_United_Arab_Emirates.svg.png') }}"
-                                    alt="">
-                            @endisset
-
-                        </div>
-                        <div class="contact_num">
-                            <p><a href="https://wa.me/{{ $footer->logo2whatsapp ?? '' }}"><i
-                                        class="fa-brands fa-whatsapp"></i>
-                                    +{{ $footer->logo2whatsapp ?? '' }}</a></p>
-                            <p><a href="tel:+{{ $footer->logo2phone ?? '' }}"><i
-                                        class="fa-solid fa-phone"></i>
-                                    +{{ $footer->logo2phone ?? '' }}</a></p>
-
-                        </div>
-                    </div>
-                    <div class="coonect_box">
-                        <div class="left_flag">
-                            @isset($footer->logo3)
-                                <img src="{{ asset('/assets/video/'.$footer->logo3) }}"
-                                    alt="">
-                            @else
-                                <img src="{{ asset('/assets/images/new-images/Flag_of_Saudi_Arabia.svg.png') }}"
-                                    alt="">
-                            @endisset
-
-                        </div>
-                        <div class="contact_num">
-                            <p><a href="https://wa.me/{{ $footer->logo3whatsapp ?? '' }}"><i
-                                        class="fa-brands fa-whatsapp"></i>
-                                    +{{ $footer->logo3whatsapp ?? '' }}</a></p>
-                            <p><a href="tel:+{{ $footer->logo3phone ?? '' }}"><i
-                                        class="fa-solid fa-phone"></i>
-                                    +{{ $footer->logo3phone ?? '' }}</a></p>
-
-                        </div>
-                    </div>
-                    <div class="coonect_box">
-                        <div class="left_flag">
-                            @isset($footer->logo4)
-                                <img src="{{ asset('/assets/video/'.$footer->logo4) }}"
-                                    alt="">
-                            @else
-                                <img src="{{ asset('/assets/images/new-images/Flag_of_Bahrain-manama.png') }}"
-                                    alt="">
-                            @endisset
-
-                        </div>
-                        <div class="contact_num">
-                            <p><a href="https://wa.me/{{ $footer->logo4whatsapp ?? '' }}"><i
-                                        class="fa-brands fa-whatsapp"></i>
-                                    +{{ $footer->logo4whatsapp ?? '' }}</a></p>
-                            <p><a href="tel:+{{ $footer->logo4phone ?? '' }}"><i
-                                        class="fa-solid fa-phone"></i>
-                                    +{{ $footer->logo4phone ?? '' }}</a></p>
-
-                        </div>
-                    </div>
-                    <!-- <ul class="foo-links clearfix address_ul">
-						<li><i class="fa-solid fa-location-dot"></i>
-							<p><a href="#">Main Branch Muscat - OMAN</a></p>
-						</li>
-						<li><i class="fa-solid fa-envelope"></i>
-							<p><a href="mailto:admin@qastaratclinics.com">admin@qastaratclinics.com</a></p>
-						</li>
-						<li><i class="fa-solid fa-phone"></i>
-							<p><a href="tel:+971581114000">+971581114000</a></p>
-						</li>
-
-					</ul> -->
-
-                </div>
-            </div> <!-- END FOOTER LINKS -->
-
-
-
-            <!-- FOOTER NEWSLETTER FORM -->
-            <div class="col-sm-10 col-md-8 col-lg-4 col-xl-3">
-                <div class="footer-form">
-
-                    <!-- Title -->
-                    <h6 class="s-17 w-700">{{ $footer->text1 ?? '' }}</h6>
-
-                    <!-- Newsletter Form Input -->
-                    <form class="newsletter-form">
-
-                        <div class="input-group r-06">
-                            <input type="email" class="form-control" placeholder="Email Address" required id="s-email">
-                            <span class="input-group-btn ico-15">
-                                <button type="submit" class="btn color--theme">
-                                    <span class="flaticon-right-arrow-1 submit_btn"></span>
-                                </button>
-                            </span>
-                        </div>
-
-                        <!-- Newsletter Form Notification -->
-                        <label for="s-email" class="form-notification"></label>
-
-                    </form>
-
-                </div>
-            </div> <!-- END FOOTER NEWSLETTER FORM -->
-
-
-        </div> <!-- END FOOTER CONTENT -->
-
-        <hr> <!-- FOOTER DIVIDER LINE -->
-
-        <!-- BOTTOM FOOTER -->
-        <div class="bottom-footer">
-            <div class="row row-cols-1 row-cols-md-2 d-flex align-items-center">
-
-
-                <!-- FOOTER COPYRIGHT -->
-                <div class="col-lg-8">
-                    <div class="footer-copyright">
-                        <p class="p-sm">2023-24, All Right Reserved by Qastarat & Dawali Clinics - Developed by <a
-                                href="https://techmavesoftware.com/">TechMave Software</a> .</p>
-                    </div>
-                </div>
-
-
-                <!-- FOOTER SOCIALS -->
-                <div class="col-lg-4">
-                    <ul class="bottom-footer-socials ico-20 text-end">
-                        <li><a href="#"><span class="fa-brands fa-instagram"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-tiktok"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-snapchat"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-x-twitter"></span></a></li>
-                        <li><a href="#"><span class="fa-brands fa-youtube"></span></a></li>
-
-                    </ul>
-                </div>
-
-            </div> <!-- End row -->
-        </div> <!-- END BOTTOM FOOTER -->
-
-    </div> <!-- End container -->
-
-</footer> <!-- END FOOTER-3 -->
 
 
 </div> <!-- END PAGE CONTENT -->
@@ -879,9 +617,7 @@
                                             <input type="file" class="form-control" id="" placeholder=" "
                                                 name="profile_image" id="profile_image">
                                             <span id="profile_imageError" style="color: red;font-size:smaller"></span>
-                                            <!-- @error('profile_image')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror-->
+                                            
                                             </div>
 
 
@@ -921,9 +657,6 @@
 
                                             </select>
                                             <span id="titleError" style="color: red;"></span>
-                                            <!-- @error('sirname')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror-->
 
                                         </div>
 
@@ -938,9 +671,6 @@
                                             <input type="text" class="form-control" id=""
                                                 placeholder=" " name="name">
                                             <span id="nameError" style="color: red;font-size:smaller"></span>
-                                            <!-- @error('name')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror-->
                                         </div>
 
                                     </div>
@@ -953,14 +683,10 @@
 
                                             <div class="input-group" id="datepicker1">
 
-                                                <input type="text" class="form-control" placeholder="dd M, yyyy"
-                                                    data-date-format="dd M, yyyy" data-date-container='#datepicker1'
+                                                <input type="text" class="form-control"  data-date-container='#datepicker1'
                                                     data-provide="datepicker" name="birth_date">
                                                 <span id="datepickerError"
                                                     style="color: red;font-size:smaller"></span>
-                                                <!-- @error('birth_date')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror-->
                                             </div>
 
                                         </div>
@@ -984,9 +710,6 @@
                                             </select>
 
                                             <span id="genderError" style="color: red;font-size:smaller"></span>
-                                            <!-- @error('gender')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror-->
                                         </div>
 
                                     </div>
@@ -1114,7 +837,7 @@
 
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
 
                                         <div class="mb-3 form-group">
 
@@ -1123,31 +846,10 @@
                                             <input type="text" class="form-control" id="" placeholder=""
                                                 name="email">
                                             <span id="emailError" style="color: red;font-size:smaller"></span>
-                                            <!-- @error('email')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror-->
                                         </div>
 
                                     </div>
-
-                                    <div class="col-lg-4">
-
-                                        <div class="mb-3 form-group">
-
-                                            <label for="validationCustom01" class="form-label">Mobile Phone</label>
-
-                                            <input type="text" class="form-control" id="" placeholder=""
-                                                name="mobile_no">
-                                            <span id="mobile_noError" style="color: red;font-size:smaller"></span>
-                                            <!-- @error('mobile_no')
-    <span class="alert alert-danger">{{ $message }}</span>
-@enderror-->
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
 
                                         <div class="mb-3 form-group">
 
@@ -1159,6 +861,36 @@
                                         </div>
 
                                     </div>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3 form-group">
+                                            <label for="dialCode" class="form-label">Dial Code</label>
+                                            <select id="dialCode" class="form-control select2" name="dial_code" data-placeholder="Select a country" data-dynamic-select required>
+                                                @foreach ($countryCode as $countryCodes)
+                                                    <option value="{{ $countryCodes->dial_code }}" {{ $countryCodes->dial_code == '+968' ? 'selected' : '' }} data-img="{{ $countryCodes->flag }}"> 
+                                                        {{ isset($countryCodes->dial_code) ? $countryCodes->dial_code : '' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+
+                                        <div class="mb-3 form-group">
+
+                                            <label for="validationCustom01" class="form-label">Mobile Phone</label>
+
+                                            <input type="text" class="form-control" id="" placeholder=""
+                                                name="mobile_no">
+                                            <span id="mobile_noError" style="color: red;font-size:smaller"></span>
+                                        </div>
+
+                                    </div>
+
+
+                                    
 
                                 </div>
 
@@ -1254,7 +986,7 @@
 
                                 </div>
 
-</form>
+            </form>
 
 
 
@@ -1380,8 +1112,7 @@
 
                                                     <div class="input-group" id="datepicker3">
 
-                                                        <input type="text" class="form-control"
-                                                            placeholder="dd M, yyyy" data-date-format="dd M, yyyy"
+                                                        <input type="text" class="form-control" 
                                                             data-date-container='#datepicker3'
                                                             data-provide="datepicker" name="patient_birth"
                                                             id="patient_birth">
@@ -2349,7 +2080,6 @@
 
 
 
-
 <!----------------------------
 
                  Symptoms
@@ -3295,7 +3025,7 @@
                  Future Plans
 
             ---------------------------->
-
+            @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="future_plans" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -3413,7 +3143,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------
@@ -3807,7 +3537,7 @@
                   Patient Refer
 
             ---------------------------->
-
+            @if(isset($isEditAllowed) && $isEditAllowed)
 <div class="modal fade edit_patient__" id="refer_patient" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
@@ -4083,7 +3813,7 @@
     </div>
 
 </div>
-
+@endif
 
 
 <!----------------------------
@@ -4195,7 +3925,6 @@
 
 
 
-
 <!----------------------------
 
                 Add New Notes
@@ -4241,7 +3970,7 @@
 
                             <div class="">
                                 @php
-                                    @$formattedDate = Carbon\Carbon::now()->format('M d, Y g:i A');
+                                    @$formattedDate = Carbon::now()->format('M d, Y g:i A');
                                     @$patient = App\Models\User::where('id', @$id)->first();
                                 @endphp
                                 <h6 class="patient_on_ new_entry">New entry on: <span>
@@ -4721,8 +4450,6 @@
     </div>
 
 </div>
-
-
 
 <!----------------------------
 
@@ -8122,7 +7849,7 @@
 
 
 
-
+@if(isset($isEditAllowed) && $isEditAllowed)
 <!---- prescription_day model ---->
 
 <div class="modal fade edit_patient__" id="prescription_day" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -8181,7 +7908,7 @@
         </div>
     </div>
 </div>
-
+@endif
 
 <!------Order Special Invistigation model ---->
 
