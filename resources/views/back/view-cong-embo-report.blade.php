@@ -2222,8 +2222,7 @@
                                                                     <div class="read-more-content">
 
                                                                         <p>
-
-                                                                            {{ $procedure->entry }}
+                                                                            {!! $procedure->entry??'' !!}
                                                                         </p>
 
                                                                     </div>
@@ -2242,7 +2241,7 @@
 
                                                                         <p>
 
-                                                                            {{ $procedure->summary }}
+                                                                            {!! $procedure->summary??'' !!}
                                                                         </p>
 
                                                                     </div>

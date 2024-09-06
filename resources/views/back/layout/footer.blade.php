@@ -7856,7 +7856,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title" id="exampleModalLabel"> Order Procedure</h1>
+                <h1 class="modal-title" id="exampleModalLabel"> Order Procedure </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                         class="fa-solid fa-xmark"></i></button>
             </div>
@@ -7891,9 +7891,9 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="mb-3 form-group">
-                                            <label for="validationCustom01" class="form-label">Type your entry
+                                            <label for="entry" class="form-label">Type your entry
                                                 here</label>
-                                            <textarea class="form-control" placeholder="" style="height:100px" name="entry"></textarea>
+                                            <textarea class="form-control" id="entry" placeholder="" style="height:100px" name="entry"></textarea>
                                             <span id="entryError" style="color: red;font-size:small"></span>
                                         </div>
                                     </div>
@@ -7905,7 +7905,7 @@
                                         <div class="mb-3 form-group">
                                             <label for="validationCustom01" class="form-label">Write
                                                 Summary</label>
-                                            <textarea class="form-control" placeholder="" style="height:100px" name="summary"></textarea>
+                                            <textarea class="form-control" id="summary" placeholder="" style="height:100px" name="summary"></textarea>
                                             <span id="summaryError" style="color: red;font-size:small"></span>
                                         </div>
                                     </div>
@@ -9140,6 +9140,8 @@
     // Initialize CKEditor 4
     // voiceInput fields
 
+    CKEDITOR.replace('summary');
+    CKEDITOR.replace('entry');
     CKEDITOR.replace('snippetDescription');
 
     CKEDITOR.replace('voiceInput')
@@ -9626,7 +9628,8 @@
             let isValid = validateFormProcedure();
 
             if (isValid) {
-
+                CKEDITOR.instances['summary'].updateElement();
+                CKEDITOR.instances['entry'].updateElement();
                 $.ajax({
                     url: '{{ route('user.add_patient_procedure') }}',
                     type: 'POST',

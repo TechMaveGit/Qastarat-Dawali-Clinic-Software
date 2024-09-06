@@ -3269,12 +3269,12 @@
                                                                     </div>
                                                                     <p class="ss_result">
                                                                         <strong>Entry</strong> &nbsp;&colon;
-                                                                        {{ $record->entry ?? '' }}
+                                                                        {!! $record->entry ?? '' !!}
                                                                     </p>
 
                                                                     <p class="ss_result">
                                                                         <strong>Summary</strong> &nbsp;&colon;
-                                                                        {{ $record->summary ?? '' }}
+                                                                        {!! $record->summary ?? '' !!}
                                                                     </p>
 
                                                                 </div>
