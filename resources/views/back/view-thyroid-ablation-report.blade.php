@@ -3018,7 +3018,7 @@
                                                                                         </div>
                                                                                         <p class="ss_result">
                                                                                             <strong>Entry</strong> &nbsp;&colon;
-                                                                                            {{ $record->entry ?? '' }}
+                                                                                            {!! $record->entry ?? '' !!}
                                                                                         </p>
                                                                                     </div>
                                                                               

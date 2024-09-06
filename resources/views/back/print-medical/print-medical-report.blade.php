@@ -2021,12 +2021,12 @@
                                         </div>
                                         <p class="ss_result">
                                             <strong>Entry</strong> &nbsp;&colon;
-                                            {{ $procedure->entry ?? '' }}
+                                            {!! $procedure->entry ?? '' !!}
                                         </p>
 
                                         <p class="ss_result">
                                             <strong>Summary</strong> &nbsp;&colon;
-                                            {{ $procedure->summary ?? '' }}
+                                            {!! $procedure->summary ?? '' !!}
                                         </p>
                                     </div>
                                 </div>
