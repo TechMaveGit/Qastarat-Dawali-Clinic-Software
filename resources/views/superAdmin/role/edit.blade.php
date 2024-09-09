@@ -126,7 +126,7 @@
                     <thead>
 
                     <tr>
-                        <th>Patient Action </th>
+                        <th>Invoice Action </th>
                         <th>Print Invoice </th>
                         <th>Share Invoice</th>
                     </tr>
@@ -170,7 +170,7 @@
                     <thead>
 
                     <tr>
-                        <th>Patient Action </th>
+                        <th>Task Action </th>
                         <th>View Task</th>
                         <th>Assign Task </th>
 
