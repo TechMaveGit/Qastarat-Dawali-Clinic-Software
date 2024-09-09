@@ -685,7 +685,7 @@
 
 
                                                                     <div class="appoin_title">
-                                                                        <h6> {{ $procedure->summary }}</h6>
+                                                                        <h6> {!! $procedure->summary !!}</h6>
 
                                                                         <p>
 

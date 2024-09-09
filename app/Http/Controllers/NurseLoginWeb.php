@@ -34,11 +34,13 @@ class NurseLoginWeb extends Controller
             return view('back/doctor_task', compact('nurse_tasks'));
         }     
 
-        elseif($user->role_id =="10" || $user->role_id =="11"){
+        elseif($user->role_id =="10" || $user->role_id =="11" || $user->role_id =="5"){
 
             $ndtyoe = 'coordinator';
             if($user->role_id =="10"){
                 $ndtyoe = 'receptionist';
+            }else if($user->role_id =="5"){
+                $ndtyoe = 'Accountant';
             }
 
             $nDoctors = DB::table('doctor_nurse')->where('nurse_id',$user_id)->get()->pluck('doctor_id')->toArray();
@@ -64,9 +66,12 @@ class NurseLoginWeb extends Controller
           
              $nurse_tasks=DB::table('tasks')->where('test_type','!=','other')->orderBy('created_at', 'DESC')->where('assignToLabPerson',$user->id)->whereNotNull('assignToLab')->where('assignToLab','1')->get();
             return view('back/lab_task', compact('nurse_tasks'));
+        }else{
+
+            // dd($user);
+            return redirect()->back();
         }
 
-      $nurse_tasks= DB::table('nurse_tasks')->where('test_type','!=','other')->where('nurse_id',$user_id)->get();
       
 
     }

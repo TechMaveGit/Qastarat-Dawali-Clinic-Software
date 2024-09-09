@@ -3541,12 +3541,12 @@
 
                                                 </div>
 
-                                                {{-- @if ($record->voice_recognition)
+                                                @if ($record->voice_recognition)
                                                     <p class="ss_result">
-                                                        <strong>Summary 1</strong> &nbsp;&colon;
-                                                        {{ strip_tags($record->voice_recognition ?? '') }}
+                                                        <strong>Entry</strong> &nbsp;&colon;
+                                                        {!! $record->voice_recognition ?? '' !!}
                                                     </p>
-                                                @endif --}}
+                                                @endif
 
                                                 @if ($record->summery)
                                                     <p class="ss_result">

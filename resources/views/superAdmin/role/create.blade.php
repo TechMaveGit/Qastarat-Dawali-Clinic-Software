@@ -77,7 +77,7 @@
                                             {{-- <th>Add Medical Record </th> --}}
                                             <th>View Medical Record</th>
                                             <th>View Patient</th>
-                                            <th>Show Patient </th>
+                                            {{-- <th>Show Patient </th> --}}
                                             <th>Edit Patient </th>
                                         </tr>
                                     </thead>
@@ -124,7 +124,7 @@
                                     <thead>
 
                                         <tr>
-                                            <th>Patient Action </th>
+                                            <th>Invoice Action </th>
                                             <th>Print Invoice </th>
                                             <th>Share Invoice</th>
                                         </tr>
@@ -171,7 +171,7 @@
                                     <thead>
 
                                         <tr>
-                                            <th>Patient Action </th>
+                                            <th>Task Action </th>
                                             <th>View Task</th>
                                             <th>Assign Task </th>
 

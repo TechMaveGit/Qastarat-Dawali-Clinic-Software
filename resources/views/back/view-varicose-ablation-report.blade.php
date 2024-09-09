@@ -832,7 +832,7 @@
 
 
                                                                     <div class="appoin_title">
-                                                                        <h6> {{ $procedure->summary }}</h6>
+                                                                        <h6> {!! $procedure->summary !!}</h6>
 
                                                                         <p>
 
@@ -3623,6 +3623,13 @@
                                                                                             {{ $record->progressNote->canned_name ?? '' }}</h6>
                                                                                        
                                                                                     </div>
+
+                                                                                    @if ($record->voice_recognition)
+                                                                                        <p class="ss_result">
+                                                                                            <strong>Entry</strong> &nbsp;&colon;
+                                                                                            {!! $record->voice_recognition ?? '' !!}
+                                                                                        </p>
+                                                                                    @endif
                                                                                    
                                                                                     <p class="ss_result">
                                                                                         <strong>Summery</strong> &nbsp;&colon;
