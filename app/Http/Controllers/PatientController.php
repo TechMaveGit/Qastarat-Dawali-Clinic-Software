@@ -2058,7 +2058,6 @@ class PatientController extends Controller
     public function patient_info_update(Request $request)
     {
         $data = $request->all();
-
         $patientId = decrypt($data['patient_id']);
 
         $validator = Validator::make($request->all(), [
@@ -2164,12 +2163,19 @@ class PatientController extends Controller
     public function store(Request $request)
     {
 
-        // return $request->all();
+        $doctor_eid = null;
+        if(!isset($request->doctor_id)){
+            if(auth()->user()->user_type == "doctor"){
+                $doctor_eid = auth()->user()->id;
+            }else{
+                $doctor_eid = 4;
+            }
+        }
+
 
         $validator = Validator::make($request->all(), [
             'email' => 'nullable|email|unique:users,email',
             'mobile_no' => 'nullable|numeric|unique:users,mobile_no',
-
         ]);
 
         // Check if validation fails
@@ -2194,7 +2200,6 @@ class PatientController extends Controller
         }
 
 
-
         $add_patient = [
             'sirname' => !empty($request->sirname) ? $request->sirname : null,
             'name' => !empty($request->name) ? $request->name : null,
@@ -2209,7 +2214,7 @@ class PatientController extends Controller
             'mobile_no' => !empty($request->mobile_no) ? $request->mobile_no : null,
             'dial_code' => !empty($request->dial_code) ? $request->dial_code : '+968',
             'gendar' =>  !empty($request->gender) ? $request->gender : null,
-            'doctor_id' =>  !empty($request->doctor_id) ? $request->doctor_id : null,
+            'doctor_id' =>  !empty($request->doctor_id) ? $request->doctor_id : $doctor_eid,
             'landline' => !empty($request->landline) ? $request->landline : null,
             'document_type' => !empty($request->document_type) ? $request->document_type : null,
             'enterIdNumber' => !empty($request->enterIdNumber) ? $request->enterIdNumber : null,
