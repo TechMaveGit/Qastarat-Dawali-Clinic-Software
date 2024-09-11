@@ -571,6 +571,7 @@
                                                         <input type="text" class="form-control" id=""
                                                             placeholder="" name="name">
                                                         <span id="nameError" style="color: red;font-size:smaller"></span>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -581,7 +582,8 @@
                                                                 
                                                                 data-date-container='#datepicker1' name="birth_date"
                                                                 data-provide="datepicker" data-date-end-date="0d">
-                                                        </div>
+                                                            </div>
+                                                            <span id="birth_dateError" style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -2511,9 +2513,8 @@ if($(this).val() == "Other"){
 
                     // // Validate Date of Birth
                     let dob = $('input[data-provide="datepicker"]').val();
-                    if (dob === '') {
+                    if (dob == '') {
                         isValid = false;
-
                         $('#birth_dateError').text('Date of Birth is required');
                         $('input[data-provide="datepicker"]').addClass('error');
                     }

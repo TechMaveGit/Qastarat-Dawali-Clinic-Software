@@ -912,7 +912,7 @@
                     <ul class="bottom-footer-socials ico-20 text-end">
                         <li><a target="_blank" href="https://www.instagram.com/qastarat_clinics?igshid=OGQ5ZDc2ODk2ZA= ="><span
                                     class="fa-brands fa-instagram"></span></a></li>
-                        <li><a target="_blank" href="https://www.tiktok.com/@qastaratclinic?is_from_webapp=1&sender_deice=pc"><span
+                        <li><a target="_blank" href="https://www.tiktok.com/@qastaratclinic"><span
                                     class="fa-brands fa-tiktok"></span></a></li>
                         <li><a target="_blank" href="https://t.snapchat.com/3anKvKfI"><span
                                     class="fa-brands fa-snapchat"></span></a></li>

@@ -679,7 +679,7 @@
 
                                         <div class="data_pt">
 
-                                            <h6 id="data_pt_mobile">{{ @$patient->dial_code??'+968' }} {{ @$patient->mobile_no }}</h6>
+                                            <h6 id="data_pt_mobile">{{ @$patient->dial_code??'+968' }} {{ @$patient->mobile_no??'' }}</h6>
 
                                         </div>
 
@@ -10108,36 +10108,36 @@
 
                 // Validate patient_post_code
                 let patient_post_code = $('input[name="patient_post_code"]').val();
-                if (patient_post_code === '') {
-                    isValid = false;
+                // if (patient_post_code === '') {
+                //     isValid = false;
 
-                    $('#patient_post_codeError').text('Post Code is required');
-                    $('input[name="patient_post_code"]').addClass('error');
-                }
+                //     $('#patient_post_codeError').text('Post Code is required');
+                //     $('input[name="patient_post_code"]').addClass('error');
+                // }
                 // Validate patient_email
                 let patient_email = $('input[name="patient_email"]').val();
-                if (patient_email === '') {
-                    isValid = false;
+                // if (patient_email === '') {
+                //     isValid = false;
 
-                    $('#patient_emailError').text('Email  is required');
-                    $('input[name="patient_email"]').addClass('error');
-                }
+                //     $('#patient_emailError').text('Email  is required');
+                //     $('input[name="patient_email"]').addClass('error');
+                // }
                 // Validate patient_street  
                 let patient_street = $('input[name="patient_street"]').val();
-                if (patient_street === '') {
-                    isValid = false;
+                // if (patient_street === '') {
+                //     isValid = false;
 
-                    $('#patient_streetError').text('Street is required');
-                    $('input[name="patient_street"]').addClass('error');
-                }
+                //     $('#patient_streetError').text('Street is required');
+                //     $('input[name="patient_street"]').addClass('error');
+                // }
                 // Validate patient_town  
                 let patient_town = $('input[name="patient_town"]').val();
-                if (patient_town === '') {
-                    isValid = false;
+                // if (patient_town === '') {
+                //     isValid = false;
 
-                    $('#patient_townError').text('Town is required');
-                    $('input[name="patient_town"]').addClass('error');
-                }
+                //     $('#patient_townError').text('Town is required');
+                //     $('input[name="patient_town"]').addClass('error');
+                // }
                 // Validate patient_country  
                 let patient_country = $('select[name="patient_country"]').val();
                 if (patient_country === '') {
@@ -10148,36 +10148,36 @@
                 }
                 // Validate patient_mobile_no 
                 let patient_mobile_no = $('input[name="patient_mobile_no"]').val();
-                if (patient_mobile_no === '') {
-                    isValid = false;
+                // if (patient_mobile_no === '') {
+                //     isValid = false;
 
-                    $('#patient_mobile_noError').text('Mobile number is required');
-                    $('input[name="patient_mobile_no"]').addClass('error');
-                }
+                //     $('#patient_mobile_noError').text('Mobile number is required');
+                //     $('input[name="patient_mobile_no"]').addClass('error');
+                // }
                 // Validate patient_landline 
                 let patient_landline = $('input[name="patient_landline"]').val();
-                if (patient_landline === '') {
-                    isValid = false;
+                // if (patient_landline === '') {
+                //     isValid = false;
 
-                    $('#patient_landlineError').text('landline number is required');
-                    $('input[name="patient_landline"]').addClass('error');
-                }
+                //     $('#patient_landlineError').text('landline number is required');
+                //     $('input[name="patient_landline"]').addClass('error');
+                // }
                 // Validate patient_additional_info 
                 let patient_additional_info = $('textarea[name="patient_additional_info"]').val();
-                if (patient_additional_info === '') {
-                    isValid = false;
+                // if (patient_additional_info === '') {
+                //     isValid = false;
 
-                    $('#patient_additional_infoError').text('Additional Info is required');
-                    $('textarea[name="patient_additional_info"]').addClass('error');
-                }
+                //     $('#patient_additional_infoError').text('Additional Info is required');
+                //     $('textarea[name="patient_additional_info"]').addClass('error');
+                // }
                 // Validate patient_document_type   
                 let patient_document_type = $('input[name="patient_document_type"]').val();
-                if (patient_document_type === '') {
-                    isValid = false;
+                // if (patient_document_type === '') {
+                //     isValid = false;
 
-                    $('#patient_document_typeError').text('document type  is required');
-                    $('input[name="patient_document_type"]').addClass('error');
-                }
+                //     $('#patient_document_typeError').text('document type  is required');
+                //     $('input[name="patient_document_type"]').addClass('error');
+                // }
                 // Validate patient_edit_id     
                 let patient_edit_id = $('input[name="patient_edit_id"]').val();
                 if (patient_edit_id === '') {
