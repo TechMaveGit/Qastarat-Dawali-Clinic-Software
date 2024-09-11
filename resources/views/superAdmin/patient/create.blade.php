@@ -211,7 +211,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Email Address <span class="clr"> * </span></label>
+                                            <label class="form-label">Email Address </label>
                                             <input type="text" name="email" value="{{ old('email') }}"
                                                 class="form-control" placeholder="">
 
@@ -225,7 +225,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label">Password <span class="clr">*</span></label>
+                                            <label class="form-label">Password </label>
                                             <div class="wrap-input">
                                                 <input type="password" name="password" id="password"
                                                     class="form-control password" placeholder="">

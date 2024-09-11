@@ -910,15 +910,15 @@
                 <!-- FOOTER SOCIALS -->
                 <div class="col-lg-4">
                     <ul class="bottom-footer-socials ico-20 text-end">
-                        <li><a href="https://www.instagram.com/qastarat_clinics?igshid=OGQ5ZDc2ODk2ZA= ="><span
+                        <li><a target="_blank" href="https://www.instagram.com/qastarat_clinics?igshid=OGQ5ZDc2ODk2ZA= ="><span
                                     class="fa-brands fa-instagram"></span></a></li>
-                        <li><a href="https://www.tiktok.com/@qastaratclinic?is_from_webapp=1&sender_deice=pc"><span
+                        <li><a target="_blank" href="https://www.tiktok.com/@qastaratclinic?is_from_webapp=1&sender_deice=pc"><span
                                     class="fa-brands fa-tiktok"></span></a></li>
-                        <li><a href="https://t.snapchat.com/3anKvKfI"><span
+                        <li><a target="_blank" href="https://t.snapchat.com/3anKvKfI"><span
                                     class="fa-brands fa-snapchat"></span></a></li>
-                        <li><a href="https://twitter.com/QastaratClinics"><span
+                        <li><a target="_blank" href="https://twitter.com/QastaratClinics"><span
                                     class="fa-brands fa-x-twitter"></span></a></li>
-                        <li><a href="https://www.youtube.com/channel/UCZ7m9sTh7LemaK5xtHG-0gA"><span
+                        <li><a target="_blank" href="https://www.youtube.com/channel/UCZ7m9sTh7LemaK5xtHG-0gA"><span
                                     class="fa-brands fa-youtube"></span></a></li>
 
                     </ul>

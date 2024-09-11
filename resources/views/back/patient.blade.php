@@ -638,12 +638,12 @@
 
                     // Validate Email Address
                     let email = $('input[name="email"]').val();
-                    if (email === '') {
-                        isValid = false;
+                    // if (email === '') {
+                    //     isValid = false;
 
-                        $('#emailError').text('Email Address is required');
-                        $('input[name="email"]').addClass('error');
-                    }
+                    //     $('#emailError').text('Email Address is required');
+                    //     $('input[name="email"]').addClass('error');
+                    // }
                     // Validate post code
                     // let post_code = $('input[name="post_code"]').val();
                     // if (post_code === '') {
@@ -654,20 +654,20 @@
                     // }
                     // Validate street
                     let street = $('input[name="street"]').val();
-                    if (street === '') {
-                        isValid = false;
+                    // if (street === '') {
+                    //     isValid = false;
 
-                        $('#streetError').text('Street is required');
-                        $('input[name="street"]').addClass('error');
-                    }
+                    //     $('#streetError').text('Street is required');
+                    //     $('input[name="street"]').addClass('error');
+                    // }
                     // Validate town
                     let town = $('input[name="town"]').val();
-                    if (town === '') {
-                        isValid = false;
+                    // if (town === '') {
+                    //     isValid = false;
 
-                        $('#townError').text('town is required');
-                        $('input[name="town"]').addClass('error');
-                    }
+                    //     $('#townError').text('town is required');
+                    //     $('input[name="town"]').addClass('error');
+                    // }
                     // Validate country
                     let country = $('select[name="country"]').val();
                     if (country === '') {
@@ -678,12 +678,12 @@
                     }
                     // Validate mobile number
                     let mobile_no = $('input[name="mobile_no"]').val();
-                    if (mobile_no === '') {
-                        isValid = false;
+                    // if (mobile_no === '') {
+                    //     isValid = false;
 
-                        $('#mobile_noError').text('Mobile number is required');
-                        $('input[name="mobile_no"]').addClass('error');
-                    }
+                    //     $('#mobile_noError').text('Mobile number is required');
+                    //     $('input[name="mobile_no"]').addClass('error');
+                    // }
                     // Validate landline   number
                     // let landline = $('input[name="landline"]').val();
                     // if (landline === '') {

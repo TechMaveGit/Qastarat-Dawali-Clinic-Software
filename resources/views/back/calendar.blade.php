@@ -648,24 +648,18 @@
                                                         <span id="townError" style="color: red;font-size:smaller"></span>
                                                     </div>
                                                 </div>
+                                                @php
+                                                    $allCountrie = DB::table('countries')->get();
+                                                @endphp
                                                 <div class="col-lg-6">
                                                     <div class="mb-3 form-group">
                                                         <label class="form-label">Country</label>
                                                         <select class="form-control select2_modal" name="country">
-                                                            <option value="Afghanistan">Afghanistan</option>
-                                                            <option value="Åland Islands">Åland Islands</option>
-                                                            <option value="Albania">Albania</option>
-                                                            <option value="Algeria">Algeria</option>
-                                                            <option value="American Samoa">American Samoa</option>
-                                                            <option value="Andorra">Andorra</option>
-                                                            <option value="Angola">Angola</option>
-                                                            <option value="Anguilla">Anguilla</option>
-                                                            <option value="Antarctica">Antarctica</option>
-                                                            <option value="Antigua and Barbuda">Antigua and Barbuda
-                                                            </option>
-                                                            <option value="Argentina">Argentina</option>
-                                                            <option value="Armenia">Armenia</option>
-                                                            <option value="Aruba">Aruba</option>
+                                                            @forelse ($allCountrie as $countrie)
+                                                                <option value="{{ $countrie->Name }}">{{ $countrie->Name }}
+                                                                </option>
+                                                            @empty
+                                                            @endforelse
                                                         </select>
                                                         <span id="countryError"
                                                             style="color: red;font-size:smaller"></span>
@@ -692,7 +686,7 @@
                                                     <div class="mb-3 form-group">
 
                                                         <label for="validationCustom01"
-                                                            class="form-label">Paswword</label>
+                                                            class="form-label">Password</label>
 
                                                         <input type="password" class="form-control" id=""
                                                             placeholder="password" name="password">
@@ -2543,36 +2537,36 @@ if($(this).val() == "Other"){
 
                     // Validate Email Address
                     let email = $('input[name="email"]').val();
-                    if (email === '') {
-                        isValid = false;
+                    // if (email === '') {
+                    //     isValid = false;
 
-                        $('#emailError').text('Email Address is required');
-                        $('input[name="email"]').addClass('error');
-                    }
+                    //     $('#emailError').text('Email Address is required');
+                    //     $('input[name="email"]').addClass('error');
+                    // }
                     // Validate post code
                     let post_code = $('input[name="post_code"]').val();
-                    if (post_code === '') {
-                        isValid = false;
+                    // if (post_code === '') {
+                    //     isValid = false;
 
-                        $('#post_codeError').text('Post code  is required');
-                        $('input[name="post_code"]').addClass('error');
-                    }
+                    //     $('#post_codeError').text('Post code  is required');
+                    //     $('input[name="post_code"]').addClass('error');
+                    // }
                     // Validate street
                     let street = $('input[name="street"]').val();
-                    if (street === '') {
-                        isValid = false;
+                    // if (street === '') {
+                    //     isValid = false;
 
-                        $('#streetError').text('Street is required');
-                        $('input[name="street"]').addClass('error');
-                    }
+                    //     $('#streetError').text('Street is required');
+                    //     $('input[name="street"]').addClass('error');
+                    // }
                     // Validate town
                     let town = $('input[name="town"]').val();
-                    if (town === '') {
-                        isValid = false;
+                    // if (town === '') {
+                    //     isValid = false;
 
-                        $('#townError').text('town is required');
-                        $('input[name="town"]').addClass('error');
-                    }
+                    //     $('#townError').text('town is required');
+                    //     $('input[name="town"]').addClass('error');
+                    // }
                     // Validate country
                     let country = $('select[name="country"]').val();
                     if (country === '') {
@@ -2583,12 +2577,12 @@ if($(this).val() == "Other"){
                     }
                     // Validate mobile number
                     let mobile_no = $('input[name="mobile_no"]').val();
-                    if (mobile_no === '') {
-                        isValid = false;
+                    // if (mobile_no === '') {
+                    //     isValid = false;
 
-                        $('#mobile_noError').text('Mobile number is required');
-                        $('input[name="mobile_no"]').addClass('error');
-                    }
+                    //     $('#mobile_noError').text('Mobile number is required');
+                    //     $('input[name="mobile_no"]').addClass('error');
+                    // }
                     // Validate landline   number
                     // let landline = $('input[name="landline"]').val();
                     // if (landline === '') {
@@ -2607,12 +2601,12 @@ if($(this).val() == "Other"){
                     // }
                     // Validate password
                     let password = $('input[name="password"]').val();
-                    if (password === '') {
-                        isValid = false;
+                    // if (password === '') {
+                    //     isValid = false;
 
-                        $('#passwordError').text('Password  is required');
-                        $('input[name="password"]').addClass('error');
-                    }
+                    //     $('#passwordError').text('Password  is required');
+                    //     $('input[name="password"]').addClass('error');
+                    // }
 
                     return isValid;
                 }

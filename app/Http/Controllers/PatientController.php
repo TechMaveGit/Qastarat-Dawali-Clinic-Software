@@ -2167,8 +2167,8 @@ class PatientController extends Controller
         // return $request->all();
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users,email',
-            'mobile_no' => 'numeric|unique:users,mobile_no',
+            'email' => 'nullable|email|unique:users,email',
+            'mobile_no' => 'nullable|numeric|unique:users,mobile_no',
 
         ]);
 
