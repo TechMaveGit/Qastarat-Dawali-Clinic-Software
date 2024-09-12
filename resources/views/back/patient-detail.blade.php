@@ -156,6 +156,7 @@ function parseDate($dateString) {
 if (!empty($patient->birth_date ?? '')) {
     $birthDate = parseDate($patient->birth_date);
     if ($birthDate) {
+        $birthDate = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($patient->birth_date)));
         $patientBirthDate = $birthDate->diffInYears(Carbon::now());
     } else {
         $patientBirthDate = null;
