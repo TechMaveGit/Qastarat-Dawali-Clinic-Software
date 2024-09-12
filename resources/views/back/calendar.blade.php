@@ -2059,7 +2059,7 @@ if($(this).val() == "Other"){
                             datesComparisonResult = compareTwoDates(formattedStartDate);
                            
                             if (datesComparisonResult > 0) { 
-                                $("#btn-delete-event").css("display","none");
+                                // $("#btn-delete-event").css("display","none");
                                 $("#btn-save-event").css("display","none");
                             } 
 
