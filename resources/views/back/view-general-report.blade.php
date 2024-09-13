@@ -276,38 +276,48 @@
 
                                       @php
 
-                                            function parseDate($dateString) {
-                                                $formats = [
-                                                    'd M, Y',
-                                                    'Y-m-d', // Add other formats as needed
-                                                    'm/d/Y',
-                                                    'd/m/Y',
-                                                    'Y-m-d H:i:s',
-                                                    // Add more formats if necessary
-                                                ];
+                                        function parseDate($dateString, $desiredFormat = 'Y-m-d') {
+                                            $formats = [
+                                                'd M, Y',
+                                                'Y-m-d',
+                                                'm/d/Y',
+                                                'd/m/Y',
+                                                'Y-m-d H:i:s',
+                                                'm-d-Y',
+                                                'd-m-Y',
+                                                'M d, Y',
+                                                'd F Y',
+                                                'Y/m/d'
+                                            ];
 
-                                                foreach ($formats as $format) {
-                                                    try {
-                                                        return \Carbon\Carbon::createFromFormat($format, date('Y-m-d H:i:s',strtotime($dateString)));
-                                                    } catch (\Exception $e) {
-                                                        continue;
-                                                    }
+                                            // Try to parse the date using each format
+                                            foreach ($formats as $format) {
+                                                $sDate = new DateTime();
+                                                $date = $sDate::createFromFormat($format, $dateString);
+                                                if ($date && $date->format($format) === $dateString) {
+                                                    return $date->format($desiredFormat);
                                                 }
-
-                                                return null;
                                             }
 
-                                            if (!empty($patient->birth_date ?? '')) {
-                                                $birthDate = parseDate($patient->birth_date);
-                                                if ($birthDate) {
-                                                    $birthDate = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($patient->birth_date)));
-                                            $patientBirthDate = $birthDate->diffInYears(Carbon::now());
-                                                } else {
-                                                    $patientBirthDate = null;
-                                                }
+                                            // If no format matched, return false or an error message
+                                            return null; // Or you can return "Invalid date format"
+                                        }
+
+                                        // Assuming $patient->birth_date exists
+                                        if (!empty($patient->birth_date ?? '')) {
+                                            $birthDate = DateTime::createFromFormat('Y-m-d', parseDate($patient->birth_date));
+                                            // $birthDate = parseDate($patient->birth_date);
+                                            if ($birthDate) {
+                                                // Calculate the age
+                                                $currentDate = new DateTime();
+                                                $ageInterval = $birthDate->diff($currentDate); // Difference between birth date and now
+                                                $patientBirthDate = $ageInterval->y; // Age in years
                                             } else {
                                                 $patientBirthDate = null;
                                             }
+                                        } else {
+                                            $patientBirthDate = null;
+                                        }
 
                                             @endphp
                                         <p class="patient_age__">{{ $patientBirthDate }} Years , <span
@@ -370,7 +380,7 @@
                                                                         <div class="appoin_title_">
                                                                             <form
                                                                                 action="{{ route('user.patient_medical_detail', ['id' => @$id]) }}"
-                                                                                method="get">
+                                                                                method="get" target="_blank">
 
                                                                                 @csrf
 
@@ -390,7 +400,7 @@
                                                                                     <input type="hidden"
                                                                                         name="checkReport"
                                                                                         value="{{ $report->id }}" />
-                                                                                    <button type="submit"
+                                                                                    <button  type="submit"
                                                                                         class="view-report-btn">
                                                                                         <span class="iconify"
                                                                                             data-icon="ant-design:eye-outlined"></span>

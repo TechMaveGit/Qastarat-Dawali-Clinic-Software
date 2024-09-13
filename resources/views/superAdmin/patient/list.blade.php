@@ -48,7 +48,11 @@
                    <td>
                    <div class="patent_detail__">
                     <div class="patient_profile">
-                        <img src="{{ asset('/assets/images/newimages/avtar.jpg')}}" alt="">
+                        @isset($patient->patient_profile_img)
+                        <img src="{{ asset('/assets/patient_profile/'.$patient->patient_profile_img) }}" alt="">
+                        @else
+                            <img src="{{ asset('/assets/images/newimages/avtar.jpg')}}" alt="temp_img">
+                        @endisset
                     </div>
                     <div class="patient_name__dt_">
                         <h6>MOHAMMED ALI AL BADI</h6>

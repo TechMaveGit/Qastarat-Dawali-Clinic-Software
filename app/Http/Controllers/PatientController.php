@@ -2058,34 +2058,28 @@ class PatientController extends Controller
     public function patient_info_update(Request $request)
     {
         $data = $request->all();
-        $patientId = decrypt($data['patient_id']);
+        // $patientId = decrypt($data['patient_id']);
+        $patient_id = decrypt($request->patient_id);
 
-        $validator = Validator::make($request->all(), [
-            'email' => [
-                'email',
-                Rule::unique('users')->ignore($patientId),
-            ],
-            'post_code' => 'numeric',
-            'landline' => 'numeric',
-            'dial_code' => 'numeric',
-            'mobile_no' => [
-                'numeric',
-                Rule::unique('users')->ignore($patientId),
-            ],
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'email' => [
+        //         'email',
+        //         Rule::unique('users')->ignore($patientId),
+        //     ],
+        //     'post_code' => 'numeric',
+        //     'landline' => 'numeric',
+        //     'dial_code' => 'numeric',
+        //     'mobile_no' => [
+        //         'numeric',
+        //         Rule::unique('users')->ignore($patientId),
+        //     ],
+        // ]);
 
-        // Check if validation fails
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
-        }
+        // // Check if validation fails
+        // if ($validator->fails()) {
+        //     return response()->json(['error' => $validator->errors()], 422);
+        // }
 
-        $patient_sirname = $data['patient_sirname'] ?? '';
-        $patient_name = $data['patient_name'];
-        $patient_birth = $data['patient_birth'];
-        $patient_gendar = $data['patient_gendar'];
-        $patient_post_code = $data['patient_post_code'];
-        $patient_street = $data['patient_street'];
-        $patient_town = $data['patient_town'];
         $patient_country = $data['patient_country'];
         $patient_email = $data['patient_email'];
         $patient_mobile_no = $data['patient_mobile_no'];
@@ -2097,21 +2091,19 @@ class PatientController extends Controller
         $patient_tags_list = $data['patient_tags_list'];
         $document_type = $data['document_type'];
         $enterIdNumber = $data['enterIdNumber'];
-        $patient_info = User::where('email', $patient_email)->first();
-        $userEmailExists = User::where('email', $patient_email)
-            ->exists();
-        $userMobExists = User::where('mobile_no', $patient_mobile_no)
-            ->exists();
+        $patient_info = User::where('id', $patient_id)->first();
+        $userEmailExists = User::where('email', $patient_email)->exists();
+        $userMobExists = User::where('mobile_no', $patient_mobile_no)->exists();
 
+        // dd($patient_info,$patient_id,$data['patient_id']);
 
-
-        $patient_info->sirname = $patient_sirname ?? '';
-        $patient_info->name = $patient_name ?? '';
-        $patient_info->birth_date = $patient_birth ?? '';
-        $patient_info->gendar = $patient_gendar ?? '';
-        $patient_info->post_code = $patient_post_code ?? '';
-        $patient_info->street = $patient_street ?? '';
-        $patient_info->town = $patient_town ?? '';
+        $patient_info->sirname = $data['patient_sirname'] ?? '';
+        $patient_info->name = $data['patient_name'] ?? '';
+        $patient_info->birth_date = $data['patient_birth'] ?? '';
+        $patient_info->gendar = $data['patient_gendar'] ?? '';
+        $patient_info->post_code =$data['patient_post_code'] ?? '';
+        $patient_info->street = $data['patient_street'] ?? '';
+        $patient_info->town = $data['patient_town'] ?? '';
         $patient_info->dial_code = $data['dial_code'] ?? '+968';
         if (!$userMobExists) {
             $patient_info->mobile_no = $patient_mobile_no ?? '';

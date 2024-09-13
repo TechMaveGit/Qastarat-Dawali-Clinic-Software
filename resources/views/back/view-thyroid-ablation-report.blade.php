@@ -181,20 +181,51 @@
                                     
 
 
-                                @php
-                                use Carbon\Carbon;
+                                            @php
 
-                                $patientBirthDate = null;
-                                if (isset($patient->birth_date) && !empty($patient->birth_date)) {
-                                    try {
-                                        $birthDate = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($patient->birth_date)));
-                                        $patientBirthDate = $birthDate->diffInYears(Carbon::now());
-                                    } catch (\Exception $e) {
-                                        // Handle the exception if the date format is incorrect
-                                        $patientBirthDate = null;
-                                    }
-                                }
-                                @endphp
+                                            function parseDate($dateString, $desiredFormat = 'Y-m-d') {
+                                                $formats = [
+                                                    'd M, Y',
+                                                    'Y-m-d',
+                                                    'm/d/Y',
+                                                    'd/m/Y',
+                                                    'Y-m-d H:i:s',
+                                                    'm-d-Y',
+                                                    'd-m-Y',
+                                                    'M d, Y',
+                                                    'd F Y',
+                                                    'Y/m/d'
+                                                ];
+    
+                                                // Try to parse the date using each format
+                                                foreach ($formats as $format) {
+                                                    $sDate = new DateTime();
+                                                    $date = $sDate::createFromFormat($format, $dateString);
+                                                    if ($date && $date->format($format) === $dateString) {
+                                                        return $date->format($desiredFormat);
+                                                    }
+                                                }
+    
+                                                // If no format matched, return false or an error message
+                                                return null; // Or you can return "Invalid date format"
+                                            }
+    
+                                            // Assuming $patient->birth_date exists
+                                            if (!empty($patient->birth_date ?? '')) {
+                                                $birthDate = DateTime::createFromFormat('Y-m-d', parseDate($patient->birth_date));
+                                                // $birthDate = parseDate($patient->birth_date);
+                                                if ($birthDate) {
+                                                    // Calculate the age
+                                                    $currentDate = new DateTime();
+                                                    $ageInterval = $birthDate->diff($currentDate); // Difference between birth date and now
+                                                    $patientBirthDate = $ageInterval->y; // Age in years
+                                                } else {
+                                                    $patientBirthDate = null;
+                                                }
+                                            } else {
+                                                $patientBirthDate = null;
+                                            }
+                                            @endphp
                                     <p class="patient_age__">{{ $patientBirthDate }} Years , <span
                                             class="patient_id__">{{ @$patient->patient_id }}</span></p>
 
@@ -279,7 +310,7 @@
                                                             @foreach ($checkGenerateData as $key => $report)
                                                                 <li>
                                                                     <div class="appoin_title_">
-                                                                        <form action="{{ route('user.patient_medical_detail', ['id' => @$id]) }}" method="get">
+                                                                        <form target="_blank" action="{{ route('user.patient_medical_detail', ['id' => @$id]) }}" method="get">
 
                                                                             @csrf
                                                                             {{-- <h6>Report {{ $key + 1 }}  <span class="text-align-right">
