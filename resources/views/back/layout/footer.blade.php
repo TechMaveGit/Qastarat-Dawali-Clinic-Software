@@ -1475,7 +1475,7 @@
             </div>
             <form id="edit_patient_info_form">
                 @csrf
-                <input type="hidden" name="patient_id" value="{{ encrypt(@$id) }}" />
+                <input type="hidden" name="patient_id" value="{{ @$id }}" />
                 <div class="modal-body body-patient">
 
                     <div class="inner_data pt-0 edit_patient__cusr">

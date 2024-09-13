@@ -130,42 +130,50 @@
 
                                 <h5 class="patient_name__">{{ $patient->sirname }} {{ $patient->name }} </h5>
                                 @php
-use Carbon\Carbon;
 
-function parseDate($dateString) {
-    $formats = [
-        'd M, Y',
-        'Y-m-d', // Add other formats as needed
-        'm/d/Y',
-        'd/m/Y',
-        'Y-m-d H:i:s',
-        // Add more formats if necessary
-    ];
+                                function parseDate($dateString, $desiredFormat = 'Y-m-d') {
+                                    $formats = [
+                                        'd M, Y',
+                                        'Y-m-d',
+                                        'm/d/Y',
+                                        'd/m/Y',
+                                        'Y-m-d H:i:s',
+                                        'm-d-Y',
+                                        'd-m-Y',
+                                        'M d, Y',
+                                        'd F Y',
+                                        'Y/m/d'
+                                    ];
 
-    foreach ($formats as $format) {
-        try {
-            return Carbon::createFromFormat($format, date('Y-m-d H:i:s',strtotime($dateString)));
-        } catch (\Exception $e) {
-            continue;
-        }
-    }
+                                    // Try to parse the date using each format
+                                    foreach ($formats as $format) {
+                                        $sDate = new DateTime();
+                                        $date = $sDate::createFromFormat($format, $dateString);
+                                        if ($date && $date->format($format) === $dateString) {
+                                            return $date->format($desiredFormat);
+                                        }
+                                    }
 
-    return null;
-}
+                                    // If no format matched, return false or an error message
+                                    return null; // Or you can return "Invalid date format"
+                                }
 
-if (!empty($patient->birth_date ?? '')) {
-    $birthDate = parseDate($patient->birth_date);
-    if ($birthDate) {
-        $birthDate = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($patient->birth_date)));
-        $patientBirthDate = $birthDate->diffInYears(Carbon::now());
-    } else {
-        $patientBirthDate = null;
-    }
-} else {
-    $patientBirthDate = null;
-}
-
-@endphp
+                                // Assuming $patient->birth_date exists
+                                if (!empty($patient->birth_date ?? '')) {
+                                    $birthDate = DateTime::createFromFormat('Y-m-d', parseDate($patient->birth_date));
+                                    // $birthDate = parseDate($patient->birth_date);
+                                    if ($birthDate) {
+                                        // Calculate the age
+                                        $currentDate = new DateTime();
+                                        $ageInterval = $birthDate->diff($currentDate); // Difference between birth date and now
+                                        $patientBirthDate = $ageInterval->y; // Age in years
+                                    } else {
+                                        $patientBirthDate = null;
+                                    }
+                                } else {
+                                    $patientBirthDate = null;
+                                }
+                                @endphp
 
                                 <p class="patient_age__">{{ @$patientBirthDate }} Years , <span
                                         class="patient_id__">{{ @$patient->patient_id }}</span></p>
@@ -580,7 +588,6 @@ if (!empty($patient->birth_date ?? '')) {
             $(document).ready(function() {
                 let patient_id = $('input[name="patient_id"]').val();
                 $('#edit_patient_info_form').submit(function(e) {
-
                     e.preventDefault();
 
                     let isValid = validateFormPatientInfoEdit();
