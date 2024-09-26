@@ -74,6 +74,10 @@
                 white-space: inherit;
                 margin-right:15px; 
             }
+
+            .book_appin_title{
+                width: 28%;
+            }
         </style>
     @endpush
 
@@ -394,7 +398,7 @@
     <!-- Add New Event MODAL -->
     <div class="modal fade event-modal" id="event-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header py-3 px-4">
                     <h5 class="modal-title" id="modal-title">Create Appointment</h5>
@@ -405,7 +409,7 @@
                     <form class="needs-validation" novalidate name="event-form" id="form-event"  method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-lg-12" id="appoinment_book_bx">
+                            <div class="col-lg-7" id="appoinment_book_bx">
                                 <div class="row appointment_book">
                                     <h6 class="book_appin_title">Book Appointment</h6>
 
@@ -798,6 +802,29 @@
 
                                 </div>
 
+                            </div>
+                            <div class="col-lg-5" id="appoinment_book_bx_list">
+                                <h5> Appointment List </h5>
+                                <ul class="list-group list-group-flush my-3" style="height: 375px;overflow-y: auto;border: 2px dotted;padding: 10px;">
+                                    @if($allappointments)
+                                        
+                                   
+                                    @foreach($allappointments as $appointm)
+                                        <li class="list-group-item">
+                                            {{$appointm->appointment_type}}
+                                            <br/>
+                                            <strong>{{date('Y-m-d',strtotime($appointm->start_date))}} ({{$appointm->start_time}} - {{$appointm->end_date}})</strong>
+                                            <br/>
+                                            <strong>Patient : </strong> {{$appointm->uname}}
+                                            <br/>
+                                            <strong>Doctor : </strong> {{$appointm->dtitle}} {{$appointm->dname}}
+
+                                        </li>
+                                    @endforeach
+                                    @else
+                                    <li>No appointment found.</li>
+                                    @endif
+                              </ul>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -2438,6 +2465,7 @@ if($(this).val() == "Other"){
                                
                                 $('#patientDetail_box').hide();
                                 $('#appoinment_book_bx').show();
+                                $('#appoinment_book_bx_list').show();
 
 
                                 $('select[name="sirname"]').val('');
@@ -2638,6 +2666,7 @@ if($(this).val() == "Other"){
                 $('#addNew_patientBtn').click(function() {
                     $('#patientDetail_box').show();
                     $('#appoinment_book_bx').hide();
+                    $('#appoinment_book_bx_list').hide();
 
                     var closeButton = document.getElementById('closebtn');
                     // Find the save button by ID
@@ -2657,6 +2686,7 @@ if($(this).val() == "Other"){
                 $('#backToAppointment').click(function() {
                     $('#patientDetail_box').hide();
                     $('#appoinment_book_bx').show();
+                    $('#appoinment_book_bx_list').show();
 
 
                     var closeButton = document.getElementById('closebtn');

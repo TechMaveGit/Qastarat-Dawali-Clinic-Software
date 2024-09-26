@@ -63,8 +63,10 @@ class CalendarController extends Controller
 
         $pathology_price_list = DB::table('pathology_price_list')->where('status','1')->get();
         $book_appointments= null;
+        $allappointments= null;
         if($pathology_price_list){
             $book_appointments= DB::table('book_appointments')->select('appointment_type')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->distinct()->get();
+            $allappointments= DB::table('book_appointments')->leftJoin('users','users.id','book_appointments.patient_id')->leftJoin('doctors','doctors.id','book_appointments.doctor_id')->select('book_appointments.*','users.name AS uname','doctors.title AS dtitle','doctors.name AS dname')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->get();
         }
 
         // dd($allpatientBranch,$book_appointments);
@@ -124,8 +126,8 @@ class CalendarController extends Controller
                 }     
         }
         $countryCode = DB::table('dial_codes')->where('status', '1')->get();
-    //    dd($doctors);
-        return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','dlocations','pathology_price_list','appontment_availability','countData','patho_types','allDoctor','countryCode'));
+    //    dd($allappointments);
+        return view('back/calendar',compact('doctors','patients','searchPatient','matchingAppointments','book_appointments','users','locations','dlocations','pathology_price_list','appontment_availability','countData','patho_types','allDoctor','countryCode','allappointments'));
     }
 
     
