@@ -66,7 +66,7 @@ class CalendarController extends Controller
         $allappointments= null;
         if($pathology_price_list){
             $book_appointments= DB::table('book_appointments')->select('appointment_type')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->distinct()->get();
-            $allappointments= DB::table('book_appointments')->leftJoin('users','users.id','book_appointments.patient_id')->leftJoin('doctors','doctors.id','book_appointments.doctor_id')->select('book_appointments.*','users.name AS uname','doctors.title AS dtitle','doctors.name AS dname')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->get();
+            $allappointments= DB::table('book_appointments')->leftJoin('users','users.id','book_appointments.patient_id')->leftJoin('doctors','doctors.id','book_appointments.doctor_id')->select('book_appointments.*','users.name AS uname','doctors.title AS dtitle','doctors.name AS dname')->whereIn('appointment_type',$pathology_price_list->pluck('test_name')->toArray())->orderBy('start_date','desc')->get();
         }
 
         // dd($allpatientBranch,$book_appointments);
