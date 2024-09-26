@@ -445,7 +445,7 @@
                                                 $patientBirthDate = null;
                                             }
                                             @endphp
-                                    <p class="patient_age__">{{ $patientBirthDate }} Years , <span
+                                    <p class="patient_age__">{{ $patientBirthDate }} Years ({{$birthDate ? $birthDate->format('d M Y') : ''}}), <span
                                             class="patient_id__">{{ @$patient->patient_id }}</span></p>
 
                                     <p class="insurance_dt">{{ $insurer != null ? $insurer->insurer_name : '' }} -

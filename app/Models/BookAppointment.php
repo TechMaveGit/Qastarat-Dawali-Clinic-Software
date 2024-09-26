@@ -29,4 +29,5 @@ class BookAppointment extends Model implements Authenticatable
         'confirmation',
        
     ];
+
 }
